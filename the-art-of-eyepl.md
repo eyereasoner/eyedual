@@ -638,9 +638,10 @@ rather than being an anonymous object created behind the program's back.
 
 Equality in the pure Herbrand reading is syntactic identity after substitution.
 Operationally, unification discovers a substitution that makes terms
-identical. Eyepl does not perform an occurs check. Cyclic terms therefore lie
-outside the portable Herbrand reading even if an internal binding can
-temporarily be recursive. Portable programs should not depend on calls such as:
+identical. Eyepl performs an occurs check whenever unification would bind a
+variable. It therefore uses finite-tree unification and rejects a binding when
+the variable occurs anywhere in the proposed value. For example, this call
+fails rather than constructing a cyclic term:
 
 ```eyepl
 eq(X, wrapper(X)).
@@ -4491,8 +4492,8 @@ position it remains inspectable data.
 The pure definite-clause fragment has a Herbrand reading: ground terms denote
 themselves, predicates denote sets of ground atomic formulas, variables have
 clause scope, and unification is structural. The implementation performs
-first-order unification without an occurs check. Thus programmers should avoid
-attempting to bind a variable to a term containing that same variable.
+first-order finite-tree unification with an occurs check. An attempt to bind a
+variable to a term containing that same variable fails.
 
 An **atom constant** such as `pat` is a term. An **atomic formula** such as
 `parent(pat, jan)` is a proposition that may be a fact, rule head, or goal.
@@ -5219,8 +5220,8 @@ mode, finite domain, answer, proof, and revision.
 # Appendix F. Conformance and portability
 
 A conforming Eyepl implementation presents the language as one surface:
-lexical syntax, facts and definite clauses, first-order unification without an
-occurs check, ordered goal-directed search with safe early deterministic
+lexical syntax, facts and definite clauses, first-order finite-tree unification
+with an occurs check, ordered goal-directed search with safe early deterministic
 filters, lists, comma conjunctions, the standard built-ins, automatic hybrid
 execution, declarations, fuses, answer formatting, and—when exposed by the
 host—proof output.
@@ -5246,7 +5247,8 @@ differences:
 - cut, modules, dynamic database updates, and DCGs are absent;
 - variables cannot occupy functor or predicate position;
 - term ordering and the standard library are not the complete ISO versions;
-- unification has no occurs check.
+- unification performs an occurs check and rejects rational-tree bindings that
+  some Prolog systems accept.
 
 Write terms explicitly, keep variables uppercase or underscore-prefixed, and
 quote atom names that are neither lowercase plain names nor graphic tokens.

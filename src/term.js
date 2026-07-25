@@ -85,9 +85,37 @@ export function isConjunction(term) {
   return term?.type === COMPOUND && term.name === ',' && term.arity === 2;
 }
 
+function occurs(variableName, term, env) {
+  // Walk bindings and compound arguments iteratively so the occurs check also
+  // remains safe for very deep terms. The visited sets make this defensive
+  // against cycles introduced through the public Env API.
+  if (isScalar(term)) return false;
+  const stack = [term];
+  const seenVariables = new Set();
+  const seenTerms = new Set();
+
+  while (stack.length) {
+    const current = stack.pop();
+    if (current?.type === VAR) {
+      if (current.name === variableName) return true;
+      if (seenVariables.has(current.name)) continue;
+      seenVariables.add(current.name);
+      if (env?.has(current.name)) stack.push(env.get(current.name));
+      continue;
+    }
+    if (current?.type !== COMPOUND || seenTerms.has(current)) continue;
+    seenTerms.add(current);
+    for (let i = 0; i < current.arity; i++) stack.push(current.args[i]);
+  }
+
+  return false;
+}
+
 export function unify(left, right, env) {
   // Iterative unification avoids deep JavaScript recursion on long lists or
-  // deeply nested compounds. Bindings are written into the supplied Env.
+  // deeply nested compounds. The occurs check gives Eyepl finite-tree
+  // unification: a variable cannot be bound to a term containing itself.
+  // Bindings are written into the supplied Env.
   const stack = [[left, right]];
   while (stack.length) {
     let [a, b] = stack.pop();
@@ -96,10 +124,12 @@ export function unify(left, right, env) {
 
     if (a.type === VAR && b.type === VAR && a.name === b.name) continue;
     if (a.type === VAR) {
+      if (occurs(a.name, b, env)) return false;
       env.bind(a.name, b);
       continue;
     }
     if (b.type === VAR) {
+      if (occurs(b.name, a, env)) return false;
       env.bind(b.name, a);
       continue;
     }

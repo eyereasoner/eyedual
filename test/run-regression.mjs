@@ -671,6 +671,23 @@ function whiteBoxCases() {
       },
     },
     {
+      name: 'unification rejects direct and indirect cyclic bindings',
+      run: () => {
+        const direct = new Env();
+        assertEqual(
+          unify(variable('X'), compound('wrapper', [variable('X')]), direct),
+          false,
+          'direct cycle',
+        );
+        assertEqual(direct.has('X'), false, 'failed direct binding is not installed');
+
+        const indirect = new Env();
+        indirect.bind('Y', compound('wrapper', [variable('X')]));
+        assertEqual(unify(variable('X'), variable('Y'), indirect), false, 'indirect cycle');
+        assertEqual(indirect.has('X'), false, 'failed indirect binding is not installed');
+      },
+    },
+    {
       name: 'cloned environments detach on first write',
       run: () => {
         const parent = new Env();
