@@ -12,7 +12,8 @@ Eyepl is a small reasoning language for turning facts and rules into answers and
 Prolog-like syntax. Small core. Inspectable results.
 
 [Playground](https://eyereasoner.github.io/eyepl/playground) ·
-[*The Art of Eyepl*](https://eyereasoner.github.io/eyepl/the-art-of-eyepl)
+[*The Art of Eyepl*](https://eyereasoner.github.io/eyepl/the-art-of-eyepl) ·
+[Specification](eyepl-specification.md)
 
 ## Quick start
 
