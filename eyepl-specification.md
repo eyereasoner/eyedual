@@ -1,10 +1,32 @@
 # Eyepl Specification
 
-Status: Draft  
-Revision: 0.2
-Reference implementation: Eyepl 0.0.57
+| Field | Value |
+| --- | --- |
+| Document type | Internet-Draft-style specification |
+| Intended status | Standards Track |
+| Revision | 0.3 |
+| Date | 27 July 2026 |
+| Author | J. De Roo |
+| Reference implementation | Eyepl 0.0.59 |
 
-## 1. Purpose
+This document is an independent specification and is not an IETF publication.
+
+## Abstract
+
+This document specifies a small logic-rule interchange language with a dual
+reading: declarative entailment and operational execution. It defines a
+mandatory logical Core, optional capability identifiers, and conformance
+requirements. It also records Eyepl as one conforming implementation profile
+without requiring independent implementations to reproduce its evaluator,
+built-in catalog, proof syntax, or host interface.
+
+## Status of This Memo
+
+This document is a working draft. Discussion and implementation experience may
+result in incompatible revisions. Implementations MUST identify the revision
+and capabilities to which they claim conformance.
+
+## 1. Introduction
 
 Eyepl rules have two readings:
 
@@ -20,11 +42,31 @@ An implementation conforms by implementing the Core and declaring any
 additional capabilities it supports. Two implementations are interoperable
 for a program when they support the same capabilities used by that program.
 
-The words **MUST**, **MUST NOT**, **SHOULD**, and **MAY** are normative.
+### 1.1. Requirements Language
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in BCP 14 [RFC2119] [RFC8174] when,
+and only when, they appear in all capitals.
+
+### 1.2. Terminology
+
+**Core:** The syntax and logical semantics that every conforming implementation
+supports.
+
+**Capability:** A named, optional semantic or operational extension.
+
+**Program:** A finite sequence of Eyepl clauses.
+
+**Host:** The interface that supplies programs and exposes answers, diagnostics,
+or proofs.
+
+**Complete run:** A run that has searched the relevant finite space and can
+distinguish no-answer from incomplete execution.
 
 ## 2. Conformance profiles
 
-### 2.1 Core
+### 2.1. Core
 
 The **Core** consists of:
 
@@ -37,7 +79,7 @@ The **Core** consists of:
 A Core implementation may use bottom-up evaluation, resolution, tabling,
 compilation, or another sound method.
 
-### 2.2 Capabilities
+### 2.2. Capabilities
 
 Features outside the Core are independent, named capabilities:
 
@@ -60,10 +102,19 @@ a capability SHOULD name it in accompanying metadata.
 Capabilities may define extra operational behavior. Such behavior is not Core
 entailment unless this specification explicitly says so.
 
-### 2.3 The Eyepl implementation profile
+Capability identifiers are case-sensitive ASCII strings. Identifiers defined
+by this document use lowercase letters, digits, hyphens, colons, and predicate
+indicators. Private capabilities SHOULD begin with `x-`. A receiver MUST report
+an unsupported required capability rather than silently approximate it.
+
+An implementation MAY support a strict superset of a program's requirements.
+Two implementations claim interoperability only for the intersection of their
+declared, semantically compatible capabilities.
+
+### 2.3. The Eyepl Implementation Profile
 
 The JavaScript implementation named **Eyepl** is one conforming implementation.
-Its `eyepl-0.0.57` profile consists of:
+Its `eyepl-0.0.59` profile consists of:
 
 - the Core;
 - all capabilities in Section 2.2;
@@ -157,7 +208,7 @@ in rule heads; a program may construct an explicit witness term instead.
 
 ## 6. Logical Core semantics
 
-### 6.1 Herbrand universe and base
+### 6.1. Herbrand Universe and Base
 
 For program `P`, `U(P)` is the set of ground terms constructible from its
 constants and constructors. `B(P)` is the set of ground atomic formulas
@@ -165,7 +216,7 @@ constructible from its predicates and `U(P)`.
 
 A Herbrand interpretation is a subset of `B(P)`.
 
-### 6.2 Immediate consequence
+### 6.2. Immediate Consequence
 
 For interpretation `I`, `T_P(I)` contains every ground fact and every ground
 rule head whose body formulas all belong to `I`.
@@ -176,7 +227,7 @@ The meaning of a Core program is:
 M(P) = least fixed point of T_P
 ```
 
-### 6.3 Entailment
+### 6.3. Entailment
 
 For a ground atomic formula `A`:
 
@@ -189,7 +240,7 @@ Non-entailment of `A` is not entailment of a negative formula.
 Clause order, indexing, scheduling, and search strategy do not change Core
 entailment.
 
-### 6.4 Logical equality, unification, and inequality
+### 6.4. Logical Equality, Unification, and Inequality
 
 Core unification is finite-tree structural unification with an occurs check.
 
@@ -204,14 +255,14 @@ persistent constraint.
 Eyepl does not infer substitution from an application relation such as
 `same_as/2`; rewriting must be expressed by rules or an additional capability.
 
-### 6.5 Soundness and completeness boundary
+### 6.5. Soundness and Completeness Boundary
 
 Every ground Core answer MUST belong to `M(P)`.
 
 For a finite relevant ground call-and-answer space, a conforming complete
 implementation returns every entailed answer. An implementation MAY instead
 declare a run incomplete because of an infinite search or resource limit.
-Incomplete execution must be distinguishable from a completed search with no
+Incomplete execution MUST be distinguishable from a completed search with no
 answer.
 
 ## 7. Negation and closed-world reasoning
@@ -230,7 +281,7 @@ them through `not/1`.
 
 An implementation claiming `stratified-negation` MUST detect or reject a
 negative dependency cycle. It MAY support other named negation semantics, but
-must not present their conclusions as stratified-negation results.
+MUST NOT present their conclusions as stratified-negation results.
 
 Explicit denial or absence can be modeled as a positive predicate such as
 `denied/2` or `confirmed_absent/1`.
@@ -254,7 +305,7 @@ The Eyepl profile provides:
 | Search control | `not/1`, `once/1`, `forall/2` |
 | Term inspection | `functor/3`, `arg/3`, `compound_name_arguments/3` |
 
-Each built-in capability must document its modes, produced bindings, failure
+Each built-in capability MUST document its modes, produced bindings, failure
 conditions, and relevant numeric or environmental assumptions.
 
 Appendix B of `the-art-of-eyepl.md` and `test/conformance/` define the Eyepl
@@ -263,7 +314,7 @@ profile's detailed built-in behavior.
 ## 9. Aggregation and search control
 
 The `aggregation` capability evaluates a finite nested solution space.
-Implementations claiming interoperability for an aggregate must agree on its
+Implementations claiming interoperability for an aggregate MUST agree on its
 empty case, duplicate handling, ordering, and tie-breaking.
 
 In the Eyepl profile:
@@ -275,7 +326,7 @@ In the Eyepl profile:
 
 The `search-control` capability supplies `once/1` and `forall/2`. `once/1`
 makes first-solution order observable. `forall/2` succeeds vacuously for an
-empty generator. Nested searches must terminate for these results to be
+empty generator. Nested searches MUST terminate for these results to be
 portable.
 
 ## 10. Queries and answers
@@ -312,7 +363,7 @@ false :- permit(Person), revoked(Person).
 ```
 
 If a fuse body succeeds, the input theory is invalid for that run. The host
-must not emit ordinary query answers from it.
+MUST NOT emit ordinary query answers from it.
 
 This behavior is integrity rejection, not classical explosion. Eyepl checks
 fuses before queries, reports the matched fuse, and uses CLI exit status `65`.
@@ -342,7 +393,7 @@ semantics, external values, and implementation.
 The `rdf-adapter` capability maps RDF data to and from Eyepl terms. RDF is an
 input/output boundary, not the semantic definition of the Core.
 
-An adapter must document:
+An adapter MUST document:
 
 - its representation of IRIs, blank nodes, literals, triple terms, and graphs;
 - which RDF statements become premises;
@@ -350,7 +401,7 @@ An adapter must document:
 - how answers are mapped back to RDF.
 
 An Eyepl conclusion is not automatically an RDF entailment. An implementation
-claiming RDF entailment must name the separately implemented entailment regime.
+claiming RDF entailment MUST name the separately implemented entailment regime.
 
 ## 14. Policy interoperability contract
 
@@ -366,7 +417,7 @@ closed-world-relations: [...]
 external-inputs: [...]
 ```
 
-It should also identify finite search boundaries, completeness assumptions,
+It SHOULD also identify finite search boundaries, completeness assumptions,
 fuses, order-sensitive behavior, numeric assumptions, and whether proofs are
 required.
 
@@ -414,3 +465,84 @@ The common promise is deliberately small:
 > Implementations agree on Core entailment and on the semantics of every
 > additional capability they jointly claim. Eyepl is one such implementation,
 > not the definition of all possible implementations.
+
+## 17. Security Considerations
+
+Eyepl programs may be supplied by untrusted parties. Implementations MUST treat
+parsing, evaluation, built-ins, external adapters, and proof consumption as
+security boundaries.
+
+Recursive rules, unbounded generators, aggregation, and nested control goals
+can consume unbounded CPU time or memory. Hosts SHOULD provide configurable
+resource limits and MUST report a limit as incomplete execution rather than as
+a completed no-answer result.
+
+Built-ins may process regular expressions, dates, floating-point values, or
+external data. An implementation MUST document any built-in with host effects
+or access to ambient authority. Sandboxed evaluation is RECOMMENDED for
+untrusted programs. External values that influence a policy decision SHOULD be
+recorded with the result.
+
+Negation as failure is safe only relative to a complete boundary. Treating
+missing or unauthenticated data as complete can grant or deny access
+incorrectly. Policy hosts SHOULD authenticate inputs and state every
+closed-world assumption.
+
+Proofs demonstrate derivability from represented premises; they do not
+authenticate those premises. A proof consumer MUST validate the proof format,
+source identity, capability semantics, and any referenced external evidence
+before relying on the conclusion.
+
+Inference fuses reject states described by their rules. They are not a
+substitute for parser validation, authorization, resource limits, or host
+isolation.
+
+## 18. IANA Considerations
+
+This document has no IANA actions.
+
+Capability identifiers are currently governed by this specification and
+implementation documentation. A future standards process may define a registry
+if independent allocation becomes necessary.
+
+## 19. References
+
+### 19.1. Normative References
+
+**[RFC2119]** Bradner, S., "Key words for use in RFCs to Indicate Requirement
+Levels", BCP 14, RFC 2119, March 1997,
+<https://www.rfc-editor.org/rfc/rfc2119>.
+
+**[RFC8174]** Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key
+Words", BCP 14, RFC 8174, May 2017,
+<https://www.rfc-editor.org/rfc/rfc8174>.
+
+### 19.2. Informative References
+
+**[EYEPL-ART]** De Roo, J., "The Art of Eyepl",
+<https://eyereasoner.github.io/eyepl/the-art-of-eyepl>.
+
+**[EYEPL-TESTS]** Eyepl contributors, "Eyepl Conformance Corpus",
+`test/conformance/` in the Eyepl source distribution.
+
+## Appendix A. Eyepl Profile Identifier
+
+The profile identifier documented by this revision is:
+
+```text
+eyepl-0.0.59
+```
+
+It identifies compatibility with the Eyepl 0.0.59 reference implementation,
+including its lexical scalar equivalence, standard built-ins, host behavior,
+and proof-term representation. It does not change the Core or prevent other
+profiles from being defined.
+
+## Appendix B. Revision History
+
+**0.3:** Recast the document in an Internet-Draft-style form; added terminology,
+capability identifier rules, security considerations, IANA considerations, and
+references.
+
+**0.2:** Separated the mandatory Core from optional capabilities and documented
+Eyepl as one implementation profile.
