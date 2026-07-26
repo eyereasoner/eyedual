@@ -395,6 +395,10 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(documentationSourceStyleIssues(), [], 'documentation source style'),
     },
     {
+      name: 'specification sections map to executable conformance evidence',
+      run: () => assertArrayEqual(specificationCoverageIssues(), [], 'specification coverage'),
+    },
+    {
       name: 'documented npm scripts exist in package.json',
       run: () => assertArrayEqual(missingDocumentedPackageScripts(), [], 'missing documented npm scripts'),
     },
@@ -1037,6 +1041,68 @@ function sectionLabel(name) {
   if (name === 'API') return 'API';
   if (name === 'White-box') return 'white-box';
   return name.toLowerCase();
+}
+
+function specificationCoverageIssues() {
+  const issues = [];
+  const conformanceRoot = path.join(testRoot, 'conformance');
+  const manifestFile = path.join(conformanceRoot, 'specification-coverage.json');
+  const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
+  const specificationFile = path.join(packageRoot, manifest.specification);
+  const specification = fs.readFileSync(specificationFile, 'utf8');
+  const normativeSections = [...specification.matchAll(/^## ((?:[3-9]|1[0-5])\.\s+.+)$/gm)]
+    .map((match) => match[1]);
+  const mappedSections = manifest.sections.map(({ section }) => section);
+
+  if (new Set(mappedSections).size !== mappedSections.length) {
+    issues.push('specification coverage contains duplicate section mappings');
+  }
+  if (normativeSections.join('\n') !== mappedSections.join('\n')) {
+    issues.push(`section mappings differ\nexpected: ${normativeSections.join(' | ')}\nactual: ${mappedSections.join(' | ')}`);
+  }
+
+  for (const { section, evidence } of manifest.sections) {
+    if (!Array.isArray(evidence) || evidence.length === 0) {
+      issues.push(`${section}: no conformance evidence`);
+      continue;
+    }
+    for (const relative of evidence) {
+      const evidenceFile = path.resolve(conformanceRoot, relative);
+      if (!fs.existsSync(evidenceFile)) {
+        issues.push(`${section}: missing ${relative}`);
+        continue;
+      }
+      const expected = expectedConformanceEvidence(conformanceRoot, relative);
+      for (const expectedFile of expected) {
+        if (!fs.existsSync(expectedFile)) {
+          issues.push(`${section}: missing expected result ${path.relative(conformanceRoot, expectedFile)}`);
+        }
+      }
+    }
+  }
+
+  return issues;
+}
+
+function expectedConformanceEvidence(conformanceRoot, relative) {
+  if (!relative.endsWith('.pl')) return [];
+  if (relative.startsWith('cases/')) {
+    return [path.join(conformanceRoot, 'expected', relative.slice('cases/'.length))];
+  }
+  if (relative.startsWith('errors/')) {
+    return [path.join(conformanceRoot, 'expected-errors', relative.slice('errors/'.length, -3) + '.txt')];
+  }
+  if (relative.startsWith('warnings/')) {
+    const stem = relative.slice('warnings/'.length, -3);
+    return [
+      path.join(conformanceRoot, 'expected-warnings', `${stem}.pl`),
+      path.join(conformanceRoot, 'expected-warnings', `${stem}.txt`),
+    ];
+  }
+  if (relative.startsWith('proofs/')) {
+    return [path.join(conformanceRoot, 'expected-proofs', relative.slice('proofs/'.length))];
+  }
+  return [];
 }
 
 function runWhy({ program, goalText, expected }) {

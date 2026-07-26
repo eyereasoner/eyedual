@@ -13,7 +13,7 @@ Prolog-like syntax. Small core. Inspectable results.
 
 [Playground](https://eyereasoner.github.io/eyepl/playground) ·
 [*The Art of Eyepl*](https://eyereasoner.github.io/eyepl/the-art-of-eyepl) ·
-[Specification](eyepl-specification.md)
+[Specification](https://eyereasoner.github.io/eyepl/eyepl-specification)
 
 ## Quick start
 
