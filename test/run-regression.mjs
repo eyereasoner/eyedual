@@ -399,6 +399,14 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(specificationCoverageIssues(), [], 'specification coverage'),
     },
     {
+      name: 'specification reference profile is release-independent',
+      run: () => assertArrayEqual(specificationVersionIssues(), [], 'specification version'),
+    },
+    {
+      name: 'book and conformance guide use capability-based conformance',
+      run: () => assertArrayEqual(conformanceDocumentationIssues(), [], 'conformance documentation'),
+    },
+    {
       name: 'documented npm scripts exist in package.json',
       run: () => assertArrayEqual(missingDocumentedPackageScripts(), [], 'missing documented npm scripts'),
     },
@@ -1079,6 +1087,45 @@ function specificationCoverageIssues() {
         }
       }
     }
+  }
+
+  return issues;
+}
+
+function specificationVersionIssues() {
+  const specification = fs.readFileSync(path.join(packageRoot, 'eyepl-specification.md'), 'utf8');
+  const issues = [];
+  if (/\b(?:Eyepl |eyepl-)0\.0\.\d+\b/.test(specification)) {
+    issues.push('specification profile is tied to an npm patch version');
+  }
+  if (!specification.includes('eyepl-reference-0.3')) {
+    issues.push('specification does not identify the revision 0.3 Eyepl reference profile');
+  }
+  return issues;
+}
+
+function conformanceDocumentationIssues() {
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
+  const guide = fs.readFileSync(path.join(testRoot, 'conformance', 'README.md'), 'utf8');
+  const issues = [];
+
+  if (!book.includes('[Eyepl specification](eyepl-specification.md)')) {
+    issues.push('book Appendix F does not link to the normative specification');
+  }
+  if (!book.includes('small mandatory\nCore and optional named capabilities')) {
+    issues.push('book Appendix F does not describe Core and capability conformance');
+  }
+  if (book.includes('A conforming Eyepl implementation presents the language as one surface')) {
+    issues.push('book Appendix F retains monolithic conformance wording');
+  }
+  if (!guide.includes('[Eyepl specification](../../eyepl-specification.md)')) {
+    issues.push('conformance guide does not identify the normative specification');
+  }
+  if (!guide.includes('optional capabilities are\nclaimed and tested independently')) {
+    issues.push('conformance guide does not describe separable capability claims');
+  }
+  if (guide.includes('deliberately does not separate `core` and `extension` profiles')) {
+    issues.push('conformance guide retains monolithic profile wording');
   }
 
   return issues;

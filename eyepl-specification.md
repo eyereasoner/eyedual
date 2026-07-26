@@ -7,7 +7,7 @@
 | Revision | 0.3 |
 | Date | 27 July 2026 |
 | Author | J. De Roo |
-| Reference implementation | Eyepl 0.0.59 |
+| Reference implementation | Eyepl |
 
 This document is an independent specification and is not an IETF publication.
 
@@ -114,7 +114,7 @@ declared, semantically compatible capabilities.
 ### 2.3. The Eyepl Implementation Profile
 
 The JavaScript implementation named **Eyepl** is one conforming implementation.
-Its `eyepl-0.0.59` profile consists of:
+Its `eyepl-reference-0.3` profile consists of:
 
 - the Core;
 - all capabilities in Section 2.2;
@@ -530,13 +530,13 @@ Words", BCP 14, RFC 8174, May 2017,
 The profile identifier documented by this revision is:
 
 ```text
-eyepl-0.0.59
+eyepl-reference-0.3
 ```
 
-It identifies compatibility with the Eyepl 0.0.59 reference implementation,
-including its lexical scalar equivalence, standard built-ins, host behavior,
-and proof-term representation. It does not change the Core or prevent other
-profiles from being defined.
+It identifies compatibility with the Eyepl reference implementation for
+revision 0.3, including its lexical scalar equivalence, standard built-ins,
+host behavior, and proof-term representation. It does not change the Core or
+prevent other profiles from being defined.
 
 ## Appendix B. Revision History
 

@@ -1,8 +1,14 @@
 # Eyepl conformance suite
 
-This directory contains the executable conformance cases for the Eyepl language and reference engine. The normative language description is in the [The Art of Eyepl](../../../the-art-of-eyepl.md).
+This directory contains executable conformance cases for the Eyepl language
+and reference implementation. The normative language description is the
+[Eyepl specification](../../eyepl-specification.md); [*The Art of
+Eyepl*](../../the-art-of-eyepl.md) is the explanatory guide.
 
-The suite is intentionally file-based so another implementation can run the same programs and compare exact standard output, expected errors, expected warnings, and expected proof output. The conformance corpus is part of the public language contract, not just an implementation smoke test.
+The suite is intentionally file-based so another implementation can reuse the
+Core cases and the cases for capabilities it claims. Exact standard output,
+errors, warnings, and proof output additionally test compatibility with the
+full Eyepl implementation profile.
 
 All conformance files live under topic directories such as `arithmetic/`, `lists/`, `syntax/`, or `variables/`; new top-level numbered files should not be added. The report uses those directories as coverage categories.
 
@@ -63,9 +69,18 @@ The runner executes normal programs with queries in-process through the public J
 
 ## Scope
 
-The conformance corpus is a single Eyepl suite. It covers the standard language described by the language reference: lexical syntax, facts, definite clauses, first-order terms, lists, conjunction, structured unification, left-to-right goal-directed proof search, query answers, read-back printing, standard built-ins, declarations, warnings, errors, proof output, and standard host behavior.
+The corpus as a whole covers the full Eyepl profile: Core syntax and semantics,
+lexical scalar equivalence, left-to-right goal-directed search, query answers,
+read-back printing, standard built-ins, declarations, warnings, errors, proof
+output, and standard host behavior.
 
-The suite deliberately does not separate `core` and `extension` profiles. Reusable built-ins such as arithmetic, strings, lists, aggregation, context terms, term inspection, and search control are part of the standard Eyepl conformance surface. Implementation-specific built-ins may still exist in downstream hosts, but they should have their own tests outside this corpus unless they are standardized.
+Conformance claims are separable even though the files share one corpus. Every
+implementation claims the specification's Core; optional capabilities are
+claimed and tested independently. Exact Eyepl CLI messages and proof
+serialization are required only for `eyepl-reference-0.3` profile
+compatibility.
+Private downstream capabilities should keep their tests outside this corpus
+unless they are standardized.
 
 ## Updating expected output
 
