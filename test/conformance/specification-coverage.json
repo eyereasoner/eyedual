@@ -84,7 +84,7 @@
       ]
     },
     {
-      "section": "13. RDF, N3, and external data",
+      "section": "13. RDF and external data",
       "evidence": [
         "../../test/run-rdf-tools.mjs"
       ]

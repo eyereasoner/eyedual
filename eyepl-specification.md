@@ -488,11 +488,11 @@ A proof establishes derivability only relative to:
 For policy audit, the input version, implementation version, declared profile,
 answer, and proof SHOULD be retained together.
 
-## 13. RDF, N3, and external data
+## 13. RDF and external data
 
-RDF and N3 input formats are adapters, not the semantic definition of Eyepl.
+RDF input formats are adapters, not the semantic definition of Eyepl.
 Converting an RDF dataset to `rdf/4` facts preserves data for Eyepl rules; it
-does not make Eyepl's closed-world operations part of RDF or N3 entailment.
+does not make Eyepl's closed-world operations part of RDF entailment.
 
 An adapter MUST document:
 
@@ -502,9 +502,9 @@ An adapter MUST document:
 - whether quoted formulas remain data or become asserted rules; and
 - how derived answers are mapped back to the external format.
 
-An implementation MUST NOT label an Eyepl conclusion as an RDF or N3
-entailment unless it separately implements and names the applicable RDF or N3
-entailment regime.
+An implementation MUST NOT label an Eyepl conclusion as an RDF entailment
+unless it separately implements and names the applicable RDF entailment
+regime.
 
 ## 14. Policy interoperability contract
 
@@ -609,7 +609,7 @@ order-sensitive construct makes them observable.
 | `query/1` | Host request, not a logical premise |
 | `false :- ...` | Pre-query integrity rejection |
 | `why/2` | Evidence for one derivation, not a premise |
-| RDF/N3 adapters | Data mapping, not automatic RDF/N3 entailment |
+| RDF adapters | Data mapping, not automatic RDF entailment |
 
 The shortest accurate statement of Eyepl interoperability is therefore:
 
