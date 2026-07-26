@@ -5276,6 +5276,12 @@ and technical background for the ideas that Eyepl adapts. They describe larger
 languages and theories, so they should not be read as additional Eyepl
 specifications.
 
+- Michael Genesereth,
+  [*Introduction to Logic*](http://intrologic.stanford.edu/public/chapters.php),
+  Stanford University. This free online text provides a broader introduction
+  to logical syntax and semantics, proof systems, and resolution, complementing
+  the focused treatment of executable Horn clauses in this book.
+
 - David Hilbert,
   [“Mathematical Problems”](https://www.gutenberg.org/ebooks/71655), address
   to the International Congress of Mathematicians, Paris, 1900; English
