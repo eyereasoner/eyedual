@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.63",
+  "version": "0.1.0",
   "description": "Eyepl turns facts and rules into answers and proofs.",
   "type": "module",
   "main": "./index.js",
