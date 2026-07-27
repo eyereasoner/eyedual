@@ -15,11 +15,11 @@ export async function main(argv) {
 
   const options = {
     files: [],
+    library: false,
     proof: false,
     stats: false,
     version: false,
     warnings: false,
-    library: false,
   };
 
   let endOptions = false;
@@ -29,19 +29,19 @@ export async function main(argv) {
 
     if (!endOptions && arg === '--') {
       endOptions = true;
-    } else if (!endOptions && (arg === '--version' || arg === '-v')) {
-      options.version = true;
     } else if (!endOptions && (arg === '--help' || arg === '-h')) {
       await usage(process.stdout);
       return;
+    } else if (!endOptions && (arg === '--library' || arg === '-l')) {
+      options.library = true;
     } else if (!endOptions && (arg === '--proof' || arg === '-p')) {
       options.proof = true;
     } else if (!endOptions && (arg === '--stats' || arg === '-s')) {
       options.stats = true;
+    } else if (!endOptions && (arg === '--version' || arg === '-v')) {
+      options.version = true;
     } else if (!endOptions && (arg === '--warnings' || arg === '-w')) {
       options.warnings = true;
-    } else if (!endOptions && arg === '--library') {
-      options.library = true;
     } else if (!endOptions && arg.startsWith('-') && arg !== '-') {
       throw new Error(`unknown option: ${arg}`);
     } else {
@@ -149,11 +149,11 @@ Input:
 
 Options:
   -h, --help            Show this help text and exit.
+  -l, --library         Enable the non-core Eyepl library predicates.
   -p, --proof           Enable proof explanations.
   -s, --stats           Print solver statistics to stderr after execution.
   -v, --version         Show the package version and exit.
   -w, --warnings        Print non-fatal portability warnings to stderr.
-  --library             Enable the non-core Eyepl library predicates.
   --                    Stop option parsing; following arguments are treated as files.
 `);
 }

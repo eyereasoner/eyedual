@@ -4636,11 +4636,11 @@ eyepl [options] [file-or-url.pl|- ...]
 | Option | Meaning |
 | --- | --- |
 | `-h`, `--help` | Show usage |
+| `-l`, `--library` | Enable Eyepl's explicitly non-core library predicates |
 | `-p`, `--proof` | Print `why/2` explanations |
 | `-s`, `--stats` | Print solver counters to stderr |
 | `-v`, `--version` | Print the package version |
 | `-w`, `--warnings` | Print non-fatal portability warnings |
-| `--library` | Enable Eyepl's explicitly non-core library predicates |
 | `--` | Treat following arguments as inputs |
 
 Inputs may be local files, HTTP(S) URLs, or one `-` for stdin. With no input,

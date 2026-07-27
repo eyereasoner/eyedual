@@ -28,7 +28,7 @@ fib(N, Value) :- fib_pair(N, Value, _next).
 fib_pair(0, 0, 1).
 fib_pair(N, F, G) :-
   (N > 0),
-  (Half is N / 2),
+  (Half is N // 2),
   fib_pair(Half, A, B),
   (Twob is B * 2),
   (Twobminusa is Twob - A),
@@ -41,7 +41,7 @@ fib_pair(N, F, G) :-
   (G = D).
 fib_pair(N, F, G) :-
   (N > 0),
-  (Half is N / 2),
+  (Half is N // 2),
   fib_pair(Half, A, B),
   (Twob is B * 2),
   (Twobminusa is Twob - A),

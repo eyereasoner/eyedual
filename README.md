@@ -74,7 +74,7 @@ import { getLibraryRegistry, run } from 'eyepl';
 run(source, { registry: getLibraryRegistry() });
 ```
 
-The equivalent CLI switch is `--library`.
+The equivalent CLI switch is `-l` or `--library`.
 
 Rules headed by `false` are inference fuses. A matching fuse aborts before
 queries run; the CLI exits with code `65`, while the JavaScript API throws an

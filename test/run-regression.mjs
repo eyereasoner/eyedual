@@ -177,12 +177,24 @@ why(
         const result = runCli([]);
         assertEqual(result.status, 0, 'exit status');
         assertIncludes(result.stdout, 'Usage:\n  eyepl [options] [file-or-url.pl|- ...]', 'stdout');
+        assertIncludes(result.stdout, '-l, --library', 'stdout');
         assertIncludes(result.stdout, '-p, --proof', 'stdout');
         assertIncludes(result.stdout, '-s, --stats', 'stdout');
         assertIncludes(result.stdout, '-v, --version', 'stdout');
         assertIncludes(result.stdout, '-w, --warnings', 'stdout');
         assertIncludes(result.stdout, '-v, --version         Show the package version and exit.\n  -w, --warnings        Print non-fatal portability warnings to stderr.', 'stdout');
         assertIncludes(result.stdout, 'Read a Eyepl program', 'stdout');
+        assertEqual(result.stderr, '', 'stderr');
+      },
+    },
+    {
+      name: '-l enables library predicates',
+      run: () => {
+        const result = runCli(['-l', '-'], {
+          input: 'query(answer(X)).\nanswer(X) :- member(X, [library]).\n',
+        });
+        assertEqual(result.status, 0, 'exit status');
+        assertEqual(result.stdout, 'answer(library).\n', 'stdout');
         assertEqual(result.stderr, '', 'stderr');
       },
     },
