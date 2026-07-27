@@ -1,4 +1,4 @@
 % From The Art of Eyepl, Chapter 3 — Why terms denote themselves.
-different(alice, bob) :- neq(alice, bob).
+different(alice, bob) :- (alice \= bob).
 different(ticket(alice), ticket(bob)) :-
-  neq(ticket(alice), ticket(bob)).
+  (ticket(alice) \= ticket(bob)).

@@ -45,10 +45,10 @@ path(From, To, Actions, Duration, Cost, Belief, Comfort) :-
   map_description(From, Mid, Action, D1, C1, B1, F1),
   path(Mid, To, Restactions, D2, C2, B2, F2),
   append([Action], Restactions, Actions),
-  add(D1, D2, Duration),
-  add(C1, C2, Cost),
-  mul(B1, B2, Belief),
-  mul(F1, F2, Comfort).
+  (Duration is D1 + D2),
+  (Cost is C1 + C2),
+  (Belief is B1 * B2),
+  (Comfort is F1 * F2).
 
 traveller_start(i1, location(i1, gent)).
 traveller_goal(i1, location(i1, oostende)).
@@ -67,10 +67,10 @@ route_metrics(routeViaKortrijk, Duration, Cost, Belief, Comfort) :-
 recommended_route(routeDirect) :-
   route_metrics(routeDirect, Directduration, Directcost, Directbelief, Directcomfort),
   route_metrics(routeViaKortrijk, Viaduration, Viacost, Viabelief, Viacomfort),
-  lt(Directduration, Viaduration),
-  lt(Directcost, Viacost),
-  gt(Directbelief, Viabelief),
-  gt(Directcomfort, Viacomfort).
+  (Directduration < Viaduration),
+  (Directcost < Viacost),
+  (Directbelief > Viabelief),
+  (Directcomfort > Viacomfort).
 
 outcome(routeDirect, "Take the direct route via Brugge.").
 
@@ -84,18 +84,18 @@ check(c2, true) :-
 check(c3, true) :-
   route_metrics(routeDirect, D1, _, _, _),
   route_metrics(routeViaKortrijk, D2, _, _, _),
-  lt(D1, D2).
+  (D1 < D2).
 
 check(c4, true) :-
   route_metrics(routeDirect, _, C1, _, _),
   route_metrics(routeViaKortrijk, _, C2, _, _),
-  lt(C1, C2).
+  (C1 < C2).
 
 check(c5, true) :-
   route_metrics(routeDirect, _, _, B1, F1),
   route_metrics(routeViaKortrijk, _, _, B2, F2),
-  gt(B1, B2),
-  gt(F1, F2).
+  (B1 > B2),
+  (F1 > F2).
 
 recommendedRoute(decision, Route) :-
   recommended_route(Route).

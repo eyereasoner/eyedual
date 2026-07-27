@@ -28,7 +28,7 @@ dijkstra_queue([[Cost, Goal | Path] | _queue], Goal, _visited, [Goal | Path], Co
 dijkstra_queue([[Cost, Node | Path] | Queue], Goal, Visited, Resultpath, Resultcost) :-
   % Expand all unvisited neighbors, then sort so the cheapest frontier wins.
   findall([Newcost, Neighbor, Node | Path],
-    (edge(Node, Neighbor, Weight), not(member(Neighbor, Visited)), add(Cost, Weight, Newcost)),
+    (edge(Node, Neighbor, Weight), \+ member(Neighbor, Visited), (Newcost is Cost + Weight)),
     Neighbors),
   append(Queue, Neighbors, Newqueue),
   sort(Newqueue, Sortedqueue),

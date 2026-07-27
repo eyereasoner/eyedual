@@ -33,8 +33,8 @@ why(
         by(fact("group-inverse-uniqueness.pl", clause(13)))
       ),
       proof(
-        goal(neq(i, j)),
-        by(builtin(neq, 2))
+        goal(\=(i, j)),
+        by(builtin(\=, 2))
       )
     ])
   )
@@ -75,8 +75,8 @@ why(
         by(fact("group-inverse-uniqueness.pl", clause(14)))
       ),
       proof(
-        goal(neq(j, i)),
-        by(builtin(neq, 2))
+        goal(\=(j, i)),
+        by(builtin(\=, 2))
       )
     ])
   )

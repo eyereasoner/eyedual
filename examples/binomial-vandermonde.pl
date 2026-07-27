@@ -10,35 +10,35 @@ query(binomial_answer(X0, X1)).
 
 
 choose(N, K, C) :-
-  ge(K, 0),
-  le(K, N),
+  (K >= 0),
+  (K =< N),
   choose_step(N, K, 0, 1, C).
 
 choose_step(_n, K, K, Acc, Acc).
 choose_step(N, K, I, Acc, C) :-
-  lt(I, K),
-  add(I, 1, I1),
-  sub(N, I, Factor),
-  mul(Acc, Factor, Numerator),
-  div(Numerator, I1, Nextacc),
+  (I < K),
+  (I1 is I + 1),
+  (Factor is N - I),
+  (Numerator is Acc * Factor),
+  (Nextacc is Numerator / I1),
   choose_step(N, K, I1, Nextacc, C).
 
 symmetric(N, K) :-
   choose(N, K, C),
-  sub(N, K, Otherk),
+  (Otherk is N - K),
   choose(N, Otherk, C).
 
 vandermonde_sum(N, M, R, Sum) :-
   sumall(Product,
     (between(0, R, K),
-     sub(R, K, Rk),
+     (Rk is R - K),
      choose(N, K, A),
      choose(M, Rk, B),
-     mul(A, B, Product)),
+     (Product is A * B)),
     Sum).
 
 vandermonde(N, M, R, Sum) :-
-  add(N, M, Totaln),
+  (Totaln is N + M),
   choose(Totaln, R, Sum),
   vandermonde_sum(N, M, R, Sum).
 

@@ -44,13 +44,13 @@ route_cost([_], 0.0, 0.0, 0).
 route_cost([From, To|Rest], Raw, Risk, Edges) :-
   route_segment(From, To, Stepraw, Steprisk),
   route_cost([To|Rest], Restraw, Restrisk, Restedges),
-  add(Stepraw, Restraw, Raw),
-  add(Steprisk, Restrisk, Risk),
-  add(1, Restedges, Edges).
+  (Raw is Stepraw + Restraw),
+  (Risk is Steprisk + Restrisk),
+  (Edges is 1 + Restedges).
 
 score(Raw, Risk, Score) :-
-  mul(Risk, 10.0, Penalty),
-  add(Raw, Penalty, Score).
+  (Penalty is Risk * 10.0),
+  (Score is Raw + Penalty).
 
 path_metrics(Path, Route, Raw, Risk, Score, Edges) :-
   candidate(Path, Route),
@@ -64,16 +64,16 @@ best_path(pathB) :-
   path_metrics(pathRelay, _rroute, _rraw, _rrisk, Relayscore, _redges),
   path_metrics(pathDirectC, _droute, _draw, _drisk, Directscore, _dedges),
   path_metrics(pathViaC, _vroute, _vraw, _vrisk, Viascore, _vedges),
-  lt(Bestscore, Cscore),
-  lt(Bestscore, Relayscore),
-  lt(Bestscore, Directscore),
-  lt(Bestscore, Viascore).
+  (Bestscore < Cscore),
+  (Bestscore < Relayscore),
+  (Bestscore < Directscore),
+  (Bestscore < Viascore).
 
 risk_outweighs_raw_cost(true) :-
   path_metrics(pathB, _br, Bestraw, _brs, Bestscore, _be),
   path_metrics(pathViaC, _vr, Viaraw, _vrs, Viascore, _ve),
-  lt(Viaraw, Bestraw),
-  lt(Bestscore, Viascore).
+  (Viaraw < Bestraw),
+  (Bestscore < Viascore).
 
 route(Path, Route) :- path_metrics(Path, Route, _raw, _risk, _score, _edges).
 rawCost(Path, Raw) :- path_metrics(Path, _route, Raw, _risk, _score, _edges).

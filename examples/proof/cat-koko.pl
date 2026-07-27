@@ -38,11 +38,11 @@ why(
   )
 ).
 
-is(test, true).
+holds_result(test, true).
 why(
-  is(test, true),
+  holds_result(test, true),
   proof(
-    goal(is(test, true)),
+    goal(holds_result(test, true)),
     by(rule("cat-koko.pl", clause(8))),
     bindings([binding("X", sk_0), binding("Y", sk_1)]),
     uses([
@@ -77,8 +77,8 @@ why(
         ])
       ),
       proof(
-        goal(neq(sk_0, sk_1)),
-        by(builtin(neq, 2))
+        goal(\=(sk_0, sk_1)),
+        by(builtin(\=, 2))
       )
     ])
   )

@@ -17,9 +17,9 @@ select(Item, [Head | Tail], [Head | Rest]) :-
 % combination/3 builds an unordered K-combination by repeated selection.
 combination(0, _items, []).
 combination(I, Items, Combination) :-
-  gt(I, 0),
+  (I > 0),
   select(Item, Items, Remaining),
-  sub(I, 1, J),
+  (J is I - 1),
   combination(J, Remaining, Partial),
   sort([Item | Partial], Combination).
 

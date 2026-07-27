@@ -40,8 +40,8 @@ why(
             by(fact("electrical-rc-filter.pl", clause(5)))
           ),
           proof(
-            goal(mul(10000.0, 0.000001, 0.01)),
-            by(builtin(mul, 3))
+            goal(is(0.01, *(10000.0, 0.000001))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -76,8 +76,8 @@ why(
                 by(fact("electrical-rc-filter.pl", clause(5)))
               ),
               proof(
-                goal(mul(10000.0, 0.000001, 0.01)),
-                by(builtin(mul, 3))
+                goal(is(0.01, *(10000.0, 0.000001))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -86,16 +86,16 @@ why(
             by(fact("electrical-rc-filter.pl", clause(6)))
           ),
           proof(
-            goal(mul(2.0, 3.141592653589793, 6.2831853071795862)),
-            by(builtin(mul, 3))
+            goal(is(6.2831853071795862, *(2.0, 3.141592653589793))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(6.2831853071795862, 0.01, 0.062831853071795868)),
-            by(builtin(mul, 3))
+            goal(is(0.062831853071795868, *(6.2831853071795862, 0.01))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(div(1.0, 0.062831853071795868, 15.915494309189533)),
-            by(builtin(div, 3))
+            goal(is(15.915494309189533, /(1.0, 0.062831853071795868))),
+            by(builtin(is, 2))
           )
         ])
       )

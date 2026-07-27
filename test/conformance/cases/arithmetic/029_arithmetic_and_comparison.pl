@@ -1,11 +1,11 @@
 % Reference 9.2, 9.3: arithmetic and comparison built-ins.
-answer(sum, X) :- add(2, 3, X).
-answer(diff, X) :- sub(7, 4, X).
-answer(product, X) :- mul(6, 7, X).
-answer(integer_division, X) :- div(7, 2, X).
-answer(remainder, X) :- mod(7, 2, X).
-answer(power, X) :- pow(2, 8, X).
-answer(minimum, X) :- min(3, 9, X).
-answer(less_than, true) :- lt(3, 9).
-answer(greater_equal, true) :- ge(9, 9).
+answer(sum, X) :- (X is 2 + 3).
+answer(diff, X) :- (X is 7 - 4).
+answer(product, X) :- (X is 6 * 7).
+answer(integer_division, X) :- (X is 7 / 2).
+answer(remainder, X) :- (X is 7 mod 2).
+answer(power, X) :- (X is 2 ** 8).
+answer(minimum, X) :- (X is min(3, 9)).
+answer(less_than, true) :- (3 < 9).
+answer(greater_equal, true) :- (9 >= 9).
 query(answer(X0, X1)).

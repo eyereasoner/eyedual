@@ -29,7 +29,7 @@ support(Block, State) :-
   member(on(Block, _below), State).
 
 clear(Block, State) :-
-  not(member(on(_other, Block), State)).
+  \+ member(on(_other, Block), State).
 
 clear_support(table, _state).
 clear_support(Block, State) :-
@@ -41,19 +41,19 @@ move(State, move(Block, From, To), Newstate) :-
   clear(Block, State),
   support(To, State),
   clear_support(To, State),
-  neq(Block, To),
-  neq(From, To),
+  (Block \= To),
+  (From \= To),
   select(on(Block, From), State, Rest),
   sort([on(Block, To)|Rest], Newstate).
 
 plan(State, Goal, 0, _visited, [], State) :-
-  eq(State, Goal).
+  (State = Goal).
 
 plan(State, Goal, Depth, Visited, [Move|Moves], Final) :-
-  gt(Depth, 0),
+  (Depth > 0),
   move(State, Move, Next),
   not_member(Next, Visited),
-  sub(Depth, 1, Restdepth),
+  (Restdepth is Depth - 1),
   plan(Next, Goal, Restdepth, [Next|Visited], Moves, Final).
 
 five_move_plan(Moves, Final) :-

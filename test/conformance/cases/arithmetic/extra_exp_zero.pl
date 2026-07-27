@@ -1,2 +1,2 @@
 query(answer(X0, X1)).
-answer(exp_zero, X) :- exp(0, X).
+answer(exp_zero, X) :- (X is exp(0)).

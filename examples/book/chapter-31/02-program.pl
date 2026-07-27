@@ -3,6 +3,6 @@ unexpected_path :-
   path(a, d).
 
 expected_absence :-
-  not(unexpected_path).
+  \+ unexpected_path.
 
 query(expected_absence).

@@ -95,8 +95,8 @@ why(
         by(builtin(max_list, 2))
       ),
       proof(
-        goal(sqrt(42, 6.4807406984078604)),
-        by(builtin(sqrt, 2))
+        goal(is(6.4807406984078604, sqrt(42))),
+        by(builtin(is, 2))
       )
     ])
   )

@@ -45,7 +45,7 @@ rule(pp, prep, np).
 span(Sentence, Category, Start, End) :-
   word(Sentence, Start, Token),
   terminal(Category, Token),
-  add(Start, 1, End).
+  (End is Start + 1).
 % Nonterminal chart items split the interval at a Middle point.
 span(Sentence, Category, Start, End) :-
   rule(Category, Left, Right),
@@ -61,4 +61,4 @@ chart_parser_answer(parse_count, count(Sentence, Count)) :-
 chart_parser_answer(noun_phrase_count, count(Sentence, Count)) :-
   sentence(Sentence, Length),
   countall(span(Sentence, np, _start, _end), Count),
-  gt(Length, 0).
+  (Length > 0).

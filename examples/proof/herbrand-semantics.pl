@@ -6,8 +6,8 @@ why(
     by(rule("herbrand-semantics.pl", clause(2))),
     uses([
       proof(
-        goal(neq(alice, bob)),
-        by(builtin(neq, 2))
+        goal(\=(alice, bob)),
+        by(builtin(\=, 2))
       )
     ])
   )
@@ -21,8 +21,8 @@ why(
     by(rule("herbrand-semantics.pl", clause(3))),
     uses([
       proof(
-        goal(neq(ticket(alice), ticket(bob))),
-        by(builtin(neq, 2))
+        goal(\=(ticket(alice), ticket(bob))),
+        by(builtin(\=, 2))
       )
     ])
   )

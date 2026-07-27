@@ -2,4 +2,4 @@
 list_length([], 0).
 list_length([_ | Tail], N) :-
   list_length(Tail, M),
-  add(M, 1, N).
+  (N is M + 1).

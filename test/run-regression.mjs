@@ -17,6 +17,7 @@ import {
   Env,
   BuiltinRegistry,
   createDefaultRegistry,
+  getLibraryRegistry,
   atom,
   compound,
   listFromItems,
@@ -161,7 +162,7 @@ why(
     {
       name: 'EYEPL_LOCAL_TIME fixes local_time builtin',
       run: () => {
-        const result = runCli(['-'], {
+        const result = runCli(['--library', '-'], {
           input: 'query(local_time_answer(D)).\nlocal_time_answer(D) :- local_time(D).\n',
           env: { EYEPL_LOCAL_TIME: '2024-01-02' },
         });
@@ -271,8 +272,8 @@ why(
       run: () => {
         const input = [
           'query(answer(X)).',
-          'p(a) :- not(q(a)).',
-          'q(a) :- not(p(a)).',
+          'p(a) :- \\+ q(a).',
+          'q(a) :- \\+ p(a).',
           'answer(ok).',
           '',
         ].join('\n');
@@ -289,8 +290,8 @@ why(
       run: () => {
         const input = [
           'query(answer(X)).',
-          'p(a) :- not(q(a)).',
-          'q(a) :- not(p(a)).',
+          'p(a) :- \\+ q(a).',
+          'q(a) :- \\+ p(a).',
           'answer(ok).',
           '',
         ].join('\n');
@@ -303,7 +304,7 @@ why(
     {
       name: '--warnings stays quiet for stratified negation',
       run: () => {
-        const input = 'query(answer(X)).\np(a).\nanswer(ok) :- not(q(a)).\n';
+        const input = 'query(answer(X)).\np(a).\nanswer(ok) :- \\+ q(a).\n';
         const result = runCli(['--warnings', '-'], { input });
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, 'answer(ok).\n', 'stdout');
@@ -328,7 +329,7 @@ why(
           'query(answer(X)).',
           'bad(a).',
           'false :- bad(X).',
-          'answer(ok) :- eq(ok, ok).',
+          'answer(ok) :- ok = ok.',
           '',
         ].join('\n');
         const result = runCli(['-'], { input });
@@ -347,7 +348,7 @@ why(
     {
       name: 'non-matching inference fuse permits queries',
       run: () => {
-        const input = 'query(answer(X)).\nbad(a).\nfalse :- bad(X), eq(X, b).\nanswer(ok) :- eq(ok, ok).\n';
+        const input = 'query(answer(X)).\nbad(a).\nfalse :- bad(X), X = b.\nanswer(ok) :- ok = ok.\n';
         const result = runCli(['-'], { input });
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, 'answer(ok).\n', 'stdout');
@@ -557,7 +558,7 @@ function apiCases() {
     {
       name: 'program keeps negation diagnostics lazy by default',
       run: () => {
-        const program = Program.parse('p(a).\nq(X) :- not(p(X)).\n');
+        const program = Program.parse('p(a).\nq(X) :- \\+ p(X).\n');
         assertEqual(program._negationAnalysis, null, 'analysis starts lazy');
         assertEqual(program.negationDependencies.length, 1, 'dependency count');
         assertEqual(program._negationAnalysis !== null, true, 'analysis computed on demand');
@@ -566,7 +567,7 @@ function apiCases() {
     {
       name: 'analyzeNegation option computes diagnostics eagerly',
       run: () => {
-        const program = Program.parse('p(a).\nq(X) :- not(p(X)).\n', { analyzeNegation: true });
+        const program = Program.parse('p(a).\nq(X) :- \\+ p(X).\n', { analyzeNegation: true });
         assertEqual(program._negationAnalysis !== null, true, 'analysis computed eagerly');
         assertEqual(program.stratifiedNegation, true, 'stratified negation');
       },
@@ -579,7 +580,7 @@ query(open(X0)).
 candidate(a).
 blocked(b).
 closed(X) :- blocked(X).
-open(X) :- candidate(X), not(closed(X)).
+open(X) :- candidate(X), \\+ closed(X).
 `);
         assertEqual(program.isStratifiedNegation(), true, 'stratified negation');
         assertEqual(program.negationStratificationErrors.length, 0, 'stratification errors');
@@ -590,7 +591,7 @@ open(X) :- candidate(X), not(closed(X)).
     {
       name: 'program detects unstratified negation cycles',
       run: () => {
-        const program = Program.parse('p(X) :- q(X).\nq(X) :- not(p(X)).\n');
+        const program = Program.parse('p(X) :- q(X).\nq(X) :- \\+ p(X).\n');
         assertEqual(program.isStratifiedNegation(), false, 'unstratified negation');
         assertEqual(program.negationStratificationErrors.length, 1, 'stratification error count');
         assertEqual(program.negationStratificationErrors[0].from, 'q/1', 'error source');
@@ -607,7 +608,7 @@ open(X) :- candidate(X), not(closed(X)).
       name: 'strictNegation option rejects unstratified programs',
       run: () => {
         let threw = false;
-        try { Program.parse('p(X) :- not(p(X)).\n', { strictNegation: true }); } catch (err) {
+        try { Program.parse('p(X) :- \\+ p(X).\n', { strictNegation: true }); } catch (err) {
           threw = true;
           assertIncludes(err.message, 'p/1 depends negatively on p/1', 'error message');
         }
@@ -650,13 +651,17 @@ open(X) :- candidate(X), not(closed(X)).
       },
     },
     {
-      name: 'default builtin registry exposes expected metadata',
+      name: 'default and library registries expose separate metadata',
       run: () => {
         const registry = createDefaultRegistry();
-        const between = registry.get('between', 3);
-        const append = registry.get('append', 3);
-        assertEqual(Boolean(between), true, 'between/3 exists');
-        assertEqual(Boolean(append), true, 'append/3 exists');
+        const library = getLibraryRegistry();
+        const between = library.get('between', 3);
+        const append = library.get('append', 3);
+        assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
+        assertEqual(Boolean(registry.get('between', 3)), false, 'between/3 is not core');
+        assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not core');
+        assertEqual(Boolean(between), true, 'library between/3 exists');
+        assertEqual(Boolean(append), true, 'library append/3 exists');
         assertEqual(between.name, 'between', 'between name');
         assertEqual(append.arity, 3, 'append arity');
       },
@@ -722,11 +727,10 @@ function whiteBoxCases() {
     },
 
     {
-      name: 'parser rejects non-Prolog unquoted atom spelling',
+      name: 'parser accepts ISO infix subtraction terms',
       run: () => {
-        let threw = false;
-        try { parseProgramText('value(a-b, ok).\n'); } catch (_) { threw = true; }
-        assertEqual(threw, true, 'a-b must be quoted');
+        const [clause] = parseProgramText('value(a-b, ok).\n');
+        assertEqual(termToString(clause.head.args[0]), "'-'(a, b)", 'a-b term');
       },
     },
     {
@@ -904,7 +908,7 @@ function whiteBoxCases() {
     {
       name: 'cycles through negation retain guarded resolution',
       run: () => {
-        const program = Program.parse('p(X) :- not(q(X)).\nq(X) :- p(X).\n');
+        const program = Program.parse('p(X) :- \\+ q(X).\nq(X) :- p(X).\n');
         assertEqual(program.findGroup('p', 1).recursive, true, 'p/1 recursive');
         assertEqual(program.findGroup('q', 1).recursive, true, 'q/1 recursive');
         assertEqual(program.findGroup('p', 1).tabled, false, 'p/1 not positively tabled');
@@ -1017,7 +1021,7 @@ path(X, Z) :- edge(X, Y), path(Y, Z).
       name: 'collatz example remains stack-safe for browser-sized stacks',
       run: () => {
         // Use a deliberately tiny stack to catch browser-worker recursion regressions.
-        const result = spawnSync(process.execPath, ['--stack-size=100', bin, 'examples/collatz-1000.pl'], {
+        const result = spawnSync(process.execPath, ['--stack-size=100', bin, '--library', 'examples/collatz-1000.pl'], {
           cwd: packageRoot,
           encoding: 'utf8',
         });
@@ -1072,7 +1076,7 @@ function runWhy({ program, goalText, expected }) {
   fs.writeFileSync(programFile, program);
   const goal = parseGoalText(goalText);
   fs.appendFileSync(programFile, `\nquery(${termToString(goal, new Env(), true)}).\n`);
-  const result = runCli(['--proof', programFile]);
+  const result = runCli(['--library', '--proof', programFile]);
   assertEqual(result.status, 0, 'exit status');
   assertEqual(result.stderr, '', 'stderr');
   const expectedText = expected.replaceAll('__FILE__', path.basename(programFile));
@@ -1091,7 +1095,7 @@ function runWhyLoose({ program, goalText }) {
   fs.writeFileSync(programFile, program);
   const goal = parseGoalText(goalText);
   fs.appendFileSync(programFile, `\nquery(${termToString(goal, new Env(), true)}).\n`);
-  const result = runCli(['--proof', programFile]);
+  const result = runCli(['--library', '--proof', programFile]);
   assertEqual(result.status, 0, 'exit status');
   assertEqual(result.stderr, '', 'stderr');
   Program.parse(result.stdout);
@@ -1229,7 +1233,7 @@ function documentedBuiltinNames(section) {
       const arity = match[2].trim() === '' ? 0 : match[2].split(',').length;
       names.push(`${match[1]}/${arity}`);
     }
-    for (const match of line.matchAll(/`([A-Za-z_][A-Za-z0-9_]*)\/(\d+)`/g)) {
+    for (const match of line.matchAll(/`([^`\s]+)\/(\d+)`/g)) {
       names.push(`${match[1]}/${match[2]}`);
     }
   }

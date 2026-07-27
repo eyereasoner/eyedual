@@ -68,25 +68,25 @@ assigned(Matching, Man, Woman) :- member(pair(Man, Woman), Matching).
 prefers_man(Man, Candidate, Current) :-
   rank_man(Man, Candidate, Candidaterank),
   rank_man(Man, Current, Currentrank),
-  lt(Candidaterank, Currentrank).
+  (Candidaterank < Currentrank).
 
 prefers_woman(Woman, Candidate, Current) :-
   rank_woman(Woman, Candidate, Candidaterank),
   rank_woman(Woman, Current, Currentrank),
-  lt(Candidaterank, Currentrank).
+  (Candidaterank < Currentrank).
 
 % A blocking pair witnesses instability of a candidate matching.
 blocking_pair(Matching, Man, Woman) :-
   assigned(Matching, Man, Currentwoman),
   woman(Woman),
-  neq(Woman, Currentwoman),
+  (Woman \= Currentwoman),
   prefers_man(Man, Woman, Currentwoman),
   assigned(Matching, Currentman, Woman),
   prefers_woman(Woman, Man, Currentman).
 
 stable_matching(Matching) :-
   matching(Matching),
-  not(blocking_pair(Matching, _man, _woman)).
+  \+ blocking_pair(Matching, _man, _woman).
 
 stable_marriage_answer(first_stable_matching, Matching) :- once(stable_matching(Matching)).
 stable_marriage_answer(stable_matching_count, Count) :- countall(stable_matching(_matching), Count).

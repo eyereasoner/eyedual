@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(ok) :- not(substring("abc", 2, 5, Text)).
+answer(ok) :- \+ substring("abc", 2, 5, Text).

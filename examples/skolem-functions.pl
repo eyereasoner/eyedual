@@ -21,7 +21,7 @@ test_result(bob, glucose, 5.1).
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 high_glucose(Patient) :-
   test_result(Patient, glucose, Value),
-  gt(Value, 6.0).
+  (Value > 6.0).
 
 observation_id(Patient, Test, skolem_observation(Patient, Test)) :-
   test_result(Patient, Test, _value).
@@ -45,8 +45,8 @@ about(skolem_alert(Patient, glucose), skolem_observation(Patient, glucose)) :-
   high_glucose(Patient).
 
 sameInputsSameId(skolemDemo, true) :-
-  eq(skolem_observation(alice, glucose), skolem_observation(alice, glucose)).
+  (skolem_observation(alice, glucose) = skolem_observation(alice, glucose)).
 
 noObservationClash(skolemDemo, true) :-
-  neq(skolem_observation(alice, glucose), skolem_observation(alice, cholesterol)),
-  neq(skolem_observation(alice, glucose), skolem_observation(bob, glucose)).
+  (skolem_observation(alice, glucose) \= skolem_observation(alice, cholesterol)),
+  (skolem_observation(alice, glucose) \= skolem_observation(bob, glucose)).

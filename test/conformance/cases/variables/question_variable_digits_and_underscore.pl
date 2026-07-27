@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(X_1) :- eq(X_1, ok).
+answer(X_1) :- (X_1 = ok).

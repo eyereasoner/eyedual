@@ -22,18 +22,18 @@ latency_sum([], 0.0).
 latency_sum([Link|Links], Total) :-
   link_latency(Link, Linklatency),
   latency_sum(Links, Rest),
-  add(Linklatency, Rest, Total).
+  (Total is Linklatency + Rest).
 
 end_to_end_latency(Path, Latency) :-
   path(Path, Links),
   latency_sum(Links, Linklatency),
   jitter(Path, Jitter),
-  add(Linklatency, Jitter, Latency).
+  (Latency is Linklatency + Jitter).
 
 sla_compliant(Path) :-
   end_to_end_latency(Path, Latency),
   sla(Path, maximum_latency_ms, Maximum),
-  lt(Latency, Maximum).
+  (Latency < Maximum).
 
 endToEndLatency_ms(Path, Latency) :-
   end_to_end_latency(Path, Latency).

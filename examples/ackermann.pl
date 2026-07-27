@@ -9,24 +9,24 @@
 query(ackermann(X0, X1)).
 
 ackermann(X, Y, A) :-
-  add(Y, 3, B),
+  (B is Y + 3),
   hyper(X, B, 2, C),
-  sub(C, 3, A).
+  (A is C - 3).
 
 % Successor, addition, multiplication, and exponentiation levels.
-hyper(0, Y, _z, A) :- add(Y, 1, A).
-hyper(1, Y, Z, A) :- add(Y, Z, A).
-hyper(2, Y, Z, A) :- mul(Y, Z, A).
-hyper(3, Y, Z, A) :- pow(Z, Y, A).
+hyper(0, Y, _z, A) :- (A is Y + 1).
+hyper(1, Y, Z, A) :- (A is Y + Z).
+hyper(2, Y, Z, A) :- (A is Y * Z).
+hyper(3, Y, Z, A) :- (A is Z ^ Y).
 
 % Higher levels recurse over the previous hyperoperation.
-hyper(X, 0, _z, 1) :- gt(X, 3).
+hyper(X, 0, _z, 1) :- (X > 3).
 hyper(X, Y, Z, A) :-
-  gt(X, 3),
-  neq(Y, 0),
-  sub(Y, 1, B),
+  (X > 3),
+  (Y \= 0),
+  (B is Y - 1),
   hyper(X, B, Z, C),
-  sub(X, 1, D),
+  (D is X - 1),
   hyper(D, C, Z, A).
 
 ack_case(0, 0).

@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(ok) :- not(min_list([], X)).
+answer(ok) :- \+ min_list([], X).

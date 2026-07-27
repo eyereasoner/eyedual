@@ -4,4 +4,4 @@ burns(girl).
 madeOfWood(duck).
 madeOfWood(girl).
 floats(girl).
-is(witchExample, true).
+holds_result(witchExample, true).

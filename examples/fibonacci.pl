@@ -27,32 +27,32 @@ fib(N, Value) :- fib_pair(N, Value, _next).
 
 fib_pair(0, 0, 1).
 fib_pair(N, F, G) :-
-  gt(N, 0),
-  div(N, 2, Half),
+  (N > 0),
+  (Half is N / 2),
   fib_pair(Half, A, B),
-  mul(B, 2, Twob),
-  sub(Twob, A, Twobminusa),
-  mul(A, Twobminusa, C),
-  mul(A, A, Aa),
-  mul(B, B, Bb),
-  add(Aa, Bb, D),
-  mod(N, 2, 0),
-  eq(F, C),
-  eq(G, D).
+  (Twob is B * 2),
+  (Twobminusa is Twob - A),
+  (C is A * Twobminusa),
+  (Aa is A * A),
+  (Bb is B * B),
+  (D is Aa + Bb),
+  (0 is N mod 2),
+  (F = C),
+  (G = D).
 fib_pair(N, F, G) :-
-  gt(N, 0),
-  div(N, 2, Half),
+  (N > 0),
+  (Half is N / 2),
   fib_pair(Half, A, B),
-  mul(B, 2, Twob),
-  sub(Twob, A, Twobminusa),
-  mul(A, Twobminusa, C),
-  mul(A, A, Aa),
-  mul(B, B, Bb),
-  add(Aa, Bb, D),
-  mod(N, 2, 1),
-  add(C, D, Next),
-  eq(F, D),
-  eq(G, Next).
+  (Twob is B * 2),
+  (Twobminusa is Twob - A),
+  (C is A * Twobminusa),
+  (Aa is A * A),
+  (Bb is B * B),
+  (D is Aa + Bb),
+  (1 is N mod 2),
+  (Next is C + D),
+  (F = D),
+  (G = Next).
 
 fibonacci(N, Value) :-
   fib_case(N),

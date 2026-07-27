@@ -34,7 +34,7 @@ feasible_pack(Pack, Weight, Value) :-
   subset(All, Pack),
   total_weight(Pack, Weight),
   capacity(Capacity),
-  le(Weight, Capacity),
+  (Weight =< Capacity),
   total_value(Pack, Value).
 
 best_pack(Pack, Weight, Value) :-

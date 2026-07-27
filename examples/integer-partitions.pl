@@ -8,22 +8,22 @@ query(partition_answer(X0, X1)).
 
 % One empty sum partitions zero; positive N with K=0 is impossible.
 partitions(0, _k, 1).
-partitions(N, 0, 0) :- gt(N, 0).
+partitions(N, 0, 0) :- (N > 0).
 partitions(N, K, Count) :-
-  gt(N, 0),
-  gt(K, 0),
-  gt(K, N),
-  sub(K, 1, K1),
+  (N > 0),
+  (K > 0),
+  (K > N),
+  (K1 is K - 1),
   partitions(N, K1, Count).
 partitions(N, K, Count) :-
-  gt(N, 0),
-  gt(K, 0),
-  le(K, N),
-  sub(N, K, Remainder),
+  (N > 0),
+  (K > 0),
+  (K =< N),
+  (Remainder is N - K),
   partitions(Remainder, K, Withk),
-  sub(K, 1, K1),
+  (K1 is K - 1),
   partitions(N, K1, Withoutk),
-  add(Withk, Withoutk, Count).
+  (Count is Withk + Withoutk).
 
 % The ordinary partition number p(N) allows all parts up to N.
 partition_count(N, Count) :- partitions(N, N, Count).

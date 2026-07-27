@@ -17,14 +17,14 @@ constant(pi, 3.141592653589793).
 time_constant(Filter, Tau) :-
   component(Filter, resistor_ohm, R),
   component(Filter, capacitor_f, C),
-  mul(R, C, Tau).
+  (Tau is R * C).
 
 cutoff_frequency(Filter, Frequency) :-
   time_constant(Filter, Tau),
   constant(pi, Pi),
-  mul(2.0, Pi, Twopi),
-  mul(Twopi, Tau, Denominator),
-  div(1.0, Denominator, Frequency).
+  (Twopi is 2.0 * Pi),
+  (Denominator is Twopi * Tau),
+  (Frequency is 1.0 / Denominator).
 
 type(Filter, first_order_low_pass) :-
   component(Filter, resistor_ohm, _r),

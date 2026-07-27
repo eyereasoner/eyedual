@@ -9,25 +9,25 @@ query(catalan_answer(X0, X1)).
 % C_0 = 1; higher values are computed by the convolution sum.
 catalan(0, 1).
 catalan(N, C) :-
-  gt(N, 0),
-  sub(N, 1, N1),
+  (N > 0),
+  (N1 is N - 1),
   sumall(Product,
     (between(0, N1, I),
-     sub(N1, I, J),
+     (J is N1 - I),
      catalan(I, A),
      catalan(J, B),
-     mul(A, B, Product)),
+     (Product is A * B)),
     C).
 
 % An n-gon has C_(n-2) triangulations.
 polygon_triangulations(Sides, Count) :-
-  ge(Sides, 3),
-  sub(Sides, 2, N),
+  (Sides >= 3),
+  (N is Sides - 2),
   catalan(N, Count).
 
 parenthesizations(Factors, Count) :-
-  ge(Factors, 1),
-  sub(Factors, 1, N),
+  (Factors >= 1),
+  (N is Factors - 1),
   catalan(N, Count).
 
 catalan_answer(catalan_12, C) :- catalan(12, C).

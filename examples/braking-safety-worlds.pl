@@ -23,38 +23,38 @@ world(w3, "cautious factor over the physics model").
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 stop_distance(Scenario, w0, Distance) :-
   scenario(Scenario, V, Mu, Avail),
-  mul(V, 1.0, Reaction),
-  pow(V, 2.0, V2),
-  mul(Mu, 2.0, M2),
-  mul(M2, 9.8, Denom),
-  div(V2, Denom, Braking),
-  add(Reaction, Braking, Distance).
+  (Reaction is V * 1.0),
+  (V2 is V ** 2.0),
+  (M2 is Mu * 2.0),
+  (Denom is M2 * 9.8),
+  (Braking is V2 / Denom),
+  (Distance is Reaction + Braking).
 
 stop_distance(Scenario, w1, Distance) :-
   scenario(Scenario, V, Mu, Avail),
-  pow(V, 2.0, V2),
-  mul(Mu, 2.0, M2),
-  mul(M2, 10.0, Denom),
-  div(V2, Denom, Distance).
+  (V2 is V ** 2.0),
+  (M2 is Mu * 2.0),
+  (Denom is M2 * 10.0),
+  (Distance is V2 / Denom).
 
 stop_distance(Scenario, w2, Distance) :-
   scenario(Scenario, V, Mu, Avail),
-  pow(V, 2.0, V2),
-  div(V2, 14.0, Distance).
+  (V2 is V ** 2.0),
+  (Distance is V2 / 14.0).
 
 stop_distance(Scenario, w3, Distance) :-
   stop_distance(Scenario, w0, W0distance),
-  mul(W0distance, 1.5, Distance).
+  (Distance is W0distance * 1.5).
 
 safe_in_world(Scenario, World) :-
   scenario(Scenario, V, Mu, Avail),
   stop_distance(Scenario, World, Distance),
-  le(Distance, Avail).
+  (Distance =< Avail).
 
 risky_in_world(Scenario, World) :-
   scenario(Scenario, V, Mu, Avail),
   stop_distance(Scenario, World, Distance),
-  gt(Distance, Avail).
+  (Distance > Avail).
 
 pattern_matches(report) :-
   safe_in_world(city_dry, w0), safe_in_world(city_dry, w1), safe_in_world(city_dry, w2), safe_in_world(city_dry, w3),

@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(X) :- mod(-7, 3, X).
+answer(X) :- (X is -7 mod 3).

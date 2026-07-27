@@ -2,5 +2,5 @@
 eligible(Person) :-
   applicant(Person),
   age(Person, Age),
-  ge(Age, 18),
+  (Age >= 18),
   verified(Person).

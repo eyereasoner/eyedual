@@ -5,4 +5,3 @@ answer(quoted_atom, pair(Name, Arity)) :- functor('hello-world', Name, Arity).
 answer(string, pair(Name, Arity)) :- functor("text", Name, Arity).
 answer(number, pair(Name, Arity)) :- functor(123, Name, Arity).
 answer(list_functor, pair(Name, Arity)) :- functor([a, b], Name, Arity).
-answer(unbound_rejected, ok) :- not(functor(X, Name, Arity)).

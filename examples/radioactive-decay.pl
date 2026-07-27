@@ -21,26 +21,26 @@ threshold(iodine_sample, low_activity_bq, 25.0).
 half_lives(Sample, Count) :-
   sample(Sample, elapsed_h, Elapsed),
   sample(Sample, half_life_h, Halflife),
-  div(Elapsed, Halflife, Count).
+  (Count is Elapsed / Halflife).
 
 remaining_fraction(Sample, Fraction) :-
   half_lives(Sample, Count),
-  pow(0.5, Count, Fraction).
+  (Fraction is 0.5 ** Count).
 
 remaining_activity(Sample, Remaining) :-
   sample(Sample, initial_activity_bq, Initial),
   remaining_fraction(Sample, Fraction),
-  mul(Initial, Fraction, Remaining).
+  (Remaining is Initial * Fraction).
 
 decayed_activity(Sample, Decayed) :-
   sample(Sample, initial_activity_bq, Initial),
   remaining_activity(Sample, Remaining),
-  sub(Initial, Remaining, Decayed).
+  (Decayed is Initial - Remaining).
 
 low_activity(Sample) :-
   remaining_activity(Sample, Remaining),
   threshold(Sample, low_activity_bq, Limit),
-  lt(Remaining, Limit).
+  (Remaining < Limit).
 
 halfLivesElapsed(Sample, Count) :-
   half_lives(Sample, Count).

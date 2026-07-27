@@ -1,4 +1,4 @@
-is(test, true).
+holds_result(test, true).
 arc(check1, "C1 OK - the starting classification n0 is present.").
 arc(check2, "C2 OK - the first expansion produced n1 together with side labels i1 and j1.").
 arc(check3, "C3 OK - the chain reaches the midpoint n500 and still carries both side-label branches.").

@@ -120,8 +120,8 @@ why(
         ])
       ),
       proof(
-        goal(neq(a, b)),
-        by(builtin(neq, 2))
+        goal(\=(a, b)),
+        by(builtin(\=, 2))
       )
     ])
   )
@@ -249,8 +249,8 @@ why(
         ])
       ),
       proof(
-        goal(neq(b, a)),
-        by(builtin(neq, 2))
+        goal(\=(b, a)),
+        by(builtin(\=, 2))
       )
     ])
   )

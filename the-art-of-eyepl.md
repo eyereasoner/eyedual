@@ -387,16 +387,16 @@ may receive a binding; a nested pair of compounds causes the same comparison
 to continue recursively. The result shown is the most general substitution:
 it commits to exactly what structural agreement requires and nothing more.
 
-Eyepl exposes unification as `eq/2`:
+Eyepl exposes unification as `=/2`:
 
 ```eyepl
-same_shape(Pair) :- eq(Pair, pair(X, X)).
+same_shape(Pair) :- (Pair = pair(X, X)).
 
 query(same_shape(pair(red, red))).
 query(same_shape(pair(red, blue))).
 ```
 
-Only the first query succeeds. `neq/2` succeeds when two resolved terms are not
+Only the first query succeeds. `\=/2` succeeds when two resolved terms are not
 structurally equal.
 
 Compound terms retain domain structure:
@@ -423,7 +423,7 @@ web_name(sensor_1, '<https://example.org/sensor/1>').
 **Checkpoint.** Without running Eyepl, decide whether each pair unifies:
 `point(X, X)` with `point(red, red)`, `point(X, X)` with
 `point(red, blue)`, and `[Head | Tail]` with `[a, b, c]`. Then run a small
-`eq/2` query to check each prediction.
+`=/2` query to check each prediction.
 
 ## 3. Rules and their two readings
 
@@ -440,7 +440,7 @@ A rule has a head and a comma-separated body:
 ```eyepl
 eligible(Person) :-
   age(Person, Years),
-  ge(Years, 18),
+  (Years >= 18),
   registered(Person).
 ```
 
@@ -469,7 +469,7 @@ steady while improving the other.
 ```eyepl
 adult(Person) :-
   age(Person, Years),
-  ge(Years, 18).
+  (Years >= 18).
 ```
 
 Multiple clauses express alternatives:
@@ -485,7 +485,7 @@ Helper predicates reveal the model and improve explanations:
 high_score(Case) :-
   score(Case, Score),
   threshold(Threshold),
-  ge(Score, Threshold).
+  (Score >= Threshold).
 
 status(Case, accepted) :- high_score(Case).
 reason(Case, "score meets threshold") :- high_score(Case).
@@ -591,9 +591,9 @@ Herbrand semantics is a particular form of ordinary model theory, chosen
 because logic programs inspect and construct symbolic terms. Consider:
 
 ```eyepl
-different(alice, bob) :- neq(alice, bob).
+different(alice, bob) :- (alice \= bob).
 different(ticket(alice), ticket(bob)) :-
-  neq(ticket(alice), ticket(bob)).
+  (ticket(alice) \= ticket(bob)).
 ```
 
 In an unrestricted first-order interpretation, `alice` and `bob` could denote
@@ -650,7 +650,7 @@ the variable occurs anywhere in the proposed value. For example, this call
 fails rather than constructing a cyclic term:
 
 ```eyepl
-eq(X, wrapper(X)).
+(X = wrapper(X)).
 ```
 
 ### Meaning is not the search strategy
@@ -664,14 +664,14 @@ belong to the least Herbrand model. The evaluator is not, however, a complete
 bottom-up enumerator. Infinite generation or nonterminating recursion can
 prevent it from reaching a true answer.
 
-Built-ins extend the pure core. Relational built-ins such as `eq/2`,
+Built-ins extend the pure core. Relational built-ins such as `=/2`,
 `append/3`, and `member/2` are readily understood over Herbrand terms.
 Arithmetic, date handling, regular expressions, aggregation, `once/1`, and
 negation have additional operational definitions. They still consume and
-produce Eyepl terms: `add(2, 3, X)` binds `X` to the Herbrand number term `5`,
+produce Eyepl terms: `X is 2 + 3` binds `X` to the Herbrand number term `5`,
 not to an invisible host value.
 
-`not(Goal)` succeeds when the current finite search finds no solution for
+`\+ Goal` succeeds when the current finite search finds no solution for
 `Goal`; it does not insert a negative formula into the Herbrand model.
 User-defined negative dependencies should be stratified. In a stratified
 program, positive dependencies may remain in the same or a lower layer, while
@@ -679,14 +679,14 @@ every negative dependency points strictly downward:
 
 ```eyepl
 closed(X) :- blocked(X).
-open(X) :- candidate(X), not(closed(X)).
+open(X) :- candidate(X), \+ closed(X).
 ```
 
 A cycle containing a negative edge is not stratified:
 
 ```eyepl
 p(X) :- q(X).
-q(X) :- not(p(X)).
+q(X) :- \+ p(X).
 ```
 
 The CLI reports such portability problems with `--warnings`. JavaScript
@@ -841,14 +841,14 @@ turn a field of possibilities into a productive computation.
 Arithmetic is predicate-based. There is no `is` operator:
 
 ```eyepl
-next(X, Y) :- add(X, 1, Y).
-area_rectangle(W, H, Area) :- mul(W, H, Area).
+next(X, Y) :- (Y is X + 1).
+area_rectangle(W, H, Area) :- (Area is W * H).
 
 hypotenuse(A, B, C) :-
-  mul(A, A, A2),
-  mul(B, B, B2),
-  add(A2, B2, C2),
-  sqrt(C2, C).
+  (A2 is A * A),
+  (B2 is B * B),
+  (C2 is A2 + B2),
+  (C is sqrt(C2)).
 ```
 
 Inputs must be bound to suitable numbers before a numeric function runs.
@@ -857,8 +857,8 @@ Comparisons filter generated solutions:
 ```eyepl
 safe_reading(Sensor, Value) :-
   reading(Sensor, Value),
-  ge(Value, 0),
-  le(Value, 80).
+  (Value >= 0),
+  (Value =< 80).
 ```
 
 `between(Low, High, Value)` enumerates an inclusive integer range or checks an
@@ -867,7 +867,7 @@ already-bound value:
 ```eyepl
 square(N, Square) :-
   between(1, 10, N),
-  mul(N, N, Square).
+  (Square is N * N).
 ```
 
 Finite generators turn loops into searches. Recurrences need intended modes:
@@ -875,10 +875,10 @@ Finite generators turn loops into searches. Recurrences need intended modes:
 ```eyepl
 factorial(0, 1).
 factorial(N, F) :-
-  gt(N, 0),
-  sub(N, 1, Previous),
+  (N > 0),
+  (Previous is N - 1),
   factorial(Previous, PF),
-  mul(N, PF, F).
+  (F is N * PF).
 
 mode(factorial, 2, [in, out]).
 ```
@@ -896,23 +896,23 @@ A goal fails when no clause or built-in proves it under current bindings.
 Failure prunes that branch and search tries another choice.
 
 Failure is an operational event, not automatically a statement about the
-world. Turning failure into `not(Goal)` is justified only relative to the
+world. Turning failure into `\+ Goal` is justified only relative to the
 program and the current bindings. This is the **closed-world move** familiar
 from databases: for some bounded relation, what cannot be derived is treated
 as absent. It differs from the open-world stance common on the Web, where a
 missing claim may simply be unknown. Neither stance is universally right; the
 modeler must say which knowledge boundary is complete.
 
-`not(Goal)` succeeds when `Goal` has no solution:
+`\+ Goal` succeeds when `Goal` has no solution:
 
 ```eyepl
 allowed(User) :-
   user(User),
-  not(blocked(User)).
+  \+ blocked(User).
 ```
 
 This means “blocked cannot be proved from this program,” not classical
-negation. Bind variables before negating. Putting `not(blocked(User))` before
+negation. Bind variables before negating. Putting `\+ blocked(User)` before
 `user(User)` asks whether there is no blocked user at all, not whether this
 particular user is unblocked.
 
@@ -940,8 +940,8 @@ Use negation where the knowledge boundary is closed: a complete roster,
 configuration, or finite result set. In open-world data, model explicit states
 such as `confirmed_absent` instead of deriving absence from silence.
 
-**Checkpoint.** Compare `user(User), not(blocked(User))` with
-`not(blocked(User)), user(User)`. State the question each ordering asks and the
+**Checkpoint.** Compare `user(User), \+ blocked(User)` with
+`\+ blocked(User), user(User)`. State the question each ordering asks and the
 completeness assumption needed before calling either result “allowed.”
 
 ## 8. Collecting and choosing answers
@@ -998,7 +998,7 @@ Term predicates decompose or construct general terms:
 ```eyepl
 functor(Term, Name, Arity).
 arg(Index, Term, Value).
-compound_name_arguments(Term, Name, Arguments).
+(Term =.. [Name | Arguments]).
 ```
 
 `arg/3` uses one-based indexes. Prefer direct pattern matching when the shape
@@ -1027,7 +1027,7 @@ hot_event(Id) :-
   message(Id, Context),
   holds(Context, severity(high)),
   holds(Context, reading(temp, Value)),
-  gt(Value, 80).
+  (Value > 80).
 ```
 
 `holds/2` matches a member. `holds/3` exposes a member's name and argument list.
@@ -1051,10 +1051,10 @@ color(blue).
 coloring(A, B, C) :-
   color(A),
   color(B),
-  neq(A, B),
+  (A \= B),
   color(C),
-  neq(B, C),
-  neq(A, C).
+  (B \= C),
+  (A \= C).
 
 answer(colors(A, B, C)) :- coloring(A, B, C).
 query(answer(X)).
@@ -1090,7 +1090,7 @@ answer(colors(blue, green, red)).
 
 **Checkpoint.** Label the generator, each constraint, and the final witness in
 the coloring program. Before changing it, predict how many answers remain if
-`neq(A, C)` is removed; then run the program and account for every additional
+`A \= C` is removed; then run the program and account for every additional
 answer.
 
 ## Part II summary
@@ -1099,7 +1099,7 @@ Part II turned relations into finite computations:
 
 - arithmetic relations need their operational inputs bound;
 - generators state where finite candidates come from;
-- failure prunes a branch, while `not/1` makes finite failure a closed-world
+- failure prunes a branch, while `\+/1` makes finite failure a closed-world
   test;
 - `once/1` makes search order observable;
 - aggregates turn a finite solution space into a list, count, sum, or optimum;
@@ -1216,7 +1216,7 @@ A rule headed by `false` is an **inference fuse**:
 ```eyepl
 false :-
   probability(Disease, Probability),
-  gt(Probability, 1).
+  (Probability > 1).
 ```
 
 Eyepl checks fuses before queries. The first match aborts the CLI with exit code
@@ -1341,16 +1341,16 @@ An evidence-backed diagnosis can separate physics from policy:
 heating(Battery, Watts) :-
   current(Battery, Amps),
   resistance(Battery, Ohms),
-  mul(Amps, Amps, I2),
-  mul(I2, Ohms, Watts).
+  (I2 is Amps * Amps),
+  (Watts is I2 * Ohms).
 
 thermal_warning(Battery) :-
   heating(Battery, Watts),
   heating_limit(Limit),
-  gt(Watts, Limit),
+  (Watts > Limit),
   temperature(Battery, Celsius),
   temperature_limit(TLimit),
-  gt(Celsius, TLimit).
+  (Celsius > TLimit).
 
 action(Battery, isolate_and_cool) :- thermal_warning(Battery).
 ```
@@ -1441,7 +1441,7 @@ import { run, Program, Solver } from 'eyepl';
 
 const result = run(`
 query(answer(X)).
-answer(ok) :- eq(ok, ok).
+answer(ok) :- ok = ok.
 `);
 console.log(result.stdout);
 console.log(result.stats);
@@ -1675,13 +1675,13 @@ Conjunction is logically commutative, but its textual order guides search.
 These two rules have the same intended ground consequences:
 
 ```eyepl
-adult(Person) :- person(Person), age(Person, Age), ge(Age, 18).
+adult(Person) :- person(Person), age(Person, Age), (Age >= 18).
 
-adult(Person) :- ge(Age, 18), age(Person, Age), person(Person).
+adult(Person) :- (Age >= 18), age(Person, Age), person(Person).
 ```
 
 The first is executable in the natural open mode because `person/1` and
-`age/2` bind values before `ge/2` inspects them. The second asks a comparison
+`age/2` bind values before `>=/2` inspects them. The second asks a comparison
 to operate on unbound variables and fails. Logical equivalence therefore does
 not imply equivalent behavior for a goal-directed interpreter with modeful
 built-ins.
@@ -1692,7 +1692,7 @@ case. A recursive clause that calls itself before consuming input is a warning:
 
 ```eyepl
 % Poor control: recursion starts before one list cell is exposed.
-bad_member(X, List) :- bad_member(X, Rest), eq(List, [_ | Rest]).
+bad_member(X, List) :- bad_member(X, Rest), (List = [_ | Rest]).
 ```
 
 The usual definition exposes the decreasing structure first:
@@ -1835,8 +1835,8 @@ candidate_pair(A, B) :-
 
 compatible_pair(A, B) :-
   candidate_pair(A, B),
-  neq(A, B),
-  not(conflict(A, B)).
+  (A \= B),
+  \+ conflict(A, B).
 
 answer(pair(A, B)) :- compatible_pair(A, B).
 ```
@@ -1852,8 +1852,8 @@ For performance, tests may be interleaved as soon as their inputs are ready:
 compatible_pair(A, B) :-
   person(A),
   person(B),
-  neq(A, B),
-  not(conflict(A, B)).
+  (A \= B),
+  \+ conflict(A, B).
 ```
 
 The conceptual separation remains even when the final clause is compact.
@@ -1933,10 +1933,10 @@ factorial, `N` decreases while remaining a nonnegative integer:
 ```eyepl
 factorial(0, 1).
 factorial(N, F) :-
-  gt(N, 0),
-  sub(N, 1, Previous),
+  (N > 0),
+  (Previous is N - 1),
   factorial(Previous, PF),
-  mul(N, PF, F).
+  (F is N * PF).
 ```
 
 Reordering the subtraction after the recursive call preserves a mathematical
@@ -1950,12 +1950,12 @@ constructs `s(s(s(...)))` without bound.
 
 ### Negation and aggregation require bounded subsearch
 
-`not(Goal)`, `forall/2`, and aggregates ask the engine to settle a nested
+`\+ Goal`, `forall/2`, and aggregates ask the engine to settle a nested
 search. Their meaning is usable only when that search can finish. Before
 writing:
 
 ```eyepl
-not(disqualified(Person))
+\+ disqualified(Person)
 ```
 
 check that `Person` is bound and that `disqualified/1` has a finite search for
@@ -1971,7 +1971,7 @@ says that the supplied theory violates a condition that must hold:
 false :-
   lower_limit(Name, Low),
   upper_limit(Name, High),
-  gt(Low, High).
+  (Low > High).
 ```
 
 This distinction matters operationally and socially. A failed eligibility
@@ -2016,7 +2016,7 @@ name a stable concept:
 within_thermal_limits(Battery) :-
   temperature(Battery, T),
   temperature_limit(Max),
-  le(T, Max).
+  (T =< Max).
 ```
 
 The gain is not just reuse. Proofs now contain a domain statement, and later
@@ -2214,7 +2214,7 @@ Suppose a later goal fails:
 eligible(Person) :-
   applicant(Person),
   age(Person, Age),
-  ge(Age, 18),
+  (Age >= 18),
   verified(Person).
 ```
 
@@ -2374,12 +2374,12 @@ evaluate(number(N), N).
 evaluate(add(Left, Right), Value) :-
   evaluate(Left, L),
   evaluate(Right, R),
-  add(L, R, Value).
+  (Value is L + R).
 
 evaluate(multiply(Left, Right), Value) :-
   evaluate(Left, L),
   evaluate(Right, R),
-  mul(L, R, Value).
+  (Value is L * R).
 ```
 
 ```eyepl
@@ -2474,7 +2474,7 @@ adult(Person) :-
   recorded_age(Person, Age),
   adult_age(Age).
 
-adult_age(Age) :- ge(Age, 18).
+adult_age(Age) :- (Age >= 18).
 ```
 
 Unfolding `adult_age/1` gives:
@@ -2482,7 +2482,7 @@ Unfolding `adult_age/1` gives:
 ```eyepl
 adult(Person) :-
   recorded_age(Person, Age),
-  ge(Age, 18).
+  (Age >= 18).
 ```
 
 For this deterministic helper, the ground answers are unchanged. The shorter
@@ -2497,13 +2497,13 @@ Folding moves in the other direction. Suppose decisions repeat:
 can_board(Person) :-
   registered(Person),
   identity_checked(Person),
-  not(suspended(Person)),
+  \+ suspended(Person),
   has_ticket(Person).
 
 can_enter_lounge(Person) :-
   registered(Person),
   identity_checked(Person),
-  not(suspended(Person)),
+  \+ suspended(Person),
   lounge_pass(Person).
 ```
 
@@ -2513,7 +2513,7 @@ Name the shared concept:
 traveler_in_good_standing(Person) :-
   registered(Person),
   identity_checked(Person),
-  not(suspended(Person)).
+  \+ suspended(Person).
 
 can_board(Person) :-
   traveler_in_good_standing(Person),
@@ -2526,7 +2526,7 @@ can_enter_lounge(Person) :-
 
 The helper is valuable because it has a stable meaning, not merely because
 three lines became one. It creates one place to state and test the closed-world
-assumption behind `not(suspended(Person))`.
+assumption behind `\+ suspended(Person)`.
 
 ### Specializing a relation
 
@@ -2556,7 +2556,7 @@ A direct list sum performs work after recursion:
 sum_numbers([], 0).
 sum_numbers([X | Xs], Sum) :-
   sum_numbers(Xs, Rest),
-  add(X, Rest, Sum).
+  (Sum is X + Rest).
 ```
 
 An accumulator makes the partial sum explicit:
@@ -2566,7 +2566,7 @@ sum_numbers_acc(List, Sum) :- sum_from(List, 0, Sum).
 
 sum_from([], Accumulator, Accumulator).
 sum_from([X | Xs], Accumulator, Sum) :-
-  add(Accumulator, X, Next),
+  (Next is Accumulator + X),
   sum_from(Xs, Next, Sum).
 ```
 
@@ -2800,7 +2800,7 @@ If the suspension list is authoritative and complete, absence can be used:
 ```eyepl
 in_good_standing(Person) :-
   person(Person),
-  not(suspended(Person)).
+  \+ suspended(Person).
 ```
 
 If it is incomplete, this rule is unsound as policy. Replace it with a positive
@@ -3044,10 +3044,10 @@ triple(A, B, C) :-
   between(1, 20, A),
   between(A, 20, B),
   between(B, 20, C),
-  mul(A, A, AA),
-  mul(B, B, BB),
-  add(AA, BB, Sum),
-  mul(C, C, Sum).
+  (AA is A * A),
+  (BB is B * B),
+  (Sum is AA + BB),
+  (Sum is C * C).
 
 query(triple(A, B, C)).
 ```
@@ -3204,7 +3204,7 @@ A relation following that structure is easy to reason about:
 list_length([], 0).
 list_length([_ | Tail], N) :-
   list_length(Tail, M),
-  add(M, 1, N).
+  (N is M + 1).
 ```
 
 To prove that `list_length(List, N)` returns the number of cells in a finite
@@ -3288,7 +3288,7 @@ clauses depend only on their constructors and laws.
 The goal
 
 ```eyepl
-eq(pair(X, f(Y)), pair(g(a), f(b))).
+(pair(X, f(Y)) = pair(g(a), f(b))).
 ```
 
 decomposes into structural equations. The outer functors and arities agree,
@@ -3299,7 +3299,7 @@ This resembles algebraic equation solving, but unification is more specific.
 It operates in the free term algebra: different constructors are distinct,
 and two constructed terms agree only when their outer symbols and corresponding
 arguments agree. It does not know, unless clauses or built-ins say so, that
-`add(2, 3, X)` and `add(3, 2, X)` express a commutative operation.
+`X is 2 + 3` and `X is 3 + 2` express a commutative operation.
 
 The distinction prevents a common conceptual error:
 
@@ -3323,8 +3323,8 @@ triangle(A, B, C) :-
   between(1, 20, A),
   between(A, 20, B),
   between(B, 20, C),
-  add(A, B, Sum),
-  gt(Sum, C).
+  (Sum is A + B),
+  (Sum > C).
 ```
 
 The constraints `A =< B =< C` select one representative from each permutation
@@ -3343,7 +3343,7 @@ which distinctions belong to the problem and which are artifacts of notation.
 A function privileges one direction. An equation or relation contains several:
 
 ```eyepl
-rectangle(W, H, Area) :- mul(W, H, Area).
+rectangle(W, H, Area) :- (Area is W * H).
 ```
 
 In a supported arithmetic mode, this relation may verify an area or calculate
@@ -3354,7 +3354,7 @@ factorizations:
 integer_rectangle(Area, W, H) :-
   between(1, Area, W),
   between(W, Area, H),
-  mul(W, H, Area).
+  (Area is W * H).
 
 query(integer_rectangle(24, W, H)).
 ```
@@ -3383,7 +3383,7 @@ preserves_combine(X, Y) :-
   image(Y, IY),
   image(XY, IXY),
   combine(IX, IY, CombinedImages),
-  eq(IXY, CombinedImages).
+  (IXY = CombinedImages).
 ```
 
 Over a finite carrier, `forall/2` can test the law for every generated pair.
@@ -3452,10 +3452,10 @@ This boundary can be written directly:
 ```eyepl
 counterexample_to_odd_square(N) :-
   between(1, 10000, N),
-  mod(N, 2, 1),
-  mul(N, N, Square),
-  mod(Square, 2, Remainder),
-  neq(Remainder, 1).
+  (1 is N mod 2),
+  (Square is N * N),
+  (Remainder is Square mod 2),
+  (Remainder \= 1).
 
 query(counterexample_to_odd_square(N)).
 ```
@@ -3483,7 +3483,7 @@ noncommuting_pair(A, B) :-
   matrix(B),
   matrix_multiply(A, B, AB),
   matrix_multiply(B, A, BA),
-  neq(AB, BA).
+  (AB \= BA).
 ```
 
 The example need not explain every failure of commutativity. Its existence is
@@ -3827,7 +3827,7 @@ unexpected_path :-
   path(a, d).
 
 expected_absence :-
-  not(unexpected_path).
+  \+ unexpected_path.
 
 query(expected_absence).
 ```
@@ -3871,11 +3871,11 @@ Examples test selected points. A finite generated property tests every point
 in a declared scope:
 
 ```eyepl
-double(N, D) :- add(N, N, D).
+double(N, D) :- (D is N + N).
 
 double_is_even(N) :-
   double(N, D),
-  mod(D, 2, 0).
+  (0 is D mod 2).
 
 bounded_double_law :-
   forall(between(-100, 100, N), double_is_even(N)).
@@ -4011,16 +4011,16 @@ Consider:
 
 ```eyepl
 eligible(Person) :-
-  ge(Age, 18),
+  (Age >= 18),
   age(Person, Age).
 ```
 
-The intended mathematics is easy to recognize, but `ge/2` sees an unbound
+The intended mathematics is easy to recognize, but `>=/2` sees an unbound
 `Age`. Write a binding ledger:
 
 | Before goal | Goal | Bindings produced |
 | --- | --- | --- |
-| `{}` | `ge(Age,18)` | none; not ready |
+| `{}` | `Age >= 18` | none; not ready |
 | — | `age(Person,Age)` | never productively reached |
 
 Reordering the goals repairs the operational mode:
@@ -4028,7 +4028,7 @@ Reordering the goals repairs the operational mode:
 ```eyepl
 eligible(Person) :-
   age(Person, Age),
-  ge(Age, 18).
+  (Age >= 18).
 ```
 
 For a clause with five goals, the ledger is often more revealing than staring
@@ -4088,7 +4088,7 @@ candidate_debug(Person, Age) :-
 
 adult_debug(Person, Age) :-
   candidate_debug(Person, Age),
-  ge(Age, 18).
+  (Age >= 18).
 
 query(candidate_debug(Person, Age)).
 query(adult_debug(Person, Age)).
@@ -4107,15 +4107,15 @@ clarity.
 ```eyepl
 reference_square(N, S) :-
   between(0, 20, N),
-  mul(N, N, S).
+  (S is N * N).
 
 optimized_square(N, S) :-
   between(0, 20, N),
-  mul(N, N, S).
+  (S is N * N).
 
 disagreement(N, S) :-
   reference_square(N, S),
-  not(optimized_square(N, S)).
+  \+ optimized_square(N, S).
 
 query(disagreement(N, S)).
 ```
@@ -4216,7 +4216,7 @@ in dependency order, then construct a witness or reason.
 chosen_pair(pair(X, Y), reason(sum_is_ten)) :-
   between(0, 10, X),
   between(X, 10, Y),
-  add(X, Y, 10).
+  (10 is X + Y).
 ```
 
 **Consequence:** the search domain and each pruning step are visible.
@@ -4244,13 +4244,13 @@ become explicit design concerns.
 **Problem:** the domain needs a negative conclusion, but absence is meaningful
 only after a complete finite search.
 
-**Form:** bind the subject and finite scope before `not/1`; isolate the
+**Form:** bind the subject and finite scope before `\+/1`; isolate the
 closed-world step behind a clearly named predicate.
 
 ```eyepl
 unregistered(Person) :-
   person(Person),
-  not(registered(Person)).
+  \+ registered(Person).
 ```
 
 **Consequence:** the closed-world assumption has one reviewable home. It must
@@ -4297,7 +4297,7 @@ whose premises are meaningful reasons.
 within_limit(Device) :-
   reading(Device, Value),
   maximum(Max),
-  le(Value, Max).
+  (Value =< Max).
 
 status(Device, safe) :-
   within_limit(Device).
@@ -4317,7 +4317,7 @@ misleading.
 false :-
   assigned_badge(PersonA, Badge),
   assigned_badge(PersonB, Badge),
-  neq(PersonA, PersonB).
+  (PersonA \= PersonB).
 ```
 
 **Consequence:** the theory fails closed before queries run. A fuse is not a
@@ -4511,7 +4511,7 @@ Execution is goal-directed rather than complete bottom-up saturation. Goals in
 a body normally run from left to right; the solver may select a ready
 deterministic built-in early as a pure filter. Ordinary user-defined calls use
 depth-first resolution, while eligible positive recursive groups are tabled
-automatically. `not/1` is stratified negation as failure, not classical
+automatically. `\+/1` is stratified negation as failure, not classical
 negation.
 
 Eyepl deliberately omits cut, operator declarations, modules, dynamic database
@@ -4533,7 +4533,7 @@ Supported output syntax is designed to be readable as Eyepl input.
 #### Automatic hybrid reasoning
 
 The program loader detects predicate-dependency cycles, including dependencies
-inside conjunction, `not/1`, `once/1`, `forall/2`, and aggregate goals.
+inside conjunction, `\+/1`, `once/1`, `forall/2`, and aggregate goals.
 Positive recursive components—including directly queried recursive
 relations—are tabled to an answer fixed point before answers are replayed.
 Components with a negative dependency retain guarded ordinary resolution,
@@ -4581,226 +4581,51 @@ ordinary facts, a program may query them.
 
 # Appendix B. Built-in predicates
 
-The implementation registers 80 name/arity entries across 78 names. The
-conformance corpus under `test/conformance/cases/` verifies the descriptions
-in this appendix.
-
-A built-in looks like any other atomic formula, but its relation is supplied by
-the implementation instead of source clauses. Many are mode-sensitive: their
-input arguments must be sufficiently bound before they can run. If a relation
-is conceptually sound but mysteriously fails, check the binding state at the
-built-in call before checking the arithmetic or text operation itself.
-
-The following index is deliberately written with canonical predicate
-indicators so it can be compared mechanically with the implementation
-registry:
+Eyepl's default registry follows the ISO Prolog core. Built-ins use their
+standard predicate indicators and arithmetic is expressed through `is/2`
+rather than output arguments on arithmetic predicates.
+It registers 38 name/arity entries across 38 names.
 
 | Family | Registered predicate indicators |
 | --- | --- |
-| Core | `eq/2`, `neq/2`, `local_time/1`, `difference/3` |
-| Arithmetic | `neg/2`, `abs/2`, `sin/2`, `cos/2`, `tan/2`, `asin/2`, `acos/2`, `sqrt/2`, `floor/2`, `ceiling/2`, `trunc/2`, `rounded/2`, `exp/2`, `log/2`, `add/3`, `sub/3`, `mul/3`, `div/3`, `mod/3`, `min/3`, `max/3`, `pow/3`, `atan2/3` |
-| Comparison and generation | `lt/2`, `gt/2`, `le/2`, `ge/2`, `between/3`, `smallest_divisor_from/3` |
-| Strings | `str_concat/3`, `contains/2`, `matches/2`, `matches/3`, `not_matches/2`, `split/3`, `join/3`, `substring/4`, `replace/4`, `lowercase/2`, `uppercase/2`, `trim/2`, `number_string/2`, `atom_string/2`, `term_string/2` |
-| Lists | `append/3`, `nth0/3`, `set_nth0/4`, `head/2`, `rest/2`, `last/2`, `take/3`, `drop/3`, `slice/4`, `member/2`, `select/3`, `not_member/2`, `reverse/2`, `length/2`, `sum_list/2`, `min_list/2`, `max_list/2`, `list_to_set/2`, `sort/2` |
-| Aggregation | `findall/3`, `countall/2`, `sumall/3`, `aggregate_min/5`, `aggregate_max/5` |
-| Context | `holds/2`, `holds/3` |
-| Search control | `not/1`, `once/1`, `forall/2` |
-| Term inspection | `functor/3`, `arg/3`, `compound_name_arguments/3` |
+| Control | `true/0`, `fail/0`, `call/1`, `\+/1`, `;/2`, `->/2` |
+| Unification and identity | `=/2`, `\=/2`, `==/2`, `\==/2` |
+| Type tests | `var/1`, `nonvar/1`, `atom/1`, `integer/1`, `float/1`, `number/1`, `atomic/1`, `compound/1`, `callable/1`, `ground/1` |
+| Standard order | `compare/3`, `@</2`, `@=</2`, `@>/2`, `@>=/2` |
+| Term inspection | `functor/3`, `arg/3`, `=../2`, `copy_term/2`, `term_variables/2` |
+| Collection | `findall/3` |
+| Arithmetic | `is/2`, `=:=/2`, `=\=/2`, `</2`, `=</2`, `>/2`, `>=/2` |
 
-### Readiness, determinism, and fallback
+The atom `false` is reserved for Eyepl inference-fuse heads; ordinary Prolog
+failure is `fail`.
 
-The registry records more than a handler. It also records whether a built-in is
-deterministic, when its arguments make it ready, and whether user clauses of
-the same name and arity should remain available while the built-in is not
-ready. This is why an early deterministic filter is safe and why a
-mode-sensitive projection need not hide a user-defined relation in other
-modes.
+## B.1 Arithmetic expressions
 
-For example, `lowercase(Text, Lower)` becomes ready when `Text` has a lexical
-value. `arg(Index, Term, Arg)` becomes ready when `Index` is a nonnegative
-integer spelling and `Term` is compound. `compound_name_arguments/3` becomes
-ready either for decomposition of an atom or compound, or for construction
-when its name and proper argument list are known. These are operational modes,
-not extra logical axioms.
+`Result is Expression` evaluates an ISO arithmetic expression and unifies the
+numeric result with `Result`. Supported expressions include integer and
+floating-point literals, unary `+` and `-`, `+`, `-`, `*`, `/`, `//`, `div`,
+`mod`, `rem`, bit operations, exponentiation, `abs`, rounding functions,
+trigonometric functions, `exp`, `log`, and `sqrt`.
 
-## B.1 Equality and unification
+Arithmetic comparisons evaluate both operands. Standard term-order predicates
+(`@<`, `@=<`, `@>`, `@>=`) compare terms without arithmetic evaluation.
 
-| Built-in | Meaning |
-| --- | --- |
-| `eq(A, B)` | Succeeds when `A` and `B` unify, retaining the resulting bindings. |
-| `neq(A, B)` | Succeeds when `A` and `B` do not unify. |
+## B.2 Errors
 
-`eq/2` is the direct operational form of unification. `neq/2` is a test, not a
-constraint store: call it only when its arguments have enough structure for
-the intended decision.
+ISO built-ins distinguish logical failure from exceptional calls. Insufficient
+instantiation raises `instantiation_error`; wrong argument categories raise
+`type_error`; invalid values raise `domain_error`; and arithmetic faults raise
+`evaluation_error`. JavaScript embedders receive these as `PrologError`
+instances whose message contains the corresponding Prolog error term.
 
-## B.2 Arithmetic
+## B.3 Non-core library
 
-| Built-in | Meaning |
-| --- | --- |
-| `neg(A, B)` | `B` is the numeric negation of `A`. |
-| `abs(A, B)` | `B` is the absolute value of `A`. |
-| `sin(A, B)`, `cos(A, B)`, `tan(A, B)` | Trigonometric floating-point functions. |
-| `asin(A, B)`, `acos(A, B)` | Inverse trigonometric floating-point functions. |
-| `atan2(Y, X, Angle)` | Two-argument inverse tangent. |
-| `sqrt(A, B)` | `B` is the square root of `A`; fails for negative input. |
-| `floor(A, B)` | `B` is `A` rounded toward negative infinity. |
-| `ceiling(A, B)` | `B` is `A` rounded toward positive infinity. |
-| `trunc(A, B)` | `B` is `A` rounded toward zero. |
-| `rounded(A, B)` | `B` is `A` rounded to the nearest integer. |
-| `exp(A, B)` | `B` is the natural exponential of `A`. |
-| `log(A, B)` | `B` is the natural logarithm of `A`; fails when `A` is not positive. |
-| `add(A, B, C)` | `C = A + B`. |
-| `sub(A, B, C)` | `C = A - B`. |
-| `mul(A, B, C)` | `C = A * B`. |
-| `div(A, B, C)` | `C = A / B`; integer inputs use integer division and division by zero fails. |
-| `mod(A, B, C)` | `C` is the integer remainder of `A` divided by `B`. |
-| `pow(A, B, C)` | `C = A^B`. |
-| `min(A, B, C)`, `max(A, B, C)` | `C` is the numeric minimum or maximum. |
-
-Integer arithmetic uses arbitrary-precision decimal representations where
-possible. Floating operations follow the host's IEEE-754 double-precision
-behavior. In particular, `sqrt/2` rejects negative input and `log/2` rejects
-nonpositive input. Numeric domain errors fail rather than introducing an Eyepl
-exception term.
-
-## B.3 Comparison, dates, and generators
-
-| Built-in | Meaning |
-| --- | --- |
-| `lt(A, B)` | `A < B`. |
-| `gt(A, B)` | `A > B`. |
-| `le(A, B)` | `A =< B`. |
-| `ge(A, B)` | `A >= B`. |
-| `local_time(T)` | Binds `T` to the local date string. |
-| `difference(End, Start, D)` | Computes the calendar difference from ISO-like `Start` to `End`; fails for invalid dates or when `End` precedes `Start`. |
-| `between(Low, High, X)` | Enumerates inclusive integers or checks a bound `X`. |
-| `smallest_divisor_from(N, Start, D)` | Finds a divisor of `N` beginning at `Start`. |
-
-Comparisons interpret integer or finite numeric-looking scalar terms
-numerically, ISO-like `P…Y…M…D` durations componentwise, and other scalar terms
-lexically. `difference/3` returns a string such as `"P1Y2M3D"` or `"P0D"`;
-it borrows calendar days when needed rather than reducing every month to a
-fixed number of days. For repeatable tests,
-`EYEPL_LOCAL_TIME=YYYY-MM-DD` overrides the date returned by `local_time/1`.
-Generators must have finite bounds in productive calls.
-
-## B.4 Strings and atom constants
-
-| Built-in | Meaning |
-| --- | --- |
-| `str_concat(A, B, C)` | Concatenates textual values. |
-| `contains(Text, Needle)` | Succeeds when `Text` contains `Needle`. |
-| `matches(Text, Pattern)` | Treats `Pattern` as literal alternatives separated by `|` and succeeds when any alternative occurs in `Text`. |
-| `matches(Text, Pattern, Context)` | Applies a JavaScript regular expression with named captures and returns a comma context of unary capture terms. |
-| `not_matches(Text, Pattern)` | Succeeds when `matches/2` does not. |
-| `split(Text, Separator, Parts)` | Splits text into a proper list of strings. |
-| `join(Parts, Separator, Text)` | Joins a proper list of scalar terms into a string. |
-| `substring(Text, Start, Length, Out)` | Extracts a zero-based substring. |
-| `replace(Text, Search, Replacement, Out)` | Replaces every nonempty literal occurrence of `Search`. |
-| `lowercase(Text, Out)` | Converts text to lowercase. |
-| `uppercase(Text, Out)` | Converts text to uppercase. |
-| `trim(Text, Out)` | Removes leading and trailing whitespace. |
-| `number_string(Number, String)` | Renders a number as a string, or parses a numeric string/atom into a number. |
-| `atom_string(Atom, String)` | Renders an atom as a string, or converts a string, atom, or number in the second argument to an atom. |
-| `term_string(Term, String)` | Renders a non-variable term as Eyepl source text. |
-
-Text operations are valuable at an input boundary, but structured terms make a
-better internal model. In `matches/3`, a pattern such as
-`"(?<kind>[a-z]+)-(?<id>[0-9]+)"` can produce a context such as
-`(kind("sensor"), id("17"))`, which ordinary `holds/2` or `holds/3` calls can
-inspect. Unlike `matches/3`, `matches/2` does not compile a JavaScript regular
-expression: `"red|blue"` means “contains `red` or contains `blue`.”
-
-## B.5 Lists
-
-| Built-in | Meaning |
-| --- | --- |
-| `append(A, B, C)` | When `A` is proper, places its items before tail `B`; when `C` is proper, enumerates proper prefix/suffix splits. |
-| `nth0(Index, List, Value)` | Performs zero-based lookup and can enumerate indexes. |
-| `set_nth0(Index, List, Value, Out)` | Functionally replaces one zero-based position. |
-| `head(List, Head)` | Returns the head of a nonempty list. |
-| `rest(List, Tail)` | Returns the tail of a nonempty list. |
-| `last(List, Last)` | Returns the final item of a nonempty proper list. |
-| `take(N, List, Prefix)` | Takes the first `N` items of a proper list. |
-| `drop(N, List, Suffix)` | Drops the first `N` items of a proper list. |
-| `slice(Start, Length, List, Slice)` | Extracts a zero-based proper-list slice. |
-| `member(X, List)` | Enumerates or checks members. |
-| `select(X, List, Rest)` | Selects one occurrence and returns the remaining list. |
-| `not_member(X, List)` | Succeeds when `X` is absent. |
-| `reverse(A, B)` | Reverses a proper list. |
-| `length(List, N)` | Returns a proper list's length. |
-| `sum_list(List, Sum)` | Sums numeric items; `[]` produces `0`. |
-| `min_list(List, Min)`, `max_list(List, Max)` | Return the minimum or maximum under standard term ordering. |
-| `list_to_set(List, Set)` | Removes duplicates while preserving first-occurrence order. |
-| `sort(Input, Output)` | Sorts and deduplicates a proper list. |
-
-The word “proper” matters: `[a | Tail]` is a valid term, but operations that
-must find the end of a list fail unless the tail eventually reaches `[]`.
-`nth0/3` is zero-based, unlike the one-based `arg/3`.
-
-## B.6 Aggregation and ordering
-
-| Built-in | Meaning |
-| --- | --- |
-| `findall(Template, Goal, Bag)` | Collects a resolved template for every solution of `Goal`; no solutions produce `[]`. |
-| `countall(Goal, Count)` | Counts solutions; no solutions produce `0`. |
-| `sumall(Template, Goal, Sum)` | Sums numeric template values; no solutions produce `0`. |
-| `aggregate_min(Key, Template, Goal, BestKey, BestTemplate)` | Returns the solution with the smallest resolved key; fails when there is no solution. |
-| `aggregate_max(Key, Template, Goal, BestKey, BestTemplate)` | Returns the solution with the largest resolved key; fails when there is no solution. |
-
-An aggregate evaluates a nested solution space. That space must be finite.
-Structured keys give deterministic lexicographic tie-breaking; for example
-`[Cost, Route]` orders equal-cost results by `Route`.
-
-## B.7 Context and term inspection
-
-| Built-in | Meaning |
-| --- | --- |
-| `holds(Context, Term)` | Enumerates member terms of a comma context. |
-| `holds(Context, Name, Args)` | Exposes every context member as an atom name and proper argument list, for any arity. |
-| `functor(Term, Name, Arity)` | Decomposes a non-variable term into name and arity. |
-| `arg(Index, Term, Arg)` | Extracts a compound term's one-based argument. |
-| `compound_name_arguments(Term, Name, Args)` | Decomposes a compound, treats an atom as zero-argument data, or constructs an atom/compound from a lexical name and proper argument list. |
-
-```eyepl
-holds((ready, name(alice, "Alice"), route(alice, bob, 7)), Name, Args).
-functor(route(alice, bob, 7), route, 3).
-arg(2, route(alice, bob, 7), bob).
-compound_name_arguments(Term, route, [alice, bob, 7]).
-compound_name_arguments(nil, nil, []).
-```
-
-`holds/3` is the schema-oriented form: the one relation can inspect
-`heartbeat/0`, `source/1`, `temperature/2`, and `signature/4` without assuming
-one arity. A context remains data; inspecting `temperature(sensor17, 38)` in a
-context does not assert it as a global `temperature/2` fact.
-
-## B.8 Search control
-
-| Built-in | Meaning |
-| --- | --- |
-| `not(Goal)` | Negation as failure; succeeds when the nested goal has no solution. |
-| `once(Goal)` | Retains at most the first solution. |
-| `forall(Generator, Test)` | Succeeds when every generated solution passes `Test`, including vacuously when there are none. |
-
-These predicates deliberately expose operational control. Their nested goals
-must terminate, and order is observable for `once/1`. Portable user-defined
-negation should be sufficiently ground, finite, and stratified.
-
-## B.9 Implementation-specific built-ins
-
-A host may add predicates beyond this standard catalog—for example a
-finite-domain accelerator or an application integration. Such a predicate is
-not required for conformance, and a portable program should not depend on it
-without naming its target environment.
-
-An extension should still behave like an Eyepl relation: use ordinary
-atomic-formula syntax, accept and return Herbrand terms, document its intended
-modes, and succeed or fail without changing the meaning of facts, unification,
-or standard built-ins. Proof-capable hosts should report a successful
-extension at least as an opaque built-in step, rather than claiming that no
-clause supported it.
+The default registry is deliberately ISO-only. The CLI option `--library` and
+the JavaScript function `getLibraryRegistry()` explicitly add Eyepl's
+non-core string, list, aggregation, context, date, regex, and convenience
+predicates. Examples that use those facilities opt into this layer. Keeping it
+separate prevents an extension predicate from silently changing the meaning or
+error behavior of an ISO program.
 
 # Appendix C. Command-line reference
 
@@ -4815,6 +4640,7 @@ eyepl [options] [file-or-url.pl|- ...]
 | `-s`, `--stats` | Print solver counters to stderr |
 | `-v`, `--version` | Print the package version |
 | `-w`, `--warnings` | Print non-fatal portability warnings |
+| `--library` | Enable Eyepl's explicitly non-core library predicates |
 | `--` | Treat following arguments as inputs |
 
 Inputs may be local files, HTTP(S) URLs, or one `-` for stdin. With no input,
@@ -4878,7 +4704,7 @@ Review questions:
 1. What distinguishes an atom constant from an atomic formula?
 2. Why can one append relation construct lists and split them?
 3. When does goal order affect performance but not declarative meaning?
-4. Why should variables usually be bound before `not/1`?
+4. Why should variables usually be bound before `\+/1`?
 5. What does automatic tabling solve, and what does it not solve?
 6. Why is proof output useful when the answer is already known?
 7. When is a fuse preferable to an ordinary `invalid/1` conclusion?
@@ -5461,7 +5287,7 @@ decidable by structural equality.
 **Clause.** A fact or rule terminated by a period.
 
 **Closed-world assumption.** The decision to treat failure to derive a
-sufficiently scoped claim as evidence for its absence. Eyepl's `not/1` performs
+sufficiently scoped claim as evidence for its absence. Eyepl's `\+/1` performs
 negation as failure; the modeler is responsible for justifying the scope.
 
 **Compound term.** Structured data with a functor and one or more arguments,
@@ -5548,7 +5374,7 @@ eventually ends in `[]`.
 supplied and which are produced. `mode/3` declarations document modes but do
 not alter execution.
 
-**Negation as failure.** The operational meaning of `not(Goal)`: succeed when a
+**Negation as failure.** The operational meaning of `\+ Goal`: succeed when a
 terminating nested search finds no solution for `Goal`.
 
 **Operational reading.** How a clause directs computation: which subgoal is
@@ -5908,10 +5734,10 @@ be both distinct atoms. `[Head | Tail]` unifies with `[a, b, c]` using
 `Head = a` and `Tail = [b, c]`.
 
 **Chapter 3.** In
-`adult(Person) :- age(Person, Years), ge(Years, 18).`, a ground reading is:
+`adult(Person) :- age(Person, Years), Years >= 18.`, a ground reading is:
 every person with a recorded age of at least 18 is an adult. Operationally,
-`age/2` supplies `Person` and `Years` before `ge/2` checks the numeric bound.
-Reversing those goals asks `ge/2` to inspect unbound terms.
+`age/2` supplies `Person` and `Years` before `>=/2` checks the numeric bound.
+Reversing those goals asks `>=/2` to inspect unbound terms.
 
 **Chapter 4.** With `ada → byron → clara → diego`, direct ancestor answers are
 the three edges. Recursive answers additionally include
@@ -5932,14 +5758,14 @@ list bound, the prefix/suffix splits are:
 `[a | Tail]` is not yet known to be proper because `Tail` might never resolve
 to a finite chain ending in `[]`.
 
-**Chapter 6.** `add/3`, `mul/3`, `sqrt/2`, comparisons, and the recursive
+**Chapter 6.** `is/2`, `is/2`, `is/2`, comparisons, and the recursive
 arithmetic steps require their documented numeric inputs. In
 `between(1, 10, N)`, an unbound `N` is generated from a finite interval; a
 bound `N` is checked for membership in that interval.
 
-**Chapter 7.** `user(User), not(blocked(User))` first selects each known user,
+**Chapter 7.** `user(User), \+ blocked(User)` first selects each known user,
 then asks a ground absence question for that user.
-`not(blocked(User)), user(User)` first asks whether the database contains no
+`\+ blocked(User), user(User)` first asks whether the database contains no
 blocked user at all. Calling either result “allowed” requires a justified,
 complete user and blocked-status boundary.
 
@@ -5953,7 +5779,7 @@ must establish finiteness.
 argument is structured data. `holds/2` examines members inside that term; it
 does not add those members as globally callable source facts.
 
-**Chapter 10.** The complete coloring has six answers. Removing `neq(A, C)`
+**Chapter 10.** The complete coloring has six answers. Removing `A \= C`
 leaves the requirements `A ≠ B` and `B ≠ C`, producing twelve answers. The six
 new answers are those with equal first and third colors:
 `red–green–red`, `red–blue–red`, `green–red–green`,

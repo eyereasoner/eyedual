@@ -25,8 +25,8 @@ why(
                 by(fact("clinical-trial-screening.pl", clause(8)))
               ),
               proof(
-                goal(ge(54, 18)),
-                by(builtin(ge, 2))
+                goal(>=(54, 18)),
+                by(builtin(>=, 2))
               )
             ])
           ),
@@ -51,22 +51,22 @@ why(
                 by(fact("clinical-trial-screening.pl", clause(16)))
               ),
               proof(
-                goal(ge(8.4, 7.0)),
-                by(builtin(ge, 2))
+                goal(>=(8.4, 7.0)),
+                by(builtin(>=, 2))
               ),
               proof(
-                goal(le(8.4, 10.5)),
-                by(builtin(le, 2))
+                goal(=<(8.4, 10.5)),
+                by(builtin(=<, 2))
               )
             ])
           ),
           proof(
-            goal(not(exclusion_renal(p001))),
-            by(builtin(not, 1))
+            goal('\\+'(exclusion_renal(p001))),
+            by(builtin('\\+', 1))
           ),
           proof(
-            goal(not(exclusion_pregnancy(p001))),
-            by(builtin(not, 1))
+            goal('\\+'(exclusion_pregnancy(p001))),
+            by(builtin('\\+', 1))
           )
         ])
       )
@@ -101,8 +101,8 @@ why(
                 by(fact("clinical-trial-screening.pl", clause(8)))
               ),
               proof(
-                goal(ge(54, 18)),
-                by(builtin(ge, 2))
+                goal(>=(54, 18)),
+                by(builtin(>=, 2))
               )
             ])
           ),
@@ -127,22 +127,22 @@ why(
                 by(fact("clinical-trial-screening.pl", clause(16)))
               ),
               proof(
-                goal(ge(8.4, 7.0)),
-                by(builtin(ge, 2))
+                goal(>=(8.4, 7.0)),
+                by(builtin(>=, 2))
               ),
               proof(
-                goal(le(8.4, 10.5)),
-                by(builtin(le, 2))
+                goal(=<(8.4, 10.5)),
+                by(builtin(=<, 2))
               )
             ])
           ),
           proof(
-            goal(not(exclusion_renal(p001))),
-            by(builtin(not, 1))
+            goal('\\+'(exclusion_renal(p001))),
+            by(builtin('\\+', 1))
           ),
           proof(
-            goal(not(exclusion_pregnancy(p001))),
-            by(builtin(not, 1))
+            goal('\\+'(exclusion_pregnancy(p001))),
+            by(builtin('\\+', 1))
           )
         ])
       )
@@ -173,8 +173,8 @@ why(
                 by(fact("clinical-trial-screening.pl", clause(21)))
               ),
               proof(
-                goal(lt(38.0, 45.0)),
-                by(builtin(lt, 2))
+                goal(<(38.0, 45.0)),
+                by(builtin(<, 2))
               )
             ])
           )
@@ -232,8 +232,8 @@ why(
             by(fact("clinical-trial-screening.pl", clause(7)))
           ),
           proof(
-            goal(not(inclusion_hba1c(p004))),
-            by(builtin(not, 1))
+            goal('\\+'(inclusion_hba1c(p004))),
+            by(builtin('\\+', 1))
           )
         ])
       )
@@ -268,8 +268,8 @@ why(
                 by(fact("clinical-trial-screening.pl", clause(8)))
               ),
               proof(
-                goal(ge(54, 18)),
-                by(builtin(ge, 2))
+                goal(>=(54, 18)),
+                by(builtin(>=, 2))
               )
             ])
           ),
@@ -294,22 +294,22 @@ why(
                 by(fact("clinical-trial-screening.pl", clause(16)))
               ),
               proof(
-                goal(ge(8.4, 7.0)),
-                by(builtin(ge, 2))
+                goal(>=(8.4, 7.0)),
+                by(builtin(>=, 2))
               ),
               proof(
-                goal(le(8.4, 10.5)),
-                by(builtin(le, 2))
+                goal(=<(8.4, 10.5)),
+                by(builtin(=<, 2))
               )
             ])
           ),
           proof(
-            goal(not(exclusion_renal(p001))),
-            by(builtin(not, 1))
+            goal('\\+'(exclusion_renal(p001))),
+            by(builtin('\\+', 1))
           ),
           proof(
-            goal(not(exclusion_pregnancy(p001))),
-            by(builtin(not, 1))
+            goal('\\+'(exclusion_pregnancy(p001))),
+            by(builtin('\\+', 1))
           )
         ])
       )
@@ -335,8 +335,8 @@ why(
             by(fact("clinical-trial-screening.pl", clause(21)))
           ),
           proof(
-            goal(lt(38.0, 45.0)),
-            by(builtin(lt, 2))
+            goal(<(38.0, 45.0)),
+            by(builtin(<, 2))
           )
         ])
       )
@@ -380,8 +380,8 @@ why(
         by(fact("clinical-trial-screening.pl", clause(7)))
       ),
       proof(
-        goal(not(inclusion_hba1c(p004))),
-        by(builtin(not, 1))
+        goal('\\+'(inclusion_hba1c(p004))),
+        by(builtin('\\+', 1))
       )
     ])
   )

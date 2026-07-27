@@ -4,9 +4,9 @@ evaluate(number(N), N).
 evaluate(add(Left, Right), Value) :-
   evaluate(Left, L),
   evaluate(Right, R),
-  add(L, R, Value).
+  (Value is L + R).
 
 evaluate(multiply(Left, Right), Value) :-
   evaluate(Left, L),
   evaluate(Right, R),
-  mul(L, R, Value).
+  (Value is L * R).

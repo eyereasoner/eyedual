@@ -6,6 +6,6 @@
 
 query(isIndeedMoreInterestingThan(X0, X1)).
 
-moreInterestingThan(X, Y) :- gt(X, Y).
+moreInterestingThan(X, Y) :- (X > Y).
 
 isIndeedMoreInterestingThan(5, 3) :- moreInterestingThan(5, 3).

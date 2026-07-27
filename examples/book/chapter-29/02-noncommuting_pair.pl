@@ -4,4 +4,4 @@ noncommuting_pair(A, B) :-
   matrix(B),
   matrix_multiply(A, B, AB),
   matrix_multiply(B, A, BA),
-  neq(AB, BA).
+  (AB \= BA).

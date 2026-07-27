@@ -37,7 +37,7 @@ depends(launch, load_test).
 
 earliest_start(Task, 0) :-
   task(Task, _duration),
-  not(depends(Task, _pred)).
+  \+ depends(Task, _pred).
 earliest_start(Task, Start) :-
   depends(Task, _pred),
   aggregate_max(Finish, Pred,
@@ -47,7 +47,7 @@ earliest_start(Task, Start) :-
 finish_time(Task, Finish) :-
   task(Task, Duration),
   earliest_start(Task, Start),
-  add(Start, Duration, Finish).
+  (Finish is Start + Duration).
 
 % For each task, choose a predecessor that determines its earliest start.
 critical_predecessor(Task, Pred) :-

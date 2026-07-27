@@ -2,4 +2,4 @@
 within_thermal_limits(Battery) :-
   temperature(Battery, T),
   temperature_limit(Max),
-  le(T, Max).
+  (T =< Max).

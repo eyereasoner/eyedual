@@ -44,7 +44,7 @@ generation(adam, 0).
 generation(Child, Next) :-
   parent(Parent, Child),
   generation(Parent, Gen),
-  add(Gen, 1, Next).
+  (Next is Gen + 1).
 
 branch(Child, Branch) :-
   parent(Parent, Child),

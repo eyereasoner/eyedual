@@ -109,9 +109,9 @@ meal_handle(dp_P5, 1, dp_mP5_1). meal_handle(dp_P5, 2, dp_mP5_2). meal_handle(dp
 % Rules derive requests, sends, kept forks, and eating events for each
 % configuration transition, mirroring Chandy-Misra message passing.
 request(C, P, Q, F) :-
-  hungry(C, P), left_fork(P, F), start_state(C, F, Q, _cleanliness), neq(Q, P).
+  hungry(C, P), left_fork(P, F), start_state(C, F, Q, _cleanliness), (Q \= P).
 request(C, P, Q, F) :-
-  hungry(C, P), right_fork(P, F), start_state(C, F, Q, _cleanliness), neq(Q, P).
+  hungry(C, P), right_fork(P, F), start_state(C, F, Q, _cleanliness), (Q \= P).
 
 send_fork(C, Q, P, F) :-
   request(C, P, Q, F), start_state(C, F, Q, dp_Dirty).

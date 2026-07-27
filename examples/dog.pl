@@ -22,4 +22,4 @@ dogCount(Subject, Count) :-
 
 mustHave(Subject, dogLicense) :-
   dogCount(Subject, Count),
-  gt(Count, 4).
+  (Count > 4).

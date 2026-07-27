@@ -6,7 +6,7 @@
 
 % Output declarations: query/1 selects the relations written to this example's golden output.
 query(type(X0, X1)).
-query(is(X0, X1)).
+query(holds_result(X0, X1)).
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 animal(koko).
@@ -18,7 +18,7 @@ witness(british_short_hair, sk_1).
 type(X, cat) :- animal(koko), witness(cat, X).
 type(X, british_short_hair) :- animal(koko), witness(british_short_hair, X).
 
-is(test, true) :-
+holds_result(test, true) :-
   type(X, cat),
   type(Y, british_short_hair),
-  neq(X, Y).
+  (X \= Y).

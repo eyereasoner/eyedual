@@ -6,10 +6,10 @@ color(blue).
 coloring(A, B, C) :-
   color(A),
   color(B),
-  neq(A, B),
+  (A \= B),
   color(C),
-  neq(B, C),
-  neq(A, C).
+  (B \= C),
+  (A \= C).
 
 answer(colors(A, B, C)) :- coloring(A, B, C).
 query(answer(X)).

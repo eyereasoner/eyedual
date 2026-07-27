@@ -18,31 +18,31 @@ sum([], 0.0).
 % derive count, mean, population variance, and standard dederivation.
 sum([X|Xs], Total) :-
   sum(Xs, Rest),
-  add(X, Rest, Total).
+  (Total is X + Rest).
 
 mean(Name, Mean) :-
   sample(Name, Values),
   sum(Values, Total),
   length(Values, Count),
-  div(Total, Count, Mean).
+  (Mean is Total / Count).
 
 squared_error_sum([], _mean, 0.0).
 squared_error_sum([X|Xs], Mean, Total) :-
-  sub(X, Mean, Delta),
-  pow(Delta, 2.0, Squared),
+  (Delta is X - Mean),
+  (Squared is Delta ** 2.0),
   squared_error_sum(Xs, Mean, Rest),
-  add(Squared, Rest, Total).
+  (Total is Squared + Rest).
 
 population_variance(Name, Variance) :-
   sample(Name, Values),
   mean(Name, Mean),
   squared_error_sum(Values, Mean, Sumsquarederrors),
   length(Values, Count),
-  div(Sumsquarederrors, Count, Variance).
+  (Variance is Sumsquarederrors / Count).
 
 population_stddev(Name, Stddev) :-
   population_variance(Name, Variance),
-  pow(Variance, 0.5, Stddev).
+  (Stddev is Variance ** 0.5).
 
 count(Name, Count) :-
   sample(Name, Values),

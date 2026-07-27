@@ -5,4 +5,4 @@ hot_event(Id) :-
   message(Id, Context),
   holds(Context, severity(high)),
   holds(Context, reading(temp, Value)),
-  gt(Value, 80).
+  (Value > 80).

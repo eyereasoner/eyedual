@@ -32,7 +32,51 @@ function isPlainAtomStartCode(code) {
   return code >= 97 && code <= 122;
 }
 
-const graphicAtomChars = '#$&*+-/<=>@^~\\';
+const graphicAtomChars = '#$&*+-./<=>@^~\\;:';
+
+// ISO operator syntax is lowered to the same ordinary compound terms used by
+// canonical notation. Commas remain separators except inside parentheses.
+const INFIX_OPERATORS = new Map([
+  [';', { precedence: 5, associativity: 'right' }],
+  ['->', { precedence: 7, associativity: 'right' }],
+  [',', { precedence: 10, associativity: 'right' }],
+  ['=', { precedence: 20, associativity: 'left' }],
+  ['=..', { precedence: 20, associativity: 'left' }],
+  ['\\=', { precedence: 20, associativity: 'left' }],
+  ['==', { precedence: 20, associativity: 'left' }],
+  ['\\==', { precedence: 20, associativity: 'left' }],
+  ['@<', { precedence: 20, associativity: 'left' }],
+  ['@=<', { precedence: 20, associativity: 'left' }],
+  ['@>', { precedence: 20, associativity: 'left' }],
+  ['@>=', { precedence: 20, associativity: 'left' }],
+  ['is', { precedence: 20, associativity: 'left' }],
+  ['=:=', { precedence: 20, associativity: 'left' }],
+  ['=\\=', { precedence: 20, associativity: 'left' }],
+  ['<', { precedence: 20, associativity: 'left' }],
+  ['=<', { precedence: 20, associativity: 'left' }],
+  ['>', { precedence: 20, associativity: 'left' }],
+  ['>=', { precedence: 20, associativity: 'left' }],
+  ['+', { precedence: 30, associativity: 'left' }],
+  ['-', { precedence: 30, associativity: 'left' }],
+  ['/\\', { precedence: 30, associativity: 'left' }],
+  ['\\/', { precedence: 30, associativity: 'left' }],
+  ['*', { precedence: 40, associativity: 'left' }],
+  ['/', { precedence: 40, associativity: 'left' }],
+  ['//', { precedence: 40, associativity: 'left' }],
+  ['div', { precedence: 40, associativity: 'left' }],
+  ['mod', { precedence: 40, associativity: 'left' }],
+  ['rem', { precedence: 40, associativity: 'left' }],
+  ['<<', { precedence: 40, associativity: 'left' }],
+  ['>>', { precedence: 40, associativity: 'left' }],
+  ['**', { precedence: 50, associativity: 'right' }],
+  ['^', { precedence: 50, associativity: 'right' }],
+]);
+const PREFIX_OPERATORS = new Map([
+  ['\\+', 15],
+  ['+', 45],
+  ['-', 45],
+  ['\\', 45],
+]);
 
 function isGraphicAtomCode(code) {
   return graphicAtomChars.includes(String.fromCharCode(code));
@@ -116,7 +160,7 @@ class Parser {
         }
         text += value;
       }
-      return { type: quote === '"' ? TOK.STRING : TOK.ATOM, text, line };
+      return { type: quote === '"' ? TOK.STRING : TOK.ATOM, text, line, quoted: true };
     }
 
     if (isDigitCode(ch.charCodeAt(0)) || (ch === '-' && isDigitCode(this.peek(1).charCodeAt(0)))) {
@@ -170,23 +214,11 @@ class Parser {
     if (this.token.type !== type) throw new Error(`parse line ${this.token.line}: expected ${desc}, got ${this.token.text}`);
   }
   parseParenthesizedTerm() {
-    // Parenthesized comma terms are represented as right-associated ','/2
-    // compounds, which lets the solver flatten conjunctions uniformly.
     this.expect(TOK.LPAREN, '(');
     this.advance();
-    const items = [];
-    while (true) {
-      items.push(this.parseTerm());
-      if (this.token.type === TOK.COMMA) {
-        this.advance();
-        continue;
-      }
-      break;
-    }
+    const term = this.parseTerm(0, true);
     this.expect(TOK.RPAREN, ')');
     this.advance();
-    let term = items[items.length - 1];
-    for (let i = items.length - 2; i >= 0; i--) term = compound(',', [items[i], term]);
     return term;
   }
   parseList() {
@@ -221,7 +253,38 @@ class Parser {
     for (let i = items.length - 1; i >= 0; i--) tail = cons(items[i], tail);
     return tail;
   }
-  parseTerm() {
+  parseTerm(minPrecedence = 0, allowComma = false) {
+    let left = this.parsePrefixTerm();
+    while (true) {
+      const op = this.token.type === TOK.COMMA && allowComma
+        ? ','
+        : this.token.type === TOK.ATOM && !this.token.quoted ? this.token.text : null;
+      const info = op == null ? null : INFIX_OPERATORS.get(op);
+      if (!info || info.precedence < minPrecedence) break;
+      this.advance();
+      const right = this.parseTerm(info.associativity === 'right' ? info.precedence : info.precedence + 1, allowComma);
+      left = compound(op, [left, right]);
+    }
+    return left;
+  }
+  parsePrefixTerm() {
+    if (this.token.type === TOK.ATOM && !this.token.quoted && PREFIX_OPERATORS.has(this.token.text)) {
+      const op = this.token.text;
+      this.advance();
+      if (this.token.type === TOK.LPAREN) {
+        this.advance();
+        const args = [];
+        while (true) {
+          args.push(this.parseTerm(0, false));
+          if (this.token.type !== TOK.COMMA) break;
+          this.advance();
+        }
+        this.expect(TOK.RPAREN, ')');
+        this.advance();
+        return compound(op, args);
+      }
+      return compound(op, [this.parseTerm(PREFIX_OPERATORS.get(op), false)]);
+    }
     if (this.token.type === TOK.LPAREN) return this.parseParenthesizedTerm();
     if (this.token.type === TOK.LBRACKET) return this.parseList();
     if (this.token.type === TOK.VAR) {
@@ -250,7 +313,7 @@ class Parser {
           throw new Error(`parse line ${this.token.line}: zero-arity compound syntax is not supported; use atom ${JSON.stringify(name)} for arity zero data`);
         }
         while (true) {
-          args.push(this.parseTerm());
+          args.push(this.parseTerm(0, false));
           if (this.token.type === TOK.COMMA) {
             this.advance();
             continue;

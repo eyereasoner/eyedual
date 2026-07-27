@@ -25,7 +25,7 @@ lookup(Name, [bind(Name, Value) | _], Value).
 lookup(Name, [bind(_, _) | Rest], Value) :- lookup(Name, Rest, Value).
 
 known_var(Env, Name, Value) :- lookup(Name, Env, Value).
-unknown_var(Env, Name) :- not(known_var(Env, Name, _)).
+unknown_var(Env, Name) :- \+ known_var(Env, Name, _).
 
 pe(_, const(N), const(N)).
 pe(_, bool(B), bool(B)).
@@ -36,21 +36,21 @@ pe(Env, var(Name), var(Name)) :- unknown_var(Env, Name).
 pe(Env, add(Left, Right), const(Sum)) :-
   pe(Env, Left, const(A)),
   pe(Env, Right, const(B)),
-  add(A, B, Sum).
+  (Sum is A + B).
 pe(Env, mul(Left, Right), const(Product)) :-
   pe(Env, Left, const(A)),
   pe(Env, Right, const(B)),
-  mul(A, B, Product).
+  (Product is A * B).
 
 % Residual arithmetic when at least one operand remains dynamic.
 pe(Env, add(Left, Right), add(Left_residual, Right_residual)) :-
   pe(Env, Left, Left_residual),
   pe(Env, Right, Right_residual),
-  not((eq(Left_residual, const(A)), eq(Right_residual, const(B)))).
+  \+ ((Left_residual = const(A)), (Right_residual = const(B))).
 pe(Env, mul(Left, Right), mul(Left_residual, Right_residual)) :-
   pe(Env, Left, Left_residual),
   pe(Env, Right, Right_residual),
-  not((eq(Left_residual, const(A)), eq(Right_residual, const(B)))).
+  \+ ((Left_residual = const(A)), (Right_residual = const(B))).
 
 % Static conditionals choose a branch; dynamic conditionals keep both residual
 % branches after specializing their contents.
@@ -62,8 +62,8 @@ pe(Env, if(Cond, Then, Else), Residual) :-
   pe(Env, Else, Residual).
 pe(Env, if(Cond, Then, Else), if(Cond_residual, Then_residual, Else_residual)) :-
   pe(Env, Cond, Cond_residual),
-  not(eq(Cond_residual, bool(true))),
-  not(eq(Cond_residual, bool(false))),
+  \+ (Cond_residual = bool(true)),
+  \+ (Cond_residual = bool(false)),
   pe(Env, Then, Then_residual),
   pe(Env, Else, Else_residual).
 

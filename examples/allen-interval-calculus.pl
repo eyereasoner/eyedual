@@ -30,24 +30,24 @@ interval(I) :- interval_table(Table), member(interval(I, _start, _end), Table).
 start(I, Start) :- interval_table(Table), member(interval(I, Start, _end), Table).
 end(I, End) :- interval_table(Table), member(interval(I, _start, End), Table).
 
-relation(I, before, J) :- end(I, Ei), start(J, Sj), lt(Ei, Sj).
+relation(I, before, J) :- end(I, Ei), start(J, Sj), (Ei < Sj).
 relation(I, meets, J) :- end(I, E), start(J, E).
 relation(I, overlaps, J) :-
   start(I, Si), end(I, Ei),
   start(J, Sj), end(J, Ej),
-  lt(Si, Sj), lt(Sj, Ei), lt(Ei, Ej).
+  (Si < Sj), (Sj < Ei), (Ei < Ej).
 relation(I, starts, J) :-
   start(I, S), start(J, S),
   end(I, Ei), end(J, Ej),
-  lt(Ei, Ej).
+  (Ei < Ej).
 relation(I, during, J) :-
   start(I, Si), end(I, Ei),
   start(J, Sj), end(J, Ej),
-  lt(Sj, Si), lt(Ei, Ej).
+  (Sj < Si), (Ei < Ej).
 relation(I, finishes, J) :-
   end(I, E), end(J, E),
   start(I, Si), start(J, Sj),
-  lt(Sj, Si).
+  (Sj < Si).
 relation(I, equals, J) :-
   start(I, S), start(J, S),
   end(I, E), end(J, E).
@@ -59,6 +59,6 @@ relation(J, startedBy, I) :- relation(I, starts, J).
 relation(J, contains, I) :- relation(I, during, J).
 relation(J, finishedBy, I) :- relation(I, finishes, J).
 
-duration(I, D) :- end(I, E), start(I, S), sub(E, S, D).
+duration(I, D) :- end(I, E), start(I, S), (D is E - S).
 
 statement(I, Rel, J) :- relation(I, Rel, J).

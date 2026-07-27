@@ -135,7 +135,6 @@ export function unify(left, right, env) {
     }
 
     if (a.type !== b.type) {
-      if (isScalar(a) && isScalar(b) && a.name === b.name) continue;
       return false;
     }
 
@@ -184,6 +183,7 @@ const graphicAtomChars = new Set('#$&*+-/<=>@^~\\'.split(''));
 function atomNeedsQuotes(name) {
   if (!name) return true;
   if (name === '[]') return false;
+  if (name === '\\+' || name === '+' || name === '-' || name === '\\') return true;
   if (/^[a-z][A-Za-z0-9_]*$/.test(name)) return false;
   for (const ch of name) if (!graphicAtomChars.has(ch)) return true;
   return false;
@@ -344,8 +344,8 @@ export function compareTerms(left, right) {
   if (lr !== rr) return lr < rr ? -1 : 1;
   if (left.type === NUMBER) return compareNumberText(left.name, right.name);
   if (left.type === VAR || left.type === ATOM || left.type === STRING) return left.name < right.name ? -1 : left.name > right.name ? 1 : 0;
-  if (left.name !== right.name) return left.name < right.name ? -1 : 1;
   if (left.arity !== right.arity) return left.arity < right.arity ? -1 : 1;
+  if (left.name !== right.name) return left.name < right.name ? -1 : 1;
   for (let i = 0; i < left.arity; i++) {
     const cmp = compareTerms(left.args[i], right.args[i]);
     if (cmp) return cmp;

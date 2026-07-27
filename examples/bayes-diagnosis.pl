@@ -59,28 +59,28 @@ evidence([
 factor(Disease, Symptom, true, P) :- p_given(Disease, Symptom, P).
 factor(Disease, Symptom, false, Q) :-
   p_given(Disease, Symptom, P),
-  sub(1000, P, Q).
+  (Q is 1000 - P).
 
 likelihood(_disease, [], Acc, Acc).
 likelihood(Disease, [ev(Symptom, Present)|Rest], Acc, Value) :-
   factor(Disease, Symptom, Present, Factor),
-  mul(Acc, Factor, Next),
+  (Next is Acc * Factor),
   likelihood(Disease, Rest, Next, Value).
 
 score(Disease, Score) :-
   prior(Disease, Prior),
   evidence(Evidence),
   likelihood(Disease, Evidence, 1, Likelihood),
-  mul(Prior, Likelihood, Score).
+  (Score is Prior * Likelihood).
 
 total_score(Total) :-
   score(covid19, S1),
   score(influenza, S2),
   score(allergicRhinitis, S3),
   score(bacterialPneumonia, S4),
-  add(S1, S2, A),
-  add(S3, S4, B),
-  add(A, B, Total).
+  (A is S1 + S2),
+  (B is S3 + S4),
+  (Total is A + B).
 
 % Decimal surface values from the Eyeling reference output.
 score_decimal(covid19, 0.0015470000000000002).

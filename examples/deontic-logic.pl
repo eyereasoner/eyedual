@@ -42,7 +42,7 @@ uncompensated_violation(Actor, missed_obligation(Action)) :-
 
 uncompensated_violation(Actor, prohibited_action(Action)) :-
   violation(Actor, prohibited_action(Action)),
-  not(compensated_violation(Actor, Action, _compensation)).
+  \+ compensated_violation(Actor, Action, _compensation).
 
 
 compensation(Actor, compensation(Action, Compensation)) :-

@@ -59,7 +59,7 @@ formula_satisfied(World, cancer_is_rare) :-
 formula_violated(World, Formula) :-
   candidate_world(World, _, _),
   formula_weight_tenths(Formula, _),
-  not(formula_satisfied(World, Formula)).
+  \+ formula_satisfied(World, Formula).
 
 contribution_tenths(World, Formula, Weight) :-
   formula_satisfied(World, Formula),

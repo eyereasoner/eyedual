@@ -23,8 +23,8 @@ why(
         by(builtin(difference, 3))
       ),
       proof(
-        goal(gt("P81Y9M9D", "P80Y")),
-        by(builtin(gt, 2))
+        goal(@>("P81Y9M9D", "P80Y")),
+        by(builtin(@>, 2))
       )
     ])
   )

@@ -14,25 +14,25 @@ move(1, 1).
 
 % A bank is safe if there are no missionaries or missionaries are not outnumbered.
 bank_safe(0, _c).
-bank_safe(M, C) :- gt(M, 0), ge(M, C).
+bank_safe(M, C) :- (M > 0), (M >= C).
 
 state_safe(state(Mleft, Cleft, _boat)) :-
   between(0, 3, Mleft),
   between(0, 3, Cleft),
-  sub(3, Mleft, Mright),
-  sub(3, Cleft, Cright),
+  (Mright is 3 - Mleft),
+  (Cright is 3 - Cleft),
   bank_safe(Mleft, Cleft),
   bank_safe(Mright, Cright).
 
 crossing(state(Mleft, Cleft, left), state(Nextm, Nextc, right), carry(Movem, Movec)) :-
   move(Movem, Movec),
-  sub(Mleft, Movem, Nextm),
-  sub(Cleft, Movec, Nextc),
+  (Nextm is Mleft - Movem),
+  (Nextc is Cleft - Movec),
   state_safe(state(Nextm, Nextc, right)).
 crossing(state(Mleft, Cleft, right), state(Nextm, Nextc, left), carry(Movem, Movec)) :-
   move(Movem, Movec),
-  add(Mleft, Movem, Nextm),
-  add(Cleft, Movec, Nextc),
+  (Nextm is Mleft + Movem),
+  (Nextc is Cleft + Movec),
   state_safe(state(Nextm, Nextc, left)).
 
 journey(Goal, Goal, Visited, Visited).
@@ -50,4 +50,4 @@ missionaries_cannibals_answer(state_count, Count) :- countall(state_safe(state(_
 missionaries_cannibals_answer(step_count, Steps) :-
   once(solution(Path)),
   length(Path, States),
-  sub(States, 1, Steps).
+  (Steps is States - 1).

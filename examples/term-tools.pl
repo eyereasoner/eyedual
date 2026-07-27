@@ -20,13 +20,13 @@ report(second_argument, Node) :-
   arg(2, edge(a, b, 3), Node).
 
 report(parts, parts(Name, Args)) :-
-  compound_name_arguments(edge(a, b, 3), Name, Args).
+  (edge(a, b, 3) =.. [Name | Args]).
 
 report(rebuilt, Term) :-
-  compound_name_arguments(Term, edge, [c, d, 5]).
+  (Term =.. [edge | [c, d, 5]]).
 
 report(rendered, Text) :-
   term_string(edge(a, [b, c]), Text).
 
 report(all_weights_positive, yes) :-
-  forall(edge(_from, _to, Weight), gt(Weight, 0)).
+  forall(edge(_from, _to, Weight), (Weight > 0)).

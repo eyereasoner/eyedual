@@ -52,12 +52,12 @@ for (const reference of localReferences) {
 }
 
 const builtinsStart = book.indexOf('| Family | Registered predicate indicators |');
-const builtinsEnd = book.indexOf('### Readiness, determinism, and fallback', builtinsStart);
+const builtinsEnd = book.indexOf('\n\n', builtinsStart);
 if (builtinsStart < 0 || builtinsEnd < 0) {
   failures.push('Could not find the built-in index in Appendix B');
 } else {
   const documented = new Set(
-    [...book.slice(builtinsStart, builtinsEnd).matchAll(/`([a-z][a-z0-9_]*)\/(\d+)`/g)]
+    [...book.slice(builtinsStart, builtinsEnd).matchAll(/`([^`\s]+)\/(\d+)`/g)]
       .map((match) => `${match[1]}/${match[2]}`),
   );
   const registered = new Set(getDefaultRegistry().defs.keys());

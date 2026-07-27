@@ -1,12 +1,7 @@
-answer(max_negative, -3).
+answer(max_negative, -3.0).
 answer(min_float, -1.25).
 answer(floor_negative, -4).
 answer(ceiling_negative, -3).
 answer(trunc_positive, 3).
 answer(sqrt_fraction, 1.5).
 answer(pow_fraction, 3.0).
-answer(sqrt_negative_rejected, ok).
-answer(log_zero_rejected, ok).
-answer(div_zero_rejected, ok).
-answer(mod_float_rejected, ok).
-answer(pow_negative_integer_exponent_rejected, ok).

@@ -1,8 +1,8 @@
-is(socrates, human_witness(socrates)).
+holds_result(socrates, human_witness(socrates)).
 why(
-  is(socrates, human_witness(socrates)),
+  holds_result(socrates, human_witness(socrates)),
   proof(
-    goal(is(socrates, human_witness(socrates))),
+    goal(holds_result(socrates, human_witness(socrates))),
     by(rule("existential-rule.pl", clause(4))),
     bindings([binding("Person", socrates)]),
     uses([
@@ -14,11 +14,11 @@ why(
   )
 ).
 
-is(plato, human_witness(plato)).
+holds_result(plato, human_witness(plato)).
 why(
-  is(plato, human_witness(plato)),
+  holds_result(plato, human_witness(plato)),
   proof(
-    goal(is(plato, human_witness(plato))),
+    goal(holds_result(plato, human_witness(plato))),
     by(rule("existential-rule.pl", clause(4))),
     bindings([binding("Person", plato)]),
     uses([

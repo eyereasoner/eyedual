@@ -5,4 +5,4 @@ preserves_combine(X, Y) :-
   image(Y, IY),
   image(XY, IXY),
   combine(IX, IY, CombinedImages),
-  eq(IXY, CombinedImages).
+  (IXY = CombinedImages).

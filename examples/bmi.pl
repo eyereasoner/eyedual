@@ -59,7 +59,7 @@ weightKg(case, W) :-
 heightM(case, M) :-
   unitSystem(input, metric),
   height(input, H),
-  div(H, 100.0, M).
+  (M is H / 100.0).
 
 units(reason, "Inputs were already metric, so kilograms stay kilograms and centimeters are divided by 100 to obtain meters.") :-
   unitSystem(input, metric).
@@ -67,76 +67,76 @@ units(reason, "Inputs were already metric, so kilograms stay kilograms and centi
 weightKg(case, Kg) :-
   unitSystem(input, us),
   weight(input, W),
-  mul(W, 0.45359237, Kg).
+  (Kg is W * 0.45359237).
 
 heightM(case, M) :-
   unitSystem(input, us),
   height(input, H),
-  mul(H, 0.0254, M).
+  (M is H * 0.0254).
 
 units(reason, "US inputs were converted to SI units: pounds to kilograms and inches to meters.") :-
   unitSystem(input, us).
 
 heightSquared(case, M2) :-
   heightM(case, M),
-  mul(M, M, M2).
+  (M2 is M * M).
 
 bmi(case, Bmi) :-
   weightKg(case, Kg),
   heightSquared(case, M2),
-  div(Kg, M2, Bmi).
+  (Bmi is Kg / M2).
 
 bmiRoundedInt(case, Bmiroundedint) :-
   bmi(case, Bmi),
-  mul(Bmi, 100.0, Bmix100),
-  rounded(Bmix100, Bmiroundedint).
+  (Bmix100 is Bmi * 100.0),
+  (Bmiroundedint is round(Bmix100)).
 
 healthyMinKg(case, Healthymin) :-
   heightSquared(case, M2),
-  mul(18.5, M2, Healthymin).
+  (Healthymin is 18.5 * M2).
 
 healthyMaxKg(case, Healthymax) :-
   heightSquared(case, M2),
-  mul(24.9, M2, Healthymax).
+  (Healthymax is 24.9 * M2).
 
 healthyMinKgRoundedInt(case, Minroundedint) :-
   healthyMinKg(case, Healthymin),
-  mul(Healthymin, 10.0, Minx10),
-  rounded(Minx10, Minroundedint).
+  (Minx10 is Healthymin * 10.0),
+  (Minroundedint is round(Minx10)).
 
 healthyMaxKgRoundedInt(case, Maxroundedint) :-
   healthyMaxKg(case, Healthymax),
-  mul(Healthymax, 10.0, Maxx10),
-  rounded(Maxx10, Maxroundedint).
+  (Maxx10 is Healthymax * 10.0),
+  (Maxroundedint is round(Maxx10)).
 
 % WHO adult categories, using half-open intervals.
 category(decision, "Underweight") :-
   bmi(case, Bmi),
-  lt(Bmi, 18.5).
+  (Bmi < 18.5).
 
 category(decision, "Normal") :-
   bmi(case, Bmi),
-  ge(Bmi, 18.5),
-  lt(Bmi, 25.0).
+  (Bmi >= 18.5),
+  (Bmi < 25.0).
 
 category(decision, "Overweight") :-
   bmi(case, Bmi),
-  ge(Bmi, 25.0),
-  lt(Bmi, 30.0).
+  (Bmi >= 25.0),
+  (Bmi < 30.0).
 
 category(decision, "Obesity I") :-
   bmi(case, Bmi),
-  ge(Bmi, 30.0),
-  lt(Bmi, 35.0).
+  (Bmi >= 30.0),
+  (Bmi < 35.0).
 
 category(decision, "Obesity II") :-
   bmi(case, Bmi),
-  ge(Bmi, 35.0),
-  lt(Bmi, 40.0).
+  (Bmi >= 35.0),
+  (Bmi < 40.0).
 
 category(decision, "Obesity III") :-
   bmi(case, Bmi),
-  ge(Bmi, 40.0).
+  (Bmi >= 40.0).
 
 % Answer and reason why.
 bmi(answer, 22.72) :-
@@ -153,8 +153,8 @@ healthyMaxKg(answer, 78.9) :-
 
 heightCm(answer, Cmrounded) :-
   heightM(case, M),
-  mul(M, 100.0, Cm),
-  rounded(Cm, Cmrounded).
+  (Cm is M * 100.0),
+  (Cmrounded is round(Cm)).
 
 formula(reason, "BMI is defined as weight in kilograms divided by height in meters squared.") :-
   bmi(case, _bmi).
@@ -172,48 +172,48 @@ unitsExplanation(reason, Units) :-
 c1(check, "OK - the input was normalized into positive SI values.") :-
   weightKg(case, Kg),
   heightM(case, M),
-  gt(Kg, 0),
-  gt(M, 0).
+  (Kg > 0),
+  (M > 0).
 
 c2(check, "OK - height squared was reconstructed from the normalized height.") :-
   heightM(case, M),
   heightSquared(case, M2),
-  mul(M, M, M2).
+  (M2 is M * M).
 
 c3(check, "OK - the BMI value matches the BMI = kg / m² formula.") :-
   weightKg(case, Kg),
   heightSquared(case, M2),
   bmi(case, Bmi),
-  div(Kg, M2, Bmi).
+  (Bmi is Kg / M2).
 
 c4(check, "OK - a BMI of 18.49 stays below the normal-weight threshold.") :-
-  lt(18.49, 18.5).
+  (18.49 < 18.5).
 
 c5(check, "OK - the lower boundary is half-open: BMI 18.5 is classified as Normal.") :-
-  ge(18.5, 18.5),
-  lt(18.5, 25.0).
+  (18.5 >= 18.5),
+  (18.5 < 25.0).
 
 c6(check, "OK - BMI 25.0 starts the Overweight category.") :-
-  ge(25.0, 25.0),
-  lt(25.0, 30.0).
+  (25.0 >= 25.0),
+  (25.0 < 30.0).
 
 c7(check, "OK - BMI 30.0 starts the Obesity I category.") :-
-  ge(30.0, 30.0),
-  lt(30.0, 35.0).
+  (30.0 >= 30.0),
+  (30.0 < 35.0).
 
 c8(check, "OK - classification behavior is monotonic across representative BMI values.") :-
-  ge(22.0, 18.5),
-  lt(22.0, 25.0),
-  ge(27.0, 25.0),
-  lt(27.0, 30.0),
-  ge(41.0, 40.0).
+  (22.0 >= 18.5),
+  (22.0 < 25.0),
+  (27.0 >= 25.0),
+  (27.0 < 30.0),
+  (41.0 >= 40.0).
 
 c9(check, "OK - the healthy-weight band was reconstructed from BMI 18.5 to 24.9 at the same height.") :-
   heightSquared(case, M2),
   healthyMinKg(case, Min),
   healthyMaxKg(case, Max),
-  mul(18.5, M2, Min),
-  mul(24.9, M2, Max).
+  (Min is 18.5 * M2),
+  (Max is 24.9 * M2).
 
 % Derived report summary.  These relations are consequences of the calculation
 % and checks, not pre-written report lines.

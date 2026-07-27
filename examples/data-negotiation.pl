@@ -16,7 +16,7 @@ want_negotiate(agent1, [agent2, data7]).
 policy(agent1, [request, Data]) :-
   member(Data, [data4, data6]).
 policy(agent2, [accept, Data]) :-
-  neq(Data, data5).
+  (Data \= data5).
 
 % A request is possible only if A lacks the data and A's policy allows asking for it.
 request_data(Agenta, Agentb, Data) :-

@@ -28,18 +28,18 @@ why(
             by(fact("epidemic-policy.pl", clause(15)))
           ),
           proof(
-            goal(mul(1.40, 1.00, 1.3999999999999999)),
-            by(builtin(mul, 3))
+            goal(is(1.3999999999999999, *(1.40, 1.00))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(1.3999999999999999, 1.00, 1.3999999999999999)),
-            by(builtin(mul, 3))
+            goal(is(1.3999999999999999, *(1.3999999999999999, 1.00))),
+            by(builtin(is, 2))
           )
         ])
       ),
       proof(
-        goal(gt(1.3999999999999999, 0.75)),
-        by(builtin(gt, 2))
+        goal(>(1.3999999999999999, 0.75)),
+        by(builtin(>, 2))
       )
     ])
   )
@@ -75,18 +75,18 @@ why(
             by(fact("epidemic-policy.pl", clause(16)))
           ),
           proof(
-            goal(mul(1.40, 0.55, 0.77000000000000002)),
-            by(builtin(mul, 3))
+            goal(is(0.77000000000000002, *(1.40, 0.55))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(0.77000000000000002, 1.00, 0.77000000000000002)),
-            by(builtin(mul, 3))
+            goal(is(0.77000000000000002, *(0.77000000000000002, 1.00))),
+            by(builtin(is, 2))
           )
         ])
       ),
       proof(
-        goal(gt(0.77000000000000002, 0.75)),
-        by(builtin(gt, 2))
+        goal(>(0.77000000000000002, 0.75)),
+        by(builtin(>, 2))
       )
     ])
   )
@@ -122,18 +122,18 @@ why(
             by(fact("epidemic-policy.pl", clause(17)))
           ),
           proof(
-            goal(mul(1.40, 1.00, 1.3999999999999999)),
-            by(builtin(mul, 3))
+            goal(is(1.3999999999999999, *(1.40, 1.00))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(1.3999999999999999, 0.65, 0.90999999999999992)),
-            by(builtin(mul, 3))
+            goal(is(0.90999999999999992, *(1.3999999999999999, 0.65))),
+            by(builtin(is, 2))
           )
         ])
       ),
       proof(
-        goal(gt(0.90999999999999992, 0.75)),
-        by(builtin(gt, 2))
+        goal(>(0.90999999999999992, 0.75)),
+        by(builtin(>, 2))
       )
     ])
   )
@@ -170,18 +170,18 @@ why(
                 by(fact("epidemic-policy.pl", clause(18)))
               ),
               proof(
-                goal(mul(1.40, 0.55, 0.77000000000000002)),
-                by(builtin(mul, 3))
+                goal(is(0.77000000000000002, *(1.40, 0.55))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(0.77000000000000002, 0.65, 0.50050000000000006)),
-                by(builtin(mul, 3))
+                goal(is(0.50050000000000006, *(0.77000000000000002, 0.65))),
+                by(builtin(is, 2))
               )
             ])
           ),
           proof(
-            goal(le(0.50050000000000006, 0.75)),
-            by(builtin(le, 2))
+            goal(=<(0.50050000000000006, 0.75)),
+            by(builtin(=<, 2))
           )
         ])
       )
@@ -215,12 +215,12 @@ why(
             by(fact("epidemic-policy.pl", clause(15)))
           ),
           proof(
-            goal(mul(1.40, 1.00, 1.3999999999999999)),
-            by(builtin(mul, 3))
+            goal(is(1.3999999999999999, *(1.40, 1.00))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(1.3999999999999999, 1.00, 1.3999999999999999)),
-            by(builtin(mul, 3))
+            goal(is(1.3999999999999999, *(1.3999999999999999, 1.00))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -254,12 +254,12 @@ why(
             by(fact("epidemic-policy.pl", clause(16)))
           ),
           proof(
-            goal(mul(1.40, 0.55, 0.77000000000000002)),
-            by(builtin(mul, 3))
+            goal(is(0.77000000000000002, *(1.40, 0.55))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(0.77000000000000002, 1.00, 0.77000000000000002)),
-            by(builtin(mul, 3))
+            goal(is(0.77000000000000002, *(0.77000000000000002, 1.00))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -293,12 +293,12 @@ why(
             by(fact("epidemic-policy.pl", clause(17)))
           ),
           proof(
-            goal(mul(1.40, 1.00, 1.3999999999999999)),
-            by(builtin(mul, 3))
+            goal(is(1.3999999999999999, *(1.40, 1.00))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(1.3999999999999999, 0.65, 0.90999999999999992)),
-            by(builtin(mul, 3))
+            goal(is(0.90999999999999992, *(1.3999999999999999, 0.65))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -332,12 +332,12 @@ why(
             by(fact("epidemic-policy.pl", clause(18)))
           ),
           proof(
-            goal(mul(1.40, 0.55, 0.77000000000000002)),
-            by(builtin(mul, 3))
+            goal(is(0.77000000000000002, *(1.40, 0.55))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(0.77000000000000002, 0.65, 0.50050000000000006)),
-            by(builtin(mul, 3))
+            goal(is(0.50050000000000006, *(0.77000000000000002, 0.65))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -444,18 +444,18 @@ why(
                     by(fact("epidemic-policy.pl", clause(18)))
                   ),
                   proof(
-                    goal(mul(1.40, 0.55, 0.77000000000000002)),
-                    by(builtin(mul, 3))
+                    goal(is(0.77000000000000002, *(1.40, 0.55))),
+                    by(builtin(is, 2))
                   ),
                   proof(
-                    goal(mul(0.77000000000000002, 0.65, 0.50050000000000006)),
-                    by(builtin(mul, 3))
+                    goal(is(0.50050000000000006, *(0.77000000000000002, 0.65))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(le(0.50050000000000006, 0.75)),
-                by(builtin(le, 2))
+                goal(=<(0.50050000000000006, 0.75)),
+                by(builtin(=<, 2))
               )
             ])
           ),
@@ -486,18 +486,18 @@ why(
                     by(fact("epidemic-policy.pl", clause(15)))
                   ),
                   proof(
-                    goal(mul(1.40, 1.00, 1.3999999999999999)),
-                    by(builtin(mul, 3))
+                    goal(is(1.3999999999999999, *(1.40, 1.00))),
+                    by(builtin(is, 2))
                   ),
                   proof(
-                    goal(mul(1.3999999999999999, 1.00, 1.3999999999999999)),
-                    by(builtin(mul, 3))
+                    goal(is(1.3999999999999999, *(1.3999999999999999, 1.00))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(gt(1.3999999999999999, 0.75)),
-                by(builtin(gt, 2))
+                goal(>(1.3999999999999999, 0.75)),
+                by(builtin(>, 2))
               )
             ])
           ),
@@ -528,18 +528,18 @@ why(
                     by(fact("epidemic-policy.pl", clause(16)))
                   ),
                   proof(
-                    goal(mul(1.40, 0.55, 0.77000000000000002)),
-                    by(builtin(mul, 3))
+                    goal(is(0.77000000000000002, *(1.40, 0.55))),
+                    by(builtin(is, 2))
                   ),
                   proof(
-                    goal(mul(0.77000000000000002, 1.00, 0.77000000000000002)),
-                    by(builtin(mul, 3))
+                    goal(is(0.77000000000000002, *(0.77000000000000002, 1.00))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(gt(0.77000000000000002, 0.75)),
-                by(builtin(gt, 2))
+                goal(>(0.77000000000000002, 0.75)),
+                by(builtin(>, 2))
               )
             ])
           ),
@@ -570,18 +570,18 @@ why(
                     by(fact("epidemic-policy.pl", clause(17)))
                   ),
                   proof(
-                    goal(mul(1.40, 1.00, 1.3999999999999999)),
-                    by(builtin(mul, 3))
+                    goal(is(1.3999999999999999, *(1.40, 1.00))),
+                    by(builtin(is, 2))
                   ),
                   proof(
-                    goal(mul(1.3999999999999999, 0.65, 0.90999999999999992)),
-                    by(builtin(mul, 3))
+                    goal(is(0.90999999999999992, *(1.3999999999999999, 0.65))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(gt(0.90999999999999992, 0.75)),
-                by(builtin(gt, 2))
+                goal(>(0.90999999999999992, 0.75)),
+                by(builtin(>, 2))
               )
             ])
           )
@@ -625,18 +625,18 @@ why(
                     by(fact("epidemic-policy.pl", clause(18)))
                   ),
                   proof(
-                    goal(mul(1.40, 0.55, 0.77000000000000002)),
-                    by(builtin(mul, 3))
+                    goal(is(0.77000000000000002, *(1.40, 0.55))),
+                    by(builtin(is, 2))
                   ),
                   proof(
-                    goal(mul(0.77000000000000002, 0.65, 0.50050000000000006)),
-                    by(builtin(mul, 3))
+                    goal(is(0.50050000000000006, *(0.77000000000000002, 0.65))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(le(0.50050000000000006, 0.75)),
-                by(builtin(le, 2))
+                goal(=<(0.50050000000000006, 0.75)),
+                by(builtin(=<, 2))
               )
             ])
           ),
@@ -667,18 +667,18 @@ why(
                     by(fact("epidemic-policy.pl", clause(15)))
                   ),
                   proof(
-                    goal(mul(1.40, 1.00, 1.3999999999999999)),
-                    by(builtin(mul, 3))
+                    goal(is(1.3999999999999999, *(1.40, 1.00))),
+                    by(builtin(is, 2))
                   ),
                   proof(
-                    goal(mul(1.3999999999999999, 1.00, 1.3999999999999999)),
-                    by(builtin(mul, 3))
+                    goal(is(1.3999999999999999, *(1.3999999999999999, 1.00))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(gt(1.3999999999999999, 0.75)),
-                by(builtin(gt, 2))
+                goal(>(1.3999999999999999, 0.75)),
+                by(builtin(>, 2))
               )
             ])
           ),
@@ -709,18 +709,18 @@ why(
                     by(fact("epidemic-policy.pl", clause(16)))
                   ),
                   proof(
-                    goal(mul(1.40, 0.55, 0.77000000000000002)),
-                    by(builtin(mul, 3))
+                    goal(is(0.77000000000000002, *(1.40, 0.55))),
+                    by(builtin(is, 2))
                   ),
                   proof(
-                    goal(mul(0.77000000000000002, 1.00, 0.77000000000000002)),
-                    by(builtin(mul, 3))
+                    goal(is(0.77000000000000002, *(0.77000000000000002, 1.00))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(gt(0.77000000000000002, 0.75)),
-                by(builtin(gt, 2))
+                goal(>(0.77000000000000002, 0.75)),
+                by(builtin(>, 2))
               )
             ])
           ),
@@ -751,18 +751,18 @@ why(
                     by(fact("epidemic-policy.pl", clause(17)))
                   ),
                   proof(
-                    goal(mul(1.40, 1.00, 1.3999999999999999)),
-                    by(builtin(mul, 3))
+                    goal(is(1.3999999999999999, *(1.40, 1.00))),
+                    by(builtin(is, 2))
                   ),
                   proof(
-                    goal(mul(1.3999999999999999, 0.65, 0.90999999999999992)),
-                    by(builtin(mul, 3))
+                    goal(is(0.90999999999999992, *(1.3999999999999999, 0.65))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(gt(0.90999999999999992, 0.75)),
-                by(builtin(gt, 2))
+                goal(>(0.90999999999999992, 0.75)),
+                by(builtin(>, 2))
               )
             ])
           )

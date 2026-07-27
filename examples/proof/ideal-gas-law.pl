@@ -16,16 +16,16 @@ why(
             by(fact("ideal-gas-law.pl", clause(4)))
           ),
           proof(
-            goal(mul(1.0, 8.0, 8.0)),
-            by(builtin(mul, 3))
+            goal(is(8.0, *(1.0, 8.0))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(8.0, 300.0, 2400.0)),
-            by(builtin(mul, 3))
+            goal(is(2400.0, *(8.0, 300.0))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(div(2400.0, 0.024, 100000.0)),
-            by(builtin(div, 3))
+            goal(is(100000.0, /(2400.0, 0.024))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -56,16 +56,16 @@ why(
                 by(fact("ideal-gas-law.pl", clause(4)))
               ),
               proof(
-                goal(mul(1.0, 8.0, 8.0)),
-                by(builtin(mul, 3))
+                goal(is(8.0, *(1.0, 8.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(8.0, 300.0, 2400.0)),
-                by(builtin(mul, 3))
+                goal(is(2400.0, *(8.0, 300.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(div(2400.0, 0.024, 100000.0)),
-                by(builtin(div, 3))
+                goal(is(100000.0, /(2400.0, 0.024))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -78,12 +78,12 @@ why(
             by(fact("ideal-gas-law.pl", clause(6)))
           ),
           proof(
-            goal(gt(100000.0, 95000.0)),
-            by(builtin(gt, 2))
+            goal(>(100000.0, 95000.0)),
+            by(builtin(>, 2))
           ),
           proof(
-            goal(lt(100000.0, 105000.0)),
-            by(builtin(lt, 2))
+            goal(<(100000.0, 105000.0)),
+            by(builtin(<, 2))
           )
         ])
       )
@@ -114,16 +114,16 @@ why(
                 by(fact("ideal-gas-law.pl", clause(4)))
               ),
               proof(
-                goal(mul(1.0, 8.0, 8.0)),
-                by(builtin(mul, 3))
+                goal(is(8.0, *(1.0, 8.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(8.0, 300.0, 2400.0)),
-                by(builtin(mul, 3))
+                goal(is(2400.0, *(8.0, 300.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(div(2400.0, 0.024, 100000.0)),
-                by(builtin(div, 3))
+                goal(is(100000.0, /(2400.0, 0.024))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -136,12 +136,12 @@ why(
             by(fact("ideal-gas-law.pl", clause(6)))
           ),
           proof(
-            goal(gt(100000.0, 95000.0)),
-            by(builtin(gt, 2))
+            goal(>(100000.0, 95000.0)),
+            by(builtin(>, 2))
           ),
           proof(
-            goal(lt(100000.0, 105000.0)),
-            by(builtin(lt, 2))
+            goal(<(100000.0, 105000.0)),
+            by(builtin(<, 2))
           )
         ])
       )

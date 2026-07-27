@@ -33,7 +33,7 @@ npm run generate
 - [06-ancestor.pl](chapter-03/06-ancestor.pl)
 - [07-different.pl](chapter-03/07-different.pl) — Why terms denote themselves
 - [08-has_parent.pl](chapter-03/08-has_parent.pl) — Quantification and visible witnesses
-- [09-eq.pl](chapter-03/09-eq.pl) — Equality, unification, and the occurs check
+- [09-program.pl](chapter-03/09-program.pl) — Equality, unification, and the occurs check
 - [10-closed.pl](chapter-03/10-closed.pl) — Meaning is not the search strategy
 - [11-p.pl](chapter-03/11-p.pl)
 
@@ -185,7 +185,7 @@ npm run generate
 
 ## Chapter 28: Algebra, symmetry, and representation
 
-- [01-eq.pl](chapter-28/01-eq.pl) — Unification is structural equation solving
+- [01-program.pl](chapter-28/01-program.pl) — Unification is structural equation solving
 - [02-triangle.pl](chapter-28/02-triangle.pl) — Symmetry reduces search
 - [03-rectangle.pl](chapter-28/03-rectangle.pl) — Relations reveal inverse problems
 - [04-integer_rectangle.pl](chapter-28/04-integer_rectangle.pl)
@@ -224,4 +224,3 @@ npm run generate
 - [09-program.pl](chapter-33/09-program.pl) — Pattern 9: Integrity before inference
 - [10-theory_version.pl](chapter-33/10-theory_version.pl) — Pattern 10: Version the evidence boundary
 - [11-city.pl](chapter-33/11-city.pl) — Historical note: executable specifications learn to remember
-- [12-holds.pl](chapter-33/12-holds.pl) — Readiness, determinism, and fallback

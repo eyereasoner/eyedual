@@ -20,22 +20,22 @@ limit(pendulum1, tolerance_s, 0.01).
 period(Experiment, Period) :-
   experiment(Experiment, length_m, Length),
   experiment(Experiment, gravity_m_s2, Gravity),
-  div(Length, Gravity, Ratio),
-  pow(Ratio, 0.5, Root),
+  (Ratio is Length / Gravity),
+  (Root is Ratio ** 0.5),
   constant(pi, Pi),
-  mul(2.0, Pi, Twopi),
-  mul(Twopi, Root, Period).
+  (Twopi is 2.0 * Pi),
+  (Period is Twopi * Root).
 
 period_error(Experiment, Error) :-
   period(Experiment, Period),
   limit(Experiment, target_period_s, Target),
-  sub(Period, Target, Rawerror),
-  abs(Rawerror, Error).
+  (Rawerror is Period - Target),
+  (Error is abs(Rawerror)).
 
 within_period_tolerance(Experiment) :-
   period_error(Experiment, Error),
   limit(Experiment, tolerance_s, Tolerance),
-  lt(Error, Tolerance).
+  (Error < Tolerance).
 
 period_s(Experiment, Period) :-
   period(Experiment, Period).

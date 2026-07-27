@@ -10,9 +10,9 @@ matrix_a([[1, 2], [0, 1]]).
 matrix_b([[1, 0], [3, 1]]).
 
 dot2([X1, X2], [Y1, Y2], R) :-
-  mul(X1, Y1, P1),
-  mul(X2, Y2, P2),
-  add(P1, P2, R).
+  (P1 is X1 * Y1),
+  (P2 is X2 * Y2),
+  (R is P1 + P2).
 
 transpose2([[A, B], [C, D]], [[A, C], [B, D]]).
 
@@ -40,4 +40,4 @@ matrix_result(commutative, false) :-
   matrix_b(B),
   matrix_mul(A, B, Ab),
   matrix_mul(B, A, Ba),
-  neq(Ab, Ba).
+  (Ab \= Ba).

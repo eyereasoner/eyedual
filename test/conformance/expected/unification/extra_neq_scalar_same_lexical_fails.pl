@@ -1,0 +1,1 @@
+answer(neq_scalar_same_lexical_fails).

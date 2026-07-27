@@ -17,7 +17,7 @@ edge(f, g).
 reachable(Node, Node, _visited).
 reachable(Start, Goal, Visited) :-
   edge(Start, Next),
-  not(member(Next, Visited)),
+  \+ member(Next, Visited),
   reachable(Next, Goal, [Next|Visited]).
 
 is_reachable(Start, Goal) :-
@@ -30,4 +30,4 @@ reachable(reachability_case, path(c, g)) :-
   is_reachable(c, g).
 
 not_reachable(reachability_case, path(b, e)) :-
-  not(is_reachable(b, e)).
+  \+ is_reachable(b, e).

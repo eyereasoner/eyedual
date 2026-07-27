@@ -41,7 +41,7 @@ forces(World, or(_left, Right)) :- forces(World, Right).
 % A -> B holds at World when no future world has A without B.
 forces(World, implies(Left, Right)) :-
   world(World),
-  not(bad_implication(World, Left, Right)).
+  \+ bad_implication(World, Left, Right).
 
 forces(World, neg(Formula)) :-
   forces(World, implies(Formula, bottom)).
@@ -49,7 +49,7 @@ forces(World, neg(Formula)) :-
 bad_implication(World, Left, Right) :-
   leq(World, Future),
   forces(Future, Left),
-  not(forces(Future, Right)).
+  \+ forces(Future, Right).
 
 intuitionistic_truth(monotone_p_reaches_both, both, atom(p)) :-
   forces(both, atom(p)).
@@ -61,7 +61,7 @@ intuitionistic_truth(double_negated_branch_information, root, neg(neg(or(atom(p)
   forces(root, neg(neg(or(atom(p), atom(q))))).
 
 intuitionistic_countermodel(root_does_not_decide_branch, root, or(atom(p), atom(q))) :-
-  not(forces(root, or(atom(p), atom(q)))).
+  \+ forces(root, or(atom(p), atom(q))).
 
 intuitionistic_countermodel(excluded_middle_not_forced, root, or(atom(p), neg(atom(p)))) :-
-  not(forces(root, or(atom(p), neg(atom(p))))).
+  \+ forces(root, or(atom(p), neg(atom(p)))).

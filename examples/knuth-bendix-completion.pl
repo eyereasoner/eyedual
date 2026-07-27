@@ -25,7 +25,7 @@ rewrite_once(append(A, B), append(A, New_b), Rule) :- rewrite_once(B, New_b, Rul
 
 % Normalization by repeated rewriting.  The rules above are oriented so that the
 % recursive search has a normal form for the bounded terms in this example.
-normal_form(Term, Term) :- not(rewrite_once(Term, _, _)).
+normal_form(Term, Term) :- \+ rewrite_once(Term, _, _).
 normal_form(Term, Normal) :- rewrite_once(Term, Next, _), normal_form(Next, Normal).
 
 % A few critical pairs that arise from overlapping the three oriented rules.

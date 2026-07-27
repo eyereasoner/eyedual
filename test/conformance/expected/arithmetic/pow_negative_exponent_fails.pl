@@ -1,1 +1,1 @@
-answer(ok).
+answer(0.5).

@@ -1,4 +1,4 @@
 query(answer(X0)).
-p(a, b) :- not(q(a, b)).
-q(a, b) :- not(p(a, b)).
+p(a, b) :- \+ q(a, b).
+q(a, b) :- \+ p(a, b).
 answer(ok).

@@ -1,2 +1,2 @@
 query(answer(X0, X1)).
-answer(compound_name_arguments_construct_iri, X) :- compound_name_arguments(X, '<urn:example:pair>', [a, b]).
+answer(compound_name_arguments_construct_iri, X) :- (X =.. ['<urn:example:pair>' | [a, b]]).

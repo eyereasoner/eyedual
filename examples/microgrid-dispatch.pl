@@ -28,42 +28,42 @@ grid_contract_limit_kW(campus_interval_17, 150.0).
 renewable_kW(Site, Renewable) :-
   solar_kW(Site, Solar),
   wind_kW(Site, Wind),
-  add(Solar, Wind, Renewable).
+  (Renewable is Solar + Wind).
 
 net_deficit_kW(Site, Deficit) :-
   load_kW(Site, Load),
   renewable_kW(Site, Renewable),
-  sub(Load, Renewable, Deficit).
+  (Deficit is Load - Renewable).
 
 reserve_aware_battery_limit_kW(Site, Limit) :-
   battery_max_discharge_kW(Site, Maxdischarge),
   required_battery_reserve_kW(Site, Reserve),
-  sub(Maxdischarge, Reserve, Limit).
+  (Limit is Maxdischarge - Reserve).
 
 battery_dispatch_kW(Site, Dispatch) :-
   net_deficit_kW(Site, Deficit),
   reserve_aware_battery_limit_kW(Site, Limit),
-  min(Deficit, Limit, Dispatch).
+  (Dispatch is min(Deficit, Limit)).
 
 grid_import_kW(Site, Import) :-
   net_deficit_kW(Site, Deficit),
   battery_dispatch_kW(Site, Dispatch),
-  sub(Deficit, Dispatch, Import).
+  (Import is Deficit - Dispatch).
 
 battery_reserve_after_dispatch_kW(Site, Reserveleft) :-
   battery_max_discharge_kW(Site, Maxdischarge),
   battery_dispatch_kW(Site, Dispatch),
-  sub(Maxdischarge, Dispatch, Reserveleft).
+  (Reserveleft is Maxdischarge - Dispatch).
 
 contract_ok(Site) :-
   grid_import_kW(Site, Import),
   grid_contract_limit_kW(Site, Limit),
-  le(Import, Limit).
+  (Import =< Limit).
 
 reserve_ok(Site) :-
   battery_reserve_after_dispatch_kW(Site, Reserveleft),
   required_battery_reserve_kW(Site, Required),
-  ge(Reserveleft, Required).
+  (Reserveleft >= Required).
 
 % stable_dispatch/1 passes only when contract and reserve constraints remain satisfied.
 stable_dispatch(Site) :-

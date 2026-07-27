@@ -63,8 +63,8 @@ why(
             bindings([binding("Data", data4)]),
             uses([
               proof(
-                goal(neq(data4, data5)),
-                by(builtin(neq, 2))
+                goal(\=(data4, data5)),
+                by(builtin(\=, 2))
               )
             ])
           )

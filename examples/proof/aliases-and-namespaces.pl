@@ -7,8 +7,8 @@ why(
     bindings([binding("X", 1.0)]),
     uses([
       proof(
-        goal(add(0.125, 0.875, 1.0)),
-        by(builtin(add, 3))
+        goal(is(1.0, '+'(0.125, 0.875))),
+        by(builtin(is, 2))
       )
     ])
   )
@@ -22,8 +22,8 @@ why(
     by(rule("aliases-and-namespaces.pl", clause(6))),
     uses([
       proof(
-        goal(lt(2, 3)),
-        by(builtin(lt, 2))
+        goal(<(2, 3)),
+        by(builtin(<, 2))
       )
     ])
   )

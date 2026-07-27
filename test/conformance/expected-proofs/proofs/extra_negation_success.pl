@@ -6,8 +6,8 @@ why(
     by(rule("<stdin>", clause(3))),
     uses([
       proof(
-        goal(not(known(b))),
-        by(builtin(not, 1))
+        goal('\\+'(known(b))),
+        by(builtin('\\+', 1))
       )
     ])
   )

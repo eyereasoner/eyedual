@@ -62,11 +62,11 @@ sdc_path(N, M, path(X, Y, B)) :-
 duplicate_sdc_path(N, M, Proof) :-
   sdc_path(N, M, Proof),
   sdc_path(N, M, Other),
-  neq(Proof, Other).
+  (Proof \= Other).
 
 sdcoding(N, M) :-
   sdc_path(N, M, Proof),
-  not(duplicate_sdc_path(N, M, Proof)).
+  \+ duplicate_sdc_path(N, M, Proof).
 
 decodesAs(message(N), M) :-
   sdcoding(N, M).
@@ -78,7 +78,7 @@ preservesMessage(protocol, true) :-
   sdcoding(3, 3).
 
 cancelsCrossTalk(protocol, true) :-
-  not(sdcoding(0, 1)),
-  not(sdcoding(1, 0)),
-  not(sdcoding(2, 3)),
-  not(sdcoding(3, 2)).
+  \+ sdcoding(0, 1),
+  \+ sdcoding(1, 0),
+  \+ sdcoding(2, 3),
+  \+ sdcoding(3, 2).

@@ -13,18 +13,18 @@ candidate(N) :-
 composite(N) :-
   candidate(N),
   between(2, N, D),
-  lt(D, N),
-  mod(N, D, 0).
+  (D < N),
+  (0 is N mod D).
 
 prime(N) :-
   candidate(N),
-  not(composite(N)).
+  \+ composite(N).
 
 % Euclid's algorithm, used for the totient calculation.
 gcd(N, 0, N).
 gcd(N, M, G) :-
-  gt(M, 0),
-  mod(N, M, R),
+  (M > 0),
+  (R is N mod M),
   gcd(M, R, G).
 
 coprime(N, K) :-

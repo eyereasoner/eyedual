@@ -66,8 +66,8 @@ why(
         ])
       ),
       proof(
-        goal(neq(g1, g2)),
-        by(builtin(neq, 2))
+        goal(\=(g1, g2)),
+        by(builtin(\=, 2))
       )
     ])
   )
@@ -141,8 +141,8 @@ why(
         ])
       ),
       proof(
-        goal(neq(g2, g1)),
-        by(builtin(neq, 2))
+        goal(\=(g2, g1)),
+        by(builtin(\=, 2))
       )
     ])
   )

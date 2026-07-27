@@ -160,15 +160,15 @@ filesWritten(Case, Count) :- files_written(Case, Count).
 export_weakness(case) :-
   industrialCluster(Cluster),
   exportOrdersIndex(Cluster, Index),
-  lt(Index, 90).
+  (Index < 90).
 
 skills_strain(case) :-
   techVacancyRateTenths(labourMarket, Rate),
-  gt(Rate, 39).
+  (Rate > 39).
 
 grid_stress(case) :-
   congestionHours(grid, Hours),
-  gt(Hours, 11).
+  (Hours > 11).
 
 needs_retooling_pulse(case) :-
   export_weakness(case),
@@ -198,7 +198,7 @@ authorization_allowed(check) :-
   permission(policy, odrlUse, macroInsight, "regional_stabilization"),
   boardAuthAt(case, Authat),
   expiresAt(macroInsight, Expiresat),
-  le(Authat, Expiresat).
+  (Authat @=< Expiresat).
 
 decision(decision, "Allowed", macroInsight) :- authorization_allowed(check).
 
@@ -211,24 +211,24 @@ eligible_package(Pkg) :-
   coversExportWeakness(Pkg, true),
   coversSkillsStrain(Pkg, true),
   coversGridStress(Pkg, true),
-  le(Cost, Max).
+  (Cost =< Max).
 
 lower_cost_eligible_package(Cost) :-
   eligible_package(Other),
   costMEUR(Other, Othercost),
-  lt(Othercost, Cost).
+  (Othercost < Cost).
 
 % The recommendation is the lowest-cost eligible package.
 recommended_package(case, Pkg) :-
   eligible_package(Pkg),
   costMEUR(Pkg, Cost),
-  not(lower_cost_eligible_package(Cost)).
+  \+ lower_cost_eligible_package(Cost).
 
 package_within_budget(check) :-
   recommended_package(case, Pkg),
   costMEUR(Pkg, Cost),
   maxMEUR(budget, Max),
-  le(Cost, Max).
+  (Cost =< Max).
 
 package_covers_all_needs(check) :-
   recommended_package(case, Pkg),
@@ -239,7 +239,7 @@ package_covers_all_needs(check) :-
 duty_timing_consistent(check) :-
   boardDutyAt(case, Dutyat),
   expiresAt(macroInsight, Expiresat),
-  le(Dutyat, Expiresat).
+  (Dutyat @=< Expiresat).
 
 surveillance_reuse_prohibited(check) :- prohibition(policy, odrlDistribute, macroInsight, "firm_surveillance").
 files_written_expected(check) :- files_written(case, 6).

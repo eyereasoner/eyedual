@@ -20,8 +20,8 @@ why(
                 by(fact("graph-reachability.pl", clause(3)))
               ),
               proof(
-                goal(not(member(b, [a]))),
-                by(builtin(not, 1))
+                goal('\\+'(member(b, [a]))),
+                by(builtin('\\+', 1))
               ),
               proof(
                 goal(reachable(b, f, [b, a])),
@@ -33,8 +33,8 @@ why(
                     by(fact("graph-reachability.pl", clause(5)))
                   ),
                   proof(
-                    goal(not(member(d, [b, a]))),
-                    by(builtin(not, 1))
+                    goal('\\+'(member(d, [b, a]))),
+                    by(builtin('\\+', 1))
                   ),
                   proof(
                     goal(reachable(d, f, [d, b, a])),
@@ -46,8 +46,8 @@ why(
                         by(fact("graph-reachability.pl", clause(7)))
                       ),
                       proof(
-                        goal(not(member(f, [d, b, a]))),
-                        by(builtin(not, 1))
+                        goal('\\+'(member(f, [d, b, a]))),
+                        by(builtin('\\+', 1))
                       ),
                       proof(
                         goal(reachable(f, f, [f, d, b, a])),
@@ -88,8 +88,8 @@ why(
                 by(fact("graph-reachability.pl", clause(6)))
               ),
               proof(
-                goal(not(member(e, [c]))),
-                by(builtin(not, 1))
+                goal('\\+'(member(e, [c]))),
+                by(builtin('\\+', 1))
               ),
               proof(
                 goal(reachable(e, g, [e, c])),
@@ -101,8 +101,8 @@ why(
                     by(fact("graph-reachability.pl", clause(8)))
                   ),
                   proof(
-                    goal(not(member(f, [e, c]))),
-                    by(builtin(not, 1))
+                    goal('\\+'(member(f, [e, c]))),
+                    by(builtin('\\+', 1))
                   ),
                   proof(
                     goal(reachable(f, g, [f, e, c])),
@@ -114,8 +114,8 @@ why(
                         by(fact("graph-reachability.pl", clause(9)))
                       ),
                       proof(
-                        goal(not(member(g, [f, e, c]))),
-                        by(builtin(not, 1))
+                        goal('\\+'(member(g, [f, e, c]))),
+                        by(builtin('\\+', 1))
                       ),
                       proof(
                         goal(reachable(g, g, [g, f, e, c])),
@@ -142,8 +142,8 @@ why(
     by(rule("graph-reachability.pl", clause(15))),
     uses([
       proof(
-        goal(not(is_reachable(b, e))),
-        by(builtin(not, 1))
+        goal('\\+'(is_reachable(b, e))),
+        by(builtin('\\+', 1))
       )
     ])
   )

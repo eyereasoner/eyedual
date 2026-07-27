@@ -1,4 +1,4 @@
-answer(max, 42).
+answer(max, 42.0).
 answer(sqrt, 9.0).
 answer(floor, 3).
 answer(ceiling, 4).

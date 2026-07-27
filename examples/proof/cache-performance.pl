@@ -25,14 +25,14 @@ why(
                 by(fact("cache-performance.pl", clause(5)))
               ),
               proof(
-                goal(add(8600.0, 1400.0, 10000.0)),
-                by(builtin(add, 3))
+                goal(is(10000.0, '+'(8600.0, 1400.0))),
+                by(builtin(is, 2))
               )
             ])
           ),
           proof(
-            goal(div(8600.0, 10000.0, 0.85999999999999999)),
-            by(builtin(div, 3))
+            goal(is(0.85999999999999999, /(8600.0, 10000.0))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -58,16 +58,16 @@ why(
             by(fact("cache-performance.pl", clause(5)))
           ),
           proof(
-            goal(mul(8600.0, 5.0, 43000.0)),
-            by(builtin(mul, 3))
+            goal(is(43000.0, *(8600.0, 5.0))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(1400.0, 80.0, 112000.0)),
-            by(builtin(mul, 3))
+            goal(is(112000.0, *(1400.0, 80.0))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(add(43000.0, 112000.0, 155000.0)),
-            by(builtin(add, 3))
+            goal(is(155000.0, '+'(43000.0, 112000.0))),
+            by(builtin(is, 2))
           ),
           proof(
             goal(total_requests(api_cache, 10000.0)),
@@ -79,14 +79,14 @@ why(
                 by(fact("cache-performance.pl", clause(5)))
               ),
               proof(
-                goal(add(8600.0, 1400.0, 10000.0)),
-                by(builtin(add, 3))
+                goal(is(10000.0, '+'(8600.0, 1400.0))),
+                by(builtin(is, 2))
               )
             ])
           ),
           proof(
-            goal(div(155000.0, 10000.0, 15.5)),
-            by(builtin(div, 3))
+            goal(is(15.5, /(155000.0, 10000.0))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -126,14 +126,14 @@ why(
                     by(fact("cache-performance.pl", clause(5)))
                   ),
                   proof(
-                    goal(add(8600.0, 1400.0, 10000.0)),
-                    by(builtin(add, 3))
+                    goal(is(10000.0, '+'(8600.0, 1400.0))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(div(8600.0, 10000.0, 0.85999999999999999)),
-                by(builtin(div, 3))
+                goal(is(0.85999999999999999, /(8600.0, 10000.0))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -142,8 +142,8 @@ why(
             by(fact("cache-performance.pl", clause(6)))
           ),
           proof(
-            goal(gt(0.85999999999999999, 0.80)),
-            by(builtin(gt, 2))
+            goal(>(0.85999999999999999, 0.80)),
+            by(builtin(>, 2))
           ),
           proof(
             goal(average_latency(api_cache, 15.5)),
@@ -155,16 +155,16 @@ why(
                 by(fact("cache-performance.pl", clause(5)))
               ),
               proof(
-                goal(mul(8600.0, 5.0, 43000.0)),
-                by(builtin(mul, 3))
+                goal(is(43000.0, *(8600.0, 5.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(1400.0, 80.0, 112000.0)),
-                by(builtin(mul, 3))
+                goal(is(112000.0, *(1400.0, 80.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(add(43000.0, 112000.0, 155000.0)),
-                by(builtin(add, 3))
+                goal(is(155000.0, '+'(43000.0, 112000.0))),
+                by(builtin(is, 2))
               ),
               proof(
                 goal(total_requests(api_cache, 10000.0)),
@@ -176,14 +176,14 @@ why(
                     by(fact("cache-performance.pl", clause(5)))
                   ),
                   proof(
-                    goal(add(8600.0, 1400.0, 10000.0)),
-                    by(builtin(add, 3))
+                    goal(is(10000.0, '+'(8600.0, 1400.0))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(div(155000.0, 10000.0, 15.5)),
-                by(builtin(div, 3))
+                goal(is(15.5, /(155000.0, 10000.0))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -192,8 +192,8 @@ why(
             by(fact("cache-performance.pl", clause(7)))
           ),
           proof(
-            goal(lt(15.5, 20.0)),
-            by(builtin(lt, 2))
+            goal(<(15.5, 20.0)),
+            by(builtin(<, 2))
           )
         ])
       )
@@ -233,14 +233,14 @@ why(
                     by(fact("cache-performance.pl", clause(5)))
                   ),
                   proof(
-                    goal(add(8600.0, 1400.0, 10000.0)),
-                    by(builtin(add, 3))
+                    goal(is(10000.0, '+'(8600.0, 1400.0))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(div(8600.0, 10000.0, 0.85999999999999999)),
-                by(builtin(div, 3))
+                goal(is(0.85999999999999999, /(8600.0, 10000.0))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -249,8 +249,8 @@ why(
             by(fact("cache-performance.pl", clause(6)))
           ),
           proof(
-            goal(gt(0.85999999999999999, 0.80)),
-            by(builtin(gt, 2))
+            goal(>(0.85999999999999999, 0.80)),
+            by(builtin(>, 2))
           ),
           proof(
             goal(average_latency(api_cache, 15.5)),
@@ -262,16 +262,16 @@ why(
                 by(fact("cache-performance.pl", clause(5)))
               ),
               proof(
-                goal(mul(8600.0, 5.0, 43000.0)),
-                by(builtin(mul, 3))
+                goal(is(43000.0, *(8600.0, 5.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(1400.0, 80.0, 112000.0)),
-                by(builtin(mul, 3))
+                goal(is(112000.0, *(1400.0, 80.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(add(43000.0, 112000.0, 155000.0)),
-                by(builtin(add, 3))
+                goal(is(155000.0, '+'(43000.0, 112000.0))),
+                by(builtin(is, 2))
               ),
               proof(
                 goal(total_requests(api_cache, 10000.0)),
@@ -283,14 +283,14 @@ why(
                     by(fact("cache-performance.pl", clause(5)))
                   ),
                   proof(
-                    goal(add(8600.0, 1400.0, 10000.0)),
-                    by(builtin(add, 3))
+                    goal(is(10000.0, '+'(8600.0, 1400.0))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
               proof(
-                goal(div(155000.0, 10000.0, 15.5)),
-                by(builtin(div, 3))
+                goal(is(15.5, /(155000.0, 10000.0))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -299,8 +299,8 @@ why(
             by(fact("cache-performance.pl", clause(7)))
           ),
           proof(
-            goal(lt(15.5, 20.0)),
-            by(builtin(lt, 2))
+            goal(<(15.5, 20.0)),
+            by(builtin(<, 2))
           )
         ])
       )

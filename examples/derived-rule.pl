@@ -12,16 +12,16 @@
 % Output declarations: query/1 selects the relations written to this example's golden output.
 query(type(X0, X1)).
 query(log_implies(X0, X1)).
-query(is(X0, X1)).
+query(holds_result(X0, X1)).
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 type(minka, cat).
 type(charly, dog).
 
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
-log_implies(type(var(y), dog), is(test, true)) :-
+log_implies(type(var(y), dog), holds_result(test, true)) :-
   type(_x, cat).
 
-is(test, true) :-
-  log_implies(type(var(y), dog), is(test, true)),
+holds_result(test, true) :-
+  log_implies(type(var(y), dog), holds_result(test, true)),
   type(_y, dog).

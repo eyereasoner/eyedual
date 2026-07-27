@@ -7,8 +7,8 @@ why(
     bindings([binding("Name", box), binding("Args", [a, b])]),
     uses([
       proof(
-        goal(compound_name_arguments(box(a, b), box, [a, b])),
-        by(builtin(compound_name_arguments, 3))
+        goal('=..'(box(a, b), [box, a, b])),
+        by(builtin('=..', 2))
       )
     ])
   )

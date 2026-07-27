@@ -11,11 +11,11 @@ sample_polygon([[3, 2], [6, 2], [7, 6], [4, 6], [5, 5], [5, 3], [3, 2]]).
 area([_point], 0).
 area([[A, B], [C, D]|Rest], Total) :-
   area([[C, D]|Rest], Subtotal),
-  mul(A, D, Ad),
-  mul(B, C, Bc),
-  sub(Ad, Bc, Cross),
-  div(Cross, 2.0, Half),
-  add(Half, Subtotal, Total).
+  (Ad is A * D),
+  (Bc is B * C),
+  (Cross is Ad - Bc),
+  (Half is Cross / 2.0),
+  (Total is Half + Subtotal).
 
 polygon_area(sample, Area) :-
   sample_polygon(Points),

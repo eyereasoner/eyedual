@@ -1,2 +1,2 @@
 ageAbove(patH, "P80Y").
-is(test, true).
+holds_result(test, true).

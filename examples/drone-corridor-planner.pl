@@ -32,16 +32,16 @@ path(From, To, Actions, Duration, Cost, Belief, Comfort, Fuelin, Fuelout) :-
   rest(Fuelin, Fuelmid),
   path(Mid, To, Restactions, D2, C2, B2, M2, Fuelmid, Fuelout),
   append([Act], Restactions, Actions),
-  add(D1, D2, Duration),
-  add(C1, C2, Cost),
-  mul(B1, B2, Belief),
-  mul(M1, M2, Comfort).
+  (Duration is D1 + D2),
+  (Cost is C1 + C2),
+  (Belief is B1 * B2),
+  (Comfort is M1 * M2).
 
 surviving_plan(Actions, Duration, Cost, Belief, Comfort, Battery, Permit, Fuelleft) :-
   fuel(fuel7, Fuel),
   path(state(gent, full, none), state(oostende, Battery, Permit), Actions, Duration, Cost, Belief, Comfort, Fuel, Fuelleft),
-  gt(Belief, 0.94),
-  lt(Cost, 0.03).
+  (Belief > 0.94),
+  (Cost < 0.03).
 
 gps_plan(d1, plan(Actions, Duration, Cost, Belief, Comfort, Battery, Permit, Fuelleft)) :-
   surviving_plan(Actions, Duration, Cost, Belief, Comfort, Battery, Permit, Fuelleft).

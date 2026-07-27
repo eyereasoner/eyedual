@@ -19,6 +19,7 @@ export async function main(argv) {
     stats: false,
     version: false,
     warnings: false,
+    library: false,
   };
 
   let endOptions = false;
@@ -39,6 +40,8 @@ export async function main(argv) {
       options.stats = true;
     } else if (!endOptions && (arg === '--warnings' || arg === '-w')) {
       options.warnings = true;
+    } else if (!endOptions && arg === '--library') {
+      options.library = true;
     } else if (!endOptions && arg.startsWith('-') && arg !== '-') {
       throw new Error(`unknown option: ${arg}`);
     } else {
@@ -104,7 +107,7 @@ async function runDefault(engine, program, options) {
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
   const facts = program.sourceFactLines(queriedKeys);
   const lines = new Set();
-  const registry = engine.getDefaultRegistry();
+  const registry = options.library ? engine.getLibraryRegistry() : engine.getDefaultRegistry();
   const explanation = options.proof ? await loadExplanation() : null;
   const solver = new engine.Solver(program, { registry });
   engine.checkInferenceFuses(program, solver);
@@ -150,6 +153,7 @@ Options:
   -s, --stats           Print solver statistics to stderr after execution.
   -v, --version         Show the package version and exit.
   -w, --warnings        Print non-fatal portability warnings to stderr.
+  --library             Enable the non-core Eyepl library predicates.
   --                    Stop option parsing; following arguments are treated as files.
 `);
 }

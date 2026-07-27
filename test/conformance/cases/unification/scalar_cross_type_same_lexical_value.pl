@@ -1,3 +1,3 @@
 query(answer(X0)).
-answer(atom_number) :- eq(a, "a").
-answer(number_string) :- eq(7, "7").
+answer(atom_number) :- (a = "a").
+answer(number_string) :- (7 = "7").

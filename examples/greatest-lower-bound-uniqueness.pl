@@ -27,4 +27,4 @@ sameGreatestLowerBound(A, B, M, N) :-
   glbOf(M, A, B),
   glbOf(N, A, B),
   sameTerm(M, N),
-  neq(M, N).
+  (M \= N).

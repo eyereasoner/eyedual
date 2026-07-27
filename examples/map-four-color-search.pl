@@ -47,7 +47,7 @@ neighbours(croatia, [slovenia, hungary]).
 % generating many doomed prefixes.
 valid_color(Place, Color, Assigned) :-
   neighbours(Place, Neighbors),
-  not((member([Neighbor, Color], Assigned), member(Neighbor, Neighbors))).
+  \+ (member([Neighbor, Color], Assigned), member(Neighbor, Neighbors)).
 
 place_pairs([], []).
 place_pairs([Place|Rest], [[Place, _]|Pairs]) :-

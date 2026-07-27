@@ -11,8 +11,8 @@ why(
         bindings([binding("X", 5), binding("Y", 3)]),
         uses([
           proof(
-            goal(gt(5, 3)),
-            by(builtin(gt, 2))
+            goal(>(5, 3)),
+            by(builtin(>, 2))
           )
         ])
       )

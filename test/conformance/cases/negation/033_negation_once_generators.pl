@@ -2,6 +2,6 @@
 candidate(a).
 candidate(b).
 closed(b).
-answer(open, X) :- candidate(X), not(closed(X)).
+answer(open, X) :- candidate(X), \+ closed(X).
 answer(first_between, X) :- once(between(2, 4, X)).
 query(answer(X0, X1)).

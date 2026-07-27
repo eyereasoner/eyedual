@@ -17,23 +17,23 @@ airroute(Fromlabel, Tolabel, Maxstopovers, Routetext) :-
 route_between(Fromlabel, Tolabel, Maxstopovers, Routetext) :-
   airport(Source, Fromlabel),
   airport(Destination, Tolabel),
-  add(Maxstopovers, 1, Maxlegs),
+  (Maxlegs is Maxstopovers + 1),
   simple_path(Source, Destination, Maxlegs, [Source], Reversepath),
   reverse(Reversepath, Path),
   route_text(Path, Routetext).
 
 simple_path(Node, Node, _remaininglegs, Visited, Visited).
 simple_path(Node, Goal, Remaininglegs, Visited, Path) :-
-  gt(Remaininglegs, 0),
+  (Remaininglegs > 0),
   flight(Node, Next),
   not_member(Next, Visited),
-  sub(Remaininglegs, 1, Nextremaininglegs),
+  (Nextremaininglegs is Remaininglegs - 1),
   simple_path(Next, Goal, Nextremaininglegs, [Next|Visited], Path).
 
 route_text([Node], Text) :-
   airport(Node, Text).
 route_text([Node|Rest], Text) :-
-  neq(Rest, []),
+  (Rest \= []),
   airport(Node, Label),
   route_text(Rest, Tail),
   str_concat(Label, " -> ", Prefix),

@@ -1,9 +1,9 @@
 % Reference 9.2: scalar arithmetic functions return numeric values.
-answer(neg, X) :- neg(5, X).
-answer(abs, X) :- abs(-5, X).
-answer(rounded, X) :- rounded(2.6, X).
-answer(sin_zero, X) :- sin(0, X).
-answer(cos_zero, X) :- cos(0, X).
-answer(log_one, X) :- log(1, X).
-answer(float_division, X) :- div(7.0, 2.0, X).
+answer(neg, X) :- (X is -(5)).
+answer(abs, X) :- (X is abs(-5)).
+answer(rounded, X) :- (X is round(2.6)).
+answer(sin_zero, X) :- (X is sin(0)).
+answer(cos_zero, X) :- (X is cos(0)).
+answer(log_one, X) :- (X is log(1)).
+answer(float_division, X) :- (X is 7.0 / 2.0).
 query(answer(X0, X1)).

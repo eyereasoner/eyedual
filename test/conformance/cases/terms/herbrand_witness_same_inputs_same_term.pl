@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(true) :- eq(parent_of(alice), parent_of(alice)).
+answer(true) :- (parent_of(alice) = parent_of(alice)).

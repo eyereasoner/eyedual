@@ -1,8 +1,8 @@
-is(test, is(joe, good(cobbler))).
+holds_result(test, holds_result(joe, good(cobbler))).
 why(
-  is(test, is(joe, good(cobbler))),
+  holds_result(test, holds_result(joe, good(cobbler))),
   proof(
-    goal(is(test, is(joe, good(cobbler)))),
+    goal(holds_result(test, holds_result(joe, good(cobbler)))),
     by(rule("good-cobbler.pl", clause(3))),
     bindings([binding("X", joe), binding("Y", cobbler)]),
     uses([

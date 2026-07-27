@@ -73,10 +73,10 @@ all_symmetries(Symmetries) :-
 
 % A valid subgroup is closed under both composition and inverse.
 closed_under_composition(Group) :-
-  not((member(X, Group), member(Y, Group), compose(X, Y, Z), not(member(Z, Group)))).
+  \+ (member(X, Group), member(Y, Group), compose(X, Y, Z), \+ member(Z, Group)).
 
 closed_under_inverse(Group) :-
-  not((member(X, Group), inverse(X, Y), not(member(Y, Group)))).
+  \+ (member(X, Group), inverse(X, Y), \+ member(Y, Group)).
 
 valid_group(Group) :-
   all_symmetries(All),

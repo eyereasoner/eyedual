@@ -42,4 +42,4 @@ modal_truth(nested_possibility, w1, diamond(and(atom(clear), atom(clear)))) :-
   mforces(w1, diamond(and(atom(clear), atom(clear)))).
 
 modal_countermodel(repair_not_necessary, w0) :-
-  not(mforces(w0, box(atom(repaired)))).
+  \+ mforces(w0, box(atom(repaired))).

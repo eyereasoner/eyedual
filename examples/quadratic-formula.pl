@@ -16,37 +16,37 @@ equation(eq2, 2.0, -4.0, -6.0).
 % and the plus/minus branches so each algebraic step can be inspected.
 discriminant(Case, D) :-
   equation(Case, A, B, C),
-  pow(B, 2.0, B2),
-  mul(4.0, A, Foura),
-  mul(Foura, C, Fourac),
-  sub(B2, Fourac, D).
+  (B2 is B ** 2.0),
+  (Foura is 4.0 * A),
+  (Fourac is Foura * C),
+  (D is B2 - Fourac).
 
 sqrt_discriminant(Case, S) :-
   discriminant(Case, D),
-  ge(D, 0.0),
-  pow(D, 0.5, S).
+  (D >= 0.0),
+  (S is D ** 0.5).
 
 negative_b(Case, Nb) :-
   equation(Case, _a, B, _c),
-  neg(B, Nb).
+  (Nb is -(B)).
 
 denominator(Case, Den) :-
   equation(Case, A, _b, _c),
-  mul(2.0, A, Den).
+  (Den is 2.0 * A).
 
 root_plus(Case, Root) :-
   negative_b(Case, Nb),
   sqrt_discriminant(Case, S),
   denominator(Case, Den),
-  add(Nb, S, Numerator),
-  div(Numerator, Den, Root).
+  (Numerator is Nb + S),
+  (Root is Numerator / Den).
 
 root_minus(Case, Root) :-
   negative_b(Case, Nb),
   sqrt_discriminant(Case, S),
   denominator(Case, Den),
-  sub(Nb, S, Numerator),
-  div(Numerator, Den, Root).
+  (Numerator is Nb - S),
+  (Root is Numerator / Den).
 
 
 root(Case, Root) :-

@@ -116,8 +116,8 @@ why(
     by(rule("modal-logic-kripke.pl", clause(25))),
     uses([
       proof(
-        goal(not(mforces(w0, box(atom(repaired))))),
-        by(builtin(not, 1))
+        goal('\\+'(mforces(w0, box(atom(repaired))))),
+        by(builtin('\\+', 1))
       )
     ])
   )

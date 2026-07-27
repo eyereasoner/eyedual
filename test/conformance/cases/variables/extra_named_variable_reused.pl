@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(named_variable_reused) :- eq(pair(X, X), pair(a, a)).
+answer(named_variable_reused) :- (pair(X, X) = pair(a, a)).

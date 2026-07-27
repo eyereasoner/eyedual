@@ -2,4 +2,4 @@
 false :-
   assigned_badge(PersonA, Badge),
   assigned_badge(PersonB, Badge),
-  neq(PersonA, PersonB).
+  (PersonA \= PersonB).

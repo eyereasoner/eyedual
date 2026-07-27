@@ -1,2 +1,2 @@
 type(socrates, mortal).
-is(test, true).
+holds_result(test, true).

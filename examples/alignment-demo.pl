@@ -41,4 +41,4 @@ narrowerOrEqualOf(X, Y) :- broaderTransitive(X, Y).
 
 rollsUpTo(X, ref_car) :-
   narrowerOrEqualOf(X, ref_car),
-  neq(X, ref_car).
+  (X \= ref_car).

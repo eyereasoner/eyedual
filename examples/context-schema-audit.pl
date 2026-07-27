@@ -43,4 +43,4 @@ context_shape(Message, Name, Arity) :-
 
 schema_violation(Message, Name, Arity) :-
   context_shape(Message, Name, Arity),
-  not(allowed_shape(Name, Arity)).
+  \+ allowed_shape(Name, Arity).

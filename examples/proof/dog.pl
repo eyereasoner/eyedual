@@ -22,8 +22,8 @@ why(
         ])
       ),
       proof(
-        goal(gt(5, 4)),
-        by(builtin(gt, 2))
+        goal(>(5, 4)),
+        by(builtin(>, 2))
       )
     ])
   )

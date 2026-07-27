@@ -15,8 +15,8 @@ why(
         by(fact("spacecraft-battery-diagnosis.pl", clause(4)))
       ),
       proof(
-        goal(sub(60.0, 78.0, -18.0)),
-        by(builtin(sub, 3))
+        goal(is(-18.0, '-'(60.0, 78.0))),
+        by(builtin(is, 2))
       )
     ])
   )
@@ -39,12 +39,12 @@ why(
         by(fact("spacecraft-battery-diagnosis.pl", clause(7)))
       ),
       proof(
-        goal(mul(32.0, 32.0, 1024.0)),
-        by(builtin(mul, 3))
+        goal(is(1024.0, *(32.0, 32.0))),
+        by(builtin(is, 2))
       ),
       proof(
-        goal(mul(1024.0, 0.015625, 16.0)),
-        by(builtin(mul, 3))
+        goal(is(16.0, *(1024.0, 0.015625))),
+        by(builtin(is, 2))
       )
     ])
   )
@@ -72,8 +72,8 @@ why(
             by(fact("spacecraft-battery-diagnosis.pl", clause(10)))
           ),
           proof(
-            goal(gt(78.0, 60.0)),
-            by(builtin(gt, 2))
+            goal(>(78.0, 60.0)),
+            by(builtin(>, 2))
           )
         ])
       ),
@@ -91,8 +91,8 @@ why(
             by(fact("spacecraft-battery-diagnosis.pl", clause(11)))
           ),
           proof(
-            goal(gt(4.2, 1.5)),
-            by(builtin(gt, 2))
+            goal(>(4.2, 1.5)),
+            by(builtin(>, 2))
           )
         ])
       ),
@@ -110,8 +110,8 @@ why(
             by(fact("spacecraft-battery-diagnosis.pl", clause(12)))
           ),
           proof(
-            goal(gt(0.19, 0.08)),
-            by(builtin(gt, 2))
+            goal(>(0.19, 0.08)),
+            by(builtin(>, 2))
           )
         ])
       ),
@@ -134,12 +134,12 @@ why(
                 by(fact("spacecraft-battery-diagnosis.pl", clause(7)))
               ),
               proof(
-                goal(mul(32.0, 32.0, 1024.0)),
-                by(builtin(mul, 3))
+                goal(is(1024.0, *(32.0, 32.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(1024.0, 0.015625, 16.0)),
-                by(builtin(mul, 3))
+                goal(is(16.0, *(1024.0, 0.015625))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -148,8 +148,8 @@ why(
             by(fact("spacecraft-battery-diagnosis.pl", clause(13)))
           ),
           proof(
-            goal(gt(16.0, 12.0)),
-            by(builtin(gt, 2))
+            goal(>(16.0, 12.0)),
+            by(builtin(>, 2))
           )
         ])
       )
@@ -184,8 +184,8 @@ why(
                 by(fact("spacecraft-battery-diagnosis.pl", clause(10)))
               ),
               proof(
-                goal(gt(78.0, 60.0)),
-                by(builtin(gt, 2))
+                goal(>(78.0, 60.0)),
+                by(builtin(>, 2))
               )
             ])
           ),
@@ -203,8 +203,8 @@ why(
                 by(fact("spacecraft-battery-diagnosis.pl", clause(11)))
               ),
               proof(
-                goal(gt(4.2, 1.5)),
-                by(builtin(gt, 2))
+                goal(>(4.2, 1.5)),
+                by(builtin(>, 2))
               )
             ])
           ),
@@ -222,8 +222,8 @@ why(
                 by(fact("spacecraft-battery-diagnosis.pl", clause(12)))
               ),
               proof(
-                goal(gt(0.19, 0.08)),
-                by(builtin(gt, 2))
+                goal(>(0.19, 0.08)),
+                by(builtin(>, 2))
               )
             ])
           ),
@@ -246,12 +246,12 @@ why(
                     by(fact("spacecraft-battery-diagnosis.pl", clause(7)))
                   ),
                   proof(
-                    goal(mul(32.0, 32.0, 1024.0)),
-                    by(builtin(mul, 3))
+                    goal(is(1024.0, *(32.0, 32.0))),
+                    by(builtin(is, 2))
                   ),
                   proof(
-                    goal(mul(1024.0, 0.015625, 16.0)),
-                    by(builtin(mul, 3))
+                    goal(is(16.0, *(1024.0, 0.015625))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
@@ -260,8 +260,8 @@ why(
                 by(fact("spacecraft-battery-diagnosis.pl", clause(13)))
               ),
               proof(
-                goal(gt(16.0, 12.0)),
-                by(builtin(gt, 2))
+                goal(>(16.0, 12.0)),
+                by(builtin(>, 2))
               )
             ])
           )
@@ -285,12 +285,12 @@ why(
             by(fact("spacecraft-battery-diagnosis.pl", clause(10)))
           ),
           proof(
-            goal(gt(78.0, 60.0)),
-            by(builtin(gt, 2))
+            goal(>(78.0, 60.0)),
+            by(builtin(>, 2))
           ),
           proof(
-            goal(gt(76.0, 60.0)),
-            by(builtin(gt, 2))
+            goal(>(76.0, 60.0)),
+            by(builtin(>, 2))
           )
         ])
       )

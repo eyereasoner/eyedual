@@ -55,8 +55,8 @@ why(
             bindings([binding("Case", case_alpha)]),
             uses([
               proof(
-                goal(not(third_country_transfer(case_alpha))),
-                by(builtin(not, 1))
+                goal('\\+'(third_country_transfer(case_alpha))),
+                by(builtin('\\+', 1))
               )
             ])
           )
@@ -84,8 +84,8 @@ why(
             by(fact("gdpr-compliance.pl", clause(4)))
           ),
           proof(
-            goal(not(has_required_basis(case_beta))),
-            by(builtin(not, 1))
+            goal('\\+'(has_required_basis(case_beta))),
+            by(builtin('\\+', 1))
           )
         ])
       )
@@ -111,8 +111,8 @@ why(
             by(fact("gdpr-compliance.pl", clause(4)))
           ),
           proof(
-            goal(not(has_required_basis(case_beta))),
-            by(builtin(not, 1))
+            goal('\\+'(has_required_basis(case_beta))),
+            by(builtin('\\+', 1))
           )
         ])
       )
@@ -161,8 +161,8 @@ why(
             by(fact("gdpr-compliance.pl", clause(11)))
           ),
           proof(
-            goal(not(safeguard(case_beta, access_logging))),
-            by(builtin(not, 1))
+            goal('\\+'(safeguard(case_beta, access_logging))),
+            by(builtin('\\+', 1))
           )
         ])
       )
@@ -188,8 +188,8 @@ why(
             by(fact("gdpr-compliance.pl", clause(15)))
           ),
           proof(
-            goal(not(adequacy_decision(case_beta))),
-            by(builtin(not, 1))
+            goal('\\+'(adequacy_decision(case_beta))),
+            by(builtin('\\+', 1))
           )
         ])
       )

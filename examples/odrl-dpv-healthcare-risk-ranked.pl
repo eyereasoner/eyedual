@@ -142,15 +142,15 @@ has_duty_action(Graph, Permission, Action) :-
 
 missing_explicit_consent(Graph, Permission) :-
   permission(Graph, Permission),
-  not(has_constraint(Graph, Permission, explicitConsent, true)).
+  \+ has_constraint(Graph, Permission, explicitConsent, true).
 
 missing_deidentified(Graph, Permission) :-
   permission(Graph, Permission),
-  not(has_constraint(Graph, Permission, deIdentified, true)).
+  \+ has_constraint(Graph, Permission, deIdentified, true).
 
 missing_human_review(Graph, Permission) :-
   permission(Graph, Permission),
-  not(has_duty_action(Graph, Permission, humanReview)).
+  \+ has_duty_action(Graph, Permission, humanReview).
 
 retention_days(Graph, Permission, Days) :-
   has_constraint(Graph, Permission, retentionDays, Days).
@@ -184,7 +184,7 @@ risk(riskH4) :-
   permission(Graph, permRetention10y),
   clause(Graph, permRetention10y, clauseH4),
   retention_days(Graph, permRetention10y, Days),
-  gt(Days, Max).
+  (Days > Max).
 
 base_score(riskH1, 85).
 base_score(riskH2, 90).
@@ -235,17 +235,17 @@ score_raw(Risk, Raw) :-
   base_score(Risk, Base),
   violates_need(Risk, Need),
   importance(Need, Weight),
-  add(Base, Weight, Raw).
+  (Raw is Base + Weight).
 
-score(Risk, 100) :- score_raw(Risk, Raw), gt(Raw, 100).
-score(Risk, Raw) :- score_raw(Risk, Raw), ge(100, Raw).
+score(Risk, 100) :- score_raw(Risk, Raw), (Raw > 100).
+score(Risk, Raw) :- score_raw(Risk, Raw), (100 >= Raw).
 
-severity(Risk, risk_HighSeverity) :- score(Risk, Score), gt(Score, 79).
-severity(Risk, risk_ModerateSeverity) :- score(Risk, Score), lt(Score, 80), gt(Score, 49).
-risk_level(Risk, risk_HighRisk) :- score(Risk, Score), gt(Score, 79).
-risk_level(Risk, risk_ModerateRisk) :- score(Risk, Score), lt(Score, 80), gt(Score, 49).
+severity(Risk, risk_HighSeverity) :- score(Risk, Score), (Score > 79).
+severity(Risk, risk_ModerateSeverity) :- score(Risk, Score), (Score < 80), (Score > 49).
+risk_level(Risk, risk_HighRisk) :- score(Risk, Score), (Score > 79).
+risk_level(Risk, risk_ModerateRisk) :- score(Risk, Score), (Score < 80), (Score > 49).
 
-report_key(Risk, Key) :- score(Risk, Score), sub(1000, Score, Key).
+report_key(Risk, Key) :- score(Risk, Score), (Key is 1000 - Score).
 
 policyGraph(agreementHC1, Graphterm) :-
   agreement_policy_graph(agreementHC1, Graph),

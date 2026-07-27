@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(Tail) :- eq([a, b, c], [a | Tail]).
+answer(Tail) :- ([a, b, c] = [a | Tail]).

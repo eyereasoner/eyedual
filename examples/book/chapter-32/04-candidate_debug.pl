@@ -4,7 +4,7 @@ candidate_debug(Person, Age) :-
 
 adult_debug(Person, Age) :-
   candidate_debug(Person, Age),
-  ge(Age, 18).
+  (Age >= 18).
 
 query(candidate_debug(Person, Age)).
 query(adult_debug(Person, Age)).

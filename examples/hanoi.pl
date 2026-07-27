@@ -8,8 +8,8 @@ query(answer(X0, X1)).
 
 hanoi(0, _from, _to, _via, []).
 hanoi(N, From, To, Via, Moves) :-
-  gt(N, 0),
-  sub(N, 1, N1),
+  (N > 0),
+  (N1 is N - 1),
   hanoi(N1, From, Via, To, Before),
   hanoi(N1, Via, To, From, After),
   append(Before, [[From, To]|After], Moves).

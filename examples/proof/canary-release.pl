@@ -16,8 +16,8 @@ why(
             by(fact("canary-release.pl", clause(6)))
           ),
           proof(
-            goal(div(75.0, 5000.0, 0.014999999999999999)),
-            by(builtin(div, 3))
+            goal(is(0.014999999999999999, /(75.0, 5000.0))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -63,8 +63,8 @@ why(
             by(fact("canary-release.pl", clause(8)))
           ),
           proof(
-            goal(lt(180.0, 200.0)),
-            by(builtin(lt, 2))
+            goal(<(180.0, 200.0)),
+            by(builtin(<, 2))
           )
         ])
       )
@@ -100,8 +100,8 @@ why(
                     by(fact("canary-release.pl", clause(6)))
                   ),
                   proof(
-                    goal(div(75.0, 5000.0, 0.014999999999999999)),
-                    by(builtin(div, 3))
+                    goal(is(0.014999999999999999, /(75.0, 5000.0))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
@@ -110,8 +110,8 @@ why(
                 by(fact("canary-release.pl", clause(7)))
               ),
               proof(
-                goal(gt(0.014999999999999999, 0.01)),
-                by(builtin(gt, 2))
+                goal(>(0.014999999999999999, 0.01)),
+                by(builtin(>, 2))
               )
             ])
           )
@@ -149,8 +149,8 @@ why(
                     by(fact("canary-release.pl", clause(6)))
                   ),
                   proof(
-                    goal(div(75.0, 5000.0, 0.014999999999999999)),
-                    by(builtin(div, 3))
+                    goal(is(0.014999999999999999, /(75.0, 5000.0))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
@@ -159,8 +159,8 @@ why(
                 by(fact("canary-release.pl", clause(7)))
               ),
               proof(
-                goal(gt(0.014999999999999999, 0.01)),
-                by(builtin(gt, 2))
+                goal(>(0.014999999999999999, 0.01)),
+                by(builtin(>, 2))
               )
             ])
           )

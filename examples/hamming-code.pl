@@ -28,10 +28,10 @@ flip(1, 0).
 
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 parity4(A, B, C, D, Parity) :-
-  add(A, B, Ab),
-  add(Ab, C, Abc),
-  add(Abc, D, Sum),
-  mod(Sum, 2, Parity).
+  (Ab is A + B),
+  (Abc is Ab + C),
+  (Sum is Abc + D),
+  (Parity is Sum mod 2).
 
 syndrome_bit1(Code, S1) :-
   received_bit(Code, 1, B1),
@@ -59,10 +59,10 @@ syndrome(Code, Syndrome) :-
   syndrome_bit1(Code, S1),
   syndrome_bit2(Code, S2),
   syndrome_bit4(Code, S4),
-  mul(S2, 2, Weighteds2),
-  mul(S4, 4, Weighteds4),
-  add(S1, Weighteds2, Partial),
-  add(Partial, Weighteds4, Syndrome).
+  (Weighteds2 is S2 * 2),
+  (Weighteds4 is S4 * 4),
+  (Partial is S1 + Weighteds2),
+  (Syndrome is Partial + Weighteds4).
 
 corrected_bit(Code, Position, Corrected) :-
   syndrome(Code, Position),
@@ -71,7 +71,7 @@ corrected_bit(Code, Position, Corrected) :-
 
 corrected_bit(Code, Position, Bit) :-
   syndrome(Code, Errorposition),
-  neq(Position, Errorposition),
+  (Position \= Errorposition),
   received_bit(Code, Position, Bit).
 
 corrected_codeword(Code, [B1, B2, B3, B4, B5, B6, B7]) :-
@@ -92,7 +92,7 @@ decoded_payload(Code, [D1, D2, D3, D4]) :-
 
 errorBit(Code, Position) :-
   syndrome(Code, Position),
-  gt(Position, 0).
+  (Position > 0).
 
 correctedCodeword(Code, Codeword) :-
   corrected_codeword(Code, Codeword).
@@ -102,8 +102,8 @@ decodedPayload(Code, Payload) :-
 
 status(Code, single_bit_corrected) :-
   syndrome(Code, Position),
-  gt(Position, 0).
+  (Position > 0).
 
 reason(Code, "Hamming syndrome identifies the flipped bit position") :-
   syndrome(Code, Position),
-  gt(Position, 0).
+  (Position > 0).

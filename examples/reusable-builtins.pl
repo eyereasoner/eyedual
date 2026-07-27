@@ -29,7 +29,7 @@ report(score_summary, summary(Total, Peak, Roottotal)) :-
   scores(Scores),
   sum_list(Scores, Total),
   max_list(Scores, Peak),
-  sqrt(Total, Roottotal).
+  (Roottotal is sqrt(Total)).
 
 report(window, Slice) :-
   scores(Scores),

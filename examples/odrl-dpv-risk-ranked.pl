@@ -125,16 +125,16 @@ clause_text(clauseC4, "Users are not permitted to export their data.").
 % Missing-safeguard checks corresponding to the log_notIncludes tests in N3.
 missing_notice_constraint(Perm) :-
   permission(policy1, Perm),
-  not(notice_days(Perm, _days)).
+  \+ notice_days(Perm, _days).
 
 missing_inform_duty(Perm) :-
   permission(policy1, Perm),
-  not(duty(Perm, odrl_inform)).
+  \+ duty(Perm, odrl_inform).
 
 missing_consent_constraint(Perm) :-
   permission(policy1, Perm),
   action(Perm, tosl_shareData),
-  not(consent_constraint(Perm, true)).
+  \+ consent_constraint(Perm, true).
 
 % ODRL -> DPV risk derivation.
 risk(risk1) :-
@@ -170,7 +170,7 @@ risk(risk2) :-
   action(permChangeTerms, tosl_changeTerms),
   duty(permChangeTerms, odrl_inform),
   notice_days(permChangeTerms, Days),
-  lt(Days, Required).
+  (Days < Required).
 
 risk_source(risk2, src2).
 risk_class(risk2, risk_PolicyRisk).
@@ -228,59 +228,59 @@ score_raw(Risk, Raw) :-
   base_score(Risk, Base),
   violates_need(Risk, Need),
   importance(Need, Weight),
-  add(Base, Weight, Raw).
+  (Raw is Base + Weight).
 
 score(Risk, 100) :-
   score_raw(Risk, Raw),
-  gt(Raw, 100).
+  (Raw > 100).
 
 score(Risk, Raw) :-
   score_raw(Risk, Raw),
-  ge(100, Raw).
+  (100 >= Raw).
 
 severity(Risk, risk_HighSeverity) :-
   score(Risk, Score),
-  gt(Score, 79).
+  (Score > 79).
 
 risk_level(Risk, risk_HighRisk) :-
   score(Risk, Score),
-  gt(Score, 79).
+  (Score > 79).
 
 severity(Risk, risk_ModerateSeverity) :-
   score(Risk, Score),
-  lt(Score, 80),
-  gt(Score, 49).
+  (Score < 80),
+  (Score > 49).
 
 risk_level(Risk, risk_ModerateRisk) :-
   score(Risk, Score),
-  lt(Score, 80),
-  gt(Score, 49).
+  (Score < 80),
+  (Score > 49).
 
 severity(Risk, risk_LowSeverity) :-
   score(Risk, Score),
-  lt(Score, 50).
+  (Score < 50).
 
 risk_level(Risk, risk_LowRisk) :-
   score(Risk, Score),
-  lt(Score, 50).
+  (Score < 50).
 
 report_key(Risk, key(Invscore, Clauseid)) :-
   risk(Risk),
   score(Risk, Score),
-  sub(1000, Score, Invscore),
+  (Invscore is 1000 - Score),
   about_clause(Risk, Clause),
   clause_id(Clause, Clauseid).
 
 ranked_before(Left, Right) :-
   report_key(Left, key(Leftinv, _leftclause)),
   report_key(Right, key(Rightinv, _rightclause)),
-  lt(Leftinv, Rightinv).
+  (Leftinv < Rightinv).
 
 ranked_before(Left, Right) :-
   report_key(Left, key(Inv, Leftclause)),
   report_key(Right, key(Inv, Rightclause)),
   not_matches(Leftclause, Rightclause),
-  lt(Leftclause, Rightclause).
+  (Leftclause < Rightclause).
 
 % Output layer.
 dct_title(agreement1, Title) :- title(agreement1, Title).
@@ -293,7 +293,7 @@ contains(policyGraph1, statement(Subject, Predicate, Object)) :-
   policy_statement(Subject, Predicate, Object).
 source(report, agreement1).
 profile(report, consumerExample).
-firstRisk(report, Risk) :- risk(Risk), not(ranked_before(_other, Risk)).
+firstRisk(report, Risk) :- risk(Risk), \+ ranked_before(_other, Risk).
 before(riskRanking, pair(Left, Right)) :- ranked_before(Left, Right).
 
 type(Risk, dpv_Risk) :- risk(Risk).

@@ -89,20 +89,20 @@ harm_weight(3).
 factor(Disease, ev(Symptom, true), P) :- p_given(Disease, Symptom, P).
 factor(Disease, ev(Symptom, false), Q) :-
   p_given(Disease, Symptom, P),
-  sub(1.0, P, Q).
+  (Q is 1.0 - P).
 
 likelihood(_disease, [], 1.0).
 likelihood(Disease, [Evidence|Rest], Likelihood) :-
   factor(Disease, Evidence, Factor),
   likelihood(Disease, Rest, Taillikelihood),
-  mul(Factor, Taillikelihood, Likelihood).
+  (Likelihood is Factor * Taillikelihood).
 
 % score/2 combines prior probability with the likelihood of the observed evidence.
 score(Disease, Score) :-
   prior(Disease, Prior),
   evidence(case, Evidence),
   likelihood(Disease, Evidence, Likelihood),
-  mul(Prior, Likelihood, Score).
+  (Score is Prior * Likelihood).
 
 scores_for([], []).
 scores_for([Disease|Restdiseases], [Score|Restscores]) :-
@@ -112,11 +112,11 @@ scores_for([Disease|Restdiseases], [Score|Restscores]) :-
 score_sum([], 0.0).
 score_sum([Value|Rest], Sum) :-
   score_sum(Rest, Tailsum),
-  add(Value, Tailsum, Sum).
+  (Sum is Value + Tailsum).
 
 normalize_scores([], _total, []).
 normalize_scores([Score|Restscores], Total, [Posterior|Restposteriors]) :-
-  div(Score, Total, Posterior),
+  (Posterior is Score / Total),
   normalize_scores(Restscores, Total, Restposteriors).
 
 disease_posterior([Disease|_restdiseases], [Posterior|_restposteriors], Disease, Posterior).
@@ -125,9 +125,9 @@ disease_posterior([_otherdisease|Restdiseases], [_otherposterior|Restposteriors]
 
 dot_product([], [], 0.0).
 dot_product([Left|Restleft], [Right|Restright], Sum) :-
-  mul(Left, Right, Term),
+  (Term is Left * Right),
   dot_product(Restleft, Restright, Tailsum),
-  add(Term, Tailsum, Sum).
+  (Sum is Term + Tailsum).
 
 expected_success(Therapy, Expectedsuccess) :-
   posteriors(case, Posteriors),
@@ -140,18 +140,18 @@ utility(Therapy, Utility) :-
   adverse(Therapy, Adverse),
   benefit_weight(Benefitweight),
   harm_weight(Harmweight),
-  mul(Benefitweight, Expectedsuccess, Benefit),
-  mul(Harmweight, Adverse, Harmcost),
-  sub(Benefit, Harmcost, Utility).
+  (Benefit is Benefitweight * Expectedsuccess),
+  (Harmcost is Harmweight * Adverse),
+  (Utility is Benefit - Harmcost).
 
 better_of(Therapy1, Therapy2, Therapy1) :-
   utility(Therapy1, Utility1),
   utility(Therapy2, Utility2),
-  ge(Utility1, Utility2).
+  (Utility1 >= Utility2).
 better_of(Therapy1, Therapy2, Therapy2) :-
   utility(Therapy1, Utility1),
   utility(Therapy2, Utility2),
-  lt(Utility1, Utility2).
+  (Utility1 < Utility2).
 
 best_therapy([Therapy], Therapy).
 best_therapy([Head, Next|Rest], Best) :-

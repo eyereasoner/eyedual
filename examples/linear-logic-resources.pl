@@ -36,16 +36,16 @@ linear_step(State0, Rule, State2) :-
 
 run_linear(0, State, [], State).
 run_linear(Steps, State0, [Rule | Plan], State2) :-
-  gt(Steps, 0),
+  (Steps > 0),
   linear_step(State0, Rule, State1),
-  sub(Steps, 1, Remaining),
+  (Remaining is Steps - 1),
   run_linear(Remaining, State1, Plan, State2).
 
 linear_result(kitchen, Plan, Finalstate) :-
   initial(kitchen, State),
   run_linear(3, State, Plan, Finalstate),
-  eq(Finalstate, [bread]).
+  (Finalstate = [bread]).
 
 linear_check(double_spend_rejected, yes) :-
   initial(wallet, State),
-  not(run_linear(2, State, [buy_flour, buy_yeast], _finalstate)).
+  \+ run_linear(2, State, [buy_flour, buy_yeast], _finalstate).

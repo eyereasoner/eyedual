@@ -20,28 +20,28 @@ threshold(api_cache, maximum_average_latency_ms, 20.0).
 % applying both acceptance thresholds together.
 total_requests(Cache, Total) :-
   cache_sample(Cache, Hits, Misses, _hitlatency, _misslatency),
-  add(Hits, Misses, Total).
+  (Total is Hits + Misses).
 
 hit_rate(Cache, Rate) :-
   cache_sample(Cache, Hits, _misses, _hitlatency, _misslatency),
   total_requests(Cache, Total),
-  div(Hits, Total, Rate).
+  (Rate is Hits / Total).
 
 average_latency(Cache, Average) :-
   cache_sample(Cache, Hits, Misses, Hitlatency, Misslatency),
-  mul(Hits, Hitlatency, Hitcost),
-  mul(Misses, Misslatency, Misscost),
-  add(Hitcost, Misscost, Totalcost),
+  (Hitcost is Hits * Hitlatency),
+  (Misscost is Misses * Misslatency),
+  (Totalcost is Hitcost + Misscost),
   total_requests(Cache, Total),
-  div(Totalcost, Total, Average).
+  (Average is Totalcost / Total).
 
 cache_effective(Cache) :-
   hit_rate(Cache, Rate),
   threshold(Cache, minimum_hit_rate, Minimumrate),
-  gt(Rate, Minimumrate),
+  (Rate > Minimumrate),
   average_latency(Cache, Average),
   threshold(Cache, maximum_average_latency_ms, Maximumlatency),
-  lt(Average, Maximumlatency).
+  (Average < Maximumlatency).
 
 hitRate(Cache, Rate) :-
   hit_rate(Cache, Rate).

@@ -22,45 +22,45 @@ field(clay_surplus, 70, 90, 0.08, 120).
 % leaching rules then explain the resulting field status.
 total_n(F, Total) :-
   field(F, Soil, Fert, _, _),
-  add(Soil, Fert, Total).
+  (Total is Soil + Fert).
 
 available_n(F, Avail) :-
   total_n(F, Total),
   field(F, _, _, Loss, _),
-  sub(1.0, Loss, Retained),
-  mul(Total, Retained, Avail).
+  (Retained is 1.0 - Loss),
+  (Avail is Total * Retained).
 
 % surplus_n/2 and deficit_n/2 split the signed balance into reportable quantities.
 surplus_n(F, Surplus) :-
   available_n(F, Avail),
   field(F, _, _, _, Demand),
-  gt(Avail, Demand),
-  sub(Avail, Demand, Surplus).
+  (Avail > Demand),
+  (Surplus is Avail - Demand).
 
 surplus_n(F, 0.0) :-
   available_n(F, Avail),
   field(F, _, _, _, Demand),
-  le(Avail, Demand).
+  (Avail =< Demand).
 
 deficit_n(F, Deficit) :-
   available_n(F, Avail),
   field(F, _, _, _, Demand),
-  lt(Avail, Demand),
-  sub(Demand, Avail, Deficit).
+  (Avail < Demand),
+  (Deficit is Demand - Avail).
 
 deficit_n(F, 0.0) :-
   available_n(F, Avail),
   field(F, _, _, _, Demand),
-  ge(Avail, Demand).
+  (Avail >= Demand).
 
 leaching_index(F, Index) :-
   surplus_n(F, Surplus),
   field(F, _, _, Loss, _),
-  mul(Surplus, Loss, Index).
+  (Index is Surplus * Loss).
 
-status(F, under_supplied) :- deficit_n(F, D), gt(D, 10.0).
-status(F, balanced) :- deficit_n(F, D), surplus_n(F, S), le(D, 10.0), le(S, 10.0).
-status(F, over_supplied) :- surplus_n(F, S), gt(S, 10.0).
+status(F, under_supplied) :- deficit_n(F, D), (D > 10.0).
+status(F, balanced) :- deficit_n(F, D), surplus_n(F, S), (D =< 10.0), (S =< 10.0).
+status(F, over_supplied) :- surplus_n(F, S), (S > 10.0).
 
 availableN_kg_ha(F, A) :- available_n(F, A).
 deficitN_kg_ha(F, D) :- deficit_n(F, D).
@@ -69,5 +69,5 @@ leachingIndex(F, I) :- leaching_index(F, I).
 highestLeachingRisk(field_nitrogen_balance, sandy_high) :-
   leaching_index(sandy_high, Sandy),
   leaching_index(clay_surplus, Clay),
-  gt(Sandy, Clay).
+  (Sandy > Clay).
 reason(field_nitrogen_balance, "available nitrogen is total input retained after losses compared with crop demand").

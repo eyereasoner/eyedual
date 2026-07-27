@@ -35,10 +35,10 @@ legal_move([B, M, M, y, H], climb_off, [B, M, M, n, H]).
 legal_move([B, B, B, y, n], grab, [B, B, B, y, y]).
 legal_move([B, M, M, n, H], push(X), [B, X, X, n, H]) :-
   member(X, [loc1, loc2, loc3]),
-  neq(X, M).
+  (X \= M).
 legal_move([B, M, L, n, H], go(X), [B, X, L, n, H]) :-
   member(X, [loc1, loc2, loc3]),
-  neq(X, M).
+  (X \= M).
 
 plan(monkeyBananas, Moves) :- plan(Moves).
 solved(monkeyBananas, true) :- plan(_moves).

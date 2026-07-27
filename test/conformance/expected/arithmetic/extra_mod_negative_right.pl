@@ -1,1 +1,1 @@
-answer(mod_negative_right, 1).
+answer(mod_negative_right, -2).

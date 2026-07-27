@@ -38,7 +38,7 @@ path(Node, Goal, Visited, [Node|Path], Cost) :-
   link(Node, Next, Stepcost),
   not_member(Next, Visited),
   path(Next, Goal, [Next|Visited], Path, Restcost),
-  add(Stepcost, Restcost, Cost).
+  (Cost is Stepcost + Restcost).
 
 % Derived reverse links, mirroring the rule output in the Eyeling example.
 edge([B, A], Cost) :-
@@ -47,4 +47,4 @@ edge([B, A], Cost) :-
 % Only paths within the displayed cost bound are queried.
 path([a, f], [Path, Cost]) :-
   path(a, f, [a], Path, Cost),
-  le(Cost, 16).
+  (Cost =< 16).

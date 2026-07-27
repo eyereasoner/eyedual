@@ -2,7 +2,7 @@
 traveler_in_good_standing(Person) :-
   registered(Person),
   identity_checked(Person),
-  not(suspended(Person)).
+  \+ suspended(Person).
 
 can_board(Person) :-
   traveler_in_good_standing(Person),

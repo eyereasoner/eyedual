@@ -33,4 +33,4 @@ sameInverse(A, B, C) :-
   leftInverse(A, B),
   rightInverse(A, C),
   sameTerm(B, C),
-  neq(B, C).
+  (B \= C).

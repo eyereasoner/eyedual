@@ -25,19 +25,19 @@ wall(wall1, outdoor_C, -4.0).
 temperature_difference(Wall, Deltat) :-
   wall(Wall, indoor_C, Indoor),
   wall(Wall, outdoor_C, Outdoor),
-  sub(Indoor, Outdoor, Deltat).
+  (Deltat is Indoor - Outdoor).
 
 thermal_resistance(Wall, Resistance) :-
   wall(Wall, thickness_m, Thickness),
   wall(Wall, conductivity_W_mK, Conductivity),
   wall(Wall, area_m2, Area),
-  mul(Conductivity, Area, Conductance),
-  div(Thickness, Conductance, Resistance).
+  (Conductance is Conductivity * Area),
+  (Resistance is Thickness / Conductance).
 
 heat_loss(Wall, Heatloss) :-
   temperature_difference(Wall, Deltat),
   thermal_resistance(Wall, Resistance),
-  div(Deltat, Resistance, Heatloss).
+  (Heatloss is Deltat / Resistance).
 
 type(Wall, conduction_heat_loss) :-
   wall(Wall, thickness_m, _thickness).
@@ -53,4 +53,4 @@ heatLoss_W(Wall, Heatloss) :-
 
 status(Wall, high_heat_loss) :-
   heat_loss(Wall, Heatloss),
-  gt(Heatloss, 1000.0).
+  (Heatloss > 1000.0).

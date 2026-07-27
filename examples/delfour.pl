@@ -182,7 +182,7 @@ authorization_allowed(check) :-
   request_purpose(case, "shopping_assist"),
   scanner_auth_at(case, Authat),
   expires_at(insight, Expiresat),
-  le(Authat, Expiresat).
+  (Authat @=< Expiresat).
 
 decision(decision, "Allowed", insight) :-
   authorization_allowed(check).
@@ -192,7 +192,7 @@ banner_flags_high_sugar(check) :-
   scanned_product(scan, Product),
   sugar_per_serving(Product, Sugar),
   threshold_g(insight, Threshold),
-  ge(Sugar, Threshold).
+  (Sugar >= Threshold).
 
 banner_headline(banner, "Track sugar per serving while you scan") :-
   banner_flags_high_sugar(check).
@@ -203,8 +203,8 @@ banner_note(banner, "High sugar") :-
 better_lower_sugar(Scannedsugar, Candidatesugar) :-
   product(Other),
   sugar_tenths(Other, Othersugar),
-  gt(Scannedsugar, Othersugar),
-  lt(Othersugar, Candidatesugar).
+  (Scannedsugar > Othersugar),
+  (Othersugar < Candidatesugar).
 
 % Pick the lowest-sugar alternative according to the insight suggestion policy.
 suggested_alternative(case, Candidate) :-
@@ -212,8 +212,8 @@ suggested_alternative(case, Candidate) :-
   sugar_tenths(Scanned, Scannedsugar),
   product(Candidate),
   sugar_tenths(Candidate, Candidatesugar),
-  gt(Scannedsugar, Candidatesugar),
-  not(better_lower_sugar(Scannedsugar, Candidatesugar)).
+  (Scannedsugar > Candidatesugar),
+  \+ better_lower_sugar(Scannedsugar, Candidatesugar).
 
 banner_suggested_alternative(banner, Name) :-
   banner_note(banner, "High sugar"),
@@ -225,12 +225,12 @@ alternative_is_lower_sugar(check) :-
   sugar_tenths(Scanned, Scannedsugar),
   suggested_alternative(case, Alternative),
   sugar_tenths(Alternative, Alternativesugar),
-  gt(Scannedsugar, Alternativesugar).
+  (Scannedsugar > Alternativesugar).
 
 duty_timing_consistent(check) :-
   scanner_duty_at(case, Dutyat),
   expires_at(insight, Expiresat),
-  le(Dutyat, Expiresat).
+  (Dutyat @=< Expiresat).
 
 marketing_prohibited(check) :-
   prohibition(policy, odrl_distribute, insight, "marketing").

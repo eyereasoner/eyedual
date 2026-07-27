@@ -7,10 +7,10 @@ query(totient_answer(X0, X1)).
 
 
 % Euclid's algorithm is expressed recursively over remainders.
-gcd(A, 0, A) :- ge(A, 0).
+gcd(A, 0, A) :- (A >= 0).
 gcd(A, B, G) :-
-  gt(B, 0),
-  mod(A, B, R),
+  (B > 0),
+  (R is A mod B),
   gcd(B, R, G).
 
 coprime_upto(N, K) :-
@@ -19,7 +19,7 @@ coprime_upto(N, K) :-
 
 % Count the finite coprime generator instead of constructing an explicit list.
 totient(N, Count) :-
-  gt(N, 0),
+  (N > 0),
   countall(coprime_upto(N, _k), Count).
 
 summatory_totient(Limit, Sum) :-

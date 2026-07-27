@@ -29,7 +29,7 @@ limit(regulator1, maxOutputRipple_V, 0.05).
 duty_cycle(Converter, Duty) :-
   converter(Converter, outputVoltage_V, Outputvoltage),
   converter(Converter, inputVoltage_V, Inputvoltage),
-  div(Outputvoltage, Inputvoltage, Duty).
+  (Duty is Outputvoltage / Inputvoltage).
 
 inductor_ripple_current(Converter, Ripplecurrent) :-
   converter(Converter, inputVoltage_V, Inputvoltage),
@@ -37,32 +37,32 @@ inductor_ripple_current(Converter, Ripplecurrent) :-
   converter(Converter, inductance_H, Inductance),
   converter(Converter, switchingFrequency_Hz, Frequency),
   duty_cycle(Converter, Duty),
-  sub(Inputvoltage, Outputvoltage, Voltageacrossinductor),
-  mul(Voltageacrossinductor, Duty, Numerator),
-  mul(Inductance, Frequency, Denominator),
-  div(Numerator, Denominator, Ripplecurrent).
+  (Voltageacrossinductor is Inputvoltage - Outputvoltage),
+  (Numerator is Voltageacrossinductor * Duty),
+  (Denominator is Inductance * Frequency),
+  (Ripplecurrent is Numerator / Denominator).
 
 ripple_ratio(Converter, Ratio) :-
   inductor_ripple_current(Converter, Ripplecurrent),
   converter(Converter, loadCurrent_A, Loadcurrent),
-  div(Ripplecurrent, Loadcurrent, Ratio).
+  (Ratio is Ripplecurrent / Loadcurrent).
 
 capacitor_ripple_voltage(Converter, Ripplevoltage) :-
   inductor_ripple_current(Converter, Ripplecurrent),
   converter(Converter, switchingFrequency_Hz, Frequency),
   converter(Converter, capacitance_F, Capacitance),
-  mul(8.0, Frequency, Eightf),
-  mul(Eightf, Capacitance, Denominator),
-  div(Ripplecurrent, Denominator, Ripplevoltage).
+  (Eightf is 8.0 * Frequency),
+  (Denominator is Eightf * Capacitance),
+  (Ripplevoltage is Ripplecurrent / Denominator).
 
 % within_ripple_limits/1 is the design gate for ripple current and output voltage.
 within_ripple_limits(Converter) :-
   ripple_ratio(Converter, Ratio),
   limit(Converter, maxRippleRatio, Maxratio),
-  lt(Ratio, Maxratio),
+  (Ratio < Maxratio),
   capacitor_ripple_voltage(Converter, Ripplevoltage),
   limit(Converter, maxOutputRipple_V, Maxripplevoltage),
-  lt(Ripplevoltage, Maxripplevoltage).
+  (Ripplevoltage < Maxripplevoltage).
 
 dutyCycle(Converter, Duty) :-
   duty_cycle(Converter, Duty).

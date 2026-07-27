@@ -3,4 +3,4 @@ adult(Person) :-
   recorded_age(Person, Age),
   adult_age(Age).
 
-adult_age(Age) :- ge(Age, 18).
+adult_age(Age) :- (Age >= 18).

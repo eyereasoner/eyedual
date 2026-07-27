@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(ok) :- not(missing(ok)).
+answer(ok) :- \+ missing(ok).

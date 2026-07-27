@@ -27,13 +27,13 @@ status(Person, compliant) :-
 status(Person, compliant) :-
   employee(Person),
   does(Person, log_off_at_end_of_shift),
-  not(does(Person, work_related_task)).
+  \+ does(Person, work_related_task).
 
 % A work task without the required log-off is non-compliant.
 status(Person, non_compliant) :-
   employee(Person),
   does(Person, work_related_task),
-  not(does(Person, log_off_at_end_of_shift)).
+  \+ does(Person, log_off_at_end_of_shift).
 
 % Accessing social media is non-compliant in this policy.
 status(Person, non_compliant) :-

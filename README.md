@@ -21,7 +21,7 @@ Install the published CLI globally:
 ```bash
 npm install --global eyepl
 eyepl --version
-printf 'query(works(stdin, true)).\nworks(stdin, true) :- eq(ok, ok).\n' | eyepl -
+printf 'query(works(stdin, true)).\nworks(stdin, true) :- ok = ok.\n' | eyepl -
 ```
 
 Eyepl has no build step. From a source checkout, install its RDF parser
@@ -29,17 +29,17 @@ dependencies and run the CLI directly with Node.js 18 or newer:
 
 ```bash
 npm install
-node bin/eyepl.js examples/ancestor.pl
-node bin/eyepl.js --proof examples/socrates.pl
-node bin/eyepl.js --warnings test/conformance/warnings/negation/unstratified_mutual.pl
-printf 'query(works(stdin, true)).\nworks(stdin, true) :- eq(ok, ok).\n' | node bin/eyepl.js -
+node bin/eyepl.js --library examples/ancestor.pl
+node bin/eyepl.js --library --proof examples/socrates.pl
+node bin/eyepl.js --library --warnings test/conformance/warnings/negation/unstratified_mutual.pl
+printf 'query(works(stdin, true)).\nworks(stdin, true) :- ok = ok.\n' | node bin/eyepl.js -
 ```
 
 For one-off local CLI use from the checkout, npm can run the package bin without a manual symlink:
 
 ```bash
 npm exec --yes --package=. -- eyepl --version
-npm exec --yes --package=. -- eyepl examples/ancestor.pl
+npm exec --yes --package=. -- eyepl --library examples/ancestor.pl
 ```
 
 To install the checkout's `eyepl` command on your `PATH`, use npm's package link:
@@ -59,10 +59,22 @@ import { run, Program, Solver } from 'eyepl';
 
 const result = run(`
 query(answer(X0)).
-answer(ok) :- eq(ok, ok).
+answer(ok) :- ok = ok.
 `);
 console.log(result.stdout);
 ```
+
+The default registry contains the ISO Prolog core. Programs that use Eyepl's
+non-core string, list, aggregation, context, date, or convenience predicates
+must opt in explicitly:
+
+```js
+import { getLibraryRegistry, run } from 'eyepl';
+
+run(source, { registry: getLibraryRegistry() });
+```
+
+The equivalent CLI switch is `--library`.
 
 Rules headed by `false` are inference fuses. A matching fuse aborts before
 queries run; the CLI exits with code `65`, while the JavaScript API throws an
@@ -75,8 +87,8 @@ The spacecraft battery example combines sensor telemetry, the physical relation
 derive a diagnosis and safety action:
 
 ```bash
-node bin/eyepl.js examples/spacecraft-battery-diagnosis.pl
-node bin/eyepl.js -p examples/spacecraft-battery-diagnosis.pl
+node bin/eyepl.js --library examples/spacecraft-battery-diagnosis.pl
+node bin/eyepl.js --library -p examples/spacecraft-battery-diagnosis.pl
 ```
 
 The normal output reports computed metrics, a thermal-runaway precursor, and an

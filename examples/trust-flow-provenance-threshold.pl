@@ -28,20 +28,20 @@ confidence(Message, Confidence) :-
   publisher_trust(Publisher, Publishertrust),
   signature_strength(Signature, Signaturetrust),
   quality_score(Transform, Quality),
-  mul(Publishertrust, Signaturetrust, A),
-  mul(A, Quality, Confidence).
+  (A is Publishertrust * Signaturetrust),
+  (Confidence is A * Quality).
 
 trust_flow_state(Message, fpv_accepted) :-
   message(Message, _publisher, _transform, _signature, Receiver),
   confidence(Message, Confidence),
   acceptance_threshold(Receiver, Threshold),
-  ge(Confidence, Threshold).
+  (Confidence >= Threshold).
 
 trust_flow_state(Message, fpv_quarantine) :-
   message(Message, _publisher, _transform, _signature, Receiver),
   confidence(Message, Confidence),
   acceptance_threshold(Receiver, Threshold),
-  lt(Confidence, Threshold).
+  (Confidence < Threshold).
 
 status(Message, fpv_high_trust_flow) :- trust_flow_state(Message, fpv_accepted).
 risk(Message, risk_low_trust_data_source) :- trust_flow_state(Message, fpv_quarantine).

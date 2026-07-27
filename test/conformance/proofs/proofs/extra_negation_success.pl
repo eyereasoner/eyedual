@@ -1,3 +1,3 @@
 query(answer(X0)).
 known(a).
-answer(ok) :- not(known(b)).
+answer(ok) :- \+ known(b).

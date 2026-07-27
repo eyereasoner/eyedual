@@ -7,8 +7,8 @@ why(
     bindings([binding("Who", '<urn:example:alice>')]),
     uses([
       proof(
-        goal(eq('<urn:example:alice>', '<urn:example:alice>')),
-        by(builtin(eq, 2))
+        goal(=('<urn:example:alice>', '<urn:example:alice>')),
+        by(builtin(=, 2))
       )
     ])
   )

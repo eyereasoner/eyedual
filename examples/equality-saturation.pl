@@ -28,8 +28,8 @@ rewrite(mul(X, 0), 0).
 rewrite(mul(0, X), 0).
 
 % Constant folding and one distributivity rule make the search space less toyish.
-rewrite(add(A, B), C) :- add(A, B, C).
-rewrite(mul(A, B), C) :- mul(A, B, C).
+rewrite(add(A, B), C) :- number(A), number(B), (C is A + B).
+rewrite(mul(A, B), C) :- number(A), number(B), (C is A * B).
 rewrite(mul(X, add(Y, Z)), add(mul(X, Y), mul(X, Z))).
 
 % Apply a rewrite at the root or inside one subterm.
@@ -43,8 +43,8 @@ rewrite_anywhere(mul(A, B), mul(A, New_b)) :- rewrite_anywhere(B, New_b).
 % candidate_expression/1 looks across all depths from zero to the fuel limit.
 equivalent_at_depth(0, Expr, Expr).
 equivalent_at_depth(Depth, Expr, Out) :-
-  gt(Depth, 0),
-  sub(Depth, 1, Previous_depth),
+  (Depth > 0),
+  (Previous_depth is Depth - 1),
   equivalent_at_depth(Previous_depth, Expr, Mid),
   rewrite_anywhere(Mid, Out).
 
@@ -62,13 +62,13 @@ expr_cost(N, 1) :- between(0, 20, N).
 expr_cost(add(A, B), Cost) :-
   expr_cost(A, A_cost),
   expr_cost(B, B_cost),
-  add(A_cost, B_cost, Children),
-  add(Children, 1, Cost).
+  (Children is A_cost + B_cost),
+  (Cost is Children + 1).
 expr_cost(mul(A, B), Cost) :-
   expr_cost(A, A_cost),
   expr_cost(B, B_cost),
-  add(A_cost, B_cost, Children),
-  add(Children, 1, Cost).
+  (Children is A_cost + B_cost),
+  (Cost is Children + 1).
 
 best_expression(Expr, Cost) :-
   aggregate_min([Candidate_cost, Candidate], Candidate,

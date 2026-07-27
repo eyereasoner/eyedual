@@ -5,7 +5,7 @@ candidate_pair(A, B) :-
 
 compatible_pair(A, B) :-
   candidate_pair(A, B),
-  neq(A, B),
-  not(conflict(A, B)).
+  (A \= B),
+  \+ conflict(A, B).
 
 answer(pair(A, B)) :- compatible_pair(A, B).

@@ -16,13 +16,13 @@ sample(targetC, 19.25).
 
 % Each value/2 fact is a small arithmetic check; than/2 and comfortable/2
 % show that comparisons work over decimal results too.
-value(sum, X) :- add(1.5, 2.25, X).
-value(difference, X) :- sub(10.0, 3.125, X).
-value(product, X) :- mul(2.5, 4.0, X).
-value(quotient, X) :- div(7.5, 2, X).
-value(sqrtByPower, X) :- pow(9.0, 0.5, X).
-value(mathSum, X) :- add(0.125, 0.875, X).
-value(mathProduct, X) :- mul(6.0, 0.5, X).
-than(warmer, targetC) :- sample(roomC, R), sample(targetC, T), gt(R, T).
+value(sum, X) :- (X is 1.5 + 2.25).
+value(difference, X) :- (X is 10.0 - 3.125).
+value(product, X) :- (X is 2.5 * 4.0).
+value(quotient, X) :- (X is 7.5 / 2).
+value(sqrtByPower, X) :- (X is 9.0 ** 0.5).
+value(mathSum, X) :- (X is 0.125 + 0.875).
+value(mathProduct, X) :- (X is 6.0 * 0.5).
+than(warmer, targetC) :- sample(roomC, R), sample(targetC, T), (R > T).
 % Boolean-like conclusions remain ordinary atoms.
-value(comfortable, true) :- sample(roomC, R), ge(R, 21.0), le(R, 22.0).
+value(comfortable, true) :- sample(roomC, R), (R >= 21.0), (R =< 22.0).

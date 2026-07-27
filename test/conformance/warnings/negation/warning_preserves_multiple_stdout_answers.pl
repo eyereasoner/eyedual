@@ -1,5 +1,5 @@
 query(answer(X0)).
-p(a) :- not(q(a)).
-q(a) :- not(p(a)).
+p(a) :- \+ q(a).
+q(a) :- \+ p(a).
 answer(a).
 answer(b).

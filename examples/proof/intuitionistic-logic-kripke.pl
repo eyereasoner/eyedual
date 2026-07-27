@@ -59,8 +59,8 @@ why(
             by(fact("intuitionistic-logic-kripke.pl", clause(3)))
           ),
           proof(
-            goal(not(bad_implication(root, atom(p), or(atom(p), atom(q))))),
-            by(builtin(not, 1))
+            goal('\\+'(bad_implication(root, atom(p), or(atom(p), atom(q))))),
+            by(builtin('\\+', 1))
           )
         ])
       )
@@ -90,8 +90,8 @@ why(
                 by(fact("intuitionistic-logic-kripke.pl", clause(3)))
               ),
               proof(
-                goal(not(bad_implication(root, neg(or(atom(p), atom(q))), bottom))),
-                by(builtin(not, 1))
+                goal('\\+'(bad_implication(root, neg(or(atom(p), atom(q))), bottom))),
+                by(builtin('\\+', 1))
               )
             ])
           )
@@ -109,8 +109,8 @@ why(
     by(rule("intuitionistic-logic-kripke.pl", clause(25))),
     uses([
       proof(
-        goal(not(forces(root, or(atom(p), atom(q))))),
-        by(builtin(not, 1))
+        goal('\\+'(forces(root, or(atom(p), atom(q))))),
+        by(builtin('\\+', 1))
       )
     ])
   )
@@ -124,8 +124,8 @@ why(
     by(rule("intuitionistic-logic-kripke.pl", clause(26))),
     uses([
       proof(
-        goal(not(forces(root, or(atom(p), neg(atom(p)))))),
-        by(builtin(not, 1))
+        goal('\\+'(forces(root, or(atom(p), neg(atom(p)))))),
+        by(builtin('\\+', 1))
       )
     ])
   )

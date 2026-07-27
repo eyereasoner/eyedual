@@ -180,7 +180,13 @@ export function makeProgram(source: string, options?: EyeplRunOptions): Program;
 export function parseClauses(source: string, options?: EyeplRunOptions): EyeplClause[];
 export function parseProgramText(source: string, options?: EyeplRunOptions): EyeplClause[];
 export function createDefaultRegistry(): BuiltinRegistry;
+export function createLibraryRegistry(): BuiltinRegistry;
 export function getDefaultRegistry(): BuiltinRegistry;
+export function getLibraryRegistry(): BuiltinRegistry;
+export class PrologError extends Error {
+  formal: string;
+  culprit: EyeplTerm | null;
+}
 export function run(source: string | Program, options?: EyeplRunOptions): EyeplRunResult;
 export function whyProof(program: Program, goal: EyeplTerm, options?: EyeplRunOptions): { ok: boolean; text: string };
 export function whyNoProof(goal: EyeplTerm): string;
@@ -199,6 +205,7 @@ declare const eyepl: {
   INFERENCE_FUSE_EXIT_CODE: typeof INFERENCE_FUSE_EXIT_CODE;
   InferenceFuseError: typeof InferenceFuseError;
   BuiltinRegistry: typeof BuiltinRegistry;
+  PrologError: typeof PrologError;
   variable: typeof variable;
   atom: typeof atom;
   stringTerm: typeof stringTerm;
@@ -233,7 +240,9 @@ declare const eyepl: {
   parseClauses: typeof parseClauses;
   parseProgramText: typeof parseProgramText;
   createDefaultRegistry: typeof createDefaultRegistry;
+  createLibraryRegistry: typeof createLibraryRegistry;
   getDefaultRegistry: typeof getDefaultRegistry;
+  getLibraryRegistry: typeof getLibraryRegistry;
   run: typeof run;
   checkInferenceFuses: typeof checkInferenceFuses;
   formatInferenceFuse: typeof formatInferenceFuse;

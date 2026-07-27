@@ -20,15 +20,15 @@ tip_deflection_m(Beam, Deflection) :-
   beam(Beam, length_m, Length),
   beam(Beam, elasticModulus_Pa, Elasticmodulus),
   beam(Beam, secondMoment_m4, Secondmoment),
-  pow(Length, 3.0, Lengthcubed),
-  mul(Force, Lengthcubed, Numerator),
-  mul(3.0, Elasticmodulus, Threee),
-  mul(Threee, Secondmoment, Denominator),
-  div(Numerator, Denominator, Deflection).
+  (Lengthcubed is Length ** 3.0),
+  (Numerator is Force * Lengthcubed),
+  (Threee is 3.0 * Elasticmodulus),
+  (Denominator is Threee * Secondmoment),
+  (Deflection is Numerator / Denominator).
 
 tip_deflection_mm(Beam, Deflectionmm) :-
   tip_deflection_m(Beam, Deflectionm),
-  mul(Deflectionm, 1000.0, Deflectionmm).
+  (Deflectionmm is Deflectionm * 1000.0).
 
 type(Beam, cantilever_beam) :-
   beam(Beam, force_N, _force).
@@ -45,4 +45,4 @@ limit_mm(Beam, Limit) :-
 status(Beam, within_deflection_limit) :-
   tip_deflection_mm(Beam, Deflectionmm),
   limit(Beam, maxDeflection_mm, Limit),
-  le(Deflectionmm, Limit).
+  (Deflectionmm =< Limit).

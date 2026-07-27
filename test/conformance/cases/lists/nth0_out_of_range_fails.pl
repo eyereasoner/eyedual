@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(ok) :- not(nth0(5, [a], X)).
+answer(ok) :- \+ nth0(5, [a], X).

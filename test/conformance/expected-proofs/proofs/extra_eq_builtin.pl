@@ -7,8 +7,8 @@ why(
     bindings([binding("X", a)]),
     uses([
       proof(
-        goal(eq(pair(a, b), pair(a, b))),
-        by(builtin(eq, 2))
+        goal(=(pair(a, b), pair(a, b))),
+        by(builtin(=, 2))
       )
     ])
   )

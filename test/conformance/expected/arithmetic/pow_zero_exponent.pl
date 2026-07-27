@@ -1,1 +1,1 @@
-answer(1).
+answer(1.0).

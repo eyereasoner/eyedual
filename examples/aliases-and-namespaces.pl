@@ -10,8 +10,8 @@ query(label(X0, X1)).
 
 % The first four rules call native built-ins; the last two rules show that
 % application vocabulary is modeled with ordinary facts and rules.
-value(nativeMath, X) :- add(0.125, 0.875, X).
-ok(nativeCompare, true) :- lt(2, 3).
+value(nativeMath, X) :- (X is 0.125 + 0.875).
+ok(nativeCompare, true) :- (2 < 3).
 ok(nativeString, true) :- matches("scoped retail insight", "retail|medical").
 tail(nativeList, Tail) :- rest([a, b, c], Tail).
 

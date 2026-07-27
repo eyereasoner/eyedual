@@ -14,11 +14,11 @@ why(
   )
 ).
 
-is(test, true).
+holds_result(test, true).
 why(
-  is(test, true),
+  holds_result(test, true),
   proof(
-    goal(is(test, true)),
+    goal(holds_result(test, true)),
     by(rule("socrates.pl", clause(5))),
     uses([
       proof(

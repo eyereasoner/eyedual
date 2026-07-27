@@ -1,5 +1,5 @@
 query(answer(X0, X1)).
-answer(floor, X) :- floor(-1.2, X).
-answer(ceiling, X) :- ceiling(-1.2, X).
-answer(trunc, X) :- trunc(-1.8, X).
-answer(rounded, X) :- rounded(-1.5, X).
+answer(floor, X) :- (X is floor(-1.2)).
+answer(ceiling, X) :- (X is ceiling(-1.2)).
+answer(trunc, X) :- (X is truncate(-1.8)).
+answer(rounded, X) :- (X is round(-1.5)).

@@ -11,23 +11,23 @@ query(convergent_answer(X0, X1)).
 conv(0, 1, 1).
 conv(1, 3, 2).
 conv(N, P, Q) :-
-  gt(N, 1),
-  sub(N, 1, N1),
-  sub(N, 2, N2),
+  (N > 1),
+  (N1 is N - 1),
+  (N2 is N - 2),
   conv(N1, P1, Q1),
   conv(N2, P2, Q2),
-  mul(2, P1, Twicep1),
-  add(Twicep1, P2, P),
-  mul(2, Q1, Twiceq1),
-  add(Twiceq1, Q2, Q).
+  (Twicep1 is 2 * P1),
+  (P is Twicep1 + P2),
+  (Twiceq1 is 2 * Q1),
+  (Q is Twiceq1 + Q2).
 
 % The signed error alternates between +1 and -1 for these convergents.
 pell_error(N, Error) :-
   conv(N, P, Q),
-  mul(P, P, P2),
-  mul(Q, Q, Q2),
-  mul(2, Q2, Twiceq2),
-  sub(P2, Twiceq2, Error).
+  (P2 is P * P),
+  (Q2 is Q * Q),
+  (Twiceq2 is 2 * Q2),
+  (Error is P2 - Twiceq2).
 
 convergent_answer(convergent_10, fraction(P, Q)) :- conv(10, P, Q).
 convergent_answer(convergent_15, fraction(P, Q)) :- conv(15, P, Q).

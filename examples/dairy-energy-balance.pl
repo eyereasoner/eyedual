@@ -18,45 +18,45 @@ cow(grazing, 540, 18, 5.8, 21).
 % Maintenance scales with body weight; milk requirement scales with daily milk.
 maintenance(C, M) :-
   cow(C, Weight, _, _, _),
-  mul(Weight, 0.08, M).
+  (M is Weight * 0.08).
 
 milk_requirement(C, R) :-
   cow(C, _, Milk, _, _),
-  mul(Milk, 5.0, R).
+  (R is Milk * 5.0).
 
 ration_supply(C, S) :-
   cow(C, _, _, Density, Intake),
-  mul(Density, Intake, S).
+  (S is Density * Intake).
 
 total_requirement(C, R) :-
   maintenance(C, M),
   milk_requirement(C, Milkr),
-  add(M, Milkr, R).
+  (R is M + Milkr).
 
 % energy_balance/2 is intake minus maintenance and milk-production demand.
 energy_balance(C, B) :-
   ration_supply(C, S),
   total_requirement(C, R),
-  sub(S, R, B).
+  (B is S - R).
 
 ration_supported_milk(C, Milk) :-
   ration_supply(C, S),
   maintenance(C, M),
-  sub(S, M, Availableformilk),
-  div(Availableformilk, 5.0, Milk).
+  (Availableformilk is S - M),
+  (Milk is Availableformilk / 5.0).
 
 status(C, negative_energy_balance) :-
   energy_balance(C, B),
-  lt(B, -5.0).
+  (B < -5.0).
 
 status(C, near_neutral_energy_balance) :-
   energy_balance(C, B),
-  ge(B, -5.0),
-  le(B, 5.0).
+  (B >= -5.0),
+  (B =< 5.0).
 
 status(C, positive_energy_balance) :-
   energy_balance(C, B),
-  gt(B, 5.0).
+  (B > 5.0).
 
 energyBalance_Mcal(C, B) :- energy_balance(C, B).
 rationSupportedMilk_kg(C, M) :- ration_supported_milk(C, M).

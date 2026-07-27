@@ -9,23 +9,23 @@ query(pell_answer(X0, X1)).
 % N=0 is the neutral solution; each recursive step multiplies by 3 + 2*sqrt(2).
 pell(0, 1, 0).
 pell(N, X, Y) :-
-  gt(N, 0),
-  sub(N, 1, N1),
+  (N > 0),
+  (N1 is N - 1),
   pell(N1, X0, Y0),
-  mul(3, X0, Ax),
-  mul(4, Y0, By),
-  add(Ax, By, X),
-  mul(2, X0, Cx),
-  mul(3, Y0, Dy),
-  add(Cx, Dy, Y).
+  (Ax is 3 * X0),
+  (By is 4 * Y0),
+  (X is Ax + By),
+  (Cx is 2 * X0),
+  (Dy is 3 * Y0),
+  (Y is Cx + Dy).
 
 % Verification is intentionally independent of the recurrence equations above.
 pell_holds(N, true) :-
   pell(N, X, Y),
-  mul(X, X, X2),
-  mul(Y, Y, Y2),
-  mul(2, Y2, Twicey2),
-  sub(X2, Twicey2, 1).
+  (X2 is X * X),
+  (Y2 is Y * Y),
+  (Twicey2 is 2 * Y2),
+  (1 is X2 - Twicey2).
 
 pell_answer(solution_5, solution(X, Y)) :- pell(5, X, Y).
 pell_answer(solution_8, solution(X, Y)) :- pell(8, X, Y).

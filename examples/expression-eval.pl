@@ -26,19 +26,19 @@ value(Node, Value) :-
   expr(Node, add, Left, Right),
   value(Left, Leftvalue),
   value(Right, Rightvalue),
-  add(Leftvalue, Rightvalue, Value).
+  (Value is Leftvalue + Rightvalue).
 
 value(Node, Value) :-
   expr(Node, sub, Left, Right),
   value(Left, Leftvalue),
   value(Right, Rightvalue),
-  sub(Leftvalue, Rightvalue, Value).
+  (Value is Leftvalue - Rightvalue).
 
 value(Node, Value) :-
   expr(Node, mul, Left, Right),
   value(Left, Leftvalue),
   value(Right, Rightvalue),
-  mul(Leftvalue, Rightvalue, Value).
+  (Value is Leftvalue * Rightvalue).
 
 result(root, Value) :-
   root(Node),

@@ -38,7 +38,7 @@ has_health_safeguards(Case) :-
   safeguard(Case, encryption),
   safeguard(Case, access_logging).
 
-transfer_ok(Case) :- not(third_country_transfer(Case)).
+transfer_ok(Case) :- \+ third_country_transfer(Case).
 transfer_ok(Case) :- adequacy_decision(Case).
 
 compliant(Case) :-
@@ -51,18 +51,18 @@ compliant(Case) :-
 % Individual failure rules explain why a case is noncompliant.
 noncompliance_reason(Case, missing_legal_basis) :-
   processing(Case),
-  not(has_required_basis(Case)).
+  \+ has_required_basis(Case).
 
 noncompliance_reason(Case, not_minimized) :-
   not_minimized(Case).
 
 noncompliance_reason(Case, missing_access_logging) :-
   special_category(Case, health_data),
-  not(safeguard(Case, access_logging)).
+  \+ safeguard(Case, access_logging).
 
 noncompliance_reason(Case, transfer_without_adequacy) :-
   third_country_transfer(Case),
-  not(adequacy_decision(Case)).
+  \+ adequacy_decision(Case).
 
 status(Case, gdpr_compliant) :- compliant(Case).
 status(Case, gdpr_noncompliant) :- noncompliance_reason(Case, _reason).

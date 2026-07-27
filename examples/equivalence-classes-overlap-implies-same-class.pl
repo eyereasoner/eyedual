@@ -24,4 +24,4 @@ sameClassBecauseOfSharedMember(X, Y, Z) :-
   inClassOf(Z, X),
   inClassOf(Z, Y),
   sameClass(X, Y),
-  neq(X, Y).
+  (X \= Y).

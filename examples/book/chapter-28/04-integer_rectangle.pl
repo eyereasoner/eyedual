@@ -2,6 +2,6 @@
 integer_rectangle(Area, W, H) :-
   between(1, Area, W),
   between(W, Area, H),
-  mul(W, H, Area).
+  (Area is W * H).
 
 query(integer_rectangle(24, W, H)).

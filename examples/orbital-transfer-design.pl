@@ -28,71 +28,71 @@ mission(mars_hohmann, secondsPerDay, 86400.0).
 semi_major_axis(Mission, Axis) :-
   mission(Mission, departureOrbitRadius_km, R1),
   mission(Mission, arrivalOrbitRadius_km, R2),
-  add(R1, R2, Sum),
-  div(Sum, 2.0, Axis).
+  (Sum is R1 + R2),
+  (Axis is Sum / 2.0).
 
 circular_speed_at_departure(Mission, Speed) :-
   mission(Mission, centralBodyMu_km3_s2, Mu),
   mission(Mission, departureOrbitRadius_km, Radius),
-  div(Mu, Radius, Speedsquared),
-  pow(Speedsquared, 0.5, Speed).
+  (Speedsquared is Mu / Radius),
+  (Speed is Speedsquared ** 0.5).
 
 circular_speed_at_arrival(Mission, Speed) :-
   mission(Mission, centralBodyMu_km3_s2, Mu),
   mission(Mission, arrivalOrbitRadius_km, Radius),
-  div(Mu, Radius, Speedsquared),
-  pow(Speedsquared, 0.5, Speed).
+  (Speedsquared is Mu / Radius),
+  (Speed is Speedsquared ** 0.5).
 
 transfer_speed_at_departure(Mission, Speed) :-
   mission(Mission, centralBodyMu_km3_s2, Mu),
   mission(Mission, departureOrbitRadius_km, Radius),
   semi_major_axis(Mission, Axis),
-  div(2.0, Radius, Twiceoverradius),
-  div(1.0, Axis, Oneoveraxis),
-  sub(Twiceoverradius, Oneoveraxis, Bracket),
-  mul(Mu, Bracket, Speedsquared),
-  pow(Speedsquared, 0.5, Speed).
+  (Twiceoverradius is 2.0 / Radius),
+  (Oneoveraxis is 1.0 / Axis),
+  (Bracket is Twiceoverradius - Oneoveraxis),
+  (Speedsquared is Mu * Bracket),
+  (Speed is Speedsquared ** 0.5).
 
 transfer_speed_at_arrival(Mission, Speed) :-
   mission(Mission, centralBodyMu_km3_s2, Mu),
   mission(Mission, arrivalOrbitRadius_km, Radius),
   semi_major_axis(Mission, Axis),
-  div(2.0, Radius, Twiceoverradius),
-  div(1.0, Axis, Oneoveraxis),
-  sub(Twiceoverradius, Oneoveraxis, Bracket),
-  mul(Mu, Bracket, Speedsquared),
-  pow(Speedsquared, 0.5, Speed).
+  (Twiceoverradius is 2.0 / Radius),
+  (Oneoveraxis is 1.0 / Axis),
+  (Bracket is Twiceoverradius - Oneoveraxis),
+  (Speedsquared is Mu * Bracket),
+  (Speed is Speedsquared ** 0.5).
 
 departure_delta_v(Mission, Deltav) :-
   transfer_speed_at_departure(Mission, Transferspeed),
   circular_speed_at_departure(Mission, Circularspeed),
-  sub(Transferspeed, Circularspeed, Deltav).
+  (Deltav is Transferspeed - Circularspeed).
 
 arrival_delta_v(Mission, Deltav) :-
   circular_speed_at_arrival(Mission, Circularspeed),
   transfer_speed_at_arrival(Mission, Transferspeed),
-  sub(Circularspeed, Transferspeed, Deltav).
+  (Deltav is Circularspeed - Transferspeed).
 
 total_delta_v(Mission, Total) :-
   departure_delta_v(Mission, Depart),
   arrival_delta_v(Mission, Arrive),
-  add(Depart, Arrive, Total).
+  (Total is Depart + Arrive).
 
 transfer_time_days(Mission, Days) :-
   semi_major_axis(Mission, Axis),
   mission(Mission, centralBodyMu_km3_s2, Mu),
   mission(Mission, pi, Pi),
   mission(Mission, secondsPerDay, Secondsperday),
-  pow(Axis, 3.0, Axiscubed),
-  div(Axiscubed, Mu, Timefactor),
-  pow(Timefactor, 0.5, Halfperiodbase),
-  mul(Pi, Halfperiodbase, Seconds),
-  div(Seconds, Secondsperday, Days).
+  (Axiscubed is Axis ** 3.0),
+  (Timefactor is Axiscubed / Mu),
+  (Halfperiodbase is Timefactor ** 0.5),
+  (Seconds is Pi * Halfperiodbase),
+  (Days is Seconds / Secondsperday).
 
 within_delta_v_budget(Mission) :-
   total_delta_v(Mission, Total),
   mission(Mission, deltaVBudget_km_s, Budget),
-  le(Total, Budget).
+  (Total =< Budget).
 
 transferSemiMajorAxis_km(Mission, Axis) :-
   semi_major_axis(Mission, Axis).

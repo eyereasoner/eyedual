@@ -29,42 +29,42 @@ cooling_capacity_w(bp1, 12.0).
 metric(Pack, thermal_margin_c, Margin) :-
   limit(max_safe_temperature_c, Maximum),
   telemetry(Pack, temperature_c, Temperature),
-  sub(Maximum, Temperature, Margin).
+  (Margin is Maximum - Temperature).
 
 % Resistive heating follows P = I^2 R.
 metric(Pack, resistive_heating_w, Heating) :-
   telemetry(Pack, current_a, Current),
   telemetry(Pack, internal_resistance_ohm, Resistance),
-  mul(Current, Current, CurrentSquared),
-  mul(CurrentSquared, Resistance, Heating).
+  (CurrentSquared is Current * Current),
+  (Heating is CurrentSquared * Resistance).
 
 over_temperature(Pack) :-
   telemetry(Pack, temperature_c, Temperature),
   limit(max_safe_temperature_c, Maximum),
-  gt(Temperature, Maximum).
+  (Temperature > Maximum).
 
 rapid_heating(Pack) :-
   telemetry(Pack, temperature_rise_c_per_min, Rate),
   limit(max_temperature_rise_c_per_min, Maximum),
-  gt(Rate, Maximum).
+  (Rate > Maximum).
 
 cell_imbalance(Pack) :-
   telemetry(Pack, cell_delta_v, Delta),
   limit(max_cell_delta_v, Maximum),
-  gt(Delta, Maximum).
+  (Delta > Maximum).
 
 heating_exceeds_cooling(Pack) :-
   metric(Pack, resistive_heating_w, Heating),
   cooling_capacity_w(Pack, Capacity),
-  gt(Heating, Capacity).
+  (Heating > Capacity).
 
 % Require two independent temperature channels above the same safety limit.
 corroborated_over_temperature(Pack) :-
   telemetry(Pack, temperature_c, Primary),
   redundant_telemetry(Pack, temperature_c, Redundant),
   limit(max_safe_temperature_c, Maximum),
-  gt(Primary, Maximum),
-  gt(Redundant, Maximum).
+  (Primary > Maximum),
+  (Redundant > Maximum).
 
 % A diagnosis needs multiple independent signatures, not one threshold alone.
 diagnosis(Pack, thermal_runaway_precursor) :-

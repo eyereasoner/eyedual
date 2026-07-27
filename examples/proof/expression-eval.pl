@@ -51,8 +51,8 @@ why(
                 ])
               ),
               proof(
-                goal(mul(2, 3, 6)),
-                by(builtin(mul, 3))
+                goal(is(6, *(2, 3))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -88,14 +88,14 @@ why(
                 ])
               ),
               proof(
-                goal(sub(10, 4, 6)),
-                by(builtin(sub, 3))
+                goal(is(6, '-'(10, 4))),
+                by(builtin(is, 2))
               )
             ])
           ),
           proof(
-            goal(add(6, 6, 12)),
-            by(builtin(add, 3))
+            goal(is(12, '+'(6, 6))),
+            by(builtin(is, 2))
           )
         ])
       )

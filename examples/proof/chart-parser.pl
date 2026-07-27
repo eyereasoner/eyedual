@@ -42,8 +42,8 @@ why(
                     by(fact("chart-parser.pl", clause(17)))
                   ),
                   proof(
-                    goal(add(0, 1, 1)),
-                    by(builtin(add, 3))
+                    goal(is(1, '+'(0, 1))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
@@ -61,8 +61,8 @@ why(
                     by(fact("chart-parser.pl", clause(18)))
                   ),
                   proof(
-                    goal(add(1, 1, 2)),
-                    by(builtin(add, 3))
+                    goal(is(2, '+'(1, 1))),
+                    by(builtin(is, 2))
                   )
                 ])
               )
@@ -91,8 +91,8 @@ why(
                     by(fact("chart-parser.pl", clause(21)))
                   ),
                   proof(
-                    goal(add(2, 1, 3)),
-                    by(builtin(add, 3))
+                    goal(is(3, '+'(2, 1))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
@@ -119,8 +119,8 @@ why(
                         by(fact("chart-parser.pl", clause(17)))
                       ),
                       proof(
-                        goal(add(3, 1, 4)),
-                        by(builtin(add, 3))
+                        goal(is(4, '+'(3, 1))),
+                        by(builtin(is, 2))
                       )
                     ])
                   ),
@@ -138,8 +138,8 @@ why(
                         by(fact("chart-parser.pl", clause(19)))
                       ),
                       proof(
-                        goal(add(4, 1, 5)),
-                        by(builtin(add, 3))
+                        goal(is(5, '+'(4, 1))),
+                        by(builtin(is, 2))
                       )
                     ])
                   )
@@ -197,8 +197,8 @@ why(
                     by(fact("chart-parser.pl", clause(17)))
                   ),
                   proof(
-                    goal(add(0, 1, 1)),
-                    by(builtin(add, 3))
+                    goal(is(1, '+'(0, 1))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
@@ -216,8 +216,8 @@ why(
                     by(fact("chart-parser.pl", clause(18)))
                   ),
                   proof(
-                    goal(add(1, 1, 2)),
-                    by(builtin(add, 3))
+                    goal(is(2, '+'(1, 1))),
+                    by(builtin(is, 2))
                   )
                 ])
               )
@@ -246,8 +246,8 @@ why(
                     by(fact("chart-parser.pl", clause(22)))
                   ),
                   proof(
-                    goal(add(2, 1, 3)),
-                    by(builtin(add, 3))
+                    goal(is(3, '+'(2, 1))),
+                    by(builtin(is, 2))
                   )
                 ])
               ),
@@ -283,8 +283,8 @@ why(
                             by(fact("chart-parser.pl", clause(17)))
                           ),
                           proof(
-                            goal(add(3, 1, 4)),
-                            by(builtin(add, 3))
+                            goal(is(4, '+'(3, 1))),
+                            by(builtin(is, 2))
                           )
                         ])
                       ),
@@ -302,8 +302,8 @@ why(
                             by(fact("chart-parser.pl", clause(19)))
                           ),
                           proof(
-                            goal(add(4, 1, 5)),
-                            by(builtin(add, 3))
+                            goal(is(5, '+'(4, 1))),
+                            by(builtin(is, 2))
                           )
                         ])
                       )
@@ -332,8 +332,8 @@ why(
                             by(fact("chart-parser.pl", clause(23)))
                           ),
                           proof(
-                            goal(add(5, 1, 6)),
-                            by(builtin(add, 3))
+                            goal(is(6, '+'(5, 1))),
+                            by(builtin(is, 2))
                           )
                         ])
                       ),
@@ -360,8 +360,8 @@ why(
                                 by(fact("chart-parser.pl", clause(17)))
                               ),
                               proof(
-                                goal(add(6, 1, 7)),
-                                by(builtin(add, 3))
+                                goal(is(7, '+'(6, 1))),
+                                by(builtin(is, 2))
                               )
                             ])
                           ),
@@ -379,8 +379,8 @@ why(
                                 by(fact("chart-parser.pl", clause(20)))
                               ),
                               proof(
-                                goal(add(7, 1, 8)),
-                                by(builtin(add, 3))
+                                goal(is(8, '+'(7, 1))),
+                                by(builtin(is, 2))
                               )
                             ])
                           )
@@ -455,8 +455,8 @@ why(
         by(builtin(countall, 2))
       ),
       proof(
-        goal(gt(5, 0)),
-        by(builtin(gt, 2))
+        goal(>(5, 0)),
+        by(builtin(>, 2))
       )
     ])
   )
@@ -479,8 +479,8 @@ why(
         by(builtin(countall, 2))
       ),
       proof(
-        goal(gt(8, 0)),
-        by(builtin(gt, 2))
+        goal(>(8, 0)),
+        by(builtin(>, 2))
       )
     ])
   )

@@ -3,4 +3,4 @@ query(open(X0)).
 place(a).
 place(b).
 closed(b).
-open(X) :- place(X), not(closed(X)).
+open(X) :- place(X), \+ closed(X).

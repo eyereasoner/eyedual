@@ -6,8 +6,8 @@
 query(job_shop_answer(X0, X1)).
 
 % Two operations on the same machine are compatible when either one finishes before the other starts.
-nonoverlap(_starta, Enda, Startb, _endb) :- le(Enda, Startb).
-nonoverlap(Starta, _enda, _startb, Endb) :- le(Endb, Starta).
+nonoverlap(_starta, Enda, Startb, _endb) :- (Enda =< Startb).
+nonoverlap(Starta, _enda, _startb, Endb) :- (Endb =< Starta).
 
 feasible_schedule(Makespan, [
   op(j1_mill, J1millstart, J1millend),
@@ -17,17 +17,17 @@ feasible_schedule(Makespan, [
   op(j3_mill, J3millstart, J3millend),
   op(j3_lathe, J3lathestart, J3latheend)
 ]) :-
-  between(0, 6, J1millstart), add(J1millstart, 3, J1millend),
-  between(0, 6, J1lathestart), add(J1lathestart, 2, J1latheend),
-  le(J1millend, J1lathestart),
+  between(0, 6, J1millstart), (J1millend is J1millstart + 3),
+  between(0, 6, J1lathestart), (J1latheend is J1lathestart + 2),
+  (J1millend =< J1lathestart),
 
-  between(0, 6, J2lathestart), add(J2lathestart, 2, J2latheend),
-  between(0, 6, J2millstart), add(J2millstart, 4, J2millend),
-  le(J2latheend, J2millstart),
+  between(0, 6, J2lathestart), (J2latheend is J2lathestart + 2),
+  between(0, 6, J2millstart), (J2millend is J2millstart + 4),
+  (J2latheend =< J2millstart),
 
-  between(0, 6, J3millstart), add(J3millstart, 2, J3millend),
-  between(0, 6, J3lathestart), add(J3lathestart, 3, J3latheend),
-  le(J3millend, J3lathestart),
+  between(0, 6, J3millstart), (J3millend is J3millstart + 2),
+  between(0, 6, J3lathestart), (J3latheend is J3lathestart + 3),
+  (J3millend =< J3lathestart),
 
   nonoverlap(J1millstart, J1millend, J2millstart, J2millend),
   nonoverlap(J1millstart, J1millend, J3millstart, J3millend),
@@ -36,8 +36,8 @@ feasible_schedule(Makespan, [
   nonoverlap(J1lathestart, J1latheend, J3lathestart, J3latheend),
   nonoverlap(J2lathestart, J2latheend, J3lathestart, J3latheend),
 
-  max(J1latheend, J2millend, Partialmakespan),
-  max(Partialmakespan, J3latheend, Makespan).
+  (Partialmakespan is max(J1latheend, J2millend)),
+  (Makespan is max(Partialmakespan, J3latheend)).
 
 % aggregate_min/5 returns both the best makespan and the schedule that achieved it.
 best_schedule(Makespan, Schedule) :-

@@ -29,55 +29,55 @@ world(w3, cautious_bayes_threshold).
 % intentionally use simpler or stricter thresholds for contrast.
 ppv_planet(Candidate, Ppv) :-
   candidate(Candidate, Occurrence, Sensitivity, Specificity),
-  mul(Sensitivity, Occurrence, Numerator),
-  sub(1.0, Occurrence, Noplanetprior),
-  sub(1.0, Specificity, Falsepositiverate),
-  mul(Falsepositiverate, Noplanetprior, Falsepositivemass),
-  add(Numerator, Falsepositivemass, Denominator),
-  div(Numerator, Denominator, Ppv).
+  (Numerator is Sensitivity * Occurrence),
+  (Noplanetprior is 1.0 - Occurrence),
+  (Falsepositiverate is 1.0 - Specificity),
+  (Falsepositivemass is Falsepositiverate * Noplanetprior),
+  (Denominator is Numerator + Falsepositivemass),
+  (Ppv is Numerator / Denominator).
 
 % The world predicates encode different modelling assumptions for the same candidate.
 confirms_in_world(Candidate, w0) :-
   ppv_planet(Candidate, Ppv),
-  ge(Ppv, 0.90).
+  (Ppv >= 0.90).
 
 rejects_in_world(Candidate, w0) :-
   ppv_planet(Candidate, Ppv),
-  lt(Ppv, 0.90).
+  (Ppv < 0.90).
 
 confirms_in_world(Candidate, w1) :-
   candidate(Candidate, Occurrence, Sensitivity, Specificity),
-  ge(Sensitivity, 0.95).
+  (Sensitivity >= 0.95).
 
 rejects_in_world(Candidate, w1) :-
   candidate(Candidate, Occurrence, Sensitivity, Specificity),
-  lt(Sensitivity, 0.95).
+  (Sensitivity < 0.95).
 
 confirms_in_world(Candidate, w2) :-
   candidate(Candidate, Occurrence, Sensitivity, Specificity),
-  ge(Occurrence, 0.05),
-  ge(Sensitivity, 0.90),
-  ge(Specificity, 0.97).
+  (Occurrence >= 0.05),
+  (Sensitivity >= 0.90),
+  (Specificity >= 0.97).
 
 rejects_in_world(Candidate, w2) :-
   candidate(Candidate, Occurrence, Sensitivity, Specificity),
-  lt(Occurrence, 0.05).
+  (Occurrence < 0.05).
 
 rejects_in_world(Candidate, w2) :-
   candidate(Candidate, Occurrence, Sensitivity, Specificity),
-  lt(Sensitivity, 0.90).
+  (Sensitivity < 0.90).
 
 rejects_in_world(Candidate, w2) :-
   candidate(Candidate, Occurrence, Sensitivity, Specificity),
-  lt(Specificity, 0.97).
+  (Specificity < 0.97).
 
 confirms_in_world(Candidate, w3) :-
   ppv_planet(Candidate, Ppv),
-  ge(Ppv, 0.93).
+  (Ppv >= 0.93).
 
 rejects_in_world(Candidate, w3) :-
   ppv_planet(Candidate, Ppv),
-  lt(Ppv, 0.93).
+  (Ppv < 0.93).
 
 pattern_matches(report) :-
   confirms_in_world(rare_wide_orbit, w1),

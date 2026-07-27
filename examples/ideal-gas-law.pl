@@ -18,16 +18,16 @@ pressure_limit(cell1, high_Pa, 105000.0).
 % output exposes numerator construction and final division.
 pressure(Cell, Pressure) :-
   gas_cell(Cell, Moles, Gasconstant, Temperature, Volume),
-  mul(Moles, Gasconstant, Nr),
-  mul(Nr, Temperature, Nrt),
-  div(Nrt, Volume, Pressure).
+  (Nr is Moles * Gasconstant),
+  (Nrt is Nr * Temperature),
+  (Pressure is Nrt / Volume).
 
 near_atmospheric(Cell) :-
   pressure(Cell, Pressure),
   pressure_limit(Cell, low_Pa, Low),
   pressure_limit(Cell, high_Pa, High),
-  gt(Pressure, Low),
-  lt(Pressure, High).
+  (Pressure > Low),
+  (Pressure < High).
 
 pressure_Pa(Cell, Pressure) :-
   pressure(Cell, Pressure).

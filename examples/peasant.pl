@@ -22,8 +22,8 @@ want_pow([8367238, 2713]).
 % The arithmetic itself is delegated to the native numeric built-ins.
 prod([A, B], C) :-
   want_prod([A, B]),
-  mul(A, B, C).
+  (C is A * B).
 
 pow([A, B], C) :-
   want_pow([A, B]),
-  pow(A, B, C).
+  (C is A ^ B).

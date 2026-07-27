@@ -1,5 +1,6 @@
 // Registry for builtins and their execution metadata.
 // The solver uses the metadata to know when a builtin is deterministic, mode-ready, or should fall back to user clauses.
+import { isoBuiltins } from './iso.js';
 import { arithmeticBuiltins } from './arithmetic.js';
 import { coreBuiltins } from './core.js';
 import { stringBuiltins } from './strings.js';
@@ -34,15 +35,37 @@ export class BuiltinRegistry {
 
 export function createDefaultRegistry() {
   const registry = new BuiltinRegistry();
-  for (const mod of [coreBuiltins, arithmeticBuiltins, stringBuiltins, listBuiltins, aggregationBuiltins, contextBuiltins, controlBuiltins, termBuiltins]) {
+  isoBuiltins.register(registry);
+  return registry;
+}
+
+export function createLibraryRegistry() {
+  const registry = new BuiltinRegistry();
+  for (const mod of [
+    coreBuiltins,
+    arithmeticBuiltins,
+    stringBuiltins,
+    listBuiltins,
+    aggregationBuiltins,
+    contextBuiltins,
+    controlBuiltins,
+    termBuiltins,
+    isoBuiltins,
+  ]) {
     mod.register(registry);
   }
   return registry;
 }
 
 let defaultRegistry = null;
+let libraryRegistry = null;
 
 export function getDefaultRegistry() {
   if (defaultRegistry == null) defaultRegistry = createDefaultRegistry();
   return defaultRegistry;
+}
+
+export function getLibraryRegistry() {
+  if (libraryRegistry == null) libraryRegistry = createLibraryRegistry();
+  return libraryRegistry;
 }

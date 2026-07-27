@@ -20,17 +20,17 @@ threshold(canary42, maximum_p95_latency_ms, 200.0).
 % reason can point to the failing guard.
 error_rate(Release, Rate) :-
   canary(Release, Requests, Errors, _p95latency),
-  div(Errors, Requests, Rate).
+  (Rate is Errors / Requests).
 
 latency_ok(Release) :-
   canary(Release, _requests, _errors, P95latency),
   threshold(Release, maximum_p95_latency_ms, Maximum),
-  lt(P95latency, Maximum).
+  (P95latency < Maximum).
 
 error_budget_exceeded(Release) :-
   error_rate(Release, Rate),
   threshold(Release, maximum_error_rate, Maximum),
-  gt(Rate, Maximum).
+  (Rate > Maximum).
 
 rollback_recommended(Release) :-
   error_budget_exceeded(Release).

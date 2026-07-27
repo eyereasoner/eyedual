@@ -28,36 +28,36 @@ capability_threshold(cpk, 1.33).
 upper_margin_mm(Run, Margin) :-
   spec(Run, upper_mm, Upper),
   summary(Run, mean_mm, Mean),
-  sub(Upper, Mean, Margin).
+  (Margin is Upper - Mean).
 
 lower_margin_mm(Run, Margin) :-
   summary(Run, mean_mm, Mean),
   spec(Run, lower_mm, Lower),
-  sub(Mean, Lower, Margin).
+  (Margin is Mean - Lower).
 
 nearest_spec_margin_mm(Run, Margin) :-
   upper_margin_mm(Run, Uppermargin),
   lower_margin_mm(Run, Lowermargin),
-  min(Uppermargin, Lowermargin, Margin).
+  (Margin is min(Uppermargin, Lowermargin)).
 
 three_sigma_mm(Run, Threesigma) :-
   summary(Run, sigma_mm, Sigma),
-  mul(3.0, Sigma, Threesigma).
+  (Threesigma is 3.0 * Sigma).
 
 cpk(Run, Cpk) :-
   nearest_spec_margin_mm(Run, Margin),
   three_sigma_mm(Run, Threesigma),
-  div(Margin, Threesigma, Cpk).
+  (Cpk is Margin / Threesigma).
 
 capable(Run) :-
   cpk(Run, Cpk),
   capability_threshold(cpk, Threshold),
-  ge(Cpk, Threshold).
+  (Cpk >= Threshold).
 
 needs_adjustment(Run) :-
   cpk(Run, Cpk),
   capability_threshold(cpk, Threshold),
-  lt(Cpk, Threshold).
+  (Cpk < Threshold).
 
 
 status(Run, capable_process) :-

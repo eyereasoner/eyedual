@@ -11,8 +11,8 @@ why(
         by(builtin(member, 2))
       ),
       proof(
-        goal(eq(b, b)),
-        by(builtin(eq, 2))
+        goal(=(b, b)),
+        by(builtin(=, 2))
       )
     ])
   )

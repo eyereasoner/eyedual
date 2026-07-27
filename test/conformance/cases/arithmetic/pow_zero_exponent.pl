@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(X) :- pow(9, 0, X).
+answer(X) :- (X is 9 ** 0).

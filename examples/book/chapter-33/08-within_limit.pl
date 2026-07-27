@@ -2,7 +2,7 @@
 within_limit(Device) :-
   reading(Device, Value),
   maximum(Max),
-  le(Value, Max).
+  (Value =< Max).
 
 status(Device, safe) :-
   within_limit(Device).

@@ -1,4 +1,4 @@
 % From The Art of Eyepl, Chapter 12.
 false :-
   probability(Disease, Probability),
-  gt(Probability, 1).
+  (Probability > 1).

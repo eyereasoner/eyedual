@@ -1,5 +1,5 @@
 query(answer(X0)).
 seed(a).
-p(X) :- seed(X), not(blocked(X)).
+p(X) :- seed(X), \+ blocked(X).
 blocked(X) :- p(X).
 answer(ok).

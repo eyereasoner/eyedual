@@ -43,13 +43,13 @@ source(t1, "trivial zero, outside the non-trivial RH check").
 
 in_critical_strip(Zero) :-
   real_part(Zero, Real),
-  gt(Real, 0),
-  lt(Real, 1).
+  (Real > 0),
+  (Real < 1).
 
 non_trivial_zero(Zero) :-
   zeta_zero(Zero),
   in_critical_strip(Zero),
-  not(trivial_zero(Zero)).
+  \+ trivial_zero(Zero).
 
 % The RH condition for one zero: its real part is exactly one half.
 
@@ -63,7 +63,7 @@ on_critical_line(Zero) :-
 off_critical_line(Zero) :-
   non_trivial_zero(Zero),
   real_part(Zero, Real),
-  neq(Real, 0.5).
+  (Real \= 0.5).
 
 catalog_has(non_trivial_zero) :-
   non_trivial_zero(_somezero).
@@ -76,7 +76,7 @@ counterexample_found(yes) :-
 
 finite_catalog_supports_rh(yes) :-
   catalog_has(non_trivial_zero),
-  not(counterexample_found(yes)).
+  \+ counterexample_found(yes).
 
 % --- Queried audit output --------------------------------------------
 

@@ -8,9 +8,9 @@ query(different(X0, X1)).
 % Under unrestricted Tarskian semantics, alice and bob could denote the same
 % element. In Eyepl's Herbrand universe, their different syntax is enough.
 different(alice, bob) :-
-  neq(alice, bob).
+  (alice \= bob).
 
 % A general Tarskian function need not be injective. Herbrand compound terms
 % are free constructors, so different arguments produce different terms.
 different(ticket(alice), ticket(bob)) :-
-  neq(ticket(alice), ticket(bob)).
+  (ticket(alice) \= ticket(bob)).

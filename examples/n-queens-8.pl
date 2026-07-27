@@ -21,10 +21,10 @@ safe_rows([Row|Rest]) :-
 
 no_diagonal_attack(_row, _distance, []).
 no_diagonal_attack(Row, Distance, [Other|Rest]) :-
-  sub(Row, Other, Delta),
-  abs(Delta, Absdelta),
-  neq(Absdelta, Distance),
-  add(Distance, 1, Nextdistance),
+  (Delta is Row - Other),
+  (Absdelta is abs(Delta)),
+  (Absdelta \= Distance),
+  (Nextdistance is Distance + 1),
   no_diagonal_attack(Row, Nextdistance, Rest).
 
 queen_solution(Rows) :-

@@ -125,7 +125,8 @@ export class Solver {
           continue;
         }
 
-        const def = goal.type === COMPOUND ? this.registry.get(goal.name, goal.arity) : null;
+        const callable = goal.type === COMPOUND || goal.type === 'atom';
+        const def = callable ? this.registry.get(goal.name, goal.arity) : null;
         this.active = active;
         if (def && builtinIsReadyOrAuthoritative(def, this, goal, env)) {
           const nextEnvs = [];
@@ -148,7 +149,7 @@ export class Solver {
         }
 
         this.stats.solve_one_goal_calls++;
-        if (goal.type !== COMPOUND) break;
+        if (!callable) break;
         const group = this.program.findGroup(goal.name, goal.arity);
         if (!group) break;
 
@@ -202,7 +203,7 @@ export class Solver {
   *solveUserGoal(goal, rest, env, depth) {
     this.stats.solve_one_goal_calls++;
     if (depth > this.maxDepth || this.solutionsSeen >= this.solutionLimit) return;
-    if (goal.type !== COMPOUND) return;
+    if (goal.type !== COMPOUND && goal.type !== 'atom') return;
     const group = this.program.findGroup(goal.name, goal.arity);
     if (!group) return;
     if (group.tabled) {
@@ -669,7 +670,7 @@ function selectReadyDeterministicBuiltin(goals, env, registry) {
   for (let i = 0; i < goals.length; i++) {
     const goal = goals[i];
     if (goal?.kind === 'releaseActive' || goal?.kind === 'memoStore') return 0;
-    if (goal.type !== COMPOUND) continue;
+    if (goal.type !== COMPOUND && goal.type !== 'atom') continue;
     const def = registry.get(goal.name, goal.arity);
     if (!def?.deterministic || typeof def.ready !== 'function') continue;
     if (typeof def.shouldUse === 'function') continue;

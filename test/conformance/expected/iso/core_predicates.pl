@@ -1,0 +1,1 @@
+answer(foo, atom, <, true).

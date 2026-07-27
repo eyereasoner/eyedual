@@ -92,7 +92,7 @@ border_colours_differ(A, B) :-
   border(A, B),
   assigned(A, Coloura),
   assigned(B, Colourb),
-  neq(Coloura, Colourb).
+  (Coloura \= Colourb).
 
 country_count(27).
 border_count(36).

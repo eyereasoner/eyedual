@@ -4,11 +4,11 @@
 % rule can still express the practical executable shape of an existential
 % consequence by putting a named functional term directly in the head.
 
-query(is(X0, X1)).
+query(holds_result(X0, X1)).
 
 type(socrates, human).
 type(plato, human).
 
 % In proof output this rule is the step that explains each visible witness.
-is(Person, human_witness(Person)) :-
+holds_result(Person, human_witness(Person)) :-
   type(Person, human).

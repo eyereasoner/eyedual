@@ -41,7 +41,7 @@ select(Item, [Head | Tail], [Head | Rest]) :-
 odd_degree(V) :-
   findall(E, incident(V, E), Edges),
   length(Edges, Degree),
-  mod(Degree, 2, 1).
+  (1 is Degree mod 2).
 
 odd_vertices(Odds) :-
   findall(V, odd_degree(V), Raw),

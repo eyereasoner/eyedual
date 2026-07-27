@@ -23,46 +23,46 @@ matrix_count(6).
 
 cost(I, I, 0) :- matrix_count(N), between(1, N, I).
 cost(I, J, Cost) :-
-  lt(I, J),
+  (I < J),
   aggregate_min(Splitcost, K,
     (between(I, J, K),
-     lt(K, J),
+     (K < J),
      cost(I, K, Left),
-     add(K, 1, K1),
+     (K1 is K + 1),
      cost(K1, J, Right),
-     sub(I, 1, I0),
+     (I0 is I - 1),
      dim(I0, Rows),
      dim(K, Shared),
      dim(J, Cols),
-     mul(Rows, Shared, First),
-     mul(First, Cols, Multcost),
-     add(Left, Right, Partial),
-     add(Partial, Multcost, Splitcost)),
+     (First is Rows * Shared),
+     (Multcost is First * Cols),
+     (Partial is Left + Right),
+     (Splitcost is Partial + Multcost)),
     Cost, _bestk).
 
 best_split(I, J, K) :-
-  lt(I, J),
+  (I < J),
   aggregate_min(Splitcost, K,
     (between(I, J, K),
-     lt(K, J),
+     (K < J),
      cost(I, K, Left),
-     add(K, 1, K1),
+     (K1 is K + 1),
      cost(K1, J, Right),
-     sub(I, 1, I0),
+     (I0 is I - 1),
      dim(I0, Rows),
      dim(K, Shared),
      dim(J, Cols),
-     mul(Rows, Shared, First),
-     mul(First, Cols, Multcost),
-     add(Left, Right, Partial),
-     add(Partial, Multcost, Splitcost)),
+     (First is Rows * Shared),
+     (Multcost is First * Cols),
+     (Partial is Left + Right),
+     (Splitcost is Partial + Multcost)),
     _cost, K).
 
 parenthesization(I, I, matrix(I)).
 parenthesization(I, J, product(Lefttree, Righttree)) :-
-  lt(I, J),
+  (I < J),
   best_split(I, J, K),
-  add(K, 1, K1),
+  (K1 is K + 1),
   parenthesization(I, K, Lefttree),
   parenthesization(K1, J, Righttree).
 

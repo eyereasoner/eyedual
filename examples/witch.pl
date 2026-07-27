@@ -10,7 +10,7 @@ query(floats(X0)).
 query(madeOfWood(X0)).
 query(burns(X0)).
 query(witch(X0)).
-query(is(X0, X1)).
+query(holds_result(X0, X1)).
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
@@ -34,5 +34,5 @@ floats(Y) :-
 
 sameWeight(duck, girl).
 
-is(witchExample, true) :-
+holds_result(witchExample, true) :-
   witch(girl).

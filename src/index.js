@@ -5,7 +5,14 @@ export { parseClauses, parseProgramText } from './parser.js';
 export { Solver } from './solver.js';
 export { INFERENCE_FUSE_EXIT_CODE, InferenceFuseError, checkInferenceFuses, formatInferenceFuse } from './fuse.js';
 export * from './term.js';
-export { BuiltinRegistry, createDefaultRegistry, getDefaultRegistry } from './builtins/registry.js';
+export {
+  BuiltinRegistry,
+  createDefaultRegistry,
+  createLibraryRegistry,
+  getDefaultRegistry,
+  getLibraryRegistry,
+} from './builtins/registry.js';
+export { PrologError } from './builtins/iso.js';
 
 import { Env, copyResolved, termIsGround, termToString } from './term.js';
 import { Program } from './program.js';

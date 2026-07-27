@@ -15,7 +15,7 @@ expr(nested_log, log(log(var(x)))).
 d(const(_c), _x, const(0)).
 d(var(X), X, const(1)).
 d(var(Y), X, const(0)) :-
-  neq(X, Y).
+  (X \= Y).
 d(add(U, V), X, add(Du, Dv)) :-
   d(U, X, Du),
   d(V, X, Dv).
@@ -29,7 +29,7 @@ d(divide(U, V), X, divide(sub(mul(Du, V), mul(U, Dv)), pow(V, 2))) :-
   d(U, X, Du),
   d(V, X, Dv).
 d(pow(U, N), X, mul(mul(const(N), pow(U, N1)), Du)) :-
-  sub(N, 1, N1),
+  (N1 is N - 1),
   d(U, X, Du).
 d(log(U), X, divide(Du, U)) :-
   d(U, X, Du).

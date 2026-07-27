@@ -22,55 +22,55 @@ interval(8, 8, 11, 4).
 next_compatible(I, J) :-
   interval(I, _start, Finish, _value),
   aggregate_min(K, K,
-    (interval(K, Startk, _finishk, _valuek), gt(K, I), ge(Startk, Finish)),
+    (interval(K, Startk, _finishk, _valuek), (K > I), (Startk >= Finish)),
     J, J).
 next_compatible(I, 9) :-
   interval(I, _start, Finish, _value),
-  not((interval(K, Startk, _finishk, _valuek), gt(K, I), ge(Startk, Finish))).
+  \+ (interval(K, Startk, _finishk, _valuek), (K > I), (Startk >= Finish)).
 
 best_from(9, 0).
 best_from(I, Best) :-
   last_interval(Last),
-  le(I, Last),
-  add(I, 1, Next),
+  (I =< Last),
+  (Next is I + 1),
   best_from(Next, Skip),
   next_compatible(I, Compatible),
   best_from(Compatible, Tail),
   interval(I, _start, _finish, Value),
-  add(Value, Tail, Take),
-  max(Take, Skip, Best).
+  (Take is Value + Tail),
+  (Best is max(Take, Skip)).
 
 % Reconstruction emits an interval when the take branch matches the optimal value.
 chosen_from(I, I) :-
   best_from(I, Best),
-  add(I, 1, Next),
+  (Next is I + 1),
   best_from(Next, Skip),
   next_compatible(I, Compatible),
   best_from(Compatible, Tail),
   interval(I, _start, _finish, Value),
-  add(Value, Tail, Take),
-  eq(Best, Take),
-  ge(Take, Skip).
+  (Take is Value + Tail),
+  (Best = Take),
+  (Take >= Skip).
 chosen_from(I, Chosen) :-
   best_from(I, Best),
-  add(I, 1, Next),
+  (Next is I + 1),
   best_from(Next, Skip),
   next_compatible(I, Compatible),
   best_from(Compatible, Tail),
   interval(I, _start, _finish, Value),
-  add(Value, Tail, Take),
-  eq(Best, Take),
-  ge(Take, Skip),
+  (Take is Value + Tail),
+  (Best = Take),
+  (Take >= Skip),
   chosen_from(Compatible, Chosen).
 chosen_from(I, Chosen) :-
   best_from(I, Best),
-  add(I, 1, Next),
+  (Next is I + 1),
   best_from(Next, Skip),
   next_compatible(I, Compatible),
   best_from(Compatible, Tail),
   interval(I, _start, _finish, Value),
-  add(Value, Tail, Take),
-  gt(Skip, Take),
+  (Take is Value + Tail),
+  (Skip > Take),
   chosen_from(Next, Chosen).
 
 weighted_interval_answer(best_value, Best) :- best_from(1, Best).

@@ -20,20 +20,20 @@ w8(7, c(0.7071067811865476, 0.7071067811865476)).
 % Complex arithmetic is expressed through ordinary numeric built-ins.  These
 % helpers are then composed into two-point, four-point, and eight-point FFTs.
 c_add(c(Ar, Ai), c(Br, Bi), c(Cr, Ci)) :-
-  add(Ar, Br, Cr),
-  add(Ai, Bi, Ci).
+  (Cr is Ar + Br),
+  (Ci is Ai + Bi).
 
 c_sub(c(Ar, Ai), c(Br, Bi), c(Cr, Ci)) :-
-  sub(Ar, Br, Cr),
-  sub(Ai, Bi, Ci).
+  (Cr is Ar - Br),
+  (Ci is Ai - Bi).
 
 c_mul(c(Ar, Ai), c(Br, Bi), c(Cr, Ci)) :-
-  mul(Ar, Br, Ac),
-  mul(Ai, Bi, Bd),
-  sub(Ac, Bd, Cr),
-  mul(Ar, Bi, Ad),
-  mul(Ai, Br, Bc),
-  add(Ad, Bc, Ci).
+  (Ac is Ar * Br),
+  (Bd is Ai * Bi),
+  (Cr is Ac - Bd),
+  (Ad is Ar * Bi),
+  (Bc is Ai * Br),
+  (Ci is Ad + Bc).
 
 fft1([X], [c(X, 0.0)]).
 

@@ -39,8 +39,8 @@ why(
     bindings([binding("Name", edge), binding("Args", [a, b, 3])]),
     uses([
       proof(
-        goal(compound_name_arguments(edge(a, b, 3), edge, [a, b, 3])),
-        by(builtin(compound_name_arguments, 3))
+        goal('=..'(edge(a, b, 3), [edge, a, b, 3])),
+        by(builtin('=..', 2))
       )
     ])
   )
@@ -55,8 +55,8 @@ why(
     bindings([binding("Term", edge(c, d, 5))]),
     uses([
       proof(
-        goal(compound_name_arguments(edge(c, d, 5), edge, [c, d, 5])),
-        by(builtin(compound_name_arguments, 3))
+        goal('=..'(edge(c, d, 5), [edge, c, d, 5])),
+        by(builtin('=..', 2))
       )
     ])
   )
@@ -86,7 +86,7 @@ why(
     by(rule("term-tools.pl", clause(9))),
     uses([
       proof(
-        goal(forall(edge(_from, _to, Weight), gt(Weight, 0))),
+        goal(forall(edge(_from, _to, Weight), >(Weight, 0))),
         by(builtin(forall, 2))
       )
     ])

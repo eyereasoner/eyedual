@@ -12,12 +12,12 @@ why(
         bindings([binding("N", 3), binding("From", left), binding("To", right), binding("Via", center), binding("Moves", [[left, right], [left, center], [right, center], [left, right], [center, left], [center, right], [left, right]]), binding("N1", 2), binding("Before", [[left, right], [left, center], [right, center]]), binding("After", [[center, left], [center, right], [left, right]])]),
         uses([
           proof(
-            goal(gt(3, 0)),
-            by(builtin(gt, 2))
+            goal(>(3, 0)),
+            by(builtin(>, 2))
           ),
           proof(
-            goal(sub(3, 1, 2)),
-            by(builtin(sub, 3))
+            goal(is(2, '-'(3, 1))),
+            by(builtin(is, 2))
           ),
           proof(
             goal(hanoi(2, left, center, right, [[left, right], [left, center], [right, center]])),
@@ -25,12 +25,12 @@ why(
             bindings([binding("N", 2), binding("From", left), binding("To", center), binding("Via", right), binding("Moves", [[left, right], [left, center], [right, center]]), binding("N1", 1), binding("Before", [[left, right]]), binding("After", [[right, center]])]),
             uses([
               proof(
-                goal(gt(2, 0)),
-                by(builtin(gt, 2))
+                goal(>(2, 0)),
+                by(builtin(>, 2))
               ),
               proof(
-                goal(sub(2, 1, 1)),
-                by(builtin(sub, 3))
+                goal(is(1, '-'(2, 1))),
+                by(builtin(is, 2))
               ),
               proof(
                 goal(hanoi(1, left, right, center, [[left, right]])),
@@ -38,12 +38,12 @@ why(
                 bindings([binding("N", 1), binding("From", left), binding("To", right), binding("Via", center), binding("Moves", [[left, right]]), binding("N1", 0), binding("Before", []), binding("After", [])]),
                 uses([
                   proof(
-                    goal(gt(1, 0)),
-                    by(builtin(gt, 2))
+                    goal(>(1, 0)),
+                    by(builtin(>, 2))
                   ),
                   proof(
-                    goal(sub(1, 1, 0)),
-                    by(builtin(sub, 3))
+                    goal(is(0, '-'(1, 1))),
+                    by(builtin(is, 2))
                   ),
                   proof(
                     goal(hanoi(0, left, center, right, [])),
@@ -67,12 +67,12 @@ why(
                 bindings([binding("N", 1), binding("From", right), binding("To", center), binding("Via", left), binding("Moves", [[right, center]]), binding("N1", 0), binding("Before", []), binding("After", [])]),
                 uses([
                   proof(
-                    goal(gt(1, 0)),
-                    by(builtin(gt, 2))
+                    goal(>(1, 0)),
+                    by(builtin(>, 2))
                   ),
                   proof(
-                    goal(sub(1, 1, 0)),
-                    by(builtin(sub, 3))
+                    goal(is(0, '-'(1, 1))),
+                    by(builtin(is, 2))
                   ),
                   proof(
                     goal(hanoi(0, right, left, center, [])),
@@ -102,12 +102,12 @@ why(
             bindings([binding("N", 2), binding("From", center), binding("To", right), binding("Via", left), binding("Moves", [[center, left], [center, right], [left, right]]), binding("N1", 1), binding("Before", [[center, left]]), binding("After", [[left, right]])]),
             uses([
               proof(
-                goal(gt(2, 0)),
-                by(builtin(gt, 2))
+                goal(>(2, 0)),
+                by(builtin(>, 2))
               ),
               proof(
-                goal(sub(2, 1, 1)),
-                by(builtin(sub, 3))
+                goal(is(1, '-'(2, 1))),
+                by(builtin(is, 2))
               ),
               proof(
                 goal(hanoi(1, center, left, right, [[center, left]])),
@@ -115,12 +115,12 @@ why(
                 bindings([binding("N", 1), binding("From", center), binding("To", left), binding("Via", right), binding("Moves", [[center, left]]), binding("N1", 0), binding("Before", []), binding("After", [])]),
                 uses([
                   proof(
-                    goal(gt(1, 0)),
-                    by(builtin(gt, 2))
+                    goal(>(1, 0)),
+                    by(builtin(>, 2))
                   ),
                   proof(
-                    goal(sub(1, 1, 0)),
-                    by(builtin(sub, 3))
+                    goal(is(0, '-'(1, 1))),
+                    by(builtin(is, 2))
                   ),
                   proof(
                     goal(hanoi(0, center, right, left, [])),
@@ -144,12 +144,12 @@ why(
                 bindings([binding("N", 1), binding("From", left), binding("To", right), binding("Via", center), binding("Moves", [[left, right]]), binding("N1", 0), binding("Before", []), binding("After", [])]),
                 uses([
                   proof(
-                    goal(gt(1, 0)),
-                    by(builtin(gt, 2))
+                    goal(>(1, 0)),
+                    by(builtin(>, 2))
                   ),
                   proof(
-                    goal(sub(1, 1, 0)),
-                    by(builtin(sub, 3))
+                    goal(is(0, '-'(1, 1))),
+                    by(builtin(is, 2))
                   ),
                   proof(
                     goal(hanoi(0, left, center, right, [])),

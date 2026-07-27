@@ -2,15 +2,15 @@
 heating(Battery, Watts) :-
   current(Battery, Amps),
   resistance(Battery, Ohms),
-  mul(Amps, Amps, I2),
-  mul(I2, Ohms, Watts).
+  (I2 is Amps * Amps),
+  (Watts is I2 * Ohms).
 
 thermal_warning(Battery) :-
   heating(Battery, Watts),
   heating_limit(Limit),
-  gt(Watts, Limit),
+  (Watts > Limit),
   temperature(Battery, Celsius),
   temperature_limit(TLimit),
-  gt(Celsius, TLimit).
+  (Celsius > TLimit).
 
 action(Battery, isolate_and_cool) :- thermal_warning(Battery).

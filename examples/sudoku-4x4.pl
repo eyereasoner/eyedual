@@ -30,13 +30,13 @@ column([R1, R2, R3, R4], Index, [A, B, C, D]) :-
 % The four boxes are extracted as lists, then passed through distinct/1.
 boxes([R1, R2, R3, R4], [Box1, Box2, Box3, Box4]) :-
   nth0(0, R1, A), nth0(1, R1, B), nth0(0, R2, C), nth0(1, R2, D),
-  eq(Box1, [A, B, C, D]),
+  (Box1 = [A, B, C, D]),
   nth0(2, R1, E), nth0(3, R1, F), nth0(2, R2, G), nth0(3, R2, H),
-  eq(Box2, [E, F, G, H]),
+  (Box2 = [E, F, G, H]),
   nth0(0, R3, I), nth0(1, R3, J), nth0(0, R4, K), nth0(1, R4, L),
-  eq(Box3, [I, J, K, L]),
+  (Box3 = [I, J, K, L]),
   nth0(2, R3, M), nth0(3, R3, N), nth0(2, R4, O), nth0(3, R4, P),
-  eq(Box4, [M, N, O, P]).
+  (Box4 = [M, N, O, P]).
 
 sudoku_solution([R1, R2, R3, R4]) :-
   row1(R1),

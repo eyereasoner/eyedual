@@ -44,24 +44,24 @@ why(
             by(fact("beam-deflection.pl", clause(9)))
           ),
           proof(
-            goal(pow(2.5, 3.0, 15.625)),
-            by(builtin(pow, 3))
+            goal(is(15.625, **(2.5, 3.0))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(1200.0, 15.625, 18750.0)),
-            by(builtin(mul, 3))
+            goal(is(18750.0, *(1200.0, 15.625))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(3.0, 200000000000.0, 600000000000.0)),
-            by(builtin(mul, 3))
+            goal(is(600000000000.0, *(3.0, 200000000000.0))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(mul(600000000000.0, 0.000008, 4800000.0)),
-            by(builtin(mul, 3))
+            goal(is(4800000.0, *(600000000000.0, 0.000008))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(div(18750.0, 4800000.0, 0.00390625)),
-            by(builtin(div, 3))
+            goal(is(0.00390625, /(18750.0, 4800000.0))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -104,30 +104,30 @@ why(
                 by(fact("beam-deflection.pl", clause(9)))
               ),
               proof(
-                goal(pow(2.5, 3.0, 15.625)),
-                by(builtin(pow, 3))
+                goal(is(15.625, **(2.5, 3.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(1200.0, 15.625, 18750.0)),
-                by(builtin(mul, 3))
+                goal(is(18750.0, *(1200.0, 15.625))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(3.0, 200000000000.0, 600000000000.0)),
-                by(builtin(mul, 3))
+                goal(is(600000000000.0, *(3.0, 200000000000.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(600000000000.0, 0.000008, 4800000.0)),
-                by(builtin(mul, 3))
+                goal(is(4800000.0, *(600000000000.0, 0.000008))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(div(18750.0, 4800000.0, 0.00390625)),
-                by(builtin(div, 3))
+                goal(is(0.00390625, /(18750.0, 4800000.0))),
+                by(builtin(is, 2))
               )
             ])
           ),
           proof(
-            goal(mul(0.00390625, 1000.0, 3.90625)),
-            by(builtin(mul, 3))
+            goal(is(3.90625, *(0.00390625, 1000.0))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -186,30 +186,30 @@ why(
                 by(fact("beam-deflection.pl", clause(9)))
               ),
               proof(
-                goal(pow(2.5, 3.0, 15.625)),
-                by(builtin(pow, 3))
+                goal(is(15.625, **(2.5, 3.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(1200.0, 15.625, 18750.0)),
-                by(builtin(mul, 3))
+                goal(is(18750.0, *(1200.0, 15.625))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(3.0, 200000000000.0, 600000000000.0)),
-                by(builtin(mul, 3))
+                goal(is(600000000000.0, *(3.0, 200000000000.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(mul(600000000000.0, 0.000008, 4800000.0)),
-                by(builtin(mul, 3))
+                goal(is(4800000.0, *(600000000000.0, 0.000008))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(div(18750.0, 4800000.0, 0.00390625)),
-                by(builtin(div, 3))
+                goal(is(0.00390625, /(18750.0, 4800000.0))),
+                by(builtin(is, 2))
               )
             ])
           ),
           proof(
-            goal(mul(0.00390625, 1000.0, 3.90625)),
-            by(builtin(mul, 3))
+            goal(is(3.90625, *(0.00390625, 1000.0))),
+            by(builtin(is, 2))
           )
         ])
       ),
@@ -218,8 +218,8 @@ why(
         by(fact("beam-deflection.pl", clause(10)))
       ),
       proof(
-        goal(le(3.90625, 5.0)),
-        by(builtin(le, 2))
+        goal(=<(3.90625, 5.0)),
+        by(builtin(=<, 2))
       )
     ])
   )

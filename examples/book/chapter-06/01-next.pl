@@ -1,9 +1,9 @@
 % From The Art of Eyepl, Chapter 6.
-next(X, Y) :- add(X, 1, Y).
-area_rectangle(W, H, Area) :- mul(W, H, Area).
+next(X, Y) :- (Y is X + 1).
+area_rectangle(W, H, Area) :- (Area is W * H).
 
 hypotenuse(A, B, C) :-
-  mul(A, A, A2),
-  mul(B, B, B2),
-  add(A2, B2, C2),
-  sqrt(C2, C).
+  (A2 is A * A),
+  (B2 is B * B),
+  (C2 is A2 + B2),
+  (C is sqrt(C2)).

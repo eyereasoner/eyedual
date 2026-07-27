@@ -37,17 +37,17 @@ risk_score(P, R) :-
   base_risk(Base),
   vaccination_factor(P, Vf),
   mask_factor(P, Mf),
-  mul(Base, Vf, A),
-  mul(A, Mf, R).
+  (A is Base * Vf),
+  (R is A * Mf).
 
 acceptable(P) :-
   risk_score(P, R),
-  le(R, 0.75).
+  (R =< 0.75).
 
 status(P, insufficient_control) :-
   policy(P),
   risk_score(P, R),
-  gt(R, 0.75).
+  (R > 0.75).
 
 status(P, acceptable_control) :-
   acceptable(P).

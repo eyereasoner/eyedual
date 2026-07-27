@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(ok) :- not(number_string(N, "four")).
+answer(ok) :- \+ number_string(N, "four").

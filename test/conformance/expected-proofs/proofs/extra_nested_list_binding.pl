@@ -7,8 +7,8 @@ why(
     bindings([binding("Tail", [c])]),
     uses([
       proof(
-        goal(eq([a, b, c], [a, b, c])),
-        by(builtin(eq, 2))
+        goal(=([a, b, c], [a, b, c])),
+        by(builtin(=, 2))
       )
     ])
   )

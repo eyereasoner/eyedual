@@ -3,5 +3,5 @@ candidate(a).
 candidate(b).
 candidate(c).
 blocked(b).
-answer(open, X) :- candidate(X), not(blocked(X)).
+answer(open, X) :- candidate(X), \+ blocked(X).
 query(answer(X0, X1)).

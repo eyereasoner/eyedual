@@ -54,7 +54,7 @@ allocation_conflict(Allocation) :-
 
 valid_allocation(Allocation) :-
   candidate_allocation(Allocation),
-  not(allocation_conflict(Allocation)).
+  \+ allocation_conflict(Allocation).
 
 spill_cost_of_place(Var, spill, Cost) :- temporary(Var, Cost).
 spill_cost_of_place(Var, Reg, 0) :- temporary(Var, _), register(Reg).

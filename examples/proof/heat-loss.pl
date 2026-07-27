@@ -36,8 +36,8 @@ why(
             by(fact("heat-loss.pl", clause(10)))
           ),
           proof(
-            goal(sub(21.0, -4.0, 25.0)),
-            by(builtin(sub, 3))
+            goal(is(25.0, '-'(21.0, -4.0))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -71,12 +71,12 @@ why(
             by(fact("heat-loss.pl", clause(7)))
           ),
           proof(
-            goal(mul(0.8, 12.0, 9.6000000000000014)),
-            by(builtin(mul, 3))
+            goal(is(9.6000000000000014, *(0.8, 12.0))),
+            by(builtin(is, 2))
           ),
           proof(
-            goal(div(0.2, 9.6000000000000014, 0.020833333333333332)),
-            by(builtin(div, 3))
+            goal(is(0.020833333333333332, /(0.2, 9.6000000000000014))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -111,8 +111,8 @@ why(
                 by(fact("heat-loss.pl", clause(10)))
               ),
               proof(
-                goal(sub(21.0, -4.0, 25.0)),
-                by(builtin(sub, 3))
+                goal(is(25.0, '-'(21.0, -4.0))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -134,18 +134,18 @@ why(
                 by(fact("heat-loss.pl", clause(7)))
               ),
               proof(
-                goal(mul(0.8, 12.0, 9.6000000000000014)),
-                by(builtin(mul, 3))
+                goal(is(9.6000000000000014, *(0.8, 12.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(div(0.2, 9.6000000000000014, 0.020833333333333332)),
-                by(builtin(div, 3))
+                goal(is(0.020833333333333332, /(0.2, 9.6000000000000014))),
+                by(builtin(is, 2))
               )
             ])
           ),
           proof(
-            goal(div(25.0, 0.020833333333333332, 1200.0)),
-            by(builtin(div, 3))
+            goal(is(1200.0, /(25.0, 0.020833333333333332))),
+            by(builtin(is, 2))
           )
         ])
       )
@@ -180,8 +180,8 @@ why(
                 by(fact("heat-loss.pl", clause(10)))
               ),
               proof(
-                goal(sub(21.0, -4.0, 25.0)),
-                by(builtin(sub, 3))
+                goal(is(25.0, '-'(21.0, -4.0))),
+                by(builtin(is, 2))
               )
             ])
           ),
@@ -203,24 +203,24 @@ why(
                 by(fact("heat-loss.pl", clause(7)))
               ),
               proof(
-                goal(mul(0.8, 12.0, 9.6000000000000014)),
-                by(builtin(mul, 3))
+                goal(is(9.6000000000000014, *(0.8, 12.0))),
+                by(builtin(is, 2))
               ),
               proof(
-                goal(div(0.2, 9.6000000000000014, 0.020833333333333332)),
-                by(builtin(div, 3))
+                goal(is(0.020833333333333332, /(0.2, 9.6000000000000014))),
+                by(builtin(is, 2))
               )
             ])
           ),
           proof(
-            goal(div(25.0, 0.020833333333333332, 1200.0)),
-            by(builtin(div, 3))
+            goal(is(1200.0, /(25.0, 0.020833333333333332))),
+            by(builtin(is, 2))
           )
         ])
       ),
       proof(
-        goal(gt(1200.0, 1000.0)),
-        by(builtin(gt, 2))
+        goal(>(1200.0, 1000.0)),
+        by(builtin(>, 2))
       )
     ])
   )

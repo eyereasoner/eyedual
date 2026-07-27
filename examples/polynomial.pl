@@ -36,24 +36,24 @@ c_zero([0, 0]).
 
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 c_add([A, B], [C, D], [E, F]) :-
-  add(A, C, E),
-  add(B, D, F).
+  (E is A + C),
+  (F is B + D).
 
 c_sub([A, B], [C, D], [E, F]) :-
-  sub(A, C, E),
-  sub(B, D, F).
+  (E is A - C),
+  (F is B - D).
 
 c_neg([A, B], [C, D]) :-
-  neg(A, C),
-  neg(B, D).
+  (C is -(A)),
+  (D is -(B)).
 
 c_mul([A, B], [C, D], [E, F]) :-
-  mul(A, C, Ac),
-  mul(B, D, Bd),
-  sub(Ac, Bd, E),
-  mul(A, D, Ad),
-  mul(B, C, Bc),
-  add(Ad, Bc, F).
+  (Ac is A * C),
+  (Bd is B * D),
+  (E is Ac - Bd),
+  (Ad is A * D),
+  (Bc is B * C),
+  (F is Ad + Bc).
 
 poly_eval([Coeff|Rest], X, Value) :-
   poly_eval_acc(Rest, X, Coeff, Value).

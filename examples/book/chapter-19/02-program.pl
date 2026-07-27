@@ -2,4 +2,4 @@
 false :-
   lower_limit(Name, Low),
   upper_limit(Name, High),
-  gt(Low, High).
+  (Low > High).

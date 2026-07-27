@@ -47,4 +47,4 @@ sameInputByCompositeInjectivity(H, X, Y) :-
   app(H, X, Z),
   app(H, Y, Z),
   sameTerm(X, Y),
-  neq(X, Y).
+  (X \= Y).

@@ -2,4 +2,4 @@
 sum_numbers([], 0).
 sum_numbers([X | Xs], Sum) :-
   sum_numbers(Xs, Rest),
-  add(X, Rest, Sum).
+  (Sum is X + Rest).

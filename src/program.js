@@ -355,7 +355,7 @@ function collectGoalDependencies(goal, negated) {
       ...collectGoalDependencies(goal.args[1], negated),
     ];
   }
-  if (goal.name === 'not' && goal.arity === 1) {
+  if ((goal.name === '\\+' || goal.name === 'not') && goal.arity === 1) {
     return collectGoalDependencies(goal.args[0], !negated);
   }
   if (goal.name === 'once' && goal.arity === 1) {

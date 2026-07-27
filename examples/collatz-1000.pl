@@ -19,26 +19,26 @@ query(collatzTrajectory(X0, X1)).
 % for the full trajectory list M.
 collatzTrajectory(N, M) :-
   repeat(1000, N0),
-  sub(1000, N0, N),
+  (N is 1000 - N0),
   collatz(N, M).
 
 % Range generator.
 % repeat(N, I) enumerates all integers I in the half-open interval [0..N-1].
 repeat(N, I) :-
-  sub(N, 1, Last),
+  (Last is N - 1),
   between(0, Last, I).
 
 % Backward Collatz relation.
 % collatz(N, M) relates a start value N to its full trajectory list M.
 collatz(1, [1]).
 collatz(N, [N|J]) :-
-  gt(N, 1),
-  mod(N, 2, 0),
-  div(N, 2, N1),
+  (N > 1),
+  (0 is N mod 2),
+  (N1 is N // 2),
   collatz(N1, J).
 collatz(N, [N|J]) :-
-  gt(N, 1),
-  mod(N, 2, 1),
-  mul(3, N, T),
-  add(T, 1, N1),
+  (N > 1),
+  (1 is N mod 2),
+  (T is 3 * N),
+  (N1 is T + 1),
   collatz(N1, J).

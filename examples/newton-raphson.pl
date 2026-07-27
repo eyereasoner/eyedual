@@ -15,34 +15,34 @@ findRoot(Input, Root) :-
 
 % f(1, X) = X^2 - 2
 f(1, X, Y) :-
-  mul(X, X, Xx),
-  sub(Xx, 2, Y).
+  (Xx is X * X),
+  (Y is Xx - 2).
 
 % f(2, X) = log(X) - 1
 f(2, X, Y) :-
-  log(X, Lx),
-  sub(Lx, 1, Y).
+  (Lx is log(X)),
+  (Y is Lx - 1).
 
 % f(3, X) = sin(X)
 f(3, X, Y) :-
-  sin(X, Y).
+  (Y is sin(X)).
 
 fd(1, X, Y) :-
-  mul(2, X, Y).
+  (Y is 2 * X).
 fd(2, X, Y) :-
-  div(1, X, Y).
+  (Y is 1 / X).
 fd(3, X, Y) :-
-  cos(X, Y).
+  (Y is cos(X)).
 
 find_root([N, X, Tolerance], X) :-
   f(N, X, Fx),
-  abs(Fx, Afx),
-  lt(Afx, Tolerance).
+  (Afx is abs(Fx)),
+  (Afx < Tolerance).
 find_root([N, X, Tolerance], Root) :-
   f(N, X, Fx),
-  abs(Fx, Afx),
-  ge(Afx, Tolerance),
+  (Afx is abs(Fx)),
+  (Afx >= Tolerance),
   fd(N, X, Fdx),
-  div(Fx, Fdx, Step),
-  sub(X, Step, Newx),
+  (Step is Fx / Fdx),
+  (Newx is X - Step),
   find_root([N, Newx, Tolerance], Root).

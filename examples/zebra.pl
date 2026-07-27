@@ -12,7 +12,7 @@ query(solved(X0, X1)).
 
 % The single zebra/2 rule is a finite constraint model over the five house slots.
 zebra(Waterdrinker, Zebraowner) :-
-  eq(Houses, [_, _, _, _, _]),
+  (Houses = [_, _, _, _, _]),
   first(Houses, house(_, norwegian, _, _, _)),
   third(Houses, house(_, _, _, milk, _)),
   adjacent(house(_, norwegian, _, _, _), house(blue, _, _, _, _), Houses),

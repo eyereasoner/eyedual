@@ -66,7 +66,7 @@ fallacy(A, hasty_generalization) :-
   argument(A),
   sample_size(A, N),
   required_sample_size(A, Min),
-  lt(N, Min),
+  (N < Min),
   concludes(A, all(_, _)).
 
 fallacy(A, false_dilemma) :-

@@ -23,7 +23,7 @@ query(widthContractsAt(X0, X1)).
 max_k(10).
 target(1.0).
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
-eta(Eta) :- div(1.0, 5, Eta).
+eta(Eta) :- (Eta is 1.0 / 5).
 x_bounds(0, 0.0, 2.0).
 
 index(0). index(1). index(2). index(3). index(4). index(5).
@@ -35,66 +35,66 @@ previous(6, 5). previous(7, 6). previous(8, 7). previous(9, 8). previous(10, 9).
 g_bounds(K, Gl, Gu) :-
   target(A),
   x_bounds(K, L, U),
-  sub(L, A, Dl),
-  sub(U, A, Du),
-  mul(2, Dl, Gl),
-  mul(2, Du, Gu).
+  (Dl is L - A),
+  (Du is U - A),
+  (Gl is 2 * Dl),
+  (Gu is 2 * Du).
 
 p_bounds(K, Pl, Pu) :-
   eta(Eta),
   g_bounds(K, Gl, Gu),
-  mul(Eta, Gl, Pl),
-  mul(Eta, Gu, Pu).
+  (Pl is Eta * Gl),
+  (Pu is Eta * Gu).
 
 x_bounds(K1, L1, U1) :-
   previous(K1, K),
   x_bounds(K, L, U),
   target(A),
   eta(Eta),
-  sub(L, A, Dl),
-  sub(U, A, Du),
-  mul(2, Dl, Gl),
-  mul(2, Du, Gu),
-  mul(Eta, Gl, Pl),
-  mul(Eta, Gu, Pu),
-  sub(L, Pu, L1),
-  sub(U, Pl, U1).
+  (Dl is L - A),
+  (Du is U - A),
+  (Gl is 2 * Dl),
+  (Gu is 2 * Du),
+  (Pl is Eta * Gl),
+  (Pu is Eta * Gu),
+  (L1 is L - Pu),
+  (U1 is U - Pl).
 
 width(K, W) :-
   x_bounds(K, L, U),
-  sub(U, L, W).
+  (W is U - L).
 
 midpoint(K, M, Halfw) :-
   x_bounds(K, L, U),
   width(K, W),
-  div(W, 2, Halfw),
-  add(L, U, Sum),
-  div(Sum, 2, M).
+  (Halfw is W / 2),
+  (Sum is L + U),
+  (M is Sum / 2).
 
 eta_le_half(true) :-
   eta(Eta),
-  div(1.0, 2, Half),
-  le(Eta, Half).
+  (Half is 1.0 / 2),
+  (Eta =< Half).
 
 width_contracts_at(K1, true) :-
   eta_le_half(true),
   previous(K1, K),
   width(K, W),
   width(K1, W1),
-  le(W1, W).
+  (W1 =< W).
 
-max2(A, B, A) :- ge(A, B).
-max2(A, B, B) :- lt(A, B).
-min2(A, B, A) :- le(A, B).
-min2(A, B, B) :- gt(A, B).
+max2(A, B, A) :- (A >= B).
+max2(A, B, B) :- (A < B).
+min2(A, B, A) :- (A =< B).
+min2(A, B, B) :- (A > B).
 
 end_squares(K, Sl, Su) :-
   target(A),
   x_bounds(K, L, U),
-  sub(L, A, Dl),
-  sub(U, A, Du),
-  mul(Dl, Dl, Sl),
-  mul(Du, Du, Su).
+  (Dl is L - A),
+  (Du is U - A),
+  (Sl is Dl * Dl),
+  (Su is Du * Du).
 
 f_upper(K, Fu) :-
   end_squares(K, Sl, Su),
@@ -103,20 +103,20 @@ f_upper(K, Fu) :-
 f_lower(K, 0.0) :-
   target(A),
   x_bounds(K, L, U),
-  le(L, A),
-  le(A, U).
+  (L =< A),
+  (A =< U).
 
 f_lower(K, Fl) :-
   target(A),
   x_bounds(K, L, U),
-  lt(U, A),
+  (U < A),
   end_squares(K, Sl, Su),
   min2(Sl, Su, Fl).
 
 f_lower(K, Fl) :-
   target(A),
   x_bounds(K, L, U),
-  lt(A, L),
+  (A < L),
   end_squares(K, Sl, Su),
   min2(Sl, Su, Fl).
 

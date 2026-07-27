@@ -19,97 +19,97 @@ e(2.718281828459045).
 % z^w is evaluated through polar/log form, exposing useful intermediate proof steps.
 complex_exponentiation([A, B], [C, D], [E, F]) :-
   complex_polar([A, B], [R, T]),
-  pow(R, C, Z1),
-  neg(D, Z2),
-  mul(Z2, T, Z3),
+  (Z1 is R ** C),
+  (Z2 is -(D)),
+  (Z3 is Z2 * T),
   e(Euler),
-  pow(Euler, Z3, Z4),
-  log(R, Z5),
-  mul(D, Z5, Z6),
-  mul(C, T, Z7),
-  add(Z6, Z7, Z8),
-  cos(Z8, Z9),
-  mul(Z1, Z4, Z1z4),
-  mul(Z1z4, Z9, E),
-  sin(Z8, Z10),
-  mul(Z1z4, Z10, F).
+  (Z4 is Euler ** Z3),
+  (Z5 is log(R)),
+  (Z6 is D * Z5),
+  (Z7 is C * T),
+  (Z8 is Z6 + Z7),
+  (Z9 is cos(Z8)),
+  (Z1z4 is Z1 * Z4),
+  (E is Z1z4 * Z9),
+  (Z10 is sin(Z8)),
+  (F is Z1z4 * Z10).
 
 complex_asin([A, B], [C, D]) :-
-  add(1, A, Z1),
-  pow(Z1, 2, Z2),
-  pow(B, 2, Z3),
-  add(Z2, Z3, Z4),
-  pow(Z4, 0.5, Z5),
-  sub(1, A, Z6),
-  pow(Z6, 2, Z7),
-  add(Z7, Z3, Z8),
-  pow(Z8, 0.5, Z9),
-  sub(Z5, Z9, Z10),
-  div(Z10, 2, E),
-  add(Z5, Z9, Z11),
-  div(Z11, 2, F),
+  (Z1 is 1 + A),
+  (Z2 is Z1 ** 2),
+  (Z3 is B ** 2),
+  (Z4 is Z2 + Z3),
+  (Z5 is Z4 ** 0.5),
+  (Z6 is 1 - A),
+  (Z7 is Z6 ** 2),
+  (Z8 is Z7 + Z3),
+  (Z9 is Z8 ** 0.5),
+  (Z10 is Z5 - Z9),
+  (E is Z10 / 2),
+  (Z11 is Z5 + Z9),
+  (F is Z11 / 2),
   asin(E, C),
-  pow(F, 2, Z12),
-  sub(Z12, 1, Z13),
-  pow(Z13, 0.5, Z14),
-  add(F, Z14, Z15),
-  log(Z15, D).
+  (Z12 is F ** 2),
+  (Z13 is Z12 - 1),
+  (Z14 is Z13 ** 0.5),
+  (Z15 is F + Z14),
+  (D is log(Z15)).
 
 complex_acos([A, B], [C, D]) :-
-  add(1, A, Z1),
-  pow(Z1, 2, Z2),
-  pow(B, 2, Z3),
-  add(Z2, Z3, Z4),
-  pow(Z4, 0.5, Z5),
-  sub(1, A, Z6),
-  pow(Z6, 2, Z7),
-  add(Z7, Z3, Z8),
-  pow(Z8, 0.5, Z9),
-  sub(Z5, Z9, Z10),
-  div(Z10, 2, E),
-  add(Z5, Z9, Z11),
-  div(Z11, 2, F),
+  (Z1 is 1 + A),
+  (Z2 is Z1 ** 2),
+  (Z3 is B ** 2),
+  (Z4 is Z2 + Z3),
+  (Z5 is Z4 ** 0.5),
+  (Z6 is 1 - A),
+  (Z7 is Z6 ** 2),
+  (Z8 is Z7 + Z3),
+  (Z9 is Z8 ** 0.5),
+  (Z10 is Z5 - Z9),
+  (E is Z10 / 2),
+  (Z11 is Z5 + Z9),
+  (F is Z11 / 2),
   acos(E, C),
-  pow(F, 2, Z12),
-  sub(Z12, 1, Z13),
-  pow(Z13, 0.5, Z14),
-  add(F, Z14, Z15),
-  log(Z15, U),
-  neg(U, D).
+  (Z12 is F ** 2),
+  (Z13 is Z12 - 1),
+  (Z14 is Z13 ** 0.5),
+  (Z15 is F + Z14),
+  (U is log(Z15)),
+  (D is -(U)).
 
 complex_polar([X, Y], [R, Tp]) :-
-  pow(X, 2, Z1),
-  pow(Y, 2, Z2),
-  add(Z1, Z2, Z3),
-  pow(Z3, 0.5, R),
-  abs(X, Z4),
-  div(Z4, R, Z5),
+  (Z1 is X ** 2),
+  (Z2 is Y ** 2),
+  (Z3 is Z1 + Z2),
+  (R is Z3 ** 0.5),
+  (Z4 is abs(X)),
+  (Z5 is Z4 / R),
   acos(Z5, T),
   complex_dial(X, Y, T, Tp).
 
 complex_dial(X, Y, T, Tp) :-
-  ge(X, 0),
-  ge(Y, 0),
-  add(0, T, Tp).
+  (X >= 0),
+  (Y >= 0),
+  (Tp is 0 + T).
 
 complex_dial(X, Y, T, Tp) :-
-  lt(X, 0),
-  ge(Y, 0),
+  (X < 0),
+  (Y >= 0),
   pi(Pi),
-  sub(Pi, T, Tp).
+  (Tp is Pi - T).
 
 complex_dial(X, Y, T, Tp) :-
-  lt(X, 0),
-  lt(Y, 0),
+  (X < 0),
+  (Y < 0),
   pi(Pi),
-  add(Pi, T, Tp).
+  (Tp is Pi + T).
 
 complex_dial(X, Y, T, Tp) :-
-  ge(X, 0),
-  lt(Y, 0),
+  (X >= 0),
+  (Y < 0),
   pi(Pi),
-  mul(Pi, 2, Z1),
-  sub(Z1, T, Tp).
+  (Z1 is Pi * 2),
+  (Tp is Z1 - T).
 
 % Named result rows keep the example output readable.  Each row records the
 % operation name, the input value(s), and the computed complex result rather

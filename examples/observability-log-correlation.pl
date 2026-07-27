@@ -37,4 +37,4 @@ parsed_event(Log, Event, User, Ip, Traceid) :-
 trace_alert(User, Traceid, Ip) :-
   parsed_event(Loginlog, "login_failed", User, Ip, Traceid),
   parsed_event(Paymentlog, "payment_denied", User, Ip, Traceid),
-  neq(Loginlog, Paymentlog).
+  (Loginlog \= Paymentlog).

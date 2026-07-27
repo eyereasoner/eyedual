@@ -7,8 +7,8 @@ why(
     bindings([binding("X", 5)]),
     uses([
       proof(
-        goal(add(2, 3, 5)),
-        by(builtin(add, 3))
+        goal(is(5, '+'(2, 3))),
+        by(builtin(is, 2))
       )
     ])
   )

@@ -7,7 +7,7 @@
 query(birthDay(X0, X1)).
 query(duration(X0, X1)).
 query(ageAbove(X0, X1)).
-query(is(X0, X1)).
+query(holds_result(X0, X1)).
 
 birthDay(patH, "1944-08-21").
 duration(check, "P80Y").
@@ -19,8 +19,8 @@ ageAbove(S, A) :-
   duration(check, A),
   local_time(D),
   difference(D, B, F),
-  gt(F, A).
+  (F @> A).
 
 % Test mirroring the Eyeling example.
-is(test, true) :-
+holds_result(test, true) :-
   ageAbove(S, "P80Y").

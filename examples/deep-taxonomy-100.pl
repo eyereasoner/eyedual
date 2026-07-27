@@ -6,7 +6,7 @@
 % =============================================================================================================================
 
 % Output declarations: query/1 selects the relations written to this example's golden output.
-query(is(X0, X1)).
+query(holds_result(X0, X1)).
 query(answer(X0, X1)).
 query(reason(X0, X1)).
 query(result(X0, X1)).
@@ -21,7 +21,7 @@ a(ind, n0).
 % terminal rule
 
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
-is(test, true) :- once(a(ind, a2)).
+holds_result(test, true) :- once(a(ind, a2)).
 a(X, a2) :- a(X, n100).
 
 % Adjacent N3-style taxonomy rules.
@@ -352,22 +352,22 @@ arc(check5, "C5 OK - once n100 is reached, the terminal class a2 is derived.") :
 
 arc(check6, "C6 OK - the success flag is raised only after the terminal class a2 is present.") :-
  once(a(ind, a2)),
- once(is(test, true)).
+ once(holds_result(test, true)).
 
 % ARC report
 
 answer(report, "The test succeeds: starting from one individual classified as n0, the rules eventually classify it as n100 and then as a2.") :-
- once(is(test, true)).
+ once(holds_result(test, true)).
 
 reason(report, "The adjacent rules mirror the Eyeling N3 deep-taxonomy-100 chain: each rule advances one taxonomy level and adds the matching side labels.") :-
  once(a(ind, a2)),
- once(is(test, true)).
+ once(holds_result(test, true)).
 
 checkPassed(report, Check) :-
  arc(Check, _message).
 
 result(report, success) :-
- once(is(test, true)),
+ once(holds_result(test, true)),
  once(arc(check1, _c1)),
  once(arc(check2, _c2)),
  once(arc(check3, _c3)),

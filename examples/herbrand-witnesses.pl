@@ -25,7 +25,7 @@ registration(Student, Course, registration_of(Student, Course)) :-
   takes(Student, Course).
 
 same_witness(parent_of_alice, true) :-
-  eq(parent_of(alice), parent_of(alice)).
+  (parent_of(alice) = parent_of(alice)).
 
 distinct_witnesses(alice_logic_vs_alice_math, true) :-
-  neq(registration_of(alice, logic), registration_of(alice, math)).
+  (registration_of(alice, logic) \= registration_of(alice, math)).

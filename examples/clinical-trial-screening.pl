@@ -45,19 +45,19 @@ condition(p003, pregnant).
 inclusion_adult(Patient) :-
   patient(Patient),
   age(Patient, Age),
-  ge(Age, 18).
+  (Age >= 18).
 
 inclusion_diagnosis(Patient) :-
   diagnosis(Patient, type2_diabetes).
 
 inclusion_hba1c(Patient) :-
   lab(Patient, hba1c_pct, Hba1c),
-  ge(Hba1c, 7.0),
-  le(Hba1c, 10.5).
+  (Hba1c >= 7.0),
+  (Hba1c =< 10.5).
 
 exclusion_renal(Patient) :-
   lab(Patient, egfr_ml_min, Egfr),
-  lt(Egfr, 45.0).
+  (Egfr < 45.0).
 
 exclusion_pregnancy(Patient) :-
   condition(Patient, pregnant).
@@ -67,12 +67,12 @@ screen_eligible(Patient) :-
   inclusion_adult(Patient),
   inclusion_diagnosis(Patient),
   inclusion_hba1c(Patient),
-  not(exclusion_renal(Patient)),
-  not(exclusion_pregnancy(Patient)).
+  \+ exclusion_renal(Patient),
+  \+ exclusion_pregnancy(Patient).
 
 screen_fail(Patient) :- exclusion_renal(Patient).
 screen_fail(Patient) :- exclusion_pregnancy(Patient).
-screen_fail(Patient) :- patient(Patient), not(inclusion_hba1c(Patient)).
+screen_fail(Patient) :- patient(Patient), \+ inclusion_hba1c(Patient).
 
 type(Patient, trial_candidate) :-
   screen_eligible(Patient).
@@ -94,4 +94,4 @@ reason(Patient, "pregnancy exclusion applies") :-
 
 reason(Patient, "HbA1c is outside protocol range") :-
   patient(Patient),
-  not(inclusion_hba1c(Patient)).
+  \+ inclusion_hba1c(Patient).

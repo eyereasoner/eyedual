@@ -163,11 +163,11 @@ why(
   )
 ).
 
-is(witchExample, true).
+holds_result(witchExample, true).
 why(
-  is(witchExample, true),
+  holds_result(witchExample, true),
   proof(
-    goal(is(witchExample, true)),
+    goal(holds_result(witchExample, true)),
     by(rule("witch.pl", clause(13))),
     uses([
       proof(

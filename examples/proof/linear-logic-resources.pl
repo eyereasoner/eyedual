@@ -16,8 +16,8 @@ why(
         bindings([binding("Steps", 3), binding("State0", [wheat, yeast, heat]), binding("Rule", mill), binding("Plan", [mix, bake]), binding("State2", [bread]), binding("State1", [flour, yeast, heat]), binding("Remaining", 2)]),
         uses([
           proof(
-            goal(gt(3, 0)),
-            by(builtin(gt, 2))
+            goal(>(3, 0)),
+            by(builtin(>, 2))
           ),
           proof(
             goal(linear_step([wheat, yeast, heat], mill, [flour, yeast, heat])),
@@ -51,8 +51,8 @@ why(
             ])
           ),
           proof(
-            goal(sub(3, 1, 2)),
-            by(builtin(sub, 3))
+            goal(is(2, '-'(3, 1))),
+            by(builtin(is, 2))
           ),
           proof(
             goal(run_linear(2, [flour, yeast, heat], [mix, bake], [bread])),
@@ -60,8 +60,8 @@ why(
             bindings([binding("Steps", 2), binding("State0", [flour, yeast, heat]), binding("Rule", mix), binding("Plan", [bake]), binding("State2", [bread]), binding("State1", [dough, heat]), binding("Remaining", 1)]),
             uses([
               proof(
-                goal(gt(2, 0)),
-                by(builtin(gt, 2))
+                goal(>(2, 0)),
+                by(builtin(>, 2))
               ),
               proof(
                 goal(linear_step([flour, yeast, heat], mix, [dough, heat])),
@@ -106,8 +106,8 @@ why(
                 ])
               ),
               proof(
-                goal(sub(2, 1, 1)),
-                by(builtin(sub, 3))
+                goal(is(1, '-'(2, 1))),
+                by(builtin(is, 2))
               ),
               proof(
                 goal(run_linear(1, [dough, heat], [bake], [bread])),
@@ -115,8 +115,8 @@ why(
                 bindings([binding("Steps", 1), binding("State0", [dough, heat]), binding("Rule", bake), binding("Plan", []), binding("State2", [bread]), binding("State1", [bread]), binding("Remaining", 0)]),
                 uses([
                   proof(
-                    goal(gt(1, 0)),
-                    by(builtin(gt, 2))
+                    goal(>(1, 0)),
+                    by(builtin(>, 2))
                   ),
                   proof(
                     goal(linear_step([dough, heat], bake, [bread])),
@@ -161,8 +161,8 @@ why(
                     ])
                   ),
                   proof(
-                    goal(sub(1, 1, 0)),
-                    by(builtin(sub, 3))
+                    goal(is(0, '-'(1, 1))),
+                    by(builtin(is, 2))
                   ),
                   proof(
                     goal(run_linear(0, [bread], [], [bread])),
@@ -176,8 +176,8 @@ why(
         ])
       ),
       proof(
-        goal(eq([bread], [bread])),
-        by(builtin(eq, 2))
+        goal(=([bread], [bread])),
+        by(builtin(=, 2))
       )
     ])
   )
@@ -196,8 +196,8 @@ why(
         by(fact("linear-logic-resources.pl", clause(4)))
       ),
       proof(
-        goal(not(run_linear(2, [coin], [buy_flour, buy_yeast], _finalstate))),
-        by(builtin(not, 1))
+        goal('\\+'(run_linear(2, [coin], [buy_flour, buy_yeast], _finalstate))),
+        by(builtin('\\+', 1))
       )
     ])
   )

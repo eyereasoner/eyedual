@@ -48,7 +48,7 @@ clause_satisfied(Assignment, Clause_name) :-
 clause_impossible(Assignment, Clause_name) :-
   clause(Clause_name, Literals),
   forall(member(Literal, Literals), literal_false(Literal, Assignment)).
-partial_consistent(Assignment) :- not((clause(Name, _), clause_impossible(Assignment, Name))).
+partial_consistent(Assignment) :- \+ (clause(Name, _), clause_impossible(Assignment, Name)).
 complete_model(Assignment) :- forall(clause(Name, _), clause_satisfied(Assignment, Name)).
 
 % Recursive DPLL search: choose a truth value, prune if inconsistent, then
@@ -69,12 +69,12 @@ model_rank(Model, Rank) :-
   lookup_bool(b, Model, B), bit(B, Bbit),
   lookup_bool(c, Model, C), bit(C, Cbit),
   lookup_bool(d, Model, D), bit(D, Dbit),
-  mul(Abit, 8, Arank),
-  mul(Bbit, 4, Brank),
-  mul(Cbit, 2, Crank),
-  add(Arank, Brank, Ab),
-  add(Crank, Dbit, Cd),
-  add(Ab, Cd, Rank).
+  (Arank is Abit * 8),
+  (Brank is Bbit * 4),
+  (Crank is Cbit * 2),
+  (Ab is Arank + Brank),
+  (Cd is Crank + Dbit),
+  (Rank is Ab + Cd).
 
 best_model(Model, Rank) :-
   aggregate_min(Candidate_rank, Candidate_model,

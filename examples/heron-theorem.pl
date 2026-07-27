@@ -19,24 +19,24 @@ triangle(field_plot, 13, 14, 15).
 % semiperimeter/2 is the reusable first step in Heron's formula.
 semiperimeter(Triangle, S) :-
   triangle(Triangle, A, B, C),
-  add(A, B, Ab),
-  add(Ab, C, Sum),
-  div(Sum, 2, S).
+  (Ab is A + B),
+  (Sum is Ab + C),
+  (S is Sum / 2).
 
 % Area is obtained by taking the square root of this Heron product.
 heron_product(Triangle, Product) :-
   triangle(Triangle, A, B, C),
   semiperimeter(Triangle, S),
-  sub(S, A, Sa),
-  sub(S, B, Sb),
-  sub(S, C, Sc),
-  mul(S, Sa, T1),
-  mul(T1, Sb, T2),
-  mul(T2, Sc, Product).
+  (Sa is S - A),
+  (Sb is S - B),
+  (Sc is S - C),
+  (T1 is S * Sa),
+  (T2 is T1 * Sb),
+  (Product is T2 * Sc).
 
 area(Triangle, Area) :-
   heron_product(Triangle, Product),
-  pow(Product, 0.5, Area).
+  (Area is Product ** 0.5).
 
 heronProduct(Triangle, P) :- heron_product(Triangle, P).
-status(Triangle, valid_survey_triangle) :- area(Triangle, A), gt(A, 0).
+status(Triangle, valid_survey_triangle) :- area(Triangle, A), (A > 0).

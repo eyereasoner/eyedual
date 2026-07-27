@@ -28,13 +28,13 @@ permitted_flow(Flow, Score) :-
   flow(Flow, Source, Recipient, Data, Action, Purpose),
   permission(_permission, Recipient, Data, Action, Purpose, Mintrust),
   trust_score(Source, Score),
-  ge(Score, Mintrust).
+  (Score >= Mintrust).
 
 review_flow(Flow, Score) :-
   flow(Flow, Source, Recipient, Data, Action, Purpose),
   permission(_permission, Recipient, Data, Action, Purpose, Mintrust),
   trust_score(Source, Score),
-  lt(Score, Mintrust).
+  (Score < Mintrust).
 
 denied_flow(Flow) :-
   flow(Flow, _source, Recipient, Data, Action, Purpose),

@@ -23,18 +23,18 @@ why(
         by(builtin(difference, 3))
       ),
       proof(
-        goal(gt("P81Y9M9D", "P80Y")),
-        by(builtin(gt, 2))
+        goal(@>("P81Y9M9D", "P80Y")),
+        by(builtin(@>, 2))
       )
     ])
   )
 ).
 
-is(test, true).
+holds_result(test, true).
 why(
-  is(test, true),
+  holds_result(test, true),
   proof(
-    goal(is(test, true)),
+    goal(holds_result(test, true)),
     by(rule("age.pl", clause(8))),
     bindings([binding("S", patH)]),
     uses([
@@ -60,8 +60,8 @@ why(
             by(builtin(difference, 3))
           ),
           proof(
-            goal(gt("P81Y9M9D", "P80Y")),
-            by(builtin(gt, 2))
+            goal(@>("P81Y9M9D", "P80Y")),
+            by(builtin(@>, 2))
           )
         ])
       )

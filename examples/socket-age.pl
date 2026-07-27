@@ -36,4 +36,4 @@ ageAbove(S, A) :-
     duration(check, A),
     today(D),
     difference(D, B, F),
-    gt(F, A).
+    (F @> A).

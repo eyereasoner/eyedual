@@ -25,7 +25,7 @@ noneOf(policy_x, claim_d).
 passes_all_of(Request, Policy) :-
   policy_request(Request, Policy),
   policy(Policy),
-  not((allOf(Policy, Claim), not(has(Request, Claim)))).
+  \+ (allOf(Policy, Claim), \+ has(Request, Claim)).
 
 passes_any_of(Request, Policy) :-
   policy_request(Request, Policy),
@@ -36,7 +36,7 @@ passes_any_of(Request, Policy) :-
 passes_none_of(Request, Policy) :-
   policy_request(Request, Policy),
   policy(Policy),
-  not((noneOf(Policy, Claim), has(Request, Claim))).
+  \+ (noneOf(Policy, Claim), has(Request, Claim)).
 
 passes_policy(Request, Policy) :-
   passes_all_of(Request, Policy),
