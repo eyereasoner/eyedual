@@ -1,8 +1,9 @@
 # Eyepl conformance suite
 
-This directory contains executable tests for the Eyepl language and reasoner.
+This directory contains executable tests for the Eyepl implementation and
+reasoner.
 [*The Art of Eyepl*](../../the-art-of-eyepl.md) is the reference for the
-accepted partial ISO Prolog syntax, built-ins, and reasoner behavior.
+supported ISO Prolog profile, built-ins, extensions, and reasoner behavior.
 
 The suite is intentionally file-based. Exact standard output, errors, warnings,
 and proof output test the behavior of the JavaScript implementation.

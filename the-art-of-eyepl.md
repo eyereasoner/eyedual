@@ -4,30 +4,40 @@
   <img src="eyepl-logo.png" alt="Eyepl logo" width="160">
 </p>
 
-## Relations, search, and explanations in a small logic language
+## Standards-based relations, search, and explanations
 
 Eyepl turns facts and rules into answers and inspectable proofs. This book is an
 original introduction to the habits of logic programming: describe a world,
 state the relationships that hold in it, and let unification and search connect
 the two.
 
-This book is also the reference for the Eyepl language and implementation.
-Appendix A defines the accepted partial ISO Prolog syntax and declarations,
-Appendix B describes every supported built-in predicate, and Appendix C
-documents the command-line interface. The explanatory chapters give the
-reasoning and operational context needed to use those details correctly.
+This book is also the reference for the Eyepl implementation. Eyepl is a
+standards-based reasoning system: programs use the documented and tested ISO
+Prolog profile, while RDF 1.2 provides an interoperable data boundary.
+Appendix A defines the supported ISO Prolog profile and declarations, Appendix
+B describes every supported built-in predicate, and Appendix C documents the
+command-line interface. The explanatory chapters give the reasoning and
+operational context needed to use those details correctly.
 
 Its subject is not syntax alone. A logic program has two inseparable aspects:
 the relation described by its clauses and the procedure induced when goals are
 selected and clauses are tried. The first tells us what answers are justified;
 the second tells us whether and how the machine will find them. Learning to
-program in Eyepl means learning to move comfortably between these views.
+program with Eyepl means learning to move comfortably between these views.
 
-The name *Eyepl* combines *EYE* with *pl*: EYE-style reasoning in a compact,
-Prolog-like notation. Eyepl inherits the relational outlook of Prolog, but it is
-its own deliberately small language. It supplies facts, Horn clauses, terms,
-lists, finite search, built-ins, automatic tabling, and proof output. It does not
-attempt to reproduce the whole ISO Prolog environment.
+The name *Eyepl* combines *EYE* with *pl*: EYE-style reasoning through Prolog.
+Eyepl implements a deliberately focused ISO Prolog profile with facts, Horn
+clauses, terms, lists, finite search, and standard built-ins. Automatic
+tabling, inference fuses, proof output, and RDF adapters are implementation
+capabilities around that standards-based foundation. Eyepl does not attempt to
+reproduce the whole ISO Prolog environment.
+
+Standards are crucial because knowledge and rules often outlive the software
+that first processes them. Using ISO Prolog for programs and RDF 1.2 for
+interchange keeps the representation teachable, inspectable, and portable
+across tools. Eyepl aims to provide a compact implementation of those standards
+with explanations and practical host integration, not another proprietary rule
+language.
 
 This places Eyepl in a tradition that joins automated deduction, database
 querying, and programming. Jacques Herbrand's doctoral work made ground terms
@@ -44,7 +54,7 @@ That history explains a recurring theme of the book. Logic programming is not
 the claim that control disappears. It is the discipline of stating the
 relation clearly enough that control can be studied and improved separately.
 Robert Kowalski's phrase “algorithm = logic + control” names this separation;
-Eyepl's small surface makes it unusually easy to see in running examples.
+Eyepl's focused surface makes it unusually easy to see in running examples.
 
 Complete Eyepl code displays from the book are also available as files under
 [`examples/book/`](examples/book/), grouped by chapter. From a source checkout,
@@ -71,7 +81,7 @@ node bin/eyepl.js --proof examples/socrates.pl
 Readers who do not want to install anything can begin in the
 [browser playground](https://eyereasoner.github.io/eyepl/playground). Paste
 the source of `examples/socrates.pl` into the editor and run it. The playground
-and local CLI use the same language, though filesystem, URL, and embedding
+and local CLI accept the same Prolog source, though filesystem, URL, and embedding
 examples naturally require a local checkout.
 
 The best way to read is beside a running interpreter. Before each run, predict
@@ -83,7 +93,7 @@ Use `npm run generate` after editing the book to refresh the extracted
 
 Code displays serve three different purposes:
 
-- an `eyepl` block is source code; complete blocks are extracted under
+- an `eyepl` block is Prolog source accepted by Eyepl; complete blocks are extracted under
   `examples/book/`, although a short block may rely on facts introduced in the
   surrounding chapter;
 - a `text` block shows output, a trace, a data shape, or pseudocode and is not
@@ -109,11 +119,12 @@ tricks. By the end, a reader should be able to:
    without quietly changing their meaning;
 5. test conclusions, reject inconsistent inputs with fuses, and inspect proofs
    as evidence; and
-6. connect an Eyepl theory to JavaScript and RDF without hiding the knowledge
+6. connect a Prolog rule set to JavaScript and RDF without hiding the knowledge
    boundary.
 
-That is the stake in the ground: a small language is enough to teach the large
-ideas when its semantics, execution, and evidence remain visible together.
+That is the stake in the ground: a focused implementation of standard Prolog
+is enough to teach the large ideas when semantics, execution, and evidence
+remain visible together.
 The implementation is therefore part of the argument. The examples are
 programs, the appendices are the reference for the running system, and
 `npm test` checks the complete code displays, local references, and
@@ -197,7 +208,7 @@ the next program.
 12. [Integrity constraints and inference fuses](#12-integrity-constraints-and-inference-fuses)
 13. [Termination, tabling, and performance](#13-termination-tabling-and-performance)
 14. [Knowledge engineering](#14-knowledge-engineering)
-15. [RDF 1.2 as relational data](#15-rdf-12-as-relational-data)
+15. [RDF 1.2 as the interoperable data boundary](#15-rdf-12-as-the-interoperable-data-boundary)
 16. [Embedding Eyepl](#16-embedding-eyepl)
 
 ### Part IV — The craft of logic programming
@@ -227,16 +238,16 @@ the next program.
 
 31. [Testing a theory](#31-testing-a-theory)
 32. [Debugging by meaning, search, and proof](#32-debugging-by-meaning-search-and-proof)
-33. [A pattern language for Eyepl](#33-a-pattern-language-for-eyepl)
+33. [A pattern catalog for reasoning](#33-a-pattern-catalog-for-reasoning)
 
 ### Appendices
 
-- [A. Language summary](#appendix-a-language-summary)
+- [A. Supported ISO Prolog profile](#appendix-a-supported-iso-prolog-profile)
 - [B. Built-in predicates](#appendix-b-built-in-predicates)
 - [C. Command-line reference](#appendix-c-command-line-reference)
 - [D. Study paths and review](#appendix-d-study-paths-and-review)
 - [E. Further examples](#appendix-e-further-examples)
-- [F. Compatibility](#appendix-f-compatibility)
+- [F. Standards profile and implementation extensions](#appendix-f-standards-profile-and-implementation-extensions)
 - [G. Notes and references](#appendix-g-notes-and-references)
 - [H. Glossary](#appendix-h-glossary)
 - [I. Twelve laboratories](#appendix-i-twelve-laboratories)
@@ -349,7 +360,7 @@ grandparents, then only the grandparents of `diego`.
 
 ## 2. Terms, variables, and substitution
 
-Eyepl programs are built from terms:
+Prolog programs accepted by Eyepl are built from terms:
 
 - atom constants: `ada`, `accepted`, `'atom with spaces'`;
 - strings: `"sensor too hot"`;
@@ -524,7 +535,7 @@ least-Herbrand-model account. Eyepl sits downstream of this sequence:
 Herbrand: ground terms and instances as a proof-theoretic foundation
   -> Robinson: resolution and unification as a proof procedure
   -> logic programming: executable clauses and least-model semantics
-  -> Eyepl: a small relational language with inspectable derivations
+  -> Eyepl: a focused Prolog implementation with inspectable derivations
 ```
 
 Herbrand completed this work while still in his early twenties and died in
@@ -577,7 +588,7 @@ says that for every substitution of `X`, `Y`, and `Z` by Herbrand terms, truth
 of both body formulas entails truth of the head formula. Variables in rules
 are implicitly universally quantified.
 
-The declarative meaning of a pure Eyepl program is its **least Herbrand
+The declarative meaning of a pure Prolog program is its **least Herbrand
 model**: the smallest interpretation containing every fact and closed under
 every rule. One mathematical way to obtain it is the immediate-consequence
 operation. Begin with the facts; add each ground rule head whose ground body is
@@ -668,7 +679,7 @@ Built-ins extend the pure core. Relational built-ins such as `=/2`,
 `append/3`, and `member/2` are readily understood over Herbrand terms.
 Arithmetic, date handling, regular expressions, aggregation, `once/1`, and
 negation have additional operational definitions. They still consume and
-produce Eyepl terms: `X is 2 + 3` binds `X` to the Herbrand number term `5`,
+produce Prolog terms: `X is 2 + 3` binds `X` to the Herbrand number term `5`,
 not to an invisible host value.
 
 `\+ Goal` succeeds when the current finite search finds no solution for
@@ -1368,10 +1379,11 @@ concept, decision, and integrity. Place each predicate in a column, then list
 the measurements and policy thresholds that a proof cannot authenticate by
 itself.
 
-## 15. RDF 1.2 as relational data
+## 15. RDF 1.2 as the interoperable data boundary
 
-Eyepl's core is RDF-agnostic. Adapter tools translate datasets into ordinary
-`rdf(Subject, Predicate, Object, Graph)` facts:
+Eyepl keeps RDF 1.2 at an explicit standards boundary. Adapter tools translate
+datasets into ordinary `rdf(Subject, Predicate, Object, Graph)` facts, allowing
+standard RDF data to be queried by the supported ISO Prolog profile:
 
 This chapter is an application route, not a prerequisite for Part IV. Readers
 who do not work with Web data can retain one principle—translate external data
@@ -1382,18 +1394,18 @@ labeled statement identified with Web IRIs; concrete syntaxes such as Turtle,
 JSON-LD, and RDF/XML are different ways to serialize that model. Datasets add
 named graphs, and RDF 1.2 adds triple terms and directional language strings.
 Keeping the adapter explicit prevents serialization concerns from leaking into
-ordinary Eyepl rules and makes the boundary between Web identity and local
+ordinary Prolog rules and makes the boundary between Web identity and local
 logical terms visible.
 
 The four-argument representation is intentionally conservative. It does not
-claim that an RDF graph and an Eyepl theory have the same semantics. It
-preserves RDF terms and graph membership as data, after which Eyepl rules may
+claim that an RDF graph and a Prolog rule set have the same semantics. It
+preserves RDF terms and graph membership as data, after which Prolog rules may
 derive application-specific conclusions. This separation matters because RDF
-normally supports open-world data integration, whereas an Eyepl rule may use a
+normally supports open-world data integration, whereas a Prolog rule may use a
 closed finite relation, negation as failure, or an integrity fuse.
 
 <figure>
-  <img src="book-assets/rdf-adapter-pipeline.svg" alt="Several RDF formats pass through an explicit adapter into Eyepl rules and derived N-Quads.">
+  <img src="book-assets/rdf-adapter-pipeline.svg" alt="Several RDF formats pass through an explicit adapter into Prolog rules and derived N-Quads.">
   <figcaption>The adapter preserves web data structure at the boundary while the reasoning core continues to work with ordinary explicit terms and rules.</figcaption>
 </figure>
 
@@ -1407,7 +1419,7 @@ Supported inputs include RDF 1.2 Turtle, TriG, N-Triples, N-Quads, RDF/XML,
 JSON-LD, RDFa, Microdata, Notation3, and SHACL Compact Syntax. For stdin, supply
 `--format`; use `--base` for relative IRIs.
 
-| RDF value | Eyepl term |
+| RDF value | Prolog term |
 | --- | --- |
 | IRI | `iri(Value)` |
 | Blank node | `bnode(Scope, Label)` |
@@ -1549,8 +1561,8 @@ a document extractor, or an agent. An **Eyepl Socket** gives that opening a
 name and a contract:
 
 <figure>
-  <img src="book-assets/sockets-providers.svg" alt="A file, database, and AI extractor connect through one predicate contract to Eyepl rules.">
-  <figcaption>A socket separates a stable reasoning contract from interchangeable providers; supplied claims remain Eyepl terms that proofs can cite.</figcaption>
+  <img src="book-assets/sockets-providers.svg" alt="A file, database, and AI extractor connect through one predicate contract to Prolog rules.">
+  <figcaption>A socket separates a stable reasoning contract from interchangeable providers; supplied claims remain Prolog terms that proofs can cite.</figcaption>
 </figure>
 
 ```eyepl
@@ -1619,8 +1631,8 @@ changing what the relation says.
 In parallel, deductive databases and Semantic Web systems asked where facts
 come from, how vocabularies align, and how derived claims retain provenance.
 EYE belongs to that proof-producing Semantic Web tradition. Eyepl adopts the
-expectation that conclusions should be inspectable while retaining its own
-compact Horn-clause language and explicit RDF adapters.
+expectation that conclusions should be inspectable while implementing a
+focused ISO Prolog profile and explicit RDF 1.2 adapters.
 
 The historical lesson is architectural. A proof procedure can attest that a
 conclusion follows from supplied clauses. It cannot authenticate a database,
@@ -1636,7 +1648,7 @@ when those boundaries became named rather than implicit.
   <figcaption>Craft moves repeatedly between the real domain, the relations on paper, executable clauses, answers, and proofs.</figcaption>
 </figure>
 
-This Part turns from language features to habits of construction. A good
+This Part turns from implementation features to habits of construction. A good
 program rarely arrives whole; it is discovered through examples, corrected by
 invariants, and refined without losing sight of the relation it means.
 
@@ -1722,7 +1734,7 @@ table:
 | `append(-,-,+)` | enumerate splits | yes |
 | `append(-,-,-)` | generate all triples | no |
 
-The `+` and `-` marks are documentation, not Eyepl syntax. Advisory declarations
+The `+` and `-` marks are documentation, not supported Prolog syntax. Advisory declarations
 can record the principal mode:
 
 ```eyepl
@@ -2111,7 +2123,7 @@ turn a true relation into a productive computation and say what was preserved.
   <figcaption>Advanced design keeps meaning at the center while search is inspected, syntax is represented, control is transformed, and decisions remain auditable.</figcaption>
 </figure>
 
-The earlier parts introduced the language and the habits needed to use it
+The earlier parts introduced the supported Prolog profile and the habits needed to use it
 safely. This part stays longer with whole computations. It asks how to inspect
 a search tree, represent languages and evaluators as relations, transform a
 correct program without losing its meaning, and organize a decision system
@@ -2904,7 +2916,7 @@ Part V followed whole computations rather than isolated features:
   embedding, and proof retention.
 
 You should now be able to trace substitutions through several goals, represent
-an object language without confusing it with Eyepl syntax, justify a bounded
+an object language without confusing it with the surrounding Prolog syntax, justify a bounded
 program transformation, and design a reconstructable decision theory.
 
 ### Historical note: interpreters, transformation, and the art tradition
@@ -3609,7 +3621,7 @@ This yields four layers of trust:
    represented with the correct units and identity?
 2. **Model trust:** do the predicates and rules express the intended domain?
 3. **Engine trust:** do parsing, unification, built-ins, tabling, and proof
-   generation implement the stated language?
+   generation implement the stated standards profile?
 4. **Derivation trust:** does this answer have a valid proof from this exact
    theory?
 
@@ -4165,7 +4177,7 @@ Otherwise the repository remembers the repair but forgets the reason.
 disputed ground question, expected answer, first incorrect binding or search
 choice, repaired invariant, and test that would fail if the defect returned.
 
-## 33. A pattern language for Eyepl
+## 33. A pattern catalog for reasoning
 
 A pattern is not a copied code fragment. It is a recurring arrangement of
 meaning, representation, and control that solves a named design problem. The
@@ -4443,9 +4455,9 @@ extends that attitude into maintenance: prediction, execution, evidence, and
 revision form one method, and the failure that taught a lesson becomes
 executable memory.
 
-# Appendix A. Language summary
+# Appendix A. Supported ISO Prolog profile
 
-Eyepl source is UTF-8. `%` starts a line comment. Plain atoms begin with a
+Prolog source accepted by Eyepl is UTF-8. `%` starts a line comment. Plain atoms begin with a
 lowercase ASCII letter. Variables begin with uppercase or underscore. The bare
 `_` is fresh each time. Single quotes delimit quoted atoms; double quotes
 delimit strings. Integers, decimals, and scientific notation are accepted.
@@ -4540,7 +4552,7 @@ execution when its body succeeds.
 Normal output contains only ground query answers, one term and period at a
 time. Source facts are not echoed as new conclusions, and duplicate answers
 are suppressed. Answers are not asserted back into the running program.
-Supported output syntax is designed to be readable as Eyepl input.
+Supported output syntax is designed to be readable as Prolog input accepted by Eyepl.
 
 #### Automatic hybrid reasoning
 
@@ -4583,7 +4595,7 @@ order. Queries for predicates with no group follow the known groups.
 #### Modes and determinism
 
 For `mode(Name, Arity, Modes)`, `Name` is an atom constant, `Arity` is a
-nonnegative integer, and `Modes` is a proper list of the same length. Portable
+nonnegative integer, and `Modes` is a proper list of the same length. Supported
 mode values are `in` (supplied by the caller), `out` (produced by the
 predicate), and `any` (no commitment).
 
@@ -4595,9 +4607,9 @@ ordinary facts, a program may query them.
 
 # Appendix B. Built-in predicates
 
-Eyepl's default registry follows the ISO Prolog core. Built-ins use their
-standard predicate indicators and arithmetic is expressed through `is/2`
-rather than output arguments on arithmetic predicates.
+Eyepl's default registry contains the built-ins in its supported ISO Prolog
+profile. They use their standard predicate indicators, and arithmetic is
+expressed through `is/2` rather than output arguments on arithmetic predicates.
 It registers 38 name/arity entries across 38 names.
 
 | Family | Registered predicate indicators |
@@ -4632,14 +4644,15 @@ instantiation raises `instantiation_error`; wrong argument categories raise
 `evaluation_error`. JavaScript embedders receive these as `PrologError`
 instances whose message contains the corresponding Prolog error term.
 
-## B.3 Non-core library
+## B.3 Implementation extension library
 
-The default registry is deliberately ISO-only. The CLI options `-l` and
-`--library`, and the JavaScript function `getLibraryRegistry()`, explicitly add Eyepl's
-non-core string, list, aggregation, context, date, regex, and convenience
-predicates. Examples that use those facilities opt into this layer. Keeping it
+The default registry is deliberately limited to the supported ISO Prolog
+profile. The CLI options `-l` and `--library`, and the JavaScript function
+`getLibraryRegistry()`, explicitly add string, list, aggregation, context,
+date, regex, and convenience predicates supplied by Eyepl. Examples that use
+those facilities opt into this implementation extension layer. Keeping it
 separate prevents an extension predicate from silently changing the meaning or
-error behavior of an ISO program.
+error behavior of a standards-profile program.
 
 # Appendix C. Command-line reference
 
@@ -4650,7 +4663,7 @@ eyepl [options] [file-or-url.pl|- ...]
 | Option | Meaning |
 | --- | --- |
 | `-h`, `--help` | Show usage |
-| `-l`, `--library` | Enable Eyepl's explicitly non-core library predicates |
+| `-l`, `--library` | Enable the implementation extension library |
 | `-p`, `--proof` | Print `why/2` explanations |
 | `-s`, `--stats` | Print solver counters to stderr |
 | `-v`, `--version` | Print the package version |
@@ -5009,7 +5022,7 @@ one adapter pipeline.
 | [TriG triple term](examples/rdf12-trig-triple-term.pl) | RDF 1.2 triple terms and dataset graph structure appear together. | [answers](examples/output/rdf12-trig-triple-term.pl) |
 | [TriG graph join](examples/rdf12-trig-graph-join.pl) | Rules join facts while retaining their graph-sensitive representation. | [answers](examples/output/rdf12-trig-graph-join.pl) |
 | [Directional language](examples/rdf12-directional-language.pl) | Language direction remains explicit in the lossless literal encoding. | [answers](examples/output/rdf12-directional-language.pl) |
-| [Web names](examples/web-names.pl) | Quoted web identifiers remain atom constants in ordinary Eyepl terms. | [answers](examples/output/web-names.pl) |
+| [Web names](examples/web-names.pl) | Quoted web identifiers remain atom constants in ordinary Prolog terms. | [answers](examples/output/web-names.pl) |
 | [Aliases and namespaces](examples/aliases-and-namespaces.pl) | Explicit name relations avoid adding hidden namespace semantics to the core. | [answers](examples/output/aliases-and-namespaces.pl) · [proof](examples/proof/aliases-and-namespaces.pl) |
 
 The original RDF fixtures and adapter rules are available in
@@ -5043,7 +5056,7 @@ Run every normal and proof example with:
 npm run test:examples
 ```
 
-Run the complete language, regression, RDF-tool, example, and proof corpus
+Run the complete conformance, regression, RDF-tool, example, and proof corpus
 with:
 
 ```sh
@@ -5065,13 +5078,14 @@ rather than exhaustive: use the [complete directory listing](examples/) for
 the remaining demonstrations, then apply the same reading discipline—sentence,
 mode, finite domain, answer, proof, and revision.
 
-# Appendix F. Compatibility
+# Appendix F. Standards profile and implementation extensions
 
-This book is the single Eyepl reference. Appendix A describes the partial ISO
-Prolog syntax, declarations, and execution model; Appendix B describes the
-built-in predicates; and Appendix C documents the command-line interface.
-The chapters explain the reasoner, automatic tabling, proof terms, warnings,
-answer formatting, embedding, and external data adapters.
+This book is the single reference for the Eyepl implementation. Appendix A
+describes its supported ISO Prolog syntax, declarations, and execution model;
+Appendix B describes the built-in predicates; and Appendix C documents the
+command-line interface. The chapters explain the reasoner, automatic tabling,
+proof terms, warnings, answer formatting, embedding, and external data
+adapters.
 
 The executable corpus under `test/conformance/` tests the JavaScript
 implementation. Positive programs and exact output cover arithmetic, strings,
@@ -5083,11 +5097,13 @@ npm run test:conformance
 node test/run-conformance-report.mjs
 ```
 
-### Relationship to ISO Prolog
+### Supported ISO Prolog profile
 
-Eyepl uses familiar Prolog clause syntax, variable spelling, quoted atoms, and
-lists, but it is not ISO Prolog. Portable Eyepl programs should remember these
-differences:
+Eyepl executes a documented and tested profile of ISO Prolog. Programs within
+that profile use standard clauses, variable spelling, quoted atoms, lists,
+operators, unification, arithmetic, term comparison, and control predicates.
+The implementation is intentionally incomplete: it does not yet provide the
+whole ISO Prolog processor and standard environment. In particular:
 
 - only the fixed operators listed in Appendix A are recognized; there are no
   operator declarations or user-defined operators;
@@ -5100,8 +5116,9 @@ differences:
 
 Write terms explicitly, keep variables uppercase or underscore-prefixed, and
 quote atom names that are neither lowercase plain names nor graphic tokens.
-These restrictions keep the language small and its source easy to transport,
-but superficial similarity is not a promise that an arbitrary Prolog program
+These boundaries keep the implementation focused and its Prolog source easy to
+transport. They are a statement about the present implementation profile, not
+a new language definition or a promise that an arbitrary ISO Prolog program
 will run unchanged.
 
 ### Security and resource use
@@ -5310,8 +5327,8 @@ negation as failure; the modeler is responsible for justifying the scope.
 **Compound term.** Structured data with a functor and one or more arguments,
 such as `point(3, 4)` or `reason(limit, exceeded)`.
 
-**Conformance corpus.** The executable cases defining the portable language
-contract under `test/conformance/`.
+**Conformance corpus.** The executable cases defining the supported ISO Prolog
+profile and implementation extensions under `test/conformance/`.
 
 **Conjunction.** Several goals joined by commas. Operationally they normally
 run left to right while carrying bindings forward.
@@ -5614,8 +5631,8 @@ conditionals, and local bindings.
 **Acceptance:** the transformation is idempotent over the chosen corpus and
 does not change evaluated results.
 
-**Reflect:** where is the boundary between Eyepl syntax and the object language
-represented by Eyepl terms?
+**Reflect:** where is the boundary between Prolog syntax and the object language
+represented by Prolog terms?
 
 ## I.8 A static analyzer
 
@@ -5683,7 +5700,7 @@ facts, derive one new relation, and serialize the result.
 
 - preserve IRIs, literals, graph identity, and one RDF 1.2 feature;
 - keep adapter rules separate from domain rules;
-- query the generated Eyepl program directly;
+- query the generated Prolog program with Eyepl directly;
 - compare the final N-Quads with a checked golden;
 - document what the host authenticates.
 

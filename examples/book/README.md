@@ -89,7 +89,7 @@ npm run generate
 
 - [01-heating.pl](chapter-14/01-heating.pl)
 
-## Chapter 15: RDF 1.2 as relational data
+## Chapter 15: RDF 1.2 as the interoperable data boundary
 
 - [01-rdf.pl](chapter-15/01-rdf.pl)
 
@@ -211,7 +211,7 @@ npm run generate
 - [04-candidate_debug.pl](chapter-32/04-candidate_debug.pl) — Create diagnostic relations
 - [05-reference_square.pl](chapter-32/05-reference_square.pl) — Compare specification and implementation
 
-## Chapter 33: A pattern language for Eyepl
+## Chapter 33: A pattern catalog for reasoning
 
 - [01-assigned_badge.pl](chapter-33/01-assigned_badge.pl) — Pattern 1: Ground sentence first
 - [02-source_role.pl](chapter-33/02-source_role.pl) — Pattern 2: Normalize at the boundary

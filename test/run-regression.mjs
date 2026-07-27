@@ -434,7 +434,7 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(documentationSourceStyleIssues(), [], 'documentation source style'),
     },
     {
-      name: 'book is the single language and implementation reference',
+      name: 'book is the single implementation reference',
       run: () => assertArrayEqual(bookReferenceDocumentationIssues(), [], 'book reference documentation'),
     },
     {
@@ -1090,13 +1090,13 @@ function bookReferenceDocumentationIssues() {
   const guide = fs.readFileSync(path.join(testRoot, 'conformance', 'README.md'), 'utf8');
   const issues = [];
 
-  if (!book.includes('This book is also the reference for the Eyepl language and implementation.')) {
+  if (!book.includes('This book is also the reference for the Eyepl implementation.')) {
     issues.push('book introduction does not identify itself as the reference');
   }
-  if (!book.includes('This book is the single Eyepl reference.')) {
+  if (!book.includes('This book is the single reference for the Eyepl implementation.')) {
     issues.push('book Appendix F does not state the single-reference policy');
   }
-  for (const heading of ['# Appendix A. Language summary', '# Appendix B. Built-in predicates', '# Appendix C. Command-line reference']) {
+  for (const heading of ['# Appendix A. Supported ISO Prolog profile', '# Appendix B. Built-in predicates', '# Appendix C. Command-line reference']) {
     if (!book.includes(heading)) issues.push(`book is missing ${heading}`);
   }
   if (!guide.includes('[*The Art of Eyepl*](../../the-art-of-eyepl.md) is the reference')) {
@@ -1150,7 +1150,7 @@ function listExampleNames() {
 
 function bookExampleCatalogIssues() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  const section = between(book, '# Appendix E. Further examples', '# Appendix F. Compatibility');
+  const section = between(book, '# Appendix E. Further examples', '# Appendix F. Standards profile and implementation extensions');
   const names = [...section.matchAll(/\(examples\/([A-Za-z0-9_-]+)\.pl\)/g)].map((match) => match[1]);
   const issues = [];
   for (const name of names) {
