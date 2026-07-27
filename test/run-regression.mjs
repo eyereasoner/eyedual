@@ -395,12 +395,8 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(documentationSourceStyleIssues(), [], 'documentation source style'),
     },
     {
-      name: 'language reference sections map to executable test evidence',
-      run: () => assertArrayEqual(languageReferenceCoverageIssues(), [], 'language reference coverage'),
-    },
-    {
-      name: 'documentation separates the language reference from the reasoner',
-      run: () => assertArrayEqual(languageReferenceDocumentationIssues(), [], 'language reference documentation'),
+      name: 'book is the single language and implementation reference',
+      run: () => assertArrayEqual(bookReferenceDocumentationIssues(), [], 'book reference documentation'),
     },
     {
       name: 'documented npm scripts exist in package.json',
@@ -1047,87 +1043,28 @@ function sectionLabel(name) {
   return name.toLowerCase();
 }
 
-function languageReferenceCoverageIssues() {
-  const issues = [];
-  const conformanceRoot = path.join(testRoot, 'conformance');
-  const manifestFile = path.join(conformanceRoot, 'language-reference-coverage.json');
-  const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
-  const referenceFile = path.join(packageRoot, manifest.reference);
-  const reference = fs.readFileSync(referenceFile, 'utf8');
-  const documentedSections = [...reference.matchAll(/^## (Prolog syntax|Recognized declarations|Supported built-ins)$/gm)]
-    .map((match) => match[1]);
-  const mappedSections = manifest.sections.map(({ section }) => section);
-
-  if (new Set(mappedSections).size !== mappedSections.length) {
-    issues.push('language reference coverage contains duplicate section mappings');
-  }
-  if (documentedSections.join('\n') !== mappedSections.join('\n')) {
-    issues.push(`section mappings differ\nexpected: ${documentedSections.join(' | ')}\nactual: ${mappedSections.join(' | ')}`);
-  }
-
-  for (const { section, evidence } of manifest.sections) {
-    if (!Array.isArray(evidence) || evidence.length === 0) {
-      issues.push(`${section}: no conformance evidence`);
-      continue;
-    }
-    for (const relative of evidence) {
-      const evidenceFile = path.resolve(conformanceRoot, relative);
-      if (!fs.existsSync(evidenceFile)) {
-        issues.push(`${section}: missing ${relative}`);
-        continue;
-      }
-      const expected = expectedConformanceEvidence(conformanceRoot, relative);
-      for (const expectedFile of expected) {
-        if (!fs.existsSync(expectedFile)) {
-          issues.push(`${section}: missing expected result ${path.relative(conformanceRoot, expectedFile)}`);
-        }
-      }
-    }
-  }
-
-  return issues;
-}
-
-function languageReferenceDocumentationIssues() {
+function bookReferenceDocumentationIssues() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
   const guide = fs.readFileSync(path.join(testRoot, 'conformance', 'README.md'), 'utf8');
   const issues = [];
 
-  if (!book.includes('[Eyepl language reference](eyepl-language-reference.md)')) {
-    issues.push('book Appendix F does not link to the language reference');
+  if (!book.includes('This book is also the reference for the Eyepl language and implementation.')) {
+    issues.push('book introduction does not identify itself as the reference');
   }
-  if (!book.includes('It deliberately does not specify a reasoner.')) {
-    issues.push('book Appendix F does not separate the reference from the reasoner');
+  if (!book.includes('This book is the single Eyepl reference.')) {
+    issues.push('book Appendix F does not state the single-reference policy');
   }
-  if (!guide.includes('[Eyepl language reference](../../eyepl-language-reference.md)')) {
-    issues.push('test guide does not identify the language reference');
+  for (const heading of ['# Appendix A. Language summary', '# Appendix B. Built-in predicates', '# Appendix C. Command-line reference']) {
+    if (!book.includes(heading)) issues.push(`book is missing ${heading}`);
   }
-  if (!guide.includes('not a\nseparate specification of logical semantics')) {
-    issues.push('test guide does not distinguish tests from a semantics specification');
+  if (!guide.includes('[*The Art of Eyepl*](../../the-art-of-eyepl.md) is the reference')) {
+    issues.push('test guide does not identify the book as the reference');
+  }
+  if (!guide.includes('not a separate\nlanguage specification')) {
+    issues.push('test guide presents the suite as a separate specification');
   }
 
   return issues;
-}
-
-function expectedConformanceEvidence(conformanceRoot, relative) {
-  if (!relative.endsWith('.pl')) return [];
-  if (relative.startsWith('cases/')) {
-    return [path.join(conformanceRoot, 'expected', relative.slice('cases/'.length))];
-  }
-  if (relative.startsWith('errors/')) {
-    return [path.join(conformanceRoot, 'expected-errors', relative.slice('errors/'.length, -3) + '.txt')];
-  }
-  if (relative.startsWith('warnings/')) {
-    const stem = relative.slice('warnings/'.length, -3);
-    return [
-      path.join(conformanceRoot, 'expected-warnings', `${stem}.pl`),
-      path.join(conformanceRoot, 'expected-warnings', `${stem}.txt`),
-    ];
-  }
-  if (relative.startsWith('proofs/')) {
-    return [path.join(conformanceRoot, 'expected-proofs', relative.slice('proofs/'.length))];
-  }
-  return [];
 }
 
 function runWhy({ program, goalText, expected }) {

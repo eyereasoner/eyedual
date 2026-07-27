@@ -11,6 +11,12 @@ original introduction to the habits of logic programming: describe a world,
 state the relationships that hold in it, and let unification and search connect
 the two.
 
+This book is also the reference for the Eyepl language and implementation.
+Appendix A defines the accepted partial ISO Prolog syntax and declarations,
+Appendix B describes every supported built-in predicate, and Appendix C
+documents the command-line interface. The explanatory chapters give the
+reasoning and operational context needed to use those details correctly.
+
 Its subject is not syntax alone. A logic program has two inseparable aspects:
 the relation described by its clauses and the procedure induced when goals are
 selected and clauses are tried. The first tells us what answers are justified;
@@ -108,8 +114,8 @@ tricks. By the end, a reader should be able to:
 
 That is the stake in the ground: a small language is enough to teach the large
 ideas when its semantics, execution, and evidence remain visible together.
-The reference implementation is therefore part of the argument. The examples
-are programs, the appendices describe the running system, and
+The implementation is therefore part of the argument. The examples are
+programs, the appendices are the reference for the running system, and
 `npm test` checks the complete code displays, local references, and
 built-in index against the source tree.
 
@@ -4576,8 +4582,8 @@ ordinary facts, a program may query them.
 # Appendix B. Built-in predicates
 
 The implementation registers 80 name/arity entries across 78 names. The
-conformance corpus under `test/conformance/cases/` is the precise executable
-contract.
+conformance corpus under `test/conformance/cases/` verifies the descriptions
+in this appendix.
 
 A built-in looks like any other atomic formula, but its relation is supplied by
 the implementation instead of source clauses. Many are mode-sensitive: their
@@ -5219,11 +5225,11 @@ mode, finite domain, answer, proof, and revision.
 
 # Appendix F. Compatibility
 
-The [Eyepl language reference](eyepl-language-reference.md) describes the
-partial ISO Prolog syntax accepted by Eyepl and the built-in predicates it
-provides. It deliberately does not specify a reasoner. Evaluation, automatic
-tabling, proof terms, warnings, answer formatting, and host interfaces are
-implementation behavior documented in this book.
+This book is the single Eyepl reference. Appendix A describes the partial ISO
+Prolog syntax, declarations, and execution model; Appendix B describes the
+built-in predicates; and Appendix C documents the command-line interface.
+The chapters explain the reasoner, automatic tabling, proof terms, warnings,
+answer formatting, embedding, and external data adapters.
 
 The executable corpus under `test/conformance/` tests the JavaScript
 implementation. Positive programs and exact output cover arithmetic, strings,

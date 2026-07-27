@@ -1,9 +1,8 @@
 # Eyepl conformance suite
 
 This directory contains executable tests for the Eyepl language and reasoner.
-The [Eyepl language reference](../../eyepl-language-reference.md) describes
-the accepted partial ISO Prolog syntax and supported built-ins;
-[*The Art of Eyepl*](../../the-art-of-eyepl.md) explains the reasoner.
+[*The Art of Eyepl*](../../the-art-of-eyepl.md) is the reference for the
+accepted partial ISO Prolog syntax, built-ins, and reasoner behavior.
 
 The suite is intentionally file-based. Exact standard output, errors, warnings,
 and proof output test the behavior of the JavaScript implementation.
@@ -69,8 +68,8 @@ The runner executes normal programs with queries in-process through the public J
 
 The corpus covers accepted syntax, lexical scalar equivalence, query answers,
 read-back printing, built-ins, declarations, warnings, errors, proof output,
-and host behavior. It is an executable compatibility suite for Eyepl, not a
-separate specification of logical semantics.
+and host behavior. It verifies the book's descriptions and is not a separate
+language specification.
 
 ## Updating expected output
 
