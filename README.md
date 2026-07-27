@@ -7,9 +7,7 @@
 [![npm version](https://img.shields.io/npm/v/eyepl.svg)](https://www.npmjs.com/package/eyepl)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21446308-blue.svg)](https://doi.org/10.5281/zenodo.21446308)
 
-Eyepl is a small reasoning language for turning facts and rules into answers and proofs.
-
-Prolog-like syntax. Small core. Inspectable results.
+Eyepl combines ISO Prolog and W3C RDF 1.2 to turn portable rules and linked data into answers and inspectable proofs.
 
 [Playground](https://eyereasoner.github.io/eyepl/playground) ·
 [*The Art of Eyepl*](https://eyereasoner.github.io/eyepl/the-art-of-eyepl)
