@@ -1,7 +1,8 @@
 // Program representation and clause indexing.
 // Indexes are deliberately conservative: they speed up common scalar arguments but never replace unification as the final check.
-import { ATOM, COMPOUND, Env, deref, flattenConjunction, isScalar, properListItems, termToString } from './term.js';
+import { ATOM, COMPOUND, VAR, Env, deref, flattenConjunction, isScalar, properListItems, termToString } from './term.js';
 import { parseClauses } from './parser.js';
+import { PrologError } from './builtins/iso.js';
 
 export class Program {
   constructor(clauses = [], options = {}) {
@@ -62,7 +63,7 @@ export class Program {
   }
   indexClause(clause) {
     const head = clause.head;
-    if (head.type !== COMPOUND) return;
+    if (head.type !== ATOM && head.type !== COMPOUND) return;
     const key = `${head.name}/${head.arity}`;
     let group = this.groups.get(key);
     if (!group) {
@@ -252,13 +253,17 @@ export class Program {
     const lines = new Set();
     const env = new Env();
     for (const clause of this.clauses) {
-      if (clause.body.length !== 0 || clause.head.type !== COMPOUND || isQueryDeclaration(clause)) continue;
+      if (clause.body.length !== 0 || (clause.head.type !== ATOM && clause.head.type !== COMPOUND) || isQueryDeclaration(clause)) continue;
       if (predicateKeys && !predicateKeys.has(`${clause.head.name}/${clause.head.arity}`)) continue;
       lines.add(`${termToString(clause.head, env, true)}.\n`);
     }
     return lines;
   }
   queryGoals() {
+    for (const goal of this.queries) {
+      if (goal.type === VAR) throw new PrologError('instantiation_error');
+      if (goal.type !== ATOM && goal.type !== COMPOUND) throw new PrologError('type_error(callable)', goal);
+    }
     const groupOrder = new Map([...this.groups.keys()].map((key, index) => [key, index]));
     return this.queries
       .map((goal, index) => ({ goal, index }))
@@ -348,6 +353,7 @@ function termHasNoVariables(term) {
 }
 
 function collectGoalDependencies(goal, negated) {
+  if (goal.type === ATOM) return [{ key: `${goal.name}/0`, negative: negated }];
   if (goal.type !== COMPOUND) return [];
   if (goal.name === ',' && goal.arity === 2) {
     return [

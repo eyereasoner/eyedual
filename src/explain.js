@@ -2,7 +2,7 @@
 // The explanation printer replays a successful goal against the program and emits
 // ordinary Eyepl facts with nested proof terms.  Explanations are therefore both
 // human-readable and machine-readable.
-import { COMPOUND, Env, Term, VAR, deref, flattenConjunction, freshTerm, termToString, unify, variantTerms } from './term.js';
+import { ATOM, COMPOUND, Env, Term, VAR, deref, flattenConjunction, freshTerm, termToString, unify, variantTerms } from './term.js';
 import { selectClauseCandidates } from './program.js';
 import { createDefaultRegistry } from './builtins/registry.js';
 import { Solver, nextFreshId } from './solver.js';
@@ -65,7 +65,7 @@ function* proveGoalAll(program, goal, env, depth, maxDepth, registry, active) {
     return;
   }
 
-  if (goal.type !== COMPOUND) return;
+  if (goal.type !== ATOM && goal.type !== COMPOUND) return;
 
   const group = program.findGroup(goal.name, goal.arity);
   if (!group) return;
@@ -147,7 +147,7 @@ function* proveGoalsAll(program, goals, env, depth, maxDepth, registry, active) 
 }
 
 function builtinDefinition(program, goal, env, registry) {
-  if (goal.type !== COMPOUND) return { handled: false, def: null, solver: null };
+  if (goal.type !== ATOM && goal.type !== COMPOUND) return { handled: false, def: null, solver: null };
   const def = registry.get(goal.name, goal.arity);
   if (!def) return { handled: false, def: null, solver: null };
 

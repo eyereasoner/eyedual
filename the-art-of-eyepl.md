@@ -838,7 +838,8 @@ turn a field of possibilities into a productive computation.
 
 ## 6. Arithmetic and finite generation
 
-Arithmetic is predicate-based. There is no `is` operator:
+Arithmetic uses the standard `is/2` predicate, conventionally written with
+infix operator syntax:
 
 ```eyepl
 next(X, Y) :- (Y is X + 1).
@@ -4463,7 +4464,7 @@ between tokens, and a `%` comment continues to the end of its line. Doubling
 the active delimiter is also accepted inside either quoted form, so `""`
 inside a string denotes one literal double quote.
 
-Graphic atoms may contain `#$&*+-/<=>@^~\`. Colon names and unquoted
+Graphic atoms may contain `#$&*+-/<=>@^~\;`. Colon names and unquoted
 angle-bracket IRIs are not syntax; quote names containing such punctuation.
 
 ```text
@@ -4489,11 +4490,22 @@ name-continue       ::= uppercase-letter | lowercase-letter | digit | "_"
 ```
 
 Zero-arity compounds such as `ready()` are unsupported; use `ready`. Every
-clause ends in a period. There are no user-defined operators and no variables
-in functor or predicate position. Parentheses around one term denote that term;
-parentheses around two or more comma-separated terms construct a
-right-associated `','/2` term. In goal position it is conjunction; in data
-position it remains inspectable data.
+clause ends in a period. The grammar above gives the canonical term shapes.
+The parser also accepts a fixed set of ISO-style operators and lowers them to
+ordinary compound terms:
+
+- prefix: `\+`, unary `+`, unary `-`, and `\`;
+- control: `,`, `;`, and `->`;
+- unification and comparison: `=`, `\=`, `==`, `\==`, `@<`, `@=<`, `@>`,
+  `@>=`, `is`, `=:=`, `=\=`, `<`, `=<`, `>`, and `>=`;
+- arithmetic: `+`, `-`, `*`, `/`, `//`, `div`, `mod`, `rem`, `/\`, `\/`,
+  `<<`, `>>`, `**`, and `^`.
+
+There are no operator declarations or user-defined operators, and variables
+cannot occur in functor or predicate position. Parentheses around one term
+denote that term; parentheses around two or more comma-separated terms
+construct a right-associated `','/2` term. In goal position it is conjunction;
+in data position it remains inspectable data.
 
 The pure definite-clause fragment has a Herbrand reading: ground terms denote
 themselves, predicates denote sets of ground atomic formulas, variables have
@@ -4549,7 +4561,9 @@ infinite relation into a table. This changes control, not declarative meaning.
 #### Query execution
 
 The argument of `query/1` must be callable and may contain constants or
-variables. A program without queries prints no normal answers. The host:
+variables. An unbound argument raises `instantiation_error`; a non-callable
+argument raises `type_error(callable)`. A program without queries prints no
+normal answers. The host:
 
 1. parses all inputs into one program;
 2. collects source facts, queries, and inference fuses;
@@ -4620,8 +4634,8 @@ instances whose message contains the corresponding Prolog error term.
 
 ## B.3 Non-core library
 
-The default registry is deliberately ISO-only. The CLI option `--library` and
-the JavaScript function `getLibraryRegistry()` explicitly add Eyepl's
+The default registry is deliberately ISO-only. The CLI options `-l` and
+`--library`, and the JavaScript function `getLibraryRegistry()`, explicitly add Eyepl's
 non-core string, list, aggregation, context, date, regex, and convenience
 predicates. Examples that use those facilities opt into this layer. Keeping it
 separate prevents an extension predicate from silently changing the meaning or
@@ -5073,7 +5087,8 @@ Eyepl uses familiar Prolog clause syntax, variable spelling, quoted atoms, and
 lists, but it is not ISO Prolog. Portable Eyepl programs should remember these
 differences:
 
-- there are no operators or operator declarations;
+- only the fixed operators listed in Appendix A are recognized; there are no
+  operator declarations or user-defined operators;
 - zero-arity compound syntax such as `ready()` is absent;
 - cut, modules, dynamic database updates, and DCGs are absent;
 - variables cannot occupy functor or predicate position;
