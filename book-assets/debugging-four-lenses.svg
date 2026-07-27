@@ -13,7 +13,7 @@
   </defs>
   <rect width="900" height="500" fill="#f4efe3"/>
   <text class="title" x="450" y="35" text-anchor="middle">DEBUG THROUGH FOUR LENSES</text>
-  <rect class="paper" x="275" y="60" width="350" height="65" rx="10"/>
+  <rect class="paper" x="200" y="60" width="500" height="65" rx="10"/>
   <text class="label" x="450" y="86" text-anchor="middle">SMALLEST DISPUTED GROUND QUESTION</text>
   <text class="code" x="450" y="110" text-anchor="middle">query(eligible(alex)).</text>
   <path class="line" marker-end="url(#arrow)" d="M450 125V155"/>
