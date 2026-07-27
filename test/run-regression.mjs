@@ -257,6 +257,32 @@ why(
         assertEqual(result.stderr, '', 'stderr');
       },
     },
+    {
+      name: '-pw combines proof and warning flags',
+      run: () => {
+        const input = [
+          'query(answer(ok)).',
+          'p :- \\+ q.',
+          'q :- \\+ p.',
+          'seed.',
+          'answer(ok) :- seed.',
+          '',
+        ].join('\n');
+        const result = runCli(['-pw', '-'], { input });
+        assertEqual(result.status, 0, 'exit status');
+        assertIncludes(result.stdout, 'answer(ok).\nwhy(', 'stdout');
+        assertIncludes(result.stderr, 'eyepl warning: unstratified negation\n', 'stderr');
+      },
+    },
+    {
+      name: 'unknown option in a short cluster is rejected',
+      run: () => {
+        const result = runCli(['-px']);
+        assertEqual(result.status, 1, 'exit status');
+        assertEqual(result.stdout, '', 'stdout');
+        assertIncludes(result.stderr, 'eyepl: unknown option: -px\n', 'stderr');
+      },
+    },
 
 
     {

@@ -42,6 +42,20 @@ export async function main(argv) {
       options.version = true;
     } else if (!endOptions && (arg === '--warnings' || arg === '-w')) {
       options.warnings = true;
+    } else if (!endOptions && arg.startsWith('-') && !arg.startsWith('--') && arg.length > 2) {
+      const flags = arg.slice(1);
+      for (const flag of flags) {
+        if (!'hlpsvw'.includes(flag)) throw new Error(`unknown option: ${arg}`);
+      }
+      if (flags.includes('h')) {
+        await usage(process.stdout);
+        return;
+      }
+      if (flags.includes('l')) options.library = true;
+      if (flags.includes('p')) options.proof = true;
+      if (flags.includes('s')) options.stats = true;
+      if (flags.includes('v')) options.version = true;
+      if (flags.includes('w')) options.warnings = true;
     } else if (!endOptions && arg.startsWith('-') && arg !== '-') {
       throw new Error(`unknown option: ${arg}`);
     } else {

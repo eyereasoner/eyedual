@@ -4657,6 +4657,8 @@ eyepl [options] [file-or-url.pl|- ...]
 | `-w`, `--warnings` | Print non-fatal portability warnings |
 | `--` | Treat following arguments as inputs |
 
+Short flags may be combined, so `-pw` is equivalent to `-p -w`.
+
 Inputs may be local files, HTTP(S) URLs, or one `-` for stdin. With no input,
 stdin is used.
 
