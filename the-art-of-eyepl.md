@@ -230,7 +230,7 @@ the next program.
 - [C. Command-line reference](#appendix-c-command-line-reference)
 - [D. Study paths and review](#appendix-d-study-paths-and-review)
 - [E. Further examples](#appendix-e-further-examples)
-- [F. Conformance and portability](#appendix-f-conformance-and-portability)
+- [F. Compatibility](#appendix-f-compatibility)
 - [G. Notes and references](#appendix-g-notes-and-references)
 - [H. Glossary](#appendix-h-glossary)
 - [I. Twelve laboratories](#appendix-i-twelve-laboratories)
@@ -5217,26 +5217,18 @@ rather than exhaustive: use the [complete directory listing](examples/) for
 the remaining demonstrations, then apply the same reading discipline—sentence,
 mode, finite domain, answer, proof, and revision.
 
-# Appendix F. Conformance and portability
+# Appendix F. Compatibility
 
-The [Eyepl specification](eyepl-specification.md) defines a small mandatory
-Core and optional named capabilities. Independent implementations need not
-reproduce Eyepl's evaluator, complete built-in catalog, proof syntax, or host
-interface. They claim Core conformance and then separately declare the
-capabilities they support.
+The [Eyepl language reference](eyepl-language-reference.md) describes the
+partial ISO Prolog syntax accepted by Eyepl and the built-in predicates it
+provides. It deliberately does not specify a reasoner. Evaluation, automatic
+tabling, proof terms, warnings, answer formatting, and host interfaces are
+implementation behavior documented in this book.
 
-The JavaScript implementation in this repository supplies the full Eyepl
-profile: the Core, lexical scalar equivalence, the standard built-ins,
-automatic hybrid execution, declarations, fuses, answer formatting, and proof
-output. These implementation choices make Eyepl one conforming implementation;
-they are not additional Core requirements.
-
-The executable corpus under `test/conformance/` tests that full Eyepl profile.
-Independent implementations may reuse its Core cases and the cases for any
-capabilities they claim. Positive programs and exact Eyepl output cover
-arithmetic, strings, lists, terms, atoms, variables, negation, declarations,
-queries, rules, and syntax. Separate corpora cover expected errors, warnings,
-and proofs:
+The executable corpus under `test/conformance/` tests the JavaScript
+implementation. Positive programs and exact output cover arithmetic, strings,
+lists, terms, atoms, variables, negation, declarations, queries, rules, and
+syntax. Separate corpora cover expected errors, warnings, and proofs:
 
 ```sh
 npm run test:conformance

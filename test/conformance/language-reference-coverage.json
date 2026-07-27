@@ -1,0 +1,35 @@
+{
+  "reference": "eyepl-language-reference.md",
+  "sections": [
+    {
+      "section": "Prolog syntax",
+      "evidence": [
+        "cases/syntax/004_conjunction_and_parentheses.pl",
+        "cases/atoms/018_quoted_atom_readback.pl",
+        "cases/variables/007_anonymous_variables.pl",
+        "cases/terms/003_terms_and_readback.pl",
+        "cases/unification/occurs_check_rejects_recursive_binding.pl",
+        "errors/syntax/missing_final_dot_rejected.pl"
+      ]
+    },
+    {
+      "section": "Recognized declarations",
+      "evidence": [
+        "cases/declarations/104_mode_determinism_declarations.pl",
+        "cases/query/099_multiple_queries.pl",
+        "../../examples/inference-fuse.pl"
+      ]
+    },
+    {
+      "section": "Supported built-ins",
+      "evidence": [
+        "cases/builtins/076_composed_reusable_builtins.pl",
+        "cases/arithmetic/079_big_integer_arithmetic.pl",
+        "cases/strings/093_regex_named_captures_context.pl",
+        "cases/lists/063_reusable_list_builtins.pl",
+        "cases/aggregation/findall_empty_bag.pl",
+        "cases/control/once_keeps_first_answer.pl"
+      ]
+    }
+  ]
+}

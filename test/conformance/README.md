@@ -1,14 +1,12 @@
 # Eyepl conformance suite
 
-This directory contains executable conformance cases for the Eyepl language
-and reference implementation. The normative language description is the
-[Eyepl specification](../../eyepl-specification.md); [*The Art of
-Eyepl*](../../the-art-of-eyepl.md) is the explanatory guide.
+This directory contains executable tests for the Eyepl language and reasoner.
+The [Eyepl language reference](../../eyepl-language-reference.md) describes
+the accepted partial ISO Prolog syntax and supported built-ins;
+[*The Art of Eyepl*](../../the-art-of-eyepl.md) explains the reasoner.
 
-The suite is intentionally file-based so another implementation can reuse the
-Core cases and the cases for capabilities it claims. Exact standard output,
-errors, warnings, and proof output additionally test compatibility with the
-full Eyepl implementation profile.
+The suite is intentionally file-based. Exact standard output, errors, warnings,
+and proof output test the behavior of the JavaScript implementation.
 
 All conformance files live under topic directories such as `arithmetic/`, `lists/`, `syntax/`, or `variables/`; new top-level numbered files should not be added. The report uses those directories as coverage categories.
 
@@ -69,18 +67,10 @@ The runner executes normal programs with queries in-process through the public J
 
 ## Scope
 
-The corpus as a whole covers the full Eyepl profile: Core syntax and semantics,
-lexical scalar equivalence, left-to-right goal-directed search, query answers,
-read-back printing, standard built-ins, declarations, warnings, errors, proof
-output, and standard host behavior.
-
-Conformance claims are separable even though the files share one corpus. Every
-implementation claims the specification's Core; optional capabilities are
-claimed and tested independently. Exact Eyepl CLI messages and proof
-serialization are required only for `eyepl-reference-0.3` profile
-compatibility.
-Private downstream capabilities should keep their tests outside this corpus
-unless they are standardized.
+The corpus covers accepted syntax, lexical scalar equivalence, query answers,
+read-back printing, built-ins, declarations, warnings, errors, proof output,
+and host behavior. It is an executable compatibility suite for Eyepl, not a
+separate specification of logical semantics.
 
 ## Updating expected output
 

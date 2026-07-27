@@ -395,16 +395,12 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(documentationSourceStyleIssues(), [], 'documentation source style'),
     },
     {
-      name: 'specification sections map to executable conformance evidence',
-      run: () => assertArrayEqual(specificationCoverageIssues(), [], 'specification coverage'),
+      name: 'language reference sections map to executable test evidence',
+      run: () => assertArrayEqual(languageReferenceCoverageIssues(), [], 'language reference coverage'),
     },
     {
-      name: 'specification reference profile is release-independent',
-      run: () => assertArrayEqual(specificationVersionIssues(), [], 'specification version'),
-    },
-    {
-      name: 'book and conformance guide use capability-based conformance',
-      run: () => assertArrayEqual(conformanceDocumentationIssues(), [], 'conformance documentation'),
+      name: 'documentation separates the language reference from the reasoner',
+      run: () => assertArrayEqual(languageReferenceDocumentationIssues(), [], 'language reference documentation'),
     },
     {
       name: 'documented npm scripts exist in package.json',
@@ -1051,22 +1047,22 @@ function sectionLabel(name) {
   return name.toLowerCase();
 }
 
-function specificationCoverageIssues() {
+function languageReferenceCoverageIssues() {
   const issues = [];
   const conformanceRoot = path.join(testRoot, 'conformance');
-  const manifestFile = path.join(conformanceRoot, 'specification-coverage.json');
+  const manifestFile = path.join(conformanceRoot, 'language-reference-coverage.json');
   const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
-  const specificationFile = path.join(packageRoot, manifest.specification);
-  const specification = fs.readFileSync(specificationFile, 'utf8');
-  const normativeSections = [...specification.matchAll(/^## ((?:[3-9]|1[0-5])\.\s+.+)$/gm)]
+  const referenceFile = path.join(packageRoot, manifest.reference);
+  const reference = fs.readFileSync(referenceFile, 'utf8');
+  const documentedSections = [...reference.matchAll(/^## (Prolog syntax|Recognized declarations|Supported built-ins)$/gm)]
     .map((match) => match[1]);
   const mappedSections = manifest.sections.map(({ section }) => section);
 
   if (new Set(mappedSections).size !== mappedSections.length) {
-    issues.push('specification coverage contains duplicate section mappings');
+    issues.push('language reference coverage contains duplicate section mappings');
   }
-  if (normativeSections.join('\n') !== mappedSections.join('\n')) {
-    issues.push(`section mappings differ\nexpected: ${normativeSections.join(' | ')}\nactual: ${mappedSections.join(' | ')}`);
+  if (documentedSections.join('\n') !== mappedSections.join('\n')) {
+    issues.push(`section mappings differ\nexpected: ${documentedSections.join(' | ')}\nactual: ${mappedSections.join(' | ')}`);
   }
 
   for (const { section, evidence } of manifest.sections) {
@@ -1092,40 +1088,22 @@ function specificationCoverageIssues() {
   return issues;
 }
 
-function specificationVersionIssues() {
-  const specification = fs.readFileSync(path.join(packageRoot, 'eyepl-specification.md'), 'utf8');
-  const issues = [];
-  if (/\b(?:Eyepl |eyepl-)0\.0\.\d+\b/.test(specification)) {
-    issues.push('specification profile is tied to an npm patch version');
-  }
-  if (!specification.includes('eyepl-reference-0.3')) {
-    issues.push('specification does not identify the revision 0.3 Eyepl reference profile');
-  }
-  return issues;
-}
-
-function conformanceDocumentationIssues() {
+function languageReferenceDocumentationIssues() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
   const guide = fs.readFileSync(path.join(testRoot, 'conformance', 'README.md'), 'utf8');
   const issues = [];
 
-  if (!book.includes('[Eyepl specification](eyepl-specification.md)')) {
-    issues.push('book Appendix F does not link to the normative specification');
+  if (!book.includes('[Eyepl language reference](eyepl-language-reference.md)')) {
+    issues.push('book Appendix F does not link to the language reference');
   }
-  if (!book.includes('small mandatory\nCore and optional named capabilities')) {
-    issues.push('book Appendix F does not describe Core and capability conformance');
+  if (!book.includes('It deliberately does not specify a reasoner.')) {
+    issues.push('book Appendix F does not separate the reference from the reasoner');
   }
-  if (book.includes('A conforming Eyepl implementation presents the language as one surface')) {
-    issues.push('book Appendix F retains monolithic conformance wording');
+  if (!guide.includes('[Eyepl language reference](../../eyepl-language-reference.md)')) {
+    issues.push('test guide does not identify the language reference');
   }
-  if (!guide.includes('[Eyepl specification](../../eyepl-specification.md)')) {
-    issues.push('conformance guide does not identify the normative specification');
-  }
-  if (!guide.includes('optional capabilities are\nclaimed and tested independently')) {
-    issues.push('conformance guide does not describe separable capability claims');
-  }
-  if (guide.includes('deliberately does not separate `core` and `extension` profiles')) {
-    issues.push('conformance guide retains monolithic profile wording');
+  if (!guide.includes('not a\nseparate specification of logical semantics')) {
+    issues.push('test guide does not distinguish tests from a semantics specification');
   }
 
   return issues;
@@ -1193,7 +1171,7 @@ function listExampleNames() {
 
 function bookExampleCatalogIssues() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  const section = between(book, '# Appendix E. Further examples', '# Appendix F. Conformance and portability');
+  const section = between(book, '# Appendix E. Further examples', '# Appendix F. Compatibility');
   const names = [...section.matchAll(/\(examples\/([A-Za-z0-9_-]+)\.pl\)/g)].map((match) => match[1]);
   const issues = [];
   for (const name of names) {

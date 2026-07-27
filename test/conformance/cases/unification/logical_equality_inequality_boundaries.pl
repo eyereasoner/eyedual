@@ -1,4 +1,4 @@
-% Specification 6.4: equality unifies, while inequality tests current
+% Equality unifies, while inequality tests current
 % non-unifiability and does not create a constraint or rewrite same_as/2.
 query(answer(X0)).
 
