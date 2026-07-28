@@ -29,27 +29,26 @@
   <text class="code" x="135" y="190" text-anchor="middle">tree_member/2</text>
   <text class="prose" x="135" y="222" text-anchor="middle">follow constructors</text>
   <text class="prose" x="135" y="245" text-anchor="middle">without mutation</text>
-  <path class="line" marker-end="url(#arrow)" d="M285 185C270 185 270 197 252 197"/>
+  <path class="line" marker-end="url(#arrow)" d="M285 185Q268 178 252 185"/>
 
-  <rect class="gold" x="670" y="85" width="205" height="145" rx="10"/>
-  <text class="label" x="772" y="117" text-anchor="middle">EVALUATE</text>
-  <text class="code" x="772" y="150" text-anchor="middle">evaluate/2</text>
-  <text class="prose" x="772" y="183" text-anchor="middle">collapse syntax</text>
-  <text class="code" x="772" y="207" text-anchor="middle">Value = 14</text>
-  <path class="line" marker-end="url(#arrow)" d="M635 150C650 150 650 170 663 170"/>
+  <rect class="gold" x="655" y="85" width="220" height="145" rx="10"/>
+  <text class="label" x="765" y="117" text-anchor="middle">EVALUATE</text>
+  <text class="code" x="765" y="150" text-anchor="middle">evaluate/2</text>
+  <text class="prose" x="765" y="183" text-anchor="middle">collapse syntax</text>
+  <text class="code" x="765" y="207" text-anchor="middle">Value = 14</text>
+  <path class="line" marker-end="url(#arrow)" d="M635 150Q642 145 648 150"/>
 
-  <rect class="tree" x="670" y="285" width="205" height="145" rx="10"/>
-  <text class="label" x="772" y="317" text-anchor="middle">REWRITE</text>
-  <text class="code" x="772" y="350" text-anchor="middle">simplify/2</text>
-  <text class="prose" x="772" y="382" text-anchor="middle">preserve syntax;</text>
-  <text class="prose" x="772" y="405" text-anchor="middle">change its form</text>
-  <path class="line" marker-end="url(#arrow)" d="M635 315C650 315 650 340 663 340"/>
+  <rect class="tree" x="655" y="285" width="220" height="145" rx="10"/>
+  <text class="label" x="765" y="317" text-anchor="middle">REWRITE</text>
+  <text class="code" x="765" y="350" text-anchor="middle">simplify/2</text>
+  <text class="prose" x="765" y="382" text-anchor="middle">preserve syntax;</text>
+  <text class="prose" x="765" y="405" text-anchor="middle">change its form</text>
+  <path class="line" marker-end="url(#arrow)" d="M635 315Q642 310 648 315"/>
 
   <rect class="paper" x="55" y="330" width="210" height="100" rx="10"/>
   <text class="label" x="160" y="360" text-anchor="middle">ENVIRONMENT</text>
   <text class="code" x="160" y="392" text-anchor="middle">[binding(x, 3)]</text>
   <text class="prose" x="160" y="416" text-anchor="middle">explicit lookup state</text>
-  <path class="line" marker-end="url(#arrow)" d="M265 380C335 448 600 448 650 240C654 223 658 215 663 215"/>
-  <text class="flow-label" x="445" y="440" text-anchor="middle">supplies bindings to evaluation</text>
+  <path class="line" marker-end="url(#arrow)" d="M265 380Q273 375 279 366"/>
   <text class="prose" x="450" y="475" text-anchor="middle">The relation determines the question asked of the same persistent term.</text>
 </svg>
