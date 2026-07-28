@@ -16,7 +16,7 @@
   <rect class="paper" x="200" y="60" width="500" height="65" rx="10"/>
   <text class="label" x="450" y="86" text-anchor="middle">SMALLEST DISPUTED GROUND QUESTION</text>
   <text class="code" x="450" y="110" text-anchor="middle">query(eligible(alex)).</text>
-  <path class="line" marker-end="url(#arrow)" d="M450 125V155"/>
+  <path class="line" marker-end="url(#arrow)" d="M450 125C360 142 215 132 122 158"/>
 
   <rect class="blue" x="25" y="165" width="195" height="135" rx="10"/>
   <text class="label" x="122" y="194" text-anchor="middle">1 · MEANING</text>
@@ -40,7 +40,7 @@
   <text class="code" x="772" y="278" text-anchor="middle">--proof</text>
   <path class="line" marker-end="url(#arrow)" d="M220 232H233M435 232H448M650 232H663"/>
 
-  <path class="line" marker-end="url(#arrow)" d="M772 300C772 350 650 355 610 372"/>
+  <path class="line" marker-end="url(#arrow)" d="M772 300C772 338 650 342 610 358"/>
   <rect class="paper" x="205" y="365" width="490" height="100" rx="10"/>
   <text class="label" x="450" y="395" text-anchor="middle">PRESERVE WHAT THE FAILURE TAUGHT</text>
   <text class="prose" x="450" y="425" text-anchor="middle">repair one invariant, then leave a regression, fuse, mode test,</text>

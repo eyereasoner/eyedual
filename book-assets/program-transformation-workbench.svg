@@ -18,7 +18,10 @@
   <text class="light" x="450" y="108" text-anchor="middle">original relation</text>
   <text class="light" x="450" y="140" text-anchor="middle">meaning + supported modes</text>
   <text class="light" x="450" y="168" text-anchor="middle">answers · proofs · control</text>
-  <path class="line" d="M390 190L190 235M425 190L385 235M475 190L565 235M515 190L750 235"/>
+  <path class="line" marker-end="url(#arrow)" d="M365 190C320 205 240 210 150 228"/>
+  <path class="line" marker-end="url(#arrow)" d="M420 190C405 205 385 212 360 228"/>
+  <path class="line" marker-end="url(#arrow)" d="M480 190C500 205 535 212 560 228"/>
+  <path class="line" marker-end="url(#arrow)" d="M535 190C600 205 700 210 762 228"/>
 
   <rect class="green" x="45" y="235" width="210" height="115" rx="10"/>
   <text class="label" x="150" y="267" text-anchor="middle">UNFOLD</text>
@@ -37,12 +40,12 @@
   <text class="prose" x="762" y="297" text-anchor="middle">carry a partial result</text>
   <text class="prose" x="762" y="320" text-anchor="middle">through recursion</text>
 
-  <path class="line" marker-end="url(#arrow)" d="M150 350C205 390 275 398 335 405"/>
-  <path class="line" marker-end="url(#arrow)" d="M360 350L400 395"/>
-  <path class="line" marker-end="url(#arrow)" d="M560 350L505 395"/>
-  <path class="line" marker-end="url(#arrow)" d="M762 350C700 390 625 398 565 405"/>
-  <rect class="paper" x="200" y="395" width="500" height="72" rx="10"/>
-  <text class="label" x="450" y="423" text-anchor="middle">COMPARE THE CONTRACT</text>
-  <text class="code" x="450" y="449" text-anchor="middle">answers · modes · termination · order · proofs · cost</text>
+  <path class="line" marker-end="url(#arrow)" d="M150 350C205 378 275 382 335 393"/>
+  <path class="line" marker-end="url(#arrow)" d="M360 350L400 393"/>
+  <path class="line" marker-end="url(#arrow)" d="M560 350L505 393"/>
+  <path class="line" marker-end="url(#arrow)" d="M762 350C700 378 625 382 565 393"/>
+  <rect class="paper" x="200" y="400" width="500" height="67" rx="10"/>
+  <text class="label" x="450" y="427" text-anchor="middle">COMPARE THE CONTRACT</text>
+  <text class="code" x="450" y="453" text-anchor="middle">answers · modes · termination · order · proofs · cost</text>
   <text class="prose" x="450" y="490" text-anchor="middle">A faster clause is only equivalent inside a stated observational boundary.</text>
 </svg>

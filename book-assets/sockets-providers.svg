@@ -3,15 +3,19 @@
   <desc id="desc">A file, database, and AI extractor offer parent facts through one declared predicate contract to the same ancestor rules.</desc>
   <style>
     .bg{fill:#eee5d3}.provider{fill:#fffdf7;stroke:#243447;stroke-width:2}.socket{fill:#dcefe8;stroke:#2f6f55;stroke-width:4}
-    .engine{fill:#536b78;stroke:#243447;stroke-width:3}.text{fill:#243447;font:16px ui-monospace,monospace}.light{fill:#fffdf7;font:16px ui-monospace,monospace}
-    .cable{fill:none;stroke:#8b3a3a;stroke-width:5;stroke-linecap:round}.pin{fill:#243447}
+    .engine{fill:#536b78;stroke:#243447;stroke-width:3}.text{fill:#243447;font:16px ui-monospace,monospace}.small{fill:#435166;font:13px ui-monospace,monospace}.claim-text{fill:#713535;font:11px ui-monospace,monospace}.light{fill:#fffdf7;font:16px ui-monospace,monospace}
+    .cable{fill:none;stroke:#8b3a3a;stroke-width:4;stroke-linecap:round}.claim{fill:#fffdf7;stroke:#8b3a3a;stroke-width:2}.pin{fill:#243447}
   </style>
   <rect width="900" height="380" class="bg"/>
   <rect class="provider" x="35" y="40" width="190" height="80" rx="8"/><text class="text" x="130" y="73" text-anchor="middle">family.pl</text><text class="text" x="130" y="99" text-anchor="middle">facts</text>
   <rect class="provider" x="35" y="150" width="190" height="80" rx="8"/><text class="text" x="130" y="183" text-anchor="middle">database</text><text class="text" x="130" y="209" text-anchor="middle">adapter</text>
   <rect class="provider" x="35" y="260" width="190" height="80" rx="8"/><text class="text" x="130" y="293" text-anchor="middle">AI document</text><text class="text" x="130" y="319" text-anchor="middle">extractor</text>
   <path class="cable" d="M225 80 C300 80 300 170 365 170 M225 190 H365 M225 300 C300 300 300 210 365 210"/>
-  <rect class="socket" x="365" y="115" width="245" height="150" rx="25"/><text class="text" x="488" y="150" text-anchor="middle">SOCKET CONTRACT</text><text class="text" x="488" y="190" text-anchor="middle">provides(</text><text class="text" x="488" y="215" text-anchor="middle">predicate(parent,2))</text>
+  <text class="small" x="286" y="24" text-anchor="middle">interchangeable providers</text>
+  <rect class="socket" x="365" y="105" width="245" height="170" rx="25"/><text class="text" x="488" y="138" text-anchor="middle">STABLE SOCKET</text><text class="small" x="488" y="161" text-anchor="middle">family_source</text><text class="text" x="488" y="196" text-anchor="middle">provides(</text><text class="text" x="488" y="221" text-anchor="middle">predicate(parent,2))</text><text class="small" x="488" y="250" text-anchor="middle">validate once at the boundary</text>
   <circle class="pin" cx="385" cy="170" r="7"/><circle class="pin" cx="385" cy="190" r="7"/><circle class="pin" cx="385" cy="210" r="7"/>
-  <path class="cable" d="M610 190 H680"/><rect class="engine" x="680" y="105" width="185" height="170" rx="10"/><text class="light" x="772" y="142" text-anchor="middle">Eyepl rules</text><text class="light" x="772" y="185" text-anchor="middle">ancestor(X,Y)</text><text class="light" x="772" y="215" text-anchor="middle">why(Answer,Proof)</text><text class="light" x="772" y="250" text-anchor="middle">same reasoning</text>
+  <path class="cable" d="M610 190H680"/>
+  <rect class="claim" x="616" y="157" width="60" height="66" rx="6"/><text class="claim-text" x="646" y="181" text-anchor="middle">parent</text><text class="claim-text" x="646" y="202" text-anchor="middle">(a,b)</text>
+  <rect class="engine" x="680" y="95" width="185" height="190" rx="10"/><text class="light" x="772" y="130" text-anchor="middle">unchanged rules</text><text class="light" x="772" y="168" text-anchor="middle">ancestor(X,Y)</text><text class="light" x="772" y="204" text-anchor="middle">Answer + Proof</text><text class="light" x="772" y="236" text-anchor="middle">cites parent(a,b)</text><text class="light" x="772" y="266" text-anchor="middle">same contract</text>
+  <text class="small" x="450" y="366" text-anchor="middle">Providers change. Terms, rules, and the evidence visible in a proof do not.</text>
 </svg>
