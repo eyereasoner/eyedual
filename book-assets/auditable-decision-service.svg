@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="460" viewBox="0 0 900 460" role="img" aria-labelledby="title desc">
+  <title id="title">An auditable decision service keeps evidence, policy, decision, and proof connected</title>
+  <desc id="desc">Versioned evidence and policy flow through integrity checks and reasoning to a permit decision. A proof bundle points back to every source and theory version, while a fuse stops invalid inputs.</desc>
+  <defs><style>
+    .bg{fill:#f4efe3}.paper{fill:#fffdf7;stroke:#243447;stroke-width:2}.green{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}.blue{fill:#dcebf0;stroke:#526273;stroke-width:2}.rose{fill:#f1dfdf;stroke:#8b3a3a;stroke-width:2}.dark{fill:#536b78;stroke:#243447;stroke-width:3}
+    .title{fill:#8b3a3a;font:bold 24px Georgia,serif}.label{fill:#243447;font:bold 16px Georgia,serif}.code{fill:#172334;font:13px ui-monospace,monospace}.light{fill:#fffdf7;font:14px ui-monospace,monospace}.prose{fill:#435166;font:14px Georgia,serif}.line{fill:none;stroke:#526273;stroke-width:3}
+  </style><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526273"/></marker></defs>
+  <rect class="bg" width="900" height="460"/><text class="title" x="450" y="38" text-anchor="middle">THE AUDIT TRAIL IS PART OF THE DECISION</text>
+  <rect class="paper" x="30" y="90" width="195" height="105" rx="10"/><text class="label" x="127" y="120" text-anchor="middle">SOURCE FACTS</text><text class="code" x="127" y="151" text-anchor="middle">person · badge</text><text class="code" x="127" y="176" text-anchor="middle">source_version(v7)</text>
+  <rect class="blue" x="30" y="245" width="195" height="105" rx="10"/><text class="label" x="127" y="275" text-anchor="middle">POLICY</text><text class="code" x="127" y="306" text-anchor="middle">standing · limits</text><text class="code" x="127" y="331" text-anchor="middle">theory_version(t3)</text>
+  <rect class="rose" x="285" y="90" width="205" height="105" rx="10"/><text class="label" x="387" y="120" text-anchor="middle">INTEGRITY GATE</text><text class="code" x="387" y="151" text-anchor="middle">false :- conflict(...)</text><text class="prose" x="387" y="176" text-anchor="middle">invalid theory stops here</text>
+  <rect class="green" x="285" y="245" width="205" height="105" rx="10"/><text class="label" x="387" y="275" text-anchor="middle">REASONING CORE</text><text class="code" x="387" y="306" text-anchor="middle">permit(Person,Zone)</text><text class="prose" x="387" y="331" text-anchor="middle">joins evidence + policy</text>
+  <rect class="dark" x="555" y="90" width="310" height="105" rx="10"/><text class="light" x="710" y="125" text-anchor="middle">DECISION</text><text class="light" x="710" y="158" text-anchor="middle">permit(alex, lab_north)</text>
+  <rect class="paper" x="555" y="245" width="310" height="105" rx="10"/><text class="label" x="710" y="275" text-anchor="middle">PROOF BUNDLE</text><text class="code" x="710" y="306" text-anchor="middle">premises · v7 · t3</text><text class="prose" x="710" y="331" text-anchor="middle">replayable provenance</text>
+  <path class="line" marker-end="url(#a)" d="M225 142H277M225 297H277M490 297H547M710 237V203"/><path class="line" marker-end="url(#a)" d="M387 195V237"/>
+  <text class="prose" x="450" y="410" text-anchor="middle">A proof validates the derivation; versions and authenticated sources make it auditable later.</text>
+</svg>

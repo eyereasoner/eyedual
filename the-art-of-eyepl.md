@@ -852,6 +852,11 @@ turn a field of possibilities into a productive computation.
 Arithmetic uses the standard `is/2` predicate, conventionally written with
 infix operator syntax:
 
+<figure>
+  <img src="book-assets/arithmetic-binding-flow.svg" alt="A finite generator binds a number before arithmetic computes a result and a comparison filters it.">
+  <figcaption>Arithmetic goals consume bindings rather than inventing them: generate a finite candidate, compute from ready inputs, then filter the ground result.</figcaption>
+</figure>
+
 ```eyepl
 next(X, Y) :- (Y is X + 1).
 area_rectangle(W, H, Area) :- (Area is W * H).
@@ -1006,6 +1011,11 @@ finite generator that bounds each aggregate in a program of your own.
 ## 9. Structured data, strings, and contexts
 
 Term predicates decompose or construct general terms:
+
+<figure>
+  <img src="book-assets/context-data-boundary.svg" alt="Raw text becomes structured members inside one message context, which holds inspects without asserting those members globally.">
+  <figcaption>Normalize text into explicit structure at the boundary; inspecting a member inside one context does not turn it into an ambient fact.</figcaption>
+</figure>
 
 ```eyepl
 functor(Term, Name, Arity).
@@ -1266,6 +1276,11 @@ in a fuse and one ordinary negative result that should remain query failure.
 
 Declarative clarity and operational care reinforce each other. Bind selective
 arguments early, keep generators finite, and make decreasing structure visible.
+
+<figure>
+  <img src="book-assets/termination-map.svg" alt="Three recursive call patterns: decreasing lists, finite tabled graph answers, and terms that grow without bound.">
+  <figcaption>Termination needs a specific argument: a decreasing measure or a finite tabled call-and-answer space; ever-growing terms satisfy neither.</figcaption>
+</figure>
 
 Naive depth-first search can revisit the same recursive question indefinitely.
 Tabling changes the unit of work: a call pattern becomes a shared subproblem,
@@ -1785,6 +1800,11 @@ A good logic program is rarely discovered by typing clauses from top to
 bottom. It is constructed by moving between examples, relations, and
 invariants.
 
+<figure>
+  <img src="book-assets/program-construction-loop.svg" alt="A program is constructed by cycling from a ground sentence through examples, representation, invariants, clauses, answers, and proofs.">
+  <figcaption>Construction begins with meaning and examples, chooses a representation that exposes an invariant, and lets surprising answers send the design back to the right layer.</figcaption>
+</figure>
+
 ### Begin with ground sentences
 
 Suppose packages must be routed through compatible hubs. Start with sentences
@@ -1914,6 +1934,11 @@ predicate names before introducing variables.
 
 Testing examples is necessary, but a reusable relation deserves a stronger
 argument. Two questions should be asked separately:
+
+<figure>
+  <img src="book-assets/correctness-obligations.svg" alt="Overlapping circles for soundness, completeness, and termination meet at a dependable operational contract.">
+  <figcaption>Soundness, completeness, and termination are independent promises; a dependable intended call needs all three.</figcaption>
+</figure>
 
 1. **Partial correctness:** if the program returns an answer, is it justified?
 2. **Completeness:** for the intended finite calls, can it find every answer
@@ -2754,6 +2779,11 @@ This case study develops a small access decision from prose to an executable,
 explainable theory. The purpose is the sequence of design decisions that turns
 informal requirements into maintainable relations.
 
+<figure>
+  <img src="book-assets/auditable-decision-service.svg" alt="Versioned source facts and policy pass integrity checks and reasoning to produce a decision with a replayable proof bundle.">
+  <figcaption>An auditable service keeps source and theory versions attached to the premises, blocks invalid input at an integrity gate, and returns the decision with replayable provenance.</figcaption>
+</figure>
+
 ### Requirements and questions
 
 A research facility says:
@@ -3000,6 +3030,11 @@ object, while an argument establishes that it has the required properties.
 The distinction remains useful, but modern logic revealed increasingly exact
 connections among a proposition, its proof, and the construction carried by
 that proof.
+
+<figure>
+  <img src="book-assets/proof-as-computation.svg" alt="An existential query passes through theory and proof search, producing both a ground object witness and a derivation witness.">
+  <figcaption>A successful existential query returns an object that satisfies the claim and a derivation that explains why the theory licenses that object.</figcaption>
+</figure>
 
 Logic programming enters through one particular connection. A definite clause
 
@@ -3454,6 +3489,11 @@ Logic programming contributes a particularly transparent form: generate a
 finite mathematical world, state the property relationally, and ask for
 witnesses or failures.
 
+<figure>
+  <img src="book-assets/bounded-experimental-math.svg" alt="A universal conjecture is tested over a declared finite box; a found counterexample refutes it globally, while exhaustion gives only bounded evidence.">
+  <figcaption>Finite search is asymmetric: one valid counterexample defeats a universal claim, while finding none establishes only the explicitly bounded statement.</figcaption>
+</figure>
+
 ### Examples suggest; proofs compel
 
 The first values of a sequence can suggest a recurrence. Exhaustive search up
@@ -3801,6 +3841,11 @@ test vocabulary. One call may have several answers, no answer, duplicate
 proofs, or different useful modes. Correctness includes the answer set, the
 absence of forbidden answers, the shape of witnesses, and the finiteness of
 the intended search.
+
+<figure>
+  <img src="book-assets/relational-test-spectrum.svg" alt="A public relation is surrounded by tests for meaning, supported modes, finite properties, metamorphic changes, integrity, proofs, and scale.">
+  <figcaption>A relational contract has several observable surfaces; examples, mode tests, bounded properties, metamorphic checks, integrity cases, proofs, and scale checks protect different promises.</figcaption>
+</figure>
 
 ### Begin with a semantic test table
 
@@ -4182,6 +4227,11 @@ choice, repaired invariant, and test that would fail if the defect returned.
 A pattern is not a copied code fragment. It is a recurring arrangement of
 meaning, representation, and control that solves a named design problem. The
 following patterns summarize the strongest constructions in this book.
+
+<figure>
+  <img src="book-assets/pattern-selection-map.svg" alt="Six recurring design symptoms point to patterns for meaning, tabling, closed boundaries, finite search, proof-carrying answers, and canonical representation.">
+  <figcaption>Choose a pattern by the design problem and its consequence, not by superficial code shape; each pattern coordinates meaning, representation, modes, and control.</figcaption>
+</figure>
 
 ### Pattern 1: Ground sentence first
 

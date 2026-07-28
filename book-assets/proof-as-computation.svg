@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">Proof search computes a witness for an existential claim</title>
+  <desc id="desc">An existential question enters a small theory. Unification and search produce a ground answer together with a derivation tree, separating witness discovery from proof evidence.</desc>
+  <defs><style>
+    .bg{fill:#f4efe3}.paper{fill:#fffdf7;stroke:#243447;stroke-width:2}.green{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}.gold{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}.dark{fill:#536b78;stroke:#243447;stroke-width:3}
+    .title{fill:#8b3a3a;font:bold 24px Georgia,serif}.label{fill:#243447;font:bold 17px Georgia,serif}.code{fill:#172334;font:14px ui-monospace,monospace}.light{fill:#fffdf7;font:14px ui-monospace,monospace}.prose{fill:#435166;font:15px Georgia,serif}.line{fill:none;stroke:#526273;stroke-width:3}
+  </style><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526273"/></marker></defs>
+  <rect class="bg" width="900" height="430"/><text class="title" x="450" y="38" text-anchor="middle">A SUCCESSFUL QUERY RETURNS TWO KINDS OF WITNESS</text>
+  <rect class="paper" x="30" y="115" width="220" height="135" rx="10"/><text class="label" x="140" y="148" text-anchor="middle">QUESTION</text><text class="code" x="140" y="188" text-anchor="middle">∃ X . mortal(X)</text><text class="prose" x="140" y="222" text-anchor="middle">does someone satisfy it?</text>
+  <path class="line" marker-end="url(#a)" d="M250 182H322"/><rect class="dark" x="330" y="90" width="240" height="185" rx="12"/><text class="light" x="450" y="126" text-anchor="middle">THEORY + SEARCH</text><text class="light" x="450" y="164" text-anchor="middle">man(socrates)</text><text class="light" x="450" y="194" text-anchor="middle">mortal(X) :- man(X)</text><text class="light" x="450" y="235" text-anchor="middle">unify · reduce · derive</text>
+  <path class="line" marker-end="url(#a)" d="M570 150H642"/><rect class="green" x="650" y="85" width="220" height="120" rx="10"/><text class="label" x="760" y="118" text-anchor="middle">OBJECT WITNESS</text><text class="code" x="760" y="158" text-anchor="middle">X = socrates</text><text class="prose" x="760" y="184" text-anchor="middle">answers the existential</text>
+  <path class="line" marker-end="url(#a)" d="M570 220C610 230 610 292 642 300"/><rect class="gold" x="650" y="245" width="220" height="120" rx="10"/><text class="label" x="760" y="278" text-anchor="middle">PROOF WITNESS</text><text class="code" x="760" y="318" text-anchor="middle">rule ← fact</text><text class="prose" x="760" y="344" text-anchor="middle">shows why it follows</text>
+  <text class="prose" x="450" y="407" text-anchor="middle">Computation discovers a term; explanation preserves the derivation that licenses it.</text>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="460" viewBox="0 0 900 460" role="img" aria-labelledby="title desc">
+  <title id="title">Constructing a relational program from examples and invariants</title>
+  <desc id="desc">A ground sentence leads to examples and near misses, then a representation and invariant, clauses, and checked answers; surprising answers loop back to refine meaning.</desc>
+  <defs><style>
+    .bg{fill:#f4efe3}.box{fill:#fffdf7;stroke:#243447;stroke-width:2}.green{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}.gold{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}.rose{fill:#f1dfdf;stroke:#8b3a3a;stroke-width:2}
+    .title{fill:#8b3a3a;font:bold 24px Georgia,serif}.label{fill:#243447;font:bold 14px Georgia,serif}.code{fill:#172334;font:13px ui-monospace,monospace}.prose{fill:#435166;font:14px Georgia,serif}.line{fill:none;stroke:#526273;stroke-width:3}
+  </style><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526273"/></marker></defs>
+  <rect class="bg" width="900" height="460"/><text class="title" x="450" y="38" text-anchor="middle">CONSTRUCT THE RELATION FROM MEANING</text>
+  <rect class="green" x="35" y="105" width="175" height="115" rx="10"/><text class="label" x="122" y="137" text-anchor="middle">GROUND SENTENCE</text><text class="code" x="122" y="177" text-anchor="middle">routeable(p7,north)</text><text class="prose" x="122" y="203" text-anchor="middle">read it aloud</text>
+  <rect class="box" x="255" y="105" width="175" height="115" rx="10"/><text class="label" x="342" y="137" text-anchor="middle">EXAMPLES</text><text class="prose" x="342" y="172" text-anchor="middle">small positive</text><text class="prose" x="342" y="196" text-anchor="middle">next + near miss</text>
+  <rect class="gold" x="475" y="105" width="175" height="115" rx="10"/><text class="label" x="562" y="137" text-anchor="middle">REPRESENTATION</text><text class="prose" x="562" y="172" text-anchor="middle">operations expose</text><text class="prose" x="562" y="196" text-anchor="middle">the right structure</text>
+  <rect class="box" x="695" y="105" width="170" height="115" rx="10"/><text class="label" x="780" y="137" text-anchor="middle">INVARIANT</text><text class="prose" x="780" y="172" text-anchor="middle">what is preserved?</text><text class="code" x="780" y="198" text-anchor="middle">measure ↓</text>
+  <path class="line" marker-end="url(#a)" d="M210 162H247M430 162H467M650 162H687"/>
+  <rect class="box" x="195" y="300" width="210" height="100" rx="10"/><text class="label" x="300" y="332" text-anchor="middle">CLAUSES + MODES</text><text class="prose" x="300" y="365" text-anchor="middle">generate · test · describe</text>
+  <rect class="green" x="495" y="300" width="210" height="100" rx="10"/><text class="label" x="600" y="332" text-anchor="middle">ANSWERS + PROOFS</text><text class="prose" x="600" y="365" text-anchor="middle">check the intended sentence</text>
+  <path class="line" marker-end="url(#a)" d="M780 220C780 265 650 275 600 292M495 350H413"/>
+  <path class="line" marker-end="url(#a)" d="M195 350C75 350 65 245 115 228"/><text class="prose" x="105" y="330" text-anchor="middle">surprise?</text>
+  <text class="prose" x="450" y="438" text-anchor="middle">Revision returns to meaning, examples, or representation—not merely to clause order.</text>
+</svg>

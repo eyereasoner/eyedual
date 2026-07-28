@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">Correctness, completeness, and termination are separate obligations</title>
+  <desc id="desc">Three overlapping circles represent no false answers, all intended answers, and finite computation. The dependable operational contract lies where all three overlap.</desc>
+  <defs><style>.bg{fill:#f4efe3}.sound{fill:#dcefe8;fill-opacity:.75;stroke:#2f6f55;stroke-width:3}.complete{fill:#dcebf0;fill-opacity:.75;stroke:#526273;stroke-width:3}.term{fill:#fff0d9;fill-opacity:.75;stroke:#9a5b18;stroke-width:3}.title{fill:#8b3a3a;font:bold 24px Georgia,serif}.label{fill:#243447;font:bold 17px Georgia,serif}.prose{fill:#435166;font:15px Georgia,serif}.center{fill:#713535;font:bold 16px Georgia,serif}</style></defs>
+  <rect class="bg" width="900" height="430"/><text class="title" x="450" y="38" text-anchor="middle">THREE PROMISES, THREE PROOF OBLIGATIONS</text>
+  <circle class="sound" cx="350" cy="205" r="135"/><circle class="complete" cx="550" cy="205" r="135"/><circle class="term" cx="450" cy="295" r="120"/>
+  <text class="label" x="290" y="135" text-anchor="middle">SOUNDNESS</text><text class="prose" x="270" y="161" text-anchor="middle">no false answer</text>
+  <text class="label" x="610" y="135" text-anchor="middle">COMPLETENESS</text><text class="prose" x="630" y="161" text-anchor="middle">no intended answer lost</text>
+  <text class="label" x="450" y="376" text-anchor="middle">TERMINATION</text><text class="prose" x="450" y="402" text-anchor="middle">the intended call finishes</text>
+  <rect x="375" y="235" width="150" height="58" rx="29" fill="#fffdf7" stroke="#8b3a3a" stroke-width="2"/><text class="center" x="450" y="259" text-anchor="middle">DEPENDABLE</text><text class="center" x="450" y="280" text-anchor="middle">CALL CONTRACT</text>
+</svg>
