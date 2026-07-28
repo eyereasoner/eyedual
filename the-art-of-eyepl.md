@@ -57,7 +57,7 @@ Robert Kowalski's phrase “algorithm = logic + control” names this separation
 Eyepl's focused surface makes it unusually easy to see in running examples.
 
 Complete Eyepl code displays from the book are also available as files under
-[`examples/book/`](examples/book/), grouped by chapter. From a source checkout,
+[`examples/book/`](https://github.com/eyereasoner/eyepl/tree/main/examples/book/), grouped by chapter. From a source checkout,
 use Node.js 18 or newer, install the dependencies, and run the CLI:
 
 ```sh
@@ -100,7 +100,7 @@ Code displays serve three different purposes:
   necessarily accepted as Eyepl input;
 - a `sh` or `js` block is a host command or embedding example.
 
-Top-level programs under [`examples/`](examples/) are the complete runnable
+Top-level programs under [`examples/`](https://github.com/eyereasoner/eyepl/tree/main/examples/) are the complete runnable
 cases. Their exact outputs live under `examples/output/`; selected proof
 outputs live under `examples/proof/`. Use the chapter extractions for copying a
 particular display and the top-level corpus for end-to-end experiments.
@@ -626,7 +626,7 @@ so with `same_as(robert, bob)` or normalize them to one canonical term. The
 Herbrand layer keeps names unambiguous; domain rules express equivalence.
 
 The runnable
-[`examples/herbrand-semantics.pl`](examples/herbrand-semantics.pl) example and
+[`examples/herbrand-semantics.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/herbrand-semantics.pl) example and
 its normal and proof outputs make this distinction concrete.
 
 ### Quantification and visible witnesses
@@ -4803,13 +4803,13 @@ Review questions:
   <figcaption>The corpus is a connected landscape. Every path leads from a readable source program to checked answers and, for selected examples, checked proofs.</figcaption>
 </figure>
 
-The [examples directory](examples/) is the book's executable companion. Every
+The [examples directory](https://github.com/eyereasoner/eyepl/tree/main/examples/) is the book's executable companion. Every
 source program has an exact answer file under
-[examples/output](examples/output/), and selected programs have a checked
-explanation under [examples/proof](examples/proof/). The pointers below open
+[examples/output](https://github.com/eyereasoner/eyepl/tree/main/examples/output/), and selected programs have a checked
+explanation under [examples/proof](https://github.com/eyereasoner/eyepl/tree/main/examples/proof/). The pointers below open
 the program itself rather than merely naming it.
 
-The generated [`examples/book/`](examples/book/) tree serves a different
+The generated [`examples/book/`](https://github.com/eyereasoner/eyepl/tree/main/examples/book/) tree serves a different
 purpose: it mirrors the complete inline Eyepl displays chapter by chapter.
 Those files are checked for syntax, and displays containing queries are
 executed, but some teaching fragments deliberately depend on neighboring
@@ -4851,16 +4851,16 @@ studies.
 
 | Program | What to notice | Checked companions |
 | --- | --- | --- |
-| [Socrates](examples/socrates.pl) | A fact and one rule turn the classical syllogism into a ground derivation. | [answers](examples/output/socrates.pl) · [proof](examples/proof/socrates.pl) |
-| [Age](examples/age.pl) | Arithmetic comparison acts as a filter after a fact supplies the age. | [answers](examples/output/age.pl) · [proof](examples/proof/age.pl) |
-| [Ancestor](examples/ancestor.pl) | The canonical base-plus-recursive definition computes a transitive family relation. | [answers](examples/output/ancestor.pl) · [proof](examples/proof/ancestor.pl) |
-| [Animal](examples/animal.pl) | Several clauses form a small classification theory with inspectable reasons. | [answers](examples/output/animal.pl) · [proof](examples/proof/animal.pl) |
-| [Dog](examples/dog.pl) | A compact inheritance chain shows how intermediate concepts appear in a proof. | [answers](examples/output/dog.pl) · [proof](examples/proof/dog.pl) |
-| [Good cobbler](examples/good-cobbler.pl) | Multiple premises combine into a conclusion without hidden mutation or control state. | [answers](examples/output/good-cobbler.pl) · [proof](examples/proof/good-cobbler.pl) |
-| [Derived rule](examples/derived-rule.pl) | A conclusion depends on another derived predicate rather than directly on a source fact. | [answers](examples/output/derived-rule.pl) · [proof](examples/proof/derived-rule.pl) |
-| [Existential rule](examples/existential-rule.pl) | Structured Herbrand terms carry explicit generated witnesses. | [answers](examples/output/existential-rule.pl) · [proof](examples/proof/existential-rule.pl) |
-| [Annotation](examples/annotation.pl) | Terms attach descriptive data while the logical relation remains ordinary. | [answers](examples/output/annotation.pl) · [proof](examples/proof/annotation.pl) |
-| [Reusable built-ins](examples/reusable-builtins.pl) | Arithmetic, strings, lists, and term inspection compose through ordinary variables. | [answers](examples/output/reusable-builtins.pl) · [proof](examples/proof/reusable-builtins.pl) |
+| [Socrates](https://github.com/eyereasoner/eyepl/blob/main/examples/socrates.pl) | A fact and one rule turn the classical syllogism into a ground derivation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/socrates.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/socrates.pl) |
+| [Age](https://github.com/eyereasoner/eyepl/blob/main/examples/age.pl) | Arithmetic comparison acts as a filter after a fact supplies the age. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/age.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/age.pl) |
+| [Ancestor](https://github.com/eyereasoner/eyepl/blob/main/examples/ancestor.pl) | The canonical base-plus-recursive definition computes a transitive family relation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/ancestor.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/ancestor.pl) |
+| [Animal](https://github.com/eyereasoner/eyepl/blob/main/examples/animal.pl) | Several clauses form a small classification theory with inspectable reasons. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/animal.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/animal.pl) |
+| [Dog](https://github.com/eyereasoner/eyepl/blob/main/examples/dog.pl) | A compact inheritance chain shows how intermediate concepts appear in a proof. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/dog.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/dog.pl) |
+| [Good cobbler](https://github.com/eyereasoner/eyepl/blob/main/examples/good-cobbler.pl) | Multiple premises combine into a conclusion without hidden mutation or control state. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/good-cobbler.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/good-cobbler.pl) |
+| [Derived rule](https://github.com/eyereasoner/eyepl/blob/main/examples/derived-rule.pl) | A conclusion depends on another derived predicate rather than directly on a source fact. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/derived-rule.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/derived-rule.pl) |
+| [Existential rule](https://github.com/eyereasoner/eyepl/blob/main/examples/existential-rule.pl) | Structured Herbrand terms carry explicit generated witnesses. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/existential-rule.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/existential-rule.pl) |
+| [Annotation](https://github.com/eyereasoner/eyepl/blob/main/examples/annotation.pl) | Terms attach descriptive data while the logical relation remains ordinary. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/annotation.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/annotation.pl) |
+| [Reusable built-ins](https://github.com/eyereasoner/eyepl/blob/main/examples/reusable-builtins.pl) | Arithmetic, strings, lists, and term inspection compose through ordinary variables. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/reusable-builtins.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/reusable-builtins.pl) |
 
 Suggested path: Socrates → Age → Ancestor → Derived rule → Reusable built-ins.
 At each step, say aloud what one ground instance of every predicate means.
@@ -4873,15 +4873,15 @@ recursion as one technique.
 
 | Program | What to notice | Checked companions |
 | --- | --- | --- |
-| [List collection](examples/list-collection.pl) | `findall/3`, list construction, and aggregation turn a solution stream into data. | [answers](examples/output/list-collection.pl) · [proof](examples/proof/list-collection.pl) |
-| [Graph reachability](examples/graph-reachability.pl) | A visited list bounds cyclic traversal and makes explicit negative test cases finite. | [answers](examples/output/graph-reachability.pl) · [proof](examples/proof/graph-reachability.pl) |
-| [Cyclic path](examples/cyclic-path.pl) | A deliberately cyclic graph exposes repeated calls and the need for disciplined recursion. | [answers](examples/output/cyclic-path.pl) |
-| [Path discovery](examples/path-discovery.pl) | Witness paths, not only endpoint pairs, are constructed during a larger graph search. | [answers](examples/output/path-discovery.pl) |
-| [Deep taxonomy: 10](examples/deep-taxonomy-10.pl) | A small generated hierarchy is readable by hand and establishes the benchmark shape. | [answers](examples/output/deep-taxonomy-10.pl) |
-| [Deep taxonomy: 1,000](examples/deep-taxonomy-1000.pl) | The same logical theory tests indexing and recursive closure at a realistic depth. | [answers](examples/output/deep-taxonomy-1000.pl) |
-| [Deep taxonomy: 100,000](examples/deep-taxonomy-100000.pl) | A stress case separates semantic simplicity from implementation scale. | [answers](examples/output/deep-taxonomy-100000.pl) |
-| [Family cousins](examples/family-cousins.pl) | Several relational joins derive kinship beyond a simple transitive closure. | [answers](examples/output/family-cousins.pl) |
-| [Chart parser](examples/chart-parser.pl) | A finite chart represents shared parsing subproblems and recursive grammatical structure. | [answers](examples/output/chart-parser.pl) · [proof](examples/proof/chart-parser.pl) |
+| [List collection](https://github.com/eyereasoner/eyepl/blob/main/examples/list-collection.pl) | `findall/3`, list construction, and aggregation turn a solution stream into data. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/list-collection.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/list-collection.pl) |
+| [Graph reachability](https://github.com/eyereasoner/eyepl/blob/main/examples/graph-reachability.pl) | A visited list bounds cyclic traversal and makes explicit negative test cases finite. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/graph-reachability.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/graph-reachability.pl) |
+| [Cyclic path](https://github.com/eyereasoner/eyepl/blob/main/examples/cyclic-path.pl) | A deliberately cyclic graph exposes repeated calls and the need for disciplined recursion. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/cyclic-path.pl) |
+| [Path discovery](https://github.com/eyereasoner/eyepl/blob/main/examples/path-discovery.pl) | Witness paths, not only endpoint pairs, are constructed during a larger graph search. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/path-discovery.pl) |
+| [Deep taxonomy: 10](https://github.com/eyereasoner/eyepl/blob/main/examples/deep-taxonomy-10.pl) | A small generated hierarchy is readable by hand and establishes the benchmark shape. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/deep-taxonomy-10.pl) |
+| [Deep taxonomy: 1,000](https://github.com/eyereasoner/eyepl/blob/main/examples/deep-taxonomy-1000.pl) | The same logical theory tests indexing and recursive closure at a realistic depth. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/deep-taxonomy-1000.pl) |
+| [Deep taxonomy: 100,000](https://github.com/eyereasoner/eyepl/blob/main/examples/deep-taxonomy-100000.pl) | A stress case separates semantic simplicity from implementation scale. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/deep-taxonomy-100000.pl) |
+| [Family cousins](https://github.com/eyereasoner/eyepl/blob/main/examples/family-cousins.pl) | Several relational joins derive kinship beyond a simple transitive closure. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/family-cousins.pl) |
+| [Chart parser](https://github.com/eyereasoner/eyepl/blob/main/examples/chart-parser.pl) | A finite chart represents shared parsing subproblems and recursive grammatical structure. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/chart-parser.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/chart-parser.pl) |
 
 Read the three taxonomy programs as one experiment: the mathematical relation
 does not change as the data scale changes. Any difference in runtime belongs
@@ -4894,18 +4894,18 @@ finite search space, and which constraint removes which branches?
 
 | Program | Search design | Checked answer |
 | --- | --- | --- |
-| [Eight queens](examples/n-queens-8.pl) | A permutation supplies one queen per row; diagonal tests prune candidates; `once/1` retains one witness. | [answers](examples/output/n-queens-8.pl) |
-| [Zebra puzzle](examples/zebra.pl) | House records, adjacency relations, and clue constraints jointly determine the famous solution. | [answers](examples/output/zebra.pl) |
-| [SEND + MORE = MONEY](examples/send-more-money.pl) | Digit assignments are generated under distinctness, leading-zero, and column constraints. | [answers](examples/output/send-more-money.pl) |
-| [Four-color map](examples/four-color-map.pl) | A finite color assignment is filtered by adjacency constraints. | [answers](examples/output/four-color-map.pl) |
-| [Sudoku 4×4](examples/sudoku-4x4.pl) | Small domains make row, column, and block constraints completely inspectable. | [answers](examples/output/sudoku-4x4.pl) |
-| [Hamiltonian path](examples/hamiltonian-path.pl) | A witness must visit every vertex exactly once; path construction and global coverage meet. | [answers](examples/output/hamiltonian-path.pl) |
-| [Eulerian path](examples/eulerian-path.pl) | The state tracks remaining edges rather than merely visited vertices. | [answers](examples/output/eulerian-path.pl) |
-| [Knapsack optimization](examples/knapsack-optimization.pl) | Candidate subsets become feasible solutions, then aggregation selects a best value. | [answers](examples/output/knapsack-optimization.pl) |
-| [Weighted interval scheduling](examples/weighted-interval-scheduling.pl) | Compatibility constraints and an ordered objective select a maximum-value schedule. | [answers](examples/output/weighted-interval-scheduling.pl) |
-| [Job-shop scheduling](examples/job-shop-scheduling.pl) | Resource and precedence constraints interact in a larger finite schedule space. | [answers](examples/output/job-shop-scheduling.pl) |
-| [Stable marriage](examples/stable-marriage.pl) | Preference data, matching generation, and the absence of blocking pairs define stability. | [answers](examples/output/stable-marriage.pl) |
-| [Register allocation](examples/register-allocation.pl) | Interference constraints turn compiler allocation into graph coloring. | [answers](examples/output/register-allocation.pl) |
+| [Eight queens](https://github.com/eyereasoner/eyepl/blob/main/examples/n-queens-8.pl) | A permutation supplies one queen per row; diagonal tests prune candidates; `once/1` retains one witness. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/n-queens-8.pl) |
+| [Zebra puzzle](https://github.com/eyereasoner/eyepl/blob/main/examples/zebra.pl) | House records, adjacency relations, and clue constraints jointly determine the famous solution. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/zebra.pl) |
+| [SEND + MORE = MONEY](https://github.com/eyereasoner/eyepl/blob/main/examples/send-more-money.pl) | Digit assignments are generated under distinctness, leading-zero, and column constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/send-more-money.pl) |
+| [Four-color map](https://github.com/eyereasoner/eyepl/blob/main/examples/four-color-map.pl) | A finite color assignment is filtered by adjacency constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/four-color-map.pl) |
+| [Sudoku 4×4](https://github.com/eyereasoner/eyepl/blob/main/examples/sudoku-4x4.pl) | Small domains make row, column, and block constraints completely inspectable. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/sudoku-4x4.pl) |
+| [Hamiltonian path](https://github.com/eyereasoner/eyepl/blob/main/examples/hamiltonian-path.pl) | A witness must visit every vertex exactly once; path construction and global coverage meet. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/hamiltonian-path.pl) |
+| [Eulerian path](https://github.com/eyereasoner/eyepl/blob/main/examples/eulerian-path.pl) | The state tracks remaining edges rather than merely visited vertices. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/eulerian-path.pl) |
+| [Knapsack optimization](https://github.com/eyereasoner/eyepl/blob/main/examples/knapsack-optimization.pl) | Candidate subsets become feasible solutions, then aggregation selects a best value. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/knapsack-optimization.pl) |
+| [Weighted interval scheduling](https://github.com/eyereasoner/eyepl/blob/main/examples/weighted-interval-scheduling.pl) | Compatibility constraints and an ordered objective select a maximum-value schedule. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/weighted-interval-scheduling.pl) |
+| [Job-shop scheduling](https://github.com/eyereasoner/eyepl/blob/main/examples/job-shop-scheduling.pl) | Resource and precedence constraints interact in a larger finite schedule space. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/job-shop-scheduling.pl) |
+| [Stable marriage](https://github.com/eyereasoner/eyepl/blob/main/examples/stable-marriage.pl) | Preference data, matching generation, and the absence of blocking pairs define stability. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/stable-marriage.pl) |
+| [Register allocation](https://github.com/eyereasoner/eyepl/blob/main/examples/register-allocation.pl) | Interference constraints turn compiler allocation into graph coloring. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/register-allocation.pl) |
 
 A useful comparative exercise is to draw the first three levels of the search
 tree for Eight queens, SEND + MORE = MONEY, and Knapsack. Mark whether each
@@ -4919,15 +4919,15 @@ and search for a sequence whose final state satisfies a goal.
 
 | Program | State-space idea | Checked answer |
 | --- | --- | --- |
-| [Route planning](examples/route-planning.pl) | Weighted edges construct candidate routes and expose the chosen path as a witness. | [answers](examples/output/route-planning.pl) |
-| [Blocks world](examples/blocks-world-planning.pl) | Symbolic actions transform a compact arrangement of blocks. | [answers](examples/output/blocks-world-planning.pl) |
-| [Wolf, goat, and cabbage](examples/wolf-goat-cabbage.pl) | Safety invariants reject river-bank states before they enter a valid plan. | [answers](examples/output/wolf-goat-cabbage.pl) |
-| [Missionaries and cannibals](examples/missionaries-cannibals.pl) | Numeric state constraints must hold on both banks after every crossing. | [answers](examples/output/missionaries-cannibals.pl) |
-| [Monkey and bananas](examples/monkey-bananas.pl) | Actions change location, support, and possession facts until the goal becomes true. | [answers](examples/output/monkey-bananas.pl) |
-| [Hanoi](examples/hanoi.pl) | A recursive plan mirrors the inductive structure of moving a tower. | [answers](examples/output/hanoi.pl) · [proof](examples/proof/hanoi.pl) |
-| [Critical-path schedule](examples/critical-path-schedule.pl) | Dependency closure and duration arithmetic derive project timing. | [answers](examples/output/critical-path-schedule.pl) |
-| [Drone corridor planner](examples/drone-corridor-planner.pl) | Route feasibility combines graph structure with domain restrictions. | [answers](examples/output/drone-corridor-planner.pl) |
-| [Microgrid dispatch](examples/microgrid-dispatch.pl) | Candidate operating decisions are checked against supply, demand, and engineering limits. | [answers](examples/output/microgrid-dispatch.pl) |
+| [Route planning](https://github.com/eyereasoner/eyepl/blob/main/examples/route-planning.pl) | Weighted edges construct candidate routes and expose the chosen path as a witness. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/route-planning.pl) |
+| [Blocks world](https://github.com/eyereasoner/eyepl/blob/main/examples/blocks-world-planning.pl) | Symbolic actions transform a compact arrangement of blocks. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/blocks-world-planning.pl) |
+| [Wolf, goat, and cabbage](https://github.com/eyereasoner/eyepl/blob/main/examples/wolf-goat-cabbage.pl) | Safety invariants reject river-bank states before they enter a valid plan. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/wolf-goat-cabbage.pl) |
+| [Missionaries and cannibals](https://github.com/eyereasoner/eyepl/blob/main/examples/missionaries-cannibals.pl) | Numeric state constraints must hold on both banks after every crossing. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/missionaries-cannibals.pl) |
+| [Monkey and bananas](https://github.com/eyereasoner/eyepl/blob/main/examples/monkey-bananas.pl) | Actions change location, support, and possession facts until the goal becomes true. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/monkey-bananas.pl) |
+| [Hanoi](https://github.com/eyereasoner/eyepl/blob/main/examples/hanoi.pl) | A recursive plan mirrors the inductive structure of moving a tower. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/hanoi.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/hanoi.pl) |
+| [Critical-path schedule](https://github.com/eyereasoner/eyepl/blob/main/examples/critical-path-schedule.pl) | Dependency closure and duration arithmetic derive project timing. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/critical-path-schedule.pl) |
+| [Drone corridor planner](https://github.com/eyereasoner/eyepl/blob/main/examples/drone-corridor-planner.pl) | Route feasibility combines graph structure with domain restrictions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/drone-corridor-planner.pl) |
+| [Microgrid dispatch](https://github.com/eyereasoner/eyepl/blob/main/examples/microgrid-dispatch.pl) | Candidate operating decisions are checked against supply, demand, and engineering limits. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/microgrid-dispatch.pl) |
 
 Compare the witness shape: Hanoi returns an inductively constructed move list;
 route planning returns a graph path; Blocks world and the river puzzles expose
@@ -4943,24 +4943,24 @@ the clauses.
 
 | Program | Mathematical content | Checked answer |
 | --- | --- | --- |
-| [Peano calculus](examples/peano-calculus.pl) | Addition, multiplication, and factorial follow the constructors `z` and `s/1`. | [answers](examples/output/peano-calculus.pl) |
-| [Peano arithmetic](examples/peano-arithmetic.pl) | Explicit natural-number terms support arithmetic relations and structural recursion. | [answers](examples/output/peano-arithmetic.pl) |
-| [Fundamental theorem of arithmetic](examples/fundamental-theorem-arithmetic.pl) | Two factorization strategies construct normalized prime-factor witnesses and check reconstruction. | [answers](examples/output/fundamental-theorem-arithmetic.pl) |
-| [Prime range](examples/prime-range.pl) | Bounded integer generation and divisor tests enumerate primes over an explicit finite interval. | [answers](examples/output/prime-range.pl) |
-| [Sieve](examples/sieve.pl) | List filtering presents a different operational route to finite prime generation. | [answers](examples/output/sieve.pl) |
-| [Fibonacci](examples/fibonacci.pl) | A recurrence becomes an executable relation with a visibly decreasing argument. | [answers](examples/output/fibonacci.pl) |
-| [Fast exponentiation](examples/fastpow.pl) | Algebraic decomposition by parity changes a linear recurrence into logarithmic-depth recursion. | [answers](examples/output/fastpow.pl) |
-| [Modular exponentiation](examples/modular-exponentiation.pl) | Intermediate reduction preserves the residue while controlling numeric growth. | [answers](examples/output/modular-exponentiation.pl) |
-| [Integer partitions](examples/integer-partitions.pl) | Recursive generation constructs unordered additive decompositions without permutation duplicates. | [answers](examples/output/integer-partitions.pl) |
-| [Stirling and Bell numbers](examples/stirling-bell-numbers.pl) | Inclusion–exclusion and recurrence count set partitions in two related ways. | [answers](examples/output/stirling-bell-numbers.pl) |
-| [Catalan convolution](examples/catalan-convolution.pl) | A classic convolution identity is evaluated over a bounded range. | [answers](examples/output/catalan-convolution.pl) |
-| [Binomial Vandermonde](examples/binomial-vandermonde.pl) | Two finite sums compute the sides of Vandermonde's identity. | [answers](examples/output/binomial-vandermonde.pl) |
-| [D3 group](examples/d3-group.pl) | A finite Cayley table, inverses, and subgroup closure make group laws executable. | [answers](examples/output/d3-group.pl) |
-| [Matrix noncommutativity](examples/matrix-noncommutativity.pl) | Two concrete products provide a counterexample to universal commutativity. | [answers](examples/output/matrix-noncommutativity.pl) |
-| [Group inverse uniqueness](examples/group-inverse-uniqueness.pl) | A short derivation exposes the algebraic premises needed for uniqueness. | [answers](examples/output/group-inverse-uniqueness.pl) · [proof](examples/proof/group-inverse-uniqueness.pl) |
-| [Greatest lower bound uniqueness](examples/greatest-lower-bound-uniqueness.pl) | Order-theoretic definitions support a uniqueness argument. | [answers](examples/output/greatest-lower-bound-uniqueness.pl) · [proof](examples/proof/greatest-lower-bound-uniqueness.pl) |
-| [Pell equation](examples/pell-equation.pl) | Bounded generation searches for integer witnesses to a Diophantine equation. | [answers](examples/output/pell-equation.pl) |
-| [Totient summatory function](examples/totient-summatory.pl) | Divisibility, coprimality, counting, and summation compose over finite domains. | [answers](examples/output/totient-summatory.pl) |
+| [Peano calculus](https://github.com/eyereasoner/eyepl/blob/main/examples/peano-calculus.pl) | Addition, multiplication, and factorial follow the constructors `z` and `s/1`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/peano-calculus.pl) |
+| [Peano arithmetic](https://github.com/eyereasoner/eyepl/blob/main/examples/peano-arithmetic.pl) | Explicit natural-number terms support arithmetic relations and structural recursion. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/peano-arithmetic.pl) |
+| [Fundamental theorem of arithmetic](https://github.com/eyereasoner/eyepl/blob/main/examples/fundamental-theorem-arithmetic.pl) | Two factorization strategies construct normalized prime-factor witnesses and check reconstruction. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/fundamental-theorem-arithmetic.pl) |
+| [Prime range](https://github.com/eyereasoner/eyepl/blob/main/examples/prime-range.pl) | Bounded integer generation and divisor tests enumerate primes over an explicit finite interval. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/prime-range.pl) |
+| [Sieve](https://github.com/eyereasoner/eyepl/blob/main/examples/sieve.pl) | List filtering presents a different operational route to finite prime generation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/sieve.pl) |
+| [Fibonacci](https://github.com/eyereasoner/eyepl/blob/main/examples/fibonacci.pl) | A recurrence becomes an executable relation with a visibly decreasing argument. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/fibonacci.pl) |
+| [Fast exponentiation](https://github.com/eyereasoner/eyepl/blob/main/examples/fastpow.pl) | Algebraic decomposition by parity changes a linear recurrence into logarithmic-depth recursion. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/fastpow.pl) |
+| [Modular exponentiation](https://github.com/eyereasoner/eyepl/blob/main/examples/modular-exponentiation.pl) | Intermediate reduction preserves the residue while controlling numeric growth. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/modular-exponentiation.pl) |
+| [Integer partitions](https://github.com/eyereasoner/eyepl/blob/main/examples/integer-partitions.pl) | Recursive generation constructs unordered additive decompositions without permutation duplicates. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/integer-partitions.pl) |
+| [Stirling and Bell numbers](https://github.com/eyereasoner/eyepl/blob/main/examples/stirling-bell-numbers.pl) | Inclusion–exclusion and recurrence count set partitions in two related ways. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/stirling-bell-numbers.pl) |
+| [Catalan convolution](https://github.com/eyereasoner/eyepl/blob/main/examples/catalan-convolution.pl) | A classic convolution identity is evaluated over a bounded range. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/catalan-convolution.pl) |
+| [Binomial Vandermonde](https://github.com/eyereasoner/eyepl/blob/main/examples/binomial-vandermonde.pl) | Two finite sums compute the sides of Vandermonde's identity. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/binomial-vandermonde.pl) |
+| [D3 group](https://github.com/eyereasoner/eyepl/blob/main/examples/d3-group.pl) | A finite Cayley table, inverses, and subgroup closure make group laws executable. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/d3-group.pl) |
+| [Matrix noncommutativity](https://github.com/eyereasoner/eyepl/blob/main/examples/matrix-noncommutativity.pl) | Two concrete products provide a counterexample to universal commutativity. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/matrix-noncommutativity.pl) |
+| [Group inverse uniqueness](https://github.com/eyereasoner/eyepl/blob/main/examples/group-inverse-uniqueness.pl) | A short derivation exposes the algebraic premises needed for uniqueness. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/group-inverse-uniqueness.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/group-inverse-uniqueness.pl) |
+| [Greatest lower bound uniqueness](https://github.com/eyereasoner/eyepl/blob/main/examples/greatest-lower-bound-uniqueness.pl) | Order-theoretic definitions support a uniqueness argument. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/greatest-lower-bound-uniqueness.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/greatest-lower-bound-uniqueness.pl) |
+| [Pell equation](https://github.com/eyereasoner/eyepl/blob/main/examples/pell-equation.pl) | Bounded generation searches for integer witnesses to a Diophantine equation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/pell-equation.pl) |
+| [Totient summatory function](https://github.com/eyereasoner/eyepl/blob/main/examples/totient-summatory.pl) | Divisibility, coprimality, counting, and summation compose over finite domains. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/totient-summatory.pl) |
 
 For a focused seminar, read Peano calculus, Fast exponentiation, D3 group,
 Matrix noncommutativity, and Fundamental theorem of arithmetic. They exhibit,
@@ -4974,17 +4974,17 @@ discipline is to keep object language and Eyepl metalanguage distinct.
 
 | Program | What the terms represent | Checked answer |
 | --- | --- | --- |
-| [Expression evaluator](examples/expression-eval.pl) | Arithmetic expression trees are interpreted under an explicit environment. | [answers](examples/output/expression-eval.pl) · [proof](examples/proof/expression-eval.pl) |
-| [Symbolic derivative](examples/symbolic-derivative.pl) | Differentiation rules transform expression trees without evaluating them numerically. | [answers](examples/output/symbolic-derivative.pl) |
-| [Polynomial](examples/polynomial.pl) | Structured coefficients and powers support symbolic polynomial operations. | [answers](examples/output/polynomial.pl) |
-| [Partial evaluator](examples/partial-evaluator.pl) | Known inputs specialize an expression or program while unknown parts remain symbolic. | [answers](examples/output/partial-evaluator.pl) |
-| [Equality saturation](examples/equality-saturation.pl) | Repeated rewrite closure explores equivalent symbolic forms to a fixed point. | [answers](examples/output/equality-saturation.pl) |
-| [Knuth–Bendix completion](examples/knuth-bendix-completion.pl) | Oriented equations and critical interactions seek a more canonical rewrite system. | [answers](examples/output/knuth-bendix-completion.pl) |
-| [Language](examples/language.pl) | A small grammar recognizes a finite relational language. | [answers](examples/output/language.pl) |
-| [Chart parser](examples/chart-parser.pl) | Shared chart items prevent grammatical subproblems from being rediscovered independently. | [answers](examples/output/chart-parser.pl) · [proof](examples/proof/chart-parser.pl) |
-| [Turing machine](examples/turing.pl) | Machine configuration terms and transition rules expose a classical computation model. | [answers](examples/output/turing.pl) |
-| [SAT solver: DPLL](examples/sat-solver-dpll.pl) | Formula representation, assignment, simplification, and branching form a compact solver. | [answers](examples/output/sat-solver-dpll.pl) |
-| [SAT solver: CDCL](examples/cdcl-sat-solver.pl) | The example extends the SAT vocabulary toward conflicts and learned information. | [answers](examples/output/cdcl-sat-solver.pl) |
+| [Expression evaluator](https://github.com/eyereasoner/eyepl/blob/main/examples/expression-eval.pl) | Arithmetic expression trees are interpreted under an explicit environment. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/expression-eval.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/expression-eval.pl) |
+| [Symbolic derivative](https://github.com/eyereasoner/eyepl/blob/main/examples/symbolic-derivative.pl) | Differentiation rules transform expression trees without evaluating them numerically. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/symbolic-derivative.pl) |
+| [Polynomial](https://github.com/eyereasoner/eyepl/blob/main/examples/polynomial.pl) | Structured coefficients and powers support symbolic polynomial operations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/polynomial.pl) |
+| [Partial evaluator](https://github.com/eyereasoner/eyepl/blob/main/examples/partial-evaluator.pl) | Known inputs specialize an expression or program while unknown parts remain symbolic. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/partial-evaluator.pl) |
+| [Equality saturation](https://github.com/eyereasoner/eyepl/blob/main/examples/equality-saturation.pl) | Repeated rewrite closure explores equivalent symbolic forms to a fixed point. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/equality-saturation.pl) |
+| [Knuth–Bendix completion](https://github.com/eyereasoner/eyepl/blob/main/examples/knuth-bendix-completion.pl) | Oriented equations and critical interactions seek a more canonical rewrite system. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/knuth-bendix-completion.pl) |
+| [Language](https://github.com/eyereasoner/eyepl/blob/main/examples/language.pl) | A small grammar recognizes a finite relational language. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/language.pl) |
+| [Chart parser](https://github.com/eyereasoner/eyepl/blob/main/examples/chart-parser.pl) | Shared chart items prevent grammatical subproblems from being rediscovered independently. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/chart-parser.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/chart-parser.pl) |
+| [Turing machine](https://github.com/eyereasoner/eyepl/blob/main/examples/turing.pl) | Machine configuration terms and transition rules expose a classical computation model. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/turing.pl) |
+| [SAT solver: DPLL](https://github.com/eyereasoner/eyepl/blob/main/examples/sat-solver-dpll.pl) | Formula representation, assignment, simplification, and branching form a compact solver. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/sat-solver-dpll.pl) |
+| [SAT solver: CDCL](https://github.com/eyereasoner/eyepl/blob/main/examples/cdcl-sat-solver.pl) | The example extends the SAT vocabulary toward conflicts and learned information. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/cdcl-sat-solver.pl) |
 
 Inspect the outermost functor of every data term. In the derivative example it
 names an expression constructor; in the SAT examples it names logical syntax;
@@ -4998,15 +4998,15 @@ reasoning.
 
 | Program | Analysis idea | Checked answer |
 | --- | --- | --- |
-| [Abstract interpretation](examples/abstract-interpretation.pl) | A finite sign domain conservatively approximates many concrete executions. | [answers](examples/output/abstract-interpretation.pl) |
-| [Pointer analysis](examples/pointer-analysis.pl) | Allocation and assignment constraints derive a points-to relation by closure. | [answers](examples/output/pointer-analysis.pl) |
-| [Type inference](examples/type-inference.pl) | Structural unification solves type constraints for a tiny expression language. | [answers](examples/output/type-inference.pl) |
-| [Register allocation](examples/register-allocation.pl) | Liveness interference becomes a finite coloring problem. | [answers](examples/output/register-allocation.pl) |
-| [Cache performance](examples/cache-performance.pl) | Configuration and workload facts derive performance classifications and reasons. | [answers](examples/output/cache-performance.pl) · [proof](examples/proof/cache-performance.pl) |
-| [Canary release](examples/canary-release.pl) | Observations and thresholds support a deployment decision with auditable evidence. | [answers](examples/output/canary-release.pl) · [proof](examples/proof/canary-release.pl) |
-| [Security incident correlation](examples/security-incident-correlation.pl) | Distributed observations combine into incident conclusions. | [answers](examples/output/security-incident-correlation.pl) · [proof](examples/proof/security-incident-correlation.pl) |
-| [Observability log correlation](examples/observability-log-correlation.pl) | Structured log events join across identifiers and time-related facts. | [answers](examples/output/observability-log-correlation.pl) |
-| [Truth-maintenance system](examples/truth-maintenance-system.pl) | Justifications remain explicit when conclusions depend on defeasible information. | [answers](examples/output/truth-maintenance-system.pl) |
+| [Abstract interpretation](https://github.com/eyereasoner/eyepl/blob/main/examples/abstract-interpretation.pl) | A finite sign domain conservatively approximates many concrete executions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/abstract-interpretation.pl) |
+| [Pointer analysis](https://github.com/eyereasoner/eyepl/blob/main/examples/pointer-analysis.pl) | Allocation and assignment constraints derive a points-to relation by closure. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/pointer-analysis.pl) |
+| [Type inference](https://github.com/eyereasoner/eyepl/blob/main/examples/type-inference.pl) | Structural unification solves type constraints for a tiny expression language. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/type-inference.pl) |
+| [Register allocation](https://github.com/eyereasoner/eyepl/blob/main/examples/register-allocation.pl) | Liveness interference becomes a finite coloring problem. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/register-allocation.pl) |
+| [Cache performance](https://github.com/eyereasoner/eyepl/blob/main/examples/cache-performance.pl) | Configuration and workload facts derive performance classifications and reasons. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/cache-performance.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/cache-performance.pl) |
+| [Canary release](https://github.com/eyereasoner/eyepl/blob/main/examples/canary-release.pl) | Observations and thresholds support a deployment decision with auditable evidence. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/canary-release.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/canary-release.pl) |
+| [Security incident correlation](https://github.com/eyereasoner/eyepl/blob/main/examples/security-incident-correlation.pl) | Distributed observations combine into incident conclusions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/security-incident-correlation.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/security-incident-correlation.pl) |
+| [Observability log correlation](https://github.com/eyereasoner/eyepl/blob/main/examples/observability-log-correlation.pl) | Structured log events join across identifiers and time-related facts. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/observability-log-correlation.pl) |
+| [Truth-maintenance system](https://github.com/eyereasoner/eyepl/blob/main/examples/truth-maintenance-system.pl) | Justifications remain explicit when conclusions depend on defeasible information. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/truth-maintenance-system.pl) |
 
 Abstract interpretation deserves special care: an abstract warning is not the
 claim that every concrete execution fails. It says the abstraction cannot rule
@@ -5019,16 +5019,16 @@ decisions, reasons, integrity conditions, and proof.
 
 | Program | Decision domain | Checked companions |
 | --- | --- | --- |
-| [Access control policy](examples/access-control-policy.pl) | Attribute and policy facts derive permit status and reasons. | [answers](examples/output/access-control-policy.pl) · [proof](examples/proof/access-control-policy.pl) |
-| [GDPR compliance](examples/gdpr-compliance.pl) | Purpose, basis, and processing facts support compliance conclusions. | [answers](examples/output/gdpr-compliance.pl) · [proof](examples/proof/gdpr-compliance.pl) |
-| [Clinical-trial screening](examples/clinical-trial-screening.pl) | Inclusion and exclusion criteria produce an evidence-backed eligibility result. | [answers](examples/output/clinical-trial-screening.pl) · [proof](examples/proof/clinical-trial-screening.pl) |
-| [Workplace compliance](examples/workplace-compliance.pl) | Training, role, and workplace conditions feed a compact compliance theory. | [answers](examples/output/workplace-compliance.pl) |
-| [ODRL–DPV risk ranking](examples/odrl-dpv-risk-ranked.pl) | Policy and privacy vocabulary is normalized before candidates are ranked. | [answers](examples/output/odrl-dpv-risk-ranked.pl) |
-| [Healthcare ODRL–DPV risk](examples/odrl-dpv-healthcare-risk-ranked.pl) | The same architecture is specialized to a richer healthcare scenario. | [answers](examples/output/odrl-dpv-healthcare-risk-ranked.pl) |
-| [Purpose mapping](examples/dpv-odrl-purpose-mapping.pl) | Explicit mapping relations connect two policy vocabularies. | [answers](examples/output/dpv-odrl-purpose-mapping.pl) · [proof](examples/proof/dpv-odrl-purpose-mapping.pl) |
-| [Trust-flow provenance threshold](examples/trust-flow-provenance-threshold.pl) | Provenance and trust values remain premises of the derived threshold decision. | [answers](examples/output/trust-flow-provenance-threshold.pl) |
-| [Data negotiation](examples/data-negotiation.pl) | Offered and required data conditions derive an agreement or mismatch. | [answers](examples/output/data-negotiation.pl) · [proof](examples/proof/data-negotiation.pl) |
-| [Inference fuse](examples/inference-fuse.pl) | A forbidden state aborts evaluation before ordinary decisions are emitted. | [answers](examples/output/inference-fuse.pl) |
+| [Access control policy](https://github.com/eyereasoner/eyepl/blob/main/examples/access-control-policy.pl) | Attribute and policy facts derive permit status and reasons. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/access-control-policy.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/access-control-policy.pl) |
+| [GDPR compliance](https://github.com/eyereasoner/eyepl/blob/main/examples/gdpr-compliance.pl) | Purpose, basis, and processing facts support compliance conclusions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/gdpr-compliance.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/gdpr-compliance.pl) |
+| [Clinical-trial screening](https://github.com/eyereasoner/eyepl/blob/main/examples/clinical-trial-screening.pl) | Inclusion and exclusion criteria produce an evidence-backed eligibility result. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/clinical-trial-screening.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/clinical-trial-screening.pl) |
+| [Workplace compliance](https://github.com/eyereasoner/eyepl/blob/main/examples/workplace-compliance.pl) | Training, role, and workplace conditions feed a compact compliance theory. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/workplace-compliance.pl) |
+| [ODRL–DPV risk ranking](https://github.com/eyereasoner/eyepl/blob/main/examples/odrl-dpv-risk-ranked.pl) | Policy and privacy vocabulary is normalized before candidates are ranked. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/odrl-dpv-risk-ranked.pl) |
+| [Healthcare ODRL–DPV risk](https://github.com/eyereasoner/eyepl/blob/main/examples/odrl-dpv-healthcare-risk-ranked.pl) | The same architecture is specialized to a richer healthcare scenario. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/odrl-dpv-healthcare-risk-ranked.pl) |
+| [Purpose mapping](https://github.com/eyereasoner/eyepl/blob/main/examples/dpv-odrl-purpose-mapping.pl) | Explicit mapping relations connect two policy vocabularies. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/dpv-odrl-purpose-mapping.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/dpv-odrl-purpose-mapping.pl) |
+| [Trust-flow provenance threshold](https://github.com/eyereasoner/eyepl/blob/main/examples/trust-flow-provenance-threshold.pl) | Provenance and trust values remain premises of the derived threshold decision. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/trust-flow-provenance-threshold.pl) |
+| [Data negotiation](https://github.com/eyereasoner/eyepl/blob/main/examples/data-negotiation.pl) | Offered and required data conditions derive an agreement or mismatch. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/data-negotiation.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/data-negotiation.pl) |
+| [Inference fuse](https://github.com/eyereasoner/eyepl/blob/main/examples/inference-fuse.pl) | A forbidden state aborts evaluation before ordinary decisions are emitted. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/inference-fuse.pl) |
 
 When studying a policy proof, circle every premise imported from outside the
 theory. The derivation validates the transition from those premises to the
@@ -5041,18 +5041,18 @@ illustrative models, not professional engineering or medical advice.
 
 | Program | Model | Checked companions |
 | --- | --- | --- |
-| [Spacecraft battery diagnosis](examples/spacecraft-battery-diagnosis.pl) | Telemetry, `P = I²R`, limits, and redundant sensing support diagnosis and action. | [answers](examples/output/spacecraft-battery-diagnosis.pl) · [proof](examples/proof/spacecraft-battery-diagnosis.pl) |
-| [Beam deflection](examples/beam-deflection.pl) | A mechanics equation combines load, geometry, and material parameters. | [answers](examples/output/beam-deflection.pl) · [proof](examples/proof/beam-deflection.pl) |
-| [Electrical RC filter](examples/electrical-rc-filter.pl) | Component values derive circuit behavior under an explicit formula. | [answers](examples/output/electrical-rc-filter.pl) · [proof](examples/proof/electrical-rc-filter.pl) |
-| [Competitive enzyme kinetics](examples/competitive-enzyme-kinetics.pl) | A biochemical rate law becomes a numeric relational model. | [answers](examples/output/competitive-enzyme-kinetics.pl) |
-| [Orbital transfer design](examples/orbital-transfer-design.pl) | Candidate orbital parameters are evaluated against transfer equations. | [answers](examples/output/orbital-transfer-design.pl) |
-| [Buck converter design](examples/buck-converter-design.pl) | Electrical design candidates are checked against component and performance constraints. | [answers](examples/output/buck-converter-design.pl) |
-| [Control system](examples/control-system.pl) | System parameters derive stability- and response-related quantities. | [answers](examples/output/control-system.pl) |
-| [Least-squares regression](examples/least-squares-regression.pl) | Finite observations are summarized into a fitted linear model. | [answers](examples/output/least-squares-regression.pl) |
-| [Statistics summary](examples/statistics-summary.pl) | Aggregates compute descriptive statistics over a finite list. | [answers](examples/output/statistics-summary.pl) |
-| [Epidemic policy](examples/epidemic-policy.pl) | Observations and thresholds connect a simple epidemic model to policy conclusions. | [answers](examples/output/epidemic-policy.pl) · [proof](examples/proof/epidemic-policy.pl) |
-| [Dairy energy balance](examples/dairy-energy-balance.pl) | Intake and expenditure quantities are combined in an agricultural model. | [answers](examples/output/dairy-energy-balance.pl) |
-| [Field nitrogen balance](examples/field-nitrogen-balance.pl) | Inputs, removal, and losses form a conservation-style accounting relation. | [answers](examples/output/field-nitrogen-balance.pl) |
+| [Spacecraft battery diagnosis](https://github.com/eyereasoner/eyepl/blob/main/examples/spacecraft-battery-diagnosis.pl) | Telemetry, `P = I²R`, limits, and redundant sensing support diagnosis and action. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/spacecraft-battery-diagnosis.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/spacecraft-battery-diagnosis.pl) |
+| [Beam deflection](https://github.com/eyereasoner/eyepl/blob/main/examples/beam-deflection.pl) | A mechanics equation combines load, geometry, and material parameters. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/beam-deflection.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/beam-deflection.pl) |
+| [Electrical RC filter](https://github.com/eyereasoner/eyepl/blob/main/examples/electrical-rc-filter.pl) | Component values derive circuit behavior under an explicit formula. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/electrical-rc-filter.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/electrical-rc-filter.pl) |
+| [Competitive enzyme kinetics](https://github.com/eyereasoner/eyepl/blob/main/examples/competitive-enzyme-kinetics.pl) | A biochemical rate law becomes a numeric relational model. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/competitive-enzyme-kinetics.pl) |
+| [Orbital transfer design](https://github.com/eyereasoner/eyepl/blob/main/examples/orbital-transfer-design.pl) | Candidate orbital parameters are evaluated against transfer equations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/orbital-transfer-design.pl) |
+| [Buck converter design](https://github.com/eyereasoner/eyepl/blob/main/examples/buck-converter-design.pl) | Electrical design candidates are checked against component and performance constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/buck-converter-design.pl) |
+| [Control system](https://github.com/eyereasoner/eyepl/blob/main/examples/control-system.pl) | System parameters derive stability- and response-related quantities. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/control-system.pl) |
+| [Least-squares regression](https://github.com/eyereasoner/eyepl/blob/main/examples/least-squares-regression.pl) | Finite observations are summarized into a fitted linear model. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/least-squares-regression.pl) |
+| [Statistics summary](https://github.com/eyereasoner/eyepl/blob/main/examples/statistics-summary.pl) | Aggregates compute descriptive statistics over a finite list. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/statistics-summary.pl) |
+| [Epidemic policy](https://github.com/eyereasoner/eyepl/blob/main/examples/epidemic-policy.pl) | Observations and thresholds connect a simple epidemic model to policy conclusions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/epidemic-policy.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/epidemic-policy.pl) |
+| [Dairy energy balance](https://github.com/eyereasoner/eyepl/blob/main/examples/dairy-energy-balance.pl) | Intake and expenditure quantities are combined in an agricultural model. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/dairy-energy-balance.pl) |
+| [Field nitrogen balance](https://github.com/eyereasoner/eyepl/blob/main/examples/field-nitrogen-balance.pl) | Inputs, removal, and losses form a conservation-style accounting relation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/field-nitrogen-balance.pl) |
 
 For each scientific example, write a five-column audit: quantity, unit, source,
 equation, and approximation. A machine-checked derivation is only as
@@ -5066,17 +5066,17 @@ one adapter pipeline.
 
 | Program | RDF feature | Checked answer |
 | --- | --- | --- |
-| [Triple term](examples/rdf12-triple-term.pl) | An RDF 1.2 triple term is represented as nested Eyepl data and projected by a rule. | [answers](examples/output/rdf12-triple-term.pl) |
-| [Nested triple term](examples/rdf12-nested-triple-term.pl) | Triple terms occur recursively without becoming asserted facts merely by nesting. | [answers](examples/output/rdf12-nested-triple-term.pl) |
-| [TriG named graph](examples/rdf12-trig-named-graph.pl) | The fourth `rdf/4` argument preserves graph identity. | [answers](examples/output/rdf12-trig-named-graph.pl) |
-| [TriG triple term](examples/rdf12-trig-triple-term.pl) | RDF 1.2 triple terms and dataset graph structure appear together. | [answers](examples/output/rdf12-trig-triple-term.pl) |
-| [TriG graph join](examples/rdf12-trig-graph-join.pl) | Rules join facts while retaining their graph-sensitive representation. | [answers](examples/output/rdf12-trig-graph-join.pl) |
-| [Directional language](examples/rdf12-directional-language.pl) | Language direction remains explicit in the lossless literal encoding. | [answers](examples/output/rdf12-directional-language.pl) |
-| [Web names](examples/web-names.pl) | Quoted web identifiers remain atom constants in ordinary Prolog terms. | [answers](examples/output/web-names.pl) |
-| [Aliases and namespaces](examples/aliases-and-namespaces.pl) | Explicit name relations avoid adding hidden namespace semantics to the core. | [answers](examples/output/aliases-and-namespaces.pl) · [proof](examples/proof/aliases-and-namespaces.pl) |
+| [Triple term](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-triple-term.pl) | An RDF 1.2 triple term is represented as nested Eyepl data and projected by a rule. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-triple-term.pl) |
+| [Nested triple term](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-nested-triple-term.pl) | Triple terms occur recursively without becoming asserted facts merely by nesting. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-nested-triple-term.pl) |
+| [TriG named graph](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-trig-named-graph.pl) | The fourth `rdf/4` argument preserves graph identity. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-trig-named-graph.pl) |
+| [TriG triple term](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-trig-triple-term.pl) | RDF 1.2 triple terms and dataset graph structure appear together. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-trig-triple-term.pl) |
+| [TriG graph join](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-trig-graph-join.pl) | Rules join facts while retaining their graph-sensitive representation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-trig-graph-join.pl) |
+| [Directional language](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-directional-language.pl) | Language direction remains explicit in the lossless literal encoding. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-directional-language.pl) |
+| [Web names](https://github.com/eyereasoner/eyepl/blob/main/examples/web-names.pl) | Quoted web identifiers remain atom constants in ordinary Prolog terms. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/web-names.pl) |
+| [Aliases and namespaces](https://github.com/eyereasoner/eyepl/blob/main/examples/aliases-and-namespaces.pl) | Explicit name relations avoid adding hidden namespace semantics to the core. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/aliases-and-namespaces.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/aliases-and-namespaces.pl) |
 
 The original RDF fixtures and adapter rules are available in
-[examples/input](examples/input/). Chapter 15 explains why the conversion is
+[examples/input](https://github.com/eyereasoner/eyepl/tree/main/examples/input/). Chapter 15 explains why the conversion is
 an explicit boundary instead of extra syntax inside the reasoning core.
 
 ## E.11 Large integrated cases
@@ -5086,12 +5086,12 @@ reading. Begin by drawing their predicate dependency layers.
 
 | Program | Why it is a capstone | Checked answer |
 | --- | --- | --- |
-| [AuroraCare](examples/auroracare.pl) | A large healthcare-oriented knowledge theory combines many domain concepts and decisions. | [answers](examples/output/auroracare.pl) |
-| [Basic monadic](examples/basic-monadic.pl) | A large generated symbolic theory stresses parsing, terms, and relational execution. | [answers](examples/output/basic-monadic.pl) |
-| [Flandor](examples/flandor.pl) | A broad rule set provides practice navigating a less tutorial-shaped theory. | [answers](examples/output/flandor.pl) |
-| [LLDM](examples/lldm.pl) | A larger logical model demonstrates layered derivation over substantial source data. | [answers](examples/output/lldm.pl) |
-| [Knowledge-engineering alignment flow](examples/knowledge-engineering-alignment-flow.pl) | Source concepts, mappings, validation, and derived alignment are kept in explicit layers. | [answers](examples/output/knowledge-engineering-alignment-flow.pl) |
-| [Manufacturing quality control](examples/manufacturing-quality-control.pl) | Measurements, limits, classifications, and actions form an auditable industrial decision. | [answers](examples/output/manufacturing-quality-control.pl) |
+| [AuroraCare](https://github.com/eyereasoner/eyepl/blob/main/examples/auroracare.pl) | A large healthcare-oriented knowledge theory combines many domain concepts and decisions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/auroracare.pl) |
+| [Basic monadic](https://github.com/eyereasoner/eyepl/blob/main/examples/basic-monadic.pl) | A large generated symbolic theory stresses parsing, terms, and relational execution. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/basic-monadic.pl) |
+| [Flandor](https://github.com/eyereasoner/eyepl/blob/main/examples/flandor.pl) | A broad rule set provides practice navigating a less tutorial-shaped theory. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/flandor.pl) |
+| [LLDM](https://github.com/eyereasoner/eyepl/blob/main/examples/lldm.pl) | A larger logical model demonstrates layered derivation over substantial source data. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/lldm.pl) |
+| [Knowledge-engineering alignment flow](https://github.com/eyereasoner/eyepl/blob/main/examples/knowledge-engineering-alignment-flow.pl) | Source concepts, mappings, validation, and derived alignment are kept in explicit layers. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/knowledge-engineering-alignment-flow.pl) |
+| [Manufacturing quality control](https://github.com/eyereasoner/eyepl/blob/main/examples/manufacturing-quality-control.pl) | Measurements, limits, classifications, and actions form an auditable industrial decision. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/manufacturing-quality-control.pl) |
 
 Do not read a capstone from the first line to the last as if it were prose.
 Start at `query/1`, find the queried predicate heads, follow their dependencies
@@ -5124,7 +5124,7 @@ When adding an example:
 7. run the full corpus before treating the example as documentation.
 
 The full set contains 183 runnable source programs. This Appendix is curated
-rather than exhaustive: use the [complete directory listing](examples/) for
+rather than exhaustive: use the [complete directory listing](https://github.com/eyereasoner/eyepl/tree/main/examples/) for
 the remaining demonstrations, then apply the same reading discipline—sentence,
 mode, finite domain, answer, proof, and revision.
 
