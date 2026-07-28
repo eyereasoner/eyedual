@@ -54,8 +54,7 @@ why(
     uses([
       proof(
         goal(rest([a, b, c], [b, c])),
-        by(fact("<library>", clause(8))),
-        bindings([binding("__anon3", a), binding("T", [b, c])])
+        by(builtin(rest, 2))
       )
     ])
   )

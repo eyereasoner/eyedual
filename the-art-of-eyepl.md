@@ -4717,7 +4717,7 @@ The extension catalog is audited against
 registered when the supported ISO profile already expresses the same
 operation. The library registry contains the 38 default indicators plus 24
 irreducible host-extension indicators. It also loads ordinary portable Prolog
-clauses for relations that need no host primitive. Nine frequently used
+clauses for relations that need no host primitive. Twenty-eight frequently used
 portable relations have semantics-preserving native accelerators; these are
 classified separately because the bundled clauses remain their executable
 specification and fallback.
@@ -4792,8 +4792,9 @@ search domains.
 
 ### B.3.2 Portable list relations
 
-These relations are bundled as ordinary Prolog clauses, not registered host
-predicates. Every list-consuming relation below expects a proper list unless explicitly
+These relations are bundled as ordinary Prolog clauses and have
+semantics-preserving native accelerators; they are not semantic host
+extensions. Every list-consuming relation below expects a proper list unless explicitly
 stated otherwise. Indexes and counts are zero-based, nonnegative safe
 integers.
 

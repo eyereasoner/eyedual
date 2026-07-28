@@ -12,8 +12,7 @@ why(
         uses([
           proof(
             goal(member(a, [a, b, c])),
-            by(fact("<library>", clause(3))),
-            bindings([binding("X", a), binding("__anon0", [b, c])])
+            by(builtin(member, 2))
           )
         ])
       )

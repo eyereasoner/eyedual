@@ -126,8 +126,7 @@ why(
     uses([
       proof(
         goal(member(a, [a])),
-        by(fact("<library>", clause(3))),
-        bindings([binding("X", a), binding("__anon0", [])])
+        by(builtin(member, 2))
       )
     ])
   )
@@ -703,7 +702,8 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not core');
         assertEqual(Boolean(library.get('between', 3)), true, 'between/3 has a native accelerator');
         assertEqual(library.get('between', 3).portableEquivalent, true, 'between/3 accelerator is marked portable-equivalent');
-        assertEqual(Boolean(library.get('append', 3)), false, 'append/3 is a portable rule, not a host builtin');
+        assertEqual(Boolean(library.get('append', 3)), true, 'append/3 has a native accelerator');
+        assertEqual(library.get('append', 3).portableEquivalent, true, 'append/3 accelerator is marked portable-equivalent');
         assertIncludes(library.portableSource, 'append([], Ys, Ys).', 'portable library source');
         const portable = run('query(answer(X)). answer(X) :- append([a], [b], X).', { registry: library });
         assertEqual(portable.stdout, 'answer([a, b]).\n', 'portable library execution');
@@ -723,7 +723,11 @@ open(X) :- candidate(X), \\+ closed(X).
           .sort();
         assertEqual(portableAccelerators.join('\n'), [
           'aggregate_max/5', 'aggregate_min/5', 'between/3', 'countall/2',
-          'holds/2', 'holds/3', 'once/1', 'smallest_divisor_from/3', 'sumall/3',
+          'append/3', 'drop/3', 'head/2', 'holds/2', 'holds/3', 'last/2',
+          'length/2', 'list_to_set/2', 'max_list/2', 'member/2', 'min_list/2',
+          'not_member/2', 'nth0/3', 'once/1', 'reverse/2', 'select/3',
+          'set_nth0/4', 'slice/4', 'smallest_divisor_from/3', 'sort/2',
+          'sum_list/2', 'sumall/3', 'take/3', 'rest/2',
         ].sort().join('\n'), 'audited portable accelerator allowlist');
         for (const indicator of [
           'eq/2', 'neq/2', 'not/1', 'compound_name_arguments/3',

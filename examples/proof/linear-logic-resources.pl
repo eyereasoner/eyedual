@@ -35,8 +35,7 @@ why(
                 uses([
                   proof(
                     goal(select(wheat, [wheat, yeast, heat], [yeast, heat])),
-                    by(fact("<library>", clause(5))),
-                    bindings([binding("X", wheat), binding("Xs", [yeast, heat])])
+                    by(builtin(select, 3))
                   ),
                   proof(
                     goal(consume_all([], [yeast, heat], [yeast, heat])),
@@ -47,15 +46,7 @@ why(
               ),
               proof(
                 goal(append([flour], [yeast, heat], [flour, yeast, heat])),
-                by(rule("<library>", clause(2))),
-                bindings([binding("X", flour), binding("Xs", []), binding("Ys", [yeast, heat]), binding("Zs", [yeast, heat])]),
-                uses([
-                  proof(
-                    goal(append([], [yeast, heat], [yeast, heat])),
-                    by(fact("<library>", clause(1))),
-                    bindings([binding("Ys", [yeast, heat])])
-                  )
-                ])
+                by(builtin(append, 3))
               )
             ])
           ),
@@ -88,8 +79,7 @@ why(
                     uses([
                       proof(
                         goal(select(flour, [flour, yeast, heat], [yeast, heat])),
-                        by(fact("<library>", clause(5))),
-                        bindings([binding("X", flour), binding("Xs", [yeast, heat])])
+                        by(builtin(select, 3))
                       ),
                       proof(
                         goal(consume_all([yeast], [yeast, heat], [heat])),
@@ -98,8 +88,7 @@ why(
                         uses([
                           proof(
                             goal(select(yeast, [yeast, heat], [heat])),
-                            by(fact("<library>", clause(5))),
-                            bindings([binding("X", yeast), binding("Xs", [heat])])
+                            by(builtin(select, 3))
                           ),
                           proof(
                             goal(consume_all([], [heat], [heat])),
@@ -112,15 +101,7 @@ why(
                   ),
                   proof(
                     goal(append([dough], [heat], [dough, heat])),
-                    by(rule("<library>", clause(2))),
-                    bindings([binding("X", dough), binding("Xs", []), binding("Ys", [heat]), binding("Zs", [heat])]),
-                    uses([
-                      proof(
-                        goal(append([], [heat], [heat])),
-                        by(fact("<library>", clause(1))),
-                        bindings([binding("Ys", [heat])])
-                      )
-                    ])
+                    by(builtin(append, 3))
                   )
                 ])
               ),
@@ -153,8 +134,7 @@ why(
                         uses([
                           proof(
                             goal(select(dough, [dough, heat], [heat])),
-                            by(fact("<library>", clause(5))),
-                            bindings([binding("X", dough), binding("Xs", [heat])])
+                            by(builtin(select, 3))
                           ),
                           proof(
                             goal(consume_all([heat], [heat], [])),
@@ -163,8 +143,7 @@ why(
                             uses([
                               proof(
                                 goal(select(heat, [heat], [])),
-                                by(fact("<library>", clause(5))),
-                                bindings([binding("X", heat), binding("Xs", [])])
+                                by(builtin(select, 3))
                               ),
                               proof(
                                 goal(consume_all([], [], [])),
@@ -177,15 +156,7 @@ why(
                       ),
                       proof(
                         goal(append([bread], [], [bread])),
-                        by(rule("<library>", clause(2))),
-                        bindings([binding("X", bread), binding("Xs", []), binding("Ys", []), binding("Zs", [])]),
-                        uses([
-                          proof(
-                            goal(append([], [], [])),
-                            by(fact("<library>", clause(1))),
-                            bindings([binding("Ys", [])])
-                          )
-                        ])
+                        by(builtin(append, 3))
                       )
                     ])
                   ),

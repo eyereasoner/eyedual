@@ -7,6 +7,7 @@ import { stringBuiltins } from './strings.js';
 import { aggregationBuiltins } from './aggregation.js';
 import { contextBuiltins } from './context.js';
 import { controlBuiltins } from './control.js';
+import { listBuiltins } from './lists.js';
 import { portableLibrarySource } from './portable-rules.js';
 
 export class BuiltinRegistry {
@@ -49,6 +50,7 @@ export function createLibraryRegistry() {
     aggregationBuiltins,
     contextBuiltins,
     controlBuiltins,
+    listBuiltins,
     isoBuiltins,
   ]) {
     mod.register(registry);
