@@ -5,7 +5,7 @@ answer(product, X) :- (X is 6 * 7).
 answer(integer_division, X) :- (X is 7 / 2).
 answer(remainder, X) :- (X is 7 mod 2).
 answer(power, X) :- (X is 2 ** 8).
-answer(minimum, X) :- (X is min(3, 9)).
+answer(minimum, X) :- min(3, 9, X).
 answer(less_than, true) :- (3 < 9).
 answer(greater_equal, true) :- (9 >= 9).
 query(answer(X0, X1)).

@@ -8,7 +8,6 @@ import { listBuiltins } from './lists.js';
 import { aggregationBuiltins } from './aggregation.js';
 import { contextBuiltins } from './context.js';
 import { controlBuiltins } from './control.js';
-import { termBuiltins } from './terms.js';
 
 export class BuiltinRegistry {
   constructor() {
@@ -49,7 +48,6 @@ export function createLibraryRegistry() {
     aggregationBuiltins,
     contextBuiltins,
     controlBuiltins,
-    termBuiltins,
     isoBuiltins,
   ]) {
     mod.register(registry);

@@ -2,8 +2,8 @@
 // The code keeps BigInt paths where possible so large Eyepl integers remain exact.
 import { compareIntegerText, deref, isDecimalInteger, lexicalValue, numberTerm, numberTextFromDouble, parseFiniteNumber, unify } from '../term.js';
 
-const unaryNames = ['neg', 'abs', 'sin', 'cos', 'tan', 'asin', 'acos', 'sqrt', 'floor', 'ceiling', 'trunc', 'rounded', 'exp', 'log'];
-const binaryNames = ['add', 'sub', 'mul', 'div', 'mod', 'min', 'max', 'pow', 'atan2'];
+const unaryNames = ['tan', 'asin', 'acos'];
+const binaryNames = ['min', 'max', 'atan2'];
 const compareNames = ['lt', 'gt', 'le', 'ge'];
 
 export const arithmeticBuiltins = {

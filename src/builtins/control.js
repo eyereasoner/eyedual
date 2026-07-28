@@ -1,19 +1,10 @@
-// Control builtins.  These intentionally use bounded nested solvers so not/1 and once/1 only ask for the answers they need.
+// Control builtins that are not already expressible with ISO control constructs.
 export const controlBuiltins = {
   register(registry) {
-    registry.add('not', 1, notBuiltin);
     registry.add('once', 1, onceBuiltin);
     registry.add('forall', 2, forallBuiltin);
   }
 };
-
-function* notBuiltin({ solver, goal, env }) {
-  const limited = solver.cloneForInnerGoal(1);
-  let found = false;
-  for (const _ of limited.solve([goal.args[0]], env.clone(), 0)) { found = true; break; }
-  solver.absorbStatsFrom(limited);
-  if (!found) yield env;
-}
 
 function* onceBuiltin({ solver, goal, env }) {
   const limited = solver.cloneForInnerGoal(1);

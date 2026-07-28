@@ -4,6 +4,6 @@ answer(product, 42).
 answer(integer_division, 3.5).
 answer(remainder, 1).
 answer(power, 256.0).
-answer(minimum, 3.0).
+answer(minimum, 3).
 answer(less_than, true).
 answer(greater_equal, true).

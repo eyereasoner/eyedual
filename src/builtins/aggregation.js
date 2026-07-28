@@ -1,25 +1,15 @@
 // Aggregation builtins that run a inner goal and collect, count, sum, or select the best answers.
 // Each handler clones the solver so the inner goal can enumerate independently of the outer goal.
-import { compareTerms, copyResolved, isDecimalInteger, lexicalValue, listFromItems, numberTerm, numberTextFromDouble, parseFiniteNumber, unify } from '../term.js';
+import { compareTerms, copyResolved, isDecimalInteger, lexicalValue, numberTerm, numberTextFromDouble, parseFiniteNumber, unify } from '../term.js';
 
 export const aggregationBuiltins = {
   register(registry) {
-    registry.add('findall', 3, findall);
     registry.add('countall', 2, countall);
     registry.add('sumall', 3, sumall);
     registry.add('aggregate_min', 5, aggregateBest(true));
     registry.add('aggregate_max', 5, aggregateBest(false));
   }
 };
-
-function* findall({ solver, goal, env }) {
-  const [template, innerGoal, bag] = goal.args;
-  const collector = solver.cloneForInnerGoal(10000000);
-  const collected = [];
-  for (const answerEnv of collector.solve([innerGoal], env.clone(), 0)) collected.push(copyResolved(template, answerEnv));
-  const next = env.clone();
-  if (unify(bag, listFromItems(collected), next)) yield next;
-}
 
 function* countall({ solver, goal, env }) {
   const [innerGoal, count] = goal.args;

@@ -1,6 +1,6 @@
 % Reference 9.1: reusable numeric functions and max/3.
 query(answer(X0, X1)).
-answer(max, X) :- (X is max(17, 42)).
+answer(max, X) :- max(17, 42, X).
 answer(sqrt, X) :- (X is sqrt(81)).
 answer(floor, X) :- (X is floor(3.9)).
 answer(ceiling, X) :- (X is ceiling(3.1)).

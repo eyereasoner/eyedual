@@ -38,7 +38,7 @@ lower_margin_mm(Run, Margin) :-
 nearest_spec_margin_mm(Run, Margin) :-
   upper_margin_mm(Run, Uppermargin),
   lower_margin_mm(Run, Lowermargin),
-  (Margin is min(Uppermargin, Lowermargin)).
+  min(Uppermargin, Lowermargin, Margin).
 
 three_sigma_mm(Run, Threesigma) :-
   summary(Run, sigma_mm, Sigma),

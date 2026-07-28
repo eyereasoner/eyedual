@@ -2,9 +2,9 @@
 % structured terms.
 %
 % Each report/2 answer demonstrates one meta-programming operation over ordinary
-% Eyepl terms: functor/3 and arg/3 inspect shape, compound_name_arguments/3 can
-% decompose or rebuild a compound, term_string/2 renders a term, and forall/2
-% validates all edge weights.
+% Eyepl terms: functor/3 and arg/3 inspect shape, =../2 can decompose or rebuild
+% a compound, term_string/2 renders a term, and forall/2 validates all edge
+% weights.
 %
 % This is a good reference example when writing rules that need to treat terms as
 % data rather than only as predicate calls.

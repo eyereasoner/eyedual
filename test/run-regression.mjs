@@ -704,6 +704,14 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not core');
         assertEqual(Boolean(between), true, 'library between/3 exists');
         assertEqual(Boolean(append), true, 'library append/3 exists');
+        for (const indicator of [
+          'eq/2', 'neq/2', 'not/1', 'compound_name_arguments/3',
+          'add/3', 'sub/3', 'mul/3', 'div/3', 'mod/3', 'pow/3',
+          'neg/2', 'abs/2', 'sin/2', 'cos/2', 'exp/2', 'log/2',
+          'sqrt/2', 'floor/2', 'ceiling/2', 'trunc/2', 'rounded/2',
+        ]) {
+          assertEqual(Boolean(library.defs.get(indicator)), false, `${indicator} redundant extension is absent`);
+        }
         assertEqual(between.name, 'between', 'between name');
         assertEqual(append.arity, 3, 'append arity');
       },

@@ -4681,7 +4681,7 @@ failure is `fail`.
 numeric result with `Result`. Supported expressions include integer and
 floating-point literals, unary `+` and `-`, `+`, `-`, `*`, `/`, `//`, `div`,
 `mod`, `rem`, bit operations, exponentiation, `abs`, rounding functions,
-trigonometric functions, `exp`, `log`, and `sqrt`.
+`sin`, `cos`, `atan`, `exp`, `log`, and `sqrt`.
 
 Arithmetic comparisons evaluate both operands. Standard term-order predicates
 (`@<`, `@=<`, `@>`, `@>=`) compare terms without arithmetic evaluation.
@@ -4704,8 +4704,11 @@ those facilities opt into this implementation extension layer. Keeping it
 separate prevents an extension predicate from silently changing the meaning or
 error behavior of a standards-profile program.
 
-The library registry contains the 38 default indicators plus 77 extension
-indicators. On the command line:
+The extension catalog is audited against
+[ISO/IEC 13211-1](https://www.iso.org/standard/21413.html): an extension is not
+registered when the supported ISO profile already expresses the same
+operation. The library registry contains the 38 default indicators plus 56
+extension indicators. On the command line:
 
 ```sh
 eyepl --library program.pl
@@ -4737,13 +4740,8 @@ the corresponding predicate.
 
 | Predicates and principal modes | Behavior |
 | --- | --- |
-| `neg(+N,-R)`, `abs(+N,-R)` | Numeric negation and absolute value. Decimal integers remain exact arbitrary-precision integers. |
-| `add(+A,+B,-R)`, `sub(+A,+B,-R)`, `mul(+A,+B,-R)` | Addition, subtraction, and multiplication. All-integer calls retain exact integer arithmetic. |
-| `div(+A,+B,-R)`, `mod(+A,+B,-R)` | `div/3` truncates an all-integer quotient toward zero and otherwise performs floating division. `mod/3` accepts integers only. A zero divisor fails. |
-| `pow(+A,+B,-R)` | Integer exponentiation is exact for a nonnegative integer exponent. Other numeric calls use floating-point exponentiation. |
 | `min(+A,+B,-R)`, `max(+A,+B,-R)` | Select the numeric minimum or maximum. |
-| `sin/2`, `cos/2`, `tan/2`, `asin/2`, `acos/2`, `atan2/3`, `exp/2`, `log/2`, `sqrt/2` | Floating-point mathematical functions. `log/2` requires a positive input; `sqrt/2` requires a nonnegative input. |
-| `floor(+N,-R)`, `ceiling(+N,-R)`, `trunc(+N,-R)`, `rounded(+N,-R)` | Produce integer-valued results. `trunc/2` moves toward zero; `rounded/2` follows JavaScript `Math.round` behavior. |
+| `tan/2`, `asin/2`, `acos/2`, `atan2/3` | Floating-point functions not supplied as evaluable functions by ISO/IEC 13211-1. |
 | `lt(+A,+B)`, `le(+A,+B)`, `gt(+A,+B)`, `ge(+A,+B)` | Compare integers exactly, finite numeric text numerically, `PnYnMnD` duration text component-wise, and other lexical values by string order. These differ from ISO arithmetic comparison and standard term order. |
 | `between(+Low,+High,?N)` | Enumerates every integer in the inclusive range when `N` is unbound, or checks a bound value. An empty range has no answers. |
 | `smallest_divisor_from(+N,+Start,-D)` | Finds the first divisor of nonnegative integer `N` at or above positive `Start`, up to its square root; returns `N` if none is found. |
@@ -4751,15 +4749,17 @@ the corresponding predicate.
 | `difference(+End,+Start,-Duration)` | Computes a nonnegative calendar difference between ISO date prefixes and returns `"PnYnMnD"`. Invalid dates or an end before the start fail. |
 
 ```eyepl
-answer(square, S) :- mul(12, 12, S).
+answer(square, S) :- (S is 12 * 12).
 answer(day_count, N) :- between(3, 5, N).
 answer(age, D) :- difference("2026-07-28", "2020-05-20", D).
 query(answer(Kind, Value)).
 ```
 
-`add/3`, `mul/3`, and the other named numeric predicates are
-implementation conveniences. Portable profile code should prefer `is/2` and
-the ISO arithmetic operators.
+Earlier releases exposed named wrappers such as `add/3`, `mul/3`, `abs/2`,
+and `sqrt/2`. They were removed because ISO arithmetic already expresses them:
+for example, `R is A + B`, `R is abs(A)`, and `R is sqrt(A)`. The same applies
+to subtraction, multiplication, division, modulo, powers, sine, cosine,
+exponential, logarithm, and the ISO rounding functions.
 
 ### B.3.2 List predicates
 
@@ -4844,12 +4844,17 @@ intended to restrict its domain.
 | `aggregate_min(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the smallest resolved key under standard term order. |
 | `aggregate_max(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the largest resolved key. Both best-value predicates fail on an empty solution set and retain the first solution on an equal key. |
 | `once(+Goal)` | Returns only the first solution and its bindings. Clause and generator order therefore become observable. |
-| `not(+Goal)` | Alias-style extension for negation as failure. It succeeds without bindings only when the nested goal has no solution. Portable code should use `\+/1`. |
 | `forall(+Generator,+Check)` | Runs `Check` for every generator solution. It succeeds for an empty generator and does not export generator bindings. |
 
 ISO `findall/3` is present in both registries. The extension aggregates follow
 the same scoping principle: variables created inside the nested search do not
 leak except through the declared templates and outputs.
+
+There is no `not/1` alias: use ISO `\+/1`. In classical Prolog,
+`forall(Generator, Check)` can be expanded to
+`\+ (Generator, \+ Check)`. Eyepl retains `forall/2` because its bounded nested
+solver preserves that operational contract without exposing nested-negation
+search and tabling details.
 
 ```eyepl
 cost(a, 8).
@@ -4871,8 +4876,6 @@ query(answer(Kind, Value)).
 | --- | --- |
 | `holds(+Context,?Member)` | Flattens a comma-context from left to right and matches one member at a time. Members remain data; they are not called as goals. |
 | `holds(+Context,?Name,?Arguments)` | Decomposes each atomic or compound context member into an atom name and a proper argument list. |
-| `compound_name_arguments(?Term,?Name,?Arguments)` | Decomposes an atom or compound, or constructs one from a lexical name and proper argument list. An empty argument list constructs an atom because Eyepl has no zero-arity compound syntax. |
-| `eq(?A,?B)`, `neq(?A,?B)` | Convenience spellings for unification and non-unifiability. Portable code should use `=/2` and `\=/2`. |
 
 ```eyepl
 message(event_17,
@@ -4885,9 +4888,10 @@ answer(field(Name, Args)) :-
 query(answer(X)).
 ```
 
-The library still includes the ISO `functor/3` and `arg/3` predicates described
-in the default profile. `compound_name_arguments/3` is the extension intended
-for convenient whole-argument-list decomposition and construction.
+The library still includes the ISO `functor/3`, `arg/3`, and `=../2`
+predicates described in the default profile. Use `=../2` for whole-argument-list
+decomposition and construction, `=/2` for unification, and `\=/2` for
+non-unifiability; the redundant extension aliases are not registered.
 
 # Appendix C. Command-line reference
 

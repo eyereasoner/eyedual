@@ -1,4 +1,4 @@
-answer(max_negative, -3.0).
+answer(max_negative, -3).
 answer(min_float, -1.25).
 answer(floor_negative, -4).
 answer(ceiling_negative, -3).

@@ -2,20 +2,8 @@
 // They are deterministic filters/projections and should avoid enumerating additional answers.
 import { stringTerm, lexicalValue, unify } from '../term.js';
 
-function* ok(env) { yield env; }
-
 export const coreBuiltins = {
   register(registry) {
-    registry.add('eq', 2, function* ({ goal, env }) {
-      const next = env.clone();
-      if (unify(goal.args[0], goal.args[1], next)) yield next;
-    }, { deterministic: true });
-
-    registry.add('neq', 2, function* ({ goal, env }) {
-      const attempt = env.clone();
-      if (!unify(goal.args[0], goal.args[1], attempt)) yield env;
-    }, { deterministic: true });
-
     registry.add('local_time', 1, function* ({ goal, env }) {
       const next = env.clone();
       if (unify(goal.args[0], stringTerm(localDateText()), next)) yield next;

@@ -323,9 +323,6 @@ function evaluateOperation(term, args) {
   else if (name === '*') value = x * y;
   else if (name === '/') value = x / y;
   else if (name === '**' || name === '^') value = Math.pow(x, y);
-  else if (name === 'min') value = Math.min(x, y);
-  else if (name === 'max') value = Math.max(x, y);
-  else if (name === 'atan2') value = Math.atan2(x, y);
   else throw new PrologError('type_error(evaluable)', compound('/', [atom(name), numberTerm(arity)]));
   if (!Number.isFinite(value)) throw new PrologError('evaluation_error(undefined)');
   return { integer: false, value };
