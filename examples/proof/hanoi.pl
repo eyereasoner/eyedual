@@ -57,7 +57,8 @@ why(
                   ),
                   proof(
                     goal(append([], [[left, right]], [[left, right]])),
-                    by(builtin(append, 3))
+                    by(fact("<library>", clause(1))),
+                    bindings([binding("Ys", [[left, right]])])
                   )
                 ])
               ),
@@ -86,13 +87,22 @@ why(
                   ),
                   proof(
                     goal(append([], [[right, center]], [[right, center]])),
-                    by(builtin(append, 3))
+                    by(fact("<library>", clause(1))),
+                    bindings([binding("Ys", [[right, center]])])
                   )
                 ])
               ),
               proof(
                 goal(append([[left, right]], [[left, center], [right, center]], [[left, right], [left, center], [right, center]])),
-                by(builtin(append, 3))
+                by(rule("<library>", clause(2))),
+                bindings([binding("X", [left, right]), binding("Xs", []), binding("Ys", [[left, center], [right, center]]), binding("Zs", [[left, center], [right, center]])]),
+                uses([
+                  proof(
+                    goal(append([], [[left, center], [right, center]], [[left, center], [right, center]])),
+                    by(fact("<library>", clause(1))),
+                    bindings([binding("Ys", [[left, center], [right, center]])])
+                  )
+                ])
               )
             ])
           ),
@@ -134,7 +144,8 @@ why(
                   ),
                   proof(
                     goal(append([], [[center, left]], [[center, left]])),
-                    by(builtin(append, 3))
+                    by(fact("<library>", clause(1))),
+                    bindings([binding("Ys", [[center, left]])])
                   )
                 ])
               ),
@@ -163,19 +174,50 @@ why(
                   ),
                   proof(
                     goal(append([], [[left, right]], [[left, right]])),
-                    by(builtin(append, 3))
+                    by(fact("<library>", clause(1))),
+                    bindings([binding("Ys", [[left, right]])])
                   )
                 ])
               ),
               proof(
                 goal(append([[center, left]], [[center, right], [left, right]], [[center, left], [center, right], [left, right]])),
-                by(builtin(append, 3))
+                by(rule("<library>", clause(2))),
+                bindings([binding("X", [center, left]), binding("Xs", []), binding("Ys", [[center, right], [left, right]]), binding("Zs", [[center, right], [left, right]])]),
+                uses([
+                  proof(
+                    goal(append([], [[center, right], [left, right]], [[center, right], [left, right]])),
+                    by(fact("<library>", clause(1))),
+                    bindings([binding("Ys", [[center, right], [left, right]])])
+                  )
+                ])
               )
             ])
           ),
           proof(
             goal(append([[left, right], [left, center], [right, center]], [[left, right], [center, left], [center, right], [left, right]], [[left, right], [left, center], [right, center], [left, right], [center, left], [center, right], [left, right]])),
-            by(builtin(append, 3))
+            by(rule("<library>", clause(2))),
+            bindings([binding("X", [left, right]), binding("Xs", [[left, center], [right, center]]), binding("Ys", [[left, right], [center, left], [center, right], [left, right]]), binding("Zs", [[left, center], [right, center], [left, right], [center, left], [center, right], [left, right]])]),
+            uses([
+              proof(
+                goal(append([[left, center], [right, center]], [[left, right], [center, left], [center, right], [left, right]], [[left, center], [right, center], [left, right], [center, left], [center, right], [left, right]])),
+                by(rule("<library>", clause(2))),
+                bindings([binding("X", [left, center]), binding("Xs", [[right, center]]), binding("Ys", [[left, right], [center, left], [center, right], [left, right]]), binding("Zs", [[right, center], [left, right], [center, left], [center, right], [left, right]])]),
+                uses([
+                  proof(
+                    goal(append([[right, center]], [[left, right], [center, left], [center, right], [left, right]], [[right, center], [left, right], [center, left], [center, right], [left, right]])),
+                    by(rule("<library>", clause(2))),
+                    bindings([binding("X", [right, center]), binding("Xs", []), binding("Ys", [[left, right], [center, left], [center, right], [left, right]]), binding("Zs", [[left, right], [center, left], [center, right], [left, right]])]),
+                    uses([
+                      proof(
+                        goal(append([], [[left, right], [center, left], [center, right], [left, right]], [[left, right], [center, left], [center, right], [left, right]])),
+                        by(fact("<library>", clause(1))),
+                        bindings([binding("Ys", [[left, right], [center, left], [center, right], [left, right]])])
+                      )
+                    ])
+                  )
+                ])
+              )
+            ])
           )
         ])
       )

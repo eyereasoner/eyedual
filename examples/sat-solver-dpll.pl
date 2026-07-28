@@ -47,9 +47,15 @@ clause_satisfied(Assignment, Clause_name) :-
 % Unassigned literals keep the branch alive, just as in DPLL.
 clause_impossible(Assignment, Clause_name) :-
   clause(Clause_name, Literals),
-  forall(member(Literal, Literals), literal_false(Literal, Assignment)).
+  \+ nonfalse_literal(Literals, Assignment).
+nonfalse_literal(Literals, Assignment) :-
+  member(Literal, Literals),
+  \+ literal_false(Literal, Assignment).
 partial_consistent(Assignment) :- \+ (clause(Name, _), clause_impossible(Assignment, Name)).
-complete_model(Assignment) :- forall(clause(Name, _), clause_satisfied(Assignment, Name)).
+complete_model(Assignment) :- \+ unsatisfied_clause(Assignment).
+unsatisfied_clause(Assignment) :-
+  clause(Name, _),
+  \+ clause_satisfied(Assignment, Name).
 
 % Recursive DPLL search: choose a truth value, prune if inconsistent, then
 % continue with the remaining variables.

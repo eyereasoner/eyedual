@@ -8,4 +8,5 @@ answer(arg, X) :- arg(2, edge(a, b), X).
 answer(decompose, pair(Name, Args)) :- (edge(a, b) =.. [Name | Args]).
 answer(compose, X) :- (X =.. [edge | [a, b]]).
 answer(term_string, X) :- term_string(edge(a, [b, c]), X).
-answer(forall, ok) :- forall(item(X), (X < 4)).
+answer(forall, ok) :- \+ item_counterexample.
+item_counterexample :- item(X), \+ (X < 4).

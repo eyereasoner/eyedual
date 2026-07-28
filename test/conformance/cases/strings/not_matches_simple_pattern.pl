@@ -1,2 +1,2 @@
 query(answer(X0)).
-answer(ok) :- not_matches("abc", "x|y").
+answer(ok) :- \+ matches("abc", "x|y").

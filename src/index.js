@@ -24,9 +24,10 @@ import { checkInferenceFuses } from './fuse.js';
 export function run(source, options = {}) {
   const includeWhy = options.proof === true || options.why === true || options.explain === true;
   const parseOptions = { ...options, sourceMetadata: includeWhy, markRecursive: includeWhy };
-  const program = source instanceof Program ? source : Program.parse(source, parseOptions);
+  let program = source instanceof Program ? source : Program.parse(source, parseOptions);
   const runOptions = options.registry ? options : { ...options, registry: getDefaultRegistry() };
   const solver = new Solver(program, runOptions);
+  program = solver.program;
   checkInferenceFuses(program, solver);
   const output = [];
   const goals = program.queryGoals();

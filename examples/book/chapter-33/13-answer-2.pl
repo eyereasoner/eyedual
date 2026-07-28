@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 33 — B.3.2 List predicates.
+% From The Art of Eyepl, Chapter 33 — B.3.2 Portable list relations.
 answer(split, pair(Prefix, Suffix)) :-
   append(Prefix, Suffix, [a, b]).
 

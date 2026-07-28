@@ -126,7 +126,8 @@ why(
     uses([
       proof(
         goal(member(a, [a])),
-        by(builtin(member, 2))
+        by(fact("<library>", clause(3))),
+        bindings([binding("X", a), binding("__anon0", [])])
       )
     ])
   )
@@ -697,13 +698,33 @@ open(X) :- candidate(X), \\+ closed(X).
       run: () => {
         const registry = createDefaultRegistry();
         const library = getLibraryRegistry();
-        const between = library.get('between', 3);
-        const append = library.get('append', 3);
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('between', 3)), false, 'between/3 is not core');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not core');
-        assertEqual(Boolean(between), true, 'library between/3 exists');
-        assertEqual(Boolean(append), true, 'library append/3 exists');
+        assertEqual(Boolean(library.get('between', 3)), true, 'between/3 has a native accelerator');
+        assertEqual(library.get('between', 3).portableEquivalent, true, 'between/3 accelerator is marked portable-equivalent');
+        assertEqual(Boolean(library.get('append', 3)), false, 'append/3 is a portable rule, not a host builtin');
+        assertIncludes(library.portableSource, 'append([], Ys, Ys).', 'portable library source');
+        const portable = run('query(answer(X)). answer(X) :- append([a], [b], X).', { registry: library });
+        assertEqual(portable.stdout, 'answer([a, b]).\n', 'portable library execution');
+        const nativeExtensions = [...library.defs.keys()]
+          .filter((indicator) => !registry.defs.has(indicator) && !library.defs.get(indicator).portableEquivalent)
+          .sort();
+        assertEqual(nativeExtensions.join('\n'), [
+          'acos/2', 'asin/2', 'atan2/3', 'atom_string/2', 'contains/2',
+          'difference/3', 'ge/2', 'gt/2', 'join/3', 'le/2', 'local_time/1',
+          'lowercase/2', 'lt/2', 'matches/2', 'matches/3', 'number_string/2',
+          'replace/4', 'split/3', 'str_concat/3', 'substring/4', 'tan/2',
+          'term_string/2', 'trim/2', 'uppercase/2',
+        ].sort().join('\n'), 'audited native extension allowlist');
+        const portableAccelerators = [...library.defs.entries()]
+          .filter(([indicator, definition]) => !registry.defs.has(indicator) && definition.portableEquivalent)
+          .map(([indicator]) => indicator)
+          .sort();
+        assertEqual(portableAccelerators.join('\n'), [
+          'aggregate_max/5', 'aggregate_min/5', 'between/3', 'countall/2',
+          'holds/2', 'holds/3', 'once/1', 'smallest_divisor_from/3', 'sumall/3',
+        ].sort().join('\n'), 'audited portable accelerator allowlist');
         for (const indicator of [
           'eq/2', 'neq/2', 'not/1', 'compound_name_arguments/3',
           'add/3', 'sub/3', 'mul/3', 'div/3', 'mod/3', 'pow/3',
@@ -712,8 +733,6 @@ open(X) :- candidate(X), \\+ closed(X).
         ]) {
           assertEqual(Boolean(library.defs.get(indicator)), false, `${indicator} redundant extension is absent`);
         }
-        assertEqual(between.name, 'between', 'between name');
-        assertEqual(append.arity, 3, 'append arity');
       },
     },
   ];
@@ -1257,7 +1276,10 @@ function registeredBuiltinNames() {
 
 function registeredExtensionBuiltinNames() {
   const defaults = createDefaultRegistry().defs;
-  return [...getLibraryRegistry().defs.keys()].filter((name) => !defaults.has(name)).sort();
+  return [...getLibraryRegistry().defs.entries()]
+    .filter(([name, definition]) => !defaults.has(name) && !definition.portableEquivalent)
+    .map(([name]) => name)
+    .sort();
 }
 
 function registeredBuiltinSummary() {
@@ -1275,7 +1297,7 @@ function bookBuiltinNames() {
 
 function bookExtensionBuiltinNames() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '## B.3 Implementation extension library', '# Appendix C. Command-line reference'), 1);
+  return documentedBuiltinNames(between(book, '<!-- native-extension-catalog:start -->', '<!-- native-extension-catalog:end -->'), 1);
 }
 
 function bookBuiltinSummary() {

@@ -3,7 +3,7 @@ why(
   modal_truth(all_accessible_worlds_clear, w0, box(atom(clear))),
   proof(
     goal(modal_truth(all_accessible_worlds_clear, w0, box(atom(clear)))),
-    by(rule("modal-logic-kripke.pl", clause(22))),
+    by(rule("modal-logic-kripke.pl", clause(23))),
     uses([
       proof(
         goal(mforces(w0, box(atom(clear)))),
@@ -15,8 +15,8 @@ why(
             by(fact("modal-logic-kripke.pl", clause(3)))
           ),
           proof(
-            goal(forall(accessible(w0, Next), mforces(Next, atom(clear)))),
-            by(builtin(forall, 2))
+            goal('\\+'(box_counterexample(w0, atom(clear)))),
+            by(builtin('\\+', 1))
           )
         ])
       )
@@ -29,7 +29,7 @@ why(
   modal_truth(repair_is_possible, w0, diamond(atom(repaired))),
   proof(
     goal(modal_truth(repair_is_possible, w0, diamond(atom(repaired)))),
-    by(rule("modal-logic-kripke.pl", clause(23))),
+    by(rule("modal-logic-kripke.pl", clause(24))),
     uses([
       proof(
         goal(mforces(w0, diamond(atom(repaired)))),
@@ -62,7 +62,7 @@ why(
   modal_truth(nested_possibility, w1, diamond(and(atom(clear), atom(clear)))),
   proof(
     goal(modal_truth(nested_possibility, w1, diamond(and(atom(clear), atom(clear))))),
-    by(rule("modal-logic-kripke.pl", clause(24))),
+    by(rule("modal-logic-kripke.pl", clause(25))),
     uses([
       proof(
         goal(mforces(w1, diamond(and(atom(clear), atom(clear))))),
@@ -113,7 +113,7 @@ why(
   modal_countermodel(repair_not_necessary, w0),
   proof(
     goal(modal_countermodel(repair_not_necessary, w0)),
-    by(rule("modal-logic-kripke.pl", clause(25))),
+    by(rule("modal-logic-kripke.pl", clause(26))),
     uses([
       proof(
         goal('\\+'(mforces(w0, box(atom(repaired))))),

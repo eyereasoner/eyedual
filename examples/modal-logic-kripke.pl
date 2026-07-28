@@ -30,7 +30,10 @@ mforces(World, and(Left, Right)) :- mforces(World, Left), mforces(World, Right).
 mforces(World, diamond(Formula)) :- accessible(World, Next), mforces(Next, Formula).
 mforces(World, box(Formula)) :-
   world(World),
-  forall(accessible(World, Next), mforces(Next, Formula)).
+  \+ box_counterexample(World, Formula).
+box_counterexample(World, Formula) :-
+  accessible(World, Next),
+  \+ mforces(Next, Formula).
 
 modal_truth(all_accessible_worlds_clear, w0, box(atom(clear))) :-
   mforces(w0, box(atom(clear))).

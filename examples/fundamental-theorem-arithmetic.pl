@@ -61,7 +61,7 @@ factor_smallest(N, Factors) :-
   (N >= 2),
   smallest_divisor_from(N, 2, D),
   (D \= N),
-  (Q is N / D),
+  (Q is N // D),
   factor_smallest(D, Left),
   factor_smallest(Q, Right),
   append(Left, Right, Factors).

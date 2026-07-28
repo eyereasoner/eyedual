@@ -86,8 +86,8 @@ why(
     by(rule("term-tools.pl", clause(9))),
     uses([
       proof(
-        goal(forall(edge(_from, _to, Weight), >(Weight, 0))),
-        by(builtin(forall, 2))
+        goal('\\+'(nonpositive_edge)),
+        by(builtin('\\+', 1))
       )
     ])
   )

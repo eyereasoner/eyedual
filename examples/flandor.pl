@@ -186,7 +186,7 @@ hmac_matches(check) :-
 
 minimization_strips_sensitive_terms(check) :-
   serializedLowercase(macroInsight, Text),
-  not_matches(Text, "salary|payroll|invoice|medical|firmname").
+  \+ matches(Text, "salary|payroll|invoice|medical|firmname").
 
 scope_complete(check) :-
   scopeDevice(macroInsight, _device),

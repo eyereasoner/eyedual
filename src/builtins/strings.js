@@ -18,7 +18,7 @@ import {
 export const stringBuiltins = {
   register(registry) {
     registry.add('str_concat', 3, concat, { deterministic: true });
-    for (const name of ['contains', 'matches', 'not_matches']) registry.add(name, 2, contains(name), { deterministic: true });
+    for (const name of ['contains', 'matches']) registry.add(name, 2, contains(name), { deterministic: true });
     registry.add('matches', 3, matchCaptures, { deterministic: true });
     registry.add('split', 3, split, { deterministic: true, fallbackWhenNotReady: true, ready: firstTwoLexicalReady });
     registry.add('join', 3, join, { deterministic: true, fallbackWhenNotReady: true, ready: listAndSecondLexicalReady });
@@ -86,9 +86,7 @@ function contains(name) {
     if (haystack == null || needle == null) return;
     const has = haystack.includes(needle);
     const matches = simpleAlternationMatch(haystack, needle);
-    const pass = (name === 'contains' && has) ||
-      (name === 'matches' && matches) ||
-      (name === 'not_matches' && !matches);
+    const pass = (name === 'contains' && has) || (name === 'matches' && matches);
     if (pass) yield env;
   };
 }

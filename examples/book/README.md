@@ -224,8 +224,8 @@ npm run generate
 - [09-program.pl](chapter-33/09-program.pl) — Pattern 9: Integrity before inference
 - [10-theory_version.pl](chapter-33/10-theory_version.pl) — Pattern 10: Version the evidence boundary
 - [11-city.pl](chapter-33/11-city.pl) — Historical note: executable specifications learn to remember
-- [12-answer.pl](chapter-33/12-answer.pl) — B.3.1 Numeric, comparison, and date predicates
-- [13-answer-2.pl](chapter-33/13-answer-2.pl) — B.3.2 List predicates
-- [14-answer-3.pl](chapter-33/14-answer-3.pl) — B.3.3 Strings, lexical values, and regular expressions
-- [15-cost.pl](chapter-33/15-cost.pl) — B.3.4 Aggregation and bounded control
-- [16-message.pl](chapter-33/16-message.pl) — B.3.5 Context and compound-term helpers
+- [12-answer.pl](chapter-33/12-answer.pl) — B.3.1 Native numeric, comparison, and date predicates
+- [13-answer-2.pl](chapter-33/13-answer-2.pl) — B.3.2 Portable list relations
+- [14-answer-3.pl](chapter-33/14-answer-3.pl) — B.3.3 Native strings, lexical values, and regular expressions
+- [15-cost.pl](chapter-33/15-cost.pl) — B.3.4 Portable aggregation and bounded control
+- [16-message.pl](chapter-33/16-message.pl) — B.3.5 Portable context helpers

@@ -945,12 +945,16 @@ negate it from a higher layer. Use `--warnings` to report negative recursion:
 eyepl --warnings program.pl
 ```
 
-`once(Goal)` keeps the first solution. `forall(Generator, Check)` succeeds when
-every generated solution passes its check; an empty generator makes it true.
+Universal checking needs no extension predicate: define the counterexample and
+negate it.
 
 ```eyepl
 all_tests_pass(Suite) :-
-  forall(test_in(Suite, Test), passed(Test)).
+  \+ failing_test(Suite).
+
+failing_test(Suite) :-
+  test_in(Suite, Test),
+  \+ passed(Test).
 ```
 
 Use negation where the knowledge boundary is closed: a complete roster,
@@ -3504,7 +3508,7 @@ This boundary can be written directly:
 
 ```eyepl
 counterexample_to_odd_square(N) :-
-  between(1, 10000, N),
+  between(1, 100, N),
   (1 is N mod 2),
   (Square is N * N),
   (Remainder is Square mod 2),
@@ -3936,7 +3940,11 @@ double_is_even(N) :-
   (0 is D mod 2).
 
 bounded_double_law :-
-  forall(between(-100, 100, N), double_is_even(N)).
+  \+ bounded_double_counterexample.
+
+bounded_double_counterexample :-
+  between(-100, 100, N),
+  \+ double_is_even(N).
 
 query(bounded_double_law).
 ```
@@ -4707,8 +4715,26 @@ error behavior of a standards-profile program.
 The extension catalog is audited against
 [ISO/IEC 13211-1](https://www.iso.org/standard/21413.html): an extension is not
 registered when the supported ISO profile already expresses the same
-operation. The library registry contains the 38 default indicators plus 56
-extension indicators. On the command line:
+operation. The library registry contains the 38 default indicators plus 24
+irreducible host-extension indicators. It also loads ordinary portable Prolog
+clauses for relations that need no host primitive. Nine frequently used
+portable relations have semantics-preserving native accelerators; these are
+classified separately because the bundled clauses remain their executable
+specification and fallback.
+
+<!-- native-extension-catalog:start -->
+| Native host-extension predicates |
+| --- |
+| `acos/2`, `asin/2`, `atan2/3`, `tan/2` |
+| `lt/2`, `le/2`, `gt/2`, `ge/2` |
+| `local_time/1`, `difference/3` |
+| `str_concat/3`, `contains/2`, `matches/2`, `matches/3` |
+| `split/3`, `join/3`, `substring/4`, `replace/4` |
+| `lowercase/2`, `uppercase/2`, `trim/2` |
+| `number_string/2`, `atom_string/2`, `term_string/2` |
+<!-- native-extension-catalog:end -->
+
+On the command line:
 
 ```sh
 eyepl --library program.pl
@@ -4736,15 +4762,12 @@ B.2. They do not invent open-ended domains. Bind arithmetic operands, source
 text, proper lists, indexes, dates, and aggregate generators before calling
 the corresponding predicate.
 
-### B.3.1 Numeric, comparison, and date predicates
+### B.3.1 Native numeric, comparison, and date predicates
 
 | Predicates and principal modes | Behavior |
 | --- | --- |
-| `min(+A,+B,-R)`, `max(+A,+B,-R)` | Select the numeric minimum or maximum. |
 | `tan/2`, `asin/2`, `acos/2`, `atan2/3` | Floating-point functions not supplied as evaluable functions by ISO/IEC 13211-1. |
 | `lt(+A,+B)`, `le(+A,+B)`, `gt(+A,+B)`, `ge(+A,+B)` | Compare integers exactly, finite numeric text numerically, `PnYnMnD` duration text component-wise, and other lexical values by string order. These differ from ISO arithmetic comparison and standard term order. |
-| `between(+Low,+High,?N)` | Enumerates every integer in the inclusive range when `N` is unbound, or checks a bound value. An empty range has no answers. |
-| `smallest_divisor_from(+N,+Start,-D)` | Finds the first divisor of nonnegative integer `N` at or above positive `Start`, up to its square root; returns `N` if none is found. |
 | `local_time(-Date)` | Produces the host-local calendar date as `"YYYY-MM-DD"`. Tests and reproducible hosts may set `EYEPL_LOCAL_TIME`. |
 | `difference(+End,+Start,-Duration)` | Computes a nonnegative calendar difference between ISO date prefixes and returns `"PnYnMnD"`. Invalid dates or an end before the start fail. |
 
@@ -4761,9 +4784,16 @@ for example, `R is A + B`, `R is abs(A)`, and `R is sqrt(A)`. The same applies
 to subtraction, multiplication, division, modulo, powers, sine, cosine,
 exponential, logarithm, and the ISO rounding functions.
 
-### B.3.2 List predicates
+The bundled portable rule layer defines `between/3`, `min/3`, `max/3`, and
+`smallest_divisor_from/3` using ISO arithmetic and comparisons. They remain
+available with `--library`, but they are not host-extension predicates.
+`between/3` and `smallest_divisor_from/3` have native accelerators for large
+search domains.
 
-Every list-consuming predicate below expects a proper list unless explicitly
+### B.3.2 Portable list relations
+
+These relations are bundled as ordinary Prolog clauses, not registered host
+predicates. Every list-consuming relation below expects a proper list unless explicitly
 stated otherwise. Indexes and counts are zero-based, nonnegative safe
 integers.
 
@@ -4782,7 +4812,7 @@ integers.
 | `slice(+Start,+Count,+List,-Slice)` | Selects exactly `Count` elements beginning at `Start`; an out-of-range slice fails. |
 | `reverse(+List,-Reversed)` | Reverses a proper list. |
 | `length(+List,?Length)` | Reports or checks the length of a proper list; it does not generate lists from a length. |
-| `sum_list(+List,-Sum)` | Sums numeric elements. The empty sum is `0`; all-integer sums remain exact. |
+| `sum_list(+List,-Sum)` | Sums numeric elements with ISO `is/2`. The empty sum is `0`; invalid arithmetic raises the corresponding ISO error. |
 | `min_list(+List,-Min)`, `max_list(+List,-Max)` | Select by standard Eyepl term order, not numeric coercion. Empty lists fail. |
 | `list_to_set(+List,-Set)` | Removes later structural duplicates while preserving first-occurrence order. |
 | `sort(+List,-Set)` | Sorts by standard term order and removes structural duplicates. |
@@ -4797,7 +4827,7 @@ answer(second, Item) :-
 query(answer(Kind, Value)).
 ```
 
-### B.3.3 Strings, lexical values, and regular expressions
+### B.3.3 Native strings, lexical values, and regular expressions
 
 A **lexical value** is the textual spelling of a ground atom, string, or
 number. Most string predicates accept any of those inputs but produce Eyepl
@@ -4808,7 +4838,6 @@ string terms unless their name says otherwise.
 | `str_concat(+Left,+Right,-Text)` | Concatenates two lexical values. It does not split an output into possible pairs. |
 | `contains(+Text,+Needle)` | Tests literal substring containment. The empty needle succeeds. |
 | `matches(+Text,+Pattern)` | Tests a simple `|`-separated set of literal alternatives. It is not a regular-expression predicate. |
-| `not_matches(+Text,+Pattern)` | Negates the same literal-alternative test. |
 | `matches(+Text,+Regex,-Context)` | Runs a JavaScript regular expression and returns named captures as comma-context data such as `(year("2026"), month("07"))`. It fails for an invalid expression, no match, or a match with no named captures. |
 | `split(+Text,+Separator,-Parts)` | Literal split into a proper list of strings. |
 | `join(+Parts,+Separator,-Text)` | Joins a proper list of lexical values. The empty list produces `""`. |
@@ -4831,30 +4860,30 @@ answer(captures, Context) :-
 query(answer(Kind, Value)).
 ```
 
-### B.3.4 Aggregation and bounded control
+### B.3.4 Portable aggregation and bounded control
 
-These predicates run a nested search. The caller is responsible for making
+These are ordinary bundled Prolog clauses over ISO `findall/3`, arithmetic,
+term order, and list recursion. `countall/2`, `sumall/3`,
+`aggregate_min/5`, and `aggregate_max/5` have equivalent native accelerators.
+The caller is responsible for making
 that search finite. Bind outer variables before the nested goal when they are
 intended to restrict its domain.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |
 | `countall(+Goal,-Count)` | Counts all solutions, including solutions that produce the same visible template. The empty count is `0`. |
-| `sumall(+Template,+Goal,-Sum)` | Sums the numeric value of `Template` in every solution. The empty sum is `0`; a nonnumeric template makes the call fail. |
+| `sumall(+Template,+Goal,-Sum)` | Sums the numeric value of `Template` in every solution. The empty sum is `0`; invalid arithmetic raises the corresponding ISO error. |
 | `aggregate_min(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the smallest resolved key under standard term order. |
 | `aggregate_max(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the largest resolved key. Both best-value predicates fail on an empty solution set and retain the first solution on an equal key. |
-| `once(+Goal)` | Returns only the first solution and its bindings. Clause and generator order therefore become observable. |
-| `forall(+Generator,+Check)` | Runs `Check` for every generator solution. It succeeds for an empty generator and does not export generator bindings. |
 
 ISO `findall/3` is present in both registries. The extension aggregates follow
 the same scoping principle: variables created inside the nested search do not
 leak except through the declared templates and outputs.
 
-There is no `not/1` alias: use ISO `\+/1`. In classical Prolog,
-`forall(Generator, Check)` can be expanded to
-`\+ (Generator, \+ Check)`. Eyepl retains `forall/2` because its bounded nested
-solver preserves that operational contract without exposing nested-negation
-search and tabling details.
+There are no `not/1`, `once/1`, or `forall/2` semantic host extensions. Use ISO
+`\+/1`; define a named counterexample relation for universal checks. The
+portable rule layer defines `once/1` from ISO if-then as
+`once(Goal) :- (Goal -> true)` and supplies a native accelerator.
 
 ```eyepl
 cost(a, 8).
@@ -4870,7 +4899,11 @@ answer(best(Name), Cost) :-
 query(answer(Kind, Value)).
 ```
 
-### B.3.5 Context and compound-term helpers
+### B.3.5 Portable context helpers
+
+The `holds/2` and `holds/3` relations below are ordinary clauses over
+unification and ISO `=../2`, with equivalent native accelerators; they are not
+semantic host extensions.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |

@@ -279,7 +279,7 @@ ranked_before(Left, Right) :-
 ranked_before(Left, Right) :-
   report_key(Left, key(Inv, Leftclause)),
   report_key(Right, key(Inv, Rightclause)),
-  not_matches(Leftclause, Rightclause),
+  \+ matches(Leftclause, Rightclause),
   (Leftclause < Rightclause).
 
 % Output layer.

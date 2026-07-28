@@ -90,7 +90,7 @@ export async function main(argv) {
   }
 
   const engine = await loadEngine();
-  const program = engine.Program.parseSources(sourceParts, { sourceMetadata: options.proof, markRecursive: options.proof });
+  let program = engine.Program.parseSources(sourceParts, { sourceMetadata: options.proof, markRecursive: options.proof });
 
   if (options.warnings) printWarnings(program);
 
@@ -124,6 +124,7 @@ async function runDefault(engine, program, options) {
   const registry = options.library ? engine.getLibraryRegistry() : engine.getDefaultRegistry();
   const explanation = options.proof ? await loadExplanation() : null;
   const solver = new engine.Solver(program, { registry });
+  program = solver.program;
   engine.checkInferenceFuses(program, solver);
 
   for (const goal of goals) {

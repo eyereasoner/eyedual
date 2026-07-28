@@ -25,11 +25,19 @@ why(
           ),
           proof(
             goal(member(data4, [data4, data5, data6])),
-            by(builtin(member, 2))
+            by(fact("<library>", clause(3))),
+            bindings([binding("X", data4), binding("__anon0", [data5, data6])])
           ),
           proof(
             goal(not_member(data4, [data1, data2, data3])),
-            by(builtin(not_member, 2))
+            by(rule("<library>", clause(33))),
+            bindings([binding("X", data4), binding("Xs", [data1, data2, data3])]),
+            uses([
+              proof(
+                goal('\\+'(member(data4, [data1, data2, data3]))),
+                by(builtin('\\+', 1))
+              )
+            ])
           ),
           proof(
             goal(policy(agent1, [request, data4])),
@@ -38,7 +46,8 @@ why(
             uses([
               proof(
                 goal(member(data4, [data4, data6])),
-                by(builtin(member, 2))
+                by(fact("<library>", clause(3))),
+                bindings([binding("X", data4), binding("__anon0", [data6])])
               )
             ])
           )
@@ -55,7 +64,8 @@ why(
           ),
           proof(
             goal(member(data4, [data4, data5, data6])),
-            by(builtin(member, 2))
+            by(fact("<library>", clause(3))),
+            bindings([binding("X", data4), binding("__anon0", [data5, data6])])
           ),
           proof(
             goal(policy(agent2, [accept, data4])),

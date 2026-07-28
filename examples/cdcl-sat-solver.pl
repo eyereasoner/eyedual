@@ -38,7 +38,10 @@ call_value(final, Var, Value, Reason) :- final_value(Var, Value, Reason).
 % A clause is conflicting when all of its literals are false under a trail.
 conflict(Trail, Clause) :-
   clause(Clause, Literals),
-  forall(member(Literal, Literals), lit_false(Literal, Trail)).
+  \+ nonfalse_literal(Trail, Literals).
+nonfalse_literal(Trail, Literals) :-
+  member(Literal, Literals),
+  \+ lit_false(Literal, Trail).
 
 % The learned clause for this tiny implication graph is obtained by resolving
 % the conflict clause not(c) with c's reason not(a) or c, yielding not(a).
@@ -56,7 +59,10 @@ model_satisfies_clause(Trail, Clause) :-
   member(Literal, Literals),
   lit_true(Literal, Trail).
 
-final_model_ok(ok) :- forall(clause(Name, _), model_satisfies_clause(final, Name)).
+final_model_ok(ok) :- \+ unsatisfied_final_clause.
+unsatisfied_final_clause :-
+  clause(Name, _),
+  \+ model_satisfies_clause(final, Name).
 
 cdclAnswer(conflict_clause, Clause) :- conflict(initial, Clause).
 cdclAnswer(learned_clause, Literals) :- learned_clause(l1, Literals).

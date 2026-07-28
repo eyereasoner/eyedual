@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 33 — B.3.4 Aggregation and bounded control.
+% From The Art of Eyepl, Chapter 33 — B.3.4 Portable aggregation and bounded control.
 cost(a, 8).
 cost(b, 3).
 cost(c, 3).

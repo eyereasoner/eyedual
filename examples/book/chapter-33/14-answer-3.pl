@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 33 — B.3.3 Strings, lexical values, and regular expressions.
+% From The Art of Eyepl, Chapter 33 — B.3.3 Native strings, lexical values, and regular expressions.
 answer(words, Words) :-
   trim("  Logic Made Visible  ", Clean),
   lowercase(Clean, Lower),

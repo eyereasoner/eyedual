@@ -6,6 +6,10 @@ double_is_even(N) :-
   (0 is D mod 2).
 
 bounded_double_law :-
-  forall(between(-100, 100, N), double_is_even(N)).
+  \+ bounded_double_counterexample.
+
+bounded_double_counterexample :-
+  between(-100, 100, N),
+  \+ double_is_even(N).
 
 query(bounded_double_law).

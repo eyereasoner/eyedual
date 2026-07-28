@@ -29,4 +29,7 @@ report(rendered, Text) :-
   term_string(edge(a, [b, c]), Text).
 
 report(all_weights_positive, yes) :-
-  forall(edge(_from, _to, Weight), (Weight > 0)).
+  \+ nonpositive_edge.
+nonpositive_edge :-
+  edge(_from, _to, Weight),
+  \+ (Weight > 0).

@@ -1,71 +1,64 @@
-// Aggregation builtins that run a inner goal and collect, count, sum, or select the best answers.
-// Each handler clones the solver so the inner goal can enumerate independently of the outer goal.
-import { compareTerms, copyResolved, isDecimalInteger, lexicalValue, numberTerm, numberTextFromDouble, parseFiniteNumber, unify } from '../term.js';
+// Native accelerators for portable aggregation relations.
+import {
+  compareTerms, copyResolved, isDecimalInteger, lexicalValue,
+  numberTerm, numberTextFromDouble, parseFiniteNumber, unify,
+} from '../term.js';
 
 export const aggregationBuiltins = {
   register(registry) {
-    registry.add('countall', 2, countall);
-    registry.add('sumall', 3, sumall);
-    registry.add('aggregate_min', 5, aggregateBest(true));
-    registry.add('aggregate_max', 5, aggregateBest(false));
+    registry.add('countall', 2, countall, { portableEquivalent: true });
+    registry.add('sumall', 3, sumall, { portableEquivalent: true });
+    registry.add('aggregate_min', 5, aggregateBest(true), { portableEquivalent: true });
+    registry.add('aggregate_max', 5, aggregateBest(false), { portableEquivalent: true });
   }
 };
 
 function* countall({ solver, goal, env }) {
-  const [innerGoal, count] = goal.args;
   const collector = solver.cloneForInnerGoal(10000000);
-  let n = 0;
-  for (const _ of collector.solve([innerGoal], env.clone(), 0)) n++;
+  let count = 0;
+  for (const _ of collector.solve([goal.args[0]], env.clone(), 0)) count++;
+  solver.absorbStatsFrom(collector);
   const next = env.clone();
-  if (unify(count, numberTerm(n), next)) yield next;
+  if (unify(goal.args[1], numberTerm(count), next)) yield next;
 }
 
 function* sumall({ solver, goal, env }) {
-  const [template, innerGoal, sum] = goal.args;
   const collector = solver.cloneForInnerGoal(10000000);
-  let intSum = 0n;
-  let floatMode = false;
-  let floatSum = 0;
-  for (const answerEnv of collector.solve([innerGoal], env.clone(), 0)) {
-    const text = lexicalValue(template, answerEnv);
+  let integers = 0n;
+  let floating = null;
+  for (const answerEnv of collector.solve([goal.args[1]], env.clone(), 0)) {
+    const text = lexicalValue(goal.args[0], answerEnv);
     if (text == null) return;
-    if (!floatMode && isDecimalInteger(text)) intSum += BigInt(text);
-    else {
+    if (floating == null && isDecimalInteger(text)) {
+      integers += BigInt(text);
+    } else {
       const value = parseFiniteNumber(text);
       if (value == null) return;
-      if (!floatMode) { floatSum = Number(intSum); floatMode = true; }
-      floatSum += value;
+      if (floating == null) floating = Number(integers);
+      floating += value;
     }
   }
-  const result = floatMode ? numberTextFromDouble(floatSum) : intSum.toString();
+  solver.absorbStatsFrom(collector);
+  const result = floating == null ? integers.toString() : numberTextFromDouble(floating);
   const next = env.clone();
-  if (unify(sum, numberTerm(result), next)) yield next;
+  if (unify(goal.args[2], numberTerm(result), next)) yield next;
 }
 
 function aggregateBest(wantMin) {
   return function* ({ solver, goal, env }) {
-    const [keyTemplate, valueTemplate, innerGoal, bestKey, bestValue] = goal.args;
     const collector = solver.cloneForInnerGoal(10000000);
-    let has = false;
-    let key = null;
-    let value = null;
-    for (const answerEnv of collector.solve([innerGoal], env.clone(), 0)) {
-      const candidateKey = copyResolved(keyTemplate, answerEnv);
-      const candidateValue = copyResolved(valueTemplate, answerEnv);
-      if (!has) {
-        has = true;
-        key = candidateKey;
-        value = candidateValue;
-      } else {
-        const cmp = compareTerms(candidateKey, key);
-        if ((wantMin && cmp < 0) || (!wantMin && cmp > 0)) {
-          key = candidateKey;
-          value = candidateValue;
-        }
+    let bestKey = null;
+    let bestValue = null;
+    for (const answerEnv of collector.solve([goal.args[2]], env.clone(), 0)) {
+      const key = copyResolved(goal.args[0], answerEnv);
+      if (bestKey == null || (wantMin ? compareTerms(key, bestKey) < 0 : compareTerms(key, bestKey) > 0)) {
+        bestKey = key;
+        bestValue = copyResolved(goal.args[1], answerEnv);
       }
     }
-    if (!has) return;
+    solver.absorbStatsFrom(collector);
+    if (bestKey == null) return;
     const next = env.clone();
-    if (unify(bestKey, key, next) && unify(bestValue, value, next)) yield next;
+    if (unify(goal.args[3], bestKey, next) && unify(goal.args[4], bestValue, next)) yield next;
   };
 }

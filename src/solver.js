@@ -2,7 +2,7 @@
 // Most semantic decisions still flow through unification; optimizations only select candidates earlier.
 import { COMPOUND, Env, compound, copyResolved, flattenConjunction, freshTerm, termIsGround, termToString, unify, variantTerms } from './term.js';
 import { createDefaultRegistry } from './builtins/registry.js';
-import { selectClauseCandidates, selectClauseCandidatesForValues } from './program.js';
+import { Program, selectClauseCandidates, selectClauseCandidatesForValues } from './program.js';
 
 let freshCounter = 0;
 
@@ -12,8 +12,8 @@ export function nextFreshId() {
 
 export class Solver {
   constructor(program, options = {}) {
-    this.program = program;
     this.registry = options.registry ?? createDefaultRegistry();
+    this.program = withPortableLibrary(program, this.registry);
     this.maxDepth = options.maxDepth ?? 100000;
     this.solutionLimit = options.solutionLimit ?? 10000000;
     this.solutionsSeen = 0;
@@ -265,6 +265,24 @@ export class Solver {
     this.active.pop();
   }
 
+}
+
+function withPortableLibrary(program, registry) {
+  if (!registry?.portableSource || program._portableRegistry === registry) return program;
+  if (registry._portableProgram == null) {
+    registry._portableProgram = Program.parseSources([
+      { text: registry.portableSource, filename: '<library>' },
+    ], { sourceMetadata: true });
+  }
+  const portableProgram = registry._portableProgram;
+  const overlay = Object.create(program);
+  // A user definition replaces the convenience relation of the same
+  // predicate indicator. The separately indexed portable program avoids
+  // rebuilding very large user programs merely to append library clauses.
+  overlay.findGroup = (name, arity) =>
+    program.findGroup(name, arity) ?? portableProgram.findGroup(name, arity);
+  overlay._portableRegistry = registry;
+  return overlay;
 }
 
 function makeMemoEntry() {

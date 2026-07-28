@@ -228,10 +228,15 @@ function* findallBuiltin({ solver, goal, env }) {
 }
 
 function callable(term, env) {
-  term = deref(term, env);
+  term = resolveCallable(term, env);
   if (term.type === VAR) throw new PrologError('instantiation_error');
   if (term.type !== ATOM && term.type !== COMPOUND) throw new PrologError('type_error(callable)', term);
   return term;
+}
+function resolveCallable(term, env) {
+  const resolved = deref(term, env);
+  if (resolved.type !== COMPOUND) return resolved;
+  return compound(resolved.name, resolved.args.map((arg) => resolveCallable(arg, env)));
 }
 function* callBuiltin({ solver, goal, env }) {
   yield* solver.solve([callable(goal.args[0], env)], env, 0);
@@ -255,7 +260,13 @@ function* disjunctionBuiltin({ solver, goal, env }) {
 }
 function* ifThenBuiltin({ solver, goal, env }) {
   for (const conditionEnv of solver.cloneForInnerGoal(1).solve([callable(goal.args[0], env)], env.clone(), 0)) {
-    yield* solver.solve([callable(goal.args[1], conditionEnv)], conditionEnv, 0);
+    for (const consequentEnv of solver.solve([callable(goal.args[1], conditionEnv)], conditionEnv, 0)) {
+      // The consequent is an internal part of the current solution, not a
+      // completed top-level solution. Keep a surrounding bounded search (for
+      // example nested ISO once-as-if-then) from consuming its limit early.
+      if (solver.solutionsSeen > 0) solver.solutionsSeen--;
+      yield consequentEnv;
+    }
     return;
   }
 }

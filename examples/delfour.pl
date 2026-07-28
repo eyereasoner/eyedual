@@ -170,7 +170,7 @@ signature_verifies(check) :-
 
 minimization_strips_sensitive_terms(check) :-
   serialized_lowercase(insight, Text),
-  not_matches(Text, "diabetes|medical").
+  \+ matches(Text, "diabetes|medical").
 
 scope_complete(check) :-
   scope_device(insight, _device),

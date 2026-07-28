@@ -6,8 +6,8 @@ why(
     by(rule("<stdin>", clause(2))),
     uses([
       proof(
-        goal(forall(member(X, [1, 2]), <(X, 3))),
-        by(builtin(forall, 2))
+        goal('\\+'(forall_counterexample)),
+        by(builtin('\\+', 1))
       )
     ])
   )

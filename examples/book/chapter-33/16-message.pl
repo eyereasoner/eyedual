@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 33 — B.3.5 Context and compound-term helpers.
+% From The Art of Eyepl, Chapter 33 — B.3.5 Portable context helpers.
 message(event_17,
         (severity(high), source(sensor_3), reading(temp, 91))).
 

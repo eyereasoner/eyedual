@@ -4,10 +4,10 @@ import { isoBuiltins } from './iso.js';
 import { arithmeticBuiltins } from './arithmetic.js';
 import { coreBuiltins } from './core.js';
 import { stringBuiltins } from './strings.js';
-import { listBuiltins } from './lists.js';
 import { aggregationBuiltins } from './aggregation.js';
 import { contextBuiltins } from './context.js';
 import { controlBuiltins } from './control.js';
+import { portableLibrarySource } from './portable-rules.js';
 
 export class BuiltinRegistry {
   constructor() {
@@ -24,6 +24,7 @@ export class BuiltinRegistry {
       ready: options.ready ?? null,
       fallbackWhenNotReady: options.fallbackWhenNotReady ?? false,
       shouldUse: options.shouldUse ?? null,
+      portableEquivalent: options.portableEquivalent ?? false,
     });
     return this;
   }
@@ -40,11 +41,11 @@ export function createDefaultRegistry() {
 
 export function createLibraryRegistry() {
   const registry = new BuiltinRegistry();
+  registry.portableSource = portableLibrarySource;
   for (const mod of [
     coreBuiltins,
     arithmeticBuiltins,
     stringBuiltins,
-    listBuiltins,
     aggregationBuiltins,
     contextBuiltins,
     controlBuiltins,
