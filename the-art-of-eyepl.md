@@ -4704,6 +4704,191 @@ those facilities opt into this implementation extension layer. Keeping it
 separate prevents an extension predicate from silently changing the meaning or
 error behavior of a standards-profile program.
 
+The library registry contains the 38 default indicators plus 77 extension
+indicators. On the command line:
+
+```sh
+eyepl --library program.pl
+eyepl -lp program.pl       # library plus proof output
+```
+
+In JavaScript, pass the library registry explicitly:
+
+```js
+import { getLibraryRegistry, run } from 'eyepl';
+
+const result = run(source, { registry: getLibraryRegistry() });
+```
+
+The mode notation below is descriptive:
+
+- `+` means the argument must already have the required input shape;
+- `-` means the predicate produces that argument;
+- `?` means a bound value can be checked or an unbound value generated.
+
+Most extension predicates are projections or filters. When an input is
+unbound, malformed, outside its domain, or incompatible with the requested
+output, they normally **fail** rather than raising the ISO errors described in
+B.2. They do not invent open-ended domains. Bind arithmetic operands, source
+text, proper lists, indexes, dates, and aggregate generators before calling
+the corresponding predicate.
+
+### B.3.1 Numeric, comparison, and date predicates
+
+| Predicates and principal modes | Behavior |
+| --- | --- |
+| `neg(+N,-R)`, `abs(+N,-R)` | Numeric negation and absolute value. Decimal integers remain exact arbitrary-precision integers. |
+| `add(+A,+B,-R)`, `sub(+A,+B,-R)`, `mul(+A,+B,-R)` | Addition, subtraction, and multiplication. All-integer calls retain exact integer arithmetic. |
+| `div(+A,+B,-R)`, `mod(+A,+B,-R)` | `div/3` truncates an all-integer quotient toward zero and otherwise performs floating division. `mod/3` accepts integers only. A zero divisor fails. |
+| `pow(+A,+B,-R)` | Integer exponentiation is exact for a nonnegative integer exponent. Other numeric calls use floating-point exponentiation. |
+| `min(+A,+B,-R)`, `max(+A,+B,-R)` | Select the numeric minimum or maximum. |
+| `sin/2`, `cos/2`, `tan/2`, `asin/2`, `acos/2`, `atan2/3`, `exp/2`, `log/2`, `sqrt/2` | Floating-point mathematical functions. `log/2` requires a positive input; `sqrt/2` requires a nonnegative input. |
+| `floor(+N,-R)`, `ceiling(+N,-R)`, `trunc(+N,-R)`, `rounded(+N,-R)` | Produce integer-valued results. `trunc/2` moves toward zero; `rounded/2` follows JavaScript `Math.round` behavior. |
+| `lt(+A,+B)`, `le(+A,+B)`, `gt(+A,+B)`, `ge(+A,+B)` | Compare integers exactly, finite numeric text numerically, `PnYnMnD` duration text component-wise, and other lexical values by string order. These differ from ISO arithmetic comparison and standard term order. |
+| `between(+Low,+High,?N)` | Enumerates every integer in the inclusive range when `N` is unbound, or checks a bound value. An empty range has no answers. |
+| `smallest_divisor_from(+N,+Start,-D)` | Finds the first divisor of nonnegative integer `N` at or above positive `Start`, up to its square root; returns `N` if none is found. |
+| `local_time(-Date)` | Produces the host-local calendar date as `"YYYY-MM-DD"`. Tests and reproducible hosts may set `EYEPL_LOCAL_TIME`. |
+| `difference(+End,+Start,-Duration)` | Computes a nonnegative calendar difference between ISO date prefixes and returns `"PnYnMnD"`. Invalid dates or an end before the start fail. |
+
+```eyepl
+answer(square, S) :- mul(12, 12, S).
+answer(day_count, N) :- between(3, 5, N).
+answer(age, D) :- difference("2026-07-28", "2020-05-20", D).
+query(answer(Kind, Value)).
+```
+
+`add/3`, `mul/3`, and the other named numeric predicates are
+implementation conveniences. Portable profile code should prefer `is/2` and
+the ISO arithmetic operators.
+
+### B.3.2 List predicates
+
+Every list-consuming predicate below expects a proper list unless explicitly
+stated otherwise. Indexes and counts are zero-based, nonnegative safe
+integers.
+
+| Predicate and principal mode | Behavior |
+| --- | --- |
+| `append(+Prefix,+Suffix,-Whole)` | Appends a proper prefix to any suffix, including an improper tail. |
+| `append(-Prefix,-Suffix,+Whole)` | Enumerates every split of a proper `Whole`, from empty prefix to empty suffix. |
+| `member(?Item,+List)` | Produces one answer per matching position, so duplicates remain observable. |
+| `select(?Item,+List,-Rest)` | Removes one occurrence at a time and preserves the order of all other elements. Duplicate occurrences may produce duplicate answers. |
+| `not_member(+Item,+List)` | Succeeds only when `Item` does not unify with any member. Use it after binding the item and list. |
+| `nth0(?Index,+List,?Item)` | Checks a bound zero-based index or enumerates indexes and their items. |
+| `set_nth0(+Index,+List,+Item,-NewList)` | Replaces one existing position without mutating the input list. |
+| `head(+List,?Head)`, `rest(+List,?Tail)` | Decompose a nonempty list. `rest/2` may expose an improper tail. |
+| `last(+List,?Last)` | Returns the final element of a nonempty proper list. |
+| `take(+Count,+List,-Prefix)`, `drop(+Count,+List,-Suffix)` | Select the first `Count` elements or remove them. Counts beyond the list length fail. |
+| `slice(+Start,+Count,+List,-Slice)` | Selects exactly `Count` elements beginning at `Start`; an out-of-range slice fails. |
+| `reverse(+List,-Reversed)` | Reverses a proper list. |
+| `length(+List,?Length)` | Reports or checks the length of a proper list; it does not generate lists from a length. |
+| `sum_list(+List,-Sum)` | Sums numeric elements. The empty sum is `0`; all-integer sums remain exact. |
+| `min_list(+List,-Min)`, `max_list(+List,-Max)` | Select by standard Eyepl term order, not numeric coercion. Empty lists fail. |
+| `list_to_set(+List,-Set)` | Removes later structural duplicates while preserving first-occurrence order. |
+| `sort(+List,-Set)` | Sorts by standard term order and removes structural duplicates. |
+
+```eyepl
+answer(split, pair(Prefix, Suffix)) :-
+  append(Prefix, Suffix, [a, b]).
+
+answer(second, Item) :-
+  nth0(1, [a, b, c], Item).
+
+query(answer(Kind, Value)).
+```
+
+### B.3.3 Strings, lexical values, and regular expressions
+
+A **lexical value** is the textual spelling of a ground atom, string, or
+number. Most string predicates accept any of those inputs but produce Eyepl
+string terms unless their name says otherwise.
+
+| Predicate and principal mode | Behavior |
+| --- | --- |
+| `str_concat(+Left,+Right,-Text)` | Concatenates two lexical values. It does not split an output into possible pairs. |
+| `contains(+Text,+Needle)` | Tests literal substring containment. The empty needle succeeds. |
+| `matches(+Text,+Pattern)` | Tests a simple `|`-separated set of literal alternatives. It is not a regular-expression predicate. |
+| `not_matches(+Text,+Pattern)` | Negates the same literal-alternative test. |
+| `matches(+Text,+Regex,-Context)` | Runs a JavaScript regular expression and returns named captures as comma-context data such as `(year("2026"), month("07"))`. It fails for an invalid expression, no match, or a match with no named captures. |
+| `split(+Text,+Separator,-Parts)` | Literal split into a proper list of strings. |
+| `join(+Parts,+Separator,-Text)` | Joins a proper list of lexical values. The empty list produces `""`. |
+| `substring(+Text,+Start,+Count,-Part)` | Uses zero-based character indexes and requires the requested range to fit. |
+| `replace(+Text,+Search,+Replacement,-Result)` | Replaces every literal occurrence. An empty search leaves the text unchanged. |
+| `lowercase(+Text,-Lower)`, `uppercase(+Text,-Upper)`, `trim(+Text,-Trimmed)` | Apply JavaScript Unicode case conversion or surrounding-whitespace trimming. |
+| `number_string(?Number,?Text)` | Converts a number to a string or parses numeric string/atom text. At least one conversion direction must be ready. |
+| `atom_string(?Atom,?Text)` | Converts an atom to a string or a ground string, atom, or number to an atom. |
+| `term_string(+Term,-Text)` | Renders a nonvariable term using Eyepl readback syntax. It does not parse text back into a term. |
+
+```eyepl
+answer(words, Words) :-
+  trim("  Logic Made Visible  ", Clean),
+  lowercase(Clean, Lower),
+  split(Lower, " ", Words).
+
+answer(captures, Context) :-
+  matches("2026-07", "^(?<year>[0-9]{4})-(?<month>[0-9]{2})$", Context).
+
+query(answer(Kind, Value)).
+```
+
+### B.3.4 Aggregation and bounded control
+
+These predicates run a nested search. The caller is responsible for making
+that search finite. Bind outer variables before the nested goal when they are
+intended to restrict its domain.
+
+| Predicate and principal mode | Behavior |
+| --- | --- |
+| `countall(+Goal,-Count)` | Counts all solutions, including solutions that produce the same visible template. The empty count is `0`. |
+| `sumall(+Template,+Goal,-Sum)` | Sums the numeric value of `Template` in every solution. The empty sum is `0`; a nonnumeric template makes the call fail. |
+| `aggregate_min(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the smallest resolved key under standard term order. |
+| `aggregate_max(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the largest resolved key. Both best-value predicates fail on an empty solution set and retain the first solution on an equal key. |
+| `once(+Goal)` | Returns only the first solution and its bindings. Clause and generator order therefore become observable. |
+| `not(+Goal)` | Alias-style extension for negation as failure. It succeeds without bindings only when the nested goal has no solution. Portable code should use `\+/1`. |
+| `forall(+Generator,+Check)` | Runs `Check` for every generator solution. It succeeds for an empty generator and does not export generator bindings. |
+
+ISO `findall/3` is present in both registries. The extension aggregates follow
+the same scoping principle: variables created inside the nested search do not
+leak except through the declared templates and outputs.
+
+```eyepl
+cost(a, 8).
+cost(b, 3).
+cost(c, 3).
+
+answer(count, N) :- countall(cost(_, _), N).
+answer(best(Name), Cost) :-
+  aggregate_min(CandidateCost, CandidateName,
+                cost(CandidateName, CandidateCost),
+                Cost, Name).
+
+query(answer(Kind, Value)).
+```
+
+### B.3.5 Context and compound-term helpers
+
+| Predicate and principal mode | Behavior |
+| --- | --- |
+| `holds(+Context,?Member)` | Flattens a comma-context from left to right and matches one member at a time. Members remain data; they are not called as goals. |
+| `holds(+Context,?Name,?Arguments)` | Decomposes each atomic or compound context member into an atom name and a proper argument list. |
+| `compound_name_arguments(?Term,?Name,?Arguments)` | Decomposes an atom or compound, or constructs one from a lexical name and proper argument list. An empty argument list constructs an atom because Eyepl has no zero-arity compound syntax. |
+| `eq(?A,?B)`, `neq(?A,?B)` | Convenience spellings for unification and non-unifiability. Portable code should use `=/2` and `\=/2`. |
+
+```eyepl
+message(event_17,
+        (severity(high), source(sensor_3), reading(temp, 91))).
+
+answer(field(Name, Args)) :-
+  message(event_17, Context),
+  holds(Context, Name, Args).
+
+query(answer(X)).
+```
+
+The library still includes the ISO `functor/3` and `arg/3` predicates described
+in the default profile. `compound_name_arguments/3` is the extension intended
+for convenient whole-argument-list decomposition and construction.
+
 # Appendix C. Command-line reference
 
 ```text
@@ -5247,7 +5432,8 @@ specifications.
   procedures.
 
 - Alain Colmerauer and Philippe Roussel,
-  [“The Birth of Prolog”](https://doi.org/10.1145/234313.234314), in *History
+  [“The Birth of Prolog”](https://softwarepreservation.computerhistory.org/prolog/index.html#history),
+  in *History
   of Programming Languages II*, 1996, pp. 331–367. A first-person history of
   how theorem proving, natural-language processing, and programming-language
   design converged in early Prolog.

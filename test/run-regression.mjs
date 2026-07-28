@@ -414,6 +414,10 @@ function documentationSyncCases() {
       },
     },
     {
+      name: 'book extension library matches runtime registry',
+      run: () => assertArrayEqual(bookExtensionBuiltinNames(), registeredExtensionBuiltinNames(), 'extension builtins'),
+    },
+    {
       name: 'book example catalog names resolve in examples directory',
       run: () => assertArrayEqual(bookExampleCatalogIssues(), [], 'guide example catalog'),
     },
@@ -1243,6 +1247,11 @@ function registeredBuiltinNames() {
   return [...createDefaultRegistry().defs.keys()].sort();
 }
 
+function registeredExtensionBuiltinNames() {
+  const defaults = createDefaultRegistry().defs;
+  return [...getLibraryRegistry().defs.keys()].filter((name) => !defaults.has(name)).sort();
+}
+
 function registeredBuiltinSummary() {
   const names = registeredBuiltinNames();
   return {
@@ -1253,7 +1262,12 @@ function registeredBuiltinSummary() {
 
 function bookBuiltinNames() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '# Appendix B. Built-in predicates', '# Appendix C. Command-line reference'));
+  return documentedBuiltinNames(between(book, '# Appendix B. Built-in predicates', '## B.3 Implementation extension library'), 2);
+}
+
+function bookExtensionBuiltinNames() {
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
+  return documentedBuiltinNames(between(book, '## B.3 Implementation extension library', '# Appendix C. Command-line reference'), 1);
 }
 
 function bookBuiltinSummary() {
@@ -1263,15 +1277,16 @@ function bookBuiltinSummary() {
   return { entries: Number(match[1]), names: Number(match[2]) };
 }
 
-function documentedBuiltinNames(section) {
+function documentedBuiltinNames(section, catalogColumn) {
   const names = [];
   for (const line of section.split('\n')) {
     if (!line.trim().startsWith('|') || !line.includes('`')) continue;
-    for (const match of line.matchAll(/`([A-Za-z_][A-Za-z0-9_]*)\(([^`)]*)\)`/g)) {
+    const catalogCell = line.split('|')[catalogColumn] ?? '';
+    for (const match of catalogCell.matchAll(/`([A-Za-z_][A-Za-z0-9_]*)\(([^`)]*)\)`/g)) {
       const arity = match[2].trim() === '' ? 0 : match[2].split(',').length;
       names.push(`${match[1]}/${arity}`);
     }
-    for (const match of line.matchAll(/`([^`\s]+)\/(\d+)`/g)) {
+    for (const match of catalogCell.matchAll(/`([^`\s]+)\/(\d+)`/g)) {
       names.push(`${match[1]}/${match[2]}`);
     }
   }
