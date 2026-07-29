@@ -1,4 +1,4 @@
-# Eyepl conformance suite
+# Eyepl profile conformance suite
 
 This directory contains executable tests for the Eyepl implementation and
 reasoner.
@@ -7,6 +7,12 @@ supported ISO Prolog profile, built-ins, extensions, and reasoner behavior.
 
 The suite is intentionally file-based. Exact standard output, errors, warnings,
 and proof output test the behavior of the JavaScript implementation.
+
+“Conformance” here means conformance to Eyepl's documented ISO compatibility
+profile and implementation extensions. It is not a certification of complete
+ISO/IEC 13211-1 processor conformance. In particular, cases under `iso/` test
+the supported ISO-derived subset; they do not imply coverage of every
+mandatory facility in the standard.
 
 All conformance files live under topic directories such as `arithmetic/`, `lists/`, `syntax/`, or `variables/`; new top-level numbered files should not be added. The report uses those directories as coverage categories.
 

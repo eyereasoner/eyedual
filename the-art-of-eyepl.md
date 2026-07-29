@@ -4086,7 +4086,7 @@ The intended mathematics is easy to recognize, but `>=/2` sees an unbound
 
 | Before goal | Goal | Bindings produced |
 | --- | --- | --- |
-| `{}` | `Age >= 18` | none; not ready |
+| none | `Age >= 18` | none; not ready |
 | — | `age(Person,Age)` | never productively reached |
 
 Reordering the goals repairs the operational mode:
@@ -4537,6 +4537,10 @@ inside a string denotes one literal double quote.
 Graphic atoms may contain `#$&*+-/<=>@^~\;`. Colon names and unquoted
 angle-bracket IRIs are not syntax; quote names containing such punctuation.
 
+In the grammar below, `{ x }` means zero or more repetitions of `x`, `[ x ]`
+means that `x` is optional, and parentheses group alternatives. These marks
+describe the grammar; they are not characters written in Eyepl source.
+
 ```text
 program             ::= { clause }
 clause              ::= head "."
@@ -4665,17 +4669,19 @@ ordinary facts, a program may query them.
 
 # Appendix B. Built-in predicates
 
-Eyepl's default registry contains the built-ins in its supported ISO Prolog
-profile. They use their standard predicate indicators, and arithmetic is
-expressed through `is/2` rather than output arguments on arithmetic predicates.
-It registers 38 name/arity entries across 38 names.
+Eyepl's default registry contains the built-ins in its ISO compatibility
+profile. Where a predicate is defined by ISO/IEC 13211-1:1995, Eyepl uses its
+standard predicate indicator; the registry also includes a few later or common
+compatibility predicates identified below. Arithmetic is expressed through
+`is/2` rather than output arguments on arithmetic predicates. The registry
+contains 38 name/arity entries across 38 names.
 
 | Family | Registered predicate indicators |
 | --- | --- |
 | Control | `true/0`, `fail/0`, `call/1`, `\+/1`, `;/2`, `->/2` |
 | Unification and identity | `=/2`, `\=/2`, `==/2`, `\==/2` |
 | Type tests | `var/1`, `nonvar/1`, `atom/1`, `integer/1`, `float/1`, `number/1`, `atomic/1`, `compound/1`, `callable/1`, `ground/1` |
-| Standard order | `compare/3`, `@</2`, `@=</2`, `@>/2`, `@>=/2` |
+| Profile term order | `compare/3`, `@</2`, `@=</2`, `@>/2`, `@>=/2` |
 | Term inspection | `functor/3`, `arg/3`, `=../2`, `copy_term/2`, `term_variables/2` |
 | Collection | `findall/3` |
 | Arithmetic | `is/2`, `=:=/2`, `=\=/2`, `</2`, `=</2`, `>/2`, `>=/2` |
@@ -4693,6 +4699,9 @@ floating-point literals, unary `+` and `-`, `+`, `-`, `*`, `/`, `//`, `div`,
 
 Arithmetic comparisons evaluate both operands. Standard term-order predicates
 (`@<`, `@=<`, `@>`, `@>=`) compare terms without arithmetic evaluation.
+Eyepl's documented profile order is not the complete ISO term order: strings
+are a distinct scalar category, and numeric terms share one exact numeric
+ordering category.
 
 ## B.2 Errors
 
@@ -4723,6 +4732,7 @@ classified separately because the bundled clauses remain their executable
 specification and fallback.
 
 <!-- native-extension-catalog:start -->
+
 | Native host-extension predicates |
 | --- |
 | `acos/2`, `asin/2`, `atan2/3`, `tan/2` |
@@ -4732,6 +4742,7 @@ specification and fallback.
 | `split/3`, `join/3`, `substring/4`, `replace/4` |
 | `lowercase/2`, `uppercase/2`, `trim/2` |
 | `number_string/2`, `atom_string/2`, `term_string/2` |
+
 <!-- native-extension-catalog:end -->
 
 On the command line:
@@ -5372,27 +5383,45 @@ node test/run-conformance-report.mjs
 
 ### Supported ISO Prolog profile
 
-Eyepl executes a documented and tested profile of ISO Prolog. Programs within
-that profile use standard clauses, variable spelling, quoted atoms, lists,
-operators, unification, arithmetic, term comparison, and control predicates.
-The implementation is intentionally incomplete: it does not yet provide the
-whole ISO Prolog processor and standard environment. In particular:
+Eyepl executes a documented and tested **ISO compatibility profile**. It is not
+a conforming implementation of the complete ISO/IEC 13211-1:1995 processor and
+standard environment. Programs within the profile reuse standard clauses,
+variable spelling, quoted atoms, lists, operators, unification, arithmetic,
+term comparison, and control predicates where Appendix A says they are
+supported. The executable examples are Eyepl-profile programs, not a corpus of
+portable ISO Prolog texts: they commonly use `query/1`, strings, inference
+fuses, automatic tabling, or the optional extension library.
+
+Relative to ISO/IEC 13211-1:1995, the default registry implements a useful
+subset of core unification, type tests, comparison, term decomposition,
+`findall/3`, arithmetic, and control. `compare/3`, `callable/1`, `ground/1`,
+and `term_variables/2` are compatibility conveniences outside the built-in
+catalog of that supplied edition. The implementation intentionally does not
+provide the whole processor. In particular:
 
 - only the fixed operators listed in Appendix A are recognized; there are no
   operator declarations or user-defined operators;
 - zero-arity compound syntax such as `ready()` is absent;
 - cut, modules, dynamic database updates, and DCGs are absent;
+- streams, standard term I/O, character and byte I/O, Prolog flags, exception
+  handling, `bagof/3`, `setof/3`, `repeat/0`, and the ISO atomic-term
+  processing family are absent;
 - variables cannot occupy functor or predicate position;
 - term ordering and the standard library are not the complete ISO versions;
+- double-quoted text is a distinct Eyepl string scalar rather than ISO
+  double-quoted list notation, and negative numeric text is represented as a
+  numeric scalar rather than a prefix `-/1` term;
 - unification performs an occurs check and rejects rational-tree bindings that
   some Prolog systems accept.
 
 Write terms explicitly, keep variables uppercase or underscore-prefixed, and
 quote atom names that are neither lowercase plain names nor graphic tokens.
-These boundaries keep the implementation focused and its Prolog source easy to
-transport. They are a statement about the present implementation profile, not
-a new language definition or a promise that an arbitrary ISO Prolog program
-will run unchanged.
+These boundaries keep the implementation focused. They are a statement about
+the present compatibility profile, not an ISO conformance claim, a new
+language definition, or a promise that an arbitrary ISO Prolog program will
+run unchanged. Portability must therefore be assessed feature by feature; the
+Eyepl conformance corpus verifies this documented profile rather than
+certifying the complete ISO standard.
 
 ### Security and resource use
 

@@ -1,4 +1,5 @@
-// ISO/IEC 13211-1 core built-in predicates.
+// Built-ins in Eyepl's documented ISO compatibility profile. This is a
+// deliberately incomplete profile, not the complete standard environment.
 import {
   ATOM, COMPOUND, NUMBER, STRING, VAR,
   atom, compareTerms, compound, copyResolved, deref, emptyList,
@@ -173,7 +174,7 @@ function* univBuiltin({ goal, env }) {
   }
   const items = properListItems(goal.args[1], env);
   if (items == null) {
-    if (deref(goal.args[1], env).type === VAR) throw new PrologError('instantiation_error');
+    if (isPartialList(goal.args[1], env)) throw new PrologError('instantiation_error');
     throw new PrologError('type_error(list)', deref(goal.args[1], env));
   }
   if (items.length === 0) throw new PrologError('domain_error(non_empty_list)', emptyList());
@@ -186,6 +187,14 @@ function* univBuiltin({ goal, env }) {
   }
   const name = requireAtom(items[0], env);
   if (unify(goal.args[0], compound(name.name, items.slice(1)), next)) yield next;
+}
+
+function isPartialList(list, env) {
+  let cursor = deref(list, env);
+  while (cursor.type === COMPOUND && cursor.name === '.' && cursor.arity === 2) {
+    cursor = deref(cursor.args[1], env);
+  }
+  return cursor.type === VAR;
 }
 
 function freshCopy(term, env, variables = new Map(), id = ++isoFresh) {
@@ -295,6 +304,10 @@ function evaluateOperation(term, args) {
       ? { integer: true, value: -args[0].value }
       : { integer: false, value: -args[0].value };
   }
+  if (arity === 1 && name === '\\') {
+    if (!args[0].integer) throw new PrologError('type_error(integer)', numericTerm(args[0]));
+    return { integer: true, value: ~args[0].value };
+  }
   if (arity === 1 && ['abs', 'sign', 'float', 'truncate', 'round', 'ceiling', 'floor',
     'sin', 'cos', 'atan', 'exp', 'log', 'sqrt'].includes(name)) {
     const a = Number(args[0].value);
@@ -312,6 +325,10 @@ function evaluateOperation(term, args) {
   if (arity !== 2) throw new PrologError('type_error(evaluable)', compound('/', [atom(name), numberTerm(arity)]));
   const bothInteger = args[0].integer && args[1].integer;
   const a = args[0].value, b = args[1].value;
+  if (['//', 'div', 'mod', 'rem', '/\\', '\\/', '<<', '>>'].includes(name) && !bothInteger) {
+    const invalid = !args[0].integer ? args[0] : args[1];
+    throw new PrologError('type_error(integer)', numericTerm(invalid));
+  }
   if (bothInteger && name === '^' && b >= 0n) return { integer: true, value: a ** b };
   if (bothInteger && ['+', '-', '*', '//', 'div', 'mod', 'rem', '/\\', '\\/', '<<', '>>'].includes(name)) {
     if ((name === '//' || name === 'div' || name === 'mod' || name === 'rem') && b === 0n) throw new PrologError('evaluation_error(zero_divisor)');

@@ -1,1 +1,1 @@
-error(type_error(evaluable), /(mod, 2))
+error(type_error(integer), 5.5)

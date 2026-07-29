@@ -40,22 +40,22 @@ const INFIX_OPERATORS = new Map([
   [';', { precedence: 5, associativity: 'right' }],
   ['->', { precedence: 7, associativity: 'right' }],
   [',', { precedence: 10, associativity: 'right' }],
-  ['=', { precedence: 20, associativity: 'left' }],
-  ['=..', { precedence: 20, associativity: 'left' }],
-  ['\\=', { precedence: 20, associativity: 'left' }],
-  ['==', { precedence: 20, associativity: 'left' }],
-  ['\\==', { precedence: 20, associativity: 'left' }],
-  ['@<', { precedence: 20, associativity: 'left' }],
-  ['@=<', { precedence: 20, associativity: 'left' }],
-  ['@>', { precedence: 20, associativity: 'left' }],
-  ['@>=', { precedence: 20, associativity: 'left' }],
-  ['is', { precedence: 20, associativity: 'left' }],
-  ['=:=', { precedence: 20, associativity: 'left' }],
-  ['=\\=', { precedence: 20, associativity: 'left' }],
-  ['<', { precedence: 20, associativity: 'left' }],
-  ['=<', { precedence: 20, associativity: 'left' }],
-  ['>', { precedence: 20, associativity: 'left' }],
-  ['>=', { precedence: 20, associativity: 'left' }],
+  ['=', { precedence: 20, associativity: 'none' }],
+  ['=..', { precedence: 20, associativity: 'none' }],
+  ['\\=', { precedence: 20, associativity: 'none' }],
+  ['==', { precedence: 20, associativity: 'none' }],
+  ['\\==', { precedence: 20, associativity: 'none' }],
+  ['@<', { precedence: 20, associativity: 'none' }],
+  ['@=<', { precedence: 20, associativity: 'none' }],
+  ['@>', { precedence: 20, associativity: 'none' }],
+  ['@>=', { precedence: 20, associativity: 'none' }],
+  ['is', { precedence: 20, associativity: 'none' }],
+  ['=:=', { precedence: 20, associativity: 'none' }],
+  ['=\\=', { precedence: 20, associativity: 'none' }],
+  ['<', { precedence: 20, associativity: 'none' }],
+  ['=<', { precedence: 20, associativity: 'none' }],
+  ['>', { precedence: 20, associativity: 'none' }],
+  ['>=', { precedence: 20, associativity: 'none' }],
   ['+', { precedence: 30, associativity: 'left' }],
   ['-', { precedence: 30, associativity: 'left' }],
   ['/\\', { precedence: 30, associativity: 'left' }],
@@ -68,7 +68,7 @@ const INFIX_OPERATORS = new Map([
   ['rem', { precedence: 40, associativity: 'left' }],
   ['<<', { precedence: 40, associativity: 'left' }],
   ['>>', { precedence: 40, associativity: 'left' }],
-  ['**', { precedence: 50, associativity: 'right' }],
+  ['**', { precedence: 50, associativity: 'none' }],
   ['^', { precedence: 50, associativity: 'right' }],
 ]);
 const PREFIX_OPERATORS = new Map([
@@ -264,6 +264,14 @@ class Parser {
       this.advance();
       const right = this.parseTerm(info.associativity === 'right' ? info.precedence : info.precedence + 1, allowComma);
       left = compound(op, [left, right]);
+      if (info.associativity === 'none') {
+        const nextOp = this.token.type === TOK.COMMA && allowComma
+          ? ','
+          : this.token.type === TOK.ATOM && !this.token.quoted ? this.token.text : null;
+        if (INFIX_OPERATORS.get(nextOp)?.precedence === info.precedence) {
+          throw new Error(`parse line ${this.token.line}: non-associative operator ${op} requires parentheses`);
+        }
+      }
     }
     return left;
   }

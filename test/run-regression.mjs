@@ -1306,7 +1306,7 @@ function bookExtensionBuiltinNames() {
 
 function bookBuiltinSummary() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  const match = book.match(/registers (\d+) name\/arity entries across (\d+) names/);
+  const match = book.match(/(?:registers|contains) (\d+) name\/arity entries across (\d+) names/);
   if (match == null) throw new Error('book builtin summary not found');
   return { entries: Number(match[1]), names: Number(match[2]) };
 }
