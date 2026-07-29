@@ -163,6 +163,10 @@ in *The Art of Eyepl* covers the mapping and `--include-source` behavior.
 
 ## Tests
 
+The v0.1.14 release baseline passes 1,020 tests. Its 555-file conformance
+corpus includes 137 focused ISO cases covering the success, failure, mode, and
+error behavior derived from ISO/IEC 13211-1 clauses 7 and 8.
+
 ```bash
 npm test
 npm run test:conformance

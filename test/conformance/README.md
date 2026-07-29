@@ -85,6 +85,10 @@ ISO/IEC 13211-1 clauses 7 and 8. In particular, isolated negative cases keep
 instantiation, type, domain, permission, representation, and evaluation errors
 independently observable.
 
+The v0.1.14 baseline has 137 cases in `iso/` and 555 file-based conformance
+cases in total. Together with regression, API, RDF, example, style, and other
+checks, `npm test` passes 1,020 tests.
+
 ## Updating expected output
 
 There is no committed auto-accept mode. To update an expected file, run the matching case with the conformance runner, inspect the result, and replace the corresponding file under `conformance/expected/`, `conformance/expected-errors/`, `conformance/expected-warnings/`, or `conformance/expected-proofs/` deliberately.
