@@ -8,20 +8,22 @@ export * from './term.js';
 export {
   BuiltinRegistry,
   createDefaultRegistry,
-  createLibraryRegistry,
   getDefaultRegistry,
+  HaltSignal,
+  PrologError,
+} from './iso.js';
+export {
+  createLibraryRegistry,
   getLibraryRegistry,
-} from './builtins/registry.js';
-export { HaltSignal, PrologError } from './builtins/iso.js';
+} from './library.js';
 export { StreamManager } from './io.js';
 
 import { Env, copyResolved, termIsGround, termToString } from './term.js';
 import { Program } from './program.js';
 import { Solver } from './solver.js';
 import { whyNoProof, whyProof } from './explain.js';
-import { getDefaultRegistry } from './builtins/registry.js';
+import { getDefaultRegistry, HaltSignal } from './iso.js';
 import { checkInferenceFuses } from './fuse.js';
-import { HaltSignal } from './builtins/iso.js';
 
 export function run(source, options = {}) {
   const includeWhy = options.proof === true || options.why === true || options.explain === true;

@@ -46,7 +46,15 @@ why(
               ),
               proof(
                 goal(append([flour], [yeast, heat], [flour, yeast, heat])),
-                by(builtin(append, 3))
+                by(rule("<library>", clause(2))),
+                bindings([binding("X", flour), binding("Xs", []), binding("Ys", [yeast, heat]), binding("Zs", [yeast, heat])]),
+                uses([
+                  proof(
+                    goal(append([], [yeast, heat], [yeast, heat])),
+                    by(fact("<library>", clause(1))),
+                    bindings([binding("Ys", [yeast, heat])])
+                  )
+                ])
               )
             ])
           ),
@@ -101,7 +109,15 @@ why(
                   ),
                   proof(
                     goal(append([dough], [heat], [dough, heat])),
-                    by(builtin(append, 3))
+                    by(rule("<library>", clause(2))),
+                    bindings([binding("X", dough), binding("Xs", []), binding("Ys", [heat]), binding("Zs", [heat])]),
+                    uses([
+                      proof(
+                        goal(append([], [heat], [heat])),
+                        by(fact("<library>", clause(1))),
+                        bindings([binding("Ys", [heat])])
+                      )
+                    ])
                   )
                 ])
               ),
@@ -156,7 +172,15 @@ why(
                       ),
                       proof(
                         goal(append([bread], [], [bread])),
-                        by(builtin(append, 3))
+                        by(rule("<library>", clause(2))),
+                        bindings([binding("X", bread), binding("Xs", []), binding("Ys", []), binding("Zs", [])]),
+                        uses([
+                          proof(
+                            goal(append([], [], [])),
+                            by(fact("<library>", clause(1))),
+                            bindings([binding("Ys", [])])
+                          )
+                        ])
                       )
                     ])
                   ),

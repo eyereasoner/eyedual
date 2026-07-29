@@ -12,7 +12,21 @@ why(
       ),
       proof(
         goal(holds((name(a, "Alice"), statedBy(t, bob), recorded(t, "2021-07-07")), name(a, "Alice"))),
-        by(builtin(holds, 2))
+        by(rule("<library>", clause(70))),
+        bindings([binding("Left", name(a, "Alice")), binding("Right", (statedBy(t, bob), recorded(t, "2021-07-07"))), binding("Member", name(a, "Alice"))]),
+        uses([
+          proof(
+            goal(holds(name(a, "Alice"), name(a, "Alice"))),
+            by(rule("<library>", clause(72))),
+            bindings([binding("Member", name(a, "Alice"))]),
+            uses([
+              proof(
+                goal(\=(name(a, "Alice"), (__anon17, __anon18))),
+                by(builtin(\=, 2))
+              )
+            ])
+          )
+        ])
       )
     ])
   )
@@ -32,7 +46,21 @@ why(
       ),
       proof(
         goal(holds((name(a, "Alice"), statedBy(t, bob), recorded(t, "2021-07-07")), name(a, "Alice"))),
-        by(builtin(holds, 2))
+        by(rule("<library>", clause(70))),
+        bindings([binding("Left", name(a, "Alice")), binding("Right", (statedBy(t, bob), recorded(t, "2021-07-07"))), binding("Member", name(a, "Alice"))]),
+        uses([
+          proof(
+            goal(holds(name(a, "Alice"), name(a, "Alice"))),
+            by(rule("<library>", clause(72))),
+            bindings([binding("Member", name(a, "Alice"))]),
+            uses([
+              proof(
+                goal(\=(name(a, "Alice"), (__anon17, __anon18))),
+                by(builtin(\=, 2))
+              )
+            ])
+          )
+        ])
       )
     ])
   )
@@ -52,7 +80,28 @@ why(
       ),
       proof(
         goal(holds((name(a, "Alice"), statedBy(t, bob), recorded(t, "2021-07-07")), statedBy(t, bob))),
-        by(builtin(holds, 2))
+        by(rule("<library>", clause(71))),
+        bindings([binding("Left", name(a, "Alice")), binding("Right", (statedBy(t, bob), recorded(t, "2021-07-07"))), binding("Member", statedBy(t, bob))]),
+        uses([
+          proof(
+            goal(holds((statedBy(t, bob), recorded(t, "2021-07-07")), statedBy(t, bob))),
+            by(rule("<library>", clause(70))),
+            bindings([binding("Left", statedBy(t, bob)), binding("Right", recorded(t, "2021-07-07")), binding("Member", statedBy(t, bob))]),
+            uses([
+              proof(
+                goal(holds(statedBy(t, bob), statedBy(t, bob))),
+                by(rule("<library>", clause(72))),
+                bindings([binding("Member", statedBy(t, bob))]),
+                uses([
+                  proof(
+                    goal(\=(statedBy(t, bob), (__anon17, __anon18))),
+                    by(builtin(\=, 2))
+                  )
+                ])
+              )
+            ])
+          )
+        ])
       )
     ])
   )
@@ -72,7 +121,28 @@ why(
       ),
       proof(
         goal(holds((name(a, "Alice"), statedBy(t, bob), recorded(t, "2021-07-07")), recorded(t, "2021-07-07"))),
-        by(builtin(holds, 2))
+        by(rule("<library>", clause(71))),
+        bindings([binding("Left", name(a, "Alice")), binding("Right", (statedBy(t, bob), recorded(t, "2021-07-07"))), binding("Member", recorded(t, "2021-07-07"))]),
+        uses([
+          proof(
+            goal(holds((statedBy(t, bob), recorded(t, "2021-07-07")), recorded(t, "2021-07-07"))),
+            by(rule("<library>", clause(71))),
+            bindings([binding("Left", statedBy(t, bob)), binding("Right", recorded(t, "2021-07-07")), binding("Member", recorded(t, "2021-07-07"))]),
+            uses([
+              proof(
+                goal(holds(recorded(t, "2021-07-07"), recorded(t, "2021-07-07"))),
+                by(rule("<library>", clause(72))),
+                bindings([binding("Member", recorded(t, "2021-07-07"))]),
+                uses([
+                  proof(
+                    goal(\=(recorded(t, "2021-07-07"), (__anon17, __anon18))),
+                    by(builtin(\=, 2))
+                  )
+                ])
+              )
+            ])
+          )
+        ])
       )
     ])
   )

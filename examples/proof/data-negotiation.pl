@@ -29,7 +29,14 @@ why(
           ),
           proof(
             goal(not_member(data4, [data1, data2, data3])),
-            by(builtin(not_member, 2))
+            by(rule("<library>", clause(42))),
+            bindings([binding("X", data4), binding("Xs", [data1, data2, data3])]),
+            uses([
+              proof(
+                goal('\\+'(member(data4, [data1, data2, data3]))),
+                by(builtin('\\+', 1))
+              )
+            ])
           ),
           proof(
             goal(policy(agent1, [request, data4])),

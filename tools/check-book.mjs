@@ -3,7 +3,7 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
-import { getDefaultRegistry } from '../src/builtins/registry.js';
+import { getDefaultRegistry } from '../src/iso.js';
 import { Program } from '../src/program.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');

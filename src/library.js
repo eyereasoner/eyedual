@@ -1,0 +1,694 @@
+// Optional Eyepl extension library: host primitives, portable ISO clauses,
+// and the small profile-guided accelerator set.
+import {
+  atom,
+  compareIntegerText,
+  compareTerms,
+  compound,
+  copyResolved,
+  deref,
+  isDecimalInteger,
+  lexicalValue,
+  listFromItems,
+  numberTerm,
+  numberTextFromDouble,
+  parseFiniteNumber,
+  properListItems,
+  stringTerm,
+  termToString,
+  unify,
+} from './term.js';
+import { BuiltinRegistry, isoBuiltins } from './iso.js';
+
+// Numeric builtins for integer-preserving arithmetic, floating point functions, comparisons, and ranges.
+// The code keeps BigInt paths where possible so large Eyepl integers remain exact.
+
+const unaryNames = ['tan', 'asin', 'acos'];
+const binaryNames = ['atan2'];
+const compareNames = ['lt', 'gt', 'le', 'ge'];
+
+export const arithmeticBuiltins = {
+  register(registry) {
+    for (const name of unaryNames) registry.add(name, 2, unary(name), { deterministic: true });
+    for (const name of binaryNames) registry.add(name, 3, binary(name), { deterministic: true });
+    for (const name of compareNames) registry.add(name, 2, compare(name), { deterministic: true });
+    registry.add('between', 3, between, { portableEquivalent: true });
+    registry.add('smallest_divisor_from', 3, smallestDivisorFrom, {
+      deterministic: true,
+      portableEquivalent: true,
+    });
+  }
+};
+
+function* between({ goal, env }) {
+  const lowText = lexicalValue(goal.args[0], env);
+  const highText = lexicalValue(goal.args[1], env);
+  if (!isDecimalInteger(lowText) || !isDecimalInteger(highText)) return;
+  const low = BigInt(lowText);
+  const high = BigInt(highText);
+  if (low > high) return;
+  const output = deref(goal.args[2], env);
+  if (output.type !== 'var') {
+    const valueText = lexicalValue(output, env);
+    if (!isDecimalInteger(valueText)) return;
+    const value = BigInt(valueText);
+    if (value >= low && value <= high) yield env;
+    return;
+  }
+  for (let value = low; value <= high; value++) {
+    const next = env.clone();
+    next.bind(output.name, numberTerm(value.toString()));
+    yield next;
+  }
+}
+
+function* smallestDivisorFrom({ goal, env }) {
+  const nText = lexicalValue(goal.args[0], env);
+  const startText = lexicalValue(goal.args[1], env);
+  if (!isDecimalInteger(nText) || !isDecimalInteger(startText)) return;
+  const n = BigInt(nText);
+  const start = BigInt(startText);
+  if (n < 0n || start <= 0n) return;
+  let divisor = n;
+  for (let candidate = start; candidate <= n / candidate; candidate++) {
+    if (n % candidate === 0n) {
+      divisor = candidate;
+      break;
+    }
+  }
+  const next = env.clone();
+  if (unify(goal.args[2], numberTerm(divisor.toString()), next)) yield next;
+}
+
+function unary(name) {
+  return function* ({ goal, env }) {
+    const text = lexicalValue(goal.args[0], env);
+    if (text == null) return;
+    const input = parseFiniteNumber(text);
+    if (input == null) return;
+    const value = name === 'tan' ? Math.tan(input) : name === 'asin' ? Math.asin(input) : Math.acos(input);
+    const out = numberTextFromDouble(value);
+    const next = env.clone();
+    if (out != null && unify(goal.args[1], numberTerm(out), next)) yield next;
+  };
+}
+
+function binary(name) {
+  return function* ({ goal, env }) {
+    const leftText = lexicalValue(goal.args[0], env);
+    const rightText = lexicalValue(goal.args[1], env);
+    if (leftText == null || rightText == null) return;
+    const a = parseFiniteNumber(leftText), b = parseFiniteNumber(rightText);
+    if (a == null || b == null) return;
+    const out = numberTextFromDouble(Math.atan2(a, b));
+    const next = env.clone();
+    if (out != null && unify(goal.args[2], numberTerm(out), next)) yield next;
+  };
+}
+
+function compare(name) {
+  return function* ({ goal, env }) {
+    const left = lexicalValue(goal.args[0], env);
+    const right = lexicalValue(goal.args[1], env);
+    if (left == null || right == null) return;
+    const cmp = compareLexicalOrNumeric(left, right);
+    const pass = name === 'lt' ? cmp < 0 : name === 'gt' ? cmp > 0 : name === 'le' ? cmp <= 0 : cmp >= 0;
+    if (pass) yield env;
+  };
+}
+
+export function compareLexicalOrNumeric(left, right) {
+  if (isDecimalInteger(left) && isDecimalInteger(right)) return compareIntegerText(left, right);
+  const dur = compareDuration(left, right);
+  if (dur != null) return dur;
+  const a = parseFiniteNumber(left), b = parseFiniteNumber(right);
+  if (a != null && b != null) return a < b ? -1 : a > b ? 1 : 0;
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function compareDuration(a, b) {
+  const pa = parseDuration(a), pb = parseDuration(b);
+  if (!pa || !pb) return null;
+  for (let i = 0; i < 3; i++) if (pa[i] !== pb[i]) return pa[i] < pb[i] ? -1 : 1;
+  return 0;
+}
+function parseDuration(text) {
+  const m = /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?$/.exec(text);
+  if (!m || (!m[1] && !m[2] && !m[3])) return null;
+  return [Number(m[1] ?? 0), Number(m[2] ?? 0), Number(m[3] ?? 0)];
+}
+
+
+// Core relational builtins that do not naturally belong to arithmetic, strings, lists, or aggregation.
+// They are deterministic filters/projections and should avoid enumerating additional answers.
+
+export const coreBuiltins = {
+  register(registry) {
+    registry.add('local_time', 1, function* ({ goal, env }) {
+      const next = env.clone();
+      if (unify(goal.args[0], stringTerm(localDateText()), next)) yield next;
+    }, { deterministic: true });
+
+    registry.add('difference', 3, function* ({ goal, env }) {
+      const endText = lexicalValue(goal.args[0], env);
+      const startText = lexicalValue(goal.args[1], env);
+      if (!endText || !startText) return;
+      const end = parseISODate(endText);
+      const start = parseISODate(startText);
+      if (!end || !start || compareDateParts(end, start) < 0) return;
+      let [ey, em, ed] = end;
+      const [sy, sm, sd] = start;
+      if (ed < sd) {
+        let bm = em - 1;
+        let by = ey;
+        if (bm === 0) { bm = 12; by--; }
+        ed += daysInMonth(by, bm);
+        em--;
+        if (em === 0) { em = 12; ey--; }
+      }
+      if (em < sm) { em += 12; ey--; }
+      const duration = formatDuration(ey - sy, em - sm, ed - sd);
+      const next = env.clone();
+      if (unify(goal.args[2], stringTerm(duration), next)) yield next;
+    }, { deterministic: true });
+  }
+};
+
+
+function localDateText() {
+  const fixed = typeof process !== 'undefined' ? process.env?.EYEPL_LOCAL_TIME : null;
+  if (fixed) return fixed;
+
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function parseISODate(text) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(text);
+  if (!m) return null;
+  const y = Number(m[1]), mo = Number(m[2]), d = Number(m[3]);
+  if (mo < 1 || mo > 12 || d < 1 || d > daysInMonth(y, mo)) return null;
+  return [y, mo, d];
+}
+function daysInMonth(y, m) {
+  return [0,31,((y%4===0&&y%100!==0)||y%400===0)?29:28,31,30,31,30,31,31,30,31,30,31][m] ?? 0;
+}
+function compareDateParts(a, b) {
+  for (let i = 0; i < 3; i++) if (a[i] !== b[i]) return a[i] < b[i] ? -1 : 1;
+  return 0;
+}
+function formatDuration(y, m, d) {
+  if (y === 0 && m === 0 && d === 0) return 'P0D';
+  return `P${y ? `${y}Y` : ''}${m ? `${m}M` : ''}${d ? `${d}D` : ''}`;
+}
+
+
+// String builtins.
+// They mostly project from already-ground terms to avoid guessing string domains.
+
+export const stringBuiltins = {
+  register(registry) {
+    registry.add('matches', 3, matchCaptures, { deterministic: true });
+    registry.add('split', 3, split, { deterministic: true, fallbackWhenNotReady: true, ready: firstTwoLexicalReady });
+    registry.add('replace', 4, replace, { deterministic: true, fallbackWhenNotReady: true, ready: firstThreeLexicalReady });
+    registry.add('lowercase', 2, caseFold('lower'), { deterministic: true, fallbackWhenNotReady: true, ready: firstLexicalReady });
+    registry.add('uppercase', 2, caseFold('upper'), { deterministic: true, fallbackWhenNotReady: true, ready: firstLexicalReady });
+    registry.add('trim', 2, trim, { deterministic: true, fallbackWhenNotReady: true, ready: firstLexicalReady });
+    registry.add('number_string', 2, numberString, { deterministic: true, fallbackWhenNotReady: true, ready: numberStringReady });
+    registry.add('atom_string', 2, atomString, { deterministic: true, fallbackWhenNotReady: true, ready: atomStringReady });
+    registry.add('term_string', 2, termString, { deterministic: true, fallbackWhenNotReady: true, ready: firstNonvarReady });
+  }
+};
+
+
+
+function firstLexicalReady(goal, env) {
+  return lexicalValue(goal.args[0], env) !== null;
+}
+
+function firstTwoLexicalReady(goal, env) {
+  return lexicalValue(goal.args[0], env) !== null && lexicalValue(goal.args[1], env) !== null;
+}
+
+function firstThreeLexicalReady(goal, env) {
+  return firstTwoLexicalReady(goal, env) && lexicalValue(goal.args[2], env) !== null;
+}
+
+function numberStringReady(goal, env) {
+  const left = deref(goal.args[0], env);
+  const right = deref(goal.args[1], env);
+  return left.type === 'number' || right.type === 'string' || right.type === 'atom';
+}
+
+function atomStringReady(goal, env) {
+  const left = deref(goal.args[0], env);
+  const right = deref(goal.args[1], env);
+  return left.type === 'atom' || right.type === 'string' || right.type === 'atom' || right.type === 'number';
+}
+
+function firstNonvarReady(goal, env) {
+  return deref(goal.args[0], env).type !== 'var';
+}
+
+function* matchCaptures({ goal, env }) {
+  const text = lexicalValue(goal.args[0], env);
+  const pattern = lexicalValue(goal.args[1], env);
+  if (text == null || pattern == null) return;
+
+  let match;
+  try {
+    match = new RegExp(pattern).exec(text);
+  } catch (_) {
+    return;
+  }
+  if (!match?.groups) return;
+
+  const context = contextFromGroups(match.groups);
+  if (context == null) return;
+
+  const next = env.clone();
+  if (unify(goal.args[2], context, next)) yield next;
+}
+
+function* split({ goal, env }) {
+  const text = lexicalValue(goal.args[0], env);
+  const separator = lexicalValue(goal.args[1], env);
+  if (text == null || separator == null) return;
+  const parts = text.split(separator).map(stringTerm);
+  const next = env.clone();
+  if (unify(goal.args[2], listFromItems(parts), next)) yield next;
+}
+
+function* replace({ goal, env }) {
+  const text = lexicalValue(goal.args[0], env);
+  const search = lexicalValue(goal.args[1], env);
+  const replacement = lexicalValue(goal.args[2], env);
+  if (text == null || search == null || replacement == null) return;
+  const out = search === '' ? text : text.split(search).join(replacement);
+  const next = env.clone();
+  if (unify(goal.args[3], stringTerm(out), next)) yield next;
+}
+
+function caseFold(direction) {
+  return function* ({ goal, env }) {
+    const text = lexicalValue(goal.args[0], env);
+    if (text == null) return;
+    const next = env.clone();
+    const out = direction === 'lower' ? text.toLowerCase() : text.toUpperCase();
+    if (unify(goal.args[1], stringTerm(out), next)) yield next;
+  };
+}
+
+function* trim({ goal, env }) {
+  const text = lexicalValue(goal.args[0], env);
+  if (text == null) return;
+  const next = env.clone();
+  if (unify(goal.args[1], stringTerm(text.trim()), next)) yield next;
+}
+
+function* numberString({ goal, env }) {
+  const left = deref(goal.args[0], env);
+  const right = deref(goal.args[1], env);
+  const next = env.clone();
+  if (left.type === 'number') {
+    if (unify(goal.args[1], stringTerm(left.name), next)) yield next;
+    return;
+  }
+  if (right.type === 'string' || right.type === 'atom') {
+    if (!numericText(right.name)) return;
+    if (unify(goal.args[0], numberTerm(right.name), next)) yield next;
+  }
+}
+
+function* atomString({ goal, env }) {
+  const left = deref(goal.args[0], env);
+  const right = deref(goal.args[1], env);
+  const next = env.clone();
+  if (left.type === 'atom') {
+    if (unify(goal.args[1], stringTerm(left.name), next)) yield next;
+    return;
+  }
+  if (right.type === 'string' || right.type === 'atom' || right.type === 'number') {
+    if (unify(goal.args[0], atom(right.name), next)) yield next;
+  }
+}
+
+function* termString({ goal, env }) {
+  const term = deref(goal.args[0], env);
+  if (term.type === 'var') return;
+  const next = env.clone();
+  if (unify(goal.args[1], stringTerm(termToString(term, env, true)), next)) yield next;
+}
+
+function contextFromGroups(groups) {
+  const terms = [];
+  for (const [name, value] of Object.entries(groups)) {
+    if (value !== undefined) terms.push(compound(name, [stringTerm(value)]));
+  }
+  if (terms.length === 0) return null;
+
+  let context = terms[terms.length - 1];
+  for (let i = terms.length - 2; i >= 0; i--) context = compound(',', [terms[i], context]);
+  return context;
+}
+
+function numericText(text) {
+  return isDecimalInteger(text) || parseFiniteNumber(text) != null;
+}
+
+
+// Selected accelerators for portable relations whose ISO definitions are
+// measurably expensive in representative workloads.
+
+export const portableAccelerators = {
+  register(registry) {
+    registry.add('countall', 2, countall, { portableEquivalent: true });
+    registry.add('length', 2, length, {
+      deterministic: true,
+      portableEquivalent: true,
+    });
+    registry.add('member', 2, member, { portableEquivalent: true });
+    registry.add('select', 3, select, { portableEquivalent: true });
+    registry.add('reverse', 2, reverse, {
+      deterministic: true,
+      portableEquivalent: true,
+    });
+    registry.add('sort', 2, sort, {
+      deterministic: true,
+      portableEquivalent: true,
+    });
+    registry.add('contains', 2, contains, {
+      deterministic: true,
+      fallbackWhenNotReady: true,
+      ready: twoLexicalInputsReady,
+      portableEquivalent: true,
+    });
+    registry.add('matches', 2, matches, {
+      deterministic: true,
+      fallbackWhenNotReady: true,
+      ready: twoLexicalInputsReady,
+      portableEquivalent: true,
+    });
+  }
+};
+
+function* countall({ solver, goal, env }) {
+  const collector = solver.cloneForInnerGoal(10000000);
+  let count = 0;
+  for (const _ of collector.solve([goal.args[0]], env.clone(), 0)) count++;
+  solver.absorbStatsFrom(collector);
+  const next = env.clone();
+  if (unify(goal.args[1], numberTerm(count), next)) yield next;
+}
+
+function* length({ goal, env }) {
+  const items = properListItems(goal.args[0], env);
+  if (items == null) return;
+  const next = env.clone();
+  if (unify(goal.args[1], numberTerm(items.length), next)) yield next;
+}
+
+function* member({ goal, env }) {
+  const items = properListItems(goal.args[1], env);
+  if (items == null) return;
+  for (const item of items) {
+    const next = env.clone();
+    if (unify(goal.args[0], item, next)) yield next;
+  }
+}
+
+function* select({ goal, env }) {
+  const items = properListItems(goal.args[1], env);
+  if (items == null) return;
+  for (let i = 0; i < items.length; i++) {
+    const rest = [...items.slice(0, i), ...items.slice(i + 1)];
+    const next = env.clone();
+    if (unify(goal.args[0], items[i], next) &&
+        unify(goal.args[2], listFromItems(rest), next)) yield next;
+  }
+}
+
+function* reverse({ goal, env }) {
+  const items = properListItems(goal.args[0], env);
+  if (items == null) return;
+  const next = env.clone();
+  if (unify(goal.args[1], listFromItems([...items].reverse()), next)) yield next;
+}
+
+function* sort({ goal, env }) {
+  const items = properListItems(goal.args[0], env);
+  if (items == null) return;
+  const sorted = items.map((item) => copyResolved(item, env)).sort(compareTerms);
+  const unique = [];
+  for (const item of sorted) {
+    if (unique.length === 0 ||
+        compareTerms(unique[unique.length - 1], item) !== 0) unique.push(item);
+  }
+  const next = env.clone();
+  if (unify(goal.args[1], listFromItems(unique), next)) yield next;
+}
+
+function twoLexicalInputsReady(goal, env) {
+  return lexicalValue(goal.args[0], env) != null &&
+    lexicalValue(goal.args[1], env) != null;
+}
+
+function* contains({ goal, env }) {
+  const text = lexicalValue(goal.args[0], env);
+  const needle = lexicalValue(goal.args[1], env);
+  if (text.includes(needle)) yield env;
+}
+
+function* matches({ goal, env }) {
+  const text = lexicalValue(goal.args[0], env);
+  const pattern = lexicalValue(goal.args[1], env);
+  if (pattern.split('|').some((part) => text.includes(part))) yield env;
+}
+
+
+// Relations that need no host primitive: they are ordinary ISO-style Prolog
+// clauses bundled with --library for convenience.
+export const portableLibrarySource = String.raw`
+append([], Ys, Ys).
+append([X | Xs], Ys, [X | Zs]) :- append(Xs, Ys, Zs).
+
+str_concat(Left, Right, Text) :-
+  atom_string(LeftAtom, Left),
+  atom_string(RightAtom, Right),
+  atom_concat(LeftAtom, RightAtom, TextAtom),
+  atom_string(TextAtom, Text).
+
+contains(Text, Needle) :-
+  atom_string(TextAtom, Text),
+  atom_string(NeedleAtom, Needle),
+  sub_atom(TextAtom, _, _, _, NeedleAtom).
+
+matches(Text, Pattern) :-
+  split(Pattern, "|", Alternatives),
+  once(matches_alternative(Text, Alternatives)).
+matches_alternative(Text, Alternatives) :-
+  member(Alternative, Alternatives),
+  contains(Text, Alternative).
+
+join([], _, Text) :- atom_string('', Text).
+join([Item | Items], Separator, Text) :-
+  atom_string(ItemAtom, Item),
+  join_atoms(Items, Separator, ItemAtom, TextAtom),
+  atom_string(TextAtom, Text).
+join_atoms([], _, Text, Text).
+join_atoms([Item | Items], Separator, Acc, Text) :-
+  atom_string(SeparatorAtom, Separator),
+  atom_string(ItemAtom, Item),
+  atom_concat(Acc, SeparatorAtom, WithSeparator),
+  atom_concat(WithSeparator, ItemAtom, Next),
+  join_atoms(Items, Separator, Next, Text).
+
+substring(Text, Start, Count, Part) :-
+  integer(Start),
+  integer(Count),
+  Start >= 0,
+  Count >= 0,
+  atom_string(TextAtom, Text),
+  sub_atom(TextAtom, Start, Count, _, PartAtom),
+  atom_string(PartAtom, Part).
+
+member(X, [X | _]).
+member(X, [_ | Xs]) :- member(X, Xs).
+
+select(X, [X | Xs], Xs).
+select(X, [Y | Ys], [Y | Zs]) :- select(X, Ys, Zs).
+
+head([H | _], H).
+rest([_ | T], T).
+last([X], X).
+last([_ | Xs], X) :- last(Xs, X).
+
+nth0(0, [X | _], X).
+nth0(N, [_ | Xs], X) :- nth0(N0, Xs, X), N is N0 + 1.
+
+set_nth0(0, [_ | Xs], X, [X | Xs]).
+set_nth0(N, [Y | Ys], X, [Y | Zs]) :-
+  N > 0,
+  N0 is N - 1,
+  set_nth0(N0, Ys, X, Zs).
+
+take(0, _, []).
+take(N, [X | Xs], [X | Ys]) :-
+  N > 0,
+  N0 is N - 1,
+  take(N0, Xs, Ys).
+
+drop(0, Xs, Xs).
+drop(N, [_ | Xs], Ys) :-
+  N > 0,
+  N0 is N - 1,
+  drop(N0, Xs, Ys).
+
+slice(Start, Count, Xs, Slice) :-
+  drop(Start, Xs, Suffix),
+  take(Count, Suffix, Slice).
+
+reverse(Xs, Ys) :- reverse_acc(Xs, [], Ys).
+reverse_acc([], Ys, Ys).
+reverse_acc([X | Xs], Acc, Ys) :- reverse_acc(Xs, [X | Acc], Ys).
+
+length([], 0).
+length([_ | Xs], N) :- length(Xs, N0), N is N0 + 1.
+
+sum_list([], 0).
+sum_list([X | Xs], Sum) :- sum_list(Xs, Tail), Sum is X + Tail.
+
+min_list([X | Xs], Min) :- min_list_acc(Xs, X, Min).
+min_list_acc([], Min, Min).
+min_list_acc([X | Xs], Acc, Min) :-
+  (X @< Acc -> Next = X ; Next = Acc),
+  min_list_acc(Xs, Next, Min).
+
+max_list([X | Xs], Max) :- max_list_acc(Xs, X, Max).
+max_list_acc([], Max, Max).
+max_list_acc([X | Xs], Acc, Max) :-
+  (X @> Acc -> Next = X ; Next = Acc),
+  max_list_acc(Xs, Next, Max).
+
+not_member(X, Xs) :- \+ member(X, Xs).
+
+list_to_set([], []).
+list_to_set([X | Xs], [X | Set]) :-
+  findall(Y, (member(Y, Xs), Y \== X), Rest),
+  list_to_set(Rest, Set).
+
+sort(Xs, Set) :- sort_acc(Xs, [], Set).
+sort_acc([], Set, Set).
+sort_acc([X | Xs], Acc, Set) :-
+  insert_unique(X, Acc, Next),
+  sort_acc(Xs, Next, Set).
+insert_unique(X, [], [X]).
+insert_unique(X, [Y | Ys], [Y | Ys]) :- X == Y.
+insert_unique(X, [Y | Ys], [X, Y | Ys]) :- X @< Y.
+insert_unique(X, [Y | Ys], [Y | Zs]) :- X @> Y, insert_unique(X, Ys, Zs).
+
+countall(Goal, Count) :-
+  findall(1, Goal, Items),
+  length(Items, Count).
+
+sumall(Template, Goal, Sum) :-
+  findall(Template, Goal, Items),
+  sum_list(Items, Sum).
+
+aggregate_min(Key, Value, Goal, BestKey, BestValue) :-
+  findall(pair(Key, Value), Goal, Pairs),
+  aggregate_min_pairs(Pairs, BestKey, BestValue).
+aggregate_min_pairs([pair(K, V) | Pairs], BestKey, BestValue) :-
+  aggregate_min_acc(Pairs, K, V, BestKey, BestValue).
+aggregate_min_acc([], K, V, K, V).
+aggregate_min_acc([pair(K, V) | Pairs], K0, V0, BestKey, BestValue) :-
+  (K @< K0 -> K1 = K, V1 = V ; K1 = K0, V1 = V0),
+  aggregate_min_acc(Pairs, K1, V1, BestKey, BestValue).
+
+aggregate_max(Key, Value, Goal, BestKey, BestValue) :-
+  findall(pair(Key, Value), Goal, Pairs),
+  aggregate_max_pairs(Pairs, BestKey, BestValue).
+aggregate_max_pairs([pair(K, V) | Pairs], BestKey, BestValue) :-
+  aggregate_max_acc(Pairs, K, V, BestKey, BestValue).
+aggregate_max_acc([], K, V, K, V).
+aggregate_max_acc([pair(K, V) | Pairs], K0, V0, BestKey, BestValue) :-
+  (K @> K0 -> K1 = K, V1 = V ; K1 = K0, V1 = V0),
+  aggregate_max_acc(Pairs, K1, V1, BestKey, BestValue).
+
+once(Goal) :- (Goal -> true).
+
+between(Low, High, Low) :- Low =< High.
+between(Low, High, Value) :-
+  Low < High,
+  Next is Low + 1,
+  between_range(Next, High, Value).
+
+min(A, B, A) :- A =< B.
+min(A, B, B) :- A > B.
+max(A, B, A) :- A >= B.
+max(A, B, B) :- A < B.
+
+smallest_divisor_from(N, Start, Divisor) :-
+  (Start * Start > N ->
+    Divisor = N
+  ;
+    (0 =:= N mod Start ->
+      Divisor = Start
+    ;
+      Next is Start + 1,
+      smallest_divisor_from(N, Next, Divisor)
+    )
+  ).
+
+holds((Left, Right), Member) :- holds(Left, Member).
+holds((Left, Right), Member) :- holds(Right, Member).
+holds(Member, Member) :- Member \= (_, _).
+
+holds(Context, Name, Arguments) :-
+  holds(Context, Member),
+  (atom(Member) ; compound(Member)),
+  Member =.. [Name | Arguments].
+
+% Split ranges in halves so enumeration remains linear without building a
+% recursive call stack proportional to the width of the range.
+between_range(Low, High, Low) :- Low =:= High.
+between_range(Low, High, Value) :-
+  Low < High,
+  Span is High - Low,
+  Half is Span // 2,
+  Mid is Low + Half,
+  between_range(Low, Mid, Value).
+between_range(Low, High, Value) :-
+  Low < High,
+  Span is High - Low,
+  Half is Span // 2,
+  Mid is Low + Half,
+  Next is Mid + 1,
+  between_range(Next, High, Value).
+`;
+
+
+export function createLibraryRegistry() {
+  const registry = new BuiltinRegistry();
+  registry.portableSource = portableLibrarySource;
+  for (const mod of [
+    coreBuiltins,
+    arithmeticBuiltins,
+    stringBuiltins,
+    portableAccelerators,
+    isoBuiltins,
+  ]) {
+    mod.register(registry);
+  }
+  return registry;
+}
+
+let libraryRegistry = null;
+
+export function getLibraryRegistry() {
+  if (libraryRegistry == null) libraryRegistry = createLibraryRegistry();
+  return libraryRegistry;
+}

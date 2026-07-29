@@ -12,7 +12,22 @@ why(
       ),
       proof(
         goal(append([a, b], [c], [a, b, c])),
-        by(builtin(append, 3))
+        by(rule("<library>", clause(2))),
+        bindings([binding("X", a), binding("Xs", [b]), binding("Ys", [c]), binding("Zs", [b, c])]),
+        uses([
+          proof(
+            goal(append([b], [c], [b, c])),
+            by(rule("<library>", clause(2))),
+            bindings([binding("X", b), binding("Xs", []), binding("Ys", [c]), binding("Zs", [c])]),
+            uses([
+              proof(
+                goal(append([], [c], [c])),
+                by(fact("<library>", clause(1))),
+                bindings([binding("Ys", [c])])
+              )
+            ])
+          )
+        ])
       )
     ])
   )

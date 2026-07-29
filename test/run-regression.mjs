@@ -418,6 +418,19 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(bookExtensionBuiltinNames(), registeredExtensionBuiltinNames(), 'extension builtins'),
     },
     {
+      name: 'README and book document the two-module builtin boundary',
+      run: () => {
+        const readme = fs.readFileSync(path.join(packageRoot, 'README.md'), 'utf8');
+        const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
+        for (const filename of ['src/iso.js', 'src/library.js']) {
+          assertEqual(fs.existsSync(path.join(packageRoot, filename)), true, `${filename} exists`);
+          assertIncludes(readme, filename, `README documents ${filename}`);
+          assertIncludes(book, filename, `book documents ${filename}`);
+        }
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'builtins')), false, 'obsolete builtins directory is absent');
+      },
+    },
+    {
       name: 'book example catalog names resolve in examples directory',
       run: () => assertArrayEqual(bookExampleCatalogIssues(), [], 'guide example catalog'),
     },
@@ -733,10 +746,8 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('between', 3)), false, 'between/3 is not core');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not core');
-        assertEqual(Boolean(library.get('between', 3)), true, 'between/3 has a native accelerator');
-        assertEqual(library.get('between', 3).portableEquivalent, true, 'between/3 accelerator is marked portable-equivalent');
-        assertEqual(Boolean(library.get('append', 3)), true, 'append/3 has a native accelerator');
-        assertEqual(library.get('append', 3).portableEquivalent, true, 'append/3 accelerator is marked portable-equivalent');
+        assertEqual(Boolean(library.get('between', 3)), true, 'between/3 has a selected accelerator');
+        assertEqual(Boolean(library.get('append', 3)), false, 'append/3 is implemented by portable clauses');
         assertIncludes(library.portableSource, 'append([], Ys, Ys).', 'portable library source');
         const portable = run('query(answer(X)). answer(X) :- append([a], [b], X).', { registry: library });
         assertEqual(portable.stdout, 'answer([a, b]).\n', 'portable library execution');
@@ -744,10 +755,10 @@ open(X) :- candidate(X), \\+ closed(X).
           .filter((indicator) => !registry.defs.has(indicator) && !library.defs.get(indicator).portableEquivalent)
           .sort();
         assertEqual(nativeExtensions.join('\n'), [
-          'acos/2', 'asin/2', 'atan2/3', 'atom_string/2', 'contains/2',
-          'difference/3', 'ge/2', 'gt/2', 'join/3', 'le/2', 'local_time/1',
-          'lowercase/2', 'lt/2', 'matches/2', 'matches/3', 'number_string/2',
-          'replace/4', 'split/3', 'str_concat/3', 'substring/4', 'tan/2',
+          'acos/2', 'asin/2', 'atan2/3', 'atom_string/2',
+          'difference/3', 'ge/2', 'gt/2', 'le/2', 'local_time/1',
+          'lowercase/2', 'lt/2', 'matches/3', 'number_string/2',
+          'replace/4', 'split/3', 'tan/2',
           'term_string/2', 'trim/2', 'uppercase/2',
         ].sort().join('\n'), 'audited native extension allowlist');
         const portableAccelerators = [...library.defs.entries()]
@@ -755,13 +766,10 @@ open(X) :- candidate(X), \\+ closed(X).
           .map(([indicator]) => indicator)
           .sort();
         assertEqual(portableAccelerators.join('\n'), [
-          'aggregate_max/5', 'aggregate_min/5', 'between/3', 'countall/2',
-          'append/3', 'drop/3', 'head/2', 'holds/2', 'holds/3', 'last/2',
-          'length/2', 'list_to_set/2', 'max_list/2', 'member/2', 'min_list/2',
-          'not_member/2', 'nth0/3', 'reverse/2', 'select/3',
-          'set_nth0/4', 'slice/4', 'smallest_divisor_from/3', 'sort/2',
-          'sum_list/2', 'sumall/3', 'take/3', 'rest/2',
-        ].sort().join('\n'), 'audited portable accelerator allowlist');
+          'between/3', 'contains/2', 'countall/2', 'length/2', 'matches/2',
+          'member/2', 'reverse/2', 'select/3', 'smallest_divisor_from/3',
+          'sort/2',
+        ].join('\n'), 'profile-guided portable accelerator allowlist');
         for (const indicator of [
           'eq/2', 'neq/2', 'not/1', 'compound_name_arguments/3',
           'add/3', 'sub/3', 'mul/3', 'div/3', 'mod/3', 'pow/3',

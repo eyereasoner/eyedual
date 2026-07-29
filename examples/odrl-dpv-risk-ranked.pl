@@ -280,7 +280,7 @@ ranked_before(Left, Right) :-
   report_key(Left, key(Inv, Leftclause)),
   report_key(Right, key(Inv, Rightclause)),
   \+ matches(Leftclause, Rightclause),
-  (Leftclause < Rightclause).
+  (Leftclause @< Rightclause).
 
 % Output layer.
 dct_title(agreement1, Title) :- title(agreement1, Title).

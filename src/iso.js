@@ -5,8 +5,8 @@ import {
   atom, compareTerms, compound, copyResolved, deref, emptyList,
   isDecimalInteger, listFromItems, numberTerm, numberTextFromDouble,
   properListItems, termIsGround, termToString, unify, variable, variantTerms,
-} from '../term.js';
-import { parseClauses } from '../parser.js';
+} from './term.js';
+import { parseClauses } from './parser.js';
 
 let isoFresh = 0;
 
@@ -1424,4 +1424,42 @@ function arithmeticComparison(test) {
       : Number(a) < Number(b) ? -1 : Number(a) > Number(b) ? 1 : 0;
     if (test(cmp)) yield env;
   };
+}
+
+
+export class BuiltinRegistry {
+  constructor() {
+    this.defs = new Map();
+  }
+
+  add(name, arity, handler, options = {}) {
+    this.defs.set(`${name}/${arity}`, {
+      name,
+      arity,
+      handler,
+      deterministic: options.deterministic ?? false,
+      ready: options.ready ?? null,
+      fallbackWhenNotReady: options.fallbackWhenNotReady ?? false,
+      shouldUse: options.shouldUse ?? null,
+      portableEquivalent: options.portableEquivalent ?? false,
+    });
+    return this;
+  }
+
+  get(name, arity) {
+    return this.defs.get(`${name}/${arity}`) ?? null;
+  }
+}
+
+export function createDefaultRegistry() {
+  const registry = new BuiltinRegistry();
+  isoBuiltins.register(registry);
+  return registry;
+}
+
+let defaultRegistry = null;
+
+export function getDefaultRegistry() {
+  if (defaultRegistry == null) defaultRegistry = createDefaultRegistry();
+  return defaultRegistry;
 }

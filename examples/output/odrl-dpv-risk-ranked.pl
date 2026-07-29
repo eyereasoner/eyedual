@@ -36,7 +36,38 @@ type(m21, dpv_RiskMitigationMeasure).
 type(m12, dpv_RiskMitigationMeasure).
 type(m13, dpv_RiskMitigationMeasure).
 type(m14, dpv_RiskMitigationMeasure).
+contains(policyGraph1, statement(policy1, type, odrl_Policy)).
+contains(policyGraph1, statement(policy1, odrl_appliesTo, agreement1)).
+contains(policyGraph1, statement(policy1, odrl_permission, permDeleteAccount)).
+contains(policyGraph1, statement(policy1, odrl_permission, permChangeTerms)).
+contains(policyGraph1, statement(policy1, odrl_permission, permShareData)).
+contains(policyGraph1, statement(policy1, odrl_prohibition, prohibitExportData)).
+contains(policyGraph1, statement(permDeleteAccount, odrl_assigner, provider)).
+contains(policyGraph1, statement(permDeleteAccount, odrl_assignee, consumerExample)).
+contains(policyGraph1, statement(permDeleteAccount, odrl_action, tosl_removeAccount)).
+contains(policyGraph1, statement(permDeleteAccount, odrl_target, userAccount)).
+contains(policyGraph1, statement(permDeleteAccount, clause, clauseC1)).
+contains(policyGraph1, statement(permChangeTerms, odrl_assigner, provider)).
+contains(policyGraph1, statement(permChangeTerms, odrl_assignee, consumerExample)).
+contains(policyGraph1, statement(permChangeTerms, odrl_action, tosl_changeTerms)).
+contains(policyGraph1, statement(permChangeTerms, odrl_target, agreementText)).
+contains(policyGraph1, statement(permChangeTerms, clause, clauseC2)).
+contains(policyGraph1, statement(permChangeTerms, odrl_duty, odrl_inform)).
+contains(policyGraph1, statement(permChangeTerms, noticeDays, 3)).
+contains(policyGraph1, statement(permShareData, odrl_assigner, provider)).
+contains(policyGraph1, statement(permShareData, odrl_assignee, consumerExample)).
+contains(policyGraph1, statement(permShareData, odrl_action, tosl_shareData)).
+contains(policyGraph1, statement(permShareData, odrl_target, userData)).
+contains(policyGraph1, statement(permShareData, clause, clauseC3)).
+contains(policyGraph1, statement(prohibitExportData, odrl_assigner, provider)).
+contains(policyGraph1, statement(prohibitExportData, odrl_assignee, consumerExample)).
+contains(policyGraph1, statement(prohibitExportData, odrl_action, tosl_exportData)).
+contains(policyGraph1, statement(prohibitExportData, odrl_target, userData)).
+contains(policyGraph1, statement(prohibitExportData, clause, clauseC4)).
 firstRisk(report, risk1).
+firstRisk(report, risk2).
+firstRisk(report, risk3).
+firstRisk(report, risk4).
 before(riskRanking, pair(risk1, risk2)).
 before(riskRanking, pair(risk1, risk3)).
 before(riskRanking, pair(risk1, risk4)).

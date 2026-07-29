@@ -4,8 +4,7 @@ import {
   COMPOUND, Env, compound, copyResolved, flattenConjunction, freshTerm,
   numberTerm, termIsGround, termToString, unify, variantTerms,
 } from './term.js';
-import { createDefaultRegistry } from './builtins/registry.js';
-import { PrologError } from './builtins/iso.js';
+import { createDefaultRegistry, PrologError } from './iso.js';
 import { Program, selectClauseCandidates, selectClauseCandidatesForValues } from './program.js';
 import { StreamManager } from './io.js';
 

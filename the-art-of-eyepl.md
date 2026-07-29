@@ -1518,6 +1518,16 @@ const solver = new Solver(program, {
 The limits are safety ceilings, not logical declarations. Reaching one may
 truncate search; it does not prove that no further answer exists.
 
+### Implementation boundary
+
+The source layout mirrors the public registry boundary. `src/iso.js` contains
+the ISO processor predicates, errors, and default registry. `src/library.js`
+contains the optional host extensions, ordinary portable Prolog clauses, and
+the small profile-guided accelerator set described in Appendix B.3. Both
+layers share the parser, term representation, solver, streams, and proof
+machinery; `--library` changes the selected registry rather than selecting a
+different execution engine.
+
 ### Extending the built-in registry
 
 An embedder can start from the standard registry and add a host relation. A
@@ -4755,12 +4765,11 @@ error behavior of a standards-profile program.
 The extension catalog is audited against
 [ISO/IEC 13211-1](https://www.iso.org/standard/21413.html): an extension is not
 registered when the supported ISO profile already expresses the same
-operation. The library registry contains the 114 default indicators plus 24
+operation. The library registry contains the 114 default indicators plus 19
 irreducible host-extension indicators. It also loads ordinary portable Prolog
-clauses for relations that need no host primitive. Twenty-seven frequently used
-portable relations have semantics-preserving native accelerators; these are
-classified separately because the bundled clauses remain their executable
-specification and fallback.
+clauses for every relation that needs no host primitive. Ten profile-guided
+native accelerators cover measured hot paths while the bundled clauses remain
+their executable specification and fallback.
 
 <!-- native-extension-catalog:start -->
 
@@ -4769,8 +4778,8 @@ specification and fallback.
 | `acos/2`, `asin/2`, `atan2/3`, `tan/2` |
 | `lt/2`, `le/2`, `gt/2`, `ge/2` |
 | `local_time/1`, `difference/3` |
-| `str_concat/3`, `contains/2`, `matches/2`, `matches/3` |
-| `split/3`, `join/3`, `substring/4`, `replace/4` |
+| `matches/3` |
+| `split/3`, `replace/4` |
 | `lowercase/2`, `uppercase/2`, `trim/2` |
 | `number_string/2`, `atom_string/2`, `term_string/2` |
 
@@ -4829,14 +4838,14 @@ exponential, logarithm, and the ISO rounding functions.
 The bundled portable rule layer defines `between/3`, `min/3`, `max/3`, and
 `smallest_divisor_from/3` using ISO arithmetic and comparisons. They remain
 available with `--library`, but they are not host-extension predicates.
-`between/3` and `smallest_divisor_from/3` have native accelerators for large
-search domains.
+`between/3` and `smallest_divisor_from/3` retain measured native accelerators.
 
 ### B.3.2 Portable list relations
 
-These relations are bundled as ordinary Prolog clauses and have
-semantics-preserving native accelerators; they are not semantic host
-extensions. Every list-consuming relation below expects a proper list unless explicitly
+These relations are bundled as ordinary ISO Prolog clauses; they are not
+semantic host extensions. `length/2`, `member/2`, `select/3`, `reverse/2`, and
+`sort/2` retain measured native accelerators. Every list-consuming relation
+below expects a proper list unless explicitly
 stated otherwise. Indexes and counts are zero-based, nonnegative safe
 integers.
 
@@ -4878,18 +4887,22 @@ string terms unless their name says otherwise.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |
-| `str_concat(+Left,+Right,-Text)` | Concatenates two lexical values. It does not split an output into possible pairs. |
-| `contains(+Text,+Needle)` | Tests literal substring containment. The empty needle succeeds. |
-| `matches(+Text,+Pattern)` | Tests a simple `|`-separated set of literal alternatives. It is not a regular-expression predicate. |
+| `str_concat(+Left,+Right,-Text)` | Portable composition of `atom_string/2` and ISO `atom_concat/3`; concatenates two lexical values. |
+| `contains(+Text,+Needle)` | Portable composition of `atom_string/2` and ISO `sub_atom/5`; tests literal containment. |
+| `matches(+Text,+Pattern)` | Portable composition of `split/3`, `member/2`, `contains/2`, and ISO `once/1`; tests `|`-separated literal alternatives. |
 | `matches(+Text,+Regex,-Context)` | Runs a JavaScript regular expression and returns named captures as comma-context data such as `(year("2026"), month("07"))`. It fails for an invalid expression, no match, or a match with no named captures. |
 | `split(+Text,+Separator,-Parts)` | Literal split into a proper list of strings. |
-| `join(+Parts,+Separator,-Text)` | Joins a proper list of lexical values. The empty list produces `""`. |
-| `substring(+Text,+Start,+Count,-Part)` | Uses zero-based character indexes and requires the requested range to fit. |
+| `join(+Parts,+Separator,-Text)` | Portable recursion over ISO `atom_concat/3`; joins lexical values. The empty list produces `""`. |
+| `substring(+Text,+Start,+Count,-Part)` | Portable composition over ISO `integer/1`, arithmetic comparison, and `sub_atom/5`; uses zero-based indexes. |
 | `replace(+Text,+Search,+Replacement,-Result)` | Replaces every literal occurrence. An empty search leaves the text unchanged. |
 | `lowercase(+Text,-Lower)`, `uppercase(+Text,-Upper)`, `trim(+Text,-Trimmed)` | Apply JavaScript Unicode case conversion or surrounding-whitespace trimming. |
 | `number_string(?Number,?Text)` | Converts a number to a string or parses numeric string/atom text. At least one conversion direction must be ready. |
 | `atom_string(?Atom,?Text)` | Converts an atom to a string or a ground string, atom, or number to an atom. |
 | `term_string(+Term,-Text)` | Renders a nonvariable term using Eyepl readback syntax. It does not parse text back into a term. |
+
+`contains/2` and `matches/2` retain measured native accelerators for bound
+lexical inputs. Calls outside that mode fall through to the portable clauses,
+so user-defined relational clauses with the same indicators remain visible.
 
 ```eyepl
 answer(words, Words) :-
@@ -4906,9 +4919,8 @@ query(answer(Kind, Value)).
 ### B.3.4 Portable aggregation and bounded control
 
 These are ordinary bundled Prolog clauses over ISO `findall/3`, arithmetic,
-term order, and list recursion. `countall/2`, `sumall/3`,
-`aggregate_min/5`, and `aggregate_max/5` have equivalent native accelerators.
-The caller is responsible for making
+term order, and list recursion. `countall/2` retains a measured native
+accelerator. The caller is responsible for making
 that search finite. Bind outer variables before the nested goal when they are
 intended to restrict its domain.
 
@@ -4944,7 +4956,7 @@ query(answer(Kind, Value)).
 ### B.3.5 Portable context helpers
 
 The `holds/2` and `holds/3` relations below are ordinary clauses over
-unification and ISO `=../2`, with equivalent native accelerators; they are not
+unification and ISO `=../2`, with no native implementations; they are not
 semantic host extensions.
 
 | Predicate and principal mode | Behavior |

@@ -103,14 +103,15 @@ export async function main(argv) {
 
 async function loadEngine() {
   if (engineModule == null) {
-    const [term, program, solver, registry, fuse] = await Promise.all([
+    const [term, program, solver, iso, library, fuse] = await Promise.all([
       import('./term.js'),
       import('./program.js'),
       import('./solver.js'),
-      import('./builtins/registry.js'),
+      import('./iso.js'),
+      import('./library.js'),
       import('./fuse.js'),
     ]);
-    engineModule = { ...term, ...program, ...solver, ...registry, ...fuse };
+    engineModule = { ...term, ...program, ...solver, ...iso, ...library, ...fuse };
   }
   return engineModule;
 }

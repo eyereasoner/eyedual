@@ -4,7 +4,7 @@
 // human-readable and machine-readable.
 import { ATOM, COMPOUND, Env, Term, VAR, deref, flattenConjunction, freshTerm, termToString, unify, variantTerms } from './term.js';
 import { selectClauseCandidates } from './program.js';
-import { createDefaultRegistry } from './builtins/registry.js';
+import { createDefaultRegistry } from './iso.js';
 import { Solver, nextFreshId } from './solver.js';
 
 export function whyProof(program, goal, options = {}) {

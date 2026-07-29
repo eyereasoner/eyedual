@@ -128,6 +128,13 @@ Clause selection combines compact any-argument scalar indexes with
 demand-driven multi-argument indexes. SWI-Prolog-inspired quality checks avoid
 building indexes for small, weakly selective, or variable-heavy clause groups.
 
+The builtin boundary is intentionally visible in the source tree:
+[`src/iso.js`](src/iso.js) contains the ISO processor predicates and default
+registry, while [`src/library.js`](src/library.js) contains the explicitly
+enabled extension predicates, portable Prolog clauses, and their small
+profile-guided accelerator set. Both layers use the same parser, terms, solver,
+streams, and proof machinery.
+
 ## RDF 1.2 files
 
 The tools convert standard RDF files to ordinary Eyepl `rdf/4` facts, run

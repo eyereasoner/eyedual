@@ -2,7 +2,7 @@
 // Indexes are deliberately conservative: they speed up common scalar arguments but never replace unification as the final check.
 import { ATOM, COMPOUND, VAR, Env, atom, deref, flattenConjunction, isScalar, properListItems, termToString } from './term.js';
 import { ISO_OPERATOR_DEFINITIONS, parseClauses } from './parser.js';
-import { PrologError } from './builtins/iso.js';
+import { PrologError } from './iso.js';
 import fs from 'node:fs';
 import path from 'node:path';
 
