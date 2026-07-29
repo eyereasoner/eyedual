@@ -80,6 +80,11 @@ read-back printing, built-ins, declarations, warnings, errors, proof output,
 and host behavior. It verifies the book's descriptions and is not a separate
 language specification.
 
+The `iso/` category follows the mode, success/failure, and error rows in
+ISO/IEC 13211-1 clauses 7 and 8. In particular, isolated negative cases keep
+instantiation, type, domain, permission, representation, and evaluation errors
+independently observable.
+
 ## Updating expected output
 
 There is no committed auto-accept mode. To update an expected file, run the matching case with the conformance runner, inspect the result, and replace the corresponding file under `conformance/expected/`, `conformance/expected-errors/`, `conformance/expected-warnings/`, or `conformance/expected-proofs/` deliberately.
