@@ -62,9 +62,18 @@ answer(ok) :- ok = ok.
 console.log(result.stdout);
 ```
 
-The default registry contains the ISO Prolog core. Programs that use Eyepl's
-non-core string, list, aggregation, context, date, or convenience predicates
-must opt in explicitly:
+The default registry contains Eyepl's ISO/IEC 13211-1:1995 core profile:
+unification and term inspection, control and exceptions, arithmetic, grouped
+solutions, the dynamic database, operators and directives, flags, atomic-term
+processing, streams, character/byte and term I/O, and processor termination.
+The profile has 114 registered predicate indicators across 93 names.
+
+This is broad standards coverage, not a formal certification claim. Eyepl
+retains documented host conventions—most visibly `query/1`, automatic tabling,
+inference fuses, and a distinct double-quoted string scalar—and exhaustive
+standard error/option combinations remain part of the conformance work.
+Programs that use Eyepl's non-core string, list, aggregation, context, date,
+or convenience predicates must opt in explicitly:
 
 ```js
 import { getLibraryRegistry, run } from 'eyepl';
@@ -73,6 +82,18 @@ run(source, { registry: getLibraryRegistry() });
 ```
 
 The equivalent CLI switch is `-l` or `--library`.
+
+ISO streams are solver-owned and shared by nested goals. JavaScript callers
+can provide standard input and capture standard output:
+
+```js
+const result = run(source, {
+  ioOptions: {
+    input: "term(from_input).\n",
+    write: (text) => process.stdout.write(text),
+  },
+});
+```
 
 Rules headed by `false` are inference fuses. A matching fuse aborts before
 queries run; the CLI exits with code `65`, while the JavaScript API throws an

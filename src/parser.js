@@ -4,7 +4,8 @@ import { atom, compound, cons, emptyList, numberTerm, stringTerm, variable } fro
 
 const TOK = {
   EOF: 'eof', ATOM: 'atom', VAR: 'var', STRING: 'string', NUMBER: 'number',
-  LPAREN: '(', RPAREN: ')', LBRACKET: '[', RBRACKET: ']', COMMA: ',', BAR: '|', DOT: '.', IF: ':-'
+  LPAREN: '(', RPAREN: ')', LBRACKET: '[', RBRACKET: ']', LBRACE: '{', RBRACE: '}',
+  COMMA: ',', BAR: '|', DOT: '.', IF: ':-'
 };
 
 function isWhitespaceCode(code) {
@@ -37,6 +38,7 @@ const graphicAtomChars = '#$&*+-./<=>@^~\\;:';
 // ISO operator syntax is lowered to the same ordinary compound terms used by
 // canonical notation. Commas remain separators except inside parentheses.
 const INFIX_OPERATORS = new Map([
+  [':-', { precedence: 2, associativity: 'none' }],
   [';', { precedence: 5, associativity: 'right' }],
   ['->', { precedence: 7, associativity: 'right' }],
   [',', { precedence: 10, associativity: 'right' }],
@@ -78,6 +80,23 @@ const PREFIX_OPERATORS = new Map([
   ['\\', 45],
 ]);
 
+export const ISO_OPERATOR_DEFINITIONS = [
+  [1200, 'xfx', ':-'], [1200, 'fx', ':-'],
+  [1100, 'xfy', ';'], [1050, 'xfy', '->'], [1000, 'xfy', ','],
+  [900, 'fy', '\\+'],
+  ...['=', '=..', '\\=', '==', '\\==', '@<', '@=<', '@>', '@>=', 'is',
+    '=:=', '=\\=', '<', '=<', '>', '>='].map((name) => [700, 'xfx', name]),
+  [600, 'xfy', ':'],
+  ...['+', '-', '/\\', '\\/'].map((name) => [500, 'yfx', name]),
+  ...['*', '/', '//', 'div', 'mod', 'rem', '<<', '>>'].map((name) => [400, 'yfx', name]),
+  [200, 'xfx', '**'], [200, 'xfy', '^'],
+  [200, 'fy', '+'], [200, 'fy', '-'], [200, 'fy', '\\'],
+];
+
+function operatorStrength(priority) {
+  return 1201 - priority;
+}
+
 function isGraphicAtomCode(code) {
   return graphicAtomChars.includes(String.fromCharCode(code));
 }
@@ -90,7 +109,46 @@ class Parser {
     this.line = 1;
     this.anonymous = 0;
     this.sourceMetadata = options.sourceMetadata !== false;
+    this.infixOperators = new Map(INFIX_OPERATORS);
+    this.prefixOperators = new Map(
+      [...PREFIX_OPERATORS].map(([name, precedence]) => [name, { precedence, strict: false }])
+    );
+    this.postfixOperators = new Map();
     this.token = this.nextToken();
+  }
+  defineOperator(priority, specifier, name) {
+    const strength = operatorStrength(priority);
+    if (['xfx', 'xfy', 'yfx'].includes(specifier)) {
+      if (priority === 0) this.infixOperators.delete(name);
+      else this.infixOperators.set(name, {
+        precedence: strength,
+        associativity: specifier === 'xfy' ? 'right' : specifier === 'yfx' ? 'left' : 'none',
+      });
+    } else if (specifier === 'fx' || specifier === 'fy') {
+      if (priority === 0) this.prefixOperators.delete(name);
+      else this.prefixOperators.set(name, { precedence: strength, strict: specifier === 'fx' });
+    } else if (specifier === 'xf' || specifier === 'yf') {
+      if (priority === 0) this.postfixOperators.delete(name);
+      else this.postfixOperators.set(name, { precedence: strength, strict: specifier === 'xf' });
+    }
+  }
+  applyOperatorDirective(directive, line) {
+    if (directive.type !== 'compound' || directive.name !== 'op' || directive.arity !== 3) return false;
+    const [priorityTerm, specifierTerm, nameTerm] = directive.args;
+    if (priorityTerm.type !== 'number' || !/^\d+$/.test(priorityTerm.name)) {
+      throw new Error(`parse line ${line}: op priority must be an integer`);
+    }
+    const priority = Number(priorityTerm.name);
+    if (priority < 0 || priority > 1200) throw new Error(`parse line ${line}: op priority out of range`);
+    if (specifierTerm.type !== 'atom' || !['fx', 'fy', 'xf', 'yf', 'xfx', 'xfy', 'yfx'].includes(specifierTerm.name)) {
+      throw new Error(`parse line ${line}: invalid operator specifier`);
+    }
+    const names = nameTerm.type === 'atom'
+      ? [nameTerm.name]
+      : listAtomNames(nameTerm);
+    if (names == null) throw new Error(`parse line ${line}: operator name must be an atom or list of atoms`);
+    for (const name of names) this.defineOperator(priority, specifierTerm.name, name);
+    return true;
   }
   peek(offset = 0) {
     return this.source[this.pos + offset] ?? '';
@@ -117,8 +175,39 @@ class Parser {
         while (this.pos < len && source.charCodeAt(this.pos) !== 10) this.pos++;
         continue;
       }
+      if (source[this.pos] === '/' && source[this.pos + 1] === '*') {
+        const line = this.line;
+        this.pos += 2;
+        while (this.pos < len && !(source[this.pos] === '*' && source[this.pos + 1] === '/')) {
+          if (source.charCodeAt(this.pos) === 10) this.line++;
+          this.pos++;
+        }
+        if (this.pos >= len) throw new Error(`parse line ${line}: unterminated block comment`);
+        this.pos += 2;
+        continue;
+      }
       break;
     }
+  }
+  readEscape(line) {
+    const escaped = this.take();
+    if (!escaped) throw new Error(`parse line ${line}: unterminated escape sequence`);
+    if (escaped === '\n') return '';
+    const controls = { a: '\x07', b: '\b', r: '\r', f: '\f', t: '\t', n: '\n', v: '\v' };
+    if (controls[escaped] != null) return controls[escaped];
+    if (escaped === 'x') {
+      let digits = '';
+      while (/^[0-9A-Fa-f]$/.test(this.peek())) digits += this.take();
+      if (!digits || this.take() !== '\\') throw new Error(`parse line ${line}: bad hexadecimal escape`);
+      return String.fromCodePoint(Number.parseInt(digits, 16));
+    }
+    if (/^[0-7]$/.test(escaped)) {
+      let digits = escaped;
+      while (/^[0-7]$/.test(this.peek())) digits += this.take();
+      if (this.take() !== '\\') throw new Error(`parse line ${line}: bad octal escape`);
+      return String.fromCodePoint(Number.parseInt(digits, 8));
+    }
+    return escaped;
   }
   nextToken() {
     // The tokenizer keeps just enough state for useful parse-line errors and
@@ -127,8 +216,15 @@ class Parser {
     const line = this.line;
     const ch = this.peek();
     if (!ch) return { type: TOK.EOF, text: '', line };
+    if (ch === '!') {
+      this.take();
+      return { type: TOK.ATOM, text: '!', line };
+    }
 
-    const punct = { '(': TOK.LPAREN, ')': TOK.RPAREN, '[': TOK.LBRACKET, ']': TOK.RBRACKET, ',': TOK.COMMA, '|': TOK.BAR, '.': TOK.DOT };
+    const punct = {
+      '(': TOK.LPAREN, ')': TOK.RPAREN, '[': TOK.LBRACKET, ']': TOK.RBRACKET,
+      '{': TOK.LBRACE, '}': TOK.RBRACE, ',': TOK.COMMA, '|': TOK.BAR, '.': TOK.DOT,
+    };
     if (punct[ch]) {
       this.take();
       return { type: punct[ch], text: ch, line };
@@ -153,10 +249,7 @@ class Parser {
             break;
           }
         } else if (value === '\\' && this.peek()) {
-          const escaped = this.take();
-          if (escaped === 'n') value = '\n';
-          else if (escaped === 't') value = '\t';
-          else value = escaped;
+          value = this.readEscape(line);
         }
         text += value;
       }
@@ -165,7 +258,30 @@ class Parser {
 
     if (isDigitCode(ch.charCodeAt(0)) || (ch === '-' && isDigitCode(this.peek(1).charCodeAt(0)))) {
       const start = this.pos;
-      if (this.peek() === '-') this.take();
+      const negative = this.peek() === '-';
+      if (negative) this.take();
+      if (this.peek() === '0' && this.peek(1) === "'") {
+        this.take();
+        this.take();
+        let value = this.take();
+        if (!value || value === '\n') throw new Error(`parse line ${line}: bad character code constant`);
+        if (value === '\\') value = this.readEscape(line);
+        const code = value.codePointAt(0);
+        return { type: TOK.NUMBER, text: String(negative ? -code : code), line };
+      }
+      if (this.peek() === '0' && ['b', 'o', 'x'].includes(this.peek(1))) {
+        this.take();
+        const kind = this.take();
+        const radix = kind === 'b' ? 2 : kind === 'o' ? 8 : 16;
+        const digitPattern = radix === 2 ? /^[01]$/ : radix === 8 ? /^[0-7]$/ : /^[0-9A-Fa-f]$/;
+        let digits = '';
+        while (digitPattern.test(this.peek())) digits += this.take();
+        if (!digits) throw new Error(`parse line ${line}: bad radix integer`);
+        let integer = 0n;
+        for (const digit of digits) integer = integer * BigInt(radix) + BigInt(Number.parseInt(digit, radix));
+        if (negative) integer = -integer;
+        return { type: TOK.NUMBER, text: integer.toString(), line };
+      }
       while (isDigitCode(this.peek().charCodeAt(0))) this.take();
       if (this.peek() === '.' && isDigitCode(this.peek(1).charCodeAt(0))) {
         this.take();
@@ -253,31 +369,60 @@ class Parser {
     for (let i = items.length - 1; i >= 0; i--) tail = cons(items[i], tail);
     return tail;
   }
+  parseCurly() {
+    this.expect(TOK.LBRACE, '{');
+    this.advance();
+    if (this.token.type === TOK.RBRACE) {
+      this.advance();
+      return atom('{}');
+    }
+    const term = this.parseTerm(0, true);
+    this.expect(TOK.RBRACE, '}');
+    this.advance();
+    return compound('{}', [term]);
+  }
   parseTerm(minPrecedence = 0, allowComma = false) {
-    let left = this.parsePrefixTerm();
+    let left = this.parsePrefixTerm(minPrecedence);
+    let strictPostfixPrecedence = null;
     while (true) {
       const op = this.token.type === TOK.COMMA && allowComma
         ? ','
+        : this.token.type === TOK.IF ? ':-'
         : this.token.type === TOK.ATOM && !this.token.quoted ? this.token.text : null;
-      const info = op == null ? null : INFIX_OPERATORS.get(op);
-      if (!info || info.precedence < minPrecedence) break;
+      const info = op == null ? null : this.infixOperators.get(op);
+      if (!info || info.precedence < minPrecedence) {
+        const postfix = this.token.type === TOK.ATOM && !this.token.quoted
+          ? this.postfixOperators.get(this.token.text)
+          : null;
+        if (!postfix || postfix.precedence < minPrecedence ||
+            (strictPostfixPrecedence === postfix.precedence)) break;
+        const name = this.token.text;
+        this.advance();
+        left = compound(name, [left]);
+        strictPostfixPrecedence = postfix.strict ? postfix.precedence : null;
+        continue;
+      }
+      strictPostfixPrecedence = null;
       this.advance();
       const right = this.parseTerm(info.associativity === 'right' ? info.precedence : info.precedence + 1, allowComma);
       left = compound(op, [left, right]);
       if (info.associativity === 'none') {
         const nextOp = this.token.type === TOK.COMMA && allowComma
           ? ','
+          : this.token.type === TOK.IF ? ':-'
           : this.token.type === TOK.ATOM && !this.token.quoted ? this.token.text : null;
-        if (INFIX_OPERATORS.get(nextOp)?.precedence === info.precedence) {
+        if (this.infixOperators.get(nextOp)?.precedence === info.precedence) {
           throw new Error(`parse line ${this.token.line}: non-associative operator ${op} requires parentheses`);
         }
       }
     }
     return left;
   }
-  parsePrefixTerm() {
-    if (this.token.type === TOK.ATOM && !this.token.quoted && PREFIX_OPERATORS.has(this.token.text)) {
+  parsePrefixTerm(minPrecedence = 0) {
+    if (this.token.type === TOK.ATOM && !this.token.quoted &&
+        this.prefixOperators.get(this.token.text)?.precedence >= minPrecedence) {
       const op = this.token.text;
+      const info = this.prefixOperators.get(op);
       this.advance();
       if (this.token.type === TOK.LPAREN) {
         this.advance();
@@ -291,10 +436,11 @@ class Parser {
         this.advance();
         return compound(op, args);
       }
-      return compound(op, [this.parseTerm(PREFIX_OPERATORS.get(op), false)]);
+      return compound(op, [this.parseTerm(info.precedence + (info.strict ? 1 : 0), false)]);
     }
     if (this.token.type === TOK.LPAREN) return this.parseParenthesizedTerm();
     if (this.token.type === TOK.LBRACKET) return this.parseList();
+    if (this.token.type === TOK.LBRACE) return this.parseCurly();
     if (this.token.type === TOK.VAR) {
       const name = this.token.text;
       this.advance();
@@ -340,7 +486,25 @@ class Parser {
     const clauses = [];
     while (this.token.type !== TOK.EOF) {
       const line = this.token.line;
-      const head = this.parseTerm();
+      if (this.token.type === TOK.IF) {
+        this.advance();
+        const directive = this.parseTerm();
+        const supportedDirective = directive.type === 'compound' && (
+          (['dynamic', 'multifile', 'discontiguous', 'initialization', 'include', 'ensure_loaded'].includes(directive.name) && directive.arity === 1) ||
+          (['char_conversion', 'set_prolog_flag'].includes(directive.name) && directive.arity === 2)
+        );
+        const operator = this.applyOperatorDirective(directive, line);
+        if (!supportedDirective && !operator) {
+          throw new Error(`parse line ${line}: bad term`);
+        }
+        this.expect(TOK.DOT, '.');
+        this.advance();
+        const clause = { head: compound(':-', [directive]), body: [] };
+        if (this.sourceMetadata) clause.source = { filename: this.filename, line, clause: clauses.length + 1 };
+        clauses.push(clause);
+        continue;
+      }
+      const head = this.parseTerm(3);
       const body = [];
       if (this.token.type === TOK.IF) {
         this.advance();
@@ -361,6 +525,17 @@ class Parser {
     }
     return clauses;
   }
+}
+
+function listAtomNames(term) {
+  const names = [];
+  let cursor = term;
+  while (cursor.type === 'compound' && cursor.name === '.' && cursor.arity === 2) {
+    if (cursor.args[0].type !== 'atom') return null;
+    names.push(cursor.args[0].name);
+    cursor = cursor.args[1];
+  }
+  return cursor.type === 'atom' && cursor.name === '[]' ? names : null;
 }
 
 

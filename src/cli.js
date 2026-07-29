@@ -85,7 +85,11 @@ export async function main(argv) {
       if (!response.ok) throw new Error(`could not fetch URL: ${file}`);
       sourceParts.push({ text: await response.text(), filename: file });
     } else {
-      sourceParts.push({ text: await fs.readFile(file, 'utf8'), filename: path.basename(file) || file });
+      sourceParts.push({
+        text: await fs.readFile(file, 'utf8'),
+        filename: path.basename(file) || file,
+        baseDir: path.dirname(path.resolve(file)),
+      });
     }
   }
 
@@ -123,24 +127,32 @@ async function runDefault(engine, program, options) {
   const lines = new Set();
   const registry = options.library ? engine.getLibraryRegistry() : engine.getDefaultRegistry();
   const explanation = options.proof ? await loadExplanation() : null;
-  const solver = new engine.Solver(program, { registry });
+  const solver = new engine.Solver(program, {
+    registry,
+    ioOptions: { write: (text) => process.stdout.write(String(text)) },
+  });
   program = solver.program;
   engine.checkInferenceFuses(program, solver);
 
-  for (const goal of goals) {
-    solver.solutionsSeen = 0;
-    for (const env of solver.solve([goal], new engine.Env(), 0)) {
-      if (!engine.termIsGround(goal, env)) continue;
+  try {
+    solver.runInitializations();
+    for (const goal of goals) {
+      solver.solutionsSeen = 0;
+      for (const env of solver.solve([goal], new engine.Env(), 0)) {
+        if (!engine.termIsGround(goal, env)) continue;
 
-      const line = `${engine.termToString(goal, env, true)}.\n`;
-      if (facts.has(line) || lines.has(line)) continue;
+        const line = `${engine.termToString(goal, env, true)}.\n`;
+        if (facts.has(line) || lines.has(line)) continue;
 
-      lines.add(line);
+        lines.add(line);
 
-      process.stdout.write(line);
-      if (options.proof) writeExplanation(explanation, program, engine.copyResolved(goal, env), registry);
+        process.stdout.write(line);
+        if (options.proof) writeExplanation(explanation, program, engine.copyResolved(goal, env), registry);
+      }
     }
-
+  } catch (error) {
+    if (error?.name !== 'HaltSignal') throw error;
+    process.exitCode = error.code;
   }
 
   if (options.stats) printStats(solver.stats);

@@ -1,0 +1,1 @@
+error(representation_error(character_code))

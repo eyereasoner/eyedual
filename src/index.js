@@ -12,7 +12,8 @@ export {
   getDefaultRegistry,
   getLibraryRegistry,
 } from './builtins/registry.js';
-export { PrologError } from './builtins/iso.js';
+export { HaltSignal, PrologError } from './builtins/iso.js';
+export { StreamManager } from './io.js';
 
 import { Env, copyResolved, termIsGround, termToString } from './term.js';
 import { Program } from './program.js';
@@ -20,33 +21,51 @@ import { Solver } from './solver.js';
 import { whyNoProof, whyProof } from './explain.js';
 import { getDefaultRegistry } from './builtins/registry.js';
 import { checkInferenceFuses } from './fuse.js';
+import { HaltSignal } from './builtins/iso.js';
 
 export function run(source, options = {}) {
   const includeWhy = options.proof === true || options.why === true || options.explain === true;
   const parseOptions = { ...options, sourceMetadata: includeWhy, markRecursive: includeWhy };
   let program = source instanceof Program ? source : Program.parse(source, parseOptions);
   const runOptions = options.registry ? options : { ...options, registry: getDefaultRegistry() };
-  const solver = new Solver(program, runOptions);
+  const output = [];
+  const solver = new Solver(program, {
+    ...runOptions,
+    ioOptions: {
+      ...(options.ioOptions ?? {}),
+      write: (text) => {
+        const rendered = String(text);
+        output.push(rendered);
+        options.ioOptions?.write?.(rendered);
+      },
+    },
+  });
   program = solver.program;
   checkInferenceFuses(program, solver);
-  const output = [];
   const goals = program.queryGoals();
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
   const facts = program.sourceFactLines(queriedKeys);
   const seen = new Set();
-  for (const goal of goals) {
-    solver.solutionsSeen = 0;
-    for (const env of solver.solve([goal], new Env(), 0)) {
-      const resolved = copyResolved(goal, env);
-      if (!termIsGround(resolved)) continue;
-      const line = `${termToString(resolved, new Env(), true)}.\n`;
-      if (facts.has(line) || seen.has(line)) continue;
-      seen.add(line);
-      output.push(line);
-      if (includeWhy) appendExplanation(output, program, resolved, runOptions.registry);
+  let haltCode = null;
+  try {
+    solver.runInitializations();
+    for (const goal of goals) {
+      solver.solutionsSeen = 0;
+      for (const env of solver.solve([goal], new Env(), 0)) {
+        const resolved = copyResolved(goal, env);
+        if (!termIsGround(resolved)) continue;
+        const line = `${termToString(resolved, new Env(), true)}.\n`;
+        if (facts.has(line) || seen.has(line)) continue;
+        seen.add(line);
+        output.push(line);
+        if (includeWhy) appendExplanation(output, program, resolved, runOptions.registry);
+      }
     }
+  } catch (error) {
+    if (!(error instanceof HaltSignal)) throw error;
+    haltCode = error.code;
   }
-  return { stdout: output.join(''), stats: solver.stats };
+  return { stdout: output.join(''), stats: solver.stats, haltCode };
 }
 
 function appendExplanation(output, program, resolved, registry) {

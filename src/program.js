@@ -1,18 +1,44 @@
 // Program representation and clause indexing.
 // Indexes are deliberately conservative: they speed up common scalar arguments but never replace unification as the final check.
-import { ATOM, COMPOUND, VAR, Env, deref, flattenConjunction, isScalar, properListItems, termToString } from './term.js';
-import { parseClauses } from './parser.js';
+import { ATOM, COMPOUND, VAR, Env, atom, deref, flattenConjunction, isScalar, properListItems, termToString } from './term.js';
+import { ISO_OPERATOR_DEFINITIONS, parseClauses } from './parser.js';
 import { PrologError } from './builtins/iso.js';
+import fs from 'node:fs';
+import path from 'node:path';
 
 export class Program {
   constructor(clauses = [], options = {}) {
     this.clauses = clauses;
     this.groups = new Map();
+    this.dynamicPredicates = new Set();
+    this.operators = new Map();
+    for (const [priority, specifier, name] of ISO_OPERATOR_DEFINITIONS) {
+      this.defineOperator(priority, specifier, name);
+    }
     this.queries = [];
     this.fuses = [];
+    this.initializations = [];
+    this.prologFlagDirectives = [];
+    this.charConversionDirectives = [];
+    for (const clause of this.clauses) {
+      for (const indicator of dynamicDirectiveIndicators(clause)) this.dynamicPredicates.add(indicator.key);
+      const operator = operatorDirective(clause);
+      if (operator) {
+        for (const name of operator.names) this.defineOperator(operator.priority, operator.specifier, name);
+      }
+      const directive = isDirectiveClause(clause) ? clause.head.args[0] : null;
+      if (directive?.type === COMPOUND && directive.name === 'initialization' && directive.arity === 1) {
+        this.initializations.push(directive.args[0]);
+      } else if (directive?.type === COMPOUND && directive.name === 'set_prolog_flag' && directive.arity === 2) {
+        this.prologFlagDirectives.push(directive.args);
+      } else if (directive?.type === COMPOUND && directive.name === 'char_conversion' && directive.arity === 2) {
+        this.charConversionDirectives.push(directive.args);
+      }
+    }
     for (let index = 0; index < this.clauses.length; index++) {
       const clause = this.clauses[index];
       clause.index = index;
+      if (isDirectiveClause(clause)) continue;
       if (isInferenceFuse(clause)) {
         this.fuses.push(clause);
         continue;
@@ -26,16 +52,26 @@ export class Program {
     this._negationAnalysis = null;
     this.applyDeclarations(options);
   }
+  defineOperator(priority, specifier, name) {
+    const key = `${specifier}\u0000${name}`;
+    if (priority === 0) this.operators.delete(key);
+    else this.operators.set(key, { priority, specifier, name });
+  }
   static parse(source, options = {}) {
-    return new Program(parseSourceClauses(source, options), options);
+    const ensured = new Set();
+    return new Program(expandIncludedClauses(parseSourceClauses(source, options), options, ensured), options);
   }
   static parseSources(sources = [], options = {}) {
     const clauses = [];
+    const ensured = new Set();
     for (const source of sources) {
+      const sourceOptions = typeof source === 'string'
+        ? options
+        : { ...options, filename: source?.filename ?? '<input>', baseDir: source?.baseDir ?? options.baseDir };
       const parsed = typeof source === 'string'
         ? parseSourceClauses(source, options)
-        : parseSourceClauses(source?.text ?? source?.source ?? '', { ...options, filename: source?.filename ?? '<input>' });
-      for (const clause of parsed) clauses.push(clause);
+        : parseSourceClauses(source?.text ?? source?.source ?? '', sourceOptions);
+      for (const clause of expandIncludedClauses(parsed, sourceOptions, ensured)) clauses.push(clause);
     }
     return new Program(clauses, options);
   }
@@ -57,6 +93,7 @@ export class Program {
       recursive: false,
       tableInputPositions: [],
       scalarFactsOnly: true,
+      dynamic: this.dynamicPredicates.has(`${name}/${arity}`),
       negationStratum: null,
     };
     return group;
@@ -82,6 +119,45 @@ export class Program {
   }
   findGroup(name, arity) {
     return this.groups.get(`${name}/${arity}`) ?? null;
+  }
+  ensureDynamicGroup(name, arity) {
+    const key = `${name}/${arity}`;
+    let group = this.groups.get(key);
+    if (!group) {
+      this.dynamicPredicates.add(key);
+      group = this.makeGroup(name, arity);
+      group.dynamic = true;
+      this.groups.set(key, group);
+    }
+    return group;
+  }
+  insertDynamicClause(clause, atStart = false) {
+    const group = this.ensureDynamicGroup(clause.head.name, clause.head.arity);
+    clause.index = this.clauses.length;
+    clause.groundHead = termHasNoVariables(clause.head);
+    clause.scalarHead = clause.head.type === COMPOUND && clause.head.args.every(isScalar);
+    this.clauses.push(clause);
+    if (atStart) group.clauses.unshift(clause);
+    else group.clauses.push(clause);
+    rebuildGroupIndexes(group);
+  }
+  removeDynamicClause(group, clause) {
+    const index = group.clauses.indexOf(clause);
+    if (index < 0) return false;
+    group.clauses.splice(index, 1);
+    const allIndex = this.clauses.indexOf(clause);
+    if (allIndex >= 0) this.clauses.splice(allIndex, 1);
+    rebuildGroupIndexes(group);
+    return true;
+  }
+  abolishDynamicGroup(name, arity) {
+    const key = `${name}/${arity}`;
+    const group = this.groups.get(key);
+    if (!group) return;
+    const removed = new Set(group.clauses);
+    this.clauses = this.clauses.filter((clause) => !removed.has(clause));
+    this.groups.delete(key);
+    this.dynamicPredicates.delete(key);
   }
   applyDeclarations(options = {}) {
     for (const clause of this.clauses) {
@@ -276,11 +352,82 @@ export class Program {
   }
 }
 
+function expandIncludedClauses(clauses, options, ensured) {
+  const expanded = [];
+  for (const clause of clauses) {
+    const directive = isDirectiveClause(clause) ? clause.head.args[0] : null;
+    if (directive?.type !== COMPOUND || directive.arity !== 1 ||
+        !['include', 'ensure_loaded'].includes(directive.name)) {
+      expanded.push(clause);
+      continue;
+    }
+    const designation = directive.args[0];
+    if (designation.type !== ATOM) throw new PrologError('type_error(atom)', designation);
+    const base = options.baseDir ?? (
+      options.filename && path.isAbsolute(String(options.filename))
+        ? path.dirname(path.resolve(options.filename))
+        : process.cwd()
+    );
+    const filename = path.resolve(base, designation.name);
+    if (directive.name === 'ensure_loaded' && ensured.has(filename)) continue;
+    if (directive.name === 'ensure_loaded') ensured.add(filename);
+    let text;
+    try {
+      text = fs.readFileSync(filename, 'utf8');
+    } catch (_) {
+      throw new PrologError('existence_error(source_sink)', atom(designation.name));
+    }
+    const childOptions = { ...options, filename, baseDir: path.dirname(filename) };
+    const included = parseSourceClauses(text, childOptions);
+    expanded.push(...expandIncludedClauses(included, childOptions, ensured));
+  }
+  return expanded;
+}
+
 function isQueryDeclaration(clause) {
   return clause.body.length === 0
     && clause.head.type === COMPOUND
     && clause.head.name === 'query'
     && clause.head.arity === 1;
+}
+
+function isDirectiveClause(clause) {
+  return clause.body.length === 0 && clause.head.type === COMPOUND &&
+    clause.head.name === ':-' && clause.head.arity === 1;
+}
+
+function dynamicDirectiveIndicators(clause) {
+  if (!isDirectiveClause(clause)) return [];
+  const directive = clause.head.args[0];
+  if (directive.type !== COMPOUND || directive.name !== 'dynamic' || directive.arity !== 1) return [];
+  const terms = properListItems(directive.args[0], new Env()) ?? flattenDirectiveSequence(directive.args[0]);
+  return terms.map((indicator) =>
+    indicator.type === COMPOUND && indicator.name === '/' && indicator.arity === 2
+      ? declarationIndicator(indicator.args[0], indicator.args[1])
+      : null
+  ).filter(Boolean);
+}
+
+function flattenDirectiveSequence(term) {
+  if (term.type === COMPOUND && term.name === ',' && term.arity === 2) {
+    return [...flattenDirectiveSequence(term.args[0]), ...flattenDirectiveSequence(term.args[1])];
+  }
+  return [term];
+}
+
+function operatorDirective(clause) {
+  if (!isDirectiveClause(clause)) return null;
+  const directive = clause.head.args[0];
+  if (directive.type !== COMPOUND || directive.name !== 'op' || directive.arity !== 3) return null;
+  const [priority, specifier, names] = directive.args;
+  if (priority.type !== 'number' || specifier.type !== ATOM) return null;
+  const items = names.type === ATOM ? [names] : properListItems(names, new Env());
+  if (!items || items.some((item) => item.type !== ATOM)) return null;
+  return {
+    priority: Number(priority.name),
+    specifier: specifier.name,
+    names: items.map((item) => item.name),
+  };
 }
 
 function isInferenceFuse(clause) {
@@ -479,6 +626,19 @@ function indexOne(index, arg, clause) {
     else index.buckets.set(arg.name, [clause]);
   } else {
     index.fallback.push(clause);
+  }
+}
+
+function rebuildGroupIndexes(group) {
+  group.argIndexes = Array.from({ length: group.arity }, () => ({ buckets: new Map(), fallback: [] }));
+  group.demandIndexes.clear();
+  group.rejectedDemandIndexes.clear();
+  group.scalarFactsOnly = true;
+  for (const clause of group.clauses) {
+    clause.groundHead = termHasNoVariables(clause.head);
+    clause.scalarHead = clause.head.type === COMPOUND && clause.head.args.every(isScalar);
+    if (clause.body.length !== 0 || !clause.scalarHead) group.scalarFactsOnly = false;
+    for (let i = 0; i < group.arity; i++) indexOne(group.argIndexes[i], clause.head.args[i], clause);
   }
 }
 

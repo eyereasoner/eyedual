@@ -1,8 +1,13 @@
 // Depth-first Eyepl solver with builtin dispatch, memoization, and guarded recursion handling.
 // Most semantic decisions still flow through unification; optimizations only select candidates earlier.
-import { COMPOUND, Env, compound, copyResolved, flattenConjunction, freshTerm, termIsGround, termToString, unify, variantTerms } from './term.js';
+import {
+  COMPOUND, Env, compound, copyResolved, flattenConjunction, freshTerm,
+  numberTerm, termIsGround, termToString, unify, variantTerms,
+} from './term.js';
 import { createDefaultRegistry } from './builtins/registry.js';
+import { PrologError } from './builtins/iso.js';
 import { Program, selectClauseCandidates, selectClauseCandidatesForValues } from './program.js';
+import { StreamManager } from './io.js';
 
 let freshCounter = 0;
 
@@ -17,6 +22,27 @@ export class Solver {
     this.maxDepth = options.maxDepth ?? 100000;
     this.solutionLimit = options.solutionLimit ?? 10000000;
     this.solutionsSeen = 0;
+    this.prologFlags = options.prologFlags ?? defaultPrologFlags(this.registry?.portableSource ? 'fail' : 'error');
+    this.charConversions = options.charConversions ?? new Map();
+    if (!options.prologFlags) {
+      for (const [flag, value] of program.prologFlagDirectives ?? []) {
+        const definition = this.prologFlags.get(flag.name);
+        if (flag.type === 'atom' && value.type === 'atom' && definition?.changeable && definition.allowed.includes(value.name)) {
+          definition.value = value;
+        }
+      }
+    }
+    if (!options.charConversions) {
+      for (const [input, output] of program.charConversionDirectives ?? []) {
+        if (input.type === 'atom' && output.type === 'atom' &&
+            Array.from(input.name).length === 1 && Array.from(output.name).length === 1) {
+          if (input.name === output.name) this.charConversions.delete(input.name);
+          else this.charConversions.set(input.name, output.name);
+        }
+      }
+    }
+    this.io = options.io ?? new StreamManager(options.ioOptions);
+    this.solveStacks = [];
     this.active = [];
     this.memo = new Map();
     this.tableCoordinator = null;
@@ -35,7 +61,14 @@ export class Solver {
   }
 
   cloneForInnerGoal(solutionLimit = this.solutionLimit) {
-    const solver = new Solver(this.program, { registry: this.registry, maxDepth: this.maxDepth, solutionLimit });
+    const solver = new Solver(this.program, {
+      registry: this.registry,
+      maxDepth: this.maxDepth,
+      solutionLimit,
+      prologFlags: this.prologFlags,
+      charConversions: this.charConversions,
+      io: this.io,
+    });
     solver.memo = this.memo;
     solver.groundChainSuccess = this.groundChainSuccess;
     return solver;
@@ -52,14 +85,42 @@ export class Solver {
     }
   }
 
+  runInitializations() {
+    for (const goal of this.program.initializations ?? []) {
+      let succeeded = false;
+      for (const _ of this.solve([goal], new Env(), 0)) {
+        succeeded = true;
+        break;
+      }
+      if (!succeeded) throw new PrologError('initialization_error');
+    }
+  }
+
   *solve(goals, env = new Env(), depth = 0) {
     if (!Array.isArray(goals)) goals = [goals];
 
     const savedActive = this.active;
+    let registeredStack = null;
     try {
       const stack = [{ kind: 'goals', goals, env, depth, active: savedActive.slice() }];
+      registeredStack = stack;
+      this.solveStacks.push(stack);
       while (stack.length) {
       const frame = stack.pop();
+      if (frame.kind === 'resumeBuiltin') {
+        if (this.solutionsSeen >= this.solutionLimit) continue;
+        const result = frame.iterator.next();
+        if (result.done) continue;
+        stack.push(frame);
+        stack.push({
+          kind: 'goals',
+          goals: frame.goals,
+          env: result.value,
+          depth: frame.depth,
+          active: frame.active,
+        });
+        continue;
+      }
       if (frame.kind === 'completeTableFixpointRound') {
         frame.entry.computing = false;
         const answerCount = frame.entry.answers.length;
@@ -119,6 +180,17 @@ export class Solver {
         const selectedIndex = selectReadyDeterministicBuiltin(goals, env, this.registry);
         const goal = goals[selectedIndex];
         const rest = selectedIndex === 0 ? goals.slice(1) : [...goals.slice(0, selectedIndex), ...goals.slice(selectedIndex + 1)];
+        if (goal.type === 'atom' && goal.name === '!' && goal.arity === 0) {
+          const marker = active[active.length - 1] ?? null;
+          for (const solveStack of this.solveStacks) {
+            for (let i = solveStack.length - 1; i >= 0; i--) {
+              if (marker == null || solveStack[i].active?.includes(marker)) solveStack.splice(i, 1);
+            }
+          }
+          goals = rest;
+          depth++;
+          continue;
+        }
         if (goal.type === COMPOUND && goal.name === ',' && goal.arity === 2) {
           goals = [...flattenConjunction(goal), ...rest];
           depth++;
@@ -129,29 +201,40 @@ export class Solver {
         const def = callable ? this.registry.get(goal.name, goal.arity) : null;
         this.active = active;
         if (def && builtinIsReadyOrAuthoritative(def, this, goal, env)) {
-          const nextEnvs = [];
-          for (const next of def.handler({ solver: this, goal, env })) nextEnvs.push(next);
+          const iterator = def.handler({ solver: this, goal, env });
+          const firstResult = iterator.next();
           if (def.deterministic) {
-            if (nextEnvs.length) this.stats.deterministic_builtin_successes++;
+            if (!firstResult.done) this.stats.deterministic_builtin_successes++;
             else this.stats.deterministic_builtin_failures++;
           }
-          if (nextEnvs.length === 0) break;
-          if (nextEnvs.length === 1) {
-            goals = rest;
-            env = nextEnvs[0];
-            depth++;
-            continue;
+          if (firstResult.done) break;
+          if (!def.deterministic) {
+            stack.push({
+              kind: 'resumeBuiltin',
+              iterator,
+              goals: rest,
+              depth: depth + 1,
+              active,
+            });
           }
-          for (let i = nextEnvs.length - 1; i >= 0; i--) {
-            stack.push({ kind: 'goals', goals: rest, env: nextEnvs[i], depth: depth + 1, active });
-          }
-          break;
+          goals = rest;
+          env = firstResult.value;
+          depth++;
+          continue;
         }
 
         this.stats.solve_one_goal_calls++;
         if (!callable) break;
         const group = this.program.findGroup(goal.name, goal.arity);
-        if (!group) break;
+        if (!group) {
+          if (this.prologFlags.get('unknown')?.value?.name === 'error') {
+            throw new PrologError(
+              'existence_error(procedure)',
+              compound('/', [compound(goal.name, []), numberTerm(goal.arity)]),
+            );
+          }
+          break;
+        }
 
         if (group.tabled) {
           const key = memoKey(goal, env, group);
@@ -192,6 +275,8 @@ export class Solver {
       }
       }
     } finally {
+      const stackIndex = this.solveStacks.indexOf(registeredStack);
+      if (stackIndex >= 0) this.solveStacks.splice(stackIndex, 1);
       this.active = savedActive;
     }
   }
@@ -267,6 +352,18 @@ export class Solver {
 
 }
 
+function defaultPrologFlags(unknown = 'error') {
+  return new Map([
+    ['bounded', { value: compound('false', []), allowed: ['false'], changeable: false }],
+    ['integer_rounding_function', { value: compound('toward_zero', []), allowed: ['toward_zero'], changeable: false }],
+    ['char_conversion', { value: compound('on', []), allowed: ['on', 'off'], changeable: true }],
+    ['debug', { value: compound('off', []), allowed: ['on', 'off'], changeable: true }],
+    ['max_arity', { value: compound('unbounded', []), allowed: ['unbounded'], changeable: false }],
+    ['unknown', { value: compound(unknown, []), allowed: ['error', 'fail', 'warning'], changeable: true }],
+    ['double_quotes', { value: compound('atom', []), allowed: ['chars', 'codes', 'atom'], changeable: true }],
+  ]);
+}
+
 function withPortableLibrary(program, registry) {
   if (!registry?.portableSource || program._portableRegistry === registry) return program;
   if (registry._portableProgram == null) {
@@ -340,13 +437,20 @@ function pushUserGoalUncachedFrames(stack, solver, group, goal, rest, env, depth
   if (tryPushGroundChainFrames(stack, solver, group, goal, rest, env, depth, active)) return;
   const candidates = selectClauseCandidates(group, goal, env);
   const frames = [];
+  const invocation = { goal, env };
   for (const pass of [candidates.primary, candidates.fallback]) {
     for (const clause of pass) {
       if (clause.body.length === 0 && clause.scalarHead) {
         const next = matchScalarFact(goal, clause.head, env);
         if (next) {
           solver.stats.unify_calls++;
-          frames.push({ kind: 'goals', goals: rest, env: next, depth: depth + 1, active });
+          frames.push({
+            kind: 'goals',
+            goals: [{ kind: 'releaseActive' }, ...rest],
+            env: next,
+            depth: depth + 1,
+            active: [...active, invocation],
+          });
         }
         continue;
       }
@@ -358,14 +462,20 @@ function pushUserGoalUncachedFrames(stack, solver, group, goal, rest, env, depth
       solver.stats.unify_calls++;
       if (!unify(goal, freshHead, next)) continue;
       if (freshBody.length === 0) {
-        frames.push({ kind: 'goals', goals: rest, env: next, depth: depth + 1, active });
+        frames.push({
+          kind: 'goals',
+          goals: [{ kind: 'releaseActive' }, ...rest],
+          env: next,
+          depth: depth + 1,
+          active: [...active, invocation],
+        });
       } else {
         frames.push({
           kind: 'goals',
           goals: [...freshBody, { kind: 'releaseActive' }, ...rest],
           env: next,
           depth: depth + 1,
-          active: [...active, { goal, env }],
+          active: [...active, invocation],
         });
       }
     }

@@ -1,0 +1,1 @@
+error(permission_error(input, stream), '$stream'(0))

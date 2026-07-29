@@ -342,7 +342,7 @@ why(
     {
       name: '--warnings stays quiet for stratified negation',
       run: () => {
-        const input = 'query(answer(X)).\np(a).\nanswer(ok) :- \\+ q(a).\n';
+        const input = 'query(answer(X)).\np(a).\nq(_) :- fail.\nanswer(ok) :- \\+ q(a).\n';
         const result = runCli(['--warnings', '-'], { input });
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, 'answer(ok).\n', 'stdout');
@@ -450,7 +450,7 @@ function documentationSyncCases() {
       run: () => {
         const report = buildConformanceReport();
         assertArrayEqual(report.issues, [], 'conformance report issues');
-        assertEqual(report.total.total >= 400, true, 'conformance case count');
+        assertEqual(report.total.total >= 475, true, 'conformance case count');
         assertEqual(report.total.positive + report.total.errors + report.total.warnings + report.total.proofs, report.total.total, 'conformance total');
         assertEqual(report.rows.some((row) => row.category === 'legacy-numbered'), false, 'legacy-numbered category');
         const text = formatConformanceReport(report);
@@ -492,6 +492,39 @@ function apiCases() {
       run: () => {
         const result = run('query(q(X, Y)).\np(a, b).\nq(X, Y) :- p(X, Y).\n');
         assertEqual(result.stdout, 'q(a, b).\n', 'stdout');
+      },
+    },
+    {
+      name: 'ISO standard streams use API input and ordered output',
+      run: () => {
+        const writes = [];
+        const result = run(
+          'query(answer(T)). answer(T) :- read(T), write(read_back(T)), nl.\n',
+          { ioOptions: { input: 'sample(42).', write: (text) => writes.push(text) } },
+        );
+        assertEqual(result.stdout, 'read_back(sample(42))\nanswer(sample(42)).\n', 'stdout');
+        assertEqual(writes.join(''), 'read_back(sample(42))\n', 'write callback');
+      },
+    },
+    {
+      name: 'ISO directives initialize state before queries',
+      run: () => {
+        const result = run([
+          ':- dynamic(saved/1).',
+          ':- initialization(assertz(saved(ready))).',
+          ':- op(500, xfy, joins).',
+          'query(answer(X)).',
+          'answer(X) :- saved(ready), X = (a joins b joins c).',
+        ].join('\n'));
+        assertEqual(result.stdout, 'answer(joins(a, joins(b, c))).\n', 'stdout');
+      },
+    },
+    {
+      name: 'halt returns processor status through the API',
+      run: () => {
+        const result = run('query(stop). stop :- write(stopping), halt(7).\n');
+        assertEqual(result.stdout, 'stopping', 'stdout before halt');
+        assertEqual(result.haltCode, 7, 'halt code');
       },
     },
     {
@@ -725,7 +758,7 @@ open(X) :- candidate(X), \\+ closed(X).
           'aggregate_max/5', 'aggregate_min/5', 'between/3', 'countall/2',
           'append/3', 'drop/3', 'head/2', 'holds/2', 'holds/3', 'last/2',
           'length/2', 'list_to_set/2', 'max_list/2', 'member/2', 'min_list/2',
-          'not_member/2', 'nth0/3', 'once/1', 'reverse/2', 'select/3',
+          'not_member/2', 'nth0/3', 'reverse/2', 'select/3',
           'set_nth0/4', 'slice/4', 'smallest_divisor_from/3', 'sort/2',
           'sum_list/2', 'sumall/3', 'take/3', 'rest/2',
         ].sort().join('\n'), 'audited portable accelerator allowlist');

@@ -1,0 +1,1 @@
+error(permission_error(access, static_procedure), /(fixed, 1))

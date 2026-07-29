@@ -13,18 +13,32 @@ export interface EyeplRunOptions {
   markRecursive?: boolean;
   strictNegation?: boolean;
   analyzeNegation?: boolean;
+  ioOptions?: {
+    input?: string;
+    write?: (text: string) => void;
+  };
   [key: string]: unknown;
 }
 
 export interface EyeplRunResult {
   stdout: string;
   stats: EyeplStats;
+  haltCode: number | null;
+}
+
+export class StreamManager {
+  constructor(options?: { input?: string; write?: (text: string) => void });
+  streams: Map<number, unknown>;
+  aliases: Map<string, number>;
+  currentInput: number;
+  currentOutput: number;
 }
 
 export interface EyeplSourcePart {
   text?: string;
   source?: string;
   filename?: string;
+  baseDir?: string;
 }
 
 export interface EyeplClause {
@@ -186,6 +200,12 @@ export function getLibraryRegistry(): BuiltinRegistry;
 export class PrologError extends Error {
   formal: string;
   culprit: EyeplTerm | null;
+}
+
+export class HaltSignal extends Error {
+  name: 'HaltSignal';
+  code: number;
+  constructor(code?: number);
 }
 export function run(source: string | Program, options?: EyeplRunOptions): EyeplRunResult;
 export function whyProof(program: Program, goal: EyeplTerm, options?: EyeplRunOptions): { ok: boolean; text: string };

@@ -26,11 +26,12 @@ the second tells us whether and how the machine will find them. Learning to
 program with Eyepl means learning to move comfortably between these views.
 
 The name *Eyepl* combines *EYE* with *pl*: EYE-style reasoning through Prolog.
-Eyepl implements a deliberately focused ISO Prolog profile with facts, Horn
-clauses, terms, lists, finite search, and standard built-ins. Automatic
+Eyepl implements a broad ISO Prolog profile with facts, clauses, terms, lists,
+control, arithmetic, dynamic predicates, operators, streams, and standard
+built-ins. Automatic
 tabling, inference fuses, proof output, and RDF adapters are implementation
 capabilities around that standards-based foundation. Eyepl does not attempt to
-reproduce the whole ISO Prolog environment.
+claim formal certification of every ISO processor edge case.
 
 Standards are crucial because knowledge and rules often outlive the software
 that first processes them. Using ISO Prolog for programs and RDF 1.2 for
@@ -2158,11 +2159,11 @@ a search tree, represent languages and evaluators as relations, transform a
 correct program without losing its meaning, and organize a decision system
 whose conclusions remain auditable.
 
-Eyepl is deliberately smaller than full Prolog. It has no cut, dynamic clause
-database, predicate variables, operator declarations, or definite-clause
-grammar notation. Where a larger Prolog program might rely on those features,
-the examples make the domain relation, state, or syntax tree explicit. This
-usually requires more arguments, but it also makes assumptions easier to
+Eyepl now supplies the Part 1 control, dynamic-database, operator, and I/O
+families. It remains deliberately smaller than the wider Prolog ecosystem:
+modules, predicate variables in callable position, and definite-clause grammar
+notation are outside this profile. The examples still prefer explicit domain
+relations, state, and syntax trees where that makes assumptions easier to
 inspect.
 
 ## 21. Reading the computation
@@ -4515,10 +4516,12 @@ executable memory.
 
 # Appendix A. Supported ISO Prolog profile
 
-Prolog source accepted by Eyepl is UTF-8. `%` starts a line comment. Plain atoms begin with a
+Prolog source accepted by Eyepl is UTF-8. `%` starts a line comment and
+`/* ... */` delimits a block comment. Plain atoms begin with a
 lowercase ASCII letter. Variables begin with uppercase or underscore. The bare
 `_` is fresh each time. Single quotes delimit quoted atoms; double quotes
-delimit strings. Integers, decimals, and scientific notation are accepted.
+delimit strings. Integers, decimals, scientific notation, binary/octal/
+hexadecimal integers, and character-code constants are accepted.
 
 Unquoted names deliberately use ASCII spelling. Unicode belongs inside quoted
 atoms and strings:
@@ -4548,10 +4551,11 @@ clause              ::= head "."
 head                ::= term
 goal-list           ::= term { "," term }
 term                ::= variable | atom-constant | string | number
-                      | compound | list | parenthesized-term
+                      | compound | list | curly-term | parenthesized-term
 compound            ::= atom-constant "(" term { "," term } ")"
 list                ::= "[" "]"
                       | "[" term { "," term } [ "|" term ] "]"
+curly-term          ::= "{}" | "{" term "}"
 parenthesized-term  ::= "(" term [ "," term { "," term } ] ")"
 variable            ::= "_"
                       | variable-start { name-continue }
@@ -4565,8 +4569,8 @@ name-continue       ::= uppercase-letter | lowercase-letter | digit | "_"
 
 Zero-arity compounds such as `ready()` are unsupported; use `ready`. Every
 clause ends in a period. The grammar above gives the canonical term shapes.
-The parser also accepts a fixed set of ISO-style operators and lowers them to
-ordinary compound terms:
+The initial operator table contains the following ISO-style operators, all
+lowered to ordinary compound terms:
 
 - prefix: `\+`, unary `+`, unary `-`, and `\`;
 - control: `,`, `;`, and `->`;
@@ -4575,8 +4579,10 @@ ordinary compound terms:
 - arithmetic: `+`, `-`, `*`, `/`, `//`, `div`, `mod`, `rem`, `/\`, `\/`,
   `<<`, `>>`, `**`, and `^`.
 
-There are no operator declarations or user-defined operators, and variables
-cannot occur in functor or predicate position. Parentheses around one term
+`op/3` directives and runtime calls define or remove prefix, infix, and postfix
+operators using the ISO `fx`, `fy`, `xf`, `yf`, `xfx`, `xfy`, and `yfx`
+specifier classes. Variables cannot occur in functor or predicate position.
+Parentheses around one term
 denote that term; parentheses around two or more comma-separated terms
 construct a right-associated `','/2` term. In goal position it is conjunction;
 in data position it remains inspectable data.
@@ -4600,8 +4606,10 @@ depth-first resolution, while eligible positive recursive groups are tabled
 automatically. `\+/1` is stratified negation as failure, not classical
 negation.
 
-Eyepl deliberately omits cut, operator declarations, modules, dynamic database
-updates, DCGs, and a complete ISO Prolog library.
+Eyepl supports cut, operator declarations, dynamic database updates, grouped
+solutions, exceptions, flags, initialization and inclusion directives, and
+standard stream and term I/O. Modules and DCG notation remain outside this
+Part 1 profile.
 
 ### Declarations
 
@@ -4610,6 +4618,12 @@ updates, DCGs, and a complete ISO Prolog library.
 people and tools; they do not alter proof search. A clause headed by `false`
 is different: it is an inference fuse, checked before queries, and aborts
 execution when its body succeeds.
+
+Standard directives include `dynamic/1`, `multifile/1`, `discontiguous/1`,
+`op/3`, `char_conversion/2`, `initialization/1`, `include/1`,
+`ensure_loaded/1`, and `set_prolog_flag/2`. Initialization goals run once
+after program preparation and before host queries. Included text is expanded
+in place; repeated `ensure_loaded/1` designations are loaded once.
 
 Normal output contains only ground query answers, one term and period at a
 time. Source facts are not echoed as new conclusions, and duplicate answers
@@ -4674,16 +4688,25 @@ profile. Where a predicate is defined by ISO/IEC 13211-1:1995, Eyepl uses its
 standard predicate indicator; the registry also includes a few later or common
 compatibility predicates identified below. Arithmetic is expressed through
 `is/2` rather than output arguments on arithmetic predicates. The registry
-contains 38 name/arity entries across 38 names.
+contains 114 name/arity entries across 93 names.
 
 | Family | Registered predicate indicators |
 | --- | --- |
-| Control | `true/0`, `fail/0`, `call/1`, `\+/1`, `;/2`, `->/2` |
-| Unification and identity | `=/2`, `\=/2`, `==/2`, `\==/2` |
+| Control and exceptions | `true/0`, `fail/0`, `!/0`, `call/1`, `\+/1`, `once/1`, `repeat/0`, `;/2`, `->/2`, `catch/3`, `throw/1`, `halt/0`, `halt/1` |
+| Unification and identity | `=/2`, `unify_with_occurs_check/2`, `\=/2`, `==/2`, `\==/2` |
 | Type tests | `var/1`, `nonvar/1`, `atom/1`, `integer/1`, `float/1`, `number/1`, `atomic/1`, `compound/1`, `callable/1`, `ground/1` |
 | Profile term order | `compare/3`, `@</2`, `@=</2`, `@>/2`, `@>=/2` |
 | Term inspection | `functor/3`, `arg/3`, `=../2`, `copy_term/2`, `term_variables/2` |
-| Collection | `findall/3` |
+| Collection | `findall/3`, `bagof/3`, `setof/3` |
+| Database and information | `clause/2`, `asserta/1`, `assertz/1`, `retract/1`, `abolish/1`, `current_predicate/1` |
+| Operators, conversion, and flags | `op/3`, `current_op/3`, `char_conversion/2`, `current_char_conversion/2`, `current_prolog_flag/2`, `set_prolog_flag/2` |
+| Atomic terms | `atom_length/2`, `atom_concat/3`, `sub_atom/5`, `atom_chars/2`, `atom_codes/2`, `char_code/2`, `number_chars/2`, `number_codes/2` |
+| Stream control | `open/3`, `open/4`, `close/1`, `close/2`, `current_input/1`, `current_output/1`, `set_input/1`, `set_output/1`, `flush_output/0`, `flush_output/1`, `stream_property/2`, `set_stream_position/2`, `at_end_of_stream/0`, `at_end_of_stream/1` |
+| Character input | `get_char/1`, `get_char/2`, `peek_char/1`, `peek_char/2`, `get_code/1`, `get_code/2`, `peek_code/1`, `peek_code/2` |
+| Character output | `put_char/1`, `put_char/2`, `put_code/1`, `put_code/2`, `nl/0`, `nl/1` |
+| Byte input/output | `get_byte/1`, `get_byte/2`, `peek_byte/1`, `peek_byte/2`, `put_byte/1`, `put_byte/2` |
+| Term input | `read/1`, `read/2`, `read_term/2`, `read_term/3` |
+| Term output | `write/1`, `write/2`, `writeq/1`, `writeq/2`, `write_canonical/1`, `write_canonical/2`, `write_term/2`, `write_term/3` |
 | Arithmetic | `is/2`, `=:=/2`, `=\=/2`, `</2`, `=</2`, `>/2`, `>=/2` |
 
 The atom `false` is reserved for Eyepl inference-fuse heads; ordinary Prolog
@@ -4711,6 +4734,14 @@ instantiation raises `instantiation_error`; wrong argument categories raise
 `evaluation_error`. JavaScript embedders receive these as `PrologError`
 instances whose message contains the corresponding Prolog error term.
 
+Streams belong to one solver run and are shared by nested calls, exceptions,
+and solution collectors. `user_input` and `user_output` are always present.
+`open/4` supports `type/1`, `alias/1`, `reposition/1`, and `eof_action/1`;
+`read_term/3` supports `variables/1`, `variable_names/1`, and `singletons/1`.
+The JavaScript `ioOptions.input` and `ioOptions.write` hooks connect standard
+streams to an embedder. File-backed streams use synchronous lifecycle semantics
+so side effects occur in Prolog execution order.
+
 ## B.3 Implementation extension library
 
 The default registry is deliberately limited to the supported ISO Prolog
@@ -4724,9 +4755,9 @@ error behavior of a standards-profile program.
 The extension catalog is audited against
 [ISO/IEC 13211-1](https://www.iso.org/standard/21413.html): an extension is not
 registered when the supported ISO profile already expresses the same
-operation. The library registry contains the 38 default indicators plus 24
+operation. The library registry contains the 114 default indicators plus 24
 irreducible host-extension indicators. It also loads ordinary portable Prolog
-clauses for relations that need no host primitive. Twenty-eight frequently used
+clauses for relations that need no host primitive. Twenty-seven frequently used
 portable relations have semantics-preserving native accelerators; these are
 classified separately because the bundled clauses remain their executable
 specification and fallback.
@@ -4892,10 +4923,9 @@ ISO `findall/3` is present in both registries. The extension aggregates follow
 the same scoping principle: variables created inside the nested search do not
 leak except through the declared templates and outputs.
 
-There are no `not/1`, `once/1`, or `forall/2` semantic host extensions. Use ISO
-`\+/1`; define a named counterexample relation for universal checks. The
-portable rule layer defines `once/1` from ISO if-then as
-`once(Goal) :- (Goal -> true)` and supplies a native accelerator.
+There are no `not/1` or `forall/2` semantic host extensions. Use ISO `\+/1`;
+define a named counterexample relation for universal checks. `once/1` is
+supplied directly by the ISO registry.
 
 ```eyepl
 cost(a, 8).
@@ -5383,45 +5413,35 @@ node test/run-conformance-report.mjs
 
 ### Supported ISO Prolog profile
 
-Eyepl executes a documented and tested **ISO compatibility profile**. It is not
-a conforming implementation of the complete ISO/IEC 13211-1:1995 processor and
-standard environment. Programs within the profile reuse standard clauses,
-variable spelling, quoted atoms, lists, operators, unification, arithmetic,
-term comparison, and control predicates where Appendix A says they are
-supported. The executable examples are Eyepl-profile programs, not a corpus of
-portable ISO Prolog texts: they commonly use `query/1`, strings, inference
-fuses, automatic tabling, or the optional extension library.
+Eyepl executes a documented and tested **ISO compatibility profile** covering
+the complete mandatory predicate-indicator inventory of ISO/IEC
+13211-1:1995. It includes control and exceptions, term operations, arithmetic,
+grouped solutions, dynamic clauses, operators, atomic-term processing, flags,
+character conversion, streams, character/byte and term I/O, initialization,
+source inclusion, and termination. `compare/3`, `callable/1`, `ground/1`, and
+`term_variables/2` are additional compatibility conveniences.
 
-Relative to ISO/IEC 13211-1:1995, the default registry implements a useful
-subset of core unification, type tests, comparison, term decomposition,
-`findall/3`, arithmetic, and control. `compare/3`, `callable/1`, `ground/1`,
-and `term_variables/2` are compatibility conveniences outside the built-in
-catalog of that supplied edition. The implementation intentionally does not
-provide the whole processor. In particular:
+This breadth is not a formal certification of every processor requirement.
+The executable examples are Eyepl-profile programs and commonly use `query/1`,
+strings, inference fuses, automatic tabling, or the optional extension library.
+The remaining qualifications are:
 
-- only the fixed operators listed in Appendix A are recognized; there are no
-  operator declarations or user-defined operators;
-- zero-arity compound syntax such as `ready()` is absent;
-- cut, modules, dynamic database updates, and DCGs are absent;
-- streams, standard term I/O, character and byte I/O, Prolog flags, exception
-  handling, `bagof/3`, `setof/3`, `repeat/0`, and the ISO atomic-term
-  processing family are absent;
+- zero-arity compound syntax such as `ready()` is represented by the atom
+  `ready`;
+- modules and DCG notation are outside this Part 1 profile;
 - variables cannot occupy functor or predicate position;
-- term ordering and the standard library are not the complete ISO versions;
-- double-quoted text is a distinct Eyepl string scalar rather than ISO
-  double-quoted list notation, and negative numeric text is represented as a
-  numeric scalar rather than a prefix `-/1` term;
-- unification performs an occurs check and rejects rational-tree bindings that
-  some Prolog systems accept.
+- double-quoted text is a distinct Eyepl string scalar rather than switching
+  representation with the `double_quotes` flag;
+- operator-aware `write_term/3` formatting and some option/error precedence
+  combinations remain implementation-profile behavior;
+- unification consistently performs an occurs check, rejecting rational-tree
+  bindings accepted as extensions by some systems.
 
 Write terms explicitly, keep variables uppercase or underscore-prefixed, and
 quote atom names that are neither lowercase plain names nor graphic tokens.
-These boundaries keep the implementation focused. They are a statement about
-the present compatibility profile, not an ISO conformance claim, a new
-language definition, or a promise that an arbitrary ISO Prolog program will
-run unchanged. Portability must therefore be assessed feature by feature; the
-Eyepl conformance corpus verifies this documented profile rather than
-certifying the complete ISO standard.
+These boundaries distinguish implemented ISO functionality from certification.
+The Eyepl corpus verifies this documented profile; it is not an independent
+certification that every conforming Prolog text will run unchanged.
 
 ### Security and resource use
 

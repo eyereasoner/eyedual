@@ -9,10 +9,12 @@ The suite is intentionally file-based. Exact standard output, errors, warnings,
 and proof output test the behavior of the JavaScript implementation.
 
 “Conformance” here means conformance to Eyepl's documented ISO compatibility
-profile and implementation extensions. It is not a certification of complete
-ISO/IEC 13211-1 processor conformance. In particular, cases under `iso/` test
-the supported ISO-derived subset; they do not imply coverage of every
-mandatory facility in the standard.
+profile and implementation extensions. The default registry now covers the
+mandatory ISO/IEC 13211-1:1995 predicate-indicator inventory and standard
+directive families. This suite is still not an independent certification of
+every processor requirement, lexical edge, option combination, or prescribed
+error precedence. Cases under `iso/` identify standards-derived behavior;
+other directories cover Eyepl host contracts and extensions.
 
 All conformance files live under topic directories such as `arithmetic/`, `lists/`, `syntax/`, or `variables/`; new top-level numbered files should not be added. The report uses those directories as coverage categories.
 

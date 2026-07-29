@@ -1,0 +1,2 @@
+query(trigger).
+trigger :- halt(not_an_integer).

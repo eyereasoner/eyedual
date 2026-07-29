@@ -178,11 +178,11 @@ export function termIsGround(term, env = new Env()) {
   return resolved.args.every((arg) => termIsGround(arg, env));
 }
 
-const graphicAtomChars = new Set('#$&*+-/<=>@^~\\'.split(''));
+const graphicAtomChars = new Set('!#$&*+-/<=>@^~\\'.split(''));
 
 function atomNeedsQuotes(name) {
   if (!name) return true;
-  if (name === '[]') return false;
+  if (name === '[]' || name === '{}') return false;
   if (name === '\\+' || name === '+' || name === '-' || name === '\\') return true;
   if (/^[a-z][A-Za-z0-9_]*$/.test(name)) return false;
   for (const ch of name) if (!graphicAtomChars.has(ch)) return true;
@@ -256,6 +256,9 @@ export function termToString(term, env = new Env(), quoteStrings = true) {
   if (resolved.type === ATOM) return writeAtom(resolved.name);
   if (resolved.type === NUMBER) return resolved.name;
   if (resolved.type === COMPOUND && resolved.arity === 0) return writeAtom(resolved.name);
+  if (resolved.type === COMPOUND && resolved.name === '{}' && resolved.arity === 1) {
+    return `{${termToString(resolved.args[0], env, true)}}`;
+  }
   if (isConjunction(resolved)) {
     const parts = [];
     let cursor = resolved;

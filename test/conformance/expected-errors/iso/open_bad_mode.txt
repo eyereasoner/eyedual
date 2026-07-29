@@ -1,0 +1,1 @@
+error(domain_error(io_mode), sideways)
