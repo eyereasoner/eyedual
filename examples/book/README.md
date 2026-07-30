@@ -223,9 +223,23 @@ npm run generate
 - [08-within_limit.pl](chapter-33/08-within_limit.pl) — Pattern 8: Proof façade
 - [09-program.pl](chapter-33/09-program.pl) — Pattern 9: Integrity before inference
 - [10-theory_version.pl](chapter-33/10-theory_version.pl) — Pattern 10: Version the evidence boundary
-- [11-city.pl](chapter-33/11-city.pl) — Historical note: executable specifications learn to remember
-- [12-answer.pl](chapter-33/12-answer.pl) — B.3.1 Native numeric, comparison, and date predicates
-- [13-answer-2.pl](chapter-33/13-answer-2.pl) — B.3.2 Portable list relations
-- [14-answer-3.pl](chapter-33/14-answer-3.pl) — B.3.3 Native strings, lexical values, and regular expressions
-- [15-cost.pl](chapter-33/15-cost.pl) — B.3.4 Portable aggregation and bounded control
-- [16-message.pl](chapter-33/16-message.pl) — B.3.5 Portable context helpers
+
+## Chapter 34: Control, exceptions, and grouped solutions
+
+- [01-travel_status.pl](chapter-34/01-travel_status.pl)
+- [02-require_route.pl](chapter-34/02-require_route.pl)
+- [03-regional_total.pl](chapter-34/03-regional_total.pl)
+
+## Chapter 35: Reflective terms and atomic conversion
+
+- [01-term_shape.pl](chapter-35/01-term_shape.pl)
+
+## Chapter 36: Dynamic predicates, directives, and operators
+
+- [01-program.pl](chapter-36/01-program.pl)
+- [02-program-2.pl](chapter-36/02-program-2.pl)
+- [03-program-3.pl](chapter-36/03-program-3.pl)
+
+## Chapter 37: Streams and term I/O
+
+- [01-write_event.pl](chapter-37/01-write_event.pl)

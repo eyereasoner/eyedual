@@ -14,7 +14,7 @@ const chapters = [];
 let chapter;
 let cursor = 0;
 
-for (const match of book.matchAll(/^(## \d+\. ([^\n]+)|```eyepl\n([\s\S]*?)```)/gm)) {
+for (const match of book.matchAll(/^(## \d+\. ([^\n]+)|# ([^\n]+)|```eyepl\n([\s\S]*?)```)/gm)) {
   const preceding = book.slice(cursor, match.index);
   cursor = match.index + match[0].length;
 
@@ -28,8 +28,13 @@ for (const match of book.matchAll(/^(## \d+\. ([^\n]+)|```eyepl\n([\s\S]*?)```)/
     continue;
   }
 
+  if (match[3]) {
+    chapter = undefined;
+    continue;
+  }
+
   if (!chapter) continue;
-  const source = match[3].trim();
+  const source = match[4].trim();
   if (!source.endsWith('.')) continue;
 
   const firstClause = source

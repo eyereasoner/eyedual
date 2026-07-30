@@ -1,0 +1,26 @@
+% ISO relations between atoms, character lists, character codes, and numbers.
+%
+% Conversion predicates work in both documented directions. sub_atom/5 also
+% exposes how a source atom is split around a selected fragment.
+query(report(X0, X1)).
+
+report(joined, Atom) :-
+  atom_concat(eye, pl, Atom).
+
+report(prefix, Prefix) :-
+  atom_concat(Prefix, pl, eyepl).
+
+report(characters, Chars) :-
+  atom_chars(eye, Chars).
+
+report(codes, Codes) :-
+  atom_codes('AZ', Codes).
+
+report(decoded_character, Char) :-
+  char_code(Char, 955).
+
+report(number, Number) :-
+  number_chars(Number, ['4', '2']).
+
+report(fragment, fragment(Before, Part, After)) :-
+  sub_atom(eyepl, Before, 3, After, Part).

@@ -241,6 +241,13 @@ the next program.
 32. [Debugging by meaning, search, and proof](#32-debugging-by-meaning-search-and-proof)
 33. [A pattern catalog for reasoning](#33-a-pattern-catalog-for-reasoning)
 
+### Part VIII — Standard Prolog in practice
+
+34. [Control, exceptions, and grouped solutions](#34-control-exceptions-and-grouped-solutions)
+35. [Reflective terms and atomic conversion](#35-reflective-terms-and-atomic-conversion)
+36. [Dynamic predicates, directives, and operators](#36-dynamic-predicates-directives-and-operators)
+37. [Streams and term I/O](#37-streams-and-term-io)
+
 ### Appendices
 
 - [A. Supported ISO Prolog profile](#appendix-a-supported-iso-prolog-profile)
@@ -4524,6 +4531,277 @@ extends that attitude into maintenance: prediction, execution, evidence, and
 revision form one method, and the failure that taught a lesson becomes
 executable memory.
 
+# Part VIII — Standard Prolog in practice
+
+Eyepl v0.1.11 through v0.1.14 substantially enlarged and tested the supported
+ISO Prolog profile. Earlier chapters use its relational core; this part teaches
+the processor-facing facilities that become important in reusable libraries,
+language tools, long-running applications, and file boundaries. The isolated
+mode and error cases remain in `test/conformance/cases/iso/`. The examples here
+compose those operations into programs worth changing and rerunning.
+
+These facilities do not all have the same declarative character. Term
+inspection and atomic conversion are relations. Cut commits to an operational
+choice. Dynamic updates and stream operations change solver-owned state. Use
+the pure relation when it expresses the problem; introduce control or effects
+at a named boundary.
+
+## 34. Control, exceptions, and grouped solutions
+
+The control predicates accept goals as arguments. `call/1` invokes a callable
+term, `once/1` keeps its first solution, and `!/0` commits within the clause
+that contains it. If-then-else commits to the first successful condition:
+
+```eyepl
+travel_status(From, To, Status) :-
+  (route(From, To) -> Status = connected ; Status = disconnected).
+```
+
+`once(Goal)` is a local request for one solution. Cut is lower level: it
+discards alternatives created since entry into the current predicate call.
+The two can produce the same first answer without expressing the same control
+boundary. Keep cut close to the choice it documents and test the complete
+answer set before and after introducing it.
+
+Exceptions separate an exceptional call from ordinary logical failure:
+
+```eyepl
+require_route(From, To) :-
+  (route(From, To) -> true ; throw(no_route(From, To))).
+
+checked_route(From, To, Result) :-
+  catch(
+    (require_route(From, To), Result = accepted),
+    no_route(From, To),
+    Result = rejected
+  ).
+```
+
+The catcher is unified with the thrown term. A matching recovery goal runs in
+the environment at the `catch/3` boundary; unrelated exceptions continue
+outward. Prefer failure for an expected negative answer, such as a route that
+does not exist. Throw when a caller cannot safely interpret the computation,
+for example malformed input or an unavailable required resource. ISO
+instantiation, type, domain, permission, representation, and evaluation errors
+follow this same exception path.
+
+Collection also makes search boundaries explicit. `findall/3` returns one list
+and existentially closes variables that occur only in its goal. `bagof/3`
+instead creates a group for each binding of a free variable and fails when
+there are no solutions. `setof/3` has the same grouping rule, then sorts and
+deduplicates each group. The `^/2` notation marks a goal variable existential:
+
+```eyepl
+regional_total(Region, Total) :-
+  bagof(Amount, Seller^sale(Region, Seller, Amount), Amounts),
+  sum_amounts(Amounts, Total).
+```
+
+Here `Region` deliberately remains free and produces one answer per region;
+`Seller` is hidden from grouping. This distinction matters whenever a
+collection unexpectedly arrives as several answers.
+
+Integer arithmetic has similarly precise choices. In Eyepl's supported
+profile, `div` and `//` both truncate the quotient toward zero. With a positive
+divisor, `mod` returns a nonnegative modulo while `rem` keeps the dividend's
+sign. For `-7` and `3`, the quotient is `-2`, but the two remainders are `2`
+and `-1`. Bitwise conjunction, disjunction, complement, and shifts require
+integers.
+
+Run the focused examples:
+
+- [`iso-control-and-errors.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-control-and-errors.pl)
+  covers `call/1`, `once/1`, cut, if-then-else, and recovery;
+- [`iso-grouped-solutions.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-grouped-solutions.pl)
+  contrasts the three collectors and inspects a source clause; and
+- [`iso-integer-arithmetic.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-integer-arithmetic.pl)
+  makes division and bit-operation results visible.
+
+**Checkpoint.** Explain why `bagof(Amount, sale(Region, Seller, Amount), X)`
+groups on both `Region` and `Seller`, then write the existential qualification
+that groups only on `Region`. Name one expected absence that should fail and
+one broken precondition that should throw.
+
+## 35. Reflective terms and atomic conversion
+
+Ordinary pattern matching should remain the first choice when term shape is
+known. Reflective predicates are valuable when the shape itself is input:
+generic walkers, schema checkers, interpreters, and source transformations.
+
+`functor/3` relates a term to its name and arity. `arg/3` selects a one-based
+argument. `=../2`—traditionally called *univ*—relates a term to a list whose
+head is the functor and whose tail contains the arguments:
+
+```eyepl
+term_shape(Term, shape(Name, Arity, Arguments)) :-
+  functor(Term, Name, Arity),
+  (Term =.. [Name | Arguments]).
+```
+
+In a construction mode, `functor/3` creates a term with fresh arguments and
+`=../2` rebuilds a term from a proper list. Their ISO errors are useful
+guardrails: an unknown functor name, negative arity, partial univ list, or
+uninstantiated required argument is not silently treated as failure.
+
+`copy_term/2` preserves sharing inside a term while replacing its variables
+with fresh ones. `term_variables/2` returns each distinct variable in
+first-occurrence order. Identity predicates make the distinction observable:
+`==/2` tests whether two resolved terms are identical without binding them;
+`\==/2` is its negation. `=/2` still performs unification, while
+`unify_with_occurs_check/2` explicitly rejects cyclic bindings.
+
+The standard term-order family—`compare/3`, `@</2`, `@=</2`, `@>/2`, and
+`@>=/2`—compares terms without evaluating arithmetic. Do not replace
+`3 + 4 < 8` with `3 + 4 @< 8`: the former evaluates numbers and the latter
+orders syntax.
+
+Atomic conversion predicates expose reversible representations:
+
+- `atom_concat/3` joins an atom or solves a sufficiently instantiated split;
+- `sub_atom/5` relates a source to before, length, after, and fragment;
+- `atom_chars/2` and `atom_codes/2` use character atoms or Unicode codes;
+- `char_code/2` converts one character; and
+- `number_chars/2` and `number_codes/2` parse or render ISO numbers.
+
+These are atom relations, not the extension library's string convenience
+predicates. Quoted atoms such as `'λ'` remain atoms; double-quoted values remain
+Eyepl strings.
+
+[`iso-reflective-terms.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-reflective-terms.pl)
+walks through shape, rebuilding, fresh copying, variables, and order.
+[`iso-atomic-conversion.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-atomic-conversion.pl)
+demonstrates both conversion directions and every three-character sub-atom of
+`eyepl`.
+
+**Checkpoint.** Given `pair(X, X)`, predict the variable list before and after
+`copy_term/2`. Then explain why `atom_codes/2` belongs at a text boundary
+rather than throughout a domain theory.
+
+## 36. Dynamic predicates, directives, and operators
+
+A dynamic predicate is a mutable clause store owned by one solver run. Declare
+it before updates:
+
+```eyepl
+:- dynamic(task/2).
+
+prepare_queue :-
+  asserta(task(check_power, urgent)),
+  assertz(task(check_network, normal)).
+```
+
+`asserta/1` inserts at the beginning and `assertz/1` at the end. `retract/1`
+removes the first unifying clause and can be retried for later matches.
+`abolish/1` removes a dynamic procedure. `clause/2` inspects accessible
+clauses, while `current_predicate/1` enumerates or tests predicate indicators.
+Static and private built-in procedures are protected by permission errors.
+
+Updates are ordered effects, not pure logical conclusions, and they are not
+undone by ordinary backtracking: later goals observe a changed database. Keep
+them in a narrow lifecycle layer.
+The queue example performs setup in `initialization/1`, so query order does not
+determine its state:
+
+```eyepl
+:- initialization(prepare_queue).
+```
+
+Initialization runs after preparation and before host queries. `include/1`
+expands a source file in place; `ensure_loaded/1` loads the same designation at
+most once. `multifile/1` and `discontiguous/1` document permitted clause
+layout. Prolog flags and character conversions are also solver-scoped and
+should be set deliberately near the boundary that relies on them.
+
+Operators offer readable syntax without adding a new data model:
+
+```eyepl
+:- op(600, xfx, reports).
+
+sensor_7 reports temperature.
+```
+
+The fact is exactly `reports(sensor_7, temperature)`. Priority determines
+binding strength, and `fx`, `fy`, `xf`, `yf`, `xfx`, `xfy`, and `yfx`
+determine position and associativity. `current_op/3` inspects the table;
+`op(0, Specifier, Name)` removes a definition. Because declarations affect
+parsing of subsequent text, place them before their first use.
+
+Run [`iso-dynamic-database.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-dynamic-database.pl)
+for an explicitly stateful queue and
+[`iso-operators.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-operators.pl)
+to see custom notation decomposed back into an ordinary term.
+
+**Checkpoint.** State the final clause order after one `asserta/1` and two
+`assertz/1` calls. Then rewrite one custom-operator fact in canonical
+functor notation and verify it with `=../2`.
+
+## 37. Streams and term I/O
+
+Streams are handles to ordered input or output. `open/4` adds options to the
+basic `open/3`: text or binary type, alias, repositioning, and end-of-file
+action. Always close a nonstandard stream, including exceptional paths in
+application code.
+
+```eyepl
+write_event(Path, Event) :-
+  open(Path, write, Stream, [type(text)]),
+  write_canonical(Stream, Event),
+  put_char(Stream, '.'),
+  nl(Stream),
+  close(Stream).
+```
+
+The period is essential when another Prolog processor will read the result as
+a term. `write/1-2` uses readable conventional syntax, `writeq/1-2` quotes
+where needed, and `write_canonical/1-2` exposes canonical structure.
+`write_term/2-3` accepts formatting options.
+
+Character operations are `get_char`, `peek_char`, `put_char`, `get_code`,
+`peek_code`, and `put_code`; byte streams use the corresponding byte
+predicates. Peeking does not advance the position. Mixing byte operations with
+a text stream, or text operations with a binary stream, raises a permission
+error rather than guessing an encoding.
+
+`read/1-2` reads the next term. `read_term/2-3` can also return all variables,
+source variable names, and singletons. The metadata contains variables, so a
+program normally validates or transforms it before placing it in a ground
+query answer. `stream_property/2` exposes mode, type, alias, position, and
+end state. `current_input/1`, `current_output/1`, `set_input/1`, and
+`set_output/1` manage defaults shared by nested goals.
+
+End of file is a state transition, not merely a character. With
+`eof_action(eof_code)`, term input yields `end_of_file`, character input yields
+`end_of_file`, and code or byte input yields `-1`; `at_end_of_stream/1`
+tests the position. Repeated input after the end follows the selected
+`eof_action`.
+
+[`iso-term-io.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-term-io.pl)
+writes a temporary fixture, reads its terms in order, checks variable metadata,
+and observes end of stream. The file lives under `/tmp`; running the example
+does not modify the checkout.
+
+**Checkpoint.** Write a term round trip and name where quoting, the terminating
+period, stream type, and close operation matter. Explain why a stream side
+effect belongs outside the central relation that decides what the term means.
+
+## Part VIII summary
+
+The v0.1.11–v0.1.14 ISO expansion makes Eyepl suitable for more than closed
+rule files:
+
+- control predicates delimit choices and exception recovery;
+- collectors distinguish flat, grouped, and canonicalized answer sets;
+- reflective predicates treat term structure as data;
+- atomic conversions provide standard lexical boundaries;
+- dynamic predicates and directives manage explicit solver-local state;
+- operators change notation while preserving ordinary term structure; and
+- streams connect terms to ordered text or binary I/O.
+
+Appendix A states the supported profile, Appendix B lists every registered
+predicate, and the conformance corpus fixes success, failure, mode, and error
+behavior. Use this part for working practice and those resources for exact
+reference.
+
 # Appendix A. Supported ISO Prolog profile
 
 Prolog source accepted by Eyepl is UTF-8. `%` starts a line comment and
@@ -5120,7 +5398,26 @@ sequence is:
    conclusion;
 6. change one fact or bound and predict the changed answer before rerunning.
 
-## E.1 First encounters
+## E.1 Standard Prolog profile
+
+The v0.1.11–v0.1.14 examples compose ISO facilities that isolated conformance
+cases test one mode at a time.
+
+| Program | Standard facility | Checked answer |
+| --- | --- | --- |
+| [Control and errors](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-control-and-errors.pl) | `call/1`, `once/1`, cut, if-then-else, `throw/1`, and `catch/3`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-control-and-errors.pl) |
+| [Grouped solutions](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-grouped-solutions.pl) | `findall/3`, `bagof/3`, `setof/3`, existential qualification, and `clause/2`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-grouped-solutions.pl) |
+| [Integer arithmetic](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-integer-arithmetic.pl) | Integer quotient/remainder choices plus bit operations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-integer-arithmetic.pl) |
+| [Reflective terms](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-reflective-terms.pl) | Term shape, construction, copying, variables, identity, and standard order. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-reflective-terms.pl) |
+| [Atomic conversion](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-atomic-conversion.pl) | Atom splitting, character atoms, Unicode codes, and numeric parsing. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-atomic-conversion.pl) |
+| [Dynamic database](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-dynamic-database.pl) | Initialization and ordered updates to a declared dynamic procedure. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-dynamic-database.pl) |
+| [Operators](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-operators.pl) | Custom syntax, standard term order, and operator-table inspection. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-operators.pl) |
+| [Term I/O](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-term-io.pl) | Text-stream lifecycle, canonical writing, reading, metadata, and end state. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-term-io.pl) |
+
+Read these beside Part VIII. Then use the ISO conformance cases when a program
+depends on the exact failure or error behavior of a particular mode.
+
+## E.2 First encounters
 
 These programs isolate one idea at a time. Read them before the larger case
 studies.
@@ -5141,7 +5438,7 @@ studies.
 Suggested path: Socrates → Age → Ancestor → Derived rule → Reusable built-ins.
 At each step, say aloud what one ground instance of every predicate means.
 
-## E.2 Recursion, lists, and graph closure
+## E.3 Recursion, lists, and graph closure
 
 These examples make termination arguments visible. Compare structural descent,
 visited-state search, and fixed-point tabling rather than treating all
@@ -5163,7 +5460,7 @@ Read the three taxonomy programs as one experiment: the mathematical relation
 does not change as the data scale changes. Any difference in runtime belongs
 to control, indexing, memory, and table management.
 
-## E.3 Finite search, puzzles, and optimization
+## E.4 Finite search, puzzles, and optimization
 
 The central question for every program in this group is: what exactly is the
 finite search space, and which constraint removes which branches?
@@ -5188,7 +5485,7 @@ tree for Eight queens, SEND + MORE = MONEY, and Knapsack. Mark whether each
 branching decision chooses a permutation element, assigns a digit, or includes
 an item. The syntax is similar; the combinatorial objects are different.
 
-## E.4 Planning and state transition
+## E.5 Planning and state transition
 
 Planning programs represent a world state as a term, define legal transitions,
 and search for a sequence whose final state satisfies a goal.
@@ -5210,7 +5507,7 @@ route planning returns a graph path; Blocks world and the river puzzles expose
 a sequence of whole states. Representation determines which plan properties
 are easy to check.
 
-## E.5 Mathematics as relations
+## E.6 Mathematics as relations
 
 These examples accompany Part VI. They range from executable definitions to
 finite counterexample searches. Do not call every computed result a theorem:
@@ -5243,7 +5540,7 @@ Matrix noncommutativity, and Fundamental theorem of arithmetic. They exhibit,
 respectively, structural induction, program improvement by algebra, finite
 model checking, refutation by one witness, and witness-producing number theory.
 
-## E.6 Symbolic mathematics, languages, and metaprogramming
+## E.7 Symbolic mathematics, languages, and metaprogramming
 
 Here terms denote syntax, formulas, expressions, or programs. The crucial
 discipline is to keep object language and Eyepl metalanguage distinct.
@@ -5267,7 +5564,7 @@ names an expression constructor; in the SAT examples it names logical syntax;
 in the Turing example it helps describe a machine configuration. None of those
 nested terms is automatically asserted as an Eyepl goal.
 
-## E.7 Program analysis and verification
+## E.8 Program analysis and verification
 
 These programs make programs or system configurations the subject of
 reasoning.
@@ -5288,7 +5585,7 @@ Abstract interpretation deserves special care: an abstract warning is not the
 claim that every concrete execution fails. It says the abstraction cannot rule
 the failure out. The direction of approximation is part of the theorem.
 
-## E.8 Policies, provenance, and auditable decisions
+## E.9 Policies, provenance, and auditable decisions
 
 These examples are best read in layers: source facts, normalized concepts,
 decisions, reasons, integrity conditions, and proof.
@@ -5310,7 +5607,7 @@ When studying a policy proof, circle every premise imported from outside the
 theory. The derivation validates the transition from those premises to the
 decision; it does not authenticate the source by itself.
 
-## E.9 Science, engineering, and numerical models
+## E.10 Science, engineering, and numerical models
 
 These examples make mathematical assumptions operational. Their values are
 illustrative models, not professional engineering or medical advice.
@@ -5334,7 +5631,7 @@ For each scientific example, write a five-column audit: quantity, unit, source,
 equation, and approximation. A machine-checked derivation is only as
 interpretable as that modeling boundary.
 
-## E.10 RDF 1.2 and knowledge boundaries
+## E.11 RDF 1.2 and knowledge boundaries
 
 These programs are generated from RDF inputs by the repository tools. Follow
 the source data, generated Eyepl facts, rules, answers, and serialized RDF as
@@ -5355,7 +5652,7 @@ The original RDF fixtures and adapter rules are available in
 [examples/input](https://github.com/eyereasoner/eyepl/tree/main/examples/input/). Chapter 15 explains why the conversion is
 an explicit boundary instead of extra syntax inside the reasoning core.
 
-## E.11 Large integrated cases
+## E.12 Large integrated cases
 
 After the focused examples, these programs are useful for whole-program
 reading. Begin by drawing their predicate dependency layers.
@@ -5374,7 +5671,7 @@ Start at `query/1`, find the queried predicate heads, follow their dependencies
 downward, and only then inspect the source facts. This is backward slicing by
 hand.
 
-## E.12 Running and extending the corpus
+## E.13 Running and extending the corpus
 
 Run every normal and proof example with:
 
@@ -5423,7 +5720,7 @@ npm run test:conformance
 node test/run-conformance-report.mjs
 ```
 
-For the v0.1.14 baseline, the complete suite passes 1,020 tests. The
+For the v0.1.15 baseline, the complete suite passes 1,030 tests. The
 file-based conformance corpus contains 555 cases, including 137 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. The generated `conformance-report.md` records
