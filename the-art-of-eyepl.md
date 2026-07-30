@@ -6,6 +6,8 @@
 
 ## Standards-based relations, search, and explanations
 
+**Author:** [Jos De Roo](https://josd.github.io/)
+
 Eyepl turns facts and rules into answers and inspectable proofs. This book is an
 original introduction to the habits of logic programming: describe a world,
 state the relationships that hold in it, and let unification and search connect
