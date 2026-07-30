@@ -533,6 +533,18 @@ function apiCases() {
       },
     },
     {
+      name: 'empty dynamic predicates fail as defined procedures',
+      run: () => {
+        const result = run([
+          ':- dynamic(cache/1).',
+          'query(answer(X)).',
+          'answer(X) :- cache(X), !.',
+          'answer(computed) :- assertz(cache(computed)).',
+        ].join('\n'));
+        assertEqual(result.stdout, 'answer(computed).\n', 'stdout');
+      },
+    },
+    {
       name: 'halt returns processor status through the API',
       run: () => {
         const result = run('query(stop). stop :- write(stopping), halt(7).\n');

@@ -35,6 +35,16 @@ export class Program {
         this.charConversionDirectives.push(directive.args);
       }
     }
+    // A dynamic declaration creates a procedure even when it has no clauses.
+    // Calls to that procedure must fail normally instead of being handled as
+    // calls to an unknown predicate.
+    for (const clause of this.clauses) {
+      for (const indicator of dynamicDirectiveIndicators(clause)) {
+        if (!this.groups.has(indicator.key)) {
+          this.groups.set(indicator.key, this.makeGroup(indicator.name, indicator.arity));
+        }
+      }
+    }
     for (let index = 0; index < this.clauses.length; index++) {
       const clause = this.clauses[index];
       clause.index = index;
