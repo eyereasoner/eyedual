@@ -5745,7 +5745,7 @@ npm run test:conformance
 node test/run-conformance-report.mjs
 ```
 
-For the v0.1.16 baseline, the complete suite passes 1,030 tests. The
+For the v0.1.17 baseline, the complete suite passes 1,030 tests. The
 file-based conformance corpus contains 555 cases, including 137 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. The generated `conformance-report.md` records

@@ -12,8 +12,8 @@
     <marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#526273"/></marker>
   </defs>
   <rect width="900" height="420" class="bg"/><text class="title" x="450" y="34" text-anchor="middle">TERM → TEXT STREAM → TERM</text>
-  <rect class="term" x="20" y="125" width="190" height="105" rx="12"/><text class="label" x="115" y="156" text-anchor="middle">STRUCTURED TERM</text><text class="code" x="115" y="184" text-anchor="middle">event(sensor_7,</text><text class="code" x="115" y="207" text-anchor="middle">online)</text>
-  <path class="line" marker-end="url(#a)" d="M210 177H258"/><text class="code" x="234" y="115" text-anchor="middle">writeq + "."</text>
+  <rect class="term" x="20" y="125" width="190" height="105" rx="12"/><text class="code" x="115" y="156" text-anchor="middle">STRUCTURED TERM</text><text class="code" x="115" y="184" text-anchor="middle">event(sensor_7,</text><text class="code" x="115" y="207" text-anchor="middle">online)</text>
+  <path class="line" marker-end="url(#a)" d="M210 177H258"/>
 
   <rect class="stream" x="258" y="80" width="382" height="190" rx="14"/><text class="label" x="449" y="112" text-anchor="middle">TEXT STREAM · ordered position</text>
   <g transform="translate(289 137)">
@@ -23,7 +23,7 @@
   <text class="prose" x="449" y="211" text-anchor="middle">the period terminates one readable term</text>
   <text class="code" x="449" y="244" text-anchor="middle">open → write → close</text>
 
-  <path class="line" marker-end="url(#a)" d="M640 177H690"/><text class="code" x="665" y="115" text-anchor="middle">read_term</text>
+  <path class="line" marker-end="url(#a)" d="M640 177H690"/>
   <rect class="term" x="690" y="80" width="190" height="105" rx="12"/><text class="label" x="785" y="111" text-anchor="middle">READ TERM</text><text class="code" x="785" y="142" text-anchor="middle">event(sensor_7,</text><text class="code" x="785" y="165" text-anchor="middle">online)</text>
   <rect class="eof" x="690" y="215" width="190" height="70" rx="12"/><text class="label" x="785" y="244" text-anchor="middle">END STATE</text><text class="code" x="785" y="269" text-anchor="middle">end_of_file</text>
 

@@ -17,8 +17,8 @@
   <text class="prose" x="440" y="235" text-anchor="middle">persistent structure</text>
 
   <rect class="card" x="25" y="72" width="240" height="72" rx="10"/><text class="label" x="145" y="99" text-anchor="middle">functor/3 · arg/3</text><text class="code" x="145" y="124" text-anchor="middle">event / 2 · argument 2</text>
-  <rect class="blue" x="25" y="177" width="240" height="72" rx="10"/><text class="label" x="145" y="204" text-anchor="middle">=../2</text><text class="code" x="145" y="229" text-anchor="middle">[event,sensor_7,reading(...)]</text>
-  <rect class="gold" x="25" y="282" width="240" height="72" rx="10"/><text class="code" x="145" y="309" text-anchor="middle">copy_term · term_variables</text><text class="prose" x="145" y="334" text-anchor="middle">freshness with sharing preserved</text>
+  <rect class="blue" x="25" y="177" width="240" height="72" rx="10"/><text class="label" x="145" y="201" text-anchor="middle">=../2</text><text class="code" x="145" y="222" text-anchor="middle">[event, sensor_7,</text><text class="code" x="145" y="242" text-anchor="middle">reading(...)]</text>
+  <rect class="gold" x="25" y="282" width="240" height="72" rx="10"/><text class="code" x="145" y="306" text-anchor="middle">copy_term · term_variables</text><text class="prose" x="145" y="328" text-anchor="middle">fresh variables;</text><text class="prose" x="145" y="347" text-anchor="middle">sharing preserved</text>
 
   <rect class="card" x="625" y="72" width="245" height="72" rx="10"/><text class="label" x="747" y="99" text-anchor="middle">compare/3 · @&lt;/2</text><text class="prose" x="747" y="124" text-anchor="middle">order terms without evaluation</text>
   <rect class="blue" x="625" y="177" width="245" height="72" rx="10"/><text class="label" x="747" y="204" text-anchor="middle">atom_chars/2</text><text class="code" x="747" y="229" text-anchor="middle">eye ↔ [e,y,e]</text>

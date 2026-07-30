@@ -9,6 +9,8 @@
       .red{fill:#f3dddd;stroke:#8b3a3a;stroke-width:2}.blue{fill:#dcebf0;stroke:#526273;stroke-width:2}
       .ink{fill:#243447;font:16px Georgia,serif}.label{fill:#243447;font:bold 15px Georgia,serif}
       .code{fill:#dcefe8;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .screen-code{fill:#dcefe8;font:12px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .small-label{fill:#243447;font:bold 14px Georgia,serif}.small-ink{fill:#243447;font:14px Georgia,serif}
       .line{fill:none;stroke:#526273;stroke-width:2.5;stroke-linecap:round}.wire{fill:none;stroke:#8b3a3a;stroke-width:3}
     </style>
     <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#8b3a3a"/></marker>
@@ -25,11 +27,11 @@
 
   <g transform="translate(360 62)">
     <rect class="screen" width="300" height="185" rx="10"/>
-    <text class="code" x="24" y="38">?- catch(call(G), E, recover(E)).</text>
-    <text class="code" x="24" y="70">Term =.. [Name | Args].</text>
-    <text class="code" x="24" y="102">assertz(task(verify)).</text>
-    <text class="code" x="24" y="134">read_term(Stream, Term, Options).</text>
-    <text class="code" x="24" y="166">Result = standard_practice.</text>
+    <text class="screen-code" x="24" y="38">?- catch(call(G), E, recover(E)).</text>
+    <text class="screen-code" x="24" y="70">Term =.. [Name | Args].</text>
+    <text class="screen-code" x="24" y="102">assertz(task(verify)).</text>
+    <text class="screen-code" x="24" y="134">read_term(Stream, Term, Options).</text>
+    <text class="screen-code" x="24" y="166">Result = standard_practice.</text>
     <path d="M105 185L90 215H210L195 185Z" fill="#526273" stroke="#243447" stroke-width="2"/>
   </g>
 
@@ -47,7 +49,7 @@
     <path d="M-28 0Q0-25 28 0L22 72H-22Z" fill="#d7e9e2" stroke="#243447" stroke-width="2"/>
     <path class="line" d="M-12 72L-15 105M12 72L15 105M-22 15L-70-10M22 15L72-8"/>
   </g>
-  <rect class="blue" x="380" y="337" width="310" height="66" rx="10"/>
-  <text class="label" x="535" y="363" text-anchor="middle">ONE STANDARD, FOUR PRACTICES</text>
-  <text class="ink" x="535" y="389" text-anchor="middle">relate where possible · delimit effects explicitly</text>
+  <rect class="blue" x="350" y="337" width="400" height="66" rx="10"/>
+  <text class="small-label" x="550" y="363" text-anchor="middle">ONE STANDARD, FOUR PRACTICES</text>
+  <text class="small-ink" x="550" y="389" text-anchor="middle">relate where possible · delimit effects explicitly</text>
 </svg>

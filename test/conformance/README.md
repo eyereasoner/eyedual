@@ -85,7 +85,7 @@ ISO/IEC 13211-1 clauses 7 and 8. In particular, isolated negative cases keep
 instantiation, type, domain, permission, representation, and evaluation errors
 independently observable.
 
-The v0.1.16 baseline has 137 cases in `iso/` and 555 file-based conformance
+The v0.1.17 baseline has 137 cases in `iso/` and 555 file-based conformance
 cases in total. Together with regression, API, RDF, example, style, and other
 checks, `npm test` passes 1,030 tests.
 
