@@ -4533,6 +4533,11 @@ executable memory.
 
 # Part VIII — Standard Prolog in practice
 
+<figure>
+  <img src="book-assets/part-8-standard-prolog.svg" alt="A standards workbench connects an ISO Prolog manual to control, term, state, operator, and stream instruments.">
+  <figcaption>The broader ISO profile is a practical workbench: relational term operations remain at its center while control, mutable state, and I/O are introduced at explicit boundaries.</figcaption>
+</figure>
+
 Eyepl v0.1.11 through v0.1.14 substantially enlarged and tested the supported
 ISO Prolog profile. Earlier chapters use its relational core; this part teaches
 the processor-facing facilities that become important in reusable libraries,
@@ -4551,6 +4556,11 @@ at a named boundary.
 The control predicates accept goals as arguments. `call/1` invokes a callable
 term, `once/1` keeps its first solution, and `!/0` commits within the clause
 that contains it. If-then-else commits to the first successful condition:
+
+<figure>
+  <img src="book-assets/iso-control-board.svg" alt="A goal passes through choice and exception recovery before finite solutions enter findall, bagof, and setof collectors.">
+  <figcaption>Control narrows or redirects search; collection then gives a finite solution stream a deliberate list or grouping shape.</figcaption>
+</figure>
 
 ```eyepl
 travel_status(From, To, Status) :-
@@ -4628,6 +4638,11 @@ Ordinary pattern matching should remain the first choice when term shape is
 known. Reflective predicates are valuable when the shape itself is input:
 generic walkers, schema checkers, interpreters, and source transformations.
 
+<figure>
+  <img src="book-assets/iso-term-prism.svg" alt="One structured event term fans out into functor, argument, univ-list, variable, ordering, character, and code views.">
+  <figcaption>A term is not mutated by reflection: standard relations expose its structure, ordering, or lexical representation for a particular question.</figcaption>
+</figure>
+
 `functor/3` relates a term to its name and arity. `arg/3` selects a one-based
 argument. `=../2`—traditionally called *univ*—relates a term to a list whose
 head is the functor and whose tail contains the arguments:
@@ -4681,6 +4696,11 @@ rather than throughout a domain theory.
 
 A dynamic predicate is a mutable clause store owned by one solver run. Declare
 it before updates:
+
+<figure>
+  <img src="book-assets/iso-state-operator-console.svg" alt="Initialization and assertions establish an ordered dynamic task queue beside an operator declaration that parses readable syntax into an ordinary reports term.">
+  <figcaption>Dynamic predicates change solver-local clause order; operator declarations change how subsequent source is parsed. Both effects are explicit and ordered.</figcaption>
+</figure>
 
 ```eyepl
 :- dynamic(task/2).
@@ -4741,6 +4761,11 @@ Streams are handles to ordered input or output. `open/4` adds options to the
 basic `open/3`: text or binary type, alias, repositioning, and end-of-file
 action. Always close a nonstandard stream, including exceptional paths in
 application code.
+
+<figure>
+  <img src="book-assets/iso-stream-roundtrip.svg" alt="A structured event is written with a terminating period to a text stream, read back as a term, and followed to end of file.">
+  <figcaption>A term round trip has visible lifecycle obligations: open the right stream type, write readable syntax with a period, read in order, observe end state, and close.</figcaption>
+</figure>
 
 ```eyepl
 write_event(Path, Event) :-
@@ -5720,7 +5745,7 @@ npm run test:conformance
 node test/run-conformance-report.mjs
 ```
 
-For the v0.1.15 baseline, the complete suite passes 1,030 tests. The
+For the v0.1.16 baseline, the complete suite passes 1,030 tests. The
 file-based conformance corpus contains 555 cases, including 137 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. The generated `conformance-report.md` records

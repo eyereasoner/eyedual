@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="390" viewBox="0 0 900 390" role="img" aria-labelledby="title desc">
+  <title id="title">Control, recovery, and collection board</title>
+  <desc id="desc">A goal enters a control board, branches through choice and exception recovery, then solutions flow into findall, bagof, and setof collectors.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f4efe3}.box{fill:#fffdf7;stroke:#243447;stroke-width:2}.choice{fill:#f3dddd;stroke:#8b3a3a;stroke-width:2}
+      .ok{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}.group{fill:#dcebf0;stroke:#526273;stroke-width:2}.gold{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}
+      .title{fill:#8b3a3a;font:bold 23px Georgia,serif}.label{fill:#243447;font:bold 16px Georgia,serif}
+      .code{fill:#172334;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}.prose{fill:#435166;font:15px Georgia,serif}
+      .line{fill:none;stroke:#526273;stroke-width:2.5}.error{fill:none;stroke:#8b3a3a;stroke-width:2.5;stroke-dasharray:7 5}
+    </style>
+    <marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#526273"/></marker>
+    <marker id="r" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#8b3a3a"/></marker>
+  </defs>
+  <rect width="900" height="390" class="bg"/><text class="title" x="450" y="34" text-anchor="middle">FROM A GOAL TO A CONTROLLED ANSWER SET</text>
+  <rect class="box" x="30" y="145" width="130" height="70" rx="10"/><text class="label" x="95" y="174" text-anchor="middle">GOAL</text><text class="code" x="95" y="199" text-anchor="middle">route(A, B)</text>
+  <path class="line" marker-end="url(#a)" d="M160 180H205"/>
+  <polygon class="choice" points="270,105 335,180 270,255 205,180"/><text class="label" x="270" y="170" text-anchor="middle">CHOICE</text><text class="code" x="270" y="195" text-anchor="middle">once / ! / -></text>
+  <path class="line" marker-end="url(#a)" d="M335 180H395"/>
+  <rect class="ok" x="395" y="135" width="150" height="90" rx="10"/><text class="label" x="470" y="165" text-anchor="middle">SOLUTIONS</text><text class="code" x="470" y="190" text-anchor="middle">north-7</text><text class="code" x="470" y="211" text-anchor="middle">south-9</text>
+  <path class="error" marker-end="url(#r)" d="M270 105C270 60 460 60 460 120"/><rect class="choice" x="355" y="48" width="210" height="54" rx="10"/><text class="code" x="460" y="70" text-anchor="middle">throw(Error)</text><text class="prose" x="460" y="91" text-anchor="middle">catch → recovery goal</text>
+
+  <path class="line" marker-end="url(#a)" d="M545 180H590"/>
+  <rect class="box" x="590" y="67" width="275" height="72" rx="10"/><text class="label" x="727" y="93" text-anchor="middle">findall/3</text><text class="prose" x="727" y="117" text-anchor="middle">one flat list · [] when empty</text>
+  <rect class="group" x="590" y="159" width="275" height="72" rx="10"/><text class="label" x="727" y="185" text-anchor="middle">bagof/3</text><text class="prose" x="727" y="209" text-anchor="middle">one bag per free-variable group</text>
+  <rect class="gold" x="590" y="251" width="275" height="72" rx="10"/><text class="label" x="727" y="277" text-anchor="middle">setof/3</text><text class="prose" x="727" y="301" text-anchor="middle">group · sort · deduplicate</text>
+  <path class="line" d="M570 180V103H590M570 180V195H590M570 180V287H590"/>
+  <text class="prose" x="450" y="366" text-anchor="middle">Control narrows search; recovery handles exceptional paths; collectors reshape finite solutions.</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="410" viewBox="0 0 900 410" role="img" aria-labelledby="title desc">
+  <title id="title">Dynamic solver state and operator notation</title>
+  <desc id="desc">Initialization feeds an ordered dynamic task queue while an operator declaration changes readable notation that still decomposes to an ordinary reports term.</desc>
+  <defs>
+    <style>
+      .bg{fill:#e9f1ee}.panel{fill:#fffdf7;stroke:#243447;stroke-width:2}.slot{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}
+      .first{fill:#f3dddd;stroke:#8b3a3a;stroke-width:2}.last{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}.blue{fill:#dcebf0;stroke:#526273;stroke-width:2}
+      .title{fill:#8b3a3a;font:bold 23px Georgia,serif}.label{fill:#243447;font:bold 16px Georgia,serif}
+      .code{fill:#172334;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}.prose{fill:#435166;font:15px Georgia,serif}
+      .line{fill:none;stroke:#526273;stroke-width:2.5}.redline{fill:none;stroke:#8b3a3a;stroke-width:2.5}
+    </style>
+    <marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#526273"/></marker>
+    <marker id="r" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#8b3a3a"/></marker>
+  </defs>
+  <rect width="900" height="410" class="bg"/><text class="title" x="450" y="34" text-anchor="middle">SOLVER-LOCAL STATE AND READABLE SYNTAX</text>
+
+  <rect class="panel" x="25" y="65" width="500" height="300" rx="12"/><text class="label" x="275" y="96" text-anchor="middle">DYNAMIC task/2 CLAUSE ORDER</text>
+  <rect class="blue" x="50" y="120" width="170" height="54" rx="9"/><text class="code" x="135" y="143" text-anchor="middle">initialization/1</text><text class="prose" x="135" y="163" text-anchor="middle">before queries</text>
+  <path class="redline" marker-end="url(#r)" d="M220 147H270"/>
+  <rect class="first" x="275" y="120" width="220" height="54" rx="9"/><text class="code" x="385" y="152" text-anchor="middle">asserta(check_power)</text>
+  <rect class="slot" x="275" y="194" width="220" height="54" rx="9"/><text class="code" x="385" y="226" text-anchor="middle">task(check_network)</text>
+  <rect class="last" x="275" y="268" width="220" height="54" rx="9"/><text class="code" x="385" y="300" text-anchor="middle">assertz(archive_logs)</text>
+  <path class="line" d="M245 147V295M245 147H270M245 221H270M245 295H270"/>
+  <text class="prose" x="135" y="222" text-anchor="middle">retract removes</text><text class="prose" x="135" y="244" text-anchor="middle">the first match;</text><text class="prose" x="135" y="266" text-anchor="middle">backtracking does</text><text class="prose" x="135" y="288" text-anchor="middle">not undo updates</text>
+
+  <rect class="panel" x="555" y="65" width="320" height="300" rx="12"/><text class="label" x="715" y="96" text-anchor="middle">OPERATOR TABLE</text>
+  <rect class="blue" x="580" y="120" width="270" height="58" rx="9"/><text class="code" x="715" y="145" text-anchor="middle">op(600, xfx, reports)</text><text class="prose" x="715" y="166" text-anchor="middle">parses subsequent text</text>
+  <path class="line" marker-end="url(#a)" d="M715 178V210"/>
+  <rect class="slot" x="580" y="210" width="270" height="55" rx="9"/><text class="code" x="715" y="243" text-anchor="middle">sensor_7 reports temperature</text>
+  <path class="line" marker-end="url(#a)" d="M715 265V295"/>
+  <rect class="last" x="580" y="295" width="270" height="48" rx="9"/><text class="code" x="715" y="325" text-anchor="middle">reports(sensor_7, temperature)</text>
+  <text class="prose" x="450" y="393" text-anchor="middle">State changes clause order; operators change surface form—not the underlying term.</text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400" role="img" aria-labelledby="title desc">
+  <title id="title">A term viewed through reflective and lexical relations</title>
+  <desc id="desc">The term event sensor seven reading temperature twenty-one is decomposed into functor, arguments, univ list, variables, atom characters, and codes.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f4efe3}.term{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}.card{fill:#fffdf7;stroke:#243447;stroke-width:2}
+      .blue{fill:#dcebf0;stroke:#526273;stroke-width:2}.gold{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}
+      .title{fill:#8b3a3a;font:bold 23px Georgia,serif}.label{fill:#243447;font:bold 16px Georgia,serif}
+      .code{fill:#172334;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}.prose{fill:#435166;font:15px Georgia,serif}
+      .ray{fill:none;stroke:#526273;stroke-width:2.2}
+    </style>
+    <marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#526273"/></marker>
+  </defs>
+  <rect width="900" height="400" class="bg"/><text class="title" x="450" y="34" text-anchor="middle">ONE TERM, SEVERAL STANDARD VIEWS</text>
+  <polygon class="term" points="350,95 500,75 555,200 455,285 325,220"/><text class="label" x="440" y="145" text-anchor="middle">TERM</text>
+  <text class="code" x="440" y="174" text-anchor="middle">event(sensor_7,</text><text class="code" x="440" y="197" text-anchor="middle">reading(temp,21))</text>
+  <text class="prose" x="440" y="235" text-anchor="middle">persistent structure</text>
+
+  <rect class="card" x="25" y="72" width="240" height="72" rx="10"/><text class="label" x="145" y="99" text-anchor="middle">functor/3 · arg/3</text><text class="code" x="145" y="124" text-anchor="middle">event / 2 · argument 2</text>
+  <rect class="blue" x="25" y="177" width="240" height="72" rx="10"/><text class="label" x="145" y="204" text-anchor="middle">=../2</text><text class="code" x="145" y="229" text-anchor="middle">[event,sensor_7,reading(...)]</text>
+  <rect class="gold" x="25" y="282" width="240" height="72" rx="10"/><text class="code" x="145" y="309" text-anchor="middle">copy_term · term_variables</text><text class="prose" x="145" y="334" text-anchor="middle">freshness with sharing preserved</text>
+
+  <rect class="card" x="625" y="72" width="245" height="72" rx="10"/><text class="label" x="747" y="99" text-anchor="middle">compare/3 · @&lt;/2</text><text class="prose" x="747" y="124" text-anchor="middle">order terms without evaluation</text>
+  <rect class="blue" x="625" y="177" width="245" height="72" rx="10"/><text class="label" x="747" y="204" text-anchor="middle">atom_chars/2</text><text class="code" x="747" y="229" text-anchor="middle">eye ↔ [e,y,e]</text>
+  <rect class="gold" x="625" y="282" width="245" height="72" rx="10"/><text class="code" x="747" y="309" text-anchor="middle">atom_codes · number_chars</text><text class="code" x="747" y="334" text-anchor="middle">'λ' ↔ 955 · 42 ↔ ['4','2']</text>
+
+  <path class="ray" marker-end="url(#a)" d="M345 120L270 108"/><path class="ray" marker-end="url(#a)" d="M330 190L270 213"/><path class="ray" marker-end="url(#a)" d="M365 255L270 318"/>
+  <path class="ray" marker-end="url(#a)" d="M505 112L620 108"/><path class="ray" marker-end="url(#a)" d="M550 190L620 213"/><path class="ray" marker-end="url(#a)" d="M520 255L620 318"/>
+  <text class="prose" x="450" y="382" text-anchor="middle">Reflection exposes structure; conversion exposes a boundary representation.</text>
+</svg>
