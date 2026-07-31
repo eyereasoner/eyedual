@@ -1,0 +1,3 @@
+% Adapted from Logtalk iso_op_3_05. Modified for Eyepl's harness.
+% See test/conformance/THIRD_PARTY.md.
+query(op(1201, xfy, '++')).

@@ -345,7 +345,12 @@ export function compareTerms(left, right) {
   const lr = rank(left);
   const rr = rank(right);
   if (lr !== rr) return lr < rr ? -1 : 1;
-  if (left.type === NUMBER) return compareNumberText(left.name, right.name);
+  if (left.type === NUMBER) {
+    const leftInteger = isDecimalInteger(left.name);
+    const rightInteger = isDecimalInteger(right.name);
+    if (leftInteger !== rightInteger) return leftInteger ? 1 : -1;
+    return compareNumberText(left.name, right.name);
+  }
   if (left.type === VAR || left.type === ATOM || left.type === STRING) return left.name < right.name ? -1 : left.name > right.name ? 1 : 0;
   if (left.arity !== right.arity) return left.arity < right.arity ? -1 : 1;
   if (left.name !== right.name) return left.name < right.name ? -1 : 1;

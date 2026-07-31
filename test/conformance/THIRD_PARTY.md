@@ -1,5 +1,26 @@
 # Third-party conformance test provenance
 
+## Logtalk Prolog conformance tests
+
+Selected standard term, atom, character, collection, control, and conversion
+cases under `iso/` are adapted from the `tests/prolog` backend Prolog conformance suite in
+[Logtalk](https://github.com/LogtalkDotOrg/logtalk3). Each adapted file
+identifies its upstream test names. The cases were rewritten for Eyepl's
+file-based query and exact-output harness and are therefore modified from the
+upstream files.
+
+Copyright 1998-2026 Paulo Moura <pmoura@logtalk.org>
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at <https://www.apache.org/licenses/LICENSE-2.0>.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.
+
 ## Scryer Prolog ISO conformity tests
 
 Selected lexical, term, numeric, comment, and operator cases under `iso/` are

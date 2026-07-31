@@ -1,0 +1,3 @@
+% Adapted from Logtalk lgt_atom_codes_2_14. Modified for Eyepl's harness.
+% See test/conformance/THIRD_PARTY.md.
+query(atom_codes(abc, [a, b, c])).

@@ -1,0 +1,1 @@
+error(domain_error(prolog_flag), date)

@@ -1,0 +1,3 @@
+% Adapted from Logtalk eclipse_bagof_3_18. Modified for Eyepl's harness.
+% See test/conformance/THIRD_PARTY.md.
+query(bagof(X, (X = 2; X = 1), 12)).

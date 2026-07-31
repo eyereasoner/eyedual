@@ -1,0 +1,1 @@
+error(domain_error(operator_priority), 1201)

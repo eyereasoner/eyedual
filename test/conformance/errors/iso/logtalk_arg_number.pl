@@ -1,0 +1,3 @@
+% Adapted from Logtalk iso_arg_3_11. Modified for Eyepl's harness.
+% See test/conformance/THIRD_PARTY.md.
+query(arg(0, 3, _)).

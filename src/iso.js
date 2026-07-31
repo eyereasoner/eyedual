@@ -194,6 +194,11 @@ function resolvedOrder(left, right, env) {
   return compareTerms(copyResolved(left, env), copyResolved(right, env));
 }
 function* compareBuiltin({ goal, env }) {
+  const order = deref(goal.args[0], env);
+  if (order.type !== VAR) {
+    if (order.type !== ATOM) throw new PrologError('type_error(atom)', order);
+    if (!['<', '=', '>'].includes(order.name)) throw new PrologError('domain_error(order)', order);
+  }
   const cmp = resolvedOrder(goal.args[1], goal.args[2], env);
   const next = env.clone();
   if (unify(goal.args[0], atom(cmp < 0 ? '<' : cmp > 0 ? '>' : '='), next)) yield next;
@@ -299,6 +304,13 @@ function* copyTermBuiltin({ goal, env }) {
   if (unify(goal.args[1], freshCopy(goal.args[0], env), next)) yield next;
 }
 function* termVariablesBuiltin({ goal, env }) {
+  let list = deref(goal.args[1], env);
+  while (list.type === COMPOUND && list.name === '.' && list.arity === 2) {
+    list = deref(list.args[1], env);
+  }
+  if (list.type !== VAR && !(list.type === ATOM && list.name === '[]')) {
+    throw new PrologError('type_error(list)', deref(goal.args[1], env));
+  }
   const found = [];
   const seen = new Set();
   const visit = (term) => {
@@ -705,10 +717,24 @@ function* closeBuiltin({ solver, goal, env }) {
 }
 
 function* currentInputBuiltin({ solver, goal, env }) {
+  const value = deref(goal.args[0], env);
+  if (value.type !== VAR) {
+    const stream = solver.io.resolve(streamReference(goal.args[0], env));
+    if (!stream) throw new PrologError('domain_error(stream)', value);
+    if (stream.id === solver.io.currentInput) yield env;
+    return;
+  }
   const next = env.clone();
   if (unify(goal.args[0], streamHandle(solver.io.currentInput), next)) yield next;
 }
 function* currentOutputBuiltin({ solver, goal, env }) {
+  const value = deref(goal.args[0], env);
+  if (value.type !== VAR) {
+    const stream = solver.io.resolve(streamReference(goal.args[0], env));
+    if (!stream) throw new PrologError('domain_error(stream)', value);
+    if (stream.id === solver.io.currentOutput) yield env;
+    return;
+  }
   const next = env.clone();
   if (unify(goal.args[0], streamHandle(solver.io.currentOutput), next)) yield next;
 }
@@ -1064,6 +1090,8 @@ function listToAtomInput(list, env, kind) {
     if (invalid) throw new PrologError('type_error(character)', invalid);
     return items.map((item) => item.name).join('');
   }
+  const nonInteger = items.find((item) => item.type !== NUMBER || !isDecimalInteger(item.name));
+  if (nonInteger) throw new PrologError('type_error(integer)', nonInteger);
   const invalid = items.find((item) => !validCharacterCode(item));
   if (invalid) throw new PrologError('representation_error(character_code)');
   return items.map((item) => String.fromCodePoint(Number(item.name))).join('');
@@ -1077,6 +1105,20 @@ function atomListBuiltin(kind) {
     if (value.type === VAR && list.type === VAR) throw new PrologError('instantiation_error');
     const next = env.clone();
     if (value.type === ATOM) {
+      const { items: supplied, tail } = listElements(list, env);
+      if (tail.type !== VAR && !(tail.type === ATOM && tail.name === '[]')) {
+        throw new PrologError('type_error(list)', list);
+      }
+      const invalid = supplied.find((item) => item.type !== VAR &&
+        (kind === 'chars' ? !oneChar(item) :
+          item.type !== NUMBER || !isDecimalInteger(item.name) || !validCharacterCode(item)));
+      if (invalid) {
+        if (kind === 'chars') throw new PrologError('type_error(character)', invalid);
+        if (invalid.type !== NUMBER || !isDecimalInteger(invalid.name)) {
+          throw new PrologError('type_error(integer)', invalid);
+        }
+        throw new PrologError('representation_error(character_code)');
+      }
       const items = characters(value.name).map((ch) =>
         kind === 'chars' ? atom(ch) : numberTerm(ch.codePointAt(0)));
       if (unify(goal.args[1], listFromItems(items), next)) yield next;
@@ -1134,6 +1176,7 @@ const numberCodesBuiltin = numberListBuiltin('codes');
 
 function* findallBuiltin({ solver, goal, env }) {
   const [template, innerGoal, bag] = goal.args;
+  assertListOrPartial(bag, env);
   const collector = solver.cloneForInnerGoal(10000000);
   const collected = [];
   for (const answerEnv of collector.solve([callable(innerGoal, env)], env.clone(), 0)) {
