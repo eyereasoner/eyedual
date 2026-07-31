@@ -84,10 +84,12 @@ node bin/eyepl.js --proof examples/socrates.pl
 Readers who do not want to install anything can begin in the
 [browser playground](https://eyereasoner.github.io/eyepl/playground). Paste
 the source of `examples/socrates.pl` into the editor and run it. The playground
-and local CLI accept the same in-memory Prolog source. Serve a local checkout over
-HTTP(S), rather than opening the page as a `file:` URL. Filesystem predicates and
-`include/1` are Node-only; URL and embedding examples require their documented host
-environment.
+and local CLI accept the same in-memory Prolog source and load the same portable
+standard library by default, so relations such as `append/3` and `member/2` need no
+extra switch. The page starts a dedicated ES-module worker for each run. Serve a
+local checkout over HTTP(S), rather than opening the page as a `file:` URL.
+Filesystem predicates and `include/1` are Node-only; URL and embedding examples
+require their documented host environment.
 
 The best way to read is beside a running interpreter. Before each run, predict
 the answer; after it, change one fact or query and explain the difference.
@@ -1535,11 +1537,15 @@ truncate search; it does not prove that no further answer exists.
 
 The source layout mirrors the public registry boundary. `src/iso.js` contains
 the isolated ISO processor predicates and registry. `src/library.js` composes
-that core with ordinary portable Prolog clauses, host conveniences, and the
-small profile-guided accelerator set described in Appendix B.3. Normal CLI,
-JavaScript, solver, proof, and playground execution uses this composed standard
-registry. Advanced embedders and conformance tests can still select the
-ISO-only registry explicitly. Both layers share the parser, term
+that core with host conveniences and the small profile-guided accelerator set
+described in Appendix B.3. The ordinary Prolog clauses live separately in the
+browser-safe `src/portable-library.js`; its exported `portableLibrarySource` is
+the executable specification installed by the standard registry. Normal CLI,
+JavaScript, solver, and proof execution uses that composed registry. The browser
+entry `src/playground-worker.js` constructs the same registry explicitly before
+calling `run()`, which keeps library availability independent of CLI flags and
+transitive browser-module caching. Advanced embedders and conformance tests can
+still select the ISO-only registry explicitly. All paths share the parser, term
 representation, solver, streams, and proof machinery.
 
 ### Extending the built-in registry
@@ -5076,9 +5082,12 @@ The standard runtime registry combines the supported ISO Prolog profile with
 string, list, aggregation, context, date, regex, and convenience predicates
 supplied by Eyepl. It is loaded automatically by the CLI, `run()`, `Solver`,
 proof replay, and the browser playground, so ordinary programs do not need a
-library flag or registry option. The isolated ISO-only registry remains
-available through `createDefaultRegistry()` and `getDefaultRegistry()` for
-conformance work and advanced embedders that need that boundary.
+library flag or registry option. Portable clauses are stored in the standalone,
+browser-safe `src/portable-library.js`; `src/playground-worker.js` installs that
+exact source into its registry before running a request. The isolated ISO-only
+registry remains available through `createDefaultRegistry()` and
+`getDefaultRegistry()` for conformance work and advanced embedders that need that
+boundary.
 
 The extension catalog is audited against
 [ISO/IEC 13211-1](https://www.iso.org/standard/21413.html): an extension is not
@@ -5405,7 +5414,7 @@ Review questions:
 The [examples directory](https://github.com/eyereasoner/eyepl/tree/main/examples/) is the book's executable companion. The
 top-level catalog contains **200 self-contained runnable programs**. Every
 source program has an exact answer file under
-[examples/output](https://github.com/eyereasoner/eyepl/tree/main/examples/output/), and selected programs have a checked
+[examples/output](https://github.com/eyereasoner/eyepl/tree/main/examples/output/), and **55 selected programs** have a checked
 explanation under [examples/proof](https://github.com/eyereasoner/eyepl/tree/main/examples/proof/). The pointers below open
 the program itself rather than merely naming it.
 
@@ -5478,6 +5487,7 @@ studies.
 | [Good cobbler](https://github.com/eyereasoner/eyepl/blob/main/examples/good-cobbler.pl) | Multiple premises combine into a conclusion without hidden mutation or control state. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/good-cobbler.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/good-cobbler.pl) |
 | [Derived rule](https://github.com/eyereasoner/eyepl/blob/main/examples/derived-rule.pl) | A conclusion depends on another derived predicate rather than directly on a source fact. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/derived-rule.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/derived-rule.pl) |
 | [Existential rule](https://github.com/eyereasoner/eyepl/blob/main/examples/existential-rule.pl) | Structured Herbrand terms carry explicit generated witnesses. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/existential-rule.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/existential-rule.pl) |
+| [Herbrand witnesses](https://github.com/eyereasoner/eyepl/blob/main/examples/herbrand-witnesses.pl) | Functional witness terms make existential structure and syntactic identity visible in both answers and derivations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/herbrand-witnesses.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/herbrand-witnesses.pl) |
 | [Annotation](https://github.com/eyereasoner/eyepl/blob/main/examples/annotation.pl) | Terms attach descriptive data while the logical relation remains ordinary. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/annotation.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/annotation.pl) |
 | [Reusable built-ins](https://github.com/eyereasoner/eyepl/blob/main/examples/reusable-builtins.pl) | Arithmetic, strings, lists, and term inspection compose through ordinary variables. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/reusable-builtins.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/reusable-builtins.pl) |
 
@@ -5602,7 +5612,7 @@ discipline is to keep object language and Eyepl metalanguage distinct.
 | --- | --- | --- |
 | [Expression evaluator](https://github.com/eyereasoner/eyepl/blob/main/examples/expression-eval.pl) | Arithmetic expression trees are interpreted under an explicit environment. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/expression-eval.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/expression-eval.pl) |
 | [Fast Fourier Transform](https://github.com/eyereasoner/eyepl/blob/main/examples/fast-fourier-transform.pl) | Recursive evaluation builds a shared expression tree and treats graphic operators such as `+` and `*` as data atoms. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/fast-fourier-transform.pl) |
-| [Symbolic derivative](https://github.com/eyereasoner/eyepl/blob/main/examples/symbolic-derivative.pl) | Differentiation rules transform expression trees without evaluating them numerically. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/symbolic-derivative.pl) |
+| [Symbolic derivative](https://github.com/eyereasoner/eyepl/blob/main/examples/symbolic-derivative.pl) | Differentiation rules transform expression trees without evaluating them numerically; the proof golden exposes the recursive construction. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/symbolic-derivative.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/symbolic-derivative.pl) |
 | [Polynomial](https://github.com/eyereasoner/eyepl/blob/main/examples/polynomial.pl) | Structured coefficients and powers support symbolic polynomial operations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/polynomial.pl) |
 | [Partial evaluator](https://github.com/eyereasoner/eyepl/blob/main/examples/partial-evaluator.pl) | Known inputs specialize an expression or program while unknown parts remain symbolic. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/partial-evaluator.pl) |
 | [Equality saturation](https://github.com/eyereasoner/eyepl/blob/main/examples/equality-saturation.pl) | Repeated rewrite closure explores equivalent symbolic forms to a fixed point. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/equality-saturation.pl) |
@@ -5653,7 +5663,7 @@ decisions, reasons, integrity conditions, and proof.
 | [ODRL–DPV risk ranking](https://github.com/eyereasoner/eyepl/blob/main/examples/odrl-dpv-risk-ranked.pl) | Policy and privacy vocabulary is normalized before candidates are ranked. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/odrl-dpv-risk-ranked.pl) |
 | [Healthcare ODRL–DPV risk](https://github.com/eyereasoner/eyepl/blob/main/examples/odrl-dpv-healthcare-risk-ranked.pl) | The same architecture is specialized to a richer healthcare scenario. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/odrl-dpv-healthcare-risk-ranked.pl) |
 | [Purpose mapping](https://github.com/eyereasoner/eyepl/blob/main/examples/dpv-odrl-purpose-mapping.pl) | Explicit mapping relations connect two policy vocabularies. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/dpv-odrl-purpose-mapping.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/dpv-odrl-purpose-mapping.pl) |
-| [Trust-flow provenance threshold](https://github.com/eyereasoner/eyepl/blob/main/examples/trust-flow-provenance-threshold.pl) | Provenance and trust values remain premises of the derived threshold decision. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/trust-flow-provenance-threshold.pl) |
+| [Trust-flow provenance threshold](https://github.com/eyereasoner/eyepl/blob/main/examples/trust-flow-provenance-threshold.pl) | Provenance and trust values remain premises of the derived threshold decision, including its arithmetic and comparison steps. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/trust-flow-provenance-threshold.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/trust-flow-provenance-threshold.pl) |
 | [Data negotiation](https://github.com/eyereasoner/eyepl/blob/main/examples/data-negotiation.pl) | Offered and required data conditions derive an agreement or mismatch. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/data-negotiation.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/data-negotiation.pl) |
 | [Inference fuse](https://github.com/eyereasoner/eyepl/blob/main/examples/inference-fuse.pl) | A forbidden state aborts evaluation before ordinary decisions are emitted. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/inference-fuse.pl) |
 
@@ -5727,7 +5737,7 @@ hand.
 
 ## E.13 Running and extending the corpus
 
-Run every normal and proof example with:
+Run all 200 normal answer goldens and the 55 selected proof goldens with:
 
 ```sh
 npm run test:examples
@@ -5777,8 +5787,19 @@ node test/run-conformance-report.mjs
 The complete suite must pass before release. The file-based conformance corpus
 contains 695 cases, including 277 focused ISO
 cases derived from the success, failure, mode, and error behavior in
-ISO/IEC 13211-1 clauses 7 and 8. The generated `conformance-report.md` is the
-authoritative source for current category totals.
+ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 200 normal
+examples, 55 proof examples, and 128 extracted book displays. The seven-case
+playground contract suite imports the production worker, sends real reasoning
+requests through its message protocol, and crawls the served module graph for
+missing assets, bad MIME types, and static Node-only imports. The generated
+`conformance-report.md` is the authoritative source for current conformance
+category totals.
+
+Run the browser contract independently with:
+
+```sh
+npm run test:playground
+```
 
 ### Supported ISO Prolog profile
 

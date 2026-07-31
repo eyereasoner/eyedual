@@ -51,6 +51,7 @@
     "test:conformance": "node test/run-conformance.mjs",
     "test:examples": "node test/run-examples.mjs",
     "test:regression": "node test/run-regression.mjs",
+    "test:playground": "node test/run-playground.mjs",
     "preversion": "npm test && node test/run-conformance-report.mjs conformance-report.md",
     "postversion": "git push origin HEAD --follow-tags"
   },

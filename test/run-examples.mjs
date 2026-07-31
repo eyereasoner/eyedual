@@ -15,7 +15,7 @@ const expectedDir = path.join(examplesDir, 'output');
 const expectedProofDir = path.join(examplesDir, 'proof');
 const fixedExampleDate = '2026-05-30';
 
-const proofExamples = [
+export const proofExamples = [
   'access-control-policy.pl',
   'age.pl',
   'aliases-and-namespaces.pl',
@@ -62,12 +62,15 @@ const proofExamples = [
   'gdpr-compliance.pl',
   'hanoi.pl',
   'heat-loss.pl',
+  'herbrand-witnesses.pl',
   'ideal-gas-law.pl',
   'intuitionistic-logic-kripke.pl',
   'linear-logic-resources.pl',
   'modal-logic-kripke.pl',
   'nixon-diamond.pl',
   'security-incident-correlation.pl',
+  'symbolic-derivative.pl',
+  'trust-flow-provenance-threshold.pl',
 ];
 
 export function runExamples(reporter = new TestReporter()) {

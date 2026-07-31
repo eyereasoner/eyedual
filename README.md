@@ -49,8 +49,13 @@ eyepl --version
 
 For local browser use, run `python3 -m http.server` from the checkout and open
 `http://localhost:8000/playground.html`. Do not open `playground.html` directly as a
-`file:` URL: module workers require HTTP(S). The browser playground supports the
+`file:` URL: module workers require HTTP(S). Each run uses the dedicated
+`src/playground-worker.js` module, which installs the same portable standard
+library used by the CLI and JavaScript API. Predicates such as `append/3` and
+`member/2` therefore work without a browser option. The playground supports the
 in-memory reasoner; filesystem predicates and `include/1` remain Node-only.
+After replacing playground files in an already-open tab, perform one hard refresh
+to terminate the previous worker and discard its cached module graph.
 
 ## Classical and challenge search examples
 
@@ -104,7 +109,10 @@ without a CLI flag or JavaScript registry option.
 
 Advanced embedders and the ISO conformance suite can still select the isolated
 core registry explicitly with `createDefaultRegistry()` or
-`getDefaultRegistry()`.
+`getDefaultRegistry()`. `createLibraryRegistry()` creates the complete standard
+registry, while `portableLibrarySource` exposes the bundled portable clauses used
+by the browser worker. Normal applications can rely on the default and do not
+need to install either explicitly.
 
 ISO streams are solver-owned and shared by nested goals. JavaScript callers
 can provide standard input and capture standard output:
@@ -151,13 +159,16 @@ Clause selection combines compact type-aware any-argument scalar indexes with
 demand-driven multi-argument indexes. SWI-Prolog-inspired quality checks avoid
 building indexes for small, weakly selective, or variable-heavy clause groups.
 
-The builtin boundary is intentionally visible in the source tree:
+The runtime boundary is intentionally visible in the source tree:
 [`src/iso.js`](src/iso.js) contains the isolated ISO processor registry, while
-[`src/library.js`](src/library.js) composes that core with the standard portable
-Prolog clauses, host conveniences, and their small profile-guided accelerator
-set. Normal CLI, API, solver, proof, and playground execution uses the composed
-registry; advanced embedders can still request the ISO-only registry. Both
-layers use the same parser, terms, solver, streams, and proof machinery.
+[`src/library.js`](src/library.js) composes that core with host conveniences and
+the small profile-guided accelerator set. Portable Prolog clauses live in the
+browser-safe [`src/portable-library.js`](src/portable-library.js), and the
+playground executes requests through the dedicated
+[`src/playground-worker.js`](src/playground-worker.js). Normal CLI, API, solver,
+proof, and playground execution uses the composed standard registry; advanced
+embedders can still request the ISO-only registry. Every path uses the same
+parser, terms, solver, streams, and proof machinery.
 
 ## RDF 1.2 files
 
@@ -192,6 +203,13 @@ conformance corpus includes 277 focused ISO cases covering the success,
 failure, mode, and error behavior derived from ISO/IEC 13211-1 clauses 7 and
 8. The generated `conformance-report.md` is the authoritative source for
 current category totals.
+The example runner compares **200 answer goldens** and **55 proof goldens**
+byte-for-byte; the extracted-book runner checks 128 executable displays. The
+dedicated seven-case playground suite executes the exact production module-worker
+request path, checks that the standard library is present across repeated browser
+runs, verifies serializable success and parse-error messages, and crawls the served
+ES-module graph for missing assets, incorrect MIME types, and static Node-only
+imports.
 
 ```bash
 npm test
@@ -200,4 +218,5 @@ node test/run-conformance-report.mjs
 # release preparation writes conformance-report.md via the preversion script
 npm run test:examples
 npm run test:regression
+npm run test:playground
 ```

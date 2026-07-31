@@ -37,6 +37,7 @@ import { parseGoalText } from '../src/parser.js';
 import { selectClauseCandidates } from '../src/program.js';
 import { TestReporter, isMainModule } from './test-style.mjs';
 import { buildConformanceReport, formatConformanceReport } from './run-conformance-report.mjs';
+import { proofExamples } from './run-examples.mjs';
 import { hashHex } from '../src/hash.js';
 
 const testRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)));
@@ -431,11 +432,11 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(bookExtensionBuiltinNames(), registeredExtensionBuiltinNames(), 'extension builtins'),
     },
     {
-      name: 'README and book document the two-module builtin boundary',
+      name: 'README and book document the runtime and browser boundaries',
       run: () => {
         const readme = fs.readFileSync(path.join(packageRoot, 'README.md'), 'utf8');
         const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-        for (const filename of ['src/iso.js', 'src/library.js']) {
+        for (const filename of ['src/iso.js', 'src/library.js', 'src/portable-library.js', 'src/playground-worker.js']) {
           assertEqual(fs.existsSync(path.join(packageRoot, filename)), true, `${filename} exists`);
           assertIncludes(readme, filename, `README documents ${filename}`);
           assertIncludes(book, filename, `book documents ${filename}`);
@@ -450,6 +451,10 @@ function documentationSyncCases() {
     {
       name: 'documented runnable example count and goldens match corpus',
       run: () => assertArrayEqual(exampleCorpusSyncIssues(), [], 'example corpus sync'),
+    },
+    {
+      name: 'documented proof example count and runner match proof goldens',
+      run: () => assertArrayEqual(proofCorpusSyncIssues(), [], 'proof corpus sync'),
     },
     {
       name: 'playground example catalog and relative loaders match examples directory',
@@ -1415,6 +1420,41 @@ function exampleCorpusSyncIssues() {
   return issues.sort();
 }
 
+
+function proofCorpusSyncIssues() {
+  const proofDir = path.join(packageRoot, 'examples', 'proof');
+  const goldens = fs.readdirSync(proofDir)
+    .filter((name) => name.endsWith('.pl'))
+    .sort();
+  const configured = [...proofExamples].sort();
+  const issues = arrayDiffMessages(configured, goldens, 'proof example runner');
+  for (const name of goldens) {
+    if (!fs.existsSync(path.join(packageRoot, 'examples', name))) {
+      issues.push(`examples/proof/${name}: source example is missing`);
+    }
+  }
+  const checks = [
+    {
+      file: path.join(packageRoot, 'README.md'),
+      pattern: /\*\*(\d+) proof goldens\*\*/,
+    },
+    {
+      file: path.join(packageRoot, 'the-art-of-eyepl.md'),
+      pattern: /\*\*(\d+) selected programs\*\* have a checked/,
+    },
+  ];
+  for (const check of checks) {
+    const relative = path.relative(packageRoot, check.file);
+    const match = fs.readFileSync(check.file, 'utf8').match(check.pattern);
+    if (match == null) {
+      issues.push(`${relative}: proof example count not found`);
+    } else if (Number(match[1]) !== goldens.length) {
+      issues.push(`${relative}: proof example count ${match[1]} != ${goldens.length}`);
+    }
+  }
+  return issues.sort();
+}
+
 function bookExampleCatalogIssues() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
   const section = between(book, '# Appendix E. Further examples', '# Appendix F. Standards profile and implementation extensions');
@@ -1468,16 +1508,18 @@ function playgroundStaticIssues() {
     issues.push('playground must avoid full syntax coloring for very large examples');
   }
   if (!html.includes('<script type="module">')) issues.push('playground script must be an ES module');
-  if (!html.includes("new URL('./src/index.js?playground=")) issues.push('playground must cache-bust the public browser API entry');
-  if (!html.includes('createLibraryRegistry, portableLibrarySource') ||
-      !html.includes('registry.portableSource = portableLibrarySource') ||
-      !html.includes('{ ...event.data.options, registry }')) {
-    issues.push('playground worker must explicitly install the portable standard library');
+  if (!html.includes("new URL('./src/playground-worker.js?playground=")) issues.push('playground must cache-bust its dedicated module worker');
+  if (!html.includes("new Worker(workerUrl, { type: 'module' })")) issues.push('playground must launch the dedicated module worker');
+  const workerText = fs.readFileSync(path.join(packageRoot, 'src', 'playground-worker.js'), 'utf8');
+  if (!workerText.includes("from './portable-library.js?playground=") ||
+      !workerText.includes('registry.portableSource = portableLibrarySource') ||
+      !workerText.includes('executePlaygroundRequest')) {
+    issues.push('playground worker must explicitly install and expose the portable standard library path');
   }
   if (!fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js'))) {
     issues.push('portable standard library must live in a standalone browser-safe module');
   }
-  for (const filename of ['src/index.js', 'src/program.js', 'src/io.js']) {
+  for (const filename of ['src/playground-worker.js', 'src/index.js', 'src/program.js', 'src/io.js']) {
     const sourceText = fs.readFileSync(path.join(packageRoot, filename), 'utf8');
     if (/^\s*import\s+[^('\"]*['\"]node:/m.test(sourceText)) {
       issues.push(`${filename} must not statically import Node built-ins in the browser graph`);

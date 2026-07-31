@@ -69,6 +69,24 @@ export class TestReporter {
     }
   }
 
+  async testAsync(name, run) {
+    this.total++;
+    const nr = String(this.total).padStart(3, '0');
+    const startedAt = nowMs();
+
+    try {
+      await run();
+      const ms = nowMs() - startedAt;
+      this.ok++;
+      this.stdout.write(`${colors.green}OK${colors.reset} ${nr} ${name} ${colors.dim}(${ms} ms)${colors.reset}\n`);
+    } catch (error) {
+      const ms = nowMs() - startedAt;
+      this.stderr.write(`${colors.red}FAIL${colors.reset} ${nr} ${name} ${colors.dim}(${ms} ms)${colors.reset}\n`);
+      this.stderr.write(`${error?.stack ?? String(error)}\n`);
+      throw error;
+    }
+  }
+
   totalLine() {
     const ms = nowMs() - this.startedAt;
     this.stdout.write(`\n${colors.yellow}== Total${colors.reset}\n`);

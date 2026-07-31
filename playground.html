@@ -744,7 +744,6 @@ answer(ok) :- eq(ok, ok).
     let backgroundSource = '';
     let backgroundName = '';
     let activeWorker = null;
-    let activeWorkerUrl = null;
     let renderToken = 0;
     let syntaxErrorLine = null;
     let sourceReference = { kind: 'custom' };
@@ -947,33 +946,8 @@ answer(ok) :- eq(ok, ok).
       runButton.disabled = true;
       stopButton.disabled = false;
 
-      const engineUrl = new URL('./src/index.js?playground=20260731b', location.href).href;
-      const workerCode = `
-        import { run, createLibraryRegistry, portableLibrarySource } from ${JSON.stringify(engineUrl)};
-        const registry = createLibraryRegistry();
-        registry.portableSource = portableLibrarySource;
-        self.onmessage = (event) => {
-          const started = performance.now();
-          try {
-            const result = run(event.data.source, { ...event.data.options, registry });
-            self.postMessage({
-              ok: true,
-              stdout: result.stdout,
-              stats: result.stats,
-              elapsedMs: performance.now() - started,
-            });
-          } catch (error) {
-            self.postMessage({
-              ok: false,
-              code: error?.code,
-              stdout: error?.stdout,
-              error: error?.stack || error?.message || String(error),
-            });
-          }
-        };
-      `;
-      activeWorkerUrl = URL.createObjectURL(new Blob([workerCode], { type: 'text/javascript' }));
-      activeWorker = new Worker(activeWorkerUrl, { type: 'module' });
+      const workerUrl = new URL('./src/playground-worker.js?playground=20260731c', location.href);
+      activeWorker = new Worker(workerUrl, { type: 'module' });
       activeWorker.onmessage = (event) => finishRun(event.data);
       activeWorker.onerror = (event) => {
         const location = event.filename
@@ -1095,8 +1069,6 @@ answer(ok) :- eq(ok, ok).
     function cleanupWorker() {
       if (activeWorker) activeWorker.terminate();
       activeWorker = null;
-      if (activeWorkerUrl) URL.revokeObjectURL(activeWorkerUrl);
-      activeWorkerUrl = null;
     }
 
     function formatStats(values) {
