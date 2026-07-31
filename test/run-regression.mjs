@@ -435,6 +435,10 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(bookExampleCatalogIssues(), [], 'guide example catalog'),
     },
     {
+      name: 'documented runnable example count and goldens match corpus',
+      run: () => assertArrayEqual(exampleCorpusSyncIssues(), [], 'example corpus sync'),
+    },
+    {
       name: 'playground example catalog and relative loaders match examples directory',
       run: () => assertArrayEqual(playgroundExampleIssues(), [], 'playground examples'),
     },
@@ -1347,6 +1351,38 @@ function listExampleNames() {
     .filter((name) => name.endsWith('.pl'))
     .map((name) => name.slice(0, -3))
     .sort();
+}
+
+function listGoldenExampleNames() {
+  return fs.readdirSync(path.join(packageRoot, 'examples', 'output'))
+    .filter((name) => name.endsWith('.pl'))
+    .map((name) => name.slice(0, -3))
+    .sort();
+}
+
+function exampleCorpusSyncIssues() {
+  const examples = listExampleNames();
+  const issues = arrayDiffMessages(listGoldenExampleNames(), examples, 'examples/output');
+  const checks = [
+    {
+      file: path.join(packageRoot, 'README.md'),
+      pattern: /example corpus now contains \*\*(\d+) runnable examples\*\*/,
+    },
+    {
+      file: path.join(packageRoot, 'the-art-of-eyepl.md'),
+      pattern: /top-level catalog contains \*\*(\d+) self-contained runnable programs\*\*/,
+    },
+  ];
+  for (const check of checks) {
+    const relative = path.relative(packageRoot, check.file);
+    const match = fs.readFileSync(check.file, 'utf8').match(check.pattern);
+    if (match == null) {
+      issues.push(`${relative}: runnable example count not found`);
+    } else if (Number(match[1]) !== examples.length) {
+      issues.push(`${relative}: runnable example count ${match[1]} != ${examples.length}`);
+    }
+  }
+  return issues.sort();
 }
 
 function bookExampleCatalogIssues() {

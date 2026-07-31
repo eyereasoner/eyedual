@@ -5397,7 +5397,8 @@ Review questions:
   <figcaption>The corpus is a connected landscape. Every path leads from a readable source program to checked answers and, for selected examples, checked proofs.</figcaption>
 </figure>
 
-The [examples directory](https://github.com/eyereasoner/eyepl/tree/main/examples/) is the book's executable companion. Every
+The [examples directory](https://github.com/eyereasoner/eyepl/tree/main/examples/) is the book's executable companion. The
+top-level catalog contains **200 self-contained runnable programs**. Every
 source program has an exact answer file under
 [examples/output](https://github.com/eyereasoner/eyepl/tree/main/examples/output/), and selected programs have a checked
 explanation under [examples/proof](https://github.com/eyereasoner/eyepl/tree/main/examples/proof/). The pointers below open
@@ -5511,6 +5512,7 @@ finite search space, and which constraint removes which branches?
 | [N-Queens enumeration](https://github.com/eyereasoner/eyepl/blob/main/examples/n-queens.pl) | `select/3` chooses each row and diagonal checks prune partial placements; the query enumerates all 92 eight-queen solutions with `--library`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/n-queens.pl) |
 | [Zebra puzzle](https://github.com/eyereasoner/eyepl/blob/main/examples/zebra.pl) | House records, adjacency relations, and clue constraints jointly determine the famous solution. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/zebra.pl) |
 | [SEND + MORE = MONEY](https://github.com/eyereasoner/eyepl/blob/main/examples/send-more-money.pl) | Digit assignments are generated under distinctness, leading-zero, and column constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/send-more-money.pl) |
+| [DONALD + GERALD = ROBERT](https://github.com/eyereasoner/eyepl/blob/main/examples/donald-gerald-robert.pl) | The 200th example assigns all ten decimal digits to ten distinct letters. Right-to-left carry propagation cuts a naive 10! search space to one solution. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/donald-gerald-robert.pl) |
 | [Four-color map](https://github.com/eyereasoner/eyepl/blob/main/examples/four-color-map.pl) | A finite color assignment is filtered by adjacency constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/four-color-map.pl) |
 | [Sudoku 4×4](https://github.com/eyereasoner/eyepl/blob/main/examples/sudoku-4x4.pl) | Small domains make row, column, and block constraints completely inspectable. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/sudoku-4x4.pl) |
 | [Hamiltonian path](https://github.com/eyereasoner/eyepl/blob/main/examples/hamiltonian-path.pl) | A witness must visit every vertex exactly once; path construction and global coverage meet. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/hamiltonian-path.pl) |
@@ -5522,9 +5524,10 @@ finite search space, and which constraint removes which branches?
 | [Register allocation](https://github.com/eyereasoner/eyepl/blob/main/examples/register-allocation.pl) | Interference constraints turn compiler allocation into graph coloring. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/register-allocation.pl) |
 
 A useful comparative exercise is to draw the first three levels of the search
-tree for Eight queens, SEND + MORE = MONEY, and Knapsack. Mark whether each
-branching decision chooses a permutation element, assigns a digit, or includes
-an item. The syntax is similar; the combinatorial objects are different.
+tree for Eight queens, SEND + MORE = MONEY, DONALD + GERALD = ROBERT, and
+Knapsack. Mark whether each branching decision chooses a permutation element,
+assigns a digit, derives a carry-constrained digit, or includes an item. The
+syntax is similar; the combinatorial objects and pruning strength are different.
 
 ## E.5 Planning and state transition
 

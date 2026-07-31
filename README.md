@@ -50,22 +50,28 @@ eyepl --version
 For local browser use, run `python3 -m http.server` from the checkout and open
 `http://localhost:8000/playground.html`.
 
-## Classical search examples
+## Classical and challenge search examples
 
-The example corpus includes two classic programs that use the optional portable
-list library. Run them with `--library`; their exact checked answers live beside
-the other goldens under `examples/output/`:
+The example corpus now contains **200 runnable examples**. Three useful search
+stress cases use the optional portable list library. Run them with `--library`;
+their exact checked answers live beside the other goldens under
+`examples/output/`:
 
 ```bash
 node bin/eyepl.js --library examples/lee.pl
 node bin/eyepl.js --library examples/n-queens.pl
+node bin/eyepl.js --library examples/donald-gerald-robert.pl
 ```
 
 [`lee.pl`](examples/lee.pl) performs Lee wavefront routing around rectangular
 obstacles and reconstructs one path ([golden](examples/output/lee.pl)).
 [`n-queens.pl`](examples/n-queens.pl) uses selection and diagonal pruning to
 enumerate all 92 solutions of the eight-queen puzzle
-([golden](examples/output/n-queens.pl)).
+([golden](examples/output/n-queens.pl)). The milestone 200th example,
+[`donald-gerald-robert.pl`](examples/donald-gerald-robert.pl), solves a
+pandigital cryptarithm whose naive search space is 10!, or 3,628,800 digit
+assignments. Carry propagation and a shrinking digit domain reduce it to one
+checked solution ([golden](examples/output/donald-gerald-robert.pl)).
 
 ## JavaScript API
 
