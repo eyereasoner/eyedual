@@ -17,9 +17,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get short message
-        id: msg
-        run: echo "short=$(git log -1 --pretty=%s ${{ github.sha }}^)" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         env:
@@ -27,6 +24,5 @@ jobs:
         run: |
           gh release create "${{ github.ref_name }}" \
             --verify-tag \
-            --title "${{ github.ref_name }} — ${{ steps.msg.outputs.short }}" \
-            --generate-notes \
-            --notes "${{ steps.msg.outputs.short }}"
+            --title "${{ github.ref_name }}" \
+            --generate-notes
