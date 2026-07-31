@@ -183,7 +183,7 @@ why(
         assertIncludes(result.stdout, '-v, --version', 'stdout');
         assertIncludes(result.stdout, '-w, --warnings', 'stdout');
         assertIncludes(result.stdout, '-v, --version         Show the package version and exit.\n  -w, --warnings        Print non-fatal portability warnings to stderr.', 'stdout');
-        assertIncludes(result.stdout, 'Read a Eyepl program', 'stdout');
+        assertIncludes(result.stdout, 'Read an Eyepl program', 'stdout');
         assertEqual(result.stderr, '', 'stderr');
       },
     },
@@ -447,6 +447,25 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(findBrokenDocLinks(), [], 'broken documentation links'),
     },
     {
+      name: 'book example extraction matches the Markdown source',
+      run: () => {
+        const result = spawnSync(process.execPath, ['tools/extract-book-examples.mjs', '--check'], {
+          cwd: packageRoot,
+          encoding: 'utf8',
+        });
+        assertEqual(result.status, 0, `exit status${result.stderr ? `\nstderr: ${result.stderr}` : ''}`);
+        assertIncludes(result.stdout, 'extracted book examples are up to date.', 'stdout');
+      },
+    },
+    {
+      name: 'book introductory output matches the checked Socrates example',
+      run: () => assertArrayEqual(bookIntroOutputIssues(), [], 'book introductory output'),
+    },
+    {
+      name: 'documentation imports only public JavaScript API names',
+      run: () => assertArrayEqual(documentedPublicApiImportIssues(), [], 'documentation API imports'),
+    },
+    {
       name: 'documentation uses Eyepl source style',
       run: () => assertArrayEqual(documentationSourceStyleIssues(), [], 'documentation source style'),
     },
@@ -457,6 +476,10 @@ function documentationSyncCases() {
     {
       name: 'documented npm scripts exist in package.json',
       run: () => assertArrayEqual(missingDocumentedPackageScripts(), [], 'missing documented npm scripts'),
+    },
+    {
+      name: 'documented conformance totals match the generated report',
+      run: () => assertArrayEqual(documentedConformanceMetricIssues(), [], 'documented conformance totals'),
     },
     {
       name: 'conformance report summarizes public corpus',
@@ -542,6 +565,66 @@ function apiCases() {
           'answer(computed) :- assertz(cache(computed)).',
         ].join('\n'));
         assertEqual(result.stdout, 'answer(computed).\n', 'stdout');
+      },
+    },
+    {
+      name: 'scalar fact acceleration preserves Prolog term types',
+      run: () => {
+        const result = run([
+          'query(number_fact(X)).',
+          'query(atom_fact(X)).',
+          'query(string_fact(X)).',
+          'query(repeated(X)).',
+          'number_fact(X) :- scalar(7, X).',
+          "atom_fact(X) :- scalar('7', X).",
+          'string_fact(X) :- scalar("7", X).',
+          'repeated(X) :- pair(X, X).',
+          'scalar(7, number).',
+          "scalar('7', atom).",
+          'scalar("7", string).',
+          "pair(7, '7').",
+        ].join('\n'));
+        assertEqual(result.stdout, [
+          'number_fact(number).',
+          'atom_fact(atom).',
+          'string_fact(string).',
+          '',
+        ].join('\n'), 'stdout');
+      },
+    },
+    {
+      name: 'dynamic updates invalidate tabled answers',
+      run: () => {
+        const result = run([
+          ':- dynamic(edge/2).',
+          'path(X, Y) :- edge(X, Y).',
+          'path(X, Y) :- edge(X, Z), path(Z, Y).',
+          'query(test(Before, After)).',
+          'test(Before, After) :-',
+          '  assertz(edge(a, b)),',
+          '  findall(X, path(a, X), Before),',
+          '  assertz(edge(b, c)),',
+          '  findall(Y, path(a, Y), After).',
+        ].join('\n'));
+        assertEqual(result.stdout, 'test([b], [b, c]).\n', 'stdout');
+      },
+    },
+    {
+      name: 'library overlays keep dynamic program state consistent',
+      run: () => {
+        const program = Program.parse([
+          ':- dynamic(item/1).',
+          'query(done).',
+          'done :- assertz(item(a)), retract(item(a)), assertz(item(b)), abolish(item/1).',
+        ].join('\n'));
+        const result = run(program, { registry: getLibraryRegistry() });
+        assertEqual(result.stdout, 'done.\n', 'stdout');
+        assertEqual(program.findGroup('item', 1), null, 'abolished group');
+        assertEqual(
+          program.clauses.some((clause) => clause.head?.name === 'item'),
+          false,
+          'abolished clauses removed from original program',
+        );
       },
     },
     {
@@ -1015,6 +1098,22 @@ function whiteBoxCases() {
       },
     },
     {
+      name: 'dynamic mutations refresh recursive planning',
+      run: () => {
+        const program = Program.parse(':- dynamic(loop/1).\n');
+        const group = program.findGroup('loop', 1);
+        assertEqual(group.recursive, false, 'empty dynamic predicate is not recursive');
+        assertEqual(program.revision, 0, 'initial revision');
+        program.insertDynamicClause({
+          head: compound('loop', [variable('X')]),
+          body: [compound('loop', [variable('X')])],
+        });
+        assertEqual(program.revision, 1, 'mutation revision');
+        assertEqual(group.recursive, true, 'recursive flag refreshed');
+        assertEqual(group.tabled, true, 'tabling decision refreshed');
+      },
+    },
+    {
       name: 'recursive predicate groups are tabled automatically',
       run: () => {
         const program = Program.parse('edge(a, b).\npath(X, Y) :- edge(X, Y).\npath(X, Z) :- path(X, Y), edge(Y, Z).\n');
@@ -1477,14 +1576,96 @@ function findBrokenDocLinks() {
 }
 
 function documentationFiles() {
-  return [
-    path.join(packageRoot, 'README.md'),
-    path.join(packageRoot, 'the-art-of-eyepl.md'),
+  return listMarkdownFiles(packageRoot);
+}
+
+function listMarkdownFiles(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    if (entry.name === 'node_modules' || entry.name === '.git') return [];
+    const target = path.join(directory, entry.name);
+    if (entry.isDirectory()) return listMarkdownFiles(target);
+    return entry.name.endsWith('.md') ? [target] : [];
+  }).sort();
+}
+
+function documentedConformanceMetricIssues() {
+  const report = buildConformanceReport();
+  const iso = report.rows.find((row) => row.category === 'iso')?.total;
+  const total = report.total.total;
+  const checks = [
+    {
+      file: path.join(packageRoot, 'README.md'),
+      pattern: /current (\d+)-file[\s\S]{0,100}?includes (\d+) focused ISO cases/,
+      expected: [total, iso],
+      labels: ['total', 'ISO'],
+    },
+    {
+      file: path.join(packageRoot, 'the-art-of-eyepl.md'),
+      pattern: /contains (\d+) cases, including (\d+) focused ISO\s+cases/,
+      expected: [total, iso],
+      labels: ['total', 'ISO'],
+    },
+    {
+      file: path.join(packageRoot, 'test', 'conformance', 'README.md'),
+      pattern: /corpus has (\d+) cases in `iso\/` and (\d+) file-based conformance cases/,
+      expected: [iso, total],
+      labels: ['ISO', 'total'],
+    },
   ];
+  const issues = [];
+  for (const check of checks) {
+    const relative = path.relative(packageRoot, check.file);
+    const match = fs.readFileSync(check.file, 'utf8').match(check.pattern);
+    if (match == null) {
+      issues.push(`${relative}: conformance totals not found`);
+      continue;
+    }
+    for (let i = 0; i < check.expected.length; i++) {
+      const actual = Number(match[i + 1]);
+      if (actual !== check.expected[i]) {
+        issues.push(`${relative}: ${check.labels[i]} count ${actual} != ${check.expected[i]}`);
+      }
+    }
+  }
+  return issues.sort();
 }
 
 function markdownLinkTargets(text) {
-  return [...text.matchAll(/!?\[[^\]\n]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g)].map((match) => match[1]);
+  const markdown = [...text.matchAll(/!?\[[^\]\n]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g)]
+    .map((match) => match[1]);
+  const html = [...text.matchAll(/\b(?:src|href)="([^"]+)"/g)]
+    .map((match) => match[1]);
+  return [...markdown, ...html];
+}
+
+function bookIntroOutputIssues() {
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
+  const match = book.match(/The (?:first|Eyepl) command should print:\s*```text\n([\s\S]*?)```/);
+  if (match == null) return ['the-art-of-eyepl.md: introductory output block not found'];
+  const documented = `${match[1].trimEnd()}\n`;
+  const expected = fs.readFileSync(path.join(packageRoot, 'examples', 'output', 'socrates.pl'), 'utf8');
+  return documented === expected
+    ? []
+    : ['the-art-of-eyepl.md: introductory Socrates output differs from examples/output/socrates.pl'];
+}
+
+function documentedPublicApiImportIssues() {
+  const exported = new Set(runtimeExportNames());
+  const issues = [];
+  for (const file of documentationFiles()) {
+    const text = fs.readFileSync(file, 'utf8');
+    for (const block of text.matchAll(/^```js\s*\n([\s\S]*?)^```\s*$/gm)) {
+      for (const imported of block[1].matchAll(/import\s*\{([\s\S]*?)\}\s*from\s*['"]eyepl['"]/g)) {
+        for (const item of imported[1].split(',')) {
+          const name = item.trim().split(/\s+as\s+/)[0];
+          if (name && !exported.has(name)) {
+            issues.push(`${path.relative(packageRoot, file)}: imports undocumented public name ${name}`);
+          }
+        }
+      }
+    }
+  }
+  return issues.sort();
 }
 
 function markdownAnchors(file) {

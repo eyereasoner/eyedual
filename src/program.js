@@ -20,6 +20,7 @@ export class Program {
     this.initializations = [];
     this.prologFlagDirectives = [];
     this.charConversionDirectives = [];
+    this._revisionState = { value: 0 };
     for (const clause of this.clauses) {
       for (const indicator of dynamicDirectiveIndicators(clause)) this.dynamicPredicates.add(indicator.key);
       const operator = operatorDirective(clause);
@@ -150,6 +151,7 @@ export class Program {
     if (atStart) group.clauses.unshift(clause);
     else group.clauses.push(clause);
     rebuildGroupIndexes(group);
+    this.noteMutation(clause.body.length > 0);
   }
   removeDynamicClause(group, clause) {
     const index = group.clauses.indexOf(clause);
@@ -158,6 +160,7 @@ export class Program {
     const allIndex = this.clauses.indexOf(clause);
     if (allIndex >= 0) this.clauses.splice(allIndex, 1);
     rebuildGroupIndexes(group);
+    this.noteMutation(clause.body.length > 0);
     return true;
   }
   abolishDynamicGroup(name, arity) {
@@ -165,9 +168,19 @@ export class Program {
     const group = this.groups.get(key);
     if (!group) return;
     const removed = new Set(group.clauses);
+    const reanalyze = group.clauses.some((clause) => clause.body.length > 0);
     this.clauses = this.clauses.filter((clause) => !removed.has(clause));
     this.groups.delete(key);
     this.dynamicPredicates.delete(key);
+    this.noteMutation(reanalyze);
+  }
+  get revision() {
+    return this._revisionState.value;
+  }
+  noteMutation(reanalyze = false) {
+    this._revisionState.value++;
+    this._negationAnalysis = null;
+    if (reanalyze) this.markRecursivePredicates();
   }
   applyDeclarations(options = {}) {
     for (const clause of this.clauses) {
@@ -675,11 +688,16 @@ const INDEX_MIN_SPEEDUP = 1.5;
 const INDEX_MAX_VAR_FRACTION = 0.1;
 const MULTI_INDEX_MIN_SPEEDUP_RATIO = 3;
 
+function scalarIndexKey(term) {
+  return `${term.type}\u0000${term.name}`;
+}
+
 function indexOne(index, arg, clause) {
   if (isScalar(arg)) {
-    const bucket = index.buckets.get(arg.name);
+    const key = scalarIndexKey(arg);
+    const bucket = index.buckets.get(key);
     if (bucket) bucket.push(clause);
-    else index.buckets.set(arg.name, [clause]);
+    else index.buckets.set(key, [clause]);
   } else {
     index.fallback.push(clause);
   }
@@ -703,10 +721,14 @@ function demandIndexKey(positions) {
 }
 
 function demandValueKey(values) {
-  // Scalar equality in Eyepl is lexical, so the scalar type is intentionally
-  // absent here. Length prefixes make the composite key unambiguous.
-  if (values.length === 1) return values[0].name;
-  return values.map((value) => `${value.name.length}:${value.name}`).join('');
+  // Unification distinguishes atoms, strings, and numbers even when their
+  // lexical spellings are identical. Include the scalar type in every key so
+  // indexes never merge semantically distinct candidates.
+  if (values.length === 1) return scalarIndexKey(values[0]);
+  return values.map((value) => {
+    const key = scalarIndexKey(value);
+    return `${key.length}:${key}`;
+  }).join('');
 }
 
 function buildDemandIndex(group, positions) {
@@ -771,7 +793,7 @@ export function selectClauseCandidatesForValues(group, positions, values) {
   // constructed only when none of them reduces the choice set to a small scan.
   for (let i = 0; i < positions.length; i++) {
     const index = group.argIndexes[positions[i]];
-    const parts = { primary: index.buckets.get(values[i].name) ?? [], fallback: index.fallback };
+    const parts = { primary: index.buckets.get(scalarIndexKey(values[i])) ?? [], fallback: index.fallback };
     const length = parts.primary.length + parts.fallback.length;
     if (index.fallback.length / group.clauses.length > INDEX_MAX_VAR_FRACTION) continue;
     if (group.clauses.length / Math.max(1, length) < INDEX_MIN_SPEEDUP) continue;

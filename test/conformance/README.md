@@ -43,7 +43,8 @@ Case names may be nested in category directories such as `arithmetic/`, `strings
 
 ## Running the suite
 
-Run all tests, including conformance, regression, examples, and style checks:
+Run all tests, including conformance, regression, documentation sync, API, RDF
+tools, examples, and book examples:
 
 ```sh
 npm test
@@ -75,7 +76,7 @@ The runner executes normal programs with queries in-process through the public J
 
 ## Scope
 
-The corpus covers accepted syntax, lexical scalar equivalence, query answers,
+The corpus covers accepted syntax, typed scalar identity and explicit scalar conversions, query answers,
 read-back printing, built-ins, declarations, warnings, errors, proof output,
 and host behavior. It verifies the book's descriptions and is not a separate
 language specification.
@@ -89,10 +90,10 @@ Selected cases are adapted from the ISO and standard-core suites of Scryer
 Prolog, Trealla Prolog, and SWI-Prolog. Their upstream identifiers and licenses
 are recorded in [THIRD_PARTY.md](THIRD_PARTY.md).
 
-The corpus has 278 cases in `iso/` and 695 file-based conformance cases in
+The corpus has 277 cases in `iso/` and 695 file-based conformance cases in
 total. The generated `conformance-report.md` is the authoritative source for
-current category totals. Together with regression, API, RDF, example, style,
-and other checks, `npm test` is the release gate.
+current category totals. Together with regression, documentation-sync, API,
+RDF-tool, example, and book-example checks, `npm test` is the release gate.
 
 ## Updating expected output
 

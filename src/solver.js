@@ -18,6 +18,7 @@ export class Solver {
   constructor(program, options = {}) {
     this.registry = options.registry ?? createDefaultRegistry();
     this.program = withPortableLibrary(program, this.registry);
+    this.programRevision = this.program.revision ?? 0;
     this.maxDepth = options.maxDepth ?? 100000;
     this.solutionLimit = options.solutionLimit ?? 10000000;
     this.solutionsSeen = 0;
@@ -73,6 +74,15 @@ export class Solver {
     return solver;
   }
 
+  syncProgramRevision() {
+    const revision = this.program.revision ?? 0;
+    if (revision === this.programRevision) return;
+    this.programRevision = revision;
+    this.memo.clear();
+    this.tableCoordinator = null;
+    this.groundChainSuccess.clear();
+  }
+
   absorbStatsFrom(child) {
     if (!child || child === this || !child.stats) return;
     for (const [key, value] of Object.entries(child.stats)) {
@@ -106,6 +116,7 @@ export class Solver {
       this.solveStacks.push(stack);
       while (stack.length) {
       const frame = stack.pop();
+      this.syncProgramRevision();
       if (frame.kind === 'resumeBuiltin') {
         if (this.solutionsSeen >= this.solutionLimit) continue;
         const result = frame.iterator.next();
@@ -121,6 +132,7 @@ export class Solver {
         continue;
       }
       if (frame.kind === 'completeTableFixpointRound') {
+        if (frame.revision !== this.programRevision) continue;
         frame.entry.computing = false;
         const answerCount = frame.entry.answers.length;
         if (this.tableCoordinator?.cycleSeen && answerCount > frame.answerCountBefore) {
@@ -136,6 +148,7 @@ export class Solver {
         continue;
       }
       if (frame.kind === 'completeMemo') {
+        if (frame.revision !== this.programRevision) continue;
         frame.entry.computing = false;
         frame.entry.complete = true;
         continue;
@@ -147,6 +160,7 @@ export class Solver {
       let active = frame.active;
 
       while (true) {
+        this.syncProgramRevision();
         this.stats.solve_goals_calls++;
         this.stats.max_depth = Math.max(this.stats.max_depth, depth);
         this.stats.max_goal_count = Math.max(this.stats.max_goal_count, goals.length);
@@ -167,7 +181,7 @@ export class Solver {
           continue;
         }
         if (first?.kind === 'memoStore') {
-          rememberMemoAnswer(first.entry, first.goal, env);
+          if (first.revision === this.programRevision) rememberMemoAnswer(first.entry, first.goal, env);
           if (goals.length === 1) break;
           goals = goals.slice(1);
           continue;
@@ -255,8 +269,8 @@ export class Solver {
                 scheduleTableFixpointRound(stack, this, { entry, group, goal, rest, env, depth, active });
               } else {
                 entry.computing = true;
-                stack.push({ kind: 'completeMemo', entry });
-                pushUserGoalUncachedFrames(stack, this, group, goal, [{ kind: 'memoStore', entry, goal }, ...rest], env, depth, active);
+                stack.push({ kind: 'completeMemo', entry, revision: this.programRevision });
+                pushUserGoalUncachedFrames(stack, this, group, goal, [{ kind: 'memoStore', entry, goal, revision: this.programRevision }, ...rest], env, depth, active);
               }
               break;
             }
@@ -377,6 +391,11 @@ function withPortableLibrary(program, registry) {
   // rebuilding very large user programs merely to append library clauses.
   overlay.findGroup = (name, arity) =>
     program.findGroup(name, arity) ?? portableProgram.findGroup(name, arity);
+  // Dynamic database operations must mutate the underlying user program rather
+  // than creating shadow properties on this lightweight library overlay.
+  overlay.insertDynamicClause = (...args) => program.insertDynamicClause(...args);
+  overlay.removeDynamicClause = (...args) => program.removeDynamicClause(...args);
+  overlay.abolishDynamicGroup = (...args) => program.abolishDynamicGroup(...args);
   overlay._portableRegistry = registry;
   return overlay;
 }
@@ -395,6 +414,7 @@ function scheduleTableFixpointRound(stack, solver, frame) {
   frame.entry.computing = true;
   const nextFrame = {
     kind: 'completeTableFixpointRound',
+    revision: solver.programRevision,
     entry: frame.entry,
     group: frame.group,
     goal: frame.goal,
@@ -410,7 +430,7 @@ function scheduleTableFixpointRound(stack, solver, frame) {
     solver,
     frame.group,
     frame.goal,
-    [{ kind: 'memoStore', entry: frame.entry, goal: frame.goal }],
+    [{ kind: 'memoStore', entry: frame.entry, goal: frame.goal, revision: solver.programRevision }],
     frame.env,
     frame.depth,
     frame.active,
@@ -622,7 +642,7 @@ function matchScalarFactLocal(goal, head, env, names, values) {
       nextValues.push(factArg);
       continue;
     }
-    if (!isScalarTerm(arg) || arg.name !== factArg.name) return null;
+    if (!sameScalarTerm(arg, factArg)) return null;
   }
   return { names: nextNames, values: nextValues };
 }
@@ -644,7 +664,7 @@ function matchScalarFact(goal, head, env) {
       values.push(factArg);
       continue;
     }
-    if (!isScalarTerm(arg) || arg.name !== factArg.name) return null;
+    if (!sameScalarTerm(arg, factArg)) return null;
   }
 
   const next = env.clone();
@@ -775,6 +795,10 @@ function isScalarTerm(term) {
   return term && (term.type === 'atom' || term.type === 'string' || term.type === 'number');
 }
 
+function sameScalarTerm(left, right) {
+  return isScalarTerm(left) && isScalarTerm(right) && left.type === right.type && left.name === right.name;
+}
+
 function sameGroundTerm(left, right) {
   if (left?.type !== right?.type || left?.name !== right?.name) return false;
   const arity = left.args?.length ?? 0;
@@ -878,7 +902,7 @@ function headCannotMatch(goal, head, env) {
     const b = head.args[i];
     // Keep this only as a cheap scalar rejection. unify() remains authoritative.
     const da = derefForLocal(a, env);
-    if (da.args?.length === 0 && ['atom', 'string', 'number'].includes(da.type) && ['atom', 'string', 'number'].includes(b.type) && da.name !== b.name) return true;
+    if (isScalarTerm(da) && isScalarTerm(b) && !sameScalarTerm(da, b)) return true;
   }
   return false;
 }

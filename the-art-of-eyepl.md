@@ -68,11 +68,11 @@ npm install
 node bin/eyepl.js examples/socrates.pl
 ```
 
-The first command should print:
+The Eyepl command should print:
 
 ```text
 type(socrates, mortal).
-is(test, true).
+holds_result(test, true).
 ```
 
 Then ask for the derivations:
@@ -1318,7 +1318,9 @@ Readers focused on modeling may skip to the statistics command and return when
 performance or implementation portability becomes relevant.
 
 Every predicate group keeps compact indexes for scalar values in each argument
-position. A clause whose indexed head argument is a variable or structured term
+position. Index keys include the scalar type, so `7`, `'7'`, and `"7"` remain
+distinct even though their printed payload is the same. A clause whose indexed
+head argument is a variable or structured term
 stays in a fallback set, and the selected candidates are merged back into
 source order before unification. An index narrows where to look; it never
 decides whether a clause matches.
@@ -1496,8 +1498,8 @@ additional logical answer.
 `run/2` accepts source text or an already parsed `Program`. Its options include
 `proof` (with `why` and `explain` as aliases), `maxDepth`, `solutionLimit`, a
 custom `registry`, and `strictNegation` or `analyzeNegation`. It returns
-`stdout` and the solver's numeric `stats`; it does not write to the process
-streams.
+`stdout`, the solver's numeric `stats`, and a nullable `haltCode`; it does not
+write to the process streams.
 
 For applications that inspect or prepare a theory before running it, use
 `Program` directly:
@@ -3597,11 +3599,12 @@ generation contains `n^k` leaves. If order does not matter, permutations may
 be redundant. If partial choices already violate a constraint, pruning saves
 an entire subtree.
 
-This is why combinatorial examples are not toys. `n-queens-8.pl`,
-`send-more-money.pl`, `integer-partitions.pl`, `stirling-bell-numbers.pl`, and
-`weighted-interval-scheduling.pl` expose different geometries of choice:
-permutations, digit assignments, recursive decompositions, set partitions, and
-ordered optimization.
+This is why combinatorial examples are not toys. `n-queens-8.pl` retains one
+witness, while `n-queens.pl` exposes the complete 92-solution search. Together
+with `send-more-money.pl`, `integer-partitions.pl`, `stirling-bell-numbers.pl`,
+and `weighted-interval-scheduling.pl`, they show different geometries of
+choice: permutations, digit assignments, recursive decompositions, set
+partitions, and ordered optimization.
 
 For each search program, ask a mathematical question before a performance
 question:
@@ -4719,8 +4722,10 @@ clauses, while `current_predicate/1` enumerates or tests predicate indicators.
 Static and private built-in procedures are protected by permission errors.
 
 Updates are ordered effects, not pure logical conclusions, and they are not
-undone by ordinary backtracking: later goals observe a changed database. Keep
-them in a narrow lifecycle layer.
+undone by ordinary backtracking: later goals observe a changed database. Each
+update invalidates cached tabled and ground-chain answers, and rule changes
+refresh recursion and negation analysis before later goals continue. Keep them
+in a narrow lifecycle layer.
 The queue example performs setup in `initialization/1`, so query order does not
 determine its state:
 
@@ -5503,6 +5508,7 @@ finite search space, and which constraint removes which branches?
 | Program | Search design | Checked answer |
 | --- | --- | --- |
 | [Eight queens](https://github.com/eyereasoner/eyepl/blob/main/examples/n-queens-8.pl) | A permutation supplies one queen per row; diagonal tests prune candidates; `once/1` retains one witness. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/n-queens-8.pl) |
+| [N-Queens enumeration](https://github.com/eyereasoner/eyepl/blob/main/examples/n-queens.pl) | `select/3` chooses each row and diagonal checks prune partial placements; the query enumerates all 92 eight-queen solutions with `--library`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/n-queens.pl) |
 | [Zebra puzzle](https://github.com/eyereasoner/eyepl/blob/main/examples/zebra.pl) | House records, adjacency relations, and clue constraints jointly determine the famous solution. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/zebra.pl) |
 | [SEND + MORE = MONEY](https://github.com/eyereasoner/eyepl/blob/main/examples/send-more-money.pl) | Digit assignments are generated under distinctness, leading-zero, and column constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/send-more-money.pl) |
 | [Four-color map](https://github.com/eyereasoner/eyepl/blob/main/examples/four-color-map.pl) | A finite color assignment is filtered by adjacency constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/four-color-map.pl) |
@@ -5528,6 +5534,7 @@ and search for a sequence whose final state satisfies a goal.
 | Program | State-space idea | Checked answer |
 | --- | --- | --- |
 | [Route planning](https://github.com/eyereasoner/eyepl/blob/main/examples/route-planning.pl) | Weighted edges construct candidate routes and expose the chosen path as a witness. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/route-planning.pl) |
+| [Lee routing](https://github.com/eyereasoner/eyepl/blob/main/examples/lee.pl) | Breadth-first wave expansion reaches a destination on a grid, then reconstructs a path around rectangular obstacles; run it with `--library`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/lee.pl) |
 | [Blocks world](https://github.com/eyereasoner/eyepl/blob/main/examples/blocks-world-planning.pl) | Symbolic actions transform a compact arrangement of blocks. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/blocks-world-planning.pl) |
 | [Wolf, goat, and cabbage](https://github.com/eyereasoner/eyepl/blob/main/examples/wolf-goat-cabbage.pl) | Safety invariants reject river-bank states before they enter a valid plan. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/wolf-goat-cabbage.pl) |
 | [Missionaries and cannibals](https://github.com/eyereasoner/eyepl/blob/main/examples/missionaries-cannibals.pl) | Numeric state constraints must hold on both banks after every crossing. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/missionaries-cannibals.pl) |
@@ -5538,9 +5545,10 @@ and search for a sequence whose final state satisfies a goal.
 | [Microgrid dispatch](https://github.com/eyereasoner/eyepl/blob/main/examples/microgrid-dispatch.pl) | Candidate operating decisions are checked against supply, demand, and engineering limits. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/microgrid-dispatch.pl) |
 
 Compare the witness shape: Hanoi returns an inductively constructed move list;
-route planning returns a graph path; Blocks world and the river puzzles expose
-a sequence of whole states. Representation determines which plan properties
-are easy to check.
+route planning returns a graph path; Lee routing reconstructs a path from
+breadth-first wave layers; Blocks world and the river puzzles expose a sequence
+of whole states. Representation determines which plan properties are easy to
+check.
 
 ## E.6 Mathematics as relations
 
@@ -5759,7 +5767,7 @@ node test/run-conformance-report.mjs
 ```
 
 The complete suite must pass before release. The file-based conformance corpus
-contains 695 cases, including 278 focused ISO
+contains 695 cases, including 277 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. The generated `conformance-report.md` is the
 authoritative source for current category totals.

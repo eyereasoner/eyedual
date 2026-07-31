@@ -50,6 +50,23 @@ eyepl --version
 For local browser use, run `python3 -m http.server` from the checkout and open
 `http://localhost:8000/playground.html`.
 
+## Classical search examples
+
+The example corpus includes two classic programs that use the optional portable
+list library. Run them with `--library`; their exact checked answers live beside
+the other goldens under `examples/output/`:
+
+```bash
+node bin/eyepl.js --library examples/lee.pl
+node bin/eyepl.js --library examples/n-queens.pl
+```
+
+[`lee.pl`](examples/lee.pl) performs Lee wavefront routing around rectangular
+obstacles and reconstructs one path ([golden](examples/output/lee.pl)).
+[`n-queens.pl`](examples/n-queens.pl) uses selection and diagonal pruning to
+enumerate all 92 solutions of the eight-queen puzzle
+([golden](examples/output/n-queens.pl)).
+
 ## JavaScript API
 
 ```js
@@ -61,6 +78,9 @@ answer(ok) :- ok = ok.
 `);
 console.log(result.stdout);
 ```
+
+`run` returns captured `stdout`, numeric solver `stats`, and a nullable
+`haltCode` when `halt/0` or `halt/1` terminates the processor.
 
 The default registry contains Eyepl's ISO/IEC 13211-1:1995 core profile:
 unification and term inspection, control and exceptions, arithmetic, grouped
@@ -124,7 +144,7 @@ Its default execution is automatically hybrid: ordinary goals use indexed
 depth-first resolution, while recursive helper predicate groups are detected
 and tabled automatically.
 
-Clause selection combines compact any-argument scalar indexes with
+Clause selection combines compact type-aware any-argument scalar indexes with
 demand-driven multi-argument indexes. SWI-Prolog-inspired quality checks avoid
 building indexes for small, weakly selective, or variable-heavy clause groups.
 
@@ -164,7 +184,7 @@ in *The Art of Eyepl* covers the mapping and `--include-source` behavior.
 ## Tests
 
 Every release must pass the complete test suite. The current 695-file
-conformance corpus includes 278 focused ISO cases covering the success,
+conformance corpus includes 277 focused ISO cases covering the success,
 failure, mode, and error behavior derived from ISO/IEC 13211-1 clauses 7 and
 8. The generated `conformance-report.md` is the authoritative source for
 current category totals.

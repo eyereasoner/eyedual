@@ -172,8 +172,8 @@ Usage:
   eyepl [options] [file-or-url.pl|- ...]
 
 Input:
-  file-or-url.pl        Read a Eyepl program from a local file or http(s) URL.
-  -                     Read a Eyepl program from standard input.
+  file-or-url.pl        Read an Eyepl program from a local file or http(s) URL.
+  -                     Read an Eyepl program from standard input.
 
 Options:
   -h, --help            Show this help text and exit.
