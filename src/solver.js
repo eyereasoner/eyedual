@@ -302,7 +302,7 @@ export class Solver {
   }
 
   *solveUserGoalUncached(group, goal, rest, env, depth) {
-    if (this.activeVariant(goal, env)) return;
+    if (group.recursive && !group.cutRecursive && this.activeVariant(goal, env)) return;
     // Program indexes provide candidate clauses, but every candidate is still
     // freshened and unified below. The index is a performance hint, not a
     // semantic shortcut.
@@ -420,7 +420,13 @@ function scheduleTableFixpointRound(stack, solver, frame) {
 
 function pushMemoAnswerFrames(stack, entry, goal, rest, env, depth, active, solver) {
   for (let answerIndex = entry.answers.length - 1; answerIndex >= 0; answerIndex--) {
-    const answerArgs = entry.answers[answerIndex];
+    // Stored table variables belong to the answer template, not to any caller.
+    // Freshen the complete tuple together so sharing within an answer is kept
+    // while separate replays cannot alias otherwise independent call variables.
+    const storedArgs = entry.answers[answerIndex];
+    const answerArgs = storedArgs.every((arg) => termIsGround(arg))
+      ? storedArgs
+      : freshTerm(compound('$memo_answer', storedArgs), nextFreshId()).args;
     const next = env.clone();
     let ok = true;
     for (let i = 0; i < goal.arity; i++) {
@@ -432,7 +438,7 @@ function pushMemoAnswerFrames(stack, entry, goal, rest, env, depth, active, solv
 }
 
 function pushUserGoalUncachedFrames(stack, solver, group, goal, rest, env, depth, active) {
-  if (activeVariantIn(goal, env, active)) return;
+  if (group.recursive && !group.cutRecursive && activeVariantIn(goal, env, active)) return;
   if (tryPushGroundChainFrames(stack, solver, group, goal, rest, env, depth, active)) return;
   const candidates = selectClauseCandidates(group, goal, env);
   const frames = [];
@@ -782,7 +788,42 @@ function rememberMemoAnswer(entry, goal, env) {
 }
 
 function activeVariantIn(goal, env, active) {
-  return active.some((entry) => variantTerms(goal, env, entry.goal, entry.env));
+  if (active.length === 0) return false;
+  let goalShape = null;
+  for (const entry of active) {
+    const candidate = entry.goal;
+    // Variant calls must have the same predicate indicator. Avoid walking
+    // large matrix/list arguments for every unrelated active predicate.
+    if (candidate?.type !== goal.type || candidate?.name !== goal.name ||
+        candidate?.arity !== goal.arity) continue;
+    goalShape ??= variantShape(goal, env);
+    entry.variantShape ??= variantShape(candidate, entry.env);
+    if (goalShape !== entry.variantShape) continue;
+    if (variantTerms(goal, env, candidate, entry.env)) return true;
+  }
+  return false;
+}
+
+function variantShape(term, env) {
+  if (term?.type !== COMPOUND) return '0';
+  return term.args.map((arg) => variantArgumentSize(arg, env)).join(',');
+}
+
+function variantArgumentSize(term, env) {
+  const pending = [term];
+  let size = 0;
+  while (pending.length > 0) {
+    const current = derefForLocal(pending.pop(), env);
+    size++;
+    // This is only a rejection key. Capping keeps pathological cyclic or very
+    // large terms bounded; equal capped sizes still fall through to the exact
+    // variant check.
+    if (size > 4096) return 4097;
+    if (current?.type === COMPOUND) {
+      for (let index = 0; index < current.arity; index++) pending.push(current.args[index]);
+    }
+  }
+  return size;
 }
 
 

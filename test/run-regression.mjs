@@ -767,9 +767,9 @@ open(X) :- candidate(X), \\+ closed(X).
           .filter((indicator) => !registry.defs.has(indicator) && !library.defs.get(indicator).portableEquivalent)
           .sort();
         assertEqual(nativeExtensions.join('\n'), [
-          'acos/2', 'asin/2', 'atan2/3', 'atom_string/2',
+          'acos/2', 'asin/2', 'atan2/3', 'atom_string/2', 'call/3',
           'difference/3', 'ge/2', 'gt/2', 'le/2', 'local_time/1',
-          'lowercase/2', 'lt/2', 'matches/3', 'number_string/2',
+          'lowercase/2', 'lt/2', 'maplist/3', 'matches/3', 'number_string/2',
           'replace/4', 'split/3', 'tan/2',
           'term_string/2', 'trim/2', 'uppercase/2',
         ].sort().join('\n'), 'audited native extension allowlist');

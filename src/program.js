@@ -246,7 +246,10 @@ export class Program {
       // search control inside the engine. Cycles through negation retain
       // guarded resolution because positive least-fixed-point tabling is not
       // sound for an unstratified negative component.
-      group.tabled = recursive && !componentHasNegativeEdge(start, deps, negativeEdges);
+      group.cutRecursive = recursive && componentHasCut(start, deps, groups);
+      group.tabled = recursive &&
+        !componentHasNegativeEdge(start, deps, negativeEdges) &&
+        !group.cutRecursive;
     }
   }
 
@@ -448,6 +451,19 @@ function componentHasNegativeEdge(start, deps, negativeEdges) {
   const forward = reachableIndexes(start, deps);
   const component = new Set([...forward].filter((index) => reachableIndexes(index, deps).has(start)));
   return negativeEdges.some(([from, to]) => component.has(from) && component.has(to));
+}
+
+function componentHasCut(start, deps, groups) {
+  const forward = reachableIndexes(start, deps);
+  const component = [...forward].filter((index) => reachableIndexes(index, deps).has(start));
+  return component.some((index) => groups[index].clauses.some((clause) =>
+    clause.body.some(termContainsCut)
+  ));
+}
+
+function termContainsCut(term) {
+  if (term.type === ATOM) return term.name === '!';
+  return term.type === COMPOUND && term.args.some(termContainsCut);
 }
 
 function reachableIndexes(start, deps) {

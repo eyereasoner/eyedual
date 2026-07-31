@@ -1,6 +1,8 @@
 // Optional Eyepl extension library: host primitives, portable ISO clauses,
 // and the small profile-guided accelerator set.
 import {
+  ATOM,
+  COMPOUND,
   atom,
   compareIntegerText,
   compareTerms,
@@ -17,8 +19,9 @@ import {
   stringTerm,
   termToString,
   unify,
+  variable,
 } from './term.js';
-import { BuiltinRegistry, isoBuiltins } from './iso.js';
+import { BuiltinRegistry, PrologError, isoBuiltins } from './iso.js';
 
 // Numeric builtins for integer-preserving arithmetic, floating point functions, comparisons, and ranges.
 // The code keeps BigInt paths where possible so large Eyepl integers remain exact.
@@ -173,6 +176,69 @@ export const coreBuiltins = {
     }, { deterministic: true });
   }
 };
+
+export const metaCallBuiltins = {
+  register(registry) {
+    registry.add('call', 3, callWithTwoExtraArguments);
+    registry.add('maplist', 3, maplistTwoLists);
+  }
+};
+
+function* callWithTwoExtraArguments({ solver, goal, env }) {
+  const closure = deref(goal.args[0], env);
+  if (closure.type === 'var') throw new PrologError('instantiation_error');
+  if (closure.type !== ATOM && closure.type !== COMPOUND) {
+    throw new PrologError('type_error(callable)', closure);
+  }
+  const invoked = compound(closure.name, [
+    ...(closure.type === COMPOUND ? closure.args : []),
+    goal.args[1],
+    goal.args[2],
+  ]);
+  const child = solver.cloneForInnerGoal();
+  try {
+    yield* child.solve([invoked], env, 0);
+  } finally {
+    solver.absorbStatsFrom(child);
+  }
+}
+
+function* maplistTwoLists({ solver, goal, env }) {
+  const input = properListItems(goal.args[1], env);
+  if (input == null) return;
+  let output = properListItems(goal.args[2], env);
+  let next = env;
+  if (output == null) {
+    if (deref(goal.args[2], env).type !== 'var') return;
+    const id = ++generatedListVariable;
+    output = input.map((_, index) => variable(`_maplist_${id}_${index}`));
+    next = env.clone();
+    if (!unify(goal.args[2], listFromItems(output), next)) return;
+  }
+  if (input.length !== output.length) return;
+  const closure = deref(goal.args[0], next);
+  if (closure.type === 'var') throw new PrologError('instantiation_error');
+  if (closure.type !== ATOM && closure.type !== COMPOUND) {
+    throw new PrologError('type_error(callable)', closure);
+  }
+  const prefix = closure.type === COMPOUND ? closure.args : [];
+  function* solveItem(index, current) {
+    if (index === input.length) {
+      yield current;
+      return;
+    }
+    const invoked = compound(closure.name, [...prefix, input[index], output[index]]);
+    const child = solver.cloneForInnerGoal();
+    try {
+      for (const answer of child.solve([invoked], current, 0)) {
+        yield* solveItem(index + 1, answer);
+      }
+    } finally {
+      solver.absorbStatsFrom(child);
+    }
+  }
+  yield* solveItem(0, next);
+}
 
 
 function localDateText() {
@@ -404,9 +470,23 @@ function* countall({ solver, goal, env }) {
   if (unify(goal.args[1], numberTerm(count), next)) yield next;
 }
 
+let generatedListVariable = 0;
+
 function* length({ goal, env }) {
   const items = properListItems(goal.args[0], env);
-  if (items == null) return;
+  if (items == null) {
+    const list = deref(goal.args[0], env);
+    const size = deref(goal.args[1], env);
+    if (list.type !== 'var' || size.type !== 'number' || !isDecimalInteger(size.name)) return;
+    const count = BigInt(size.name);
+    if (count < 0n || count > 1000000n) return;
+    const id = ++generatedListVariable;
+    const generated = Array.from({ length: Number(count) }, (_, index) =>
+      variable(`_length_${id}_${index}`));
+    const next = env.clone();
+    if (unify(goal.args[0], listFromItems(generated), next)) yield next;
+    return;
+  }
   const next = env.clone();
   if (unify(goal.args[1], numberTerm(items.length), next)) yield next;
 }
@@ -668,6 +748,17 @@ between_range(Low, High, Value) :-
   Mid is Low + Half,
   Next is Mid + 1,
   between_range(Next, High, Value).
+
+maplist(_, [], []).
+maplist(Closure, [X | Xs], [Y | Ys]) :-
+  call(Closure, X, Y),
+  maplist(Closure, Xs, Ys).
+
+nth1(1, [X | _], X).
+nth1(N, [_ | Xs], X) :-
+  N > 1,
+  N0 is N - 1,
+  nth1(N0, Xs, X).
 `;
 
 
@@ -676,6 +767,7 @@ export function createLibraryRegistry() {
   registry.portableSource = portableLibrarySource;
   for (const mod of [
     coreBuiltins,
+    metaCallBuiltins,
     arithmeticBuiltins,
     stringBuiltins,
     portableAccelerators,

@@ -6,6 +6,8 @@ export const STRING = 'string';
 export const NUMBER = 'number';
 export const COMPOUND = 'compound';
 const EMPTY_ARGS = Object.freeze([]);
+let variableOrder = 0;
+const variableOrders = new Map();
 
 export class Term {
   constructor(type, name, args = []) {
@@ -18,7 +20,12 @@ export class Term {
   }
 }
 
-export const variable = (name) => new Term(VAR, name, EMPTY_ARGS);
+export const variable = (name) => {
+  const term = new Term(VAR, name, EMPTY_ARGS);
+  if (!variableOrders.has(term.name)) variableOrders.set(term.name, ++variableOrder);
+  term.order = variableOrders.get(term.name);
+  return term;
+};
 export const atom = (name) => new Term(ATOM, name, EMPTY_ARGS);
 export const stringTerm = (value) => new Term(STRING, value, EMPTY_ARGS);
 export const numberTerm = (value) => new Term(NUMBER, value, EMPTY_ARGS);
@@ -28,31 +35,49 @@ export const cons = (head, tail) => compound('.', [head, tail]);
 
 export class Env {
   constructor(bindings) {
-    this.bindings = bindings ? new Map(bindings) : new Map();
-    this._shared = false;
+    this._state = { bindings: bindings ? new Map(bindings) : new Map(), parent: null, depth: 0, cache: null };
   }
   clone() {
     // Most speculative environments are either rejected without a binding or
-    // only compare ground terms. Share their map until one branch actually
-    // writes, then detach in bind().
+    // only compare ground terms. Persistent layers make cloning constant-time
+    // and keep later writes to either branch isolated.
     const clone = Object.create(Env.prototype);
-    clone.bindings = this.bindings;
-    clone._shared = true;
-    this._shared = true;
+    clone._state = this._state;
     return clone;
   }
   has(name) {
-    return this.bindings.has(name);
+    return this.get(name) !== undefined;
   }
   get(name) {
-    return this.bindings.get(name);
+    const root = this._state;
+    if (root.cache?.has(name)) return root.cache.get(name);
+    for (let state = root; state != null; state = state.parent) {
+      if (state.bindings.has(name)) {
+        const value = state.bindings.get(name);
+        if (root.depth >= 4) (root.cache ??= new Map()).set(name, value);
+        return value;
+      }
+    }
+    return undefined;
   }
   bind(name, term) {
-    if (this._shared) {
-      this.bindings = new Map(this.bindings);
-      this._shared = false;
+    if (this._state.depth >= 32) {
+      const flattened = new Map();
+      for (let state = this._state; state != null; state = state.parent) {
+        for (const [key, value] of state.bindings) {
+          if (!flattened.has(key)) flattened.set(key, value);
+        }
+      }
+      flattened.set(name, term);
+      this._state = { bindings: flattened, parent: null, depth: 0, cache: null };
+      return;
     }
-    this.bindings.set(name, term);
+    this._state = {
+      bindings: new Map([[name, term]]),
+      parent: this._state,
+      depth: this._state.depth + 1,
+      cache: null,
+    };
   }
 }
 
@@ -61,10 +86,12 @@ export function deref(term, env) {
   // protects readback from accidental cycles in partially constructed terms.
   let current = term;
   const seen = new Set();
-  while (current?.type === VAR && env?.has(current.name)) {
+  while (current?.type === VAR) {
     if (seen.has(current.name)) break;
     seen.add(current.name);
-    current = env.get(current.name);
+    const next = env?.get(current.name);
+    if (next === undefined) break;
+    current = next;
   }
   return current;
 }
@@ -100,7 +127,8 @@ function occurs(variableName, term, env) {
       if (current.name === variableName) return true;
       if (seenVariables.has(current.name)) continue;
       seenVariables.add(current.name);
-      if (env?.has(current.name)) stack.push(env.get(current.name));
+      const binding = env?.get(current.name);
+      if (binding !== undefined) stack.push(binding);
       continue;
     }
     if (current?.type !== COMPOUND || seenTerms.has(current)) continue;
@@ -123,6 +151,12 @@ export function unify(left, right, env) {
     b = deref(b, env);
 
     if (a.type === VAR && b.type === VAR && a.name === b.name) continue;
+    if (a.type === VAR && b.type === VAR) {
+      // Both variables are already dereferenced and unbound, so linking them
+      // cannot create a cycle and needs no occurs-check traversal.
+      env.bind(a.name, b);
+      continue;
+    }
     if (a.type === VAR) {
       if (occurs(a.name, b, env)) return false;
       env.bind(a.name, b);
@@ -173,9 +207,16 @@ export function copyResolved(term, env) {
 }
 
 export function termIsGround(term, env = new Env()) {
-  const resolved = deref(term, env);
-  if (resolved.type === VAR) return false;
-  return resolved.args.every((arg) => termIsGround(arg, env));
+  const pending = [term];
+  const seen = new Set();
+  while (pending.length > 0) {
+    const resolved = deref(pending.pop(), env);
+    if (resolved.type === VAR) return false;
+    if (seen.has(resolved)) continue;
+    seen.add(resolved);
+    for (const arg of resolved.args) pending.push(arg);
+  }
+  return true;
 }
 
 const graphicAtomChars = new Set('!#$&*+-/<=>@^~\\'.split(''));
@@ -351,7 +392,12 @@ export function compareTerms(left, right) {
     if (leftInteger !== rightInteger) return leftInteger ? 1 : -1;
     return compareNumberText(left.name, right.name);
   }
-  if (left.type === VAR || left.type === ATOM || left.type === STRING) return left.name < right.name ? -1 : left.name > right.name ? 1 : 0;
+  if (left.type === VAR) {
+    const leftOrder = left.order ?? 0;
+    const rightOrder = right.order ?? 0;
+    return leftOrder < rightOrder ? -1 : leftOrder > rightOrder ? 1 : 0;
+  }
+  if (left.type === ATOM || left.type === STRING) return left.name < right.name ? -1 : left.name > right.name ? 1 : 0;
   if (left.arity !== right.arity) return left.arity < right.arity ? -1 : 1;
   if (left.name !== right.name) return left.name < right.name ? -1 : 1;
   for (let i = 0; i < left.arity; i++) {

@@ -5075,7 +5075,7 @@ error behavior of a standards-profile program.
 The extension catalog is audited against
 [ISO/IEC 13211-1](https://www.iso.org/standard/21413.html): an extension is not
 registered when the supported ISO profile already expresses the same
-operation. The library registry contains the 114 default indicators plus 19
+operation. The library registry contains the 114 default indicators plus 21
 irreducible host-extension indicators. It also loads ordinary portable Prolog
 clauses for every relation that needs no host primitive. Ten profile-guided
 native accelerators cover measured hot paths while the bundled clauses remain
@@ -5089,6 +5089,7 @@ their executable specification and fallback.
 | `lt/2`, `le/2`, `gt/2`, `ge/2` |
 | `local_time/1`, `difference/3` |
 | `matches/3` |
+| `call/3`, `maplist/3` |
 | `split/3`, `replace/4` |
 | `lowercase/2`, `uppercase/2`, `trim/2` |
 | `number_string/2`, `atom_string/2`, `term_string/2` |
@@ -5167,13 +5168,15 @@ integers.
 | `select(?Item,+List,-Rest)` | Removes one occurrence at a time and preserves the order of all other elements. Duplicate occurrences may produce duplicate answers. |
 | `not_member(+Item,+List)` | Succeeds only when `Item` does not unify with any member. Use it after binding the item and list. |
 | `nth0(?Index,+List,?Item)` | Checks a bound zero-based index or enumerates indexes and their items. |
+| `nth1(+Index,+List,?Item)` | Checks a bound one-based index. |
+| `maplist(+Closure,+List1,?List2)` | Applies a two-argument closure pairwise; `call/3` supplies the closure arguments and supports partially applied compound closures. |
 | `set_nth0(+Index,+List,+Item,-NewList)` | Replaces one existing position without mutating the input list. |
 | `head(+List,?Head)`, `rest(+List,?Tail)` | Decompose a nonempty list. `rest/2` may expose an improper tail. |
 | `last(+List,?Last)` | Returns the final element of a nonempty proper list. |
 | `take(+Count,+List,-Prefix)`, `drop(+Count,+List,-Suffix)` | Select the first `Count` elements or remove them. Counts beyond the list length fail. |
 | `slice(+Start,+Count,+List,-Slice)` | Selects exactly `Count` elements beginning at `Start`; an out-of-range slice fails. |
 | `reverse(+List,-Reversed)` | Reverses a proper list. |
-| `length(+List,?Length)` | Reports or checks the length of a proper list; it does not generate lists from a length. |
+| `length(?List,?Length)` | Reports or checks the length of a proper list, or generates a list skeleton when `Length` is a bound nonnegative integer. |
 | `sum_list(+List,-Sum)` | Sums numeric elements with ISO `is/2`. The empty sum is `0`; invalid arithmetic raises the corresponding ISO error. |
 | `min_list(+List,-Min)`, `max_list(+List,-Max)` | Select by standard Eyepl term order, not numeric coercion. Empty lists fail. |
 | `list_to_set(+List,-Set)` | Removes later structural duplicates while preserving first-occurrence order. |
