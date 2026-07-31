@@ -114,6 +114,7 @@ class Parser {
       [...PREFIX_OPERATORS].map(([name, precedence]) => [name, { precedence, strict: false }])
     );
     this.postfixOperators = new Map();
+    this.previousToken = null;
     this.token = this.nextToken();
   }
   defineOperator(priority, specifier, name) {
@@ -256,7 +257,18 @@ class Parser {
       return { type: quote === '"' ? TOK.STRING : TOK.ATOM, text, line, quoted: true };
     }
 
-    if (isDigitCode(ch.charCodeAt(0)) || (ch === '-' && isDigitCode(this.peek(1).charCodeAt(0)))) {
+    // A signed numeric literal is only recognized where a term may start.
+    // Otherwise the minus is the standard infix operator, so compact ISO
+    // syntax such as `X-1` must not be read as `X` followed by `-1`.
+    const previousEndsTerm = this.previousToken && (
+      [TOK.VAR, TOK.NUMBER, TOK.STRING, TOK.RPAREN, TOK.RBRACKET, TOK.RBRACE].includes(this.previousToken.type) ||
+      (this.previousToken.type === TOK.ATOM &&
+       !this.infixOperators.has(this.previousToken.text) &&
+       !this.prefixOperators.has(this.previousToken.text) &&
+       !this.postfixOperators.has(this.previousToken.text))
+    );
+    if (isDigitCode(ch.charCodeAt(0)) ||
+        (ch === '-' && isDigitCode(this.peek(1).charCodeAt(0)) && !previousEndsTerm)) {
       const start = this.pos;
       const negative = this.peek() === '-';
       if (negative) this.take();
@@ -324,6 +336,7 @@ class Parser {
     throw new Error(`parse line ${line}: bad character ${JSON.stringify(ch)}`);
   }
   advance() {
+    this.previousToken = this.token;
     this.token = this.nextToken();
   }
   expect(type, desc = type) {

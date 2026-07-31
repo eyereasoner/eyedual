@@ -456,9 +456,19 @@ function componentHasNegativeEdge(start, deps, negativeEdges) {
 function componentHasCut(start, deps, groups) {
   const forward = reachableIndexes(start, deps);
   const component = [...forward].filter((index) => reachableIndexes(index, deps).has(start));
-  return component.some((index) => groups[index].clauses.some((clause) =>
-    clause.body.some(termContainsCut)
-  ));
+  return component.some((index) => {
+    const group = groups[index];
+    const directRecursive = group.clauses.some((clause) => clause.body.some((goal) =>
+      goal.type === COMPOUND && goal.name === group.name && goal.arity === group.arity
+    ));
+    if (!directRecursive) return group.clauses.some((clause) => clause.body.some(termContainsCut));
+    return group.clauses.some((clause) => {
+      const recursive = clause.body.some((goal) =>
+        goal.type === COMPOUND && goal.name === group.name && goal.arity === group.arity
+      );
+      return recursive && clause.body.some(termContainsCut);
+    });
+  });
 }
 
 function termContainsCut(term) {
