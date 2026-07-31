@@ -1,4 +1,4 @@
-// Eyepl standard library implemented entirely as native JavaScript builtins.
+// Eyepl Eyepl library implemented entirely as native JavaScript builtins.
 // The single registry is shared by Node, embedders, and the browser playground.
 import {
   ATOM,
@@ -47,10 +47,10 @@ export const arithmeticBuiltins = {
     for (const name of unaryNames) registry.add(name, 2, unary(name), { deterministic: true });
     for (const name of binaryNames) registry.add(name, 3, binary(name), { deterministic: true });
     for (const name of compareNames) registry.add(name, 2, compare(name), { deterministic: true });
-    registry.add('between', 3, between, { standardLibrary: true });
+    registry.add('between', 3, between, { eyeplLibrary: true });
     registry.add('smallest_divisor_from', 3, smallestDivisorFrom, {
       deterministic: true,
-      standardLibrary: true,
+      eyeplLibrary: true,
     });
   }
 };
@@ -193,7 +193,7 @@ export const metaCallBuiltins = {
   register(registry) {
     registry.add('call', 3, callWithTwoExtraArguments);
     registry.add('maplist', 3, maplistTwoLists, {
-      standardLibrary: true,
+      eyeplLibrary: true,
       shouldUse: ({ solver }) => solver.program.findGroup('maplist', 3) == null,
     });
   }
@@ -439,7 +439,7 @@ function contextFromGroups(groups) {
 function numericText(text) {
   return isDecimalInteger(text) || parseFiniteNumber(text) != null;
 }
-// Native standard-library relations.
+// Native Eyepl library relations.
 // These predicates used to be parsed from bundled Prolog source. Keeping them
 // in the builtin registry removes startup parsing, avoids browser module/cache
 // duplication, and gives the hot list/aggregation paths direct JavaScript
@@ -449,11 +449,11 @@ export const standardBuiltins = {
   register(registry) {
     const relation = (name, arity, handler, options = {}) => registry.add(name, arity, handler, {
       ...options,
-      standardLibrary: true,
+      eyeplLibrary: true,
     });
     const accelerator = (name, arity, handler, options = {}) => registry.add(name, arity, handler, {
       ...options,
-      standardLibrary: true,
+      eyeplLibrary: true,
     });
 
     relation('append', 3, appendBuiltin);
@@ -1157,25 +1157,28 @@ function integerArgument(term, env) {
   return BigInt(resolved.name);
 }
 
-export function createLibraryRegistry() {
+export function createEyeplRegistry() {
   const registry = new BuiltinRegistry();
-  registry.standardLibrary = true;
+  registry.eyeplLibrary = true;
   for (const mod of [
     coreBuiltins,
     metaCallBuiltins,
     arithmeticBuiltins,
     stringBuiltins,
     standardBuiltins,
-    isoBuiltins,
   ]) {
     mod.register(registry);
   }
+  for (const definition of registry.defs.values()) definition.eyeplLibrary = true;
+  // ISO definitions take precedence where names overlap and remain identifiable
+  // as ISO rather than Eyepl-library predicates.
+  isoBuiltins.register(registry);
   return registry;
 }
 
-let libraryRegistry = null;
+let eyeplRegistry = null;
 
-export function getLibraryRegistry() {
-  if (libraryRegistry == null) libraryRegistry = createLibraryRegistry();
-  return libraryRegistry;
+export function getEyeplRegistry() {
+  if (eyeplRegistry == null) eyeplRegistry = createEyeplRegistry();
+  return eyeplRegistry;
 }

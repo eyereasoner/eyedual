@@ -2,9 +2,9 @@
 // Keep this module free of Node-only imports: it is fetched directly by the
 // browser and is also exercised by test/run-playground.mjs.
 import { run } from './index.js?playground=20260801b';
-import { createLibraryRegistry } from './library.js?playground=20260801b';
+import { createEyeplRegistry } from './library.js?playground=20260801b';
 
-const registry = createLibraryRegistry();
+const registry = createEyeplRegistry();
 
 export function executePlaygroundRequest(data, now = defaultNow) {
   const started = now();

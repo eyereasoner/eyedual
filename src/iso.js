@@ -1504,7 +1504,7 @@ export class BuiltinRegistry {
       ready: options.ready ?? null,
       fallbackWhenNotReady: options.fallbackWhenNotReady ?? false,
       shouldUse: options.shouldUse ?? null,
-      standardLibrary: options.standardLibrary ?? false,
+      eyeplLibrary: options.eyeplLibrary ?? false,
     });
     return this;
   }

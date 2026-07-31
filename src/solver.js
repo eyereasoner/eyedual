@@ -5,7 +5,7 @@ import {
   numberTerm, numberTextFromDouble, termIsGround, termToString, unify, variantTerms,
 } from './term.js';
 import { PrologError } from './iso.js';
-import { getLibraryRegistry } from './library.js';
+import { getEyeplRegistry } from './library.js';
 import { selectClauseCandidates, selectClauseCandidatesForValues } from './program.js';
 import { StreamManager } from './io.js';
 
@@ -17,13 +17,13 @@ export function nextFreshId() {
 
 export class Solver {
   constructor(program, options = {}) {
-    this.registry = options.registry ?? getLibraryRegistry();
+    this.registry = options.registry ?? getEyeplRegistry();
     this.program = program;
     this.programRevision = this.program.revision ?? 0;
     this.maxDepth = options.maxDepth ?? 100000;
     this.solutionLimit = options.solutionLimit ?? 10000000;
     this.solutionsSeen = 0;
-    this.prologFlags = options.prologFlags ?? defaultPrologFlags(this.registry?.standardLibrary ? 'fail' : 'error');
+    this.prologFlags = options.prologFlags ?? defaultPrologFlags(this.registry?.eyeplLibrary ? 'fail' : 'error');
     this.charConversions = options.charConversions ?? new Map();
     if (!options.prologFlags) {
       for (const [flag, value] of program.prologFlagDirectives ?? []) {

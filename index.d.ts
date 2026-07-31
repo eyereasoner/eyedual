@@ -126,7 +126,7 @@ export interface BuiltinDefinition {
   ready: ((goal: EyeplTerm, env: Env) => boolean) | null;
   fallbackWhenNotReady: boolean;
   shouldUse: ((context: { solver: Solver; goal: EyeplTerm; env: Env }) => boolean) | null;
-  standardLibrary: boolean;
+  eyeplLibrary: boolean;
 }
 
 export type BuiltinHandler = (context: { solver: Solver; goal: EyeplTerm; env: Env }) => Iterable<Env>;
@@ -134,7 +134,7 @@ export type BuiltinHandler = (context: { solver: Solver; goal: EyeplTerm; env: E
 export class BuiltinRegistry {
   constructor();
   defs: Map<string, BuiltinDefinition>;
-  standardLibrary?: boolean;
+  eyeplLibrary?: boolean;
   add(name: string, arity: number, handler: BuiltinHandler, options?: Partial<BuiltinDefinition>): this;
   get(name: string, arity: number): BuiltinDefinition | null;
 }
@@ -196,9 +196,9 @@ export function makeProgram(source: string, options?: EyeplRunOptions): Program;
 export function parseClauses(source: string, options?: EyeplRunOptions): EyeplClause[];
 export function parseProgramText(source: string, options?: EyeplRunOptions): EyeplClause[];
 export function createDefaultRegistry(): BuiltinRegistry;
-export function createLibraryRegistry(): BuiltinRegistry;
+export function createEyeplRegistry(): BuiltinRegistry;
 export function getDefaultRegistry(): BuiltinRegistry;
-export function getLibraryRegistry(): BuiltinRegistry;
+export function getEyeplRegistry(): BuiltinRegistry;
 export class PrologError extends Error {
   formal: string;
   culprit: EyeplTerm | null;
@@ -262,9 +262,9 @@ declare const eyepl: {
   parseClauses: typeof parseClauses;
   parseProgramText: typeof parseProgramText;
   createDefaultRegistry: typeof createDefaultRegistry;
-  createLibraryRegistry: typeof createLibraryRegistry;
+  createEyeplRegistry: typeof createEyeplRegistry;
   getDefaultRegistry: typeof getDefaultRegistry;
-  getLibraryRegistry: typeof getLibraryRegistry;
+  getEyeplRegistry: typeof getEyeplRegistry;
   run: typeof run;
   checkInferenceFuses: typeof checkInferenceFuses;
   formatInferenceFuse: typeof formatInferenceFuse;

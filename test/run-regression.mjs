@@ -17,7 +17,7 @@ import {
   Env,
   BuiltinRegistry,
   createDefaultRegistry,
-  getLibraryRegistry,
+  getEyeplRegistry,
   atom,
   compound,
   listFromItems,
@@ -189,7 +189,7 @@ why(
       },
     },
     {
-      name: 'CLI loads standard library predicates by default',
+      name: 'CLI loads Eyepl library predicates by default',
       run: () => {
         const result = runCli(['-'], {
           input: 'query(answer(X)).\nanswer(X) :- member(X, [library]).\n',
@@ -428,12 +428,8 @@ function documentationSyncCases() {
       },
     },
     {
-      name: 'book standard library matches runtime registry',
-      run: () => assertArrayEqual(bookStandardLibraryNames(), registeredStandardLibraryNames(), 'standard builtins'),
-    },
-    {
-      name: 'book extension library matches runtime registry',
-      run: () => assertArrayEqual(bookExtensionBuiltinNames(), registeredExtensionBuiltinNames(), 'extension builtins'),
+      name: 'book Eyepl library matches runtime registry',
+      run: () => assertArrayEqual(bookEyeplLibraryNames(), registeredEyeplLibraryNames(), 'Eyepl library predicates'),
     },
     {
       name: 'README and book document the runtime and browser boundaries',
@@ -445,7 +441,7 @@ function documentationSyncCases() {
           assertIncludes(readme, filename, `README documents ${filename}`);
           assertIncludes(book, filename, `book documents ${filename}`);
         }
-        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js')), false, 'duplicate portable library is absent');
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js')), false, 'obsolete duplicate library module is absent');
         assertEqual('portableLibrarySource' in publicApi, false, 'obsolete portable source API is absent');
         assertEqual(readme.includes('portable-library.js') || readme.includes('portableLibrarySource'), false, 'README has no obsolete portable layer');
         assertEqual(book.includes('portable-library.js') || book.includes('portableLibrarySource'), false, 'book has no obsolete portable layer');
@@ -640,14 +636,14 @@ function apiCases() {
       },
     },
     {
-      name: 'standard registry keeps dynamic program state consistent',
+      name: 'default Eyepl registry keeps dynamic program state consistent',
       run: () => {
         const program = Program.parse([
           ':- dynamic(item/1).',
           'query(done).',
           'done :- assertz(item(a)), retract(item(a)), assertz(item(b)), abolish(item/1).',
         ].join('\n'));
-        const result = run(program, { registry: getLibraryRegistry() });
+        const result = run(program, { registry: getEyeplRegistry() });
         assertEqual(result.stdout, 'done.\n', 'stdout');
         assertEqual(program.findGroup('item', 1), null, 'abolished group');
         assertEqual(
@@ -829,14 +825,14 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'run loads the standard library by default',
+      name: 'run loads the Eyepl library by default',
       run: () => {
         const result = run('query(answer(X)). answer(X) :- append([a], [b], X).');
         assertEqual(result.stdout, 'answer([a, b]).\n', 'stdout');
       },
     },
     {
-      name: 'Solver loads the standard library by default',
+      name: 'Solver loads the Eyepl library by default',
       run: () => {
         const program = Program.parse('query(answer(X)). answer(X) :- append([a], [b], X).');
         const solver = new Solver(program);
@@ -881,23 +877,22 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'ISO-only and native standard registries expose separate metadata',
+      name: 'ISO-only and Eyepl registries expose separate metadata',
       run: () => {
         const registry = createDefaultRegistry();
-        const library = getLibraryRegistry();
+        const library = getEyeplRegistry();
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not ISO core');
-        assertEqual(library.standardLibrary, true, 'complete registry marker');
+        assertEqual(library.eyeplLibrary, true, 'complete registry marker');
         assertEqual(library.defs.size, 182, 'complete registry size');
-        assertEqual(registeredStandardLibraryNames().length, 48, 'standard library size');
-        assertEqual(registeredExtensionBuiltinNames().length, 20, 'host extension size');
-        assertEqual(library.get('append', 3)?.standardLibrary, true, 'append/3 metadata');
-        assertEqual(library.get('maplist', 3)?.standardLibrary, true, 'maplist/3 metadata');
-        assertEqual(library.get('matches', 3)?.standardLibrary, false, 'matches/3 host extension metadata');
+        assertEqual(registeredEyeplLibraryNames().length, 68, 'Eyepl library size');
+        assertEqual(library.get('append', 3)?.eyeplLibrary, true, 'append/3 metadata');
+        assertEqual(library.get('maplist', 3)?.eyeplLibrary, true, 'maplist/3 metadata');
+        assertEqual(library.get('matches', 3)?.eyeplLibrary, true, 'matches/3 metadata');
       },
     },
     {
-      name: 'native standard library does not inject program clauses',
+      name: 'Eyepl library does not inject program clauses',
       run: () => {
         const program = Program.parse('query(answer(X)). answer(X) :- append([a], [b], X).');
         const solver = new Solver(program);
@@ -908,7 +903,7 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'native standard library preserves relational and arithmetic behavior',
+      name: 'Eyepl library preserves relational and arithmetic behavior',
       run: () => {
         const result = run([
           'query(answer(A, B, S, M)).',
@@ -923,11 +918,11 @@ open(X) :- candidate(X), \\+ closed(X).
           'answer([a], [b], 5, 9007199254740993).',
           'answer([a, b], [], 5, 9007199254740993).',
           '',
-        ].join('\n'), 'native standard behavior');
+        ].join('\n'), 'Eyepl library behavior');
       },
     },
     {
-      name: 'native standard library preserves strict modes and ISO arithmetic errors',
+      name: 'Eyepl library preserves strict modes and ISO arithmetic errors',
       run: () => {
         assertEqual(run('query(answer(X)). answer(X) :- substring("abc", "1", 1, X).').stdout, '', 'substring index type');
         let nth1Error = null;
@@ -1536,9 +1531,9 @@ function playgroundStaticIssues() {
   if (!html.includes("new Worker(workerUrl, { type: 'module' })")) issues.push('playground must launch the dedicated module worker');
   const workerText = fs.readFileSync(path.join(packageRoot, 'src', 'playground-worker.js'), 'utf8');
   if (!workerText.includes("from './library.js?playground=") ||
-      !workerText.includes('createLibraryRegistry') ||
+      !workerText.includes('createEyeplRegistry') ||
       !workerText.includes('executePlaygroundRequest')) {
-    issues.push('playground worker must install the native standard library registry');
+    issues.push('playground worker must install the Eyepl library registry');
   }
   if (fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js'))) {
     issues.push('obsolete portable-library.js must be absent');
@@ -1597,17 +1592,10 @@ function registeredBuiltinNames() {
   return [...createDefaultRegistry().defs.keys()].sort();
 }
 
-function registeredStandardLibraryNames() {
-  return [...getLibraryRegistry().defs.entries()]
-    .filter(([, definition]) => definition.standardLibrary)
-    .map(([name]) => name)
-    .sort();
-}
-
-function registeredExtensionBuiltinNames() {
+function registeredEyeplLibraryNames() {
   const defaults = createDefaultRegistry().defs;
-  return [...getLibraryRegistry().defs.entries()]
-    .filter(([name, definition]) => !defaults.has(name) && !definition.standardLibrary)
+  return [...getEyeplRegistry().defs.entries()]
+    .filter(([name]) => !defaults.has(name))
     .map(([name]) => name)
     .sort();
 }
@@ -1622,17 +1610,12 @@ function registeredBuiltinSummary() {
 
 function bookBuiltinNames() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '# Appendix B. Built-in predicates', '## B.3 Native standard and extension library'), 2);
+  return documentedBuiltinNames(between(book, '# Appendix B. Built-in predicates', '## B.3 Eyepl library'), 2);
 }
 
-function bookStandardLibraryNames() {
+function bookEyeplLibraryNames() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '<!-- native-standard-library-catalog:start -->', '<!-- native-standard-library-catalog:end -->'), 1);
-}
-
-function bookExtensionBuiltinNames() {
-  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '<!-- native-extension-catalog:start -->', '<!-- native-extension-catalog:end -->'), 1);
+  return documentedBuiltinNames(between(book, '<!-- eyepl-library-catalog:start -->', '<!-- eyepl-library-catalog:end -->'), 1);
 }
 
 function bookBuiltinSummary() {

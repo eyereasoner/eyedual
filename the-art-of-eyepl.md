@@ -85,7 +85,7 @@ Readers who do not want to install anything can begin in the
 [browser playground](https://eyereasoner.github.io/eyepl/playground). Paste
 the source of `examples/socrates.pl` into the editor and run it. The playground
 and local CLI accept the same in-memory Prolog source and load the same portable
-standard library by default, so relations such as `append/3` and `member/2` need no
+Eyepl library by default, so relations such as `append/3` and `member/2` need no
 extra switch. The page starts a dedicated ES-module worker for each run. Serve a
 local checkout over HTTP(S), rather than opening the page as a `file:` URL.
 Filesystem predicates and `include/1` are Node-only; URL and embedding examples
@@ -1537,7 +1537,7 @@ truncate search; it does not prove that no further answer exists.
 
 The source layout mirrors the public registry boundary. `src/iso.js` contains
 the isolated ISO processor predicates and registry. `src/library.js` contains
-the complete standard library and host conveniences as native JavaScript
+the complete Eyepl library predicates as native JavaScript
 builtins described in Appendix B.3. No bundled Prolog source is parsed or
 overlaid at startup. Normal CLI, JavaScript, solver, and proof execution uses
 that composed registry. The browser entry `src/playground-worker.js` constructs
@@ -1549,19 +1549,19 @@ and proof machinery.
 
 ### Extending the built-in registry
 
-An embedder can start from the standard registry and add a host relation. A
+An embedder can start from the default Eyepl registry and add a host relation. A
 handler is a generator over environments. It should clone before binding and
 yield only environments in which its result unifies:
 
 ```js
 import {
   atom,
-  createLibraryRegistry,
+  createEyeplRegistry,
   run,
   unify
 } from 'eyepl';
 
-const registry = createLibraryRegistry();
+const registry = createEyeplRegistry();
 
 registry.add(
   'host_status',
@@ -4691,7 +4691,7 @@ Atomic conversion predicates expose reversible representations:
 - `char_code/2` converts one character; and
 - `number_chars/2` and `number_codes/2` parse or render ISO numbers.
 
-These are atom relations, not the extension library's string convenience
+These are atom relations, not the Eyepl library's string convenience
 predicates. Quoted atoms such as `'λ'` remain atoms; double-quoted values remain
 Eyepl strings.
 
@@ -5075,10 +5075,9 @@ The JavaScript `ioOptions.input` and `ioOptions.write` hooks connect standard
 streams to an embedder. File-backed streams use synchronous lifecycle semantics
 so side effects occur in Prolog execution order.
 
-## B.3 Native standard and extension library
+## B.3 Eyepl library
 
-The standard runtime registry combines the supported ISO Prolog profile with a
-native JavaScript standard library and a small host-extension layer. It is
+The runtime registry combines the supported ISO Prolog profile with the Eyepl library, implemented entirely in JavaScript. It is
 loaded automatically by the CLI, `run()`, `Solver`, proof replay, and the browser
 playground, so ordinary programs do not need a library flag or registry option.
 All of these relations live in `src/library.js`; there is no second portable
@@ -5088,14 +5087,13 @@ ISO-only registry remains available through `createDefaultRegistry()` and
 `getDefaultRegistry()` for conformance work and advanced embedders.
 
 The complete registry contains **182 predicate indicators**: 114 in the isolated
-ISO profile, 48 standard-library indicators implemented in JavaScript, and 20
-irreducible host-extension indicators. Every standard definition is tagged with
-`standardLibrary: true`, so tests and embedders can audit the boundary without
-inferring it from filenames.
+ISO profile and 68 Eyepl library indicators implemented in `src/library.js`. Every
+Eyepl library definition is tagged with `eyeplLibrary: true`, so tests and
+embedders can audit the boundary directly.
 
-<!-- native-standard-library-catalog:start -->
+<!-- eyepl-library-catalog:start -->
 
-| Native standard-library predicates |
+| Eyepl library predicates |
 | --- |
 | `append/3`, `member/2`, `select/3`, `head/2`, `rest/2`, `last/2` |
 | `nth0/3`, `nth1/3`, `set_nth0/4`, `take/3`, `drop/3`, `slice/4` |
@@ -5109,13 +5107,6 @@ inferring it from filenames.
 | `aggregate_max/5`, `aggregate_max_pairs/3`, `aggregate_max_acc/5` |
 | `between/3`, `between_range/3`, `min/3`, `max/3`, `smallest_divisor_from/3` |
 | `maplist/3`, `holds/2`, `holds/3` |
-
-<!-- native-standard-library-catalog:end -->
-
-<!-- native-extension-catalog:start -->
-
-| Native host-extension predicates |
-| --- |
 | `acos/2`, `asin/2`, `atan2/3`, `tan/2` |
 | `lt/2`, `le/2`, `gt/2`, `ge/2` |
 | `local_time/1`, `difference/3` |
@@ -5125,13 +5116,13 @@ inferring it from filenames.
 | `lowercase/2`, `uppercase/2`, `trim/2` |
 | `number_string/2`, `atom_string/2`, `term_string/2` |
 
-<!-- native-extension-catalog:end -->
+<!-- eyepl-library-catalog:end -->
 
-On the command line, the standard library is already present:
+On the command line, the Eyepl library is already present:
 
 ```sh
 eyepl program.pl
-eyepl -p program.pl        # standard library plus proof output
+eyepl -p program.pl        # Eyepl library plus proof output
 ```
 
 JavaScript uses the same registry by default:
@@ -5151,7 +5142,7 @@ The mode notation below is descriptive:
 - `-` means the predicate produces that argument;
 - `?` means a bound value can be checked or an unbound value generated.
 
-Most extension predicates are projections or filters. When an input is
+Most Eyepl library predicates are projections or filters. When an input is
 unbound, malformed, outside its domain, or incompatible with the requested
 output, they normally **fail** rather than raising the ISO errors described in
 B.2. They do not invent open-ended domains. Bind arithmetic operands, source
@@ -5180,15 +5171,14 @@ for example, `R is A + B`, `R is abs(A)`, and `R is sqrt(A)`. The same applies
 to subtraction, multiplication, division, modulo, powers, sine, cosine,
 exponential, logarithm, and the ISO rounding functions.
 
-The bundled native standard-library layer defines `between/3`, `min/3`, `max/3`, and
+The bundled Eyepl library layer defines `between/3`, `min/3`, `max/3`, and
 `smallest_divisor_from/3` using ISO arithmetic and comparisons. They are
-available in the default runtime, but they are not host-extension predicates.
+available in the default runtime, but they are part of the Eyepl library.
 `between/3` and `smallest_divisor_from/3` retain measured native accelerators.
 
-### B.3.2 Native standard list relations
+### B.3.2 List relations
 
-These relations are native JavaScript implementations of the established
-standard-library surface; they are not semantic host extensions. Their
+These relations are JavaScript implementations provided by the Eyepl library. Their
 relational modes and error behavior are regression-checked against the former
 clause implementation. Every list-consuming relation below expects a proper
 list unless explicitly
@@ -5213,7 +5203,7 @@ integers.
 | `reverse(+List,-Reversed)` | Reverses a proper list. |
 | `length(?List,?Length)` | Reports or checks the length of a proper list, or generates a list skeleton when `Length` is a bound nonnegative integer. |
 | `sum_list(+List,-Sum)` | Sums numeric elements with ISO `is/2`. The empty sum is `0`; invalid arithmetic raises the corresponding ISO error. |
-| `min_list(+List,-Min)`, `max_list(+List,-Max)` | Select by standard Eyepl term order, not numeric coercion. Empty lists fail. |
+| `min_list(+List,-Min)`, `max_list(+List,-Max)` | Select by Eyepl term order, not numeric coercion. Empty lists fail. |
 | `list_to_set(+List,-Set)` | Removes later structural duplicates while preserving first-occurrence order. |
 | `sort(+List,-Set)` | Sorts by standard term order and removes structural duplicates. |
 
@@ -5279,11 +5269,11 @@ intended to restrict its domain.
 | `aggregate_min(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the smallest resolved key under standard term order. |
 | `aggregate_max(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the largest resolved key. Both best-value predicates fail on an empty solution set and retain the first solution on an equal key. |
 
-ISO `findall/3` is present in both registries. The extension aggregates follow
+ISO `findall/3` is present in both registries. The Eyepl library aggregates follow
 the same scoping principle: variables created inside the nested search do not
 leak except through the declared templates and outputs.
 
-There are no `not/1` or `forall/2` semantic host extensions. Use ISO `\+/1`;
+There are no `not/1` or `forall/2` semantic host conveniences. Use ISO `\+/1`;
 define a named counterexample relation for universal checks. `once/1` is
 supplied directly by the ISO registry.
 
@@ -5303,9 +5293,9 @@ query(answer(Kind, Value)).
 
 ### B.3.5 Native context helpers
 
-The `holds/2` and `holds/3` relations below are native standard-library
+The `holds/2` and `holds/3` relations below are Eyepl library
 relations. They preserve the former unification and `=../2`-style decomposition
-semantics and are not host extensions.
+semantics and are not host conveniences.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |
@@ -5326,7 +5316,7 @@ query(answer(X)).
 The library still includes the ISO `functor/3`, `arg/3`, and `=../2`
 predicates described in the default profile. Use `=../2` for whole-argument-list
 decomposition and construction, `=/2` for unification, and `\=/2` for
-non-unifiability; the redundant extension aliases are not registered.
+non-unifiability; redundant aliases are not registered.
 
 # Appendix C. Command-line reference
 
@@ -5830,7 +5820,7 @@ additional compatibility conveniences.
 
 This breadth is not a formal certification of every processor requirement.
 The executable examples are Eyepl-profile programs and commonly use `query/1`,
-strings, inference fuses, automatic tabling, or the standard extension library.
+strings, inference fuses, automatic tabling, or the Eyepl library.
 The remaining qualifications are:
 
 - zero-arity compound syntax such as `ready()` is represented by the atom

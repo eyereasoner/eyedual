@@ -32,7 +32,7 @@ export async function main(argv) {
       await usage(process.stdout);
       return;
     } else if (!endOptions && (arg === '--library' || arg === '-l')) {
-      // Backward-compatible no-op: the standard library is always loaded.
+      // Backward-compatible no-op: the Eyepl library is always available.
     } else if (!endOptions && (arg === '--proof' || arg === '-p')) {
       options.proof = true;
     } else if (!endOptions && (arg === '--stats' || arg === '-s')) {
@@ -125,7 +125,7 @@ async function runDefault(engine, program, options) {
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
   const facts = program.sourceFactLines(queriedKeys);
   const lines = new Set();
-  const registry = engine.getLibraryRegistry();
+  const registry = engine.getEyeplRegistry();
   const explanation = options.proof ? await loadExplanation() : null;
   const solver = new engine.Solver(program, {
     registry,

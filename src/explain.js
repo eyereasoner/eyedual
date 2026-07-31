@@ -4,12 +4,12 @@
 // human-readable and machine-readable.
 import { ATOM, COMPOUND, Env, Term, VAR, deref, flattenConjunction, freshTerm, termToString, unify, variantTerms } from './term.js';
 import { selectClauseCandidates } from './program.js';
-import { getLibraryRegistry } from './library.js';
+import { getEyeplRegistry } from './library.js';
 import { Solver, nextFreshId } from './solver.js';
 
 export function whyProof(program, goal, options = {}) {
   const maxDepth = options.maxDepth ?? 256;
-  const registry = options.registry ?? getLibraryRegistry();
+  const registry = options.registry ?? getEyeplRegistry();
   const env = options.env ?? new Env();
   for (const proof of proveGoalAll(program, goal, env, 0, maxDepth, registry, [])) {
     return { ok: true, text: renderWhyFacts(goal, proof.node, proof.env) };
