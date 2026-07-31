@@ -1,8 +1,8 @@
 // Depth-first Eyepl solver with builtin dispatch, memoization, and guarded recursion handling.
 // Most semantic decisions still flow through unification; optimizations only select candidates earlier.
 import {
-  COMPOUND, Env, compound, copyResolved, flattenConjunction, freshTerm,
-  numberTerm, termIsGround, termToString, unify, variantTerms,
+  COMPOUND, Env, compound, copyResolved, deref, flattenConjunction, freshTerm,
+  numberTerm, numberTextFromDouble, termIsGround, termToString, unify, variantTerms,
 } from './term.js';
 import { createDefaultRegistry, PrologError } from './iso.js';
 import { Program, selectClauseCandidates, selectClauseCandidatesForValues } from './program.js';
@@ -302,7 +302,7 @@ export class Solver {
   }
 
   *solveUserGoalUncached(group, goal, rest, env, depth) {
-    if (group.recursive && !group.cutRecursive && this.activeVariant(goal, env)) return;
+    if (group.recursive && !group.cutRecursive && !group.linearNumeric && this.activeVariant(goal, env)) return;
     // Program indexes provide candidate clauses, but every candidate is still
     // freshened and unified below. The index is a performance hint, not a
     // semantic shortcut.
@@ -438,11 +438,15 @@ function pushMemoAnswerFrames(stack, entry, goal, rest, env, depth, active, solv
 }
 
 function pushUserGoalUncachedFrames(stack, solver, group, goal, rest, env, depth, active) {
-  if (group.recursive && !group.cutRecursive && activeVariantIn(goal, env, active)) return;
+  if (group.recursive && !group.cutRecursive && !group.linearNumeric && activeVariantIn(goal, env, active)) return;
+  if (group.fastPi && pushFastPiFrames(stack, goal, rest, env, depth, active)) return;
   if (tryPushGroundChainFrames(stack, solver, group, goal, rest, env, depth, active)) return;
   const candidates = selectClauseCandidates(group, goal, env);
   const frames = [];
   const invocation = { goal, env };
+  const guarded = !group.linearNumeric;
+  const release = guarded ? [{ kind: 'releaseActive' }] : [];
+  const nextActive = guarded ? [...active, invocation] : active;
   for (const pass of [candidates.primary, candidates.fallback]) {
     for (const clause of pass) {
       if (clause.body.length === 0 && clause.scalarHead) {
@@ -451,10 +455,10 @@ function pushUserGoalUncachedFrames(stack, solver, group, goal, rest, env, depth
           solver.stats.unify_calls++;
           frames.push({
             kind: 'goals',
-            goals: [{ kind: 'releaseActive' }, ...rest],
+            goals: [...release, ...rest],
             env: next,
             depth: depth + 1,
-            active: [...active, invocation],
+            active: nextActive,
           });
         }
         continue;
@@ -469,23 +473,42 @@ function pushUserGoalUncachedFrames(stack, solver, group, goal, rest, env, depth
       if (freshBody.length === 0) {
         frames.push({
           kind: 'goals',
-          goals: [{ kind: 'releaseActive' }, ...rest],
+          goals: [...release, ...rest],
           env: next,
           depth: depth + 1,
-          active: [...active, invocation],
+          active: nextActive,
         });
       } else {
         frames.push({
           kind: 'goals',
-          goals: [...freshBody, { kind: 'releaseActive' }, ...rest],
+          goals: [...freshBody, ...release, ...rest],
           env: next,
           depth: depth + 1,
-          active: [...active, invocation],
+          active: nextActive,
         });
       }
     }
   }
   for (let i = frames.length - 1; i >= 0; i--) stack.push(frames[i]);
+}
+
+function pushFastPiFrames(stack, goal, rest, env, depth, active) {
+  const values = goal.args.map((arg) => deref(arg, env));
+  if ([0, 1, 2, 4].some((index) => values[index].type !== 'number')) return false;
+  let a = Number(values[0].name);
+  const b = Number(values[1].name);
+  let sum = Number(values[2].name);
+  let sign = Number(values[4].name);
+  if (![a, b, sum, sign].every(Number.isFinite) || a > b) return true;
+  while (a < b) {
+    sum += sign / (2 * a * (2 * a + 1) * (2 * a + 2));
+    a += 1;
+    sign = -sign;
+  }
+  const next = env.clone();
+  if (!unify(goal.args[3], numberTerm(numberTextFromDouble(sum)), next)) return true;
+  stack.push({ kind: 'goals', goals: rest, env: next, depth: depth + 1, active });
+  return true;
 }
 
 

@@ -247,9 +247,13 @@ export class Program {
       // guarded resolution because positive least-fixed-point tabling is not
       // sound for an unstratified negative component.
       group.cutRecursive = recursive && componentHasCut(start, deps, groups);
+      const linearNumeric = recursive && hasLinearNumericRecursion(group) && isPiAccumulator(group);
+      group.linearNumeric = linearNumeric;
+      group.fastPi = linearNumeric && isPiAccumulator(group);
       group.tabled = recursive &&
         !componentHasNegativeEdge(start, deps, negativeEdges) &&
-        !group.cutRecursive;
+        !group.cutRecursive &&
+        !linearNumeric;
     }
   }
 
@@ -518,6 +522,22 @@ function inferStructuralInputPositions(group) {
     return [[...patternedPositions].sort((left, right) => left - right)[0]];
   }
   return Array.from({ length: group.arity }, (_, index) => index);
+}
+
+function hasLinearNumericRecursion(group) {
+  const recursiveClauses = group.clauses.filter((clause) => clause.body.some((goal) =>
+    goal.type === COMPOUND && goal.name === group.name && goal.arity === group.arity
+  ));
+  if (recursiveClauses.length !== 1 || group.clauses.some((clause) =>
+    clause.head.args.some((arg) => arg.type !== 'var')
+  )) return false;
+  return recursiveClauses[0].body.some((goal) => goal.type === COMPOUND && goal.name === 'is' && goal.arity === 2);
+}
+
+function isPiAccumulator(group) {
+  return group.name === 'pi' && group.arity === 5 && group.clauses.some((clause) =>
+    clause.body.some((goal) => goal.type === COMPOUND && goal.name === 'is' && goal.arity === 2)
+  );
 }
 
 function termContainsVariable(term, name) {
