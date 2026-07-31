@@ -8,6 +8,8 @@
 
 **Author:** [Jos De Roo](https://josd.github.io/)
 
+**Applies to Eyepl:** `0.1.33`
+
 Eyepl turns facts and rules into answers and inspectable proofs. This book is an
 original introduction to the habits of logic programming: describe a world,
 state the relationships that hold in it, and let unification and search connect

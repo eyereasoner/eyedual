@@ -53,6 +53,7 @@
     "test:regression": "node test/run-regression.mjs",
     "test:playground": "node test/run-playground.mjs",
     "preversion": "npm test && node test/run-conformance-report.mjs conformance-report.md",
+    "version": "node tools/sync-book-version.mjs && git add the-art-of-eyepl.md",
     "postversion": "git push origin HEAD --follow-tags"
   },
   "dependencies": {
