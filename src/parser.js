@@ -437,6 +437,14 @@ class Parser {
       const op = this.token.text;
       const info = this.prefixOperators.get(op);
       this.advance();
+      // Graphic operators can also be ordinary atom data in a term, as in
+      // `op(+, Left, Right)`.  When the operator is immediately followed by
+      // an argument delimiter there is no operand for prefix syntax, so keep
+      // the operator as an atom instead of reporting a misleading bad-term
+      // error.
+      if ([TOK.COMMA, TOK.RPAREN, TOK.RBRACKET, TOK.BAR].includes(this.token.type)) {
+        return atom(op);
+      }
       if (this.token.type === TOK.LPAREN) {
         this.advance();
         const args = [];
