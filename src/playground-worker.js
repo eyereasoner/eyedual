@@ -1,14 +1,10 @@
 // Browser worker entry used by playground.html.
 // Keep this module free of Node-only imports: it is fetched directly by the
 // browser and is also exercised by test/run-playground.mjs.
-import { run } from './index.js?playground=20260731c';
-import { createLibraryRegistry } from './library.js?playground=20260731c';
-import { portableLibrarySource } from './portable-library.js?playground=20260731c';
+import { run } from './index.js?playground=20260801b';
+import { createLibraryRegistry } from './library.js?playground=20260801b';
 
 const registry = createLibraryRegistry();
-// Install the portable clauses explicitly so a playground run never depends on
-// a caller remembering a CLI/API option or on an implicit registry choice.
-registry.portableSource = portableLibrarySource;
 
 export function executePlaygroundRequest(data, now = defaultNow) {
   const started = now();

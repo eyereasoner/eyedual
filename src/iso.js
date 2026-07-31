@@ -1459,21 +1459,32 @@ function evaluateOperation(term, args) {
   if (!Number.isFinite(value)) throw new PrologError('evaluation_error(undefined)');
   return { integer: false, value };
 }
-function numericTerm(value) {
+export function arithmeticValueTerm(value) {
   return value.integer ? numberTerm(value.value.toString()) : numberTerm(numberTextFromDouble(value.value));
 }
+function numericTerm(value) {
+  return arithmeticValueTerm(value);
+}
+export function evaluateArithmetic(term, env) {
+  return evaluate(term, env);
+}
+export function compareArithmeticValues(left, right) {
+  const a = left.value;
+  const b = right.value;
+  return left.integer && right.integer
+    ? (a < b ? -1 : a > b ? 1 : 0)
+    : (Number(a) < Number(b) ? -1 : Number(a) > Number(b) ? 1 : 0);
+}
 function* isBuiltin({ goal, env }) {
-  const result = numericTerm(evaluate(goal.args[1], env));
+  const result = arithmeticValueTerm(evaluateArithmetic(goal.args[1], env));
   const next = env.clone();
   if (unify(goal.args[0], result, next)) yield next;
 }
 function arithmeticComparison(test) {
   return function* ({ goal, env }) {
-    const left = evaluate(goal.args[0], env);
-    const right = evaluate(goal.args[1], env);
-    const a = left.value, b = right.value;
-    const cmp = left.integer && right.integer ? (a < b ? -1 : a > b ? 1 : 0)
-      : Number(a) < Number(b) ? -1 : Number(a) > Number(b) ? 1 : 0;
+    const left = evaluateArithmetic(goal.args[0], env);
+    const right = evaluateArithmetic(goal.args[1], env);
+    const cmp = compareArithmeticValues(left, right);
     if (test(cmp)) yield env;
   };
 }
@@ -1493,7 +1504,7 @@ export class BuiltinRegistry {
       ready: options.ready ?? null,
       fallbackWhenNotReady: options.fallbackWhenNotReady ?? false,
       shouldUse: options.shouldUse ?? null,
-      portableEquivalent: options.portableEquivalent ?? false,
+      standardLibrary: options.standardLibrary ?? false,
     });
     return this;
   }

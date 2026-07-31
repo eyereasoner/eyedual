@@ -16,29 +16,7 @@ why(
           ),
           proof(
             goal(holds(foaf_name(bob, "Bob"), foaf_name, [bob, "Bob"])),
-            by(rule("<library>", clause(73))),
-            bindings([binding("Context", foaf_name(bob, "Bob")), binding("Name", foaf_name), binding("Arguments", [bob, "Bob"]), binding("Member", foaf_name(bob, "Bob"))]),
-            uses([
-              proof(
-                goal(holds(foaf_name(bob, "Bob"), foaf_name(bob, "Bob"))),
-                by(rule("<library>", clause(72))),
-                bindings([binding("Member", foaf_name(bob, "Bob"))]),
-                uses([
-                  proof(
-                    goal(\=(foaf_name(bob, "Bob"), (__anon17, __anon18))),
-                    by(builtin(\=, 2))
-                  )
-                ])
-              ),
-              proof(
-                goal(';'(atom(foaf_name(bob, "Bob")), compound(foaf_name(bob, "Bob")))),
-                by(builtin(';', 2))
-              ),
-              proof(
-                goal('=..'(foaf_name(bob, "Bob"), [foaf_name, bob, "Bob"])),
-                by(builtin('=..', 2))
-              )
-            ])
+            by(builtin(holds, 3))
           )
         ])
       )
@@ -64,36 +42,7 @@ why(
           ),
           proof(
             goal(holds((sec_proof(skolem_g0, dataSignature), type(signature1, sec_DataIntegrityProof), sec_cryptosuite(signature1, "ecdsa-proof-2019"), sec_created(signature1, "2021-11-13T18:19:39Z"), sec_verificationMethod(signature1, "https://university.example/issuers/14#key-1"), sec_proofPurpose(signature1, "assertionMethod"), sec_proofValue(signature1, "z58DAdFfa9SkqZMVPxAQp...jQCrfFPP2oumHKtz"), sec_issuer(signature1, university), sec_validFrom(signature1, "2024-04-03T00:00:00.000Z"), sec_validUntil(signature1, "2025-04-03T00:00:00.000Z")), sec_proof, [skolem_g0, dataSignature])),
-            by(rule("<library>", clause(73))),
-            bindings([binding("Context", (sec_proof(skolem_g0, dataSignature), type(signature1, sec_DataIntegrityProof), sec_cryptosuite(signature1, "ecdsa-proof-2019"), sec_created(signature1, "2021-11-13T18:19:39Z"), sec_verificationMethod(signature1, "https://university.example/issuers/14#key-1"), sec_proofPurpose(signature1, "assertionMethod"), sec_proofValue(signature1, "z58DAdFfa9SkqZMVPxAQp...jQCrfFPP2oumHKtz"), sec_issuer(signature1, university), sec_validFrom(signature1, "2024-04-03T00:00:00.000Z"), sec_validUntil(signature1, "2025-04-03T00:00:00.000Z"))), binding("Name", sec_proof), binding("Arguments", [skolem_g0, dataSignature]), binding("Member", sec_proof(skolem_g0, dataSignature))]),
-            uses([
-              proof(
-                goal(holds((sec_proof(skolem_g0, dataSignature), type(signature1, sec_DataIntegrityProof), sec_cryptosuite(signature1, "ecdsa-proof-2019"), sec_created(signature1, "2021-11-13T18:19:39Z"), sec_verificationMethod(signature1, "https://university.example/issuers/14#key-1"), sec_proofPurpose(signature1, "assertionMethod"), sec_proofValue(signature1, "z58DAdFfa9SkqZMVPxAQp...jQCrfFPP2oumHKtz"), sec_issuer(signature1, university), sec_validFrom(signature1, "2024-04-03T00:00:00.000Z"), sec_validUntil(signature1, "2025-04-03T00:00:00.000Z")), sec_proof(skolem_g0, dataSignature))),
-                by(rule("<library>", clause(70))),
-                bindings([binding("Left", sec_proof(skolem_g0, dataSignature)), binding("Right", (type(signature1, sec_DataIntegrityProof), sec_cryptosuite(signature1, "ecdsa-proof-2019"), sec_created(signature1, "2021-11-13T18:19:39Z"), sec_verificationMethod(signature1, "https://university.example/issuers/14#key-1"), sec_proofPurpose(signature1, "assertionMethod"), sec_proofValue(signature1, "z58DAdFfa9SkqZMVPxAQp...jQCrfFPP2oumHKtz"), sec_issuer(signature1, university), sec_validFrom(signature1, "2024-04-03T00:00:00.000Z"), sec_validUntil(signature1, "2025-04-03T00:00:00.000Z"))), binding("Member", sec_proof(skolem_g0, dataSignature))]),
-                uses([
-                  proof(
-                    goal(holds(sec_proof(skolem_g0, dataSignature), sec_proof(skolem_g0, dataSignature))),
-                    by(rule("<library>", clause(72))),
-                    bindings([binding("Member", sec_proof(skolem_g0, dataSignature))]),
-                    uses([
-                      proof(
-                        goal(\=(sec_proof(skolem_g0, dataSignature), (__anon17, __anon18))),
-                        by(builtin(\=, 2))
-                      )
-                    ])
-                  )
-                ])
-              ),
-              proof(
-                goal(';'(atom(sec_proof(skolem_g0, dataSignature)), compound(sec_proof(skolem_g0, dataSignature)))),
-                by(builtin(';', 2))
-              ),
-              proof(
-                goal('=..'(sec_proof(skolem_g0, dataSignature), [sec_proof, skolem_g0, dataSignature])),
-                by(builtin('=..', 2))
-              )
-            ])
+            by(builtin(holds, 3))
           )
         ])
       )
@@ -119,36 +68,7 @@ why(
           ),
           proof(
             goal(holds((sec_proof(skolem_g1, signature2), type(signature2, sec_DataIntegrityProof), sec_cryptosuite(signature2, "ecdsa-proof-2019"), sec_created(signature2, "2021-11-13T18:19:39Z"), sec_verificationMethod(signature2, "https://university.example/issuers/14#key-1"), sec_proofPurpose(signature2, "assertionMethod"), sec_proofValue(signature2, "adad123efv434r5200...dqed2t44v43das")), sec_proof, [skolem_g1, signature2])),
-            by(rule("<library>", clause(73))),
-            bindings([binding("Context", (sec_proof(skolem_g1, signature2), type(signature2, sec_DataIntegrityProof), sec_cryptosuite(signature2, "ecdsa-proof-2019"), sec_created(signature2, "2021-11-13T18:19:39Z"), sec_verificationMethod(signature2, "https://university.example/issuers/14#key-1"), sec_proofPurpose(signature2, "assertionMethod"), sec_proofValue(signature2, "adad123efv434r5200...dqed2t44v43das"))), binding("Name", sec_proof), binding("Arguments", [skolem_g1, signature2]), binding("Member", sec_proof(skolem_g1, signature2))]),
-            uses([
-              proof(
-                goal(holds((sec_proof(skolem_g1, signature2), type(signature2, sec_DataIntegrityProof), sec_cryptosuite(signature2, "ecdsa-proof-2019"), sec_created(signature2, "2021-11-13T18:19:39Z"), sec_verificationMethod(signature2, "https://university.example/issuers/14#key-1"), sec_proofPurpose(signature2, "assertionMethod"), sec_proofValue(signature2, "adad123efv434r5200...dqed2t44v43das")), sec_proof(skolem_g1, signature2))),
-                by(rule("<library>", clause(70))),
-                bindings([binding("Left", sec_proof(skolem_g1, signature2)), binding("Right", (type(signature2, sec_DataIntegrityProof), sec_cryptosuite(signature2, "ecdsa-proof-2019"), sec_created(signature2, "2021-11-13T18:19:39Z"), sec_verificationMethod(signature2, "https://university.example/issuers/14#key-1"), sec_proofPurpose(signature2, "assertionMethod"), sec_proofValue(signature2, "adad123efv434r5200...dqed2t44v43das"))), binding("Member", sec_proof(skolem_g1, signature2))]),
-                uses([
-                  proof(
-                    goal(holds(sec_proof(skolem_g1, signature2), sec_proof(skolem_g1, signature2))),
-                    by(rule("<library>", clause(72))),
-                    bindings([binding("Member", sec_proof(skolem_g1, signature2))]),
-                    uses([
-                      proof(
-                        goal(\=(sec_proof(skolem_g1, signature2), (__anon17, __anon18))),
-                        by(builtin(\=, 2))
-                      )
-                    ])
-                  )
-                ])
-              ),
-              proof(
-                goal(';'(atom(sec_proof(skolem_g1, signature2)), compound(sec_proof(skolem_g1, signature2)))),
-                by(builtin(';', 2))
-              ),
-              proof(
-                goal('=..'(sec_proof(skolem_g1, signature2), [sec_proof, skolem_g1, signature2])),
-                by(builtin('=..', 2))
-              )
-            ])
+            by(builtin(holds, 3))
           )
         ])
       )

@@ -80,7 +80,6 @@ export async function runPlayground(reporter = new TestReporter()) {
         ['playground.html', 'text/html'],
         ['src/playground-worker.js', 'text/javascript'],
         ['src/index.js', 'text/javascript'],
-        ['src/portable-library.js', 'text/javascript'],
         ['examples/socrates.pl', 'text/plain'],
       ];
       for (const [relative, contentType] of expected) {
@@ -95,7 +94,7 @@ export async function runPlayground(reporter = new TestReporter()) {
     await withStaticServer(async (baseUrl) => {
       const modules = await crawlModuleGraph(new URL('src/playground-worker.js?playground=test', baseUrl));
       assert(modules.size >= 10, `expected a substantial worker module graph, got ${modules.size}`);
-      assert([...modules].some((url) => url.includes('/src/portable-library.js')), 'portable library missing from worker graph');
+      assert([...modules].some((url) => url.includes('/src/library.js')), 'native standard library missing from worker graph');
       assert([...modules].some((url) => url.includes('/src/solver.js')), 'solver missing from worker graph');
     });
   });

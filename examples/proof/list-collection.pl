@@ -1,3 +1,83 @@
+length(numbers, 3).
+why(
+  length(numbers, 3),
+  proof(
+    goal(length(numbers, 3)),
+    by(rule("list-collection.pl", clause(8))),
+    bindings([binding("N", 3), binding("List", [1, 2, 3])]),
+    uses([
+      proof(
+        goal(collection(numbers, [1, 2, 3])),
+        by(fact("list-collection.pl", clause(6)))
+      ),
+      proof(
+        goal(length([1, 2, 3], 3)),
+        by(builtin(length, 2))
+      )
+    ])
+  )
+).
+
+member(numbers, 1).
+why(
+  member(numbers, 1),
+  proof(
+    goal(member(numbers, 1)),
+    by(rule("list-collection.pl", clause(9))),
+    bindings([binding("X", 1), binding("List", [1, 2, 3])]),
+    uses([
+      proof(
+        goal(collection(numbers, [1, 2, 3])),
+        by(fact("list-collection.pl", clause(6)))
+      ),
+      proof(
+        goal(member(1, [1, 2, 3])),
+        by(builtin(member, 2))
+      )
+    ])
+  )
+).
+
+member(numbers, 2).
+why(
+  member(numbers, 2),
+  proof(
+    goal(member(numbers, 2)),
+    by(rule("list-collection.pl", clause(9))),
+    bindings([binding("X", 2), binding("List", [1, 2, 3])]),
+    uses([
+      proof(
+        goal(collection(numbers, [1, 2, 3])),
+        by(fact("list-collection.pl", clause(6)))
+      ),
+      proof(
+        goal(member(2, [1, 2, 3])),
+        by(builtin(member, 2))
+      )
+    ])
+  )
+).
+
+member(numbers, 3).
+why(
+  member(numbers, 3),
+  proof(
+    goal(member(numbers, 3)),
+    by(rule("list-collection.pl", clause(9))),
+    bindings([binding("X", 3), binding("List", [1, 2, 3])]),
+    uses([
+      proof(
+        goal(collection(numbers, [1, 2, 3])),
+        by(fact("list-collection.pl", clause(6)))
+      ),
+      proof(
+        goal(member(3, [1, 2, 3])),
+        by(builtin(member, 2))
+      )
+    ])
+  )
+).
+
 append(letters, [a, b, c]).
 why(
   append(letters, [a, b, c]),
@@ -12,22 +92,7 @@ why(
       ),
       proof(
         goal(append([a, b], [c], [a, b, c])),
-        by(rule("<library>", clause(2))),
-        bindings([binding("X", a), binding("Xs", [b]), binding("Ys", [c]), binding("Zs", [b, c])]),
-        uses([
-          proof(
-            goal(append([b], [c], [b, c])),
-            by(rule("<library>", clause(2))),
-            bindings([binding("X", b), binding("Xs", []), binding("Ys", [c]), binding("Zs", [c])]),
-            uses([
-              proof(
-                goal(append([], [c], [c])),
-                by(fact("<library>", clause(1))),
-                bindings([binding("Ys", [c])])
-              )
-            ])
-          )
-        ])
+        by(builtin(append, 3))
       )
     ])
   )

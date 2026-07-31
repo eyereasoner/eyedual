@@ -50,8 +50,8 @@ eyepl --version
 For local browser use, run `python3 -m http.server` from the checkout and open
 `http://localhost:8000/playground.html`. Do not open `playground.html` directly as a
 `file:` URL: module workers require HTTP(S). Each run uses the dedicated
-`src/playground-worker.js` module, which installs the same portable standard
-library used by the CLI and JavaScript API. Predicates such as `append/3` and
+`src/playground-worker.js` module, which creates the same native JavaScript
+standard-library registry used by the CLI and JavaScript API. Predicates such as `append/3` and
 `member/2` therefore work without a browser option. The playground supports the
 in-memory reasoner; filesystem predicates and `include/1` remain Node-only.
 After replacing playground files in an already-open tab, perform one hard refresh
@@ -60,7 +60,7 @@ to terminate the previous worker and discard its cached module graph.
 ## Classical and challenge search examples
 
 The example corpus now contains **200 runnable examples**. Three useful search
-stress cases exercise the standard portable list library, which is loaded by
+stress cases exercise the native standard list library, which is loaded by
 default in the CLI, JavaScript API, and browser playground. Their exact checked
 answers live beside the other goldens under `examples/output/`:
 
@@ -96,8 +96,8 @@ console.log(result.stdout);
 `haltCode` when `halt/0` or `halt/1` terminates the processor.
 
 The default runtime includes Eyepl's ISO/IEC 13211-1:1995 core profile plus
-the standard portable library and selected host conveniences for strings,
-lists, aggregation, contexts, dates, and arithmetic. The ISO profile itself has
+48 native JavaScript standard-library relations and 20 host conveniences for
+strings, lists, aggregation, contexts, dates, and arithmetic. The ISO profile itself has
 114 registered predicate indicators across 93 names.
 
 This is broad standards coverage, not a formal certification claim. Eyepl
@@ -109,10 +109,10 @@ without a CLI flag or JavaScript registry option.
 
 Advanced embedders and the ISO conformance suite can still select the isolated
 core registry explicitly with `createDefaultRegistry()` or
-`getDefaultRegistry()`. `createLibraryRegistry()` creates the complete standard
-registry, while `portableLibrarySource` exposes the bundled portable clauses used
-by the browser worker. Normal applications can rely on the default and do not
-need to install either explicitly.
+`getDefaultRegistry()`. `createLibraryRegistry()` creates the complete 182-entry
+registry: 114 ISO indicators, 48 standard-library indicators, and 20 host
+extensions. Normal applications can rely on the default and do not need to
+install either explicitly.
 
 ISO streams are solver-owned and shared by nested goals. JavaScript callers
 can provide standard input and capture standard output:
@@ -163,7 +163,7 @@ The runtime boundary is intentionally visible in the source tree:
 [`src/iso.js`](src/iso.js) contains the isolated ISO processor registry, while
 [`src/library.js`](src/library.js) composes that core with host conveniences and
 the small profile-guided accelerator set. Portable Prolog clauses live in the
-browser-safe [`src/portable-library.js`](src/portable-library.js), and the
+browser-safe [`src/library.js`](src/library.js), and the
 playground executes requests through the dedicated
 [`src/playground-worker.js`](src/playground-worker.js). Normal CLI, API, solver,
 proof, and playground execution uses the composed standard registry; advanced

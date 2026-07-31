@@ -428,6 +428,10 @@ function documentationSyncCases() {
       },
     },
     {
+      name: 'book standard library matches runtime registry',
+      run: () => assertArrayEqual(bookStandardLibraryNames(), registeredStandardLibraryNames(), 'standard builtins'),
+    },
+    {
       name: 'book extension library matches runtime registry',
       run: () => assertArrayEqual(bookExtensionBuiltinNames(), registeredExtensionBuiltinNames(), 'extension builtins'),
     },
@@ -436,11 +440,15 @@ function documentationSyncCases() {
       run: () => {
         const readme = fs.readFileSync(path.join(packageRoot, 'README.md'), 'utf8');
         const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-        for (const filename of ['src/iso.js', 'src/library.js', 'src/portable-library.js', 'src/playground-worker.js']) {
+        for (const filename of ['src/iso.js', 'src/library.js', 'src/playground-worker.js']) {
           assertEqual(fs.existsSync(path.join(packageRoot, filename)), true, `${filename} exists`);
           assertIncludes(readme, filename, `README documents ${filename}`);
           assertIncludes(book, filename, `book documents ${filename}`);
         }
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js')), false, 'duplicate portable library is absent');
+        assertEqual('portableLibrarySource' in publicApi, false, 'obsolete portable source API is absent');
+        assertEqual(readme.includes('portable-library.js') || readme.includes('portableLibrarySource'), false, 'README has no obsolete portable layer');
+        assertEqual(book.includes('portable-library.js') || book.includes('portableLibrarySource'), false, 'book has no obsolete portable layer');
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'builtins')), false, 'obsolete builtins directory is absent');
       },
     },
@@ -632,7 +640,7 @@ function apiCases() {
       },
     },
     {
-      name: 'library overlays keep dynamic program state consistent',
+      name: 'standard registry keeps dynamic program state consistent',
       run: () => {
         const program = Program.parse([
           ':- dynamic(item/1).',
@@ -830,7 +838,7 @@ open(X) :- candidate(X), \\+ closed(X).
     {
       name: 'Solver loads the standard library by default',
       run: () => {
-        const program = Program.parse('answer(X) :- append([a], [b], X).');
+        const program = Program.parse('query(answer(X)). answer(X) :- append([a], [b], X).');
         const solver = new Solver(program);
         const goal = parseGoalText('answer(X)');
         const answers = [...solver.solve([goal], new Env(), 0)].map((env) => termToString(goal, env, true));
@@ -873,45 +881,61 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'ISO-only and standard registries expose separate metadata',
+      name: 'ISO-only and native standard registries expose separate metadata',
       run: () => {
         const registry = createDefaultRegistry();
         const library = getLibraryRegistry();
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
-        assertEqual(Boolean(registry.get('between', 3)), false, 'between/3 is not core');
-        assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not core');
-        assertEqual(Boolean(library.get('between', 3)), true, 'between/3 has a selected accelerator');
-        assertEqual(Boolean(library.get('append', 3)), false, 'append/3 is implemented by portable clauses');
-        assertIncludes(library.portableSource, 'append([], Ys, Ys).', 'portable library source');
-        const portable = run('query(answer(X)). answer(X) :- append([a], [b], X).', { registry: library });
-        assertEqual(portable.stdout, 'answer([a, b]).\n', 'portable library execution');
-        const nativeExtensions = [...library.defs.keys()]
-          .filter((indicator) => !registry.defs.has(indicator) && !library.defs.get(indicator).portableEquivalent)
-          .sort();
-        assertEqual(nativeExtensions.join('\n'), [
-          'acos/2', 'asin/2', 'atan2/3', 'atom_string/2', 'call/3',
-          'difference/3', 'ge/2', 'gt/2', 'le/2', 'local_time/1',
-          'lowercase/2', 'lt/2', 'maplist/3', 'matches/3', 'number_string/2',
-          'replace/4', 'split/3', 'tan/2',
-          'term_string/2', 'trim/2', 'uppercase/2',
-        ].sort().join('\n'), 'audited native extension allowlist');
-        const portableAccelerators = [...library.defs.entries()]
-          .filter(([indicator, definition]) => !registry.defs.has(indicator) && definition.portableEquivalent)
-          .map(([indicator]) => indicator)
-          .sort();
-        assertEqual(portableAccelerators.join('\n'), [
-          'between/3', 'contains/2', 'countall/2', 'length/2', 'matches/2',
-          'member/2', 'reverse/2', 'select/3', 'smallest_divisor_from/3',
-          'sort/2',
-        ].join('\n'), 'profile-guided portable accelerator allowlist');
-        for (const indicator of [
-          'eq/2', 'neq/2', 'not/1', 'compound_name_arguments/3',
-          'add/3', 'sub/3', 'mul/3', 'div/3', 'mod/3', 'pow/3',
-          'neg/2', 'abs/2', 'sin/2', 'cos/2', 'exp/2', 'log/2',
-          'sqrt/2', 'floor/2', 'ceiling/2', 'trunc/2', 'rounded/2',
-        ]) {
-          assertEqual(Boolean(library.defs.get(indicator)), false, `${indicator} redundant extension is absent`);
-        }
+        assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not ISO core');
+        assertEqual(library.standardLibrary, true, 'complete registry marker');
+        assertEqual(library.defs.size, 182, 'complete registry size');
+        assertEqual(registeredStandardLibraryNames().length, 48, 'standard library size');
+        assertEqual(registeredExtensionBuiltinNames().length, 20, 'host extension size');
+        assertEqual(library.get('append', 3)?.standardLibrary, true, 'append/3 metadata');
+        assertEqual(library.get('maplist', 3)?.standardLibrary, true, 'maplist/3 metadata');
+        assertEqual(library.get('matches', 3)?.standardLibrary, false, 'matches/3 host extension metadata');
+      },
+    },
+    {
+      name: 'native standard library does not inject program clauses',
+      run: () => {
+        const program = Program.parse('query(answer(X)). answer(X) :- append([a], [b], X).');
+        const solver = new Solver(program);
+        assertEqual(solver.program, program, 'solver keeps original program object');
+        assertEqual(program.findGroup('append', 3), null, 'append/3 is not injected as a clause group');
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js')), false, 'portable module removed');
+        assertEqual(run(program).stdout, 'answer([a, b]).\n', 'native append execution');
+      },
+    },
+    {
+      name: 'native standard library preserves relational and arithmetic behavior',
+      run: () => {
+        const result = run([
+          'query(answer(A, B, S, M)).',
+          'answer(A, B, S, M) :-',
+          '  append(A, B, [a, b]),',
+          '  sumall(X + 1, member(X, [1, 2]), S),',
+          '  max(9007199254740992, 9007199254740993, M).',
+          '',
+        ].join('\n'));
+        assertEqual(result.stdout, [
+          'answer([], [a, b], 5, 9007199254740993).',
+          'answer([a], [b], 5, 9007199254740993).',
+          'answer([a, b], [], 5, 9007199254740993).',
+          '',
+        ].join('\n'), 'native standard behavior');
+      },
+    },
+    {
+      name: 'native standard library preserves strict modes and ISO arithmetic errors',
+      run: () => {
+        assertEqual(run('query(answer(X)). answer(X) :- substring("abc", "1", 1, X).').stdout, '', 'substring index type');
+        let nth1Error = null;
+        try { run('query(answer(N)). answer(N) :- nth1(N, [a, b], _).'); } catch (error) { nth1Error = error; }
+        assertIncludes(nth1Error?.message ?? '', 'instantiation_error', 'nth1 variable index error');
+        let sumError = null;
+        try { run('query(answer(S)). answer(S) :- sum_list([1, foo], S).'); } catch (error) { sumError = error; }
+        assertIncludes(sumError?.message ?? '', 'type_error(evaluable)', 'sum_list arithmetic error');
       },
     },
   ];
@@ -1511,13 +1535,13 @@ function playgroundStaticIssues() {
   if (!html.includes("new URL('./src/playground-worker.js?playground=")) issues.push('playground must cache-bust its dedicated module worker');
   if (!html.includes("new Worker(workerUrl, { type: 'module' })")) issues.push('playground must launch the dedicated module worker');
   const workerText = fs.readFileSync(path.join(packageRoot, 'src', 'playground-worker.js'), 'utf8');
-  if (!workerText.includes("from './portable-library.js?playground=") ||
-      !workerText.includes('registry.portableSource = portableLibrarySource') ||
+  if (!workerText.includes("from './library.js?playground=") ||
+      !workerText.includes('createLibraryRegistry') ||
       !workerText.includes('executePlaygroundRequest')) {
-    issues.push('playground worker must explicitly install and expose the portable standard library path');
+    issues.push('playground worker must install the native standard library registry');
   }
-  if (!fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js'))) {
-    issues.push('portable standard library must live in a standalone browser-safe module');
+  if (fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js'))) {
+    issues.push('obsolete portable-library.js must be absent');
   }
   for (const filename of ['src/playground-worker.js', 'src/index.js', 'src/program.js', 'src/io.js']) {
     const sourceText = fs.readFileSync(path.join(packageRoot, filename), 'utf8');
@@ -1573,10 +1597,17 @@ function registeredBuiltinNames() {
   return [...createDefaultRegistry().defs.keys()].sort();
 }
 
+function registeredStandardLibraryNames() {
+  return [...getLibraryRegistry().defs.entries()]
+    .filter(([, definition]) => definition.standardLibrary)
+    .map(([name]) => name)
+    .sort();
+}
+
 function registeredExtensionBuiltinNames() {
   const defaults = createDefaultRegistry().defs;
   return [...getLibraryRegistry().defs.entries()]
-    .filter(([name, definition]) => !defaults.has(name) && !definition.portableEquivalent)
+    .filter(([name, definition]) => !defaults.has(name) && !definition.standardLibrary)
     .map(([name]) => name)
     .sort();
 }
@@ -1591,7 +1622,12 @@ function registeredBuiltinSummary() {
 
 function bookBuiltinNames() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '# Appendix B. Built-in predicates', '## B.3 Implementation extension library'), 2);
+  return documentedBuiltinNames(between(book, '# Appendix B. Built-in predicates', '## B.3 Native standard and extension library'), 2);
+}
+
+function bookStandardLibraryNames() {
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
+  return documentedBuiltinNames(between(book, '<!-- native-standard-library-catalog:start -->', '<!-- native-standard-library-catalog:end -->'), 1);
 }
 
 function bookExtensionBuiltinNames() {

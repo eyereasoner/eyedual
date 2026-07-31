@@ -6,7 +6,7 @@ import {
 } from './term.js';
 import { PrologError } from './iso.js';
 import { getLibraryRegistry } from './library.js';
-import { Program, selectClauseCandidates, selectClauseCandidatesForValues } from './program.js';
+import { selectClauseCandidates, selectClauseCandidatesForValues } from './program.js';
 import { StreamManager } from './io.js';
 
 let freshCounter = 0;
@@ -18,12 +18,12 @@ export function nextFreshId() {
 export class Solver {
   constructor(program, options = {}) {
     this.registry = options.registry ?? getLibraryRegistry();
-    this.program = withPortableLibrary(program, this.registry);
+    this.program = program;
     this.programRevision = this.program.revision ?? 0;
     this.maxDepth = options.maxDepth ?? 100000;
     this.solutionLimit = options.solutionLimit ?? 10000000;
     this.solutionsSeen = 0;
-    this.prologFlags = options.prologFlags ?? defaultPrologFlags(this.registry?.portableSource ? 'fail' : 'error');
+    this.prologFlags = options.prologFlags ?? defaultPrologFlags(this.registry?.standardLibrary ? 'fail' : 'error');
     this.charConversions = options.charConversions ?? new Map();
     if (!options.prologFlags) {
       for (const [flag, value] of program.prologFlagDirectives ?? []) {
@@ -378,28 +378,6 @@ function defaultPrologFlags(unknown = 'error') {
   ]);
 }
 
-function withPortableLibrary(program, registry) {
-  if (!registry?.portableSource || program._portableRegistry === registry) return program;
-  if (registry._portableProgram == null) {
-    registry._portableProgram = Program.parseSources([
-      { text: registry.portableSource, filename: '<library>' },
-    ], { sourceMetadata: true });
-  }
-  const portableProgram = registry._portableProgram;
-  const overlay = Object.create(program);
-  // A user definition replaces the convenience relation of the same
-  // predicate indicator. The separately indexed portable program avoids
-  // rebuilding very large user programs merely to append library clauses.
-  overlay.findGroup = (name, arity) =>
-    program.findGroup(name, arity) ?? portableProgram.findGroup(name, arity);
-  // Dynamic database operations must mutate the underlying user program rather
-  // than creating shadow properties on this lightweight library overlay.
-  overlay.insertDynamicClause = (...args) => program.insertDynamicClause(...args);
-  overlay.removeDynamicClause = (...args) => program.removeDynamicClause(...args);
-  overlay.abolishDynamicGroup = (...args) => program.abolishDynamicGroup(...args);
-  overlay._portableRegistry = registry;
-  return overlay;
-}
 
 function makeMemoEntry() {
   return { computing: false, complete: false, answers: [], answerKeys: new Set() };

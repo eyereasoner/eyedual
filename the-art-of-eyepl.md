@@ -1536,17 +1536,16 @@ truncate search; it does not prove that no further answer exists.
 ### Implementation boundary
 
 The source layout mirrors the public registry boundary. `src/iso.js` contains
-the isolated ISO processor predicates and registry. `src/library.js` composes
-that core with host conveniences and the small profile-guided accelerator set
-described in Appendix B.3. The ordinary Prolog clauses live separately in the
-browser-safe `src/portable-library.js`; its exported `portableLibrarySource` is
-the executable specification installed by the standard registry. Normal CLI,
-JavaScript, solver, and proof execution uses that composed registry. The browser
-entry `src/playground-worker.js` constructs the same registry explicitly before
-calling `run()`, which keeps library availability independent of CLI flags and
-transitive browser-module caching. Advanced embedders and conformance tests can
-still select the ISO-only registry explicitly. All paths share the parser, term
-representation, solver, streams, and proof machinery.
+the isolated ISO processor predicates and registry. `src/library.js` contains
+the complete standard library and host conveniences as native JavaScript
+builtins described in Appendix B.3. No bundled Prolog source is parsed or
+overlaid at startup. Normal CLI, JavaScript, solver, and proof execution uses
+that composed registry. The browser entry `src/playground-worker.js` constructs
+the same registry explicitly before calling `run()`, which keeps library
+availability independent of CLI flags and stale worker state. Advanced
+embedders and conformance tests can still select the ISO-only registry
+explicitly. All paths share the parser, term representation, solver, streams,
+and proof machinery.
 
 ### Extending the built-in registry
 
@@ -5076,27 +5075,42 @@ The JavaScript `ioOptions.input` and `ioOptions.write` hooks connect standard
 streams to an embedder. File-backed streams use synchronous lifecycle semantics
 so side effects occur in Prolog execution order.
 
-## B.3 Implementation extension library
+## B.3 Native standard and extension library
 
-The standard runtime registry combines the supported ISO Prolog profile with
-string, list, aggregation, context, date, regex, and convenience predicates
-supplied by Eyepl. It is loaded automatically by the CLI, `run()`, `Solver`,
-proof replay, and the browser playground, so ordinary programs do not need a
-library flag or registry option. Portable clauses are stored in the standalone,
-browser-safe `src/portable-library.js`; `src/playground-worker.js` installs that
-exact source into its registry before running a request. The isolated ISO-only
-registry remains available through `createDefaultRegistry()` and
-`getDefaultRegistry()` for conformance work and advanced embedders that need that
-boundary.
+The standard runtime registry combines the supported ISO Prolog profile with a
+native JavaScript standard library and a small host-extension layer. It is
+loaded automatically by the CLI, `run()`, `Solver`, proof replay, and the browser
+playground, so ordinary programs do not need a library flag or registry option.
+All of these relations live in `src/library.js`; there is no second portable
+source module and no runtime Prolog-library parse or program overlay.
+`src/playground-worker.js` constructs the same registry directly. The isolated
+ISO-only registry remains available through `createDefaultRegistry()` and
+`getDefaultRegistry()` for conformance work and advanced embedders.
 
-The extension catalog is audited against
-[ISO/IEC 13211-1](https://www.iso.org/standard/21413.html): an extension is not
-registered when the supported ISO profile already expresses the same
-operation. The library registry contains the 114 default indicators plus 21
-irreducible host-extension indicators. It also loads ordinary portable Prolog
-clauses for every relation that needs no host primitive. Ten profile-guided
-native accelerators cover measured hot paths while the bundled clauses remain
-their executable specification and fallback.
+The complete registry contains **182 predicate indicators**: 114 in the isolated
+ISO profile, 48 standard-library indicators implemented in JavaScript, and 20
+irreducible host-extension indicators. Every standard definition is tagged with
+`standardLibrary: true`, so tests and embedders can audit the boundary without
+inferring it from filenames.
+
+<!-- native-standard-library-catalog:start -->
+
+| Native standard-library predicates |
+| --- |
+| `append/3`, `member/2`, `select/3`, `head/2`, `rest/2`, `last/2` |
+| `nth0/3`, `nth1/3`, `set_nth0/4`, `take/3`, `drop/3`, `slice/4` |
+| `reverse/2`, `reverse_acc/3`, `length/2`, `sum_list/2` |
+| `min_list/2`, `min_list_acc/3`, `max_list/2`, `max_list_acc/3` |
+| `not_member/2`, `list_to_set/2`, `sort/2`, `sort_acc/3`, `insert_unique/3` |
+| `str_concat/3`, `contains/2`, `matches/2`, `matches_alternative/2` |
+| `join/3`, `join_atoms/4`, `substring/4` |
+| `countall/2`, `sumall/3` |
+| `aggregate_min/5`, `aggregate_min_pairs/3`, `aggregate_min_acc/5` |
+| `aggregate_max/5`, `aggregate_max_pairs/3`, `aggregate_max_acc/5` |
+| `between/3`, `between_range/3`, `min/3`, `max/3`, `smallest_divisor_from/3` |
+| `maplist/3`, `holds/2`, `holds/3` |
+
+<!-- native-standard-library-catalog:end -->
 
 <!-- native-extension-catalog:start -->
 
@@ -5106,7 +5120,7 @@ their executable specification and fallback.
 | `lt/2`, `le/2`, `gt/2`, `ge/2` |
 | `local_time/1`, `difference/3` |
 | `matches/3` |
-| `call/3`, `maplist/3` |
+| `call/3` |
 | `split/3`, `replace/4` |
 | `lowercase/2`, `uppercase/2`, `trim/2` |
 | `number_string/2`, `atom_string/2`, `term_string/2` |
@@ -5166,17 +5180,18 @@ for example, `R is A + B`, `R is abs(A)`, and `R is sqrt(A)`. The same applies
 to subtraction, multiplication, division, modulo, powers, sine, cosine,
 exponential, logarithm, and the ISO rounding functions.
 
-The bundled portable rule layer defines `between/3`, `min/3`, `max/3`, and
+The bundled native standard-library layer defines `between/3`, `min/3`, `max/3`, and
 `smallest_divisor_from/3` using ISO arithmetic and comparisons. They are
 available in the default runtime, but they are not host-extension predicates.
 `between/3` and `smallest_divisor_from/3` retain measured native accelerators.
 
-### B.3.2 Portable list relations
+### B.3.2 Native standard list relations
 
-These relations are bundled as ordinary ISO Prolog clauses; they are not
-semantic host extensions. `length/2`, `member/2`, `select/3`, `reverse/2`, and
-`sort/2` retain measured native accelerators. Every list-consuming relation
-below expects a proper list unless explicitly
+These relations are native JavaScript implementations of the established
+standard-library surface; they are not semantic host extensions. Their
+relational modes and error behavior are regression-checked against the former
+clause implementation. Every list-consuming relation below expects a proper
+list unless explicitly
 stated otherwise. Indexes and counts are zero-based, nonnegative safe
 integers.
 
@@ -5220,13 +5235,13 @@ string terms unless their name says otherwise.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |
-| `str_concat(+Left,+Right,-Text)` | Portable composition of `atom_string/2` and ISO `atom_concat/3`; concatenates two lexical values. |
-| `contains(+Text,+Needle)` | Portable composition of `atom_string/2` and ISO `sub_atom/5`; tests literal containment. |
-| `matches(+Text,+Pattern)` | Portable composition of `split/3`, `member/2`, `contains/2`, and ISO `once/1`; tests `|`-separated literal alternatives. |
+| `str_concat(+Left,+Right,-Text)` | Concatenates two scalar lexical values. |
+| `contains(+Text,+Needle)` | Tests literal containment. |
+| `matches(+Text,+Pattern)` | Tests `|`-separated literal alternatives. |
 | `matches(+Text,+Regex,-Context)` | Runs a JavaScript regular expression and returns named captures as comma-context data such as `(year("2026"), month("07"))`. It fails for an invalid expression, no match, or a match with no named captures. |
 | `split(+Text,+Separator,-Parts)` | Literal split into a proper list of strings. |
-| `join(+Parts,+Separator,-Text)` | Portable recursion over ISO `atom_concat/3`; joins lexical values. The empty list produces `""`. |
-| `substring(+Text,+Start,+Count,-Part)` | Portable composition over ISO `integer/1`, arithmetic comparison, and `sub_atom/5`; uses zero-based indexes. |
+| `join(+Parts,+Separator,-Text)` | Joins scalar lexical values. The empty list produces `""`. |
+| `substring(+Text,+Start,+Count,-Part)` | Extracts Unicode characters using zero-based integer indexes. |
 | `replace(+Text,+Search,+Replacement,-Result)` | Replaces every literal occurrence. An empty search leaves the text unchanged. |
 | `lowercase(+Text,-Lower)`, `uppercase(+Text,-Upper)`, `trim(+Text,-Trimmed)` | Apply JavaScript Unicode case conversion or surrounding-whitespace trimming. |
 | `number_string(?Number,?Text)` | Converts a number to a string or parses numeric string/atom text. At least one conversion direction must be ready. |
@@ -5234,7 +5249,7 @@ string terms unless their name says otherwise.
 | `term_string(+Term,-Text)` | Renders a nonvariable term using Eyepl readback syntax. It does not parse text back into a term. |
 
 `contains/2` and `matches/2` retain measured native accelerators for bound
-lexical inputs. Calls outside that mode fall through to the portable clauses,
+lexical inputs. Calls outside that mode fall through to the native builtins,
 so user-defined relational clauses with the same indicators remain visible.
 
 ```eyepl
@@ -5249,11 +5264,11 @@ answer(captures, Context) :-
 query(answer(Kind, Value)).
 ```
 
-### B.3.4 Portable aggregation and bounded control
+### B.3.4 Native aggregation and bounded control
 
-These are ordinary bundled Prolog clauses over ISO `findall/3`, arithmetic,
-term order, and list recursion. `countall/2` retains a measured native
-accelerator. The caller is responsible for making
+These native relations preserve the collection, arithmetic, term-order, and
+scoping behavior of the former clause definitions. The caller is responsible
+for making
 that search finite. Bind outer variables before the nested goal when they are
 intended to restrict its domain.
 
@@ -5286,11 +5301,11 @@ answer(best(Name), Cost) :-
 query(answer(Kind, Value)).
 ```
 
-### B.3.5 Portable context helpers
+### B.3.5 Native context helpers
 
-The `holds/2` and `holds/3` relations below are ordinary clauses over
-unification and ISO `=../2`, with no native implementations; they are not
-semantic host extensions.
+The `holds/2` and `holds/3` relations below are native standard-library
+relations. They preserve the former unification and `=../2`-style decomposition
+semantics and are not host extensions.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |

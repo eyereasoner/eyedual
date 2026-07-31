@@ -65,9 +65,6 @@ contains(policyGraph1, statement(prohibitExportData, odrl_action, tosl_exportDat
 contains(policyGraph1, statement(prohibitExportData, odrl_target, userData)).
 contains(policyGraph1, statement(prohibitExportData, clause, clauseC4)).
 firstRisk(report, risk1).
-firstRisk(report, risk2).
-firstRisk(report, risk3).
-firstRisk(report, risk4).
 before(riskRanking, pair(risk1, risk2)).
 before(riskRanking, pair(risk1, risk3)).
 before(riskRanking, pair(risk1, risk4)).

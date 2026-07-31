@@ -123,9 +123,10 @@ export interface BuiltinDefinition {
   arity: number;
   handler: BuiltinHandler;
   deterministic: boolean;
-  ready: ((solver: Solver, goal: EyeplTerm, env: Env) => boolean) | null;
+  ready: ((goal: EyeplTerm, env: Env) => boolean) | null;
   fallbackWhenNotReady: boolean;
-  shouldUse: ((solver: Solver, goal: EyeplTerm, env: Env) => boolean) | null;
+  shouldUse: ((context: { solver: Solver; goal: EyeplTerm; env: Env }) => boolean) | null;
+  standardLibrary: boolean;
 }
 
 export type BuiltinHandler = (context: { solver: Solver; goal: EyeplTerm; env: Env }) => Iterable<Env>;
@@ -133,6 +134,7 @@ export type BuiltinHandler = (context: { solver: Solver; goal: EyeplTerm; env: E
 export class BuiltinRegistry {
   constructor();
   defs: Map<string, BuiltinDefinition>;
+  standardLibrary?: boolean;
   add(name: string, arity: number, handler: BuiltinHandler, options?: Partial<BuiltinDefinition>): this;
   get(name: string, arity: number): BuiltinDefinition | null;
 }
@@ -197,7 +199,6 @@ export function createDefaultRegistry(): BuiltinRegistry;
 export function createLibraryRegistry(): BuiltinRegistry;
 export function getDefaultRegistry(): BuiltinRegistry;
 export function getLibraryRegistry(): BuiltinRegistry;
-export const portableLibrarySource: string;
 export class PrologError extends Error {
   formal: string;
   culprit: EyeplTerm | null;
@@ -264,7 +265,6 @@ declare const eyepl: {
   createLibraryRegistry: typeof createLibraryRegistry;
   getDefaultRegistry: typeof getDefaultRegistry;
   getLibraryRegistry: typeof getLibraryRegistry;
-  portableLibrarySource: typeof portableLibrarySource;
   run: typeof run;
   checkInferenceFuses: typeof checkInferenceFuses;
   formatInferenceFuse: typeof formatInferenceFuse;
