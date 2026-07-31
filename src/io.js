@@ -1,5 +1,5 @@
 // Synchronous ISO stream state shared by a solver and all of its inner solvers.
-import fs from 'node:fs';
+import { BufferCtor, fs } from './platform.js';
 
 export class StreamManager {
   constructor(options = {}) {
@@ -29,11 +29,12 @@ export class StreamManager {
     return this.streams.get(reference) ?? null;
   }
   open(path, mode, options = {}) {
+    if (!fs) throw new Error('file streams are unavailable in this runtime');
     const type = options.type ?? 'text';
     let content = type === 'binary' ? [] : '';
     if (mode === 'read') content = fs.readFileSync(path, type === 'binary' ? null : 'utf8');
     else if (mode === 'append' && fs.existsSync(path)) content = fs.readFileSync(path, type === 'binary' ? null : 'utf8');
-    if (Buffer.isBuffer(content)) content = [...content];
+    if (BufferCtor?.isBuffer(content)) content = [...content];
     return this.add({
       id: this.nextId++, alias: options.alias ?? null, mode, type, content,
       position: mode === 'append' ? content.length : 0, path,
@@ -44,7 +45,7 @@ export class StreamManager {
   }
   close(stream) {
     if (!stream.standard && stream.mode !== 'read') {
-      fs.writeFileSync(stream.path, stream.type === 'binary' ? Buffer.from(stream.content) : stream.content);
+      fs.writeFileSync(stream.path, stream.type === 'binary' ? BufferCtor.from(stream.content) : stream.content);
     }
     if (stream.alias) this.aliases.delete(stream.alias);
     this.streams.delete(stream.id);

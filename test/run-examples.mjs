@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { Program, getLibraryRegistry, run } from '../src/index.js';
+import { Program, run } from '../src/index.js';
 import { fileURLToPath } from 'node:url';
 import { TestReporter, isMainModule } from './test-style.mjs';
 
@@ -114,7 +114,7 @@ function runProgramExample(programFile, filename, options) {
       markRecursive: options.proof,
     });
     try {
-      const result = run(program, { ...options, registry: getLibraryRegistry() });
+      const result = run(program, options);
       if (expectedExit) throw new Error(`${filename} expected exit ${expectedExit[1]}, but reasoning succeeded`);
       return result.stdout;
     } catch (error) {

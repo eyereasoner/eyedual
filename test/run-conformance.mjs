@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { Program, getLibraryRegistry, run } from '../src/index.js';
+import { Program, createDefaultRegistry, run } from '../src/index.js';
 import { fileURLToPath } from 'node:url';
 import { TestReporter, isMainModule } from './test-style.mjs';
 
@@ -83,7 +83,7 @@ function runCase(name, file) {
   const expected = path.join(expectedDir, `${name}.pl`);
   const text = fs.readFileSync(programFile, 'utf8');
   const program = Program.parseSources([{ text, filename: file }], { sourceMetadata: false, markRecursive: false });
-  const actual = run(program, { registry: file.startsWith('iso/') ? undefined : getLibraryRegistry() }).stdout;
+  const actual = run(program, { registry: file.startsWith('iso/') ? createDefaultRegistry() : undefined }).stdout;
 
   compareExpectedFile(expected, actual, name, 'output');
 }
@@ -98,7 +98,7 @@ function runErrorCase(name, file) {
 
   try {
     const program = Program.parseSources([{ text, filename: file }], { sourceMetadata: false, markRecursive: false });
-    run(program);
+    run(program, { registry: file.startsWith('iso/') ? createDefaultRegistry() : undefined });
   } catch (error) {
     actual = `${error?.message ?? String(error)}\n`;
   }
@@ -114,7 +114,7 @@ function runWarningCase(name, file) {
   const expectedStdout = path.join(expectedDir, `${name}.pl`);
   const expectedStderr = path.join(expectedDir, `${name}.txt`);
   const text = fs.readFileSync(programFile, 'utf8');
-  const result = spawnSync(process.execPath, [cliBin, '--library', '--warnings', '-'], {
+  const result = spawnSync(process.execPath, [cliBin, '--warnings', '-'], {
     cwd: packageRoot,
     input: text,
     encoding: 'utf8',
@@ -134,7 +134,7 @@ function runProofCase(name, file) {
   const programFile = path.join(proofsDir, file);
   const expected = path.join(expectedDir, `${name}.pl`);
   const text = fs.readFileSync(programFile, 'utf8');
-  const result = spawnSync(process.execPath, [cliBin, '--library', '--proof', '-'], {
+  const result = spawnSync(process.execPath, [cliBin, '--proof', '-'], {
     cwd: packageRoot,
     input: text,
     encoding: 'utf8',

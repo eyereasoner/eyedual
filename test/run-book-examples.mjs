@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { Program, getLibraryRegistry, run } from '../src/index.js';
+import { Program, run } from '../src/index.js';
 import { TestReporter, isMainModule } from './test-style.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -23,7 +23,7 @@ export function runBookExamples(reporter = new TestReporter()) {
 function validateBookExample(filename) {
   const source = fs.readFileSync(filename, 'utf8');
   const program = Program.parse(source);
-  if (/^query\s*\(/m.test(source)) run(program, { registry: getLibraryRegistry() });
+  if (/^query\s*\(/m.test(source)) run(program);
 }
 
 function listPrograms(directory) {

@@ -1,4 +1,4 @@
-// Optional Eyepl extension library: host primitives, portable ISO clauses,
+// Eyepl standard library: host primitives, portable ISO clauses,
 // and the small profile-guided accelerator set.
 import {
   ATOM,
@@ -550,7 +550,7 @@ function* matches({ goal, env }) {
 
 
 // Relations that need no host primitive: they are ordinary ISO-style Prolog
-// clauses bundled with --library for convenience.
+// clauses bundled into the default runtime for convenience.
 export const portableLibrarySource = String.raw`
 append([], Ys, Ys).
 append([X | Xs], Ys, [X | Zs]) :- append(Xs, Ys, Zs).

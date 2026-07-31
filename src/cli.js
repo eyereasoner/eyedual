@@ -15,7 +15,6 @@ export async function main(argv) {
 
   const options = {
     files: [],
-    library: false,
     proof: false,
     stats: false,
     version: false,
@@ -33,7 +32,7 @@ export async function main(argv) {
       await usage(process.stdout);
       return;
     } else if (!endOptions && (arg === '--library' || arg === '-l')) {
-      options.library = true;
+      // Backward-compatible no-op: the standard library is always loaded.
     } else if (!endOptions && (arg === '--proof' || arg === '-p')) {
       options.proof = true;
     } else if (!endOptions && (arg === '--stats' || arg === '-s')) {
@@ -51,7 +50,7 @@ export async function main(argv) {
         await usage(process.stdout);
         return;
       }
-      if (flags.includes('l')) options.library = true;
+      // Legacy -l remains accepted as a no-op inside combined short flags.
       if (flags.includes('p')) options.proof = true;
       if (flags.includes('s')) options.stats = true;
       if (flags.includes('v')) options.version = true;
@@ -126,7 +125,7 @@ async function runDefault(engine, program, options) {
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
   const facts = program.sourceFactLines(queriedKeys);
   const lines = new Set();
-  const registry = options.library ? engine.getLibraryRegistry() : engine.getDefaultRegistry();
+  const registry = engine.getLibraryRegistry();
   const explanation = options.proof ? await loadExplanation() : null;
   const solver = new engine.Solver(program, {
     registry,
@@ -177,7 +176,6 @@ Input:
 
 Options:
   -h, --help            Show this help text and exit.
-  -l, --library         Enable the non-core Eyepl library predicates.
   -p, --proof           Enable proof explanations.
   -s, --stats           Print solver statistics to stderr after execution.
   -v, --version         Show the package version and exit.

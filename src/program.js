@@ -3,8 +3,7 @@
 import { ATOM, COMPOUND, VAR, Env, atom, deref, flattenConjunction, isScalar, properListItems, termToString } from './term.js';
 import { ISO_OPERATOR_DEFINITIONS, parseClauses } from './parser.js';
 import { PrologError } from './iso.js';
-import fs from 'node:fs';
-import path from 'node:path';
+import { currentWorkingDirectory, fs, path } from './platform.js';
 
 export class Program {
   constructor(clauses = [], options = {}) {
@@ -393,10 +392,13 @@ function expandIncludedClauses(clauses, options, ensured) {
     }
     const designation = directive.args[0];
     if (designation.type !== ATOM) throw new PrologError('type_error(atom)', designation);
+    if (!fs || !path) {
+      throw new PrologError('permission_error(access, source_sink)', atom(designation.name));
+    }
     const base = options.baseDir ?? (
       options.filename && path.isAbsolute(String(options.filename))
         ? path.dirname(path.resolve(options.filename))
-        : process.cwd()
+        : currentWorkingDirectory()
     );
     const filename = path.resolve(base, designation.name);
     if (directive.name === 'ensure_loaded' && ensured.has(filename)) continue;

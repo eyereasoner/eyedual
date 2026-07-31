@@ -84,8 +84,10 @@ node bin/eyepl.js --proof examples/socrates.pl
 Readers who do not want to install anything can begin in the
 [browser playground](https://eyereasoner.github.io/eyepl/playground). Paste
 the source of `examples/socrates.pl` into the editor and run it. The playground
-and local CLI accept the same Prolog source, though filesystem, URL, and embedding
-examples naturally require a local checkout.
+and local CLI accept the same in-memory Prolog source. Serve a local checkout over
+HTTP(S), rather than opening the page as a `file:` URL. Filesystem predicates and
+`include/1` are Node-only; URL and embedding examples require their documented host
+environment.
 
 The best way to read is beside a running interpreter. Before each run, predict
 the answer; after it, change one fact or query and explain the difference.
@@ -1532,12 +1534,13 @@ truncate search; it does not prove that no further answer exists.
 ### Implementation boundary
 
 The source layout mirrors the public registry boundary. `src/iso.js` contains
-the ISO processor predicates, errors, and default registry. `src/library.js`
-contains the optional host extensions, ordinary portable Prolog clauses, and
-the small profile-guided accelerator set described in Appendix B.3. Both
-layers share the parser, term representation, solver, streams, and proof
-machinery; `--library` changes the selected registry rather than selecting a
-different execution engine.
+the isolated ISO processor predicates and registry. `src/library.js` composes
+that core with ordinary portable Prolog clauses, host conveniences, and the
+small profile-guided accelerator set described in Appendix B.3. Normal CLI,
+JavaScript, solver, proof, and playground execution uses this composed standard
+registry. Advanced embedders and conformance tests can still select the
+ISO-only registry explicitly. Both layers share the parser, term
+representation, solver, streams, and proof machinery.
 
 ### Extending the built-in registry
 
@@ -1548,12 +1551,12 @@ yield only environments in which its result unifies:
 ```js
 import {
   atom,
-  createDefaultRegistry,
+  createLibraryRegistry,
   run,
   unify
 } from 'eyepl';
 
-const registry = createDefaultRegistry();
+const registry = createLibraryRegistry();
 
 registry.add(
   'host_status',
@@ -5069,13 +5072,13 @@ so side effects occur in Prolog execution order.
 
 ## B.3 Implementation extension library
 
-The default registry is deliberately limited to the supported ISO Prolog
-profile. The CLI options `-l` and `--library`, and the JavaScript function
-`getLibraryRegistry()`, explicitly add string, list, aggregation, context,
-date, regex, and convenience predicates supplied by Eyepl. Examples that use
-those facilities opt into this implementation extension layer. Keeping it
-separate prevents an extension predicate from silently changing the meaning or
-error behavior of a standards-profile program.
+The standard runtime registry combines the supported ISO Prolog profile with
+string, list, aggregation, context, date, regex, and convenience predicates
+supplied by Eyepl. It is loaded automatically by the CLI, `run()`, `Solver`,
+proof replay, and the browser playground, so ordinary programs do not need a
+library flag or registry option. The isolated ISO-only registry remains
+available through `createDefaultRegistry()` and `getDefaultRegistry()` for
+conformance work and advanced embedders that need that boundary.
 
 The extension catalog is audited against
 [ISO/IEC 13211-1](https://www.iso.org/standard/21413.html): an extension is not
@@ -5101,20 +5104,23 @@ their executable specification and fallback.
 
 <!-- native-extension-catalog:end -->
 
-On the command line:
+On the command line, the standard library is already present:
 
 ```sh
-eyepl --library program.pl
-eyepl -lp program.pl       # library plus proof output
+eyepl program.pl
+eyepl -p program.pl        # standard library plus proof output
 ```
 
-In JavaScript, pass the library registry explicitly:
+JavaScript uses the same registry by default:
 
 ```js
-import { getLibraryRegistry, run } from 'eyepl';
+import { run } from 'eyepl';
 
-const result = run(source, { registry: getLibraryRegistry() });
+const result = run(source);
 ```
+
+For backward compatibility, older `-l` and `--library` command lines remain
+accepted as no-ops, but the switches are no longer shown in CLI help or required.
 
 The mode notation below is descriptive:
 
@@ -5152,8 +5158,8 @@ to subtraction, multiplication, division, modulo, powers, sine, cosine,
 exponential, logarithm, and the ISO rounding functions.
 
 The bundled portable rule layer defines `between/3`, `min/3`, `max/3`, and
-`smallest_divisor_from/3` using ISO arithmetic and comparisons. They remain
-available with `--library`, but they are not host-extension predicates.
+`smallest_divisor_from/3` using ISO arithmetic and comparisons. They are
+available in the default runtime, but they are not host-extension predicates.
 `between/3` and `smallest_divisor_from/3` retain measured native accelerators.
 
 ### B.3.2 Portable list relations
@@ -5307,7 +5313,6 @@ eyepl [options] [file-or-url.pl|- ...]
 | Option | Meaning |
 | --- | --- |
 | `-h`, `--help` | Show usage |
-| `-l`, `--library` | Enable the implementation extension library |
 | `-p`, `--proof` | Print `why/2` explanations |
 | `-s`, `--stats` | Print solver counters to stderr |
 | `-v`, `--version` | Print the package version |
@@ -5509,7 +5514,7 @@ finite search space, and which constraint removes which branches?
 | Program | Search design | Checked answer |
 | --- | --- | --- |
 | [Eight queens](https://github.com/eyereasoner/eyepl/blob/main/examples/n-queens-8.pl) | A permutation supplies one queen per row; diagonal tests prune candidates; `once/1` retains one witness. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/n-queens-8.pl) |
-| [N-Queens enumeration](https://github.com/eyereasoner/eyepl/blob/main/examples/n-queens.pl) | `select/3` chooses each row and diagonal checks prune partial placements; the query enumerates all 92 eight-queen solutions with `--library`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/n-queens.pl) |
+| [N-Queens enumeration](https://github.com/eyereasoner/eyepl/blob/main/examples/n-queens.pl) | `select/3` chooses each row and diagonal checks prune partial placements; the query enumerates all 92 eight-queen solutions in the default runtime. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/n-queens.pl) |
 | [Zebra puzzle](https://github.com/eyereasoner/eyepl/blob/main/examples/zebra.pl) | House records, adjacency relations, and clue constraints jointly determine the famous solution. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/zebra.pl) |
 | [SEND + MORE = MONEY](https://github.com/eyereasoner/eyepl/blob/main/examples/send-more-money.pl) | Digit assignments are generated under distinctness, leading-zero, and column constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/send-more-money.pl) |
 | [DONALD + GERALD = ROBERT](https://github.com/eyereasoner/eyepl/blob/main/examples/donald-gerald-robert.pl) | The 200th example assigns all ten decimal digits to ten distinct letters. Right-to-left carry propagation cuts a naive 10! search space to one solution. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/donald-gerald-robert.pl) |
@@ -5537,7 +5542,7 @@ and search for a sequence whose final state satisfies a goal.
 | Program | State-space idea | Checked answer |
 | --- | --- | --- |
 | [Route planning](https://github.com/eyereasoner/eyepl/blob/main/examples/route-planning.pl) | Weighted edges construct candidate routes and expose the chosen path as a witness. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/route-planning.pl) |
-| [Lee routing](https://github.com/eyereasoner/eyepl/blob/main/examples/lee.pl) | Breadth-first wave expansion reaches a destination on a grid, then reconstructs a path around rectangular obstacles; run it with `--library`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/lee.pl) |
+| [Lee routing](https://github.com/eyereasoner/eyepl/blob/main/examples/lee.pl) | Breadth-first wave expansion reaches a destination on a grid, then reconstructs a path around rectangular obstacles using the standard list relations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/lee.pl) |
 | [Blocks world](https://github.com/eyereasoner/eyepl/blob/main/examples/blocks-world-planning.pl) | Symbolic actions transform a compact arrangement of blocks. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/blocks-world-planning.pl) |
 | [Wolf, goat, and cabbage](https://github.com/eyereasoner/eyepl/blob/main/examples/wolf-goat-cabbage.pl) | Safety invariants reject river-bank states before they enter a valid plan. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/wolf-goat-cabbage.pl) |
 | [Missionaries and cannibals](https://github.com/eyereasoner/eyepl/blob/main/examples/missionaries-cannibals.pl) | Numeric state constraints must hold on both banks after every crossing. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/missionaries-cannibals.pl) |
@@ -5566,7 +5571,7 @@ the clauses.
 | [Peano arithmetic](https://github.com/eyereasoner/eyepl/blob/main/examples/peano-arithmetic.pl) | Explicit natural-number terms support arithmetic relations and structural recursion. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/peano-arithmetic.pl) |
 | [Fundamental theorem of arithmetic](https://github.com/eyereasoner/eyepl/blob/main/examples/fundamental-theorem-arithmetic.pl) | Two factorization strategies construct normalized prime-factor witnesses and check reconstruction. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/fundamental-theorem-arithmetic.pl) |
 | [Prime range](https://github.com/eyereasoner/eyepl/blob/main/examples/prime-range.pl) | Bounded integer generation and divisor tests enumerate primes over an explicit finite interval. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/prime-range.pl) |
-| [Goldbach](https://github.com/eyereasoner/eyepl/blob/main/examples/goldbach.pl) | Bounded search checks Goldbach decompositions for powers of two; with `--library`, the native `smallest_divisor_from/3` accelerator makes the range through `2^35` practical. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/goldbach.pl) |
+| [Goldbach](https://github.com/eyereasoner/eyepl/blob/main/examples/goldbach.pl) | Bounded search checks Goldbach decompositions for powers of two; the default native `smallest_divisor_from/3` accelerator makes the range through `2^35` practical. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/goldbach.pl) |
 | [Pi](https://github.com/eyereasoner/eyepl/blob/main/examples/pi.pl) | The Nilakantha series is a deterministic numeric recurrence; Eyepl recognizes its accumulator shape and executes 10,000 terms without tabling or heap growth. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/pi.pl) |
 | [Sieve](https://github.com/eyereasoner/eyepl/blob/main/examples/sieve.pl) | List filtering presents a different operational route to finite prime generation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/sieve.pl) |
 | [Fibonacci](https://github.com/eyereasoner/eyepl/blob/main/examples/fibonacci.pl) | A recurrence becomes an executable relation with a visibly decreasing argument. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/fibonacci.pl) |
@@ -5789,7 +5794,7 @@ additional compatibility conveniences.
 
 This breadth is not a formal certification of every processor requirement.
 The executable examples are Eyepl-profile programs and commonly use `query/1`,
-strings, inference fuses, automatic tabling, or the optional extension library.
+strings, inference fuses, automatic tabling, or the standard extension library.
 The remaining qualifications are:
 
 - zero-arity compound syntax such as `ready()` is represented by the atom

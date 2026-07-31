@@ -22,14 +22,15 @@ import { Env, copyResolved, termIsGround, termToString } from './term.js';
 import { Program } from './program.js';
 import { Solver } from './solver.js';
 import { whyNoProof, whyProof } from './explain.js';
-import { getDefaultRegistry, HaltSignal } from './iso.js';
+import { HaltSignal } from './iso.js';
+import { getLibraryRegistry } from './library.js';
 import { checkInferenceFuses } from './fuse.js';
 
 export function run(source, options = {}) {
   const includeWhy = options.proof === true || options.why === true || options.explain === true;
   const parseOptions = { ...options, sourceMetadata: includeWhy, markRecursive: includeWhy };
   let program = source instanceof Program ? source : Program.parse(source, parseOptions);
-  const runOptions = options.registry ? options : { ...options, registry: getDefaultRegistry() };
+  const runOptions = options.registry ? options : { ...options, registry: getLibraryRegistry() };
   const output = [];
   const solver = new Solver(program, {
     ...runOptions,

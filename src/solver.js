@@ -4,7 +4,8 @@ import {
   COMPOUND, Env, compound, copyResolved, deref, flattenConjunction, freshTerm,
   numberTerm, numberTextFromDouble, termIsGround, termToString, unify, variantTerms,
 } from './term.js';
-import { createDefaultRegistry, PrologError } from './iso.js';
+import { PrologError } from './iso.js';
+import { getLibraryRegistry } from './library.js';
 import { Program, selectClauseCandidates, selectClauseCandidatesForValues } from './program.js';
 import { StreamManager } from './io.js';
 
@@ -16,7 +17,7 @@ export function nextFreshId() {
 
 export class Solver {
   constructor(program, options = {}) {
-    this.registry = options.registry ?? createDefaultRegistry();
+    this.registry = options.registry ?? getLibraryRegistry();
     this.program = withPortableLibrary(program, this.registry);
     this.programRevision = this.program.revision ?? 0;
     this.maxDepth = options.maxDepth ?? 100000;

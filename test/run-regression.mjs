@@ -162,7 +162,7 @@ why(
     {
       name: 'EYEPL_LOCAL_TIME fixes local_time builtin',
       run: () => {
-        const result = runCli(['--library', '-'], {
+        const result = runCli(['-'], {
           input: 'query(local_time_answer(D)).\nlocal_time_answer(D) :- local_time(D).\n',
           env: { EYEPL_LOCAL_TIME: '2024-01-02' },
         });
@@ -177,7 +177,7 @@ why(
         const result = runCli([]);
         assertEqual(result.status, 0, 'exit status');
         assertIncludes(result.stdout, 'Usage:\n  eyepl [options] [file-or-url.pl|- ...]', 'stdout');
-        assertIncludes(result.stdout, '-l, --library', 'stdout');
+        assertNotIncludes(result.stdout, '--library', 'stdout');
         assertIncludes(result.stdout, '-p, --proof', 'stdout');
         assertIncludes(result.stdout, '-s, --stats', 'stdout');
         assertIncludes(result.stdout, '-v, --version', 'stdout');
@@ -188,14 +188,27 @@ why(
       },
     },
     {
-      name: '-l enables library predicates',
+      name: 'CLI loads standard library predicates by default',
       run: () => {
-        const result = runCli(['-l', '-'], {
+        const result = runCli(['-'], {
           input: 'query(answer(X)).\nanswer(X) :- member(X, [library]).\n',
         });
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, 'answer(library).\n', 'stdout');
         assertEqual(result.stderr, '', 'stderr');
+      },
+    },
+    {
+      name: 'legacy library flags remain harmless compatibility no-ops',
+      run: () => {
+        for (const args of [['--library', '-'], ['-lw', '-']]) {
+          const result = runCli(args, {
+            input: 'query(answer(X)).\nanswer(X) :- append([a], [b], X).\n',
+          });
+          assertEqual(result.status, 0, `${args[0]} exit status`);
+          assertEqual(result.stdout, 'answer([a, b]).\n', `${args[0]} stdout`);
+          assertEqual(result.stderr, '', `${args[0]} stderr`);
+        }
       },
     },
     {
@@ -803,6 +816,23 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
+      name: 'run loads the standard library by default',
+      run: () => {
+        const result = run('query(answer(X)). answer(X) :- append([a], [b], X).');
+        assertEqual(result.stdout, 'answer([a, b]).\n', 'stdout');
+      },
+    },
+    {
+      name: 'Solver loads the standard library by default',
+      run: () => {
+        const program = Program.parse('answer(X) :- append([a], [b], X).');
+        const solver = new Solver(program);
+        const goal = parseGoalText('answer(X)');
+        const answers = [...solver.solve([goal], new Env(), 0)].map((env) => termToString(goal, env, true));
+        assertEqual(answers.join('\n'), 'answer([a, b])', 'answers');
+      },
+    },
+    {
       name: 'program and solver public classes',
       run: () => {
         const program = Program.parse('p(a).\np(b).\n');
@@ -838,7 +868,7 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'default and library registries expose separate metadata',
+      name: 'ISO-only and standard registries expose separate metadata',
       run: () => {
         const registry = createDefaultRegistry();
         const library = getLibraryRegistry();
@@ -1250,7 +1280,7 @@ path(X, Z) :- edge(X, Y), path(Y, Z).
       name: 'collatz example remains stack-safe for browser-sized stacks',
       run: () => {
         // Use a deliberately tiny stack to catch browser-worker recursion regressions.
-        const result = spawnSync(process.execPath, ['--stack-size=100', bin, '--library', 'examples/collatz-1000.pl'], {
+        const result = spawnSync(process.execPath, ['--stack-size=100', bin, 'examples/collatz-1000.pl'], {
           cwd: packageRoot,
           encoding: 'utf8',
         });
@@ -1319,7 +1349,7 @@ function runWhy({ program, goalText, expected }) {
   fs.writeFileSync(programFile, program);
   const goal = parseGoalText(goalText);
   fs.appendFileSync(programFile, `\nquery(${termToString(goal, new Env(), true)}).\n`);
-  const result = runCli(['--library', '--proof', programFile]);
+  const result = runCli(['--proof', programFile]);
   assertEqual(result.status, 0, 'exit status');
   assertEqual(result.stderr, '', 'stderr');
   const expectedText = expected.replaceAll('__FILE__', path.basename(programFile));
@@ -1338,7 +1368,7 @@ function runWhyLoose({ program, goalText }) {
   fs.writeFileSync(programFile, program);
   const goal = parseGoalText(goalText);
   fs.appendFileSync(programFile, `\nquery(${termToString(goal, new Env(), true)}).\n`);
-  const result = runCli(['--library', '--proof', programFile]);
+  const result = runCli(['--proof', programFile]);
   assertEqual(result.status, 0, 'exit status');
   assertEqual(result.stderr, '', 'stderr');
   Program.parse(result.stdout);
@@ -1439,6 +1469,19 @@ function playgroundStaticIssues() {
   }
   if (!html.includes('<script type="module">')) issues.push('playground script must be an ES module');
   if (!html.includes("new URL('./src/index.js', location.href)")) issues.push('playground must import the public browser API');
+  for (const filename of ['src/index.js', 'src/program.js', 'src/io.js']) {
+    const sourceText = fs.readFileSync(path.join(packageRoot, filename), 'utf8');
+    if (/^\s*import\s+[^('\"]*['\"]node:/m.test(sourceText)) {
+      issues.push(`${filename} must not statically import Node built-ins in the browser graph`);
+    }
+  }
+  const platformText = fs.readFileSync(path.join(packageRoot, 'src', 'platform.js'), 'utf8');
+  if (!platformText.includes("await import('node:fs')") || !platformText.includes("await import('node:path')")) {
+    issues.push('browser platform bridge must guard Node built-ins behind dynamic imports');
+  }
+  if (!html.includes('activeWorker.onmessageerror') || !html.includes('Serve the checkout over HTTP(S)')) {
+    issues.push('playground must report actionable worker startup and message errors');
+  }
   if (!html.includes('class="editor"') || !html.includes('id="highlight"') || !html.includes('id="source"')) {
     issues.push('playground must include layered syntax-colored editor');
   }

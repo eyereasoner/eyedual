@@ -27,9 +27,9 @@ dependencies and run the CLI directly with Node.js 18 or newer:
 
 ```bash
 npm install
-node bin/eyepl.js --library examples/ancestor.pl
-node bin/eyepl.js --library --proof examples/socrates.pl
-node bin/eyepl.js --library --warnings test/conformance/warnings/negation/unstratified_mutual.pl
+node bin/eyepl.js examples/ancestor.pl
+node bin/eyepl.js --proof examples/socrates.pl
+node bin/eyepl.js --warnings test/conformance/warnings/negation/unstratified_mutual.pl
 printf 'query(works(stdin, true)).\nworks(stdin, true) :- ok = ok.\n' | node bin/eyepl.js -
 ```
 
@@ -37,7 +37,7 @@ For one-off local CLI use from the checkout, npm can run the package bin without
 
 ```bash
 npm exec --yes --package=. -- eyepl --version
-npm exec --yes --package=. -- eyepl --library examples/ancestor.pl
+npm exec --yes --package=. -- eyepl examples/ancestor.pl
 ```
 
 To install the checkout's `eyepl` command on your `PATH`, use npm's package link:
@@ -48,19 +48,21 @@ eyepl --version
 ```
 
 For local browser use, run `python3 -m http.server` from the checkout and open
-`http://localhost:8000/playground.html`.
+`http://localhost:8000/playground.html`. Do not open `playground.html` directly as a
+`file:` URL: module workers require HTTP(S). The browser playground supports the
+in-memory reasoner; filesystem predicates and `include/1` remain Node-only.
 
 ## Classical and challenge search examples
 
 The example corpus now contains **200 runnable examples**. Three useful search
-stress cases use the optional portable list library. Run them with `--library`;
-their exact checked answers live beside the other goldens under
-`examples/output/`:
+stress cases exercise the standard portable list library, which is loaded by
+default in the CLI, JavaScript API, and browser playground. Their exact checked
+answers live beside the other goldens under `examples/output/`:
 
 ```bash
-node bin/eyepl.js --library examples/lee.pl
-node bin/eyepl.js --library examples/n-queens.pl
-node bin/eyepl.js --library examples/donald-gerald-robert.pl
+node bin/eyepl.js examples/lee.pl
+node bin/eyepl.js examples/n-queens.pl
+node bin/eyepl.js examples/donald-gerald-robert.pl
 ```
 
 [`lee.pl`](examples/lee.pl) performs Lee wavefront routing around rectangular
@@ -88,26 +90,21 @@ console.log(result.stdout);
 `run` returns captured `stdout`, numeric solver `stats`, and a nullable
 `haltCode` when `halt/0` or `halt/1` terminates the processor.
 
-The default registry contains Eyepl's ISO/IEC 13211-1:1995 core profile:
-unification and term inspection, control and exceptions, arithmetic, grouped
-solutions, the dynamic database, operators and directives, flags, atomic-term
-processing, streams, character/byte and term I/O, and processor termination.
-The profile has 114 registered predicate indicators across 93 names.
+The default runtime includes Eyepl's ISO/IEC 13211-1:1995 core profile plus
+the standard portable library and selected host conveniences for strings,
+lists, aggregation, contexts, dates, and arithmetic. The ISO profile itself has
+114 registered predicate indicators across 93 names.
 
 This is broad standards coverage, not a formal certification claim. Eyepl
 retains documented host conventions—most visibly `query/1`, automatic tabling,
 inference fuses, and a distinct double-quoted string scalar—and exhaustive
 standard error/option combinations remain part of the conformance work.
-Programs that use Eyepl's non-core string, list, aggregation, context, date,
-or convenience predicates must opt in explicitly:
+Library predicates such as `append/3`, `member/2`, and `select/3` are available
+without a CLI flag or JavaScript registry option.
 
-```js
-import { getLibraryRegistry, run } from 'eyepl';
-
-run(source, { registry: getLibraryRegistry() });
-```
-
-The equivalent CLI switch is `-l` or `--library`.
+Advanced embedders and the ISO conformance suite can still select the isolated
+core registry explicitly with `createDefaultRegistry()` or
+`getDefaultRegistry()`.
 
 ISO streams are solver-owned and shared by nested goals. JavaScript callers
 can provide standard input and capture standard output:
@@ -132,8 +129,8 @@ The spacecraft battery example combines sensor telemetry, the physical relation
 derive a diagnosis and safety action:
 
 ```bash
-node bin/eyepl.js --library examples/spacecraft-battery-diagnosis.pl
-node bin/eyepl.js --library -p examples/spacecraft-battery-diagnosis.pl
+node bin/eyepl.js examples/spacecraft-battery-diagnosis.pl
+node bin/eyepl.js -p examples/spacecraft-battery-diagnosis.pl
 ```
 
 The normal output reports computed metrics, a thermal-runaway precursor, and an
@@ -155,11 +152,12 @@ demand-driven multi-argument indexes. SWI-Prolog-inspired quality checks avoid
 building indexes for small, weakly selective, or variable-heavy clause groups.
 
 The builtin boundary is intentionally visible in the source tree:
-[`src/iso.js`](src/iso.js) contains the ISO processor predicates and default
-registry, while [`src/library.js`](src/library.js) contains the explicitly
-enabled extension predicates, portable Prolog clauses, and their small
-profile-guided accelerator set. Both layers use the same parser, terms, solver,
-streams, and proof machinery.
+[`src/iso.js`](src/iso.js) contains the isolated ISO processor registry, while
+[`src/library.js`](src/library.js) composes that core with the standard portable
+Prolog clauses, host conveniences, and their small profile-guided accelerator
+set. Normal CLI, API, solver, proof, and playground execution uses the composed
+registry; advanced embedders can still request the ISO-only registry. Both
+layers use the same parser, terms, solver, streams, and proof machinery.
 
 ## RDF 1.2 files
 

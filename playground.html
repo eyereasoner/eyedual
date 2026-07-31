@@ -973,7 +973,20 @@ answer(ok) :- eq(ok, ok).
       activeWorkerUrl = URL.createObjectURL(new Blob([workerCode], { type: 'text/javascript' }));
       activeWorker = new Worker(activeWorkerUrl, { type: 'module' });
       activeWorker.onmessage = (event) => finishRun(event.data);
-      activeWorker.onerror = (event) => finishRun({ ok: false, error: event.message || 'worker error' });
+      activeWorker.onerror = (event) => {
+        const location = event.filename
+          ? ` (${event.filename}${event.lineno ? `:${event.lineno}${event.colno ? `:${event.colno}` : ''}` : ''})`
+          : '';
+        finishRun({
+          ok: false,
+          error: `${event.message || 'Worker failed to start'}${location}. ` +
+            'Serve the checkout over HTTP(S); opening playground.html as a file is not supported.',
+        });
+      };
+      activeWorker.onmessageerror = () => finishRun({
+        ok: false,
+        error: 'The reasoning worker returned an unreadable message.',
+      });
       activeWorker.postMessage({
         source: combinedSource(),
         options: { proof: proof.checked, stats: stats.checked },
