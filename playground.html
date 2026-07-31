@@ -947,13 +947,15 @@ answer(ok) :- eq(ok, ok).
       runButton.disabled = true;
       stopButton.disabled = false;
 
-      const engineUrl = new URL('./src/index.js', location.href).href;
+      const engineUrl = new URL('./src/index.js?playground=20260731b', location.href).href;
       const workerCode = `
-        import { run } from ${JSON.stringify(engineUrl)};
+        import { run, createLibraryRegistry, portableLibrarySource } from ${JSON.stringify(engineUrl)};
+        const registry = createLibraryRegistry();
+        registry.portableSource = portableLibrarySource;
         self.onmessage = (event) => {
           const started = performance.now();
           try {
-            const result = run(event.data.source, event.data.options);
+            const result = run(event.data.source, { ...event.data.options, registry });
             self.postMessage({
               ok: true,
               stdout: result.stdout,

@@ -15,6 +15,7 @@ export {
 export {
   createLibraryRegistry,
   getLibraryRegistry,
+  portableLibrarySource,
 } from './library.js';
 export { StreamManager } from './io.js';
 

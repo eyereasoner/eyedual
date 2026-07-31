@@ -197,6 +197,7 @@ export function createDefaultRegistry(): BuiltinRegistry;
 export function createLibraryRegistry(): BuiltinRegistry;
 export function getDefaultRegistry(): BuiltinRegistry;
 export function getLibraryRegistry(): BuiltinRegistry;
+export const portableLibrarySource: string;
 export class PrologError extends Error {
   formal: string;
   culprit: EyeplTerm | null;
@@ -263,6 +264,7 @@ declare const eyepl: {
   createLibraryRegistry: typeof createLibraryRegistry;
   getDefaultRegistry: typeof getDefaultRegistry;
   getLibraryRegistry: typeof getLibraryRegistry;
+  portableLibrarySource: typeof portableLibrarySource;
   run: typeof run;
   checkInferenceFuses: typeof checkInferenceFuses;
   formatInferenceFuse: typeof formatInferenceFuse;

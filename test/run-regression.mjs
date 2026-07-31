@@ -1468,7 +1468,15 @@ function playgroundStaticIssues() {
     issues.push('playground must avoid full syntax coloring for very large examples');
   }
   if (!html.includes('<script type="module">')) issues.push('playground script must be an ES module');
-  if (!html.includes("new URL('./src/index.js', location.href)")) issues.push('playground must import the public browser API');
+  if (!html.includes("new URL('./src/index.js?playground=")) issues.push('playground must cache-bust the public browser API entry');
+  if (!html.includes('createLibraryRegistry, portableLibrarySource') ||
+      !html.includes('registry.portableSource = portableLibrarySource') ||
+      !html.includes('{ ...event.data.options, registry }')) {
+    issues.push('playground worker must explicitly install the portable standard library');
+  }
+  if (!fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js'))) {
+    issues.push('portable standard library must live in a standalone browser-safe module');
+  }
   for (const filename of ['src/index.js', 'src/program.js', 'src/io.js']) {
     const sourceText = fs.readFileSync(path.join(packageRoot, filename), 'utf8');
     if (/^\s*import\s+[^('\"]*['\"]node:/m.test(sourceText)) {
