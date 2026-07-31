@@ -4831,6 +4831,11 @@ reference.
 
 # Appendix A. Supported ISO Prolog profile
 
+The standards baseline is ISO/IEC 13211-1:1995, as corrected by Technical
+Corrigenda 1:2007, 2:2012, and 3:2017. Eyepl implements the compatibility
+profile documented here; it does not claim certification as a complete
+conforming processor.
+
 Prolog source accepted by Eyepl is UTF-8. `%` starts a line comment and
 `/* ... */` delimits a block comment. Plain atoms begin with a
 lowercase ASCII letter. Variables begin with uppercase or underscore. The bare
@@ -5723,8 +5728,8 @@ When adding an example:
 6. include both a positive case and a meaningful boundary or failure case;
 7. run the full corpus before treating the example as documentation.
 
-The full set contains 183 runnable source programs. This Appendix is curated
-rather than exhaustive: use the [complete directory listing](https://github.com/eyereasoner/eyepl/tree/main/examples/) for
+The full set of runnable source programs is checked against exact output.
+This Appendix is curated rather than exhaustive: use the [complete directory listing](https://github.com/eyereasoner/eyepl/tree/main/examples/) for
 the remaining demonstrations, then apply the same reading discipline—sentence,
 mode, finite domain, answer, proof, and revision.
 
@@ -5747,21 +5752,23 @@ npm run test:conformance
 node test/run-conformance-report.mjs
 ```
 
-For the v0.1.17 baseline, the complete suite passes 1,030 tests. The
-file-based conformance corpus contains 555 cases, including 137 focused ISO
+The complete suite must pass before release. The file-based conformance corpus
+contains 555 cases, including 137 focused ISO
 cases derived from the success, failure, mode, and error behavior in
-ISO/IEC 13211-1 clauses 7 and 8. The generated `conformance-report.md` records
-the category totals used for each release.
+ISO/IEC 13211-1 clauses 7 and 8. The generated `conformance-report.md` is the
+authoritative source for current category totals.
 
 ### Supported ISO Prolog profile
 
-Eyepl executes a documented and tested **ISO compatibility profile** covering
-the complete mandatory predicate-indicator inventory of ISO/IEC
-13211-1:1995. It includes control and exceptions, term operations, arithmetic,
-grouped solutions, dynamic clauses, operators, atomic-term processing, flags,
-character conversion, streams, character/byte and term I/O, initialization,
-source inclusion, and termination. `compare/3`, `callable/1`, `ground/1`, and
-`term_variables/2` are additional compatibility conveniences.
+Eyepl executes a documented and tested **ISO compatibility profile** based on
+ISO/IEC 13211-1:1995 and its three technical corrigenda. The exact supported
+predicate indicators—not a claim about the standard's complete processor
+environment—are listed in Appendix B. The profile includes control and
+exceptions, term operations, arithmetic, grouped solutions, dynamic clauses,
+operators, atomic-term processing, flags, character conversion, streams,
+character/byte and term I/O, initialization, source inclusion, and
+termination. `compare/3`, `callable/1`, `ground/1`, and `term_variables/2` are
+additional compatibility conveniences.
 
 This breadth is not a formal certification of every processor requirement.
 The executable examples are Eyepl-profile programs and commonly use `query/1`,
@@ -5804,6 +5811,16 @@ The book is self-contained as an Eyepl guide. These sources provide historical
 and technical background for the ideas that Eyepl adapts. They describe larger
 languages and theories, so they should not be read as additional Eyepl
 specifications.
+
+- ISO/IEC,
+  [*ISO/IEC 13211-1:1995 — Programming languages — Prolog — Part 1:
+  General core*](https://www.iso.org/standard/21413.html), with
+  [Technical Corrigendum 1:2007](https://www.iso.org/standard/50405.html),
+  [Technical Corrigendum 2:2012](https://www.iso.org/standard/58033.html),
+  and
+  [Technical Corrigendum 3:2017](https://www.iso.org/standard/73194.html).
+  Appendix A defines the precise Eyepl compatibility profile against this
+  standards baseline; Appendix B lists the implemented predicate indicators.
 
 - Michael Genesereth,
   [*Introduction to Logic*](http://intrologic.stanford.edu/public/chapters.php),
@@ -6081,7 +6098,8 @@ selected, which bindings it needs and produces, and which alternatives it
 creates.
 
 **Occurs check.** A unification check that prevents binding a variable to a
-term containing that variable. Eyepl does not perform it.
+term containing that variable. Eyepl performs it consistently for ordinary
+unification as well as `unify_with_occurs_check/2`.
 
 **Predicate indicator.** A predicate name paired with its arity, conventionally
 written `name/arity`.

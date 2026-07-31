@@ -1184,6 +1184,20 @@ function bookReferenceDocumentationIssues() {
   if (!book.includes('This book is the single reference for the Eyepl implementation.')) {
     issues.push('book Appendix F does not state the single-reference policy');
   }
+  for (const standard of [
+    'ISO/IEC 13211-1:1995',
+    'Technical Corrigendum 1:2007',
+    'Technical Corrigendum 2:2012',
+    'Technical Corrigendum 3:2017',
+  ]) {
+    if (!book.includes(standard)) issues.push(`book does not identify standards baseline: ${standard}`);
+  }
+  if (!book.includes('Eyepl performs it consistently for ordinary\nunification as well as `unify_with_occurs_check/2`.')) {
+    issues.push('book glossary does not match finite-tree unification');
+  }
+  if (book.includes('Eyepl does not perform it.')) {
+    issues.push('book contradicts implementation occurs-check behavior');
+  }
   for (const heading of ['# Appendix A. Supported ISO Prolog profile', '# Appendix B. Built-in predicates', '# Appendix C. Command-line reference']) {
     if (!book.includes(heading)) issues.push(`book is missing ${heading}`);
   }

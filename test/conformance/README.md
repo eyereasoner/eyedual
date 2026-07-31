@@ -9,9 +9,9 @@ The suite is intentionally file-based. Exact standard output, errors, warnings,
 and proof output test the behavior of the JavaScript implementation.
 
 “Conformance” here means conformance to Eyepl's documented ISO compatibility
-profile and implementation extensions. The default registry now covers the
-mandatory ISO/IEC 13211-1:1995 predicate-indicator inventory and standard
-directive families. This suite is still not an independent certification of
+profile and implementation extensions. The default registry covers the exact
+predicate indicators listed in Appendix B of the book across the supported
+ISO/IEC 13211-1:1995 standard families. This suite is still not an independent certification of
 every processor requirement, lexical edge, option combination, or prescribed
 error precedence. Cases under `iso/` identify standards-derived behavior;
 other directories cover Eyepl host contracts and extensions.
@@ -85,9 +85,10 @@ ISO/IEC 13211-1 clauses 7 and 8. In particular, isolated negative cases keep
 instantiation, type, domain, permission, representation, and evaluation errors
 independently observable.
 
-The v0.1.17 baseline has 137 cases in `iso/` and 555 file-based conformance
-cases in total. Together with regression, API, RDF, example, style, and other
-checks, `npm test` passes 1,030 tests.
+The corpus has 137 cases in `iso/` and 555 file-based conformance cases in
+total. The generated `conformance-report.md` is the authoritative source for
+current category totals. Together with regression, API, RDF, example, style,
+and other checks, `npm test` is the release gate.
 
 ## Updating expected output
 
