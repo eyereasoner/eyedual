@@ -5753,7 +5753,7 @@ node test/run-conformance-report.mjs
 ```
 
 The complete suite must pass before release. The file-based conformance corpus
-contains 555 cases, including 137 focused ISO
+contains 572 cases, including 154 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. The generated `conformance-report.md` is the
 authoritative source for current category totals.

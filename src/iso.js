@@ -421,9 +421,11 @@ function* retractBuiltin({ solver, goal, env }) {
     throw new PrologError('permission_error(access, static_procedure)', procedureIndicator(parts.head));
   }
   if (!group) return;
+  // ISO logical update view: this call keeps the clauses that were visible
+  // when it began. A later retract/1 may erase one of those clauses from the
+  // live procedure, but must not invalidate this call's pending alternatives.
   const candidates = [...group.clauses];
   for (const clause of candidates) {
-    if (!group.clauses.includes(clause)) continue;
     const copied = freshCopy(compound('$clause', [clause.head, clauseBodyTerm(clause.body)]), new Env());
     const next = env.clone();
     if (!unify(parts.head, copied.args[0], next)) continue;
@@ -540,12 +542,19 @@ function* currentOpBuiltin({ solver, goal, env }) {
   const priority = deref(goal.args[0], env);
   const specifier = deref(goal.args[1], env);
   const name = deref(goal.args[2], env);
-  if (priority.type !== VAR && (priority.type !== NUMBER || !isDecimalInteger(priority.name) ||
-      BigInt(priority.name) < 0n || BigInt(priority.name) > 1200n)) {
-    throw new PrologError('domain_error(operator_priority)', priority);
+  if (priority.type !== VAR) {
+    if (priority.type !== NUMBER || !isDecimalInteger(priority.name)) {
+      throw new PrologError('type_error(integer)', priority);
+    }
+    if (BigInt(priority.name) < 0n || BigInt(priority.name) > 1200n) {
+      throw new PrologError('domain_error(operator_priority)', priority);
+    }
   }
-  if (specifier.type !== VAR && (specifier.type !== ATOM || !operatorSpecifiers.has(specifier.name))) {
-    throw new PrologError('domain_error(operator_specifier)', specifier);
+  if (specifier.type !== VAR) {
+    if (specifier.type !== ATOM) throw new PrologError('type_error(atom)', specifier);
+    if (!operatorSpecifiers.has(specifier.name)) {
+      throw new PrologError('domain_error(operator_specifier)', specifier);
+    }
   }
   if (name.type !== VAR && name.type !== ATOM) throw new PrologError('type_error(atom)', name);
   for (const definition of solver.program.operators.values()) {
