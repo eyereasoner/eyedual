@@ -38,10 +38,15 @@ log_nameOf(g3, (
 
 % A tiny projection shows how a program can inspect a quoted context without
 % making the entire context globally true.
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 context_statement(Contextname, Subject, Predicate, Object) :-
   log_nameOf(Contextname, Context),
-  holds(Context, Predicate, [Subject, Object]).
+  context_member(Context, Statement),
+  (Statement =.. [Predicate, Subject, Object]).
 
 dataGraph(association, skolem_g0) :-
   context_statement(skolem_g0, bob, foaf_name, "Bob").

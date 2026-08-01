@@ -1,9 +1,8 @@
 % Context schema audit.
 %
-% This example needs holds/3 rather than holds/2 because the audit rule does
-% not know the predicate names or arities in advance.  It inspects a whole
-% context as data, extracts each member as Name + Args, computes the arity, and
-% checks that shape against an allowed schema.
+% The audit rule does not know predicate names or arities in advance. It walks
+% the context as ordinary comma-term data, decomposes each member with =../2,
+% computes the arity, and checks that shape against an allowed schema.
 
 % Output declarations: query/1 selects the relations written to this example's golden output.
 query(context_shape(X0, X1, X2)).
@@ -34,11 +33,16 @@ allowed_shape(temperature, 2).
 allowed_shape(gps, 3).
 allowed_shape(signature, 4).
 
-% Derivation rules: holds/3 exposes arbitrary context members as predicate name
-% plus argument list, so one generic rule can audit mixed-arity data.
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
+% Derivation rules: =../2 exposes each context member as predicate name plus
+% argument list, so one generic rule can audit mixed-arity data.
 context_shape(Message, Name, Arity) :-
   message_context(Message, Context),
-  holds(Context, Name, Args),
+  context_member(Context, Statement),
+  (Statement =.. [Name | Args]),
   length(Args, Arity).
 
 schema_violation(Message, Name, Arity) :-

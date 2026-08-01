@@ -200,10 +200,9 @@ Prolog*: begin with the meaning of a relation, make the relation executable,
 study the control it induces, and then return to the same ideas at a larger
 scale through transformation, search, interpreters, and applications. Each
 part therefore ends by asking the reader to construct, test, or improve a
-program rather than merely recognize syntax. The former appendices are now
-ordinary chapters: reference material follows practice, laboratories turn the
-methods into work, and checkpoint notes close the loop with retrieval and
-diagnosis.
+program rather than merely recognize syntax. Reference material follows
+practice, laboratories turn the methods into work, and checkpoint notes close
+the loop with retrieval and diagnosis.
 
 Balance here does not mean that every chapter has the same length or the same
 number of pictures. A language catalog should be searchable; a construction
@@ -1120,7 +1119,7 @@ finite generator that bounds each aggregate in a program of your own.
 Term predicates decompose or construct general terms:
 
 <figure>
-  <img src="book-assets/context-data-boundary.svg" alt="Raw text becomes structured members inside one message context, which holds inspects without asserting those members globally.">
+  <img src="book-assets/context-data-boundary.svg" alt="Raw text becomes structured members inside one message context, which ordinary term traversal inspects without asserting those members globally.">
   <figcaption>Normalize text into explicit structure at the boundary; inspecting a member inside one context does not turn it into an ambient fact.</figcaption>
 </figure>
 
@@ -1152,20 +1151,26 @@ Parenthesized comma terms can serve as context data:
 ```eyepl
 message(event_17, (severity(high), source(sensor_3), reading(temp, 91))).
 
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
 hot_event(Id) :-
   message(Id, Context),
-  holds(Context, severity(high)),
-  holds(Context, reading(temp, Value)),
+  context_member(Context, severity(high)),
+  context_member(Context, reading(temp, Value)),
   (Value > 80).
 ```
 
-`holds/2` matches a member. `holds/3` exposes a member's name and argument list.
-Context members remain quoted data; inspecting them does not assert them as
-ambient facts.
+`context_member/2` is an ordinary program relation: it walks a comma-context
+from left to right. When the member's shape is not known in advance, decompose
+it with `(Member =.. [Name | Arguments])`. Context members remain quoted data;
+inspecting them does not assert them as ambient facts.
 
 **Checkpoint.** Distinguish the atomic formula `message(...)` from the nested
 data term `(severity(high), source(sensor_3), reading(temp, 91))`. Explain why
-`holds/2` can inspect the latter without asserting `severity(high)` globally.
+`context_member/2` can inspect the latter without asserting `severity(high)`
+globally.
 
 ## 10. From puzzles to models
 
@@ -1255,9 +1260,10 @@ database reading. Later work on stratification disciplined negative
 dependencies. Aggregation continued the database lineage: a set of solutions
 could itself become data, provided the nested search was finite.
 
-This history explains Eyepl's conservatism. Negation and aggregation are
-powerful because they expose a bounded subcomputation. Their safety comes not
-from punctuation but from a mathematical argument about scope and termination.
+These distinctions explain Eyepl's conservative treatment. Negation and
+aggregation are powerful because they expose a bounded subcomputation. Their
+safety comes not from punctuation but from a mathematical argument about scope
+and termination.
 
 ---
 
@@ -4667,12 +4673,13 @@ executable memory.
   <figcaption>The broader ISO profile is a practical workbench: relational term operations remain at its center while control, mutable state, and I/O are introduced at explicit boundaries.</figcaption>
 </figure>
 
-Eyepl v0.1.11 through v0.1.14 substantially enlarged and tested the supported
-ISO Prolog profile. Earlier chapters use its relational core; this part teaches
-the processor-facing facilities that become important in reusable libraries,
-language tools, long-running applications, and file boundaries. The isolated
-mode and error cases remain in `test/conformance/cases/iso/`. The examples here
-compose those operations into programs worth changing and rerunning.
+The supported ISO Prolog profile includes processor-facing facilities that
+become important in reusable libraries, language tools, long-running
+applications, and file boundaries. Earlier chapters use its relational core;
+this part makes control, reflection, state, operators, and streams explicit.
+Isolated mode and error cases live in `test/conformance/cases/iso/`. The
+examples here compose those operations into programs worth changing and
+rerunning.
 
 These facilities do not all have the same declarative character. Term
 inspection and atomic conversion are relations. Cut commits to an operational
@@ -4942,8 +4949,8 @@ effect belongs outside the central relation that decides what the term means.
 
 ## Part VIII summary
 
-The v0.1.11–v0.1.14 ISO expansion makes Eyepl suitable for more than closed
-rule files:
+The supported ISO facilities make Eyepl suitable for more than closed rule
+files:
 
 - control predicates delimit choices and exception recovery;
 - collectors distinguish flat, grouped, and canonicalized answer sets;
@@ -5215,8 +5222,8 @@ source module and no runtime Prolog-library parse or program overlay.
 ISO-only registry remains available through `createDefaultRegistry()` and
 `getDefaultRegistry()` for conformance work and advanced embedders.
 
-The complete registry contains **182 predicate indicators**: 114 in the isolated
-ISO profile and 68 Eyepl library indicators implemented in `src/library.js`. Every
+The complete registry contains **168 predicate indicators**: 114 in the isolated
+ISO profile and 54 Eyepl library indicators implemented in `src/library.js`. Every
 Eyepl library definition is tagged with `eyeplLibrary: true`, so tests and
 embedders can audit the boundary directly.
 
@@ -5226,16 +5233,15 @@ embedders can audit the boundary directly.
 | --- |
 | `append/3`, `member/2`, `select/3`, `head/2`, `rest/2`, `last/2` |
 | `nth0/3`, `nth1/3`, `set_nth0/4`, `take/3`, `drop/3`, `slice/4` |
-| `reverse/2`, `reverse_acc/3`, `length/2`, `sum_list/2` |
-| `min_list/2`, `min_list_acc/3`, `max_list/2`, `max_list_acc/3` |
-| `not_member/2`, `list_to_set/2`, `sort/2`, `sort_acc/3`, `insert_unique/3` |
-| `str_concat/3`, `contains/2`, `matches/2`, `matches_alternative/2` |
-| `join/3`, `join_atoms/4`, `substring/4` |
+| `reverse/2`, `length/2`, `sum_list/2` |
+| `min_list/2`, `max_list/2` |
+| `not_member/2`, `list_to_set/2`, `sort/2` |
+| `str_concat/3`, `contains/2`, `matches/2` |
+| `join/3`, `substring/4` |
 | `countall/2`, `sumall/3` |
-| `aggregate_min/5`, `aggregate_min_pairs/3`, `aggregate_min_acc/5` |
-| `aggregate_max/5`, `aggregate_max_pairs/3`, `aggregate_max_acc/5` |
-| `between/3`, `between_range/3`, `min/3`, `max/3`, `smallest_divisor_from/3` |
-| `maplist/3`, `holds/2`, `holds/3` |
+| `aggregate_min/5`, `aggregate_max/5` |
+| `between/3`, `min/3`, `max/3`, `smallest_divisor_from/3` |
+| `maplist/3` |
 | `acos/2`, `asin/2`, `atan2/3`, `tan/2` |
 | `lt/2`, `le/2`, `gt/2`, `ge/2` |
 | `local_time/1`, `difference/3` |
@@ -5294,11 +5300,12 @@ answer(age, D) :- difference("2026-07-28", "2020-05-20", D).
 query(answer(Kind, Value)).
 ```
 
-Earlier releases exposed named wrappers such as `add/3`, `mul/3`, `abs/2`,
-and `sqrt/2`. They were removed because ISO arithmetic already expresses them:
-for example, `R is A + B`, `R is abs(A)`, and `R is sqrt(A)`. The same applies
-to subtraction, multiplication, division, modulo, powers, sine, cosine,
-exponential, logarithm, and the ISO rounding functions.
+The library deliberately does not register named arithmetic wrappers such as
+`add/3`, `mul/3`, `abs/2`, or `sqrt/2`, because ISO arithmetic already
+expresses them: for example, `R is A + B`, `R is abs(A)`, and
+`R is sqrt(A)`. The same applies to subtraction, multiplication, division,
+modulo, powers, sine, cosine, exponential, logarithm, and the ISO rounding
+functions.
 
 The bundled Eyepl library layer defines `between/3`, `min/3`, `max/3`, and
 `smallest_divisor_from/3` using ISO arithmetic and comparisons. They are
@@ -5307,12 +5314,11 @@ available in the default runtime, but they are part of the Eyepl library.
 
 #### List relations
 
-These relations are JavaScript implementations provided by the Eyepl library. Their
-relational modes and error behavior are regression-checked against the former
-clause implementation. Every list-consuming relation below expects a proper
-list unless explicitly
-stated otherwise. Indexes and counts are zero-based, nonnegative safe
-integers.
+These relations are JavaScript implementations provided by the Eyepl library.
+Their relational modes and error behavior are regression-checked against
+equivalent clause definitions. Every list-consuming relation below expects a
+proper list unless explicitly stated otherwise. Indexes and counts are
+zero-based, nonnegative safe integers.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |
@@ -5385,10 +5391,9 @@ query(answer(Kind, Value)).
 
 #### Native aggregation and bounded control
 
-These native relations preserve the collection, arithmetic, term-order, and
-scoping behavior of the former clause definitions. The caller is responsible
-for making
-that search finite. Bind outer variables before the nested goal when they are
+These native relations follow the documented collection, arithmetic,
+term-order, and scoping contracts. The caller is responsible for making that
+search finite. Bind outer variables before the nested goal when they are
 intended to restrict its domain.
 
 | Predicate and principal mode | Behavior |
@@ -5420,30 +5425,32 @@ answer(best(Name), Cost) :-
 query(answer(Kind, Value)).
 ```
 
-#### Native context helpers
+#### Contexts with ordinary terms
 
-The `holds/2` and `holds/3` relations below are Eyepl library
-relations. They preserve the former unification and `=../2`-style decomposition
-semantics and are not host conveniences.
-
-| Predicate and principal mode | Behavior |
-| --- | --- |
-| `holds(+Context,?Member)` | Flattens a comma-context from left to right and matches one member at a time. Members remain data; they are not called as goals. |
-| `holds(+Context,?Name,?Arguments)` | Decomposes each atomic or compound context member into an atom name and a proper argument list. |
+A comma-context needs no special native predicate. A small program relation can
+walk its members, and ISO `=../2` can expose any member's name and argument list.
 
 ```eyepl
 message(event_17,
         (severity(high), source(sensor_3), reading(temp, 91))).
 
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
+context_parts(Context, Name, Args) :-
+  context_member(Context, Member),
+  (Member =.. [Name | Args]),
+  atom(Name).
+
 answer(field(Name, Args)) :-
   message(event_17, Context),
-  holds(Context, Name, Args).
+  context_parts(Context, Name, Args).
 
 query(answer(X)).
 ```
 
-The library still includes the ISO `functor/3`, `arg/3`, and `=../2`
-predicates described in the default profile. Use `=../2` for whole-argument-list
+The ISO profile includes `functor/3`, `arg/3`, and `=../2`. Use `=../2` for whole-argument-list
 decomposition and construction, `=/2` for unification, and `\=/2` for
 non-unifiability; redundant aliases are not registered.
 
@@ -5607,11 +5614,11 @@ Review questions:
 </figure>
 
 The [examples directory](https://github.com/eyereasoner/eyepl/tree/main/examples/) is the book's executable companion. The
-top-level catalog contains **200 self-contained runnable programs**. Every
+top-level directory contains **200 self-contained runnable programs**. Every
 source program has an exact answer file under
 [examples/output](https://github.com/eyereasoner/eyepl/tree/main/examples/output/), and **55 selected programs** have a checked
-explanation under [examples/proof](https://github.com/eyereasoner/eyepl/tree/main/examples/proof/). The pointers below open
-the program itself rather than merely naming it.
+explanation under [examples/proof](https://github.com/eyereasoner/eyepl/tree/main/examples/proof/). The selected pointers below
+open the program itself rather than merely naming it.
 
 The generated [`examples/book/`](https://github.com/eyereasoner/eyepl/tree/main/examples/book/) tree serves a different
 purpose: it mirrors the complete inline Eyepl displays chapter by chapter.
@@ -5650,8 +5657,8 @@ sequence is:
 
 #### Standard Prolog profile
 
-The v0.1.11–v0.1.14 examples compose ISO facilities that isolated conformance
-cases test one mode at a time.
+These examples compose ISO facilities that isolated conformance cases test one
+mode at a time.
 
 | Program | Standard facility | Checked answer |
 | --- | --- | --- |
@@ -5982,7 +5989,7 @@ The complete suite must pass before release. The file-based conformance corpus
 contains 695 cases, including 277 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 200 normal
-examples, 55 proof examples, and 128 extracted book displays. The seven-case
+examples, 55 proof examples, and 134 extracted book displays. The seven-case
 playground contract suite imports the production worker, sends real reasoning
 requests through its message protocol, and crawls the served module graph for
 missing assets, bad MIME types, and static Node-only imports. The generated
@@ -6746,8 +6753,9 @@ best key. The goal passed into the aggregate, not the aggregate's punctuation,
 must establish finiteness.
 
 **Chapter 9.** `message/2` is asserted as an atomic formula. Its context
-argument is structured data. `holds/2` examines members inside that term; it
-does not add those members as globally callable source facts.
+argument is structured data. The program-defined `context_member/2` relation
+examines members inside that term; it does not add those members as globally
+callable source facts.
 
 **Chapter 10.** The complete coloring has six answers. Removing `A \= C`
 leaves the requirements `A ≠ B` and `B ≠ C`, producing twelve answers. The six

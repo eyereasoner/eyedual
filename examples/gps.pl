@@ -1,5 +1,6 @@
 % GPS route-planning example translated from Eyeling's gps.n3.
-% The map is stored as quoted formula data and projected with holds/3.  Route
+% The map is stored as quoted formula data and projected with ordinary term
+% traversal and =../2. Route
 % paths accumulate action sequence, duration, cost, belief, and comfort; table
 % keeps repeated comparison and explanation queries from recomputing paths.
 
@@ -30,13 +31,18 @@ map_graph(mapBE, (
   gps_description(mapBE, description(location(S, brugge), true, location(S, oostende), drive_brugge_oostende, 900.0, 0.004, 0.98, 1.0))
 )).
 
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
 case_statement(S, P, O) :-
   case_graph(caseGraph, Context),
-  holds(Context, P, [S, O]).
+  context_member(Context, Statement),
+  (Statement =.. [P, S, O]).
 
 map_description(From, To, Action, Duration, Cost, Belief, Comfort) :-
   map_graph(mapBE, Context),
-  holds(Context, gps_description(mapBE, description(From, true, To, Action, Duration, Cost, Belief, Comfort))).
+  context_member(Context, gps_description(mapBE, description(From, true, To, Action, Duration, Cost, Belief, Comfort))).
 
 path(From, To, [Action], Duration, Cost, Belief, Comfort) :-
   map_description(From, To, Action, Duration, Cost, Belief, Comfort).

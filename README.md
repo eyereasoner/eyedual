@@ -95,8 +95,8 @@ console.log(result.stdout);
 `haltCode` when `halt/0` or `halt/1` terminates the processor.
 
 The default runtime includes Eyepl's ISO/IEC 13211-1:1995 core profile plus
-68 Eyepl library predicates implemented in `src/library.js`, covering strings,
-lists, aggregation, contexts, dates, and arithmetic. The ISO profile itself has
+54 Eyepl library predicates implemented in `src/library.js`, covering strings,
+lists, aggregation, dates, and arithmetic. The ISO profile itself has
 114 registered predicate indicators across 93 names.
 
 This is broad standards coverage, not a formal certification claim. Eyepl
@@ -108,8 +108,8 @@ without a CLI flag or JavaScript registry option.
 
 Advanced embedders and the ISO conformance suite can still select the isolated
 core registry explicitly with `createDefaultRegistry()` or
-`getDefaultRegistry()`. `createEyeplRegistry()` creates the complete 182-entry
-registry: 114 ISO indicators and 68 Eyepl library indicators. Normal applications can rely on the default and do not need to
+`getDefaultRegistry()`. `createEyeplRegistry()` creates the complete 168-entry
+registry: 114 ISO indicators and 54 Eyepl library indicators. Normal applications can rely on the default and do not need to
 install either explicitly.
 
 ISO streams are solver-owned and shared by nested goals. JavaScript callers
@@ -202,7 +202,7 @@ failure, mode, and error behavior derived from ISO/IEC 13211-1 clauses 7 and
 8. The generated `conformance-report.md` is the authoritative source for
 current category totals.
 The example runner compares **200 answer goldens** and **55 proof goldens**
-byte-for-byte; the extracted-book runner checks 128 executable displays. The
+byte-for-byte; the extracted-book runner checks 134 executable displays. The
 dedicated seven-case playground suite executes the exact production module-worker
 request path, checks that the Eyepl library is present across repeated browser
 runs, verifies serializable success and parse-error messages, and crawls the served

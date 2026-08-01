@@ -96,10 +96,15 @@ policy_graph(policyGraph1, (
   clause(prohibitExportData, clauseC4)
 )).
 
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 policy_statement(Subject, Predicate, Object) :-
   policy_graph(_graph, Context),
-  holds(Context, Predicate, [Subject, Object]).
+  context_member(Context, Statement),
+  (Statement =.. [Predicate, Subject, Object]).
 
 policy(Policy, Agreement) :- policy_statement(Policy, odrl_appliesTo, Agreement).
 permission(Policy, Rule) :- policy_statement(Policy, odrl_permission, Rule).

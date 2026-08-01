@@ -16,19 +16,23 @@ annotation(t, (
   recorded(t, "2021-07-07")
 )).
 
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 name(S, O) :-
   annotation(_t, Context),
-  holds(Context, name(S, O)).
+  context_member(Context, name(S, O)).
 
 log_nameOf(T, name(S, O)) :-
   annotation(T, Context),
-  holds(Context, name(S, O)).
+  context_member(Context, name(S, O)).
 
 statedBy(S, O) :-
   annotation(_t, Context),
-  holds(Context, statedBy(S, O)).
+  context_member(Context, statedBy(S, O)).
 
 recorded(S, O) :-
   annotation(_t, Context),
-  holds(Context, recorded(S, O)).
+  context_member(Context, recorded(S, O)).

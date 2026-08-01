@@ -101,12 +101,16 @@ signature_graph(delfourSignatureGraph, (
 
 reason_text(reasonText, "Household requires low-sugar guidance (diabetes in POD). A neutral Insight is scoped to device 'self-scanner', event 'pick_up_scanner', retailer 'Delfour', and expires soon; the policy confines use to shopping assistance.").
 
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
-case_statement(S, P, O) :- case_graph(delfourCaseGraph, Context), holds(Context, P, [S, O]).
-insight_statement(S, P, O) :- insight_graph(delfourInsightGraph, Context), holds(Context, P, [S, O]).
-policy_statement(S, P, O) :- policy_graph(delfourPolicyGraph, Context), holds(Context, P, [S, O]).
-envelope_statement(S, P, O) :- envelope_graph(delfourEnvelopeGraph, Context), holds(Context, P, [S, O]).
-signature_statement(S, P, O) :- signature_graph(delfourSignatureGraph, Context), holds(Context, P, [S, O]).
+case_statement(S, P, O) :- case_graph(delfourCaseGraph, Context), context_member(Context, Statement), (Statement =.. [P, S, O]).
+insight_statement(S, P, O) :- insight_graph(delfourInsightGraph, Context), context_member(Context, Statement), (Statement =.. [P, S, O]).
+policy_statement(S, P, O) :- policy_graph(delfourPolicyGraph, Context), context_member(Context, Statement), (Statement =.. [P, S, O]).
+envelope_statement(S, P, O) :- envelope_graph(delfourEnvelopeGraph, Context), context_member(Context, Statement), (Statement =.. [P, S, O]).
+signature_statement(S, P, O) :- signature_graph(delfourSignatureGraph, Context), context_member(Context, Statement), (Statement =.. [P, S, O]).
 
 case_name(case, Name) :- case_statement(case, caseName, Name).
 request_purpose(case, Purpose) :- case_statement(case, requestPurpose, Purpose).

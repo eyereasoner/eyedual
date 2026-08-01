@@ -32,7 +32,14 @@ family_graph(familyGraph, (
 
 % generation/2 walks parent links from Adam, branch/2 propagates seed labels,
 % and cousin/2 combines equal generation with different branches.
-family_statement(S, P, O) :- family_graph(familyGraph, Context), holds(Context, P, [S, O]).
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
+family_statement(S, P, O) :-
+  family_graph(familyGraph, Context),
+  context_member(Context, Statement),
+  (Statement =.. [P, S, O]).
 
 parent(Parent, Child) :- family_statement(Parent, parent, Child).
 branch(Person, Branch) :- family_statement(Person, seedBranch, Branch).

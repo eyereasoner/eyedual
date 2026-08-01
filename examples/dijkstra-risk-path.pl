@@ -29,10 +29,14 @@ route_network(riskNetwork, (
   segment(depotA, segment(labD, 14.0, 0.05))
 )).
 
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 route_segment(From, To, Raw, Risk) :-
   route_network(riskNetwork, Context),
-  holds(Context, segment(From, segment(To, Raw, Risk))).
+  context_member(Context, segment(From, segment(To, Raw, Risk))).
 
 candidate(pathB, [depotA, depotB, labD]).
 candidate(pathC, [depotA, depotC, labD]).

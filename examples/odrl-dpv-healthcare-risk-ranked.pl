@@ -116,10 +116,15 @@ policy_graph(policyGraphHC1, (
   clause(permRetention10y, clauseH4)
 )).
 
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 policy_statement(Graphname, Subject, Predicate, Object) :-
   policy_graph(Graphname, Context),
-  holds(Context, Predicate, [Subject, Object]).
+  context_member(Context, Statement),
+  (Statement =.. [Predicate, Subject, Object]).
 
 permission(Graph, Permission) :- policy_statement(Graph, policyHC1, odrl_permission, Permission).
 clause(Graph, Permission, Clause) :- policy_statement(Graph, Permission, clause, Clause).

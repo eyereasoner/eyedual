@@ -484,6 +484,10 @@ function documentationSyncCases() {
       },
     },
     {
+      name: 'documented book version and extracted count match source',
+      run: () => assertArrayEqual(bookMetadataSyncIssues(), [], 'book metadata sync'),
+    },
+    {
       name: 'book introductory output matches the checked Socrates example',
       run: () => assertArrayEqual(bookIntroOutputIssues(), [], 'book introductory output'),
     },
@@ -884,11 +888,13 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not ISO core');
         assertEqual(library.eyeplLibrary, true, 'complete registry marker');
-        assertEqual(library.defs.size, 182, 'complete registry size');
-        assertEqual(registeredEyeplLibraryNames().length, 68, 'Eyepl library size');
+        assertEqual(library.defs.size, 168, 'complete registry size');
+        assertEqual(registeredEyeplLibraryNames().length, 54, 'Eyepl library size');
         assertEqual(library.get('append', 3)?.eyeplLibrary, true, 'append/3 metadata');
         assertEqual(library.get('maplist', 3)?.eyeplLibrary, true, 'maplist/3 metadata');
         assertEqual(library.get('matches', 3)?.eyeplLibrary, true, 'matches/3 metadata');
+        assertEqual(Boolean(library.get('holds', 2)), false, 'holds/2 is expressed in Prolog');
+        assertEqual(Boolean(library.get('holds', 3)), false, 'holds/3 is replaced by =../2');
       },
     },
     {
@@ -1424,7 +1430,7 @@ function exampleCorpusSyncIssues() {
     },
     {
       file: path.join(packageRoot, 'the-art-of-eyepl.md'),
-      pattern: /top-level catalog contains \*\*(\d+) self-contained runnable programs\*\*/,
+      pattern: /top-level directory contains \*\*(\d+) self-contained runnable programs\*\*/,
     },
   ];
   for (const check of checks) {
@@ -1474,11 +1480,52 @@ function proofCorpusSyncIssues() {
   return issues.sort();
 }
 
+function bookMetadataSyncIssues() {
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
+  const readme = fs.readFileSync(path.join(packageRoot, 'README.md'), 'utf8');
+  const bookExamplesRoot = path.join(packageRoot, 'examples', 'book');
+  const extractedCount = fs.readdirSync(bookExamplesRoot, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .reduce((total, entry) => total + fs.readdirSync(path.join(bookExamplesRoot, entry.name))
+      .filter((name) => name.endsWith('.pl')).length, 0);
+  const issues = [];
+
+  const version = book.match(/^\*\*Applies to Eyepl:\*\* `([^`]+)`$/m)?.[1];
+  if (version == null) issues.push('the-art-of-eyepl.md: applicability version not found');
+  else if (version !== pkg.version) {
+    issues.push(`the-art-of-eyepl.md: applicability version ${version} != ${pkg.version}`);
+  }
+
+  const checks = [
+    {
+      file: 'README.md',
+      text: readme,
+      pattern: /extracted-book runner checks (\d+) executable displays/,
+    },
+    {
+      file: 'the-art-of-eyepl.md',
+      text: book,
+      pattern: /examples, \d+ proof examples, and (\d+) extracted book displays/,
+    },
+  ];
+  for (const check of checks) {
+    const documented = check.text.match(check.pattern)?.[1];
+    if (documented == null) issues.push(`${check.file}: extracted book example count not found`);
+    else if (Number(documented) !== extractedCount) {
+      issues.push(`${check.file}: extracted book example count ${documented} != ${extractedCount}`);
+    }
+  }
+
+  return issues.sort();
+}
+
 function bookExampleCatalogIssues() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
   const section = between(book, '### Further examples', '## 42. Standards, limits, and implementation boundaries');
-  const names = [...section.matchAll(/\(examples\/([A-Za-z0-9_-]+)\.pl\)/g)].map((match) => match[1]);
+  const names = [...section.matchAll(/github\.com\/eyereasoner\/eyepl\/blob\/main\/examples\/([A-Za-z0-9_-]+)\.pl/g)]
+    .map((match) => match[1]);
   const issues = [];
+  if (names.length === 0) issues.push('no source example links found');
   for (const name of names) {
     if (!fs.existsSync(path.join(packageRoot, "examples", name + ".pl"))) issues.push("missing examples/" + name + ".pl");
     if (!fs.existsSync(path.join(packageRoot, "examples", "output", name + ".pl"))) issues.push("missing examples/output/" + name + ".pl");
@@ -1695,6 +1742,9 @@ function documentationSourceStyleIssues() {
   const text = fs.readFileSync(file, 'utf8');
   if (text.includes('```prolog')) {
     issues.push('the-art-of-eyepl.md: use eyepl code fences instead of prolog fences');
+  }
+  if (/\bv\d+\.\d+(?:\.\d+)?\b/i.test(text)) {
+    issues.push('the-art-of-eyepl.md: describe the current system instead of release chronology');
   }
   return issues;
 }

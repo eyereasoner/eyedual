@@ -3,7 +3,6 @@
 import {
   ATOM,
   COMPOUND,
-  Env,
   atom,
   compareIntegerText,
   compareTerms,
@@ -468,9 +467,7 @@ export const standardBuiltins = {
       ready: twoLexicalInputsReady,
       fallbackWhenNotReady: true,
     });
-    relation('matches_alternative', 2, matchesAlternativeBuiltin);
     relation('join', 3, joinBuiltin, { deterministic: true });
-    relation('join_atoms', 4, joinAtomsBuiltin, { deterministic: true });
     relation('substring', 4, substringBuiltin, { deterministic: true });
 
     accelerator('member', 2, memberBuiltin, { shouldUse: ({ solver, goal, env }) => solver.program.findGroup('member', 2) == null || listTermReady(goal.args[1], env) });
@@ -485,33 +482,21 @@ export const standardBuiltins = {
     relation('drop', 3, dropBuiltin, { deterministic: true });
     relation('slice', 4, sliceBuiltin, { deterministic: true });
     accelerator('reverse', 2, reverseBuiltin, { deterministic: true, shouldUse: ({ solver, goal, env }) => solver.program.findGroup('reverse', 2) == null || reverseReady(goal, env) });
-    relation('reverse_acc', 3, reverseAccBuiltin, { deterministic: true });
     accelerator('length', 2, lengthBuiltin, { deterministic: true, shouldUse: ({ solver, goal, env }) => solver.program.findGroup('length', 2) == null || properListItems(goal.args[0], env) != null });
     relation('sum_list', 2, sumListBuiltin, { deterministic: true });
     relation('min_list', 2, minListBuiltin, { deterministic: true });
-    relation('min_list_acc', 3, minListAccBuiltin, { deterministic: true });
     relation('max_list', 2, maxListBuiltin, { deterministic: true });
-    relation('max_list_acc', 3, maxListAccBuiltin, { deterministic: true });
     relation('not_member', 2, notMemberBuiltin, { deterministic: true });
     relation('list_to_set', 2, listToSetBuiltin, { deterministic: true });
     accelerator('sort', 2, sortBuiltin, { deterministic: true });
-    relation('sort_acc', 3, sortAccBuiltin, { deterministic: true });
-    relation('insert_unique', 3, insertUniqueBuiltin, { deterministic: true });
 
     accelerator('countall', 2, countallBuiltin, { deterministic: true });
     relation('sumall', 3, sumallBuiltin, { deterministic: true });
     relation('aggregate_min', 5, aggregateBuiltin(-1), { deterministic: true });
-    relation('aggregate_min_pairs', 3, aggregatePairsBuiltin(-1), { deterministic: true });
-    relation('aggregate_min_acc', 5, aggregateAccBuiltin(-1), { deterministic: true });
     relation('aggregate_max', 5, aggregateBuiltin(1), { deterministic: true });
-    relation('aggregate_max_pairs', 3, aggregatePairsBuiltin(1), { deterministic: true });
-    relation('aggregate_max_acc', 5, aggregateAccBuiltin(1), { deterministic: true });
 
-    relation('between_range', 3, betweenRangeBuiltin);
     relation('min', 3, numericChoiceBuiltin(-1), { deterministic: true });
     relation('max', 3, numericChoiceBuiltin(1), { deterministic: true });
-    relation('holds', 2, holdsBuiltin);
-    relation('holds', 3, holdsPartsBuiltin);
   }
 };
 let nativeVariableCounter = 0;
@@ -631,20 +616,6 @@ function* matchesBuiltin({ goal, env }) {
   if (text != null && pattern != null && pattern.split('|').some((part) => text.includes(part))) yield env;
 }
 
-function* matchesAlternativeBuiltin({ goal, env }) {
-  const alternatives = properListItems(goal.args[1], env);
-  if (alternatives == null) return;
-  const text = lexicalValue(goal.args[0], env);
-  if (text == null) return;
-  for (const alternative of alternatives) {
-    const value = lexicalValue(alternative, env);
-    if (value != null && text.includes(value)) {
-      yield env;
-      return;
-    }
-  }
-}
-
 function* joinBuiltin({ goal, env }) {
   const items = properListItems(goal.args[0], env);
   const separator = scalarLexicalValue(goal.args[1], env);
@@ -657,21 +628,6 @@ function* joinBuiltin({ goal, env }) {
   }
   const next = env.clone();
   if (unify(goal.args[2], stringTerm(values.join(separator)), next)) yield next;
-}
-
-function* joinAtomsBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  const separator = scalarLexicalValue(goal.args[1], env);
-  const initial = scalarLexicalValue(goal.args[2], env);
-  if (items == null || separator == null || initial == null) return;
-  let value = initial;
-  for (const item of items) {
-    const text = scalarLexicalValue(item, env);
-    if (text == null) return;
-    value += separator + text;
-  }
-  const next = env.clone();
-  if (unify(goal.args[3], atom(value), next)) yield next;
 }
 
 function* substringBuiltin({ goal, env }) {
@@ -859,14 +815,6 @@ function* reverseBuiltin({ goal, env }) {
   if (unify(goal.args[1], listFromItems([...left].reverse()), next)) yield next;
 }
 
-function* reverseAccBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  if (items == null) return;
-  const result = listFromItems([...items].reverse(), 0, items.length, goal.args[1]);
-  const next = env.clone();
-  if (unify(goal.args[2], result, next)) yield next;
-}
-
 function* lengthBuiltin({ goal, env }) {
   const items = properListItems(goal.args[0], env);
   if (items == null) {
@@ -905,22 +853,10 @@ function* minListBuiltin({ goal, env }) {
   yield* extremumList(items.slice(1), items[0], goal.args[1], env, -1);
 }
 
-function* minListAccBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  if (items == null) return;
-  yield* extremumList(items, goal.args[1], goal.args[2], env, -1);
-}
-
 function* maxListBuiltin({ goal, env }) {
   const items = properListItems(goal.args[0], env);
   if (items == null || items.length === 0) return;
   yield* extremumList(items.slice(1), items[0], goal.args[1], env, 1);
-}
-
-function* maxListAccBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  if (items == null) return;
-  yield* extremumList(items, goal.args[1], goal.args[2], env, 1);
 }
 
 function* extremumList(items, initial, output, env, direction) {
@@ -973,37 +909,6 @@ function* sortBuiltin({ goal, env }) {
   if (unify(goal.args[1], listFromItems(sortedUnique(items, env)), next)) yield next;
 }
 
-function insertUniqueItems(item, items, env) {
-  const resolvedItem = copyResolved(item, env);
-  const output = [];
-  for (let index = 0; index < items.length; index++) {
-    const current = copyResolved(items[index], env);
-    const cmp = compareTerms(resolvedItem, current);
-    if (cmp === 0) return [...output, ...items.slice(index).map((entry) => copyResolved(entry, env))];
-    if (cmp < 0) return [...output, resolvedItem, ...items.slice(index).map((entry) => copyResolved(entry, env))];
-    output.push(current);
-  }
-  output.push(resolvedItem);
-  return output;
-}
-
-function* sortAccBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  const acc = properListItems(goal.args[1], env);
-  if (items == null || acc == null) return;
-  let result = acc.map((item) => copyResolved(item, env));
-  for (const item of items) result = insertUniqueItems(item, result, new Env());
-  const next = env.clone();
-  if (unify(goal.args[2], listFromItems(result), next)) yield next;
-}
-
-function* insertUniqueBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[1], env);
-  if (items == null) return;
-  const next = env.clone();
-  if (unify(goal.args[2], listFromItems(insertUniqueItems(goal.args[0], items, env)), next)) yield next;
-}
-
 function* countallBuiltin({ solver, goal, env }) {
   const collector = solver.cloneForInnerGoal(10000000);
   let count = 0;
@@ -1052,45 +957,6 @@ function aggregateBuiltin(direction) {
   };
 }
 
-function pairItems(list, env) {
-  const items = properListItems(list, env);
-  if (items == null) return null;
-  const pairs = [];
-  for (const item of items) {
-    const resolved = deref(item, env);
-    if (resolved.type !== COMPOUND || resolved.name !== 'pair' || resolved.arity !== 2) return null;
-    pairs.push([copyResolved(resolved.args[0], env), copyResolved(resolved.args[1], env)]);
-  }
-  return pairs;
-}
-
-function aggregatePairsBuiltin(direction) {
-  return function* ({ goal, env }) {
-    const pairs = pairItems(goal.args[0], env);
-    if (pairs == null || pairs.length === 0) return;
-    let [bestKey, bestValue] = pairs[0];
-    for (let index = 1; index < pairs.length; index++) {
-      if (compareTerms(pairs[index][0], bestKey) * direction > 0) [bestKey, bestValue] = pairs[index];
-    }
-    const next = env.clone();
-    if (unify(goal.args[1], bestKey, next) && unify(goal.args[2], bestValue, next)) yield next;
-  };
-}
-
-function aggregateAccBuiltin(direction) {
-  return function* ({ goal, env }) {
-    const pairs = pairItems(goal.args[0], env);
-    if (pairs == null) return;
-    let bestKey = copyResolved(goal.args[1], env);
-    let bestValue = copyResolved(goal.args[2], env);
-    for (const pair of pairs) {
-      if (compareTerms(pair[0], bestKey) * direction > 0) [bestKey, bestValue] = pair;
-    }
-    const next = env.clone();
-    if (unify(goal.args[3], bestKey, next) && unify(goal.args[4], bestValue, next)) yield next;
-  };
-}
-
 function numericChoiceBuiltin(direction) {
   return function* ({ goal, env }) {
     const left = evaluateArithmetic(goal.args[0], env);
@@ -1100,55 +966,6 @@ function numericChoiceBuiltin(direction) {
     const next = env.clone();
     if (unify(goal.args[2], chooseLeft ? goal.args[0] : goal.args[1], next)) yield next;
   };
-}
-
-function* betweenRangeBuiltin({ goal, env }) {
-  const low = integerArgument(goal.args[0], env);
-  const high = integerArgument(goal.args[1], env);
-  if (low == null || high == null || low > high) return;
-  yield* emitRange(low, high, goal.args[2], env);
-}
-
-function* emitRange(low, high, output, env) {
-  if (low === high) {
-    const next = env.clone();
-    if (unify(output, numberTerm(low.toString()), next)) yield next;
-    return;
-  }
-  const mid = low + ((high - low) / 2n);
-  yield* emitRange(low, mid, output, env);
-  yield* emitRange(mid + 1n, high, output, env);
-}
-
-function conjunctionMembers(context, env) {
-  const members = [];
-  const pending = [context];
-  while (pending.length) {
-    const current = deref(pending.pop(), env);
-    if (current.type === COMPOUND && current.name === ',' && current.arity === 2) {
-      pending.push(current.args[1], current.args[0]);
-    } else if (current.type !== 'var') {
-      members.push(current);
-    }
-  }
-  return members;
-}
-
-function* holdsBuiltin({ goal, env }) {
-  for (const member of conjunctionMembers(goal.args[0], env)) {
-    const next = env.clone();
-    if (unify(goal.args[1], member, next)) yield next;
-  }
-}
-
-function* holdsPartsBuiltin({ goal, env }) {
-  for (const member of conjunctionMembers(goal.args[0], env)) {
-    if (member.type !== ATOM && member.type !== COMPOUND) continue;
-    const name = atom(member.name);
-    const args = member.type === COMPOUND ? listFromItems(member.args) : emptyList();
-    const next = env.clone();
-    if (unify(goal.args[1], name, next) && unify(goal.args[2], args, next)) yield next;
-  }
 }
 
 function integerArgument(term, env) {

@@ -25,9 +25,13 @@ weighted_graph(dijkstraGraph, (
 
 % path/5 carries both the visited list and accumulated cost, so the search
 % enumerates simple weighted routes without asserting intermediate route facts.
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
 base_link(A, B, Cost) :-
   weighted_graph(dijkstraGraph, Context),
-  holds(Context, edge(A, arc(B, Cost))).
+  context_member(Context, edge(A, arc(B, Cost))).
 
 % Build an undirected view from directed base edges.
 link(A, B, Cost) :- base_link(A, B, Cost).

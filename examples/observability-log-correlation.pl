@@ -20,19 +20,23 @@ parsed(Log, Context) :-
   log_pattern(Pattern),
   matches(Text, Pattern, Context).
 
-% matches/3 returns a context term containing named captures.  holds/3 then
-% projects either Name, Value pairs or field(Value) shorthand facts from that
-% same context without writing one regex per field.
+context_member((Left, _right), Member) :- context_member(Left, Member).
+context_member((_left, Right), Member) :- context_member(Right, Member).
+context_member(Member, Member) :- Member \= (_left, _right).
+
+% matches/3 returns a context term containing named captures. The rules walk
+% that term and use =../2 when the predicate name is itself data.
 captured_field(Log, Name, Value) :-
   parsed(Log, Context),
-  holds(Context, Name, [Value]).
+  context_member(Context, Field),
+  (Field =.. [Name, Value]).
 
 parsed_event(Log, Event, User, Ip, Traceid) :-
   parsed(Log, Context),
-  holds(Context, event(Event)),
-  holds(Context, user(User)),
-  holds(Context, ip(Ip)),
-  holds(Context, trace_id(Traceid)).
+  context_member(Context, event(Event)),
+  context_member(Context, user(User)),
+  context_member(Context, ip(Ip)),
+  context_member(Context, trace_id(Traceid)).
 
 trace_alert(User, Traceid, Ip) :-
   parsed_event(Loginlog, "login_failed", User, Ip, Traceid),
