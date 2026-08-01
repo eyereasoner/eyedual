@@ -231,7 +231,12 @@ making a relationship visible that prose alone would make easy to miss.
 
 ## Contents
 
+Chapters are numbered continuously across the twelve parts, from Chapter 1 to
+Chapter 46.
+
 ### Part I — Relations
+
+Chapters 1–5
 
 1. [A program is a little theory](#1-a-program-is-a-little-theory)
 2. [Terms, variables, and substitution](#2-terms-variables-and-substitution)
@@ -241,6 +246,8 @@ making a relationship visible that prose alone would make easy to miss.
 
 ### Part II — Search
 
+Chapters 6–10
+
 6. [Arithmetic and finite generation](#6-arithmetic-and-finite-generation)
 7. [Failure, negation, and quantification](#7-failure-negation-and-quantification)
 8. [Collecting and choosing answers](#8-collecting-and-choosing-answers)
@@ -248,6 +255,8 @@ making a relationship visible that prose alone would make easy to miss.
 10. [From puzzles to models](#10-from-puzzles-to-models)
 
 ### Part III — Trustworthy reasoning
+
+Chapters 11–16
 
 11. [Queries, answers, and proofs](#11-queries-answers-and-proofs)
 12. [Integrity constraints and inference fuses](#12-integrity-constraints-and-inference-fuses)
@@ -258,12 +267,16 @@ making a relationship visible that prose alone would make easy to miss.
 
 ### Part IV — The craft of logic programming
 
+Chapters 17–20
+
 17. [Logic and control](#17-logic-and-control)
 18. [Constructing a program](#18-constructing-a-program)
 19. [Correctness and termination](#19-correctness-and-termination)
 20. [Improving a program](#20-improving-a-program)
 
 ### Part V — Advanced relational design
+
+Chapters 21–25
 
 21. [Reading the computation](#21-reading-the-computation)
 22. [Trees, languages, and symbolic evaluation](#22-trees-languages-and-symbolic-evaluation)
@@ -273,6 +286,8 @@ making a relationship visible that prose alone would make easy to miss.
 
 ### Part VI — Mathematics made executable
 
+Chapters 26–30
+
 26. [A proof can be a computation](#26-a-proof-can-be-a-computation)
 27. [Recursion is induction in motion](#27-recursion-is-induction-in-motion)
 28. [Algebra, symmetry, and representation](#28-algebra-symmetry-and-representation)
@@ -281,11 +296,15 @@ making a relationship visible that prose alone would make easy to miss.
 
 ### Part VII — The reasoning laboratory
 
+Chapters 31–33
+
 31. [Testing a theory](#31-testing-a-theory)
 32. [Debugging by meaning, search, and proof](#32-debugging-by-meaning-search-and-proof)
 33. [A pattern catalog for reasoning](#33-a-pattern-catalog-for-reasoning)
 
 ### Part VIII — Standard Prolog in practice
+
+Chapters 34–37
 
 34. [Control, exceptions, and grouped solutions](#34-control-exceptions-and-grouped-solutions)
 35. [Reflective terms and atomic conversion](#35-reflective-terms-and-atomic-conversion)
@@ -293,6 +312,8 @@ making a relationship visible that prose alone would make easy to miss.
 37. [Streams and term I/O](#37-streams-and-term-io)
 
 ### Part IX — Reference as practice
+
+Chapters 38–43
 
 38. [Language, declarations, and ISO profile](#38-language-declarations-and-iso-profile)
 39. [Built-in predicates by programming role](#39-built-in-predicates-by-programming-role)
@@ -303,13 +324,19 @@ making a relationship visible that prose alone would make easy to miss.
 
 ### Part X — Laboratories
 
+Chapter 44
+
 44. [Twelve laboratories](#44-twelve-laboratories)
 
 ### Part XI — Review
 
+Chapter 45
+
 45. [Checkpoint notes and selected answers](#45-checkpoint-notes-and-selected-answers)
 
 ### Part XII — Acknowledgements
+
+Chapter 46
 
 46. [With thanks](#46-with-thanks)
 
