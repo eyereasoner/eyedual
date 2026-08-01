@@ -31,8 +31,6 @@ export async function main(argv) {
     } else if (!endOptions && (arg === '--help' || arg === '-h')) {
       await usage(process.stdout);
       return;
-    } else if (!endOptions && (arg === '--library' || arg === '-l')) {
-      // Backward-compatible no-op: the Eyepl library is always available.
     } else if (!endOptions && (arg === '--proof' || arg === '-p')) {
       options.proof = true;
     } else if (!endOptions && (arg === '--stats' || arg === '-s')) {
@@ -44,13 +42,12 @@ export async function main(argv) {
     } else if (!endOptions && arg.startsWith('-') && !arg.startsWith('--') && arg.length > 2) {
       const flags = arg.slice(1);
       for (const flag of flags) {
-        if (!'hlpsvw'.includes(flag)) throw new Error(`unknown option: ${arg}`);
+        if (!'hpsvw'.includes(flag)) throw new Error(`unknown option: ${arg}`);
       }
       if (flags.includes('h')) {
         await usage(process.stdout);
         return;
       }
-      // Legacy -l remains accepted as a no-op inside combined short flags.
       if (flags.includes('p')) options.proof = true;
       if (flags.includes('s')) options.stats = true;
       if (flags.includes('v')) options.version = true;

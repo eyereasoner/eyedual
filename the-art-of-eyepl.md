@@ -5215,7 +5215,7 @@ so side effects occur in Prolog execution order.
 
 The runtime registry combines the supported ISO Prolog profile with the Eyepl library, implemented entirely in JavaScript. It is
 loaded automatically by the CLI, `run()`, `Solver`, proof replay, and the browser
-playground, so ordinary programs do not need a library flag or registry option.
+playground. Ordinary programs therefore use the same built-ins throughout.
 All of these relations live in `src/library.js`; there is no second portable
 source module and no runtime Prolog-library parse or program overlay.
 `src/playground-worker.js` constructs the same registry directly. The isolated
@@ -5257,7 +5257,7 @@ On the command line, the Eyepl library is already present:
 
 ```sh
 eyepl program.pl
-eyepl -p program.pl        # Eyepl library plus proof output
+eyepl -p program.pl        # add proof output
 ```
 
 JavaScript uses the same registry by default:
@@ -5267,9 +5267,6 @@ import { run } from 'eyepl';
 
 const result = run(source);
 ```
-
-For backward compatibility, older `-l` and `--library` command lines remain
-accepted as no-ops, but the switches are no longer shown in CLI help or required.
 
 The mode notation below is descriptive:
 

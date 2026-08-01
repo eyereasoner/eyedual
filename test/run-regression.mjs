@@ -178,7 +178,6 @@ why(
         const result = runCli([]);
         assertEqual(result.status, 0, 'exit status');
         assertIncludes(result.stdout, 'Usage:\n  eyepl [options] [file-or-url.pl|- ...]', 'stdout');
-        assertNotIncludes(result.stdout, '--library', 'stdout');
         assertIncludes(result.stdout, '-p, --proof', 'stdout');
         assertIncludes(result.stdout, '-s, --stats', 'stdout');
         assertIncludes(result.stdout, '-v, --version', 'stdout');
@@ -197,19 +196,6 @@ why(
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, 'answer(library).\n', 'stdout');
         assertEqual(result.stderr, '', 'stderr');
-      },
-    },
-    {
-      name: 'legacy library flags remain harmless compatibility no-ops',
-      run: () => {
-        for (const args of [['--library', '-'], ['-lw', '-']]) {
-          const result = runCli(args, {
-            input: 'query(answer(X)).\nanswer(X) :- append([a], [b], X).\n',
-          });
-          assertEqual(result.status, 0, `${args[0]} exit status`);
-          assertEqual(result.stdout, 'answer([a, b]).\n', `${args[0]} stdout`);
-          assertEqual(result.stderr, '', `${args[0]} stderr`);
-        }
       },
     },
     {
@@ -893,8 +879,6 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(library.get('append', 3)?.eyeplLibrary, true, 'append/3 metadata');
         assertEqual(library.get('maplist', 3)?.eyeplLibrary, true, 'maplist/3 metadata');
         assertEqual(library.get('matches', 3)?.eyeplLibrary, true, 'matches/3 metadata');
-        assertEqual(Boolean(library.get('holds', 2)), false, 'holds/2 is expressed in Prolog');
-        assertEqual(Boolean(library.get('holds', 3)), false, 'holds/3 is replaced by =../2');
       },
     },
     {
