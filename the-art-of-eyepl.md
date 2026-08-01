@@ -8,7 +8,7 @@
 
 **Author:** [Jos De Roo](https://josd.github.io/)
 
-**Applies to Eyepl:** `0.2.7`
+**Applies to Eyepl:** `0.2.8`
 
 **Copyright © 2021–2026 Jos De Roo, KNoWS office of IDLab, Ghent University –
 imec.** This book is licensed under [Creative Commons Attribution 4.0
