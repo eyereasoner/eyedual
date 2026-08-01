@@ -35,7 +35,10 @@ export const cons = (head, tail) => compound('.', [head, tail]);
 
 export class Env {
   constructor(bindings) {
-    this._state = { bindings: bindings ? new Map(bindings) : new Map(), parent: null, depth: 0, cache: null };
+    this._state = {
+      bindings: bindings ? new Map(bindings) : new Map(), parent: null, depth: 0,
+      cacheName: null, cacheValue: undefined, cache: null,
+    };
   }
   clone() {
     // Most speculative environments are either rejected without a binding or
@@ -50,11 +53,20 @@ export class Env {
   }
   get(name) {
     const root = this._state;
-    if (root.cache?.has(name)) return root.cache.get(name);
+    if (root.cacheName === name) return root.cacheValue;
+    const cached = root.cache?.get(name);
+    if (cached !== undefined) return cached;
     for (let state = root; state != null; state = state.parent) {
       if (state.bindings.has(name)) {
         const value = state.bindings.get(name);
-        if (root.depth >= 4) (root.cache ??= new Map()).set(name, value);
+        if (root.depth >= 4) {
+          if (root.cacheName == null) {
+            root.cacheName = name;
+            root.cacheValue = value;
+          } else {
+            (root.cache ??= new Map([[root.cacheName, root.cacheValue]])).set(name, value);
+          }
+        }
         return value;
       }
     }
@@ -69,13 +81,18 @@ export class Env {
         }
       }
       flattened.set(name, term);
-      this._state = { bindings: flattened, parent: null, depth: 0, cache: null };
+      this._state = {
+        bindings: flattened, parent: null, depth: 0,
+        cacheName: null, cacheValue: undefined, cache: null,
+      };
       return;
     }
     this._state = {
       bindings: new Map([[name, term]]),
       parent: this._state,
       depth: this._state.depth + 1,
+      cacheName: null,
+      cacheValue: undefined,
       cache: null,
     };
   }
@@ -85,12 +102,12 @@ export function deref(term, env) {
   // Follow variable bindings until a non-variable term is reached. The seen set
   // protects readback from accidental cycles in partially constructed terms.
   let current = term;
-  const seen = new Set();
+  let seen = null;
   while (current?.type === VAR) {
-    if (seen.has(current.name)) break;
-    seen.add(current.name);
     const next = env?.get(current.name);
     if (next === undefined) break;
+    if (seen?.has(current.name)) break;
+    (seen ??= new Set()).add(current.name);
     current = next;
   }
   return current;

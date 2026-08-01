@@ -888,7 +888,11 @@ function headCannotMatch(goal, head, env) {
 
 function derefForLocal(term, env) {
   let current = term;
-  while (current.type === 'var' && env.has(current.name)) current = env.get(current.name);
+  while (current.type === 'var') {
+    const next = env.get(current.name);
+    if (next === undefined) break;
+    current = next;
+  }
   return current;
 }
 

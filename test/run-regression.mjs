@@ -1339,7 +1339,7 @@ function bookReferenceDocumentationIssues() {
     issues.push('book introduction does not identify itself as the reference');
   }
   if (!book.includes('This book is the single reference for the Eyepl implementation.')) {
-    issues.push('book Appendix F does not state the single-reference policy');
+    issues.push('book Chapter 42 does not state the single-reference policy');
   }
   for (const standard of [
     'ISO/IEC 13211-1:1995',
@@ -1355,7 +1355,7 @@ function bookReferenceDocumentationIssues() {
   if (book.includes('Eyepl does not perform it.')) {
     issues.push('book contradicts implementation occurs-check behavior');
   }
-  for (const heading of ['# Appendix A. Supported ISO Prolog profile', '# Appendix B. Built-in predicates', '# Appendix C. Command-line reference']) {
+  for (const heading of ['## 38. Language, declarations, and ISO profile', '## 39. Built-in predicates by programming role', '## 40. Running Eyepl: command line and corpus']) {
     if (!book.includes(heading)) issues.push(`book is missing ${heading}`);
   }
   if (!guide.includes('[*The Art of Eyepl*](../../the-art-of-eyepl.md) is the reference')) {
@@ -1476,7 +1476,7 @@ function proofCorpusSyncIssues() {
 
 function bookExampleCatalogIssues() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  const section = between(book, '# Appendix E. Further examples', '# Appendix F. Standards profile and implementation extensions');
+  const section = between(book, '### Further examples', '## 42. Standards, limits, and implementation boundaries');
   const names = [...section.matchAll(/\(examples\/([A-Za-z0-9_-]+)\.pl\)/g)].map((match) => match[1]);
   const issues = [];
   for (const name of names) {
@@ -1610,7 +1610,7 @@ function registeredBuiltinSummary() {
 
 function bookBuiltinNames() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '# Appendix B. Built-in predicates', '## B.3 Eyepl library'), 2);
+  return documentedBuiltinNames(between(book, '## 39. Built-in predicates by programming role', '### The Eyepl library'), 2);
 }
 
 function bookEyeplLibraryNames() {

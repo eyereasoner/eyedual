@@ -8,7 +8,7 @@
 
 **Author:** [Jos De Roo](https://josd.github.io/)
 
-**Applies to Eyepl:** `0.1.34`
+**Applies to Eyepl:** `0.1.35`
 
 Eyepl turns facts and rules into answers and inspectable proofs. This book is an
 original introduction to the habits of logic programming: describe a world,
@@ -18,10 +18,10 @@ the two.
 This book is also the reference for the Eyepl implementation. Eyepl is a
 standards-based reasoning system: programs use the documented and tested ISO
 Prolog profile, while RDF 1.2 provides an interoperable data boundary.
-Appendix A defines the supported ISO Prolog profile and declarations, Appendix
-B describes every supported built-in predicate, and Appendix C documents the
-command-line interface. The explanatory chapters give the reasoning and
-operational context needed to use those details correctly.
+Chapters 38–40 define the supported ISO Prolog profile and declarations,
+describe every supported built-in predicate, and document the command-line
+interface. The explanatory chapters give the reasoning and operational context
+needed to use those details correctly.
 
 Its subject is not syntax alone. A logic program has two inseparable aspects:
 the relation described by its clauses and the procedure induced when goals are
@@ -135,7 +135,7 @@ That is the stake in the ground: a focused implementation of standard Prolog
 is enough to teach the large ideas when semantics, execution, and evidence
 remain visible together.
 The implementation is therefore part of the argument. The examples are
-programs, the appendices are the reference for the running system, and
+programs, the reference chapters are the reference for the running system, and
 `npm test` checks the complete code displays, local references, and
 built-in index against the source tree.
 
@@ -156,7 +156,7 @@ This rhythm deliberately joins declarative reading, operational reading, and
 program construction. Readers new to logic programming can follow Parts I–III
 in order. Experienced Prolog programmers can begin with Chapters 3, 13, and
 17 to see where Eyepl's hybrid execution and proof-oriented design differ.
-Appendix D gives further routes through the material.
+Chapter 41 gives further routes through the material.
 
 ### When a run surprises you
 
@@ -182,16 +182,28 @@ of seriousness.
 
 | Reader | Suggested route | What to postpone |
 | --- | --- | --- |
-| New to programming | Chapters 1–10, 11–12, 18–20, then Laboratories I.1–I.4 | The formal parts of Chapter 3, embedding, RDF, and Parts V–VI |
+| New to programming | Chapters 1–10, 11–12, 18–20, then Laboratories 1–4 | The formal parts of Chapter 3, embedding, RDF, and Parts V–VI |
 | Programmer new to logic | Parts I–II, Chapters 11–13 and 17–25, then Part VII | Detailed history and mathematical foundations on the first pass |
 | Experienced Prolog programmer | Chapters 3, 7, 11–13, 16–17, and 31–33 | Introductory syntax and list material |
-| Knowledge engineer | Chapters 7, 11–16, 25, 31–33, then Laboratories I.9–I.12 | Symbolic mathematics unless it serves the domain |
+| Knowledge engineer | Chapters 7, 11–16, 25, 31–33, then Laboratories 9–12 | Symbolic mathematics unless it serves the domain |
 | Mathematics reader | Chapters 1–5, 19, and 26–30 | Embedding and RDF until an application needs them |
-| Instructor or study group | Parts I–III, one route through Part V or VI, then selected laboratories | Appendix details until reference work begins |
+| Instructor or study group | Parts I–III, one route through Part V or VI, then selected laboratories | Reference chapters until reference work begins |
 
 On a first pass, treat sections marked **Deeper foundations** as optional. They
 make the semantics precise but are not prerequisites for writing and running
 the next program.
+
+### The construction order
+
+The sequence follows the teaching architecture associated with *The Art of
+Prolog*: begin with the meaning of a relation, make the relation executable,
+study the control it induces, and then return to the same ideas at a larger
+scale through transformation, search, interpreters, and applications. Each
+part therefore ends by asking the reader to construct, test, or improve a
+program rather than merely recognize syntax. The former appendices are now
+ordinary chapters: reference material follows practice, laboratories turn the
+methods into work, and checkpoint notes close the loop with retrieval and
+diagnosis.
 
 ## Contents
 
@@ -256,18 +268,22 @@ the next program.
 36. [Dynamic predicates, directives, and operators](#36-dynamic-predicates-directives-and-operators)
 37. [Streams and term I/O](#37-streams-and-term-io)
 
-### Appendices
+### Part IX — Reference as practice
 
-- [A. Supported ISO Prolog profile](#appendix-a-supported-iso-prolog-profile)
-- [B. Built-in predicates](#appendix-b-built-in-predicates)
-- [C. Command-line reference](#appendix-c-command-line-reference)
-- [D. Study paths and review](#appendix-d-study-paths-and-review)
-- [E. Further examples](#appendix-e-further-examples)
-- [F. Standards profile and implementation extensions](#appendix-f-standards-profile-and-implementation-extensions)
-- [G. Notes and references](#appendix-g-notes-and-references)
-- [H. Glossary](#appendix-h-glossary)
-- [I. Twelve laboratories](#appendix-i-twelve-laboratories)
-- [J. Checkpoint notes and selected answers](#appendix-j-checkpoint-notes-and-selected-answers)
+38. [Language, declarations, and ISO profile](#38-language-declarations-and-iso-profile)
+39. [Built-in predicates by programming role](#39-built-in-predicates-by-programming-role)
+40. [Running Eyepl: command line and corpus](#40-running-eyepl-command-line-and-corpus)
+41. [Study paths, review, and further examples](#41-study-paths-review-and-further-examples)
+42. [Standards, limits, and implementation boundaries](#42-standards-limits-and-implementation-boundaries)
+43. [Glossary and notes for continued study](#43-glossary-and-notes-for-continued-study)
+
+### Part X — Laboratories
+
+44. [Twelve laboratories](#44-twelve-laboratories)
+
+### Part XI — Review
+
+45. [Checkpoint notes and selected answers](#45-checkpoint-notes-and-selected-answers)
 
 ---
 
@@ -1540,7 +1556,7 @@ truncate search; it does not prove that no further answer exists.
 The source layout mirrors the public registry boundary. `src/iso.js` contains
 the isolated ISO processor predicates and registry. `src/library.js` contains
 the complete Eyepl library predicates as native JavaScript
-builtins described in Appendix B.3. No bundled Prolog source is parsed or
+builtins described in Chapter 39. No bundled Prolog source is parsed or
 overlaid at startup. Normal CLI, JavaScript, solver, and proof execution uses
 that composed registry. The browser entry `src/playground-worker.js` constructs
 the same registry explicitly before calling `run()`, which keeps library
@@ -4839,12 +4855,14 @@ rule files:
 - operators change notation while preserving ordinary term structure; and
 - streams connect terms to ordered text or binary I/O.
 
-Appendix A states the supported profile, Appendix B lists every registered
-predicate, and the conformance corpus fixes success, failure, mode, and error
-behavior. Use this part for working practice and those resources for exact
-reference.
+Chapters 38–40 state the supported profile, list every registered predicate,
+and document the command line; the conformance corpus fixes success, failure,
+mode, and error behavior. Use this part for working practice and those chapters
+for exact reference.
 
-# Appendix A. Supported ISO Prolog profile
+# Part IX — Reference as practice
+
+## 38. Language, declarations, and ISO profile
 
 The standards baseline is ISO/IEC 13211-1:1995, as corrected by Technical
 Corrigenda 1:2007, 2:2012, and 3:2017. Eyepl implements the compatibility
@@ -5016,7 +5034,7 @@ these promises during search; hosts may use them for documentation, linting,
 editor support, or indexing advice. Since all three declarations are also
 ordinary facts, a program may query them.
 
-# Appendix B. Built-in predicates
+## 39. Built-in predicates by programming role
 
 Eyepl's default registry contains the built-ins in its ISO compatibility
 profile. Where a predicate is defined by ISO/IEC 13211-1:1995, Eyepl uses its
@@ -5047,7 +5065,7 @@ contains 114 name/arity entries across 93 names.
 The atom `false` is reserved for Eyepl inference-fuse heads; ordinary Prolog
 failure is `fail`.
 
-## B.1 Arithmetic expressions
+### Arithmetic expressions
 
 `Result is Expression` evaluates an ISO arithmetic expression and unifies the
 numeric result with `Result`. Supported expressions include integer and
@@ -5061,7 +5079,7 @@ Eyepl's documented profile order is not the complete ISO term order: strings
 are a distinct scalar category, and numeric terms share one exact numeric
 ordering category.
 
-## B.2 Errors
+### Errors
 
 ISO built-ins distinguish logical failure from exceptional calls. Insufficient
 instantiation raises `instantiation_error`; wrong argument categories raise
@@ -5077,7 +5095,7 @@ The JavaScript `ioOptions.input` and `ioOptions.write` hooks connect standard
 streams to an embedder. File-backed streams use synchronous lifecycle semantics
 so side effects occur in Prolog execution order.
 
-## B.3 Eyepl library
+### The Eyepl library
 
 The runtime registry combines the supported ISO Prolog profile with the Eyepl library, implemented entirely in JavaScript. It is
 loaded automatically by the CLI, `run()`, `Solver`, proof replay, and the browser
@@ -5147,11 +5165,11 @@ The mode notation below is descriptive:
 Most Eyepl library predicates are projections or filters. When an input is
 unbound, malformed, outside its domain, or incompatible with the requested
 output, they normally **fail** rather than raising the ISO errors described in
-B.2. They do not invent open-ended domains. Bind arithmetic operands, source
+the errors section above. They do not invent open-ended domains. Bind arithmetic operands, source
 text, proper lists, indexes, dates, and aggregate generators before calling
 the corresponding predicate.
 
-### B.3.1 Native numeric, comparison, and date predicates
+#### Native numeric, comparison, and date predicates
 
 | Predicates and principal modes | Behavior |
 | --- | --- |
@@ -5178,7 +5196,7 @@ The bundled Eyepl library layer defines `between/3`, `min/3`, `max/3`, and
 available in the default runtime, but they are part of the Eyepl library.
 `between/3` and `smallest_divisor_from/3` retain measured native accelerators.
 
-### B.3.2 List relations
+#### List relations
 
 These relations are JavaScript implementations provided by the Eyepl library. Their
 relational modes and error behavior are regression-checked against the former
@@ -5219,7 +5237,7 @@ answer(second, Item) :-
 query(answer(Kind, Value)).
 ```
 
-### B.3.3 Native strings, lexical values, and regular expressions
+#### Native strings, lexical values, and regular expressions
 
 A **lexical value** is the textual spelling of a ground atom, string, or
 number. Most string predicates accept any of those inputs but produce Eyepl
@@ -5256,7 +5274,7 @@ answer(captures, Context) :-
 query(answer(Kind, Value)).
 ```
 
-### B.3.4 Native aggregation and bounded control
+#### Native aggregation and bounded control
 
 These native relations preserve the collection, arithmetic, term-order, and
 scoping behavior of the former clause definitions. The caller is responsible
@@ -5293,7 +5311,7 @@ answer(best(Name), Cost) :-
 query(answer(Kind, Value)).
 ```
 
-### B.3.5 Native context helpers
+#### Native context helpers
 
 The `holds/2` and `holds/3` relations below are Eyepl library
 relations. They preserve the former unification and `=../2`-style decomposition
@@ -5320,7 +5338,7 @@ predicates described in the default profile. Use `=../2` for whole-argument-list
 decomposition and construction, `=/2` for unification, and `\=/2` for
 non-unifiability; redundant aliases are not registered.
 
-# Appendix C. Command-line reference
+## 40. Running Eyepl: command line and corpus
 
 ```text
 eyepl [options] [file-or-url.pl|- ...]
@@ -5340,21 +5358,21 @@ Short flags may be combined, so `-pw` is equivalent to `-p -w`.
 Inputs may be local files, HTTP(S) URLs, or one `-` for stdin. With no input,
 stdin is used.
 
-# Appendix D. Study paths and review
+## 41. Study paths, review, and further examples
 
 For a first week, run `socrates.pl` and `ancestor.pl`, rewrite them from memory,
 inspect their proofs, learn `member/2`, `append/3`, and `select/3`, solve one
 finite puzzle, and add one inference fuse.
 
-## D.1 Course-length schedules
+### Course-length schedules
 
 These schedules name a spine rather than a reading quota. Every meeting should
 include prediction, execution, one changed input, and a short explanation.
 
 | Meeting | Six-meeting introduction | Ten-meeting course | Fourteen-meeting course |
 | --- | --- | --- | --- |
-| 1 | Chapters 1–2; Socrates and family facts | Chapters 1–2; Laboratory I.1 begins | Chapters 1–2; predicates, terms, and unification |
-| 2 | Chapters 3–5; recursion and lists | Chapters 3–5; Laboratories I.1–I.2 | Chapters 3–4; rules, semantics, and recursion |
+| 1 | Chapters 1–2; Socrates and family facts | Chapters 1–2; Laboratory 1 begins | Chapters 1–2; predicates, terms, and unification |
+| 2 | Chapters 3–5; recursion and lists | Chapters 3–5; Laboratories 1–2 | Chapters 3–4; rules, semantics, and recursion |
 | 3 | Chapters 6–10; one finite puzzle | Chapters 6–8; finite generation and absence | Chapters 5–6; lists and arithmetic |
 | 4 | Chapters 11–14 and 17–20; proof, integrity, construction | Chapters 9–12; contexts, models, proofs, and fuses | Chapters 7–8; negation and aggregation |
 | 5 | Choose Chapters 21–25 or 26–30 | Chapters 13–16; performance and boundaries | Chapters 9–10; structured data and finite models |
@@ -5372,7 +5390,7 @@ For a classroom, use checkpoints as exit questions and laboratories as
 multi-meeting projects. A six-meeting introduction should prefer one small,
 finished theory over hurried coverage of every feature.
 
-## D.2 Domain routes
+### Domain routes
 
 Modelers should study `access-control-policy.pl`,
 `clinical-trial-screening.pl`, `gdpr-compliance.pl`, and
@@ -5391,7 +5409,7 @@ Mathematics students should read Chapters 3, 19, and 26–30 together, then stud
 theorem, computation from justification, finite evidence from universal proof,
 and syntactic equality from the domain's mathematical equality.
 
-## D.3 Review questions
+### Review questions
 
 Review questions:
 
@@ -5411,7 +5429,7 @@ Review questions:
 12. Which parts of an answer's trust come from its proof, and which remain
     outside the formal theory?
 
-# Appendix E. Further examples
+### Further examples
 
 <figure>
   <img src="book-assets/example-landscape.svg" alt="A map connects Eyepl examples across mathematics, search, planning, policy, science, program analysis, symbolic systems, and RDF.">
@@ -5460,7 +5478,7 @@ sequence is:
    conclusion;
 6. change one fact or bound and predict the changed answer before rerunning.
 
-## E.1 Standard Prolog profile
+#### Standard Prolog profile
 
 The v0.1.11–v0.1.14 examples compose ISO facilities that isolated conformance
 cases test one mode at a time.
@@ -5479,7 +5497,7 @@ cases test one mode at a time.
 Read these beside Part VIII. Then use the ISO conformance cases when a program
 depends on the exact failure or error behavior of a particular mode.
 
-## E.2 First encounters
+#### First encounters
 
 These programs isolate one idea at a time. Read them before the larger case
 studies.
@@ -5501,7 +5519,7 @@ studies.
 Suggested path: Socrates → Age → Ancestor → Derived rule → Reusable built-ins.
 At each step, say aloud what one ground instance of every predicate means.
 
-## E.3 Recursion, lists, and graph closure
+#### Recursion, lists, and graph closure
 
 These examples make termination arguments visible. Compare structural descent,
 visited-state search, and fixed-point tabling rather than treating all
@@ -5523,7 +5541,7 @@ Read the three taxonomy programs as one experiment: the mathematical relation
 does not change as the data scale changes. Any difference in runtime belongs
 to control, indexing, memory, and table management.
 
-## E.4 Finite search, puzzles, and optimization
+#### Finite search, puzzles, and optimization
 
 The central question for every program in this group is: what exactly is the
 finite search space, and which constraint removes which branches?
@@ -5551,7 +5569,7 @@ Knapsack. Mark whether each branching decision chooses a permutation element,
 assigns a digit, derives a carry-constrained digit, or includes an item. The
 syntax is similar; the combinatorial objects and pruning strength are different.
 
-## E.5 Planning and state transition
+#### Planning and state transition
 
 Planning programs represent a world state as a term, define legal transitions,
 and search for a sequence whose final state satisfies a goal.
@@ -5575,7 +5593,7 @@ breadth-first wave layers; Blocks world and the river puzzles expose a sequence
 of whole states. Representation determines which plan properties are easy to
 check.
 
-## E.6 Mathematics as relations
+#### Mathematics as relations
 
 These examples accompany Part VI. They range from executable definitions to
 finite counterexample searches. Do not call every computed result a theorem:
@@ -5610,7 +5628,7 @@ Matrix noncommutativity, and Fundamental theorem of arithmetic. They exhibit,
 respectively, structural induction, program improvement by algebra, finite
 model checking, refutation by one witness, and witness-producing number theory.
 
-## E.7 Symbolic mathematics, languages, and metaprogramming
+#### Symbolic mathematics, languages, and metaprogramming
 
 Here terms denote syntax, formulas, expressions, or programs. The crucial
 discipline is to keep object language and Eyepl metalanguage distinct.
@@ -5635,7 +5653,7 @@ names an expression constructor; in the SAT examples it names logical syntax;
 in the Turing example it helps describe a machine configuration. None of those
 nested terms is automatically asserted as an Eyepl goal.
 
-## E.8 Program analysis and verification
+#### Program analysis and verification
 
 These programs make programs or system configurations the subject of
 reasoning.
@@ -5656,7 +5674,7 @@ Abstract interpretation deserves special care: an abstract warning is not the
 claim that every concrete execution fails. It says the abstraction cannot rule
 the failure out. The direction of approximation is part of the theorem.
 
-## E.9 Policies, provenance, and auditable decisions
+#### Policies, provenance, and auditable decisions
 
 These examples are best read in layers: source facts, normalized concepts,
 decisions, reasons, integrity conditions, and proof.
@@ -5678,7 +5696,7 @@ When studying a policy proof, circle every premise imported from outside the
 theory. The derivation validates the transition from those premises to the
 decision; it does not authenticate the source by itself.
 
-## E.10 Science, engineering, and numerical models
+#### Science, engineering, and numerical models
 
 These examples make mathematical assumptions operational. Their values are
 illustrative models, not professional engineering or medical advice.
@@ -5702,7 +5720,7 @@ For each scientific example, write a five-column audit: quantity, unit, source,
 equation, and approximation. A machine-checked derivation is only as
 interpretable as that modeling boundary.
 
-## E.11 RDF 1.2 and knowledge boundaries
+#### RDF 1.2 and knowledge boundaries
 
 These programs are generated from RDF inputs by the repository tools. Follow
 the source data, generated Eyepl facts, rules, answers, and serialized RDF as
@@ -5723,7 +5741,7 @@ The original RDF fixtures and adapter rules are available in
 [examples/input](https://github.com/eyereasoner/eyepl/tree/main/examples/input/). Chapter 15 explains why the conversion is
 an explicit boundary instead of extra syntax inside the reasoning core.
 
-## E.12 Large integrated cases
+#### Large integrated cases
 
 After the focused examples, these programs are useful for whole-program
 reading. Begin by drawing their predicate dependency layers.
@@ -5742,7 +5760,7 @@ Start at `query/1`, find the queried predicate heads, follow their dependencies
 downward, and only then inspect the source facts. This is backward slicing by
 hand.
 
-## E.13 Running and extending the corpus
+#### Running and extending the corpus
 
 Run all 200 normal answer goldens and the 55 selected proof goldens with:
 
@@ -5768,16 +5786,15 @@ When adding an example:
 7. run the full corpus before treating the example as documentation.
 
 The full set of runnable source programs is checked against exact output.
-This Appendix is curated rather than exhaustive: use the [complete directory listing](https://github.com/eyereasoner/eyepl/tree/main/examples/) for
+This chapter is curated rather than exhaustive: use the [complete directory listing](https://github.com/eyereasoner/eyepl/tree/main/examples/) for
 the remaining demonstrations, then apply the same reading discipline—sentence,
 mode, finite domain, answer, proof, and revision.
 
-# Appendix F. Standards profile and implementation extensions
+## 42. Standards, limits, and implementation boundaries
 
-This book is the single reference for the Eyepl implementation. Appendix A
-describes its supported ISO Prolog syntax, declarations, and execution model;
-Appendix B describes the built-in predicates; and Appendix C documents the
-command-line interface. The chapters explain the reasoner, automatic tabling,
+This book is the single reference for the Eyepl implementation. Chapters 38–40
+describe its supported ISO Prolog syntax, declarations, execution model,
+built-in predicates, and command-line interface. The earlier chapters explain the reasoner, automatic tabling,
 proof terms, warnings, answer formatting, embedding, and external data
 adapters.
 
@@ -5813,7 +5830,7 @@ npm run test:playground
 Eyepl executes a documented and tested **ISO compatibility profile** based on
 ISO/IEC 13211-1:1995 and its three technical corrigenda. The exact supported
 predicate indicators—not a claim about the standard's complete processor
-environment—are listed in Appendix B. The profile includes control and
+environment—are listed in Chapter 39. The profile includes control and
 exceptions, term operations, arithmetic, grouped solutions, dynamic clauses,
 operators, atomic-term processing, flags, character conversion, streams,
 character/byte and term I/O, initialization, source inclusion, and
@@ -5855,7 +5872,9 @@ Sockets do not grant authority by themselves. They describe expected
 knowledge; the embedding host remains responsible for authenticating a
 provider and validating what it supplies.
 
-# Appendix G. Notes and references
+## 43. Glossary and notes for continued study
+
+### Notes and references
 
 The book is self-contained as an Eyepl guide. These sources provide historical
 and technical background for the ideas that Eyepl adapts. They describe larger
@@ -5869,8 +5888,8 @@ specifications.
   [Technical Corrigendum 2:2012](https://www.iso.org/standard/58033.html),
   and
   [Technical Corrigendum 3:2017](https://www.iso.org/standard/73194.html).
-  Appendix A defines the precise Eyepl compatibility profile against this
-  standards baseline; Appendix B lists the implemented predicate indicators.
+  Chapter 38 defines the precise Eyepl compatibility profile against this
+  standards baseline; Chapter 39 lists the implemented predicate indicators.
 
 - Michael Genesereth,
   [*Introduction to Logic*](http://intrologic.stanford.edu/public/chapters.php),
@@ -6003,7 +6022,7 @@ The aim of Eyepl is not to make every difficult problem easy. It is to keep the
 theory visible while the machine searches it: facts you can inspect, rules you
 can discuss, answers you can test, and proofs you can carry forward as data.
 
-# Appendix H. Glossary
+### Glossary
 
 This glossary fixes the book's vocabulary. Definitions describe Eyepl unless a
 broader mathematical meaning is explicitly stated.
@@ -6222,7 +6241,9 @@ variables. Variant recognition is important for tabling and cycle analysis.
 **Witness.** A constructed ground term demonstrating an existential result,
 such as a path, assignment, factorization, schedule, or proof-relevant object.
 
-# Appendix I. Twelve laboratories
+# Part X — Laboratories
+
+## 44. Twelve laboratories
 
 These laboratories turn the book into a course. Each has a deliverable, an
 acceptance test, and a reflection question. Complete them in order or choose a
@@ -6234,14 +6255,14 @@ deadlines.
 
 | Laboratories | Preparation | Typical scope |
 | --- | --- | --- |
-| I.1–I.2 | Chapters 1–5 | 2–4 hours each |
-| I.3–I.4 | Chapters 6–10 and 13 | 4–8 hours each |
-| I.5–I.7 | Chapters 19 and 26–29 | 4–8 hours each |
-| I.8–I.10 | Chapters 14, 25, and 31–33 | 6–12 hours each |
-| I.11 | Chapter 15 and `tools/README.md` | 4–8 hours |
-| I.12 | Chapters 16, 25, and 31–33 | multi-session capstone |
+| Laboratories 1–2 | Chapters 1–5 | 2–4 hours each |
+| Laboratories 3–4 | Chapters 6–10 and 13 | 4–8 hours each |
+| Laboratories 5–7 | Chapters 19 and 26–29 | 4–8 hours each |
+| Laboratories 8–10 | Chapters 14, 25, and 31–33 | 6–12 hours each |
+| Laboratory 11 | Chapter 15 and `tools/README.md` | 4–8 hours |
+| Laboratory 12 | Chapters 16, 25, and 31–33 | multi-session capstone |
 
-## I.1 A family theory
+### Laboratory 1. A family theory
 
 **Build:** facts for at least six people and relations for parent, sibling,
 grandparent, and cousin.
@@ -6259,7 +6280,7 @@ proof for a cousin conclusion passes through named intermediate concepts.
 **Reflect:** which conclusions depend on absence, and are those closed-world
 assumptions justified?
 
-## I.2 A relational list toolkit
+### Laboratory 2. A relational list toolkit
 
 **Build:** user-defined relations for membership, concatenation, reversal, and
 prefix.
@@ -6276,7 +6297,7 @@ direction.
 
 **Reflect:** which logically meaningful modes are operationally infinite?
 
-## I.3 A cyclic transport network
+### Laboratory 3. A cyclic transport network
 
 **Build:** a network with at least ten stations, cycles, weighted edges, and
 two disconnected components.
@@ -6295,7 +6316,7 @@ uses known edges, and contains no repeated station.
 **Reflect:** why can endpoint reachability table finitely while the set of
 arbitrary walks is infinite?
 
-## I.4 A finite puzzle
+### Laboratory 4. A finite puzzle
 
 **Build:** encode a small Latin square, scheduling puzzle, or house puzzle.
 
@@ -6312,7 +6333,7 @@ duplicate representing the same mathematical object.
 
 **Reflect:** which source line contributes the greatest pruning power?
 
-## I.5 Arithmetic by construction
+### Laboratory 5. Arithmetic by construction
 
 **Build:** Peano addition and multiplication, then one relation of your choice:
 exponentiation, comparison, division with remainder, or factorial.
@@ -6330,7 +6351,7 @@ recursive structure.
 **Reflect:** did the representation make the induction easier or merely the
 computation slower?
 
-## I.6 Counterexample laboratory
+### Laboratory 6. Counterexample laboratory
 
 **Build:** finite operation tables over carriers of two or three elements.
 
@@ -6347,7 +6368,7 @@ specific triple; one valid group table passes every finite law.
 **Reflect:** why does one counterexample settle the negative question while a
 thousand random confirmations do not settle the positive one?
 
-## I.7 A symbolic language
+### Laboratory 7. A symbolic language
 
 **Build:** a small expression language with literals, variables, addition,
 conditionals, and local bindings.
@@ -6367,7 +6388,7 @@ does not change evaluated results.
 **Reflect:** where is the boundary between Prolog syntax and the object language
 represented by Prolog terms?
 
-## I.8 A static analyzer
+### Laboratory 8. A static analyzer
 
 **Build:** a sign, nullness, taint, or permission analysis for a tiny statement
 language.
@@ -6387,7 +6408,7 @@ case.
 **Reflect:** why is a warning not necessarily evidence that a concrete failure
 occurs?
 
-## I.9 An auditable policy
+### Laboratory 9. An auditable policy
 
 **Build:** an access, consent, eligibility, or compliance theory.
 
@@ -6405,7 +6426,7 @@ and its supporting proof.
 **Reflect:** which trust claims are established by derivation, and which require
 authentication outside the theory?
 
-## I.10 A scientific model
+### Laboratory 10. A scientific model
 
 **Build:** encode a compact model from mechanics, circuits, chemistry,
 epidemiology, or statistics.
@@ -6424,7 +6445,7 @@ equations represented by built-ins, and thresholds in an intelligible order.
 **Reflect:** what has been proved conditionally, and what empirical claim
 remains outside formal logic?
 
-## I.11 An RDF knowledge boundary
+### Laboratory 11. An RDF knowledge boundary
 
 **Build:** start with a small Turtle or TriG fixture, convert it to `rdf/4`
 facts, derive one new relation, and serialize the result.
@@ -6443,7 +6464,7 @@ nested triple data is not accidentally asserted as a global fact.
 **Reflect:** what simplicity does the explicit adapter preserve in the Eyepl
 core?
 
-## I.12 A release-quality reasoning service
+### Laboratory 12. A release-quality reasoning service
 
 **Build:** combine the preceding techniques into a small embedded service.
 
@@ -6465,7 +6486,7 @@ instructions.
 **Reflect:** if the service gives a wrong real-world decision, which of the four
 trust layers—source, model, engine, or derivation—would reveal the fault?
 
-## Laboratory review rubric
+### Laboratory review rubric
 
 Evaluate each project on five independent axes:
 
@@ -6481,14 +6502,16 @@ A beautiful program is not merely short. It makes the reason for its
 correctness, the shape of its search, and the boundary of its trust available
 to the next reader.
 
-# Appendix J. Checkpoint notes and selected answers
+# Part XI — Review
+
+## 45. Checkpoint notes and selected answers
 
 Checkpoints are for retrieval and diagnosis, not grading by hidden wording.
 Attempt one before reading these notes. When a checkpoint asks about a program
 of your own, compare the structure of your argument rather than expecting one
 canonical implementation.
 
-## J.1 Foundations: Chapters 1–10
+### Foundations: Chapters 1–10
 
 **Chapter 1.** `parent(ada, byron)` says that Ada is a parent of Byron.
 `query(child(X, Y))` asks for every ground child–parent pair derivable by the
@@ -6552,7 +6575,7 @@ new answers are those with equal first and third colors:
 `red–green–red`, `red–blue–red`, `green–red–green`,
 `green–blue–green`, `blue–red–blue`, and `blue–green–blue`.
 
-## J.2 Trust and construction: Chapters 11–20
+### Trust and construction: Chapters 11–20
 
 Use this table to check that the checkpoint response separates concepts that
 are often collapsed:
@@ -6574,7 +6597,7 @@ A response that says only “the program works” is incomplete. It should name
 the claim, the mode, the evidence inspected, and the boundary that remains
 outside that evidence.
 
-## J.3 Advanced work: Chapters 21–33
+### Advanced work: Chapters 21–33
 
 Later checkpoints often admit several good programs. Evaluate them with five
 questions:

@@ -824,9 +824,13 @@ export function selectClauseCandidatesForValues(group, positions, values) {
       }
     }
   }
-  const best = bestParts
-    ? mergeClausesInSourceOrder(bestParts.primary, bestParts.fallback)
-    : group.clauses;
+  // An exact scalar index normally has no variable-head fallback. Reuse its
+  // bucket directly instead of allocating a one-element merged array on every
+  // lookup (notably in long deterministic ground chains).
+  const best = !bestParts ? group.clauses
+    : bestParts.fallback.length === 0 ? bestParts.primary
+      : bestParts.primary.length === 0 ? bestParts.fallback
+        : mergeClausesInSourceOrder(bestParts.primary, bestParts.fallback);
   return { primary: best, fallback: [] };
 }
 

@@ -243,3 +243,15 @@ npm run generate
 ## Chapter 37: Streams and term I/O
 
 - [01-write_event.pl](chapter-37/01-write_event.pl)
+
+## Chapter 38: Language, declarations, and ISO profile
+
+- [01-city.pl](chapter-38/01-city.pl)
+
+## Chapter 39: Built-in predicates by programming role
+
+- [01-answer.pl](chapter-39/01-answer.pl) — The Eyepl library
+- [02-answer-2.pl](chapter-39/02-answer-2.pl)
+- [03-answer-3.pl](chapter-39/03-answer-3.pl)
+- [04-cost.pl](chapter-39/04-cost.pl)
+- [05-message.pl](chapter-39/05-message.pl)

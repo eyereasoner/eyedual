@@ -54,7 +54,7 @@ for (const reference of localReferences) {
 const builtinsStart = book.indexOf('| Family | Registered predicate indicators |');
 const builtinsEnd = book.indexOf('\n\n', builtinsStart);
 if (builtinsStart < 0 || builtinsEnd < 0) {
-  failures.push('Could not find the built-in index in Appendix B');
+  failures.push('Could not find the built-in index in Chapter 39');
 } else {
   const documented = new Set(
     [...book.slice(builtinsStart, builtinsEnd).matchAll(/`([^`\s]+)\/(\d+)`/g)]

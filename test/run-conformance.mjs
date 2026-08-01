@@ -9,8 +9,6 @@ import { fileURLToPath } from 'node:url';
 import { TestReporter, isMainModule } from './test-style.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)));
-const packageRoot = path.resolve(root, '..');
-const cliBin = path.join(packageRoot, 'bin', 'eyepl.js');
 const filterArg = process.argv[2] ?? null;
 
 export function runConformance(reporter = new TestReporter(), requestedFilter = null) {
@@ -114,18 +112,18 @@ function runWarningCase(name, file) {
   const expectedStdout = path.join(expectedDir, `${name}.pl`);
   const expectedStderr = path.join(expectedDir, `${name}.txt`);
   const text = fs.readFileSync(programFile, 'utf8');
-  const result = spawnSync(process.execPath, [cliBin, '--warnings', '-'], {
-    cwd: packageRoot,
-    input: text,
-    encoding: 'utf8',
+  // These cases used to start a fresh Node process for each CLI invocation.
+  // Exercise the same parser and runner in-process; CLI argument handling is
+  // covered by regression tests, while this corpus verifies engine warnings.
+  const program = Program.parseSources([{ text, filename: '<stdin>' }], {
+    sourceMetadata: false,
+    markRecursive: false,
   });
+  const stderr = formatWarnings(program);
+  const stdout = run(program).stdout;
 
-  if (result.status !== 0) {
-    throw new Error(`warning case ${name} exited with ${result.status}\n${result.stderr}`.trimEnd());
-  }
-
-  compareExpectedFile(expectedStdout, result.stdout, name, 'warning stdout');
-  compareExpectedFile(expectedStderr, result.stderr, name, 'warning stderr');
+  compareExpectedFile(expectedStdout, stdout, name, 'warning stdout');
+  compareExpectedFile(expectedStderr, stderr, name, 'warning stderr');
 }
 
 function runProofCase(name, file) {
@@ -134,21 +132,23 @@ function runProofCase(name, file) {
   const programFile = path.join(proofsDir, file);
   const expected = path.join(expectedDir, `${name}.pl`);
   const text = fs.readFileSync(programFile, 'utf8');
-  const result = spawnSync(process.execPath, [cliBin, '--proof', '-'], {
-    cwd: packageRoot,
-    input: text,
-    encoding: 'utf8',
+  const program = Program.parseSources([{ text, filename: '<stdin>' }], {
+    sourceMetadata: true,
+    markRecursive: true,
   });
+  const stdout = run(program, { proof: true }).stdout;
 
-  if (result.status !== 0) {
-    throw new Error(`proof case ${name} exited with ${result.status}\n${result.stderr}`.trimEnd());
-  }
-  if (result.stderr !== '') {
-    throw new Error(`proof case ${name} wrote unexpected stderr\n${result.stderr}`.trimEnd());
-  }
+  compareExpectedFile(expected, stdout, name, 'proof output');
+  Program.parse(stdout);
+}
 
-  compareExpectedFile(expected, result.stdout, name, 'proof output');
-  Program.parse(result.stdout);
+function formatWarnings(program) {
+  const errors = program.negationStratificationErrors;
+  if (errors.length === 0) return '';
+
+  let text = 'eyepl warning: unstratified negation\n';
+  for (const edge of errors) text += `  ${edge.from} depends negatively on ${edge.to}\n`;
+  return text;
 }
 
 function compareExpectedFile(expected, actual, name, kind) {
