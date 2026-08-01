@@ -1,7 +1,7 @@
 # Eyepl
 
 <p align="center">
-  <img src="eyepl-logo.png" alt="Eyepl logo" width="200">
+  <img src="eyepl-logo.png" alt="Eyepl logo" width="160">
 </p>
 
 [![npm version](https://img.shields.io/npm/v/eyepl.svg)](https://www.npmjs.com/package/eyepl)
