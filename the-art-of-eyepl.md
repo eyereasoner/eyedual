@@ -238,107 +238,107 @@ Chapter 46.
 
 Chapters 1–5
 
-1. [A program is a little theory](#1-a-program-is-a-little-theory)
-2. [Terms, variables, and substitution](#2-terms-variables-and-substitution)
-3. [Rules and their two readings](#3-rules-and-their-two-readings)
-4. [Recursion: describing reachability](#4-recursion-describing-reachability)
-5. [Lists as relations](#5-lists-as-relations)
+- [1. A program is a little theory](#1-a-program-is-a-little-theory)
+- [2. Terms, variables, and substitution](#2-terms-variables-and-substitution)
+- [3. Rules and their two readings](#3-rules-and-their-two-readings)
+- [4. Recursion: describing reachability](#4-recursion-describing-reachability)
+- [5. Lists as relations](#5-lists-as-relations)
 
 ### Part II — Search
 
 Chapters 6–10
 
-6. [Arithmetic and finite generation](#6-arithmetic-and-finite-generation)
-7. [Failure, negation, and quantification](#7-failure-negation-and-quantification)
-8. [Collecting and choosing answers](#8-collecting-and-choosing-answers)
-9. [Structured data, strings, and contexts](#9-structured-data-strings-and-contexts)
-10. [From puzzles to models](#10-from-puzzles-to-models)
+- [6. Arithmetic and finite generation](#6-arithmetic-and-finite-generation)
+- [7. Failure, negation, and quantification](#7-failure-negation-and-quantification)
+- [8. Collecting and choosing answers](#8-collecting-and-choosing-answers)
+- [9. Structured data, strings, and contexts](#9-structured-data-strings-and-contexts)
+- [10. From puzzles to models](#10-from-puzzles-to-models)
 
 ### Part III — Trustworthy reasoning
 
 Chapters 11–16
 
-11. [Queries, answers, and proofs](#11-queries-answers-and-proofs)
-12. [Integrity constraints and inference fuses](#12-integrity-constraints-and-inference-fuses)
-13. [Termination, tabling, and performance](#13-termination-tabling-and-performance)
-14. [Knowledge engineering](#14-knowledge-engineering)
-15. [RDF 1.2 as the interoperable data boundary](#15-rdf-12-as-the-interoperable-data-boundary)
-16. [Embedding Eyepl](#16-embedding-eyepl)
+- [11. Queries, answers, and proofs](#11-queries-answers-and-proofs)
+- [12. Integrity constraints and inference fuses](#12-integrity-constraints-and-inference-fuses)
+- [13. Termination, tabling, and performance](#13-termination-tabling-and-performance)
+- [14. Knowledge engineering](#14-knowledge-engineering)
+- [15. RDF 1.2 as the interoperable data boundary](#15-rdf-12-as-the-interoperable-data-boundary)
+- [16. Embedding Eyepl](#16-embedding-eyepl)
 
 ### Part IV — The craft of logic programming
 
 Chapters 17–20
 
-17. [Logic and control](#17-logic-and-control)
-18. [Constructing a program](#18-constructing-a-program)
-19. [Correctness and termination](#19-correctness-and-termination)
-20. [Improving a program](#20-improving-a-program)
+- [17. Logic and control](#17-logic-and-control)
+- [18. Constructing a program](#18-constructing-a-program)
+- [19. Correctness and termination](#19-correctness-and-termination)
+- [20. Improving a program](#20-improving-a-program)
 
 ### Part V — Advanced relational design
 
 Chapters 21–25
 
-21. [Reading the computation](#21-reading-the-computation)
-22. [Trees, languages, and symbolic evaluation](#22-trees-languages-and-symbolic-evaluation)
-23. [Transforming programs](#23-transforming-programs)
-24. [Designing finite search](#24-designing-finite-search)
-25. [Case study: an auditable decision service](#25-case-study-an-auditable-decision-service)
+- [21. Reading the computation](#21-reading-the-computation)
+- [22. Trees, languages, and symbolic evaluation](#22-trees-languages-and-symbolic-evaluation)
+- [23. Transforming programs](#23-transforming-programs)
+- [24. Designing finite search](#24-designing-finite-search)
+- [25. Case study: an auditable decision service](#25-case-study-an-auditable-decision-service)
 
 ### Part VI — Mathematics made executable
 
 Chapters 26–30
 
-26. [A proof can be a computation](#26-a-proof-can-be-a-computation)
-27. [Recursion is induction in motion](#27-recursion-is-induction-in-motion)
-28. [Algebra, symmetry, and representation](#28-algebra-symmetry-and-representation)
-29. [Search as experimental mathematics](#29-search-as-experimental-mathematics)
-30. [What mathematics promises](#30-what-mathematics-promises)
+- [26. A proof can be a computation](#26-a-proof-can-be-a-computation)
+- [27. Recursion is induction in motion](#27-recursion-is-induction-in-motion)
+- [28. Algebra, symmetry, and representation](#28-algebra-symmetry-and-representation)
+- [29. Search as experimental mathematics](#29-search-as-experimental-mathematics)
+- [30. What mathematics promises](#30-what-mathematics-promises)
 
 ### Part VII — The reasoning laboratory
 
 Chapters 31–33
 
-31. [Testing a theory](#31-testing-a-theory)
-32. [Debugging by meaning, search, and proof](#32-debugging-by-meaning-search-and-proof)
-33. [A pattern catalog for reasoning](#33-a-pattern-catalog-for-reasoning)
+- [31. Testing a theory](#31-testing-a-theory)
+- [32. Debugging by meaning, search, and proof](#32-debugging-by-meaning-search-and-proof)
+- [33. A pattern catalog for reasoning](#33-a-pattern-catalog-for-reasoning)
 
 ### Part VIII — Standard Prolog in practice
 
 Chapters 34–37
 
-34. [Control, exceptions, and grouped solutions](#34-control-exceptions-and-grouped-solutions)
-35. [Reflective terms and atomic conversion](#35-reflective-terms-and-atomic-conversion)
-36. [Dynamic predicates, directives, and operators](#36-dynamic-predicates-directives-and-operators)
-37. [Streams and term I/O](#37-streams-and-term-io)
+- [34. Control, exceptions, and grouped solutions](#34-control-exceptions-and-grouped-solutions)
+- [35. Reflective terms and atomic conversion](#35-reflective-terms-and-atomic-conversion)
+- [36. Dynamic predicates, directives, and operators](#36-dynamic-predicates-directives-and-operators)
+- [37. Streams and term I/O](#37-streams-and-term-io)
 
 ### Part IX — Reference as practice
 
 Chapters 38–43
 
-38. [Language, declarations, and ISO profile](#38-language-declarations-and-iso-profile)
-39. [Built-in predicates by programming role](#39-built-in-predicates-by-programming-role)
-40. [Running Eyepl: command line and corpus](#40-running-eyepl-command-line-and-corpus)
-41. [Study paths, review, and further examples](#41-study-paths-review-and-further-examples)
-42. [Standards, limits, and implementation boundaries](#42-standards-limits-and-implementation-boundaries)
-43. [Glossary and notes for continued study](#43-glossary-and-notes-for-continued-study)
+- [38. Language, declarations, and ISO profile](#38-language-declarations-and-iso-profile)
+- [39. Built-in predicates by programming role](#39-built-in-predicates-by-programming-role)
+- [40. Running Eyepl: command line and corpus](#40-running-eyepl-command-line-and-corpus)
+- [41. Study paths, review, and further examples](#41-study-paths-review-and-further-examples)
+- [42. Standards, limits, and implementation boundaries](#42-standards-limits-and-implementation-boundaries)
+- [43. Glossary and notes for continued study](#43-glossary-and-notes-for-continued-study)
 
 ### Part X — Laboratories
 
 Chapter 44
 
-44. [Twelve laboratories](#44-twelve-laboratories)
+- [44. Twelve laboratories](#44-twelve-laboratories)
 
 ### Part XI — Review
 
 Chapter 45
 
-45. [Checkpoint notes and selected answers](#45-checkpoint-notes-and-selected-answers)
+- [45. Checkpoint notes and selected answers](#45-checkpoint-notes-and-selected-answers)
 
 ### Part XII — Acknowledgements
 
 Chapter 46
 
-46. [With thanks](#46-with-thanks)
+- [46. With thanks](#46-with-thanks)
 
 ---
 
