@@ -309,6 +309,10 @@ making a relationship visible that prose alone would make easy to miss.
 
 45. [Checkpoint notes and selected answers](#45-checkpoint-notes-and-selected-answers)
 
+### Part XII — Acknowledgements
+
+46. [With thanks](#46-with-thanks)
+
 ---
 
 # Part I — Relations
@@ -6815,3 +6819,17 @@ For laboratory checkpoints, leave an artifact. A useful completion is not
 merely a paragraph: it is a small source file, predicted output, actual output,
 and one sentence explaining any difference. The extracted chapter examples,
 top-level goldens, and `npm test` demonstrate that rhythm at repository scale.
+
+# Part XII — Acknowledgements
+
+## 46. With thanks
+
+The author gratefully thanks GPT-5.6 for its great help in developing this
+book. Its careful collaboration supported the reorganisation of chapters,
+sharpening of explanations, review of examples and diagrams, and the many
+small editorial improvements that make a technical book easier to read and
+use.
+
+Suggestions from GPT-5.6 were considered and directed by the author. The
+author remains responsible for the book's claims, choices, and any remaining
+errors.
