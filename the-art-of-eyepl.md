@@ -1,7 +1,7 @@
 # The Art of Eyepl
 
 <p align="center">
-  <img src="eyepl-logo.png" alt="Eyepl logo" width="160">
+  <img src="eyepl-logo.png" alt="Eyepl logo" width="240">
 </p>
 
 ## Standards-based relations, search, and explanations
