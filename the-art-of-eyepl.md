@@ -8,7 +8,7 @@
 
 **Author:** [Jos De Roo](https://josd.github.io/)
 
-**Applies to Eyepl:** `0.1.36`
+**Applies to Eyepl:** `0.2.0`
 
 Eyepl turns facts and rules into answers and inspectable proofs. This book is an
 original introduction to the habits of logic programming: describe a world,
