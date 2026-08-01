@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470" role="img" aria-labelledby="title desc">
+  <title id="title">The command line observation loop</title>
+  <desc id="desc">A predicted result and an Eyepl program enter the command line. It emits answers and proofs on standard output, warnings and statistics on standard error, and a process status. Comparison of prediction and evidence leads to a focused revision.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f4efe3}.source{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}.engine{fill:#243447;stroke:#172334;stroke-width:3}.out{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}.diag{fill:#c7dfe2;stroke:#376e75;stroke-width:2}.status{fill:#ead7d7;stroke:#8b3a3a;stroke-width:2}.compare{fill:#fffdf7;stroke:#526273;stroke-width:2}
+      .line{fill:none;stroke:#526273;stroke-width:3;stroke-linecap:round}.arrow{fill:#526273}.title{fill:#713535;font:bold 24px Georgia,serif}.label{fill:#172334;font:bold 17px Georgia,serif}.small{fill:#435166;font:15px Georgia,serif}.code{fill:#fffdf7;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}.loop{fill:#713535;font:bold 16px Georgia,serif}
+    </style>
+  </defs>
+  <rect width="900" height="470" class="bg"/>
+  <text class="title" x="450" y="36" text-anchor="middle">OBSERVE ONE QUESTION THROUGH THREE CHANNELS</text>
+
+  <rect class="source" x="35" y="105" width="210" height="105" rx="14"/>
+  <text class="label" x="140" y="137" text-anchor="middle">PROGRAM + QUERY</text>
+  <text class="small" x="140" y="165" text-anchor="middle">fixed source · input</text>
+  <text class="small" x="140" y="188" text-anchor="middle">predicted answers</text>
+
+  <path class="line" d="M245 158H320"/><path class="arrow" d="M310 150L324 158L310 166Z"/>
+  <rect class="engine" x="325" y="100" width="220" height="115" rx="18"/>
+  <text class="code" x="435" y="145" text-anchor="middle">eyepl -pws</text>
+  <text class="code" x="435" y="177" text-anchor="middle">program.pl</text>
+
+  <path class="line" d="M545 158H590M590 85V305"/>
+  <path class="line" d="M590 95H625M590 195H625M590 295H625"/>
+  <path class="arrow" d="M615 87L629 95L615 103Z"/><path class="arrow" d="M615 187L629 195L615 203Z"/><path class="arrow" d="M615 287L629 295L615 303Z"/>
+
+  <rect class="out" x="630" y="55" width="235" height="80" rx="12"/>
+  <text class="label" x="747" y="84" text-anchor="middle">STDOUT · LOGICAL</text>
+  <text class="small" x="747" y="109" text-anchor="middle">ground answers · why/2</text>
+  <rect class="diag" x="630" y="155" width="235" height="80" rx="12"/>
+  <text class="label" x="747" y="184" text-anchor="middle">STDERR · OPERATIONAL</text>
+  <text class="small" x="747" y="209" text-anchor="middle">warnings · statistics</text>
+  <rect class="status" x="630" y="255" width="235" height="80" rx="12"/>
+  <text class="label" x="747" y="284" text-anchor="middle">STATUS · AUTOMATION</text>
+  <text class="small" x="747" y="309" text-anchor="middle">0 · 65 · 1 · halt code</text>
+
+  <rect class="compare" x="230" y="300" width="360" height="75" rx="14"/>
+  <text class="label" x="410" y="330" text-anchor="middle">COMPARE WITH THE PREDICTION</text>
+  <text class="small" x="410" y="354" text-anchor="middle">answers · support · cost · status</text>
+  <path class="line" d="M630 335L590 337"/><path class="arrow" d="M604 329L590 337L604 345Z"/>
+  <path class="line" d="M230 337H140V220"/><path class="arrow" d="M132 234L140 220L148 234Z"/>
+  <text class="loop" x="182" y="328" text-anchor="middle">REVISE</text>
+  <text class="small" x="450" y="445" text-anchor="middle">Keep the semantic case fixed when comparing performance.</text>
+</svg>

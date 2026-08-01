@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470" role="img" aria-labelledby="title desc">
+  <title id="title">Progression through twelve Eyepl laboratories</title>
+  <desc id="desc">Five connected stages group laboratories one and two as relational foundations, three and four as finite search, five through seven as mathematical and symbolic methods, eight through eleven as domain reasoning, and twelve as an integrated release-quality service.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f4efe3}.stage{stroke:#526273;stroke-width:2}.s1{fill:#dcefe8}.s2{fill:#c7dfe2}.s3{fill:#fff0d9}.s4{fill:#ead7d7}.s5{fill:#243447;stroke:#172334;stroke-width:3}
+      .line{fill:none;stroke:#526273;stroke-width:4;stroke-linecap:round}.arrow{fill:#526273}.title{fill:#713535;font:bold 24px Georgia,serif}.number{fill:#713535;font:bold 20px Georgia,serif}.label{fill:#172334;font:bold 17px Georgia,serif}.small{fill:#435166;font:15px Georgia,serif}.white{fill:#fffdf7}.thread{fill:#435166;font:italic 16px Georgia,serif}
+    </style>
+  </defs>
+  <rect width="900" height="470" class="bg"/>
+  <text class="title" x="450" y="38" text-anchor="middle">TWELVE LABORATORIES, ONE GROWING DISCIPLINE</text>
+  <path class="line" d="M105 245H790"/><path class="arrow" d="M778 235L796 245L778 255Z"/>
+  <path class="arrow" d="M180 237L194 245L180 253Z"/><path class="arrow" d="M345 237L359 245L345 253Z"/><path class="arrow" d="M525 237L539 245L525 253Z"/><path class="arrow" d="M705 237L719 245L705 253Z"/>
+
+  <rect class="stage s1" x="30" y="105" width="145" height="235" rx="16"/>
+  <text class="number" x="102" y="143" text-anchor="middle">1–2</text>
+  <text class="label" x="102" y="176" text-anchor="middle">RELATIONS</text>
+  <text class="small" x="102" y="207" text-anchor="middle">family</text><text class="small" x="102" y="229" text-anchor="middle">lists</text>
+  <text class="small" x="102" y="290" text-anchor="middle">state meaning</text><text class="small" x="102" y="313" text-anchor="middle">and modes</text>
+
+  <rect class="stage s2" x="195" y="105" width="145" height="235" rx="16"/>
+  <text class="number" x="267" y="143" text-anchor="middle">3–4</text>
+  <text class="label" x="267" y="176" text-anchor="middle">SEARCH</text>
+  <text class="small" x="267" y="207" text-anchor="middle">routes</text><text class="small" x="267" y="229" text-anchor="middle">puzzles</text>
+  <text class="small" x="267" y="290" text-anchor="middle">bound and</text><text class="small" x="267" y="313" text-anchor="middle">measure</text>
+
+  <rect class="stage s3" x="360" y="105" width="160" height="235" rx="16"/>
+  <text class="number" x="440" y="143" text-anchor="middle">5–7</text>
+  <text class="label" x="440" y="176" text-anchor="middle">METHODS</text>
+  <text class="small" x="440" y="207" text-anchor="middle">arithmetic · algebra</text><text class="small" x="440" y="229" text-anchor="middle">symbolic language</text>
+  <text class="small" x="440" y="290" text-anchor="middle">prove, refute,</text><text class="small" x="440" y="313" text-anchor="middle">transform</text>
+
+  <rect class="stage s4" x="540" y="105" width="160" height="235" rx="16"/>
+  <text class="number" x="620" y="143" text-anchor="middle">8–11</text>
+  <text class="label" x="620" y="176" text-anchor="middle">DOMAINS</text>
+  <text class="small" x="620" y="207" text-anchor="middle">analysis · policy</text><text class="small" x="620" y="229" text-anchor="middle">science · RDF</text>
+  <text class="small" x="620" y="290" text-anchor="middle">preserve evidence</text><text class="small" x="620" y="313" text-anchor="middle">and boundaries</text>
+
+  <rect class="stage s5" x="720" y="85" width="150" height="275" rx="18"/>
+  <text class="number white" x="795" y="133" text-anchor="middle">12</text>
+  <text class="label white" x="795" y="169" text-anchor="middle">INTEGRATE</text>
+  <text class="small white" x="795" y="203" text-anchor="middle">embedded service</text><text class="small white" x="795" y="225" text-anchor="middle">release evidence</text>
+  <text class="small white" x="795" y="291" text-anchor="middle">reproducible</text><text class="small white" x="795" y="313" text-anchor="middle">and auditable</text>
+
+  <text class="thread" x="450" y="402" text-anchor="middle">meaning → finite control → evidence → boundary → integration</text>
+  <text class="small" x="450" y="432" text-anchor="middle">Each stage keeps the obligations of the stages before it.</text>
+</svg>

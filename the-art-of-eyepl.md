@@ -8,7 +8,7 @@
 
 **Author:** [Jos De Roo](https://josd.github.io/)
 
-**Applies to Eyepl:** `0.1.35`
+**Applies to Eyepl:** `0.1.36`
 
 Eyepl turns facts and rules into answers and inspectable proofs. This book is an
 original introduction to the habits of logic programming: describe a world,
@@ -204,6 +204,23 @@ program rather than merely recognize syntax. The former appendices are now
 ordinary chapters: reference material follows practice, laboratories turn the
 methods into work, and checkpoint notes close the loop with retrieval and
 diagnosis.
+
+Balance here does not mean that every chapter has the same length or the same
+number of pictures. A language catalog should be searchable; a construction
+chapter should be argumentative; a laboratory should leave an artifact. The
+recurring balance is instead between four readings of a program:
+
+| Reading | Question carried through the book | Typical evidence |
+| --- | --- | --- |
+| Meaning | What does each ground relation claim? | a domain sentence and examples |
+| Computation | How are answers actually found? | a trace, finite bound, or termination measure |
+| Construction | Why is the program shaped this way? | a worked refinement and rejected alternative |
+| Judgment | What has been established, and what remains assumed? | tests, proofs, counterexamples, and a trust boundary |
+
+Diagrams follow the same rule. Scenes introduce an intuition; structural
+diagrams expose a term, proof, or dependency; process diagrams guide a piece
+of work; maps help navigate reference and review. A diagram earns its place by
+making a relationship visible that prose alone would make easy to miss.
 
 ## Contents
 
@@ -758,6 +775,30 @@ The first clause is the base case. The second reduces an ancestor question to a
 subquestion one edge farther through the graph. To design recursion, draw one
 proof, find the repeated subquestion, and ensure some path reaches a base case.
 
+### Constructing the recursive argument
+
+A recursive program should expose the same argument that would justify its
+result on paper. For `ancestor/2`, that argument has four parts:
+
+| Design obligation | `ancestor/2` answer |
+| --- | --- |
+| Smallest supported case | one known `parent/2` edge |
+| Repeated question | whether the intermediate parent is an ancestor |
+| Progress | advance from `X` to the next vertex `Y` |
+| Finite reason | a finite graph gives finitely many endpoint pairs to table |
+
+The progress column is deliberately not “the term gets smaller.” Structural
+recursion over a list usually consumes a tail; graph recursion moves through a
+finite relation; arithmetic recursion may decrease a number. State the actual
+well-founded argument for the intended mode instead of borrowing the language
+of a different recursion pattern.
+
+Clause order then expresses a control preference. Trying the direct edge first
+finds short proofs early, but it does not change which ancestor pairs the two
+clauses mean. Reversing the recursive clause's body is different: it asks an
+open recursive question before selecting an edge and may destroy the useful
+mode. Meaning and control must be reviewed separately.
+
 Real graphs contain cycles. Naive depth-first recursion can revisit a call
 forever. Eyepl analyzes predicate dependencies and automatically tables
 suitable positive recursive groups. A table records answers for a recursive
@@ -784,6 +825,12 @@ path(X, Z, [X | Rest]) :-
 
 On cyclic graphs, track visited vertices and use `not_member/2` to obtain finite
 simple paths rather than arbitrary walks.
+
+Notice that `ancestor/2` and `path/3` make different promises. Endpoint
+reachability has at most one logical pair for each pair of vertices, whereas
+path construction may have many witnesses for the same endpoints. Table the
+finite relation you need; bound or simplify the richer witness relation. This
+distinction reappears in grammars, planning, proof search, and program analysis.
 
 **Checkpoint.** In the three-edge family from Chapter 1, predict the direct and
 indirect `ancestor/2` answers. Point to the base clause and recursive clause,
@@ -1017,6 +1064,22 @@ total_outgoing(Node, Total) :-
 
 `findall/3` returns `[]` for no answers; counts and sums return zero.
 
+Choose a collector from the question, not from convenience:
+
+| Question | Result shape | Empty search |
+| --- | --- | --- |
+| Which witnesses were found? | `findall/3` returns a list | `[]` |
+| How many derivations succeeded? | `countall/2` returns an integer | `0` |
+| What is their numeric total? | `sumall/3` returns a number | `0` |
+| Which candidate has the least or greatest key? | `aggregate_min/5` or `aggregate_max/5` returns one candidate | failure |
+
+Counting solutions is not necessarily counting distinct domain objects: two
+proofs may resolve the visible value in the same way. When identity matters,
+collect the identifying template and deliberately canonicalize it with
+`sort/2`; when derivation multiplicity matters, retain the duplicates. Making
+that decision explicit prevents a database-style summary from silently
+changing the question.
+
 <figure>
   <img src="book-assets/aggregation-market.svg" alt="Market baskets with weights flow into count, sum, minimum, and maximum results.">
   <figcaption>Aggregation temporarily treats a finite family of solutions as a collection: the same baskets can be counted, summed, or compared.</figcaption>
@@ -1039,6 +1102,14 @@ The key `[Cost, Route]` supplies deterministic tie-breaking through term order.
 `aggregate_min/5` and `aggregate_max/5` fail when their goal has no answers.
 An aggregate opens a smaller query scope inside the surrounding proof, and its
 inner search must be finite.
+
+Keep candidate generation separate from choice. A relation such as
+`route/4` should explain which routes exist and how their costs arise;
+`best_route/4` states a policy over that finite relation. This separation lets
+the same candidates be inspected, counted, tested, or optimized without
+burying their meaning in a single committed search. It also makes an empty
+candidate set visible: “there is no route” is different from inventing a
+sentinel route with an artificial cost.
 
 **Checkpoint.** For an empty route relation, predict the behavior of
 `findall/3`, `countall/2`, `sumall/3`, and `aggregate_min/5`. Then identify the
@@ -1294,6 +1365,33 @@ false :-
 
 The logical reading is that no acceptable model contains this combination.
 Fuses express domain contradictions, not resource bounds or search limits.
+
+### Designing a fuse from the invalid state
+
+Start with a sentence that must never be true, then translate its witnesses
+into positive, finite goals. “No person has two incompatible roles” becomes
+the conjunction above. A useful fuse is:
+
+- **domain-specific:** it names an impossible or inadmissible state;
+- **finite:** its body can be checked completely before queries begin;
+- **diagnostic:** its bindings identify the offending records; and
+- **independent:** it rejects bad premises rather than encoding a desired
+  query answer.
+
+Four outcomes that look like “failure” at a shell prompt have different
+meanings:
+
+| Outcome | Interpretation | Appropriate response |
+| --- | --- | --- |
+| query has no answer | this theory did not derive the selected goal | inspect data, rules, and closed-world assumptions |
+| inference fuse fires | the loaded theory contains a forbidden combination | repair or reject the theory |
+| resource ceiling is reached | the computation exceeded an operational budget | bound or redesign the search |
+| parser or type error | the program or call violates the language contract | correct the source or interface |
+
+Do not turn every undesirable business result into `false`. A declined
+application, unavailable route, or negative test may be a perfectly valid
+answer of the theory. Reserve a fuse for states from which *no* downstream
+answer should be trusted.
 
 To see the failure path directly, run:
 
@@ -4862,6 +4960,17 @@ for exact reference.
 
 # Part IX — Reference as practice
 
+Reference is useful only when the route into it is clear. Begin with the task
+in hand: Chapter 38 answers what source means, Chapter 39 helps select a
+predicate, and Chapter 40 turns a file into observable evidence. Chapters
+41–43 then support study design, boundary decisions, and precise vocabulary.
+The long catalogs are meant to be entered locally, not memorized linearly.
+
+<figure>
+  <img src="book-assets/reference-navigation.svg" alt="A task map routes language, predicate, and execution questions into Chapters 38 to 40, then onward to study paths, boundaries, and vocabulary in Chapters 41 to 43.">
+  <figcaption>Enter the reference through a concrete question. The first three chapters answer how to read, choose, and run; the next three help place that answer in a course, a boundary, and a shared vocabulary.</figcaption>
+</figure>
+
 ## 38. Language, declarations, and ISO profile
 
 The standards baseline is ISO/IEC 13211-1:1995, as corrected by Technical
@@ -5340,6 +5449,16 @@ non-unifiability; redundant aliases are not registered.
 
 ## 40. Running Eyepl: command line and corpus
 
+The command line is an observation boundary around a theory. Keep the program
+fixed while selecting the evidence you need: ordinary output for answers,
+proof output for support, warnings for portability risks, and statistics for
+search behavior.
+
+<figure>
+  <img src="book-assets/cli-observation-loop.svg" alt="An Eyepl source and query enter the CLI, which separates ground answers and proofs on standard output, warnings and statistics on standard error, and a process status for automation; comparison leads back to program revision.">
+  <figcaption>The CLI exposes three independent channels. Compare each with the right prediction before revising the theory: answers and proofs on stdout, diagnostics on stderr, and status for the calling process.</figcaption>
+</figure>
+
 ```text
 eyepl [options] [file-or-url.pl|- ...]
 ```
@@ -5355,8 +5474,59 @@ eyepl [options] [file-or-url.pl|- ...]
 
 Short flags may be combined, so `-pw` is equivalent to `-p -w`.
 
-Inputs may be local files, HTTP(S) URLs, or one `-` for stdin. With no input,
-stdin is used.
+Inputs may be local files, HTTP(S) URLs, or one `-` for stdin. The bare command
+`eyepl` prints help. When options are present but no input is named, stdin is
+used; writing `-` explicitly is clearer in scripts. Multiple sources are
+parsed as one program, so declarations and rules can be separated across
+files. A relative `include/1` inside a local file resolves from that file's
+directory.
+
+### A reproducible run
+
+Work in a fixed sequence:
+
+1. predict the ground answers before running the program;
+2. run without observation flags and compare stdout with that prediction;
+3. add `--proof` when the support for an answer is the question;
+4. add `--warnings` when portability or negative dependencies are the
+   question;
+5. add `--stats` only when comparing two executions of the same semantic case.
+
+For example:
+
+```sh
+eyepl examples/ancestor.pl
+eyepl --proof examples/socrates.pl
+eyepl --warnings test/conformance/warnings/negation/unstratified_mutual.pl
+eyepl --stats examples/path-discovery.pl > answers.pl 2> run.stats
+```
+
+Normal answers and `why/2` terms go to stdout, which makes them suitable for a
+golden file or another Eyepl input. Warnings and statistics go to stderr so
+they do not corrupt that logical stream. A successful run normally exits with
+status zero; an inference fuse uses status `65`; loading, syntax, option, and
+other uncaught errors use status `1`. `halt/0-1` can deliberately choose the
+process status from inside a program.
+
+Statistics are comparative evidence, not a score in isolation. Preserve the
+program, input, runtime version, selected query, answers, and counters together.
+An optimization is acceptable only when the intended answers remain unchanged
+and the chosen resource measure improves on the relevant scale case.
+
+### The corpus as executable documentation
+
+The files under `examples/` pair readable programs with checked output under
+`examples/output/`. The conformance cases under `test/conformance/` focus on
+language behavior, including success, failure, errors, warnings, and file
+loading. Use an example to learn a modeling pattern and a conformance case to
+settle an exact processor question. `npm test` checks both along with the book's
+extracted programs; `npm run generate` refreshes those extracted examples after
+changing executable book blocks.
+
+**Checkpoint.** Run one example with `--proof --stats`. Identify which bytes
+belong to the reusable logical result, which describe this execution, and which
+process status an automated caller observes. Then change one fact and predict
+all three channels before rerunning it.
 
 ## 41. Study paths, review, and further examples
 
@@ -6249,6 +6419,11 @@ These laboratories turn the book into a course. Each has a deliverable, an
 acceptance test, and a reflection question. Complete them in order or choose a
 route suited to a study group.
 
+<figure>
+  <img src="book-assets/laboratory-progression.svg" alt="Twelve laboratories progress from relational foundations through finite search, mathematical and symbolic methods, domain reasoning, and a release-quality reasoning service.">
+  <figcaption>The laboratories enlarge one construction discipline rather than form twelve unrelated projects: state meaning, control a finite computation, preserve evidence, name the boundary, and finally integrate all four.</figcaption>
+</figure>
+
 The estimates below assume familiarity with the listed chapters and include
 design, implementation, tests, and reflection. They are planning ranges, not
 deadlines.
@@ -6510,6 +6685,11 @@ Checkpoints are for retrieval and diagnosis, not grading by hidden wording.
 Attempt one before reading these notes. When a checkpoint asks about a program
 of your own, compare the structure of your argument rather than expecting one
 canonical implementation.
+
+<figure>
+  <img src="book-assets/review-lenses.svg" alt="A program artifact is examined through five review lenses: meaning, logic, control, evidence, and boundary, followed by a cycle of prediction, execution, explanation, and revision.">
+  <figcaption>Review the same artifact through five independent lenses. A failure under one lens should lead to a specific revision, not to the vague conclusion that logic programming itself is mysterious.</figcaption>
+</figure>
 
 ### Foundations: Chapters 1–10
 

@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 4.
+% From The Art of Eyepl, Chapter 4 — Constructing the recursive argument.
 path(X, Y, [X, Y]) :- edge(X, Y).
 path(X, Z, [X | Rest]) :-
   edge(X, Y),

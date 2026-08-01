@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" role="img" aria-labelledby="title desc">
+  <title id="title">Task-driven navigation through the Eyepl reference</title>
+  <desc id="desc">A reader question branches to language in Chapter 38, predicates in Chapter 39, or execution in Chapter 40. These lead to study paths in Chapter 41, boundaries in Chapter 42, and vocabulary in Chapter 43.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f4efe3}.question{fill:#243447;stroke:#172334;stroke-width:3}.card{stroke:#526273;stroke-width:2}.practice{fill:#dcefe8}.guide{fill:#fff0d9}
+      .line{fill:none;stroke:#526273;stroke-width:3;stroke-linecap:round}.arrow{fill:#526273}.title{fill:#713535;font:bold 24px Georgia,serif}
+      .q{fill:#fffdf7;font:bold 19px Georgia,serif}.qsmall{fill:#fffdf7;font:15px Georgia,serif}.chapter{fill:#172334;font:bold 18px Georgia,serif}.small{fill:#435166;font:15px Georgia,serif}.caption{fill:#435166;font:italic 16px Georgia,serif}
+    </style>
+  </defs>
+  <rect width="900" height="500" class="bg"/>
+  <text class="title" x="450" y="36" text-anchor="middle">ENTER THE REFERENCE THROUGH A QUESTION</text>
+
+  <rect class="question" x="300" y="60" width="300" height="62" rx="18"/>
+  <text class="q" x="450" y="88" text-anchor="middle">What do I need to do?</text>
+  <text class="qsmall" x="450" y="109" text-anchor="middle">read · choose · run</text>
+
+  <path class="line" d="M450 122V145M170 145H730M170 145V167M450 145V167M730 145V167"/>
+  <path class="arrow" d="M164 160L176 160L170 170Z"/><path class="arrow" d="M444 160L456 160L450 170Z"/><path class="arrow" d="M724 160L736 160L730 170Z"/>
+
+  <rect class="card practice" x="45" y="170" width="250" height="104" rx="12"/>
+  <text class="chapter" x="170" y="202" text-anchor="middle">38 · READ SOURCE</text>
+  <text class="small" x="170" y="230" text-anchor="middle">syntax · declarations</text>
+  <text class="small" x="170" y="252" text-anchor="middle">execution profile</text>
+
+  <rect class="card practice" x="325" y="170" width="250" height="104" rx="12"/>
+  <text class="chapter" x="450" y="202" text-anchor="middle">39 · CHOOSE A TOOL</text>
+  <text class="small" x="450" y="230" text-anchor="middle">predicates grouped</text>
+  <text class="small" x="450" y="252" text-anchor="middle">by programming role</text>
+
+  <rect class="card practice" x="605" y="170" width="250" height="104" rx="12"/>
+  <text class="chapter" x="730" y="202" text-anchor="middle">40 · RUN &amp; OBSERVE</text>
+  <text class="small" x="730" y="230" text-anchor="middle">CLI · channels</text>
+  <text class="small" x="730" y="252" text-anchor="middle">executable corpus</text>
+
+  <path class="line" d="M170 274V310M450 274V310M730 274V337M170 310H730M170 310V337M450 310V337"/>
+  <path class="arrow" d="M164 330L176 330L170 340Z"/><path class="arrow" d="M444 330L456 330L450 340Z"/><path class="arrow" d="M724 330L736 330L730 340Z"/>
+
+  <rect class="card guide" x="45" y="340" width="250" height="88" rx="12"/>
+  <text class="chapter" x="170" y="372" text-anchor="middle">41 · PLACE THE WORK</text>
+  <text class="small" x="170" y="400" text-anchor="middle">routes · examples · courses</text>
+
+  <rect class="card guide" x="325" y="340" width="250" height="88" rx="12"/>
+  <text class="chapter" x="450" y="372" text-anchor="middle">42 · TEST THE EDGE</text>
+  <text class="small" x="450" y="400" text-anchor="middle">standards · limits · security</text>
+
+  <rect class="card guide" x="605" y="340" width="250" height="88" rx="12"/>
+  <text class="chapter" x="730" y="372" text-anchor="middle">43 · NAME IT</text>
+  <text class="small" x="730" y="400" text-anchor="middle">terms · history · sources</text>
+
+  <text class="caption" x="450" y="470" text-anchor="middle">Search locally; return to construction with a precise answer.</text>
+</svg>

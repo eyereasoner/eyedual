@@ -40,7 +40,7 @@ npm run generate
 ## Chapter 4: Recursion: describing reachability
 
 - [01-ancestor.pl](chapter-04/01-ancestor.pl)
-- [02-path.pl](chapter-04/02-path.pl)
+- [02-path.pl](chapter-04/02-path.pl) — Constructing the recursive argument
 
 ## Chapter 5: Lists as relations
 

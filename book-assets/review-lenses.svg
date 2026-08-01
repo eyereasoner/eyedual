@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470" role="img" aria-labelledby="title desc">
+  <title id="title">Five lenses for reviewing an Eyepl program</title>
+  <desc id="desc">Meaning, logic, control, evidence, and boundary surround one program artifact. A lower loop says predict, run, explain, and revise.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f4efe3}.artifact{fill:#243447;stroke:#172334;stroke-width:3}.lens{stroke-width:2}.meaning{fill:#dcefe8;stroke:#2f6f55}.logic{fill:#c7dfe2;stroke:#376e75}.control{fill:#fff0d9;stroke:#9a5b18}.evidence{fill:#ead7d7;stroke:#8b3a3a}.boundary{fill:#e6e0ef;stroke:#625080}
+      .line{fill:none;stroke:#526273;stroke-width:2.5}.cycle{fill:none;stroke:#713535;stroke-width:3;stroke-linecap:round}.arrow{fill:#713535}.title{fill:#713535;font:bold 24px Georgia,serif}.label{fill:#172334;font:bold 17px Georgia,serif}.small{fill:#435166;font:15px Georgia,serif}.code{fill:#fffdf7;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}.verb{fill:#713535;font:bold 15px Georgia,serif}
+    </style>
+  </defs>
+  <rect width="900" height="470" class="bg"/>
+  <text class="title" x="450" y="36" text-anchor="middle">REVIEW ONE ARTIFACT THROUGH FIVE LENSES</text>
+
+  <path class="line" d="M450 206L450 105M365 215L190 130M535 215L710 130M370 270L205 320M530 270L695 320"/>
+  <rect class="artifact" x="340" y="190" width="220" height="105" rx="18"/>
+  <text class="code" x="450" y="230" text-anchor="middle">program.pl</text>
+  <text class="code" x="450" y="262" text-anchor="middle">+ evidence</text>
+
+  <rect class="lens meaning" x="345" y="60" width="210" height="78" rx="39"/>
+  <text class="label" x="450" y="89" text-anchor="middle">MEANING</text><text class="small" x="450" y="114" text-anchor="middle">What does it claim?</text>
+  <rect class="lens logic" x="60" y="75" width="230" height="78" rx="39"/>
+  <text class="label" x="175" y="104" text-anchor="middle">LOGIC</text><text class="small" x="175" y="129" text-anchor="middle">Are answers intended?</text>
+  <rect class="lens control" x="610" y="75" width="230" height="78" rx="39"/>
+  <text class="label" x="725" y="104" text-anchor="middle">CONTROL</text><text class="small" x="725" y="129" text-anchor="middle">Why does it terminate?</text>
+  <rect class="lens evidence" x="55" y="290" width="250" height="78" rx="39"/>
+  <text class="label" x="180" y="319" text-anchor="middle">EVIDENCE</text><text class="small" x="180" y="344" text-anchor="middle">What can be reproduced?</text>
+  <rect class="lens boundary" x="595" y="290" width="250" height="78" rx="39"/>
+  <text class="label" x="720" y="319" text-anchor="middle">BOUNDARY</text><text class="small" x="720" y="344" text-anchor="middle">What remains assumed?</text>
+
+  <path class="cycle" d="M295 410C365 376 535 376 605 410"/><path class="arrow" d="M592 397L611 413L586 415Z"/>
+  <text class="verb" x="300" y="438" text-anchor="middle">PREDICT</text><text class="verb" x="400" y="438" text-anchor="middle">RUN</text><text class="verb" x="500" y="438" text-anchor="middle">EXPLAIN</text><text class="verb" x="610" y="438" text-anchor="middle">REVISE</text>
+</svg>
