@@ -10,6 +10,12 @@
 
 **Applies to Eyepl:** `0.2.3`
 
+**Copyright © 2021–2026 Jos De Roo, KNoWS office of IDLab, Ghent University –
+imec.** This book is licensed under [Creative Commons Attribution 4.0
+International](https://creativecommons.org/licenses/by/4.0/). You may copy,
+share, and adapt it for any purpose, including commercially; please give
+appropriate credit, link to the licence, and indicate changes.
+
 Eyepl turns facts and rules into answers and inspectable proofs. This book is an
 original introduction to the habits of logic programming: describe a world,
 state the relationships that hold in it, and let unification and search connect
