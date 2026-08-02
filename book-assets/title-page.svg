@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" role="img" aria-labelledby="title desc">
+  <title id="title">The Art of Eyepl</title>
+  <desc id="desc">A large attentive eye connects a relation graph and a syntax tree to executable Eyepl clauses whose answers and proofs agree.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f1eadc}.paper{fill:#fffdf7;stroke:#243447;stroke-width:2.5}
+      .ink{fill:none;stroke:#243447;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+      .fine{fill:none;stroke:#526273;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+      .relation{fill:none;stroke:#8b3a3a;stroke-width:3;stroke-dasharray:9 7;stroke-linecap:round}
+      .green{fill:none;stroke:#2f6f55;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+      .node{fill:#fffdf7;stroke:#243447;stroke-width:2.5}.soft{fill:#d7e9e2;stroke:#243447;stroke-width:2.5}
+      .iris{fill:#6c927d;stroke:#2f6f55;stroke-width:4}.pupil{fill:#243447}.highlight{fill:#fffdf7}
+      .code{fill:#243447;font:18px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .small{fill:#2f6f55;font:16px ui-monospace,SFMono-Regular,Consolas,monospace}
+    </style>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0 0L9 4.5L0 9Z" fill="#8b3a3a"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="620" rx="18" class="bg"/>
+
+  <!-- The eye: observation at the centre of relational programming. -->
+  <path class="ink" d="M215 245 Q450 68 685 245 Q450 422 215 245Z"/>
+  <circle class="iris" cx="450" cy="245" r="103"/>
+  <circle class="pupil" cx="450" cy="245" r="55"/>
+  <circle class="highlight" cx="474" cy="220" r="17"/>
+  <g class="green">
+    <path d="M450 158V181M494 169L482 189M526 201L506 213M537 245H514M526 289L506 277M494 321L482 301M450 332V309M406 321L418 301M374 289L394 277M363 245H386M374 201L394 213M406 169L418 189"/>
+  </g>
+  <path d="M355 107L340 76M403 89L397 55M450 82V44M497 89L503 55M545 107L560 76" fill="none" stroke="#8b3a3a" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Input ports and the proof/output port. -->
+  <circle class="node" cx="215" cy="245" r="13"/>
+  <circle class="node" cx="685" cy="245" r="13"/>
+  <circle class="node" cx="450" cy="382" r="13"/>
+
+  <!-- Relation sketch. -->
+  <rect class="paper" x="35" y="395" width="250" height="175" rx="12"/>
+  <circle class="node" cx="160" cy="435" r="17"/>
+  <circle class="node" cx="95" cy="515" r="17"/>
+  <circle class="node" cx="225" cy="515" r="17"/>
+  <path class="green" d="M149 448L106 502M171 448L214 502M112 515H208"/>
+  <path class="relation" marker-end="url(#arrow)" d="M202 246C110 268 80 320 80 392"/>
+
+  <!-- Syntax tree. -->
+  <rect class="paper" x="615" y="395" width="250" height="175" rx="12"/>
+  <rect class="soft" x="708" y="421" width="64" height="36" rx="7"/>
+  <rect class="soft" x="650" y="485" width="64" height="36" rx="7"/>
+  <rect class="soft" x="766" y="485" width="64" height="36" rx="7"/>
+  <path class="fine" d="M740 457L682 485M740 457L798 485M682 521L660 548M682 521L704 548M798 521L776 548M798 521L820 548"/>
+  <circle class="node" cx="660" cy="550" r="10"/><circle class="node" cx="704" cy="550" r="10"/>
+  <circle class="node" cx="776" cy="550" r="10"/><circle class="node" cx="820" cy="550" r="10"/>
+  <path class="relation" marker-end="url(#arrow)" d="M698 246C790 268 820 320 820 392"/>
+
+  <!-- Executable relation and checked evidence. -->
+  <rect class="paper" x="315" y="410" width="270" height="185" rx="12"/>
+  <text class="code" x="345" y="446">path(X, Y) :-</text>
+  <text class="code" x="370" y="472">edge(X, Y).</text>
+  <text class="code" x="345" y="506">query(path(a, X)).</text>
+  <path class="green" d="M345 527H510"/>
+  <circle cx="356" cy="553" r="12" fill="#e7f3ee" stroke="#2f6f55" stroke-width="2.5"/>
+  <path d="M350 553L354 557L363 547" fill="none" stroke="#2f6f55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text class="small" x="378" y="559">answers and proofs agree</text>
+  <path class="relation" marker-end="url(#arrow)" d="M450 395V407"/>
+</svg>

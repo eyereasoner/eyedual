@@ -1,7 +1,7 @@
 # The Art of Eyepl
 
 <p align="center">
-  <img src="eyepl-logo.png" alt="Eyepl logo" width="160">
+  <img src="book-assets/title-page.svg" alt="An attentive eye connects a relation graph and a syntax tree to executable Eyepl clauses whose answers and proofs agree." width="720">
 </p>
 
 ## Standards-based relations, search, and explanations
