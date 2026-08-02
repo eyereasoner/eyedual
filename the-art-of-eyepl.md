@@ -338,7 +338,7 @@ Chapter 45
 
 Chapter 46
 
-- [46. With thanks](#46-with-thanks)
+- [46. Acknowledgements](#46-acknowledgements)
 
 ---
 
@@ -6849,14 +6849,11 @@ top-level goldens, and `npm test` demonstrate that rhythm at repository scale.
 
 # Part XII — Acknowledgements
 
-## 46. With thanks
+## 46. Acknowledgements
 
-The author gratefully thanks GPT-5.6 for its great help in developing this
-book. Its careful collaboration supported the reorganisation of chapters,
-sharpening of explanations, review of examples and diagrams, and the many
-small editorial improvements that make a technical book easier to read and
-use.
+The author used GPT-5.6 extensively while developing this book. It assisted
+with chapter reorganisation, refinement of explanations, review of examples
+and diagrams, and numerous editorial improvements.
 
-Suggestions from GPT-5.6 were considered and directed by the author. The
-author remains responsible for the book's claims, choices, and any remaining
-errors.
+Its suggestions were evaluated and directed by the author, who remains
+responsible for the book's claims, choices, and any remaining errors.
