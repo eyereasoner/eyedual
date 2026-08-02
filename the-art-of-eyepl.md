@@ -334,11 +334,11 @@ Chapter 45
 
 - [45. Checkpoint notes and selected answers](#45-checkpoint-notes-and-selected-answers)
 
-### Part XII — Acknowledgements
+### Part XII — Development note
 
 Chapter 46
 
-- [46. Acknowledgements](#46-acknowledgements)
+- [46. AI-assisted editing](#46-ai-assisted-editing)
 
 ---
 
@@ -6847,13 +6847,13 @@ merely a paragraph: it is a small source file, predicted output, actual output,
 and one sentence explaining any difference. The extracted chapter examples,
 top-level goldens, and `npm test` demonstrate that rhythm at repository scale.
 
-# Part XII — Acknowledgements
+# Part XII — Development note
 
-## 46. Acknowledgements
+## 46. AI-assisted editing
 
-The author used GPT-5.6 extensively while developing this book. It assisted
-with chapter reorganisation, refinement of explanations, review of examples
-and diagrams, and numerous editorial improvements.
+GPT-5.6 was used during the development of this book to assist with chapter
+reorganisation, refinement of explanations, and review of examples and
+diagrams.
 
-Its suggestions were evaluated and directed by the author, who remains
+All suggestions were evaluated and directed by the author, who remains
 responsible for the book's claims, choices, and any remaining errors.
