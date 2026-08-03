@@ -55,7 +55,9 @@ export class Program {
       this.indexClause(clause);
     }
     this._negationAnalysis = null;
-    this.applyDeclarations(options);
+    this.markRecursivePredicates();
+    if (options.analyzeNegation === true || options.strictNegation === true) this.analyzeNegationStratification();
+    if (options.strictNegation === true) this.assertStratifiedNegation();
   }
   defineOperator(priority, specifier, name) {
     const key = `${specifier}\u0000${name}`;
@@ -93,8 +95,6 @@ export class Program {
       demandIndexes: new Map(),
       rejectedDemandIndexes: new Set(),
       tabled: false,
-      mode: null,
-      determinism: null,
       recursive: false,
       tableInputPositions: [],
       scalarFactsOnly: true,
@@ -176,42 +176,8 @@ export class Program {
     this._negationAnalysis = null;
     if (reanalyze) this.markRecursivePredicates();
   }
-  applyDeclarations(options = {}) {
-    for (const clause of this.clauses) {
-      const h = clause.head;
-      if (clause.body.length !== 0 || h.type !== COMPOUND) continue;
-
-      if (h.arity === 2) {
-        const indicator = declarationIndicator(h.args[0], h.args[1]);
-        if (!indicator) continue;
-        const group = this.groups.get(indicator.key);
-        if ((h.name === 'det' || h.name === 'semidet') && group) {
-          group.determinism = h.name;
-        }
-        continue;
-      }
-
-      if (h.name === 'mode' && h.arity === 3) {
-        const indicator = declarationIndicator(h.args[0], h.args[1]);
-        if (!indicator) continue;
-        const modes = declarationModes(h.args[2]);
-        if (modes && modes.length === indicator.arity) {
-          const group = this.groups.get(indicator.key);
-          if (group) group.mode = modes;
-        }
-      }
-    }
-    // Hybrid planning is part of normal execution, so dependency analysis is
-    // always performed. `markRecursive` is retained as a compatible parse
-    // option but no longer disables the engine's automatic table decisions.
-    this.markRecursivePredicates();
-    if (options.analyzeNegation === true || options.strictNegation === true) this.analyzeNegationStratification();
-    if (options.strictNegation === true) this.assertStratifiedNegation();
-  }
   markRecursivePredicates() {
-    // Recursion is a group-level diagnostic hint. It is computed from predicate
-    // dependencies rather than from individual clauses when callers explicitly ask
-    // for it.
+    // Recursion analysis drives automatic tabling and is always part of program setup.
     const groups = [...this.groups.values()];
     const indexByGroup = new Map(groups.map((group, i) => [group, i]));
     const deps = groups.map(() => new Set());
@@ -408,7 +374,7 @@ function dynamicDirectiveIndicators(clause) {
   const terms = properListItems(directive.args[0], new Env()) ?? flattenDirectiveSequence(directive.args[0]);
   return terms.map((indicator) =>
     indicator.type === COMPOUND && indicator.name === '/' && indicator.arity === 2
-      ? declarationIndicator(indicator.args[0], indicator.args[1])
+      ? predicateIndicator(indicator.args[0], indicator.args[1])
       : null
   ).filter(Boolean);
 }
@@ -636,23 +602,11 @@ function computeNegationStrata(groups, edges, indexByKey) {
   return new Map(groups.map((group) => [`${group.name}/${group.arity}`, null]));
 }
 
-function declarationIndicator(name, arity) {
+function predicateIndicator(name, arity) {
   if (name?.type !== ATOM || arity?.type !== 'number') return null;
   if (!/^\d+$/.test(arity.name)) return null;
   const arityNumber = Number(arity.name);
   return { name: name.name, arity: arityNumber, key: `${name.name}/${arityNumber}` };
-}
-
-function declarationModes(term) {
-  const items = properListItems(term, new Env());
-  if (!items) return null;
-  const modes = [];
-  for (const item of items) {
-    if (item.type !== ATOM) return null;
-    if (!['in', 'out', 'any'].includes(item.name)) return null;
-    modes.push(item.name);
-  }
-  return modes;
 }
 
 // These defaults mirror SWI-Prolog's JITI admission policy: small predicates

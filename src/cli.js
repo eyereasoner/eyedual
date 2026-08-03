@@ -95,7 +95,7 @@ export async function main(argv) {
   }
 
   const engine = await loadEngine();
-  let program = engine.Program.parseSources(sourceParts, { sourceMetadata: options.proof, markRecursive: options.proof });
+  let program = engine.Program.parseSources(sourceParts, { sourceMetadata: options.proof });
 
   if (options.warnings) printWarnings(program);
 

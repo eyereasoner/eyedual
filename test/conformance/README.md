@@ -77,7 +77,7 @@ The runner executes normal programs with queries in-process through the public J
 ## Scope
 
 The corpus covers accepted syntax, typed scalar identity and explicit scalar conversions, query answers,
-read-back printing, built-ins, declarations, warnings, errors, proof output,
+read-back printing, built-ins, directives, warnings, errors, proof output,
 and host behavior. It verifies the book's descriptions and is not a separate
 language specification.
 
@@ -90,7 +90,7 @@ Selected cases are adapted from the ISO and standard-core suites of Scryer
 Prolog, Trealla Prolog, and SWI-Prolog. Their upstream identifiers and licenses
 are recorded in [THIRD_PARTY.md](THIRD_PARTY.md).
 
-The corpus has 277 cases in `iso/` and 695 file-based conformance cases in
+The corpus has 277 cases in `iso/` and 690 file-based conformance cases in
 total. The generated `conformance-report.md` is the authoritative source for
 current category totals. Together with regression, documentation-sync, API,
 RDF-tool, example, and book-example checks, `npm test` is the release gate.

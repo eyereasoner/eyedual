@@ -115,7 +115,6 @@ function runProgramExample(programFile, filename, options) {
     const expectedExit = text.match(/^%\s*expect-exit:\s*(\d+)\s*$/m);
     const program = Program.parseSources([{ text, filename }], {
       sourceMetadata: options.proof,
-      markRecursive: options.proof,
     });
     try {
       const result = run(program, { ...options, goals: goalsInProgramOrder(program, text) });

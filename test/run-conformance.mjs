@@ -81,7 +81,7 @@ function runCase(name, file) {
   const programFile = path.join(casesDir, file);
   const expected = path.join(expectedDir, `${name}.pl`);
   const text = fs.readFileSync(programFile, 'utf8');
-  const program = Program.parseSources([{ text, filename: file }], { sourceMetadata: false, markRecursive: false });
+  const program = Program.parseSources([{ text, filename: file }], { sourceMetadata: false });
   const actual = run(program, { goals: goalsFromSource(text), registry: file.startsWith('iso/') ? createDefaultRegistry() : undefined }).stdout;
 
   compareExpectedFile(expected, actual, name, 'output');
@@ -96,7 +96,7 @@ function runErrorCase(name, file) {
   let actual = null;
 
   try {
-    const program = Program.parseSources([{ text, filename: file }], { sourceMetadata: false, markRecursive: false });
+    const program = Program.parseSources([{ text, filename: file }], { sourceMetadata: false });
     run(program, { goals: goalsFromSource(text), registry: file.startsWith('iso/') ? createDefaultRegistry() : undefined });
   } catch (error) {
     actual = `${error?.message ?? String(error)}\n`;
@@ -118,7 +118,6 @@ function runWarningCase(name, file) {
   // covered by regression tests, while this corpus verifies engine warnings.
   const program = Program.parseSources([{ text, filename: '<stdin>' }], {
     sourceMetadata: false,
-    markRecursive: false,
   });
   const stderr = formatWarnings(program);
   const stdout = run(program, { goals: goalsFromSource(text) }).stdout;
@@ -135,7 +134,6 @@ function runProofCase(name, file) {
   const text = fs.readFileSync(programFile, 'utf8');
   const program = Program.parseSources([{ text, filename: '<stdin>' }], {
     sourceMetadata: true,
-    markRecursive: true,
   });
   const stdout = run(program, { goals: goalsFromSource(text), proof: true }).stdout;
 

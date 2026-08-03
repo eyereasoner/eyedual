@@ -5,5 +5,3 @@ factorial(N, F) :-
   (Previous is N - 1),
   factorial(Previous, PF),
   (F is N * PF).
-
-mode(factorial, 2, [in, out]).

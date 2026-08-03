@@ -196,7 +196,7 @@ in *The Art of Eyepl* covers the mapping and `--include-source` behavior.
 
 ## Tests
 
-Every release must pass the complete test suite. The current 695-file
+Every release must pass the complete test suite. The current 690-file
 conformance corpus includes 277 focused ISO cases covering the success,
 failure, mode, and error behavior derived from ISO/IEC 13211-1 clauses 7 and
 8. The generated `conformance-report.md` is the authoritative source for

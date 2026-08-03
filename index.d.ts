@@ -14,7 +14,6 @@ export interface EyeplRunOptions {
   solutionLimit?: number;
   registry?: BuiltinRegistry;
   sourceMetadata?: boolean;
-  markRecursive?: boolean;
   strictNegation?: boolean;
   analyzeNegation?: boolean;
   ioOptions?: {
@@ -61,8 +60,6 @@ export interface EyeplPredicateGroup {
   demandIndexes: Map<string, unknown>;
   rejectedDemandIndexes: Set<string>;
   tabled: boolean;
-  mode: string[] | null;
-  determinism: 'det' | 'semidet' | null;
   recursive: boolean;
   tableInputPositions: number[];
   negationStratum: number | null;
@@ -100,7 +97,6 @@ export class Program {
   makeGroup(name: string, arity: number): EyeplPredicateGroup;
   indexClause(clause: EyeplClause): void;
   findGroup(name: string, arity: number): EyeplPredicateGroup | null;
-  applyDeclarations(options?: EyeplRunOptions): void;
   markRecursivePredicates(): void;
   analyzeNegationStratification(): Array<{ from: string; to: string }>;
   assertStratifiedNegation(): true;

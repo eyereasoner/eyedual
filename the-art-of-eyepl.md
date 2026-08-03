@@ -18,7 +18,7 @@ the two.
 This book is also the reference for the Eyepl implementation. Eyepl is a
 standards-based reasoning system: programs use the documented and tested ISO
 Prolog profile, while RDF 1.2 provides an interoperable data boundary.
-Chapters 38–40 define the supported ISO Prolog profile and declarations,
+Chapters 38–40 define the supported ISO Prolog profile, built-ins, and execution interface,
 describe every supported built-in predicate, and document the command-line
 interface. The explanatory chapters give the reasoning and operational context
 needed to use those details correctly.
@@ -307,7 +307,7 @@ Chapters 34–37
 
 Chapters 38–43
 
-- [38. Language, declarations, and ISO profile](#38-language-declarations-and-iso-profile)
+- [38. Language and ISO profile](#38-language-and-iso-profile)
 - [39. Built-in predicates by programming role](#39-built-in-predicates-by-programming-role)
 - [40. Running Eyepl: command line and corpus](#40-running-eyepl-command-line-and-corpus)
 - [41. Study paths, review, and further examples](#41-study-paths-review-and-further-examples)
@@ -1005,12 +1005,10 @@ factorial(N, F) :-
   (Previous is N - 1),
   factorial(Previous, PF),
   (F is N * PF).
-
-mode(factorial, 2, [in, out]).
 ```
 
-Mode and determinism declarations are advisory facts for readers and tooling;
-they do not direct the solver.
+The intended call direction belongs in the predicate's tests and surrounding
+documentation; it does not require executable metadata.
 
 **Checkpoint.** For every arithmetic goal above, mark which arguments must be
 numbers before the goal can run. Explain why `between/3` is a generator in
@@ -1937,12 +1935,7 @@ table:
 | `append(-,-,+)` | enumerate splits | yes |
 | `append(-,-,-)` | generate all triples | no |
 
-The `+` and `-` marks are documentation, not supported Prolog syntax. Advisory declarations
-can record the principal mode:
-
-```eyepl
-mode(append, 3, [in, in, out]).
-```
+The `+` and `-` marks are documentation, not supported Prolog syntax.
 
 A mode is a promise about calls, not a replacement for the relation's meaning.
 When a rule calls a helper outside its promised mode, the program may remain
@@ -4107,8 +4100,8 @@ For every public predicate, record:
 4. calls expected to be finite;
 5. calls whose answer order is part of the observable contract.
 
-The advisory `mode/3`, `det/2`, and `semidet/2` declarations can keep this
-design close to the clauses, but tests must still exercise the promise.
+Keep this design close to the clauses in comments or tests, and exercise each
+supported call pattern directly.
 
 ### Properties over finite domains
 
@@ -4390,7 +4383,7 @@ Every repaired defect should leave behind one of:
 
 - a new positive or negative case;
 - a fuse;
-- a mode declaration and mode test;
+- a documented mode and tests for that call pattern;
 - a bounded property;
 - a proof golden;
 - a comment stating a non-obvious invariant.
@@ -5008,7 +5001,7 @@ The long catalogs are meant to be entered locally, not memorized linearly.
   <figcaption>Enter the reference through a concrete question. The first three chapters answer how to read, choose, and run; the next three help place that answer in a course, a boundary, and a shared vocabulary.</figcaption>
 </figure>
 
-## 38. Language, declarations, and ISO profile
+## 38. Language and ISO profile
 
 The standards baseline is ISO/IEC 13211-1:1995, as corrected by Technical
 Corrigenda 1:2007, 2:2012, and 3:2017. Eyepl implements the compatibility
@@ -5110,12 +5103,10 @@ solutions, exceptions, flags, initialization and inclusion directives, and
 standard stream and term I/O. Modules and DCG notation remain outside this
 Part 1 profile.
 
-### Declarations
+### Directives and inference fuses
 
-`mode(Name, Arity, Modes)`, `det(Name, Arity)`, and `semidet(Name, Arity)` are advisory documentation for
-people and tools; they do not alter proof search. A clause headed by `false`
-is different: it is an inference fuse, checked before host goals, and aborts
-execution when its body succeeds.
+A clause headed by `false` is an inference fuse: it is checked before host
+goals and aborts execution when its body succeeds.
 
 Standard directives include `dynamic/1`, `multifile/1`, `discontiguous/1`,
 `op/3`, `char_conversion/2`, `initialization/1`, `include/1`,
@@ -5163,21 +5154,8 @@ Goal selection affects host execution rather than the program's logical meaning.
 One goal's answers are not asserted for later goals, although internal
 tables may be reused during the solver run. For stable output, queries for
 known predicates are grouped by the source order in which their predicate
-groups first appear; declarations within one group retain their declaration
-order. Queries for predicates with no group follow the known groups.
-
-#### Modes and determinism
-
-For `mode(Name, Arity, Modes)`, `Name` is an atom constant, `Arity` is a
-nonnegative integer, and `Modes` is a proper list of the same length. Supported
-mode values are `in` (supplied by the caller), `out` (produced by the
-predicate), and `any` (no commitment).
-
-`det(Name, Arity)` documents exactly one intended answer in the documented
-modes. `semidet(Name, Arity)` documents zero or one. Eyepl does not enforce
-these promises during search; hosts may use them for documentation, linting,
-editor support, or indexing advice. Since all three declarations are also
-ordinary facts, a program may query them.
+groups first appear; goals within one group retain their supplied order.
+Queries for predicates with no group follow the known groups.
 
 ## 39. Built-in predicates by programming role
 
@@ -5525,7 +5503,7 @@ Short flags may be combined, so `-pw` is equivalent to `-p -w`.
 Inputs may be local files, HTTP(S) URLs, or one `-` for stdin. The bare command
 `eyepl` prints help. When options are present but no input is named, stdin is
 used; writing `-` explicitly is clearer in scripts. Multiple sources are
-parsed as one program, so declarations and rules can be separated across
+parsed as one program, so facts, rules, and directives can be separated across
 files. A relative `include/1` inside a local file resolves from that file's
 directory.
 
@@ -6011,14 +5989,14 @@ mode, finite domain, answer, proof, and revision.
 ## 42. Standards, limits, and implementation boundaries
 
 This book is the single reference for the Eyepl implementation. Chapters 38–40
-describe its supported ISO Prolog syntax, declarations, execution model,
+describe its supported ISO Prolog syntax, directives, execution model,
 built-in predicates, and command-line interface. The earlier chapters explain the reasoner, automatic tabling,
 proof terms, warnings, answer formatting, embedding, and external data
 adapters.
 
 The executable corpus under `test/conformance/` tests the JavaScript
 implementation. Positive programs and exact output cover arithmetic, strings,
-lists, terms, atoms, variables, negation, declarations, queries, rules, and
+lists, terms, atoms, variables, negation, queries, rules, and
 syntax. Separate corpora cover expected errors, warnings, and proofs:
 
 ```sh
@@ -6027,7 +6005,7 @@ node test/run-conformance-report.mjs
 ```
 
 The complete suite must pass before release. The file-based conformance corpus
-contains 695 cases, including 277 focused ISO
+contains 690 cases, including 277 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 200 normal
 examples, 55 proof examples, and extracted book displays. The seven-case
@@ -6316,9 +6294,6 @@ semantics.
 whose edges record calls between predicates. Recursive components are cycles
 in this graph.
 
-**Determinism declaration.** Advisory `det/2` or `semidet/2` documentation
-stating an intended answer cardinality in documented modes.
-
 **Environment.** The current collection of variable bindings during a branch
 of search.
 
@@ -6374,8 +6349,7 @@ supported ground consequences.
 eventually ends in `[]`.
 
 **Mode.** An intended direction of use described by which arguments are
-supplied and which are produced. `mode/3` declarations document modes but do
-not alter execution.
+supplied and which are produced.
 
 **Negation as failure.** The operational meaning of `\+ Goal`: succeed when a
 terminating nested search finds no solution for `Goal`.
@@ -6695,7 +6669,7 @@ core?
 
 - define a JavaScript boundary that supplies or loads facts;
 - validate inputs before constructing the theory;
-- declare modes and determinism for public predicates;
+- test the principal modes and expected solution counts of public predicates;
 - include semantic cases, bounded properties, metamorphic tests, fuses,
   warnings, proof goldens, and one scale case;
 - retain source snapshot, theory version, and proof with every audited result;

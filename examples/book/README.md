@@ -100,7 +100,6 @@ npm run generate
 - [02-adult.pl](chapter-17/02-adult.pl) — The same relation, a different computation
 - [03-bad_member.pl](chapter-17/03-bad_member.pl)
 - [04-item.pl](chapter-17/04-item.pl)
-- [05-mode.pl](chapter-17/05-mode.pl) — Modes are part of the design
 
 ## Chapter 18: Constructing a program
 
@@ -222,6 +221,6 @@ npm run generate
 
 - [01-write_event.pl](chapter-37/01-write_event.pl)
 
-## Chapter 38: Language, declarations, and ISO profile
+## Chapter 38: Language and ISO profile
 
 - [01-city.pl](chapter-38/01-city.pl)

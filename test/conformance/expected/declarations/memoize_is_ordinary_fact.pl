@@ -1,1 +1,0 @@
-answer(path, 2).

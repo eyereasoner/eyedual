@@ -29,7 +29,7 @@ import { parseGoalText } from './parser.js';
 
 export function run(source, options = {}) {
   const includeWhy = options.proof === true || options.why === true || options.explain === true;
-  const parseOptions = { ...options, sourceMetadata: includeWhy, markRecursive: includeWhy };
+  const parseOptions = { ...options, sourceMetadata: includeWhy };
   let program = source instanceof Program ? source : Program.parse(source, parseOptions);
   const runOptions = options.registry ? options : { ...options, registry: getEyeplRegistry() };
   const output = [];

@@ -7,8 +7,6 @@
 
 %% goal: route_to_nantes(X0, X1)
 
-mode(path, 2, [in, out]).
-
 oneway(paris, orleans).
 oneway(paris, chartres).
 oneway(paris, amiens).

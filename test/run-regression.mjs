@@ -1214,34 +1214,6 @@ path(X, Z) :- edge(X, Y), path(Y, Z).
       },
     },
     {
-      name: 'ordinary declaration-like facts do not table predicates',
-      run: () => {
-        const program = Program.parse('memoize(path, 2).\nedge(a, b).\npath(X, Y) :- edge(X, Y).\n');
-        const group = program.findGroup('path', 2);
-        assertEqual(Boolean(group), true, 'path/2 group exists');
-        assertEqual(group.tabled, false, 'memoize/2 has no search-control meaning');
-      },
-    },
-    {
-      name: 'mode and determinism declarations annotate predicate groups',
-      run: () => {
-        const program = Program.parse('mode(path, 2, [in, out]).\ndet(path, 2).\nedge(a, b).\npath(X, Y) :- edge(X, Y).\n');
-        const group = program.findGroup('path', 2);
-        assertEqual(Boolean(group), true, 'path/2 group exists');
-        assertEqual(group.mode.join(','), 'in,out', 'path/2 mode');
-        assertEqual(group.determinism, 'det', 'path/2 determinism');
-      },
-    },
-    {
-      name: 'semidet declaration annotates predicate groups',
-      run: () => {
-        const program = Program.parse('semidet(edge, 2).\nedge(a, b).\n');
-        const group = program.findGroup('edge', 2);
-        assertEqual(Boolean(group), true, 'edge/2 group exists');
-        assertEqual(group.determinism, 'semidet', 'edge/2 determinism');
-      },
-    },
-    {
       name: 'challenging examples infer dynamic-programming predicates automatically',
       run: () => {
         const checks = [
@@ -1352,7 +1324,7 @@ function bookReferenceDocumentationIssues() {
   if (book.includes('Eyepl does not perform it.')) {
     issues.push('book contradicts implementation occurs-check behavior');
   }
-  for (const heading of ['## 38. Language, declarations, and ISO profile', '## 39. Built-in predicates by programming role', '## 40. Running Eyepl: command line and corpus']) {
+  for (const heading of ['## 38. Language and ISO profile', '## 39. Built-in predicates by programming role', '## 40. Running Eyepl: command line and corpus']) {
     if (!book.includes(heading)) issues.push(`book is missing ${heading}`);
   }
   if (!guide.includes('[*The Art of Eyepl*](../../the-art-of-eyepl.md) is the reference')) {
@@ -1369,7 +1341,7 @@ function runWhy({ program, goalText, expected }) {
   const programFile = path.join(tmp, `${++tmpCounter}.pl`);
   fs.writeFileSync(programFile, program);
   const goal = parseGoalText(goalText);
-  const parsed = Program.parseSources([{ text: program, filename: path.basename(programFile) }], { sourceMetadata: true, markRecursive: true });
+  const parsed = Program.parseSources([{ text: program, filename: path.basename(programFile) }], { sourceMetadata: true });
   const result = runEyepl(parsed, { proof: true, goal });
   const expectedText = expected.replaceAll('__FILE__', path.basename(programFile));
   assertEqual(result.stdout, expectedText, 'stdout');
@@ -1386,7 +1358,7 @@ function runWhyLoose({ program, goalText }) {
   const programFile = path.join(tmp, `${++tmpCounter}.pl`);
   fs.writeFileSync(programFile, program);
   const goal = parseGoalText(goalText);
-  const parsed = Program.parseSources([{ text: program, filename: path.basename(programFile) }], { sourceMetadata: true, markRecursive: true });
+  const parsed = Program.parseSources([{ text: program, filename: path.basename(programFile) }], { sourceMetadata: true });
   const result = runEyepl(parsed, { proof: true, goal });
   Program.parse(result.stdout);
   assertIncludes(result.stdout, '\n).\n\n', 'stdout');
