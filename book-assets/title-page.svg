@@ -1,66 +1,136 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1450" viewBox="0 0 1000 1450" role="img" aria-labelledby="title desc">
   <title id="title">The Art of Eyepl</title>
-  <desc id="desc">A large attentive eye connects a relation graph and a syntax tree to executable Eyepl clauses whose answers and proofs agree.</desc>
+  <desc id="desc">Front page for The Art of Eyepl with an abstract eye, title, subtitle, author, and panels for relation graph, executable clauses, and syntax tree.</desc>
   <defs>
     <style>
-      .bg{fill:#f1eadc}.paper{fill:#fffdf7;stroke:#243447;stroke-width:2.5}
-      .ink{fill:none;stroke:#243447;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
-      .fine{fill:none;stroke:#526273;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-      .relation{fill:none;stroke:#8b3a3a;stroke-width:3;stroke-dasharray:9 7;stroke-linecap:round}
-      .green{fill:none;stroke:#2f6f55;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-      .node{fill:#fffdf7;stroke:#243447;stroke-width:2.5}.soft{fill:#d7e9e2;stroke:#243447;stroke-width:2.5}
-      .iris{fill:#6c927d;stroke:#2f6f55;stroke-width:4}.pupil{fill:#243447}.highlight{fill:#fffdf7}
-      .code{fill:#243447;font:18px ui-monospace,SFMono-Regular,Consolas,monospace}
-      .small{fill:#2f6f55;font:16px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .bg { fill:#f7f1e6; }
+      .navy { stroke:#243b5a; fill:none; }
+      .green { stroke:#2f7d63; fill:none; }
+      .wine { stroke:#8f4a42; fill:none; }
+      .gold { stroke:#b89c67; fill:none; }
+      .panel { fill:#fffdf8; stroke:#243b5a; stroke-width:4; }
+      .soft { fill:#e8f0ea; stroke:#243b5a; stroke-width:3; }
+      .node { fill:#fffdf8; stroke:#243b5a; stroke-width:3.5; }
+      .title { fill:#243b5a; font:bold 70px Georgia, serif; }
+      .subtitle { fill:#8f4a42; font: 26px Georgia, serif; }
+      .author { fill:#2f7d63; font: 23px Georgia, serif; }
+      .panel-title { fill:#8f4a42; font: 24px Georgia, serif; }
+      .code { fill:#243b5a; font: 21px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .small { fill:#2f7d63; font: 14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .label { fill:#243b5a; font: 24px Georgia, serif; }
+      .sym { fill:#8f4a42; font: 34px ui-monospace, monospace; }
+      .bookline { stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+      .thin { stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+      .mid { stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round; }
+      .thick { stroke-width:4.5; stroke-linecap:round; stroke-linejoin:round; }
+      .dot { fill:#8f4a42; }
+      .dotg { fill:#2f7d63; }
+      .dotb { fill:#243b5a; }
     </style>
-    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-      <path d="M0 0L9 4.5L0 9Z" fill="#8b3a3a"/>
-    </marker>
   </defs>
 
-  <rect width="900" height="620" rx="18" class="bg"/>
+  <rect width="1000" height="1450" class="bg"/>
 
-  <!-- The eye: observation at the centre of relational programming. -->
-  <path class="ink" d="M215 245 Q450 68 685 245 Q450 422 215 245Z"/>
-  <circle class="iris" cx="450" cy="245" r="103"/>
-  <circle class="pupil" cx="450" cy="245" r="55"/>
-  <circle class="highlight" cx="474" cy="220" r="17"/>
-  <g class="green">
-    <path d="M450 158V181M494 169L482 189M526 201L506 213M537 245H514M526 289L506 277M494 321L482 301M450 332V309M406 321L418 301M374 289L394 277M363 245H386M374 201L394 213M406 169L418 189"/>
+  <!-- Header -->
+  <text x="500" y="120" text-anchor="middle" class="title">The Art of Eyepl</text>
+  <line x1="140" y1="166" x2="860" y2="166" class="gold thin"/>
+  <circle cx="500" cy="166" r="7" class="dot"/>
+  <text x="500" y="245" text-anchor="middle" class="subtitle">Standards-based relations, search, and explanations</text>
+  <line x1="385" y1="288" x2="485" y2="288" class="green thin"/>
+  <circle cx="500" cy="288" r="5" class="dot"/>
+  <line x1="515" y1="288" x2="615" y2="288" class="green thin"/>
+  <text x="500" y="335" text-anchor="middle" class="author">Author: Jos De Roo</text>
+
+  <!-- Eye ornament -->
+  <path d="M165 555 Q500 255 835 555 Q500 855 165 555 Z" class="navy thick"/>
+
+  <ellipse cx="500" cy="555" rx="120" ry="120" fill="#9fbea8" stroke="#2f7d63" stroke-width="5"/>
+  <circle cx="500" cy="555" r="72" fill="#243b5a"/>
+  <circle cx="532" cy="521" r="18" fill="#fffdf8"/>
+  <g class="green thin" opacity="0.9">
+    <path d="M500 450V485"/><path d="M500 625V660"/>
+    <path d="M395 555H430"/><path d="M570 555H605"/>
+    <path d="M425 480L450 505"/><path d="M575 480L550 505"/>
+    <path d="M425 630L450 605"/><path d="M575 630L550 605"/>
+    <path d="M455 458L468 493"/><path d="M545 458L532 493"/>
+    <path d="M455 652L468 617"/><path d="M545 652L532 617"/>
+    <path d="M407 513L439 529"/><path d="M593 513L561 529"/>
+    <path d="M407 597L439 581"/><path d="M593 597L561 581"/>
   </g>
-  <path d="M355 107L340 76M403 89L397 55M450 82V44M497 89L503 55M545 107L560 76" fill="none" stroke="#8b3a3a" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="165" cy="555" r="18" class="node"/>
+  <circle cx="835" cy="555" r="18" class="node"/>
 
-  <!-- Input ports and the proof/output port. -->
-  <circle class="node" cx="215" cy="245" r="13"/>
-  <circle class="node" cx="685" cy="245" r="13"/>
-  <circle class="node" cx="450" cy="382" r="13"/>
+  <!-- Backbone structure -->
+  <path d="M100 780 C100 740, 120 725, 165 725 H835 C880 725, 900 740, 900 780 V1175 C900 1218, 880 1238, 835 1238 H165 C120 1238, 100 1218, 100 1175 Z" class="navy thick"/>
+  <line x1="165" y1="725" x2="835" y2="725" class="navy thick"/>
+  <path d="M138 556 C92 575, 74 626, 88 708" class="wine mid" stroke-dasharray="4 11"/>
+  <path d="M862 556 C908 575, 926 626, 912 708" class="wine mid" stroke-dasharray="4 11"/>
+  <line x1="500" y1="742" x2="500" y2="768" class="wine mid"/>
+  <circle cx="100" cy="725" r="16" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
+  <circle cx="900" cy="725" r="16" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
+  <circle cx="500" cy="725" r="16" fill="#fffdf8" stroke="#243b5a" stroke-width="4"/>
 
-  <!-- Relation sketch. -->
-  <rect class="paper" x="35" y="395" width="250" height="175" rx="12"/>
-  <circle class="node" cx="160" cy="435" r="17"/>
-  <circle class="node" cx="95" cy="515" r="17"/>
-  <circle class="node" cx="225" cy="515" r="17"/>
-  <path class="green" d="M149 448L106 502M171 448L214 502M112 515H208"/>
-  <path class="relation" marker-end="url(#arrow)" d="M202 246C110 268 80 320 80 392"/>
+  <!-- Left panel -->
+  <rect x="55" y="790" width="245" height="410" rx="28" class="panel"/>
+  <circle cx="177" cy="810" r="42" fill="#fffdf8" stroke="#8f4a42" stroke-width="3.5"/>
+  <path d="M157 844L177 810L197 844Z M157 844H197" class="wine mid"/>
+  <circle cx="177" cy="810" r="7" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
+  <circle cx="157" cy="844" r="7" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
+  <circle cx="197" cy="844" r="7" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
+  <text x="177" y="900" text-anchor="middle" class="panel-title">relation graph</text>
+  <circle cx="177" cy="995" r="28" class="node"/>
+  <circle cx="110" cy="1095" r="28" class="node"/>
+  <circle cx="244" cy="1095" r="28" class="node"/>
+  <text x="177" y="1006" text-anchor="middle" class="label">a</text>
+  <text x="110" y="1106" text-anchor="middle" class="label">b</text>
+  <text x="244" y="1106" text-anchor="middle" class="label">c</text>
+  <path d="M161 1018L126 1073M193 1018L228 1073M138 1095H216" class="green mid"/>
 
-  <!-- Syntax tree. -->
-  <rect class="paper" x="615" y="395" width="250" height="175" rx="12"/>
-  <rect class="soft" x="708" y="421" width="64" height="36" rx="7"/>
-  <rect class="soft" x="650" y="485" width="64" height="36" rx="7"/>
-  <rect class="soft" x="766" y="485" width="64" height="36" rx="7"/>
-  <path class="fine" d="M740 457L682 485M740 457L798 485M682 521L660 548M682 521L704 548M798 521L776 548M798 521L820 548"/>
-  <circle class="node" cx="660" cy="550" r="10"/><circle class="node" cx="704" cy="550" r="10"/>
-  <circle class="node" cx="776" cy="550" r="10"/><circle class="node" cx="820" cy="550" r="10"/>
-  <path class="relation" marker-end="url(#arrow)" d="M698 246C790 268 820 320 820 392"/>
+  <!-- Middle panel -->
+  <rect x="325" y="790" width="350" height="410" rx="32" class="panel"/>
+  <circle cx="500" cy="810" r="42" fill="#fffdf8" stroke="#8f4a42" stroke-width="3.5"/>
+  <text x="500" y="824" text-anchor="middle" class="sym">&lt;/&gt;</text>
+  <text x="500" y="900" text-anchor="middle" class="panel-title">executable clauses</text>
+  <text x="500" y="970" text-anchor="middle" class="code">path(X, Y) :-</text>
+  <text x="500" y="1022" text-anchor="middle" class="code">edge(X, Y).</text>
+  <text x="500" y="1088" text-anchor="middle" class="code">query(path(a, X)).</text>
+  <line x1="390" y1="1125" x2="610" y2="1125" class="green mid"/>
+  <circle cx="390" cy="1163" r="17" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
+  <path d="M382 1164L389 1171L400 1156" class="green mid"/>
+  <text x="426" y="1170" class="small" style="font-size:16px">answers and proofs agree</text>
 
-  <!-- Executable relation and checked evidence. -->
-  <rect class="paper" x="315" y="410" width="270" height="185" rx="12"/>
-  <text class="code" x="345" y="446">path(X, Y) :-</text>
-  <text class="code" x="370" y="472">edge(X, Y).</text>
-  <text class="code" x="345" y="506">query(path(a, X)).</text>
-  <path class="green" d="M345 527H510"/>
-  <circle cx="356" cy="553" r="12" fill="#e7f3ee" stroke="#2f6f55" stroke-width="2.5"/>
-  <path d="M350 553L354 557L363 547" fill="none" stroke="#2f6f55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <text class="small" x="378" y="559">answers and proofs agree</text>
-  <path class="relation" marker-end="url(#arrow)" d="M450 395V407"/>
+  <!-- Right panel -->
+  <rect x="700" y="790" width="245" height="410" rx="28" class="panel"/>
+  <circle cx="822" cy="810" r="42" fill="#fffdf8" stroke="#8f4a42" stroke-width="3.5"/>
+  <rect x="809" y="794" width="26" height="18" rx="2" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
+  <rect x="790" y="838" width="22" height="16" rx="2" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
+  <rect x="832" y="838" width="22" height="16" rx="2" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
+  <path d="M822 812V828M801 828H843M801 828V838M843 828V838" class="wine mid"/>
+  <text x="822" y="900" text-anchor="middle" class="panel-title">syntax tree</text>
+  <rect x="785" y="980" width="74" height="42" rx="8" class="soft"/>
+  <text x="822" y="1008" text-anchor="middle" class="code" style="font-size:16px">plus/2</text>
+  <rect x="720" y="1065" width="98" height="42" rx="8" class="soft"/>
+  <rect x="826" y="1065" width="98" height="42" rx="8" class="soft"/>
+  <text x="769" y="1093" text-anchor="middle" class="code" style="font-size:15px">number/2</text>
+  <text x="875" y="1093" text-anchor="middle" class="code" style="font-size:15px">times/2</text>
+  <path d="M822 1022L769 1065M822 1022L875 1065" class="navy thin"/>
+  <circle cx="845" cy="1135" r="14" class="soft"/>
+  <circle cx="905" cy="1135" r="14" class="soft"/>
+  <path d="M875 1107L845 1123M875 1107L905 1123" class="navy thin"/>
+
+  <!-- Bottom ornament -->
+  <circle cx="200" cy="1238" r="14" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
+  <circle cx="800" cy="1238" r="14" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
+  <circle cx="500" cy="1238" r="14" fill="#fffdf8" stroke="#243b5a" stroke-width="4"/>
+  <line x1="315" y1="1330" x2="685" y2="1330" class="green mid"/>
+  <line x1="372" y1="1308" x2="408" y2="1308" class="gold thin"/>
+  <line x1="592" y1="1308" x2="628" y2="1308" class="gold thin"/>
+  <circle cx="430" cy="1308" r="4" class="dot"/>
+  <circle cx="570" cy="1308" r="4" class="dot"/>
+  <circle cx="500" cy="1332" r="48" fill="#c0d7c6" stroke="#243b5a" stroke-width="3.5"/>
+  <path d="M468 1307V1351C478 1346 489 1346 500 1354C511 1346 522 1346 532 1351V1307C521 1303 511 1304 500 1311C489 1304 479 1303 468 1307Z" fill="#a0c3a8" stroke="#243b5a" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M500 1311V1354" class="navy thin"/>
+  <path d="M475 1312V1346M525 1312V1346" class="navy thin"/>
+  <line x1="500" y1="1380" x2="500" y2="1412" class="wine mid"/>
+  <path d="M500 1412l10 10l-10 10l-10-10z" fill="#8f4a42"/>
 </svg>

@@ -1,12 +1,6 @@
-# The Art of Eyepl
-
 <p align="center">
-  <img src="book-assets/title-page.svg" alt="An attentive eye connects a relation graph and a syntax tree to executable Eyepl clauses whose answers and proofs agree." width="720">
+  <img src="book-assets/title-page.svg" alt="Integrated front page for The Art of Eyepl showing the title, subtitle, author, a central eye, and panels for relation graph, executable clauses, and syntax tree." width="720">
 </p>
-
-## Standards-based relations, search, and explanations
-
-**Author:** [Jos De Roo](https://josd.github.io/)
 
 **Applies to Eyepl:** `0.2.8`
 
