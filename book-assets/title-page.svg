@@ -57,7 +57,7 @@
     <text x="500" y="325" text-anchor="middle" class="subtitle">Standards-based relations, search, and explanations</text>
 
     <line x1="300" y1="372" x2="405" y2="372" class="gold-stroke thin round"/>
-    <text x="500" y="381" text-anchor="middle" class="author">Author: Jos De Roo</text>
+    <text x="500" y="381" text-anchor="middle" class="author">Jos De Roo</text>
     <line x1="595" y1="372" x2="700" y2="372" class="gold-stroke thin round"/>
   </g>
 
@@ -110,8 +110,8 @@
     <path d="M320 710 C338 560, 410 500, 500 500 C590 500, 662 560, 680 710"
           class="navy-stroke mid round"/>
 
-    <path d="M448 492 L552 492 L565 548 L435 548 Z" fill="#f0ddb5" stroke="#233a59" stroke-width="3"/>
-    <text x="500" y="526" text-anchor="middle" class="section navy" style="font-size:16px; letter-spacing:0.5px;">ENTAILMENT</text>
+    <path d="M442 488 L558 488 L572 556 L428 556 Z" fill="#f0ddb5" stroke="#233a59" stroke-width="3"/>
+    <text x="500" y="523" text-anchor="middle" class="section navy" style="font-size:14px; letter-spacing:0.5px;">ENTAILMENT</text>
 
     <rect x="290" y="690" width="68" height="148" rx="7" fill="#ead6a8" stroke="#233a59" stroke-width="3"/>
     <rect x="278" y="676" width="92" height="22" rx="5" fill="#d7ba7b" stroke="#233a59" stroke-width="3"/>
