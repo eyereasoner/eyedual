@@ -1,136 +1,460 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1450" viewBox="0 0 1000 1450" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1000" height="1450" viewBox="0 0 1000 1450"
+     role="img" aria-labelledby="title desc">
+
   <title id="title">The Art of WebEntail</title>
-  <desc id="desc">Front page for The Art of WebEntail with an abstract eye, title, subtitle, author, and panels for relation graph, executable clauses, and syntax tree.</desc>
+  <desc id="desc">
+    Fully editable vector cover for The Art of WebEntail.
+    The design uses text, paths, circles, lines, and rectangles only.
+  </desc>
+
   <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbf6ec"/>
+      <stop offset="100%" stop-color="#f4ead9"/>
+    </linearGradient>
+
+    <linearGradient id="archFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ead6a8"/>
+      <stop offset="100%" stop-color="#caa66f"/>
+    </linearGradient>
+
+
+    <pattern id="dotField" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1.6" fill="#2f7d63" opacity="0.16"/>
+    </pattern>
+
     <style>
-      .bg { fill:#f7f1e6; }
-      .navy { stroke:#243b5a; fill:none; }
-      .green { stroke:#2f7d63; fill:none; }
-      .wine { stroke:#8f4a42; fill:none; }
-      .gold { stroke:#b89c67; fill:none; }
-      .panel { fill:#fffdf8; stroke:#243b5a; stroke-width:4; }
-      .soft { fill:#e8f0ea; stroke:#243b5a; stroke-width:3; }
-      .node { fill:#fffdf8; stroke:#243b5a; stroke-width:3.5; }
-      .title { fill:#243b5a; font:bold 70px Georgia, serif; }
-      .subtitle { fill:#8f4a42; font: 26px Georgia, serif; }
-      .author { fill:#2f7d63; font: 23px Georgia, serif; }
-      .panel-title { fill:#8f4a42; font: 24px Georgia, serif; }
-      .code { fill:#243b5a; font: 21px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-      .small { fill:#2f7d63; font: 14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-      .label { fill:#243b5a; font: 24px Georgia, serif; }
-      .sym { fill:#8f4a42; font: 34px ui-monospace, monospace; }
-      .bookline { stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
-      .thin { stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
-      .mid { stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round; }
-      .thick { stroke-width:4.5; stroke-linecap:round; stroke-linejoin:round; }
-      .dot { fill:#8f4a42; }
-      .dotg { fill:#2f7d63; }
-      .dotb { fill:#243b5a; }
+      .bg { fill: url(#paper); }
+
+      .navy-fill { fill: #233a59; }
+      .green-fill { fill: #2f7d63; }
+      .wine-fill { fill: #94493f; }
+      .gold-fill { fill: #b7904f; }
+
+      .navy-stroke { stroke: #233a59; fill: none; }
+      .green-stroke { stroke: #2f7d63; fill: none; }
+      .wine-stroke { stroke: #94493f; fill: none; }
+      .gold-stroke { stroke: #b7904f; fill: none; }
+
+      .thin { stroke-width: 2; }
+      .medium { stroke-width: 3.5; }
+      .thick { stroke-width: 5; }
+      .round { stroke-linecap: round; stroke-linejoin: round; }
+
+      .title-small {
+        fill: #233a59;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 64px;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+
+      .title-main {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 116px;
+        font-weight: 700;
+        letter-spacing: -4px;
+      }
+
+      .subtitle {
+        fill: #2f7d63;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 30px;
+      }
+
+      .author {
+        fill: #94493f;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 26px;
+      }
+
+      .section-label {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 21px;
+        font-weight: 700;
+        letter-spacing: 2px;
+      }
+
+      .small-serif {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 18px;
+      }
+
+      .panel-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 23px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .code {
+        fill: #233a59;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 18px;
+      }
+
+      .code-small {
+        fill: #233a59;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 15px;
+      }
+
+      .label {
+        fill: #233a59;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 21px;
+      }
+
+      .node {
+        fill: #fffdf8;
+        stroke: #233a59;
+        stroke-width: 3;
+      }
+
+      .rdf-node {
+        fill: #7da68d;
+        stroke: #2f7d63;
+        stroke-width: 3;
+      }
+
+      .panel {
+        fill: #fffdf8;
+        fill-opacity: 0.94;
+        stroke-width: 3.5;
+      }
+
+      .soft-box {
+        fill: #f4f7f1;
+        stroke: #233a59;
+        stroke-width: 2.4;
+      }
     </style>
   </defs>
 
-  <rect width="1000" height="1450" class="bg"/>
+  <!-- Background -->
+  <rect id="background" width="1000" height="1450" class="bg"/>
+  <rect x="0" y="0" width="1000" height="1450"
+        fill="url(#dotField)" opacity="0.18"/>
 
   <!-- Header -->
-  <text x="500" y="120" text-anchor="middle" class="title">The Art of WebEntail</text>
-  <line x1="140" y1="166" x2="860" y2="166" class="gold thin"/>
-  <circle cx="500" cy="166" r="7" class="dot"/>
-  <text x="500" y="245" text-anchor="middle" class="subtitle">Standards-based relations, search, and explanations</text>
-  <line x1="385" y1="288" x2="485" y2="288" class="green thin"/>
-  <circle cx="500" cy="288" r="5" class="dot"/>
-  <line x1="515" y1="288" x2="615" y2="288" class="green thin"/>
-  <text x="500" y="335" text-anchor="middle" class="author">Author: Jos De Roo</text>
+  <g id="header">
+    <text x="500" y="105" text-anchor="middle" class="title-small">
+      The Art of
+    </text>
 
-  <!-- Eye ornament -->
-  <path d="M165 555 Q500 255 835 555 Q500 855 165 555 Z" class="navy thick"/>
+    <text x="500" y="235" text-anchor="middle" class="title-main">
+      <tspan fill="#233a59">Web</tspan><tspan fill="#94493f">Entail</tspan>
+    </text>
 
-  <ellipse cx="500" cy="555" rx="120" ry="120" fill="#9fbea8" stroke="#2f7d63" stroke-width="5"/>
-  <circle cx="500" cy="555" r="72" fill="#243b5a"/>
-  <circle cx="532" cy="521" r="18" fill="#fffdf8"/>
-  <g class="green thin" opacity="0.9">
-    <path d="M500 450V485"/><path d="M500 625V660"/>
-    <path d="M395 555H430"/><path d="M570 555H605"/>
-    <path d="M425 480L450 505"/><path d="M575 480L550 505"/>
-    <path d="M425 630L450 605"/><path d="M575 630L550 605"/>
-    <path d="M455 458L468 493"/><path d="M545 458L532 493"/>
-    <path d="M455 652L468 617"/><path d="M545 652L532 617"/>
-    <path d="M407 513L439 529"/><path d="M593 513L561 529"/>
-    <path d="M407 597L439 581"/><path d="M593 597L561 581"/>
+    <line x1="110" y1="274" x2="445" y2="274"
+          class="gold-stroke thin round"/>
+    <path d="M500 265 L509 274 L500 283 L491 274 Z"
+          fill="#b7904f"/>
+    <line x1="555" y1="274" x2="890" y2="274"
+          class="gold-stroke thin round"/>
+
+    <text x="500" y="325" text-anchor="middle" class="subtitle">
+      Standards-based relations, search, and explanations
+    </text>
+
+    <line x1="300" y1="372" x2="405" y2="372"
+          class="gold-stroke thin round"/>
+    <text x="500" y="381" text-anchor="middle" class="author">
+      Author: Jos De Roo
+    </text>
+    <line x1="595" y1="372" x2="700" y2="372"
+          class="gold-stroke thin round"/>
   </g>
-  <circle cx="165" cy="555" r="18" class="node"/>
-  <circle cx="835" cy="555" r="18" class="node"/>
 
-  <!-- Backbone structure -->
-  <path d="M100 780 C100 740, 120 725, 165 725 H835 C880 725, 900 740, 900 780 V1175 C900 1218, 880 1238, 835 1238 H165 C120 1238, 100 1218, 100 1175 Z" class="navy thick"/>
-  <line x1="165" y1="725" x2="835" y2="725" class="navy thick"/>
-  <path d="M138 556 C92 575, 74 626, 88 708" class="wine mid" stroke-dasharray="4 11"/>
-  <path d="M862 556 C908 575, 926 626, 912 708" class="wine mid" stroke-dasharray="4 11"/>
-  <line x1="500" y1="742" x2="500" y2="768" class="wine mid"/>
-  <circle cx="100" cy="725" r="16" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
-  <circle cx="900" cy="725" r="16" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
-  <circle cx="500" cy="725" r="16" fill="#fffdf8" stroke="#243b5a" stroke-width="4"/>
+  <!-- Hero labels -->
+  <g id="hero-labels">
+    <text x="210" y="455" text-anchor="middle"
+          class="section-label wine-fill">RELATIONS</text>
+    <text x="210" y="480" text-anchor="middle"
+          class="small-serif wine-fill">(LOGIC)</text>
 
-  <!-- Left panel -->
-  <rect x="55" y="790" width="245" height="410" rx="28" class="panel"/>
-  <circle cx="177" cy="810" r="42" fill="#fffdf8" stroke="#8f4a42" stroke-width="3.5"/>
-  <path d="M157 844L177 810L197 844Z M157 844H197" class="wine mid"/>
-  <circle cx="177" cy="810" r="7" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
-  <circle cx="157" cy="844" r="7" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
-  <circle cx="197" cy="844" r="7" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
-  <text x="177" y="900" text-anchor="middle" class="panel-title">relation graph</text>
-  <circle cx="177" cy="995" r="28" class="node"/>
-  <circle cx="110" cy="1095" r="28" class="node"/>
-  <circle cx="244" cy="1095" r="28" class="node"/>
-  <text x="177" y="1006" text-anchor="middle" class="label">a</text>
-  <text x="110" y="1106" text-anchor="middle" class="label">b</text>
-  <text x="244" y="1106" text-anchor="middle" class="label">c</text>
-  <path d="M161 1018L126 1073M193 1018L228 1073M138 1095H216" class="green mid"/>
+    <text x="790" y="455" text-anchor="middle"
+          class="section-label green-fill">LINKED DATA</text>
+    <text x="790" y="480" text-anchor="middle"
+          class="small-serif green-fill">(RDF)</text>
+  </g>
 
-  <!-- Middle panel -->
-  <rect x="325" y="790" width="350" height="410" rx="32" class="panel"/>
-  <circle cx="500" cy="810" r="42" fill="#fffdf8" stroke="#8f4a42" stroke-width="3.5"/>
-  <text x="500" y="824" text-anchor="middle" class="sym">&lt;/&gt;</text>
-  <text x="500" y="900" text-anchor="middle" class="panel-title">executable clauses</text>
-  <text x="500" y="970" text-anchor="middle" class="code">path(X, Y) :-</text>
-  <text x="500" y="1022" text-anchor="middle" class="code">edge(X, Y).</text>
-  <text x="500" y="1088" text-anchor="middle" class="code">webentail --goal 'path(a, X)' program.pl</text>
-  <line x1="390" y1="1125" x2="610" y2="1125" class="green mid"/>
-  <circle cx="390" cy="1163" r="17" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
-  <path d="M382 1164L389 1171L400 1156" class="green mid"/>
-  <text x="426" y="1170" class="small" style="font-size:16px">answers and proofs agree</text>
+  <!-- Abstract bridge -->
+  <g id="bridge">
+    <!-- bridge arch -->
+    <path d="M320 710
+             C338 560, 410 500, 500 500
+             C590 500, 662 560, 680 710"
+          fill="none" stroke="url(#archFill)"
+          stroke-width="62" stroke-linecap="round"/>
 
-  <!-- Right panel -->
-  <rect x="700" y="790" width="245" height="410" rx="28" class="panel"/>
-  <circle cx="822" cy="810" r="42" fill="#fffdf8" stroke="#8f4a42" stroke-width="3.5"/>
-  <rect x="809" y="794" width="26" height="18" rx="2" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
-  <rect x="790" y="838" width="22" height="16" rx="2" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
-  <rect x="832" y="838" width="22" height="16" rx="2" fill="#fffdf8" stroke="#8f4a42" stroke-width="3"/>
-  <path d="M822 812V828M801 828H843M801 828V838M843 828V838" class="wine mid"/>
-  <text x="822" y="900" text-anchor="middle" class="panel-title">syntax tree</text>
-  <rect x="785" y="980" width="74" height="42" rx="8" class="soft"/>
-  <text x="822" y="1008" text-anchor="middle" class="code" style="font-size:16px">plus/2</text>
-  <rect x="720" y="1065" width="98" height="42" rx="8" class="soft"/>
-  <rect x="826" y="1065" width="98" height="42" rx="8" class="soft"/>
-  <text x="769" y="1093" text-anchor="middle" class="code" style="font-size:15px">number/2</text>
-  <text x="875" y="1093" text-anchor="middle" class="code" style="font-size:15px">times/2</text>
-  <path d="M822 1022L769 1065M822 1022L875 1065" class="navy thin"/>
-  <circle cx="845" cy="1135" r="14" class="soft"/>
-  <circle cx="905" cy="1135" r="14" class="soft"/>
-  <path d="M875 1107L845 1123M875 1107L905 1123" class="navy thin"/>
+    <path d="M320 710
+             C338 560, 410 500, 500 500
+             C590 500, 662 560, 680 710"
+          class="navy-stroke medium round"/>
 
-  <!-- Bottom ornament -->
-  <circle cx="200" cy="1238" r="14" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
-  <circle cx="800" cy="1238" r="14" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
-  <circle cx="500" cy="1238" r="14" fill="#fffdf8" stroke="#243b5a" stroke-width="4"/>
-  <line x1="315" y1="1330" x2="685" y2="1330" class="green mid"/>
-  <line x1="372" y1="1308" x2="408" y2="1308" class="gold thin"/>
-  <line x1="592" y1="1308" x2="628" y2="1308" class="gold thin"/>
-  <circle cx="430" cy="1308" r="4" class="dot"/>
-  <circle cx="570" cy="1308" r="4" class="dot"/>
-  <circle cx="500" cy="1332" r="48" fill="#c0d7c6" stroke="#243b5a" stroke-width="3.5"/>
-  <path d="M468 1307V1351C478 1346 489 1346 500 1354C511 1346 522 1346 532 1351V1307C521 1303 511 1304 500 1311C489 1304 479 1303 468 1307Z" fill="#a0c3a8" stroke="#243b5a" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M500 1311V1354" class="navy thin"/>
-  <path d="M475 1312V1346M525 1312V1346" class="navy thin"/>
-  <line x1="500" y1="1380" x2="500" y2="1412" class="wine mid"/>
-  <path d="M500 1412l10 10l-10 10l-10-10z" fill="#8f4a42"/>
+    <!-- keystone -->
+    <path d="M448 492 L552 492 L565 548 L435 548 Z"
+          fill="#f0ddb5" stroke="#233a59" stroke-width="3"/>
+    <text x="500" y="528" text-anchor="middle"
+          class="section-label navy-fill"
+          style="font-size:18px; letter-spacing:1px">
+      ENTAILMENT
+    </text>
+
+    <!-- pillars -->
+    <g id="left-pillar">
+      <rect x="290" y="690" width="68" height="148"
+            rx="7" fill="#ead6a8" stroke="#233a59" stroke-width="3"/>
+      <rect x="278" y="676" width="92" height="22"
+            rx="5" fill="#d7ba7b" stroke="#233a59" stroke-width="3"/>
+      <rect x="276" y="830" width="96" height="24"
+            rx="5" fill="#d7ba7b" stroke="#233a59" stroke-width="3"/>
+      <line x1="306" y1="708" x2="306" y2="824"
+            class="gold-stroke thin"/>
+      <line x1="342" y1="708" x2="342" y2="824"
+            class="gold-stroke thin"/>
+    </g>
+
+    <g id="right-pillar">
+      <rect x="642" y="690" width="68" height="148"
+            rx="7" fill="#ead6a8" stroke="#233a59" stroke-width="3"/>
+      <rect x="630" y="676" width="92" height="22"
+            rx="5" fill="#d7ba7b" stroke="#233a59" stroke-width="3"/>
+      <rect x="628" y="830" width="96" height="24"
+            rx="5" fill="#d7ba7b" stroke="#233a59" stroke-width="3"/>
+      <line x1="658" y1="708" x2="658" y2="824"
+            class="gold-stroke thin"/>
+      <line x1="694" y1="708" x2="694" y2="824"
+            class="gold-stroke thin"/>
+    </g>
+  </g>
+
+  <!-- Logic graph -->
+  <g id="logic-graph">
+    <line x1="145" y1="610" x2="210" y2="540"
+          class="green-stroke medium round"/>
+    <line x1="210" y1="540" x2="275" y2="610"
+          class="green-stroke medium round"/>
+    <line x1="145" y1="610" x2="275" y2="610"
+          class="green-stroke medium round"/>
+
+    <circle cx="210" cy="540" r="28" class="node"/>
+    <circle cx="145" cy="610" r="28" class="node"/>
+    <circle cx="275" cy="610" r="28" class="node"/>
+
+    <text x="210" y="548" text-anchor="middle" class="label">a</text>
+    <text x="145" y="618" text-anchor="middle" class="label">b</text>
+    <text x="275" y="618" text-anchor="middle" class="label">c</text>
+  </g>
+
+  <!-- RDF graph -->
+  <g id="rdf-graph">
+    <line x1="735" y1="535" x2="805" y2="575"
+          class="green-stroke medium round"/>
+    <line x1="805" y1="575" x2="765" y2="640"
+          class="green-stroke medium round"/>
+    <line x1="805" y1="575" x2="875" y2="610"
+          class="green-stroke medium round"/>
+    <line x1="765" y1="640" x2="835" y2="690"
+          class="green-stroke medium round"/>
+
+    <circle cx="735" cy="535" r="17" class="rdf-node"/>
+    <circle cx="805" cy="575" r="17" class="rdf-node"/>
+    <circle cx="765" cy="640" r="17" class="rdf-node"/>
+    <circle cx="875" cy="610" r="17" class="rdf-node"/>
+    <circle cx="835" cy="690" r="17" class="rdf-node"/>
+
+    <rect x="746" y="500" width="112" height="40" rx="8"
+          fill="#fff8ea" stroke="#233a59" stroke-width="2"/>
+    <text x="802" y="527" text-anchor="middle"
+          class="small-serif navy-fill">ex:Alice</text>
+
+    <rect x="855" y="558" width="116" height="40" rx="8"
+          fill="#fff8ea" stroke="#233a59" stroke-width="2"/>
+    <text x="913" y="585" text-anchor="middle"
+          class="small-serif navy-fill">ex:knows</text>
+
+    <rect x="846" y="682" width="104" height="40" rx="8"
+          fill="#fff8ea" stroke="#233a59" stroke-width="2"/>
+    <text x="898" y="709" text-anchor="middle"
+          class="small-serif navy-fill">ex:Bob</text>
+  </g>
+
+  <!-- Proof tree inside bridge -->
+  <g id="proof-tree">
+    <circle cx="500" cy="590" r="18"
+            fill="#fffdf8" stroke="#2f7d63" stroke-width="3"/>
+    <circle cx="455" cy="660" r="18"
+            fill="#fffdf8" stroke="#2f7d63" stroke-width="3"/>
+    <circle cx="545" cy="660" r="18"
+            fill="#fffdf8" stroke="#2f7d63" stroke-width="3"/>
+    <circle cx="420" cy="730" r="18"
+            fill="#fffdf8" stroke="#2f7d63" stroke-width="3"/>
+    <circle cx="500" cy="730" r="18"
+            fill="#fffdf8" stroke="#2f7d63" stroke-width="3"/>
+    <circle cx="580" cy="730" r="18"
+            fill="#fffdf8" stroke="#2f7d63" stroke-width="3"/>
+
+    <path d="M500 608 L455 642 M500 608 L545 642
+             M455 678 L420 712 M455 678 L500 712
+             M545 678 L580 712"
+          class="green-stroke medium round"/>
+
+    <line x1="500" y1="752" x2="500" y2="790"
+          class="green-stroke medium round"
+          stroke-dasharray="4 8"/>
+    <path d="M491 785 L500 796 L509 785"
+          class="green-stroke medium round"/>
+
+    <circle cx="500" cy="824" r="29"
+            fill="#2f7d63" stroke="#233a59" stroke-width="3"/>
+    <path d="M486 825 L497 836 L516 810"
+          fill="none" stroke="#fffdf8" stroke-width="5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Divider -->
+  <g id="middle-divider">
+    <line x1="70" y1="875" x2="930" y2="875"
+          class="gold-stroke thin"/>
+    <circle cx="500" cy="875" r="6" class="gold-fill"/>
+  </g>
+
+  <!-- Lower panels -->
+  <g id="panels">
+    <!-- panel 1 -->
+    <g id="panel-relation">
+      <rect x="52" y="925" width="275" height="360" rx="28"
+            class="panel" stroke="#94493f"/>
+
+      <circle cx="190" cy="925" r="38"
+              fill="#fffdf8" stroke="#94493f" stroke-width="3"/>
+      <circle cx="190" cy="908" r="7"
+              fill="#fffdf8" stroke="#94493f" stroke-width="3"/>
+      <circle cx="171" cy="942" r="7"
+              fill="#fffdf8" stroke="#94493f" stroke-width="3"/>
+      <circle cx="209" cy="942" r="7"
+              fill="#fffdf8" stroke="#94493f" stroke-width="3"/>
+      <path d="M190 915 L171 935 M190 915 L209 935 M171 942 L209 942"
+            class="wine-stroke medium round"/>
+
+      <text x="190" y="992" text-anchor="middle"
+            class="panel-title wine-fill">1. RELATION GRAPH</text>
+
+      <line x1="110" y1="1030" x2="165" y2="1090"
+            class="green-stroke medium round"/>
+      <line x1="165" y1="1090" x2="230" y2="1050"
+            class="green-stroke medium round"/>
+      <line x1="230" y1="1050" x2="270" y2="1120"
+            class="green-stroke medium round"
+            stroke-dasharray="6 6"/>
+
+      <circle cx="110" cy="1030" r="21" class="node"/>
+      <circle cx="165" cy="1090" r="21" class="node"/>
+      <circle cx="230" cy="1050" r="21" class="node"/>
+      <circle cx="270" cy="1120" r="21" class="node"/>
+
+      <text x="110" y="1037" text-anchor="middle" class="label">a</text>
+      <text x="165" y="1097" text-anchor="middle" class="label">b</text>
+      <text x="230" y="1057" text-anchor="middle" class="label">c</text>
+      <text x="270" y="1127" text-anchor="middle" class="label">d</text>
+
+      <text x="85" y="1180" class="code-small">path(a, b).</text>
+      <text x="85" y="1210" class="code-small">path(b, c).</text>
+      <text x="85" y="1240" class="code-small">edge(c, d).</text>
+    </g>
+
+    <!-- panel 2 -->
+    <g id="panel-clauses">
+      <rect x="362" y="925" width="276" height="360" rx="28"
+            class="panel" stroke="#2f7d63"/>
+
+      <circle cx="500" cy="925" r="38"
+              fill="#fffdf8" stroke="#2f7d63" stroke-width="3"/>
+      <text x="500" y="936" text-anchor="middle"
+            class="code green-fill" style="font-size:28px">&lt;/&gt;</text>
+
+      <text x="500" y="992" text-anchor="middle"
+            class="panel-title green-fill" style="font-size:20px">2. EXECUTABLE CLAUSES</text>
+
+      <text x="395" y="1050" class="code">path(X, Y) :-</text>
+      <text x="425" y="1084" class="code">edge(X, Y).</text>
+
+      <text x="395" y="1140" class="code">path(X, Y) :-</text>
+      <text x="425" y="1174" class="code">edge(X, Z),</text>
+      <text x="425" y="1208" class="code">path(Z, Y).</text>
+
+      <rect x="390" y="1232" width="220" height="34" rx="7"
+            fill="#f4f7f1" stroke="#2f7d63" stroke-width="2"/>
+      <text x="500" y="1254" text-anchor="middle"
+            class="code-small" style="font-size:10px">
+        webentail --goal 'path(a, X)' program.pl
+      </text>
+    </g>
+
+    <!-- panel 3 -->
+    <g id="panel-proof">
+      <rect x="673" y="925" width="275" height="360" rx="28"
+            class="panel" stroke="#233a59"/>
+
+      <circle cx="810" cy="925" r="38"
+              fill="#fffdf8" stroke="#233a59" stroke-width="3"/>
+      <rect x="802" y="903" width="16" height="12" rx="2"
+            fill="#fffdf8" stroke="#233a59" stroke-width="2"/>
+      <rect x="785" y="934" width="16" height="12" rx="2"
+            fill="#fffdf8" stroke="#233a59" stroke-width="2"/>
+      <rect x="819" y="934" width="16" height="12" rx="2"
+            fill="#fffdf8" stroke="#233a59" stroke-width="2"/>
+      <path d="M810 915 V926 M793 926 H827 M793 926 V934 M827 926 V934"
+            class="navy-stroke thin round"/>
+
+      <text x="810" y="992" text-anchor="middle"
+            class="panel-title navy-fill">3. SYNTAX &amp; PROOFS</text>
+
+      <rect x="755" y="1035" width="110" height="38" rx="8"
+            class="soft-box"/>
+      <text x="810" y="1060" text-anchor="middle"
+            class="code-small">path(a, X)</text>
+
+      <rect x="700" y="1120" width="104" height="38" rx="8"
+            class="soft-box"/>
+      <rect x="816" y="1120" width="104" height="38" rx="8"
+            class="soft-box"/>
+      <text x="752" y="1145" text-anchor="middle"
+            class="code-small">edge(a,b)</text>
+      <text x="868" y="1145" text-anchor="middle"
+            class="code-small">path(b,X)</text>
+
+      <rect x="790" y="1200" width="104" height="38" rx="8"
+            class="soft-box"/>
+      <text x="842" y="1225" text-anchor="middle"
+            class="code-small">edge(b,c)</text>
+
+      <path d="M810 1073 L752 1120 M810 1073 L868 1120
+               M868 1158 L842 1200"
+            class="navy-stroke medium round"/>
+      <line x1="842" y1="1238" x2="842" y2="1260"
+            class="navy-stroke thin round"
+            stroke-dasharray="3 6"/>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <g id="footer">
+    <line x1="175" y1="1350" x2="325" y2="1350"
+          class="gold-stroke thin round"/>
+    <circle cx="345" cy="1350" r="4" class="gold-fill"/>
+    <text x="500" y="1360" text-anchor="middle"
+          class="subtitle" style="font-size:24px; font-style:italic">
+      Bridging logic and linked data
+    </text>
+    <circle cx="655" cy="1350" r="4" class="gold-fill"/>
+    <line x1="675" y1="1350" x2="825" y2="1350"
+          class="gold-stroke thin round"/>
+
+    <path d="M500 1390 L510 1400 L500 1410 L490 1400 Z"
+          fill="#2f7d63"/>
+  </g>
 </svg>
