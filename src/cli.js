@@ -104,16 +104,15 @@ export async function main(argv) {
 
 async function loadEngine() {
   if (engineModule == null) {
-    const [term, parser, program, solver, iso, library, fuse] = await Promise.all([
+    const [term, parser, program, solver, iso, library] = await Promise.all([
       import('./term.js'),
       import('./parser.js'),
       import('./program.js'),
       import('./solver.js'),
       import('./iso.js'),
       import('./library.js'),
-      import('./fuse.js'),
     ]);
-    engineModule = { ...term, ...parser, ...program, ...solver, ...iso, ...library, ...fuse };
+    engineModule = { ...term, ...parser, ...program, ...solver, ...iso, ...library };
   }
   return engineModule;
 }
@@ -140,8 +139,6 @@ async function runDefault(engine, program, options) {
     ioOptions: { write: (text) => process.stdout.write(String(text)) },
   });
   program = solver.program;
-  engine.checkInferenceFuses(program, solver);
-
   try {
     solver.runInitializations();
     for (const goal of goals) {

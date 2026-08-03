@@ -43,6 +43,7 @@ export const isoBuiltins = {
   register(registry) {
     registry.add('true', 0, succeed, { deterministic: true });
     registry.add('fail', 0, fail, { deterministic: true });
+    registry.add('false', 0, fail, { deterministic: true });
     registry.add('!', 0, succeed, { deterministic: true });
 
     registry.add('=', 2, unification, { deterministic: true });

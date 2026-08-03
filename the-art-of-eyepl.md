@@ -33,7 +33,7 @@ The name *Eyepl* combines *EYE* with *pl*: EYE-style reasoning through Prolog.
 Eyepl implements a broad ISO Prolog profile with facts, clauses, terms, lists,
 control, arithmetic, dynamic predicates, operators, streams, and standard
 built-ins. Automatic
-tabling, inference fuses, proof output, and RDF adapters are implementation
+tabling, explicit integrity checks, proof output, and RDF adapters are implementation
 capabilities around that standards-based foundation. Eyepl does not attempt to
 claim formal certification of every ISO processor edge case.
 
@@ -126,7 +126,7 @@ tricks. By the end, a reader should be able to:
    mode is unsafe;
 4. construct programs from examples and invariants, then improve their control
    without quietly changing their meaning;
-5. test conclusions, reject inconsistent inputs with fuses, and inspect proofs
+5. test conclusions, detect inconsistent inputs explicitly, and inspect proofs
    as evidence; and
 6. connect a Prolog rule set to JavaScript and RDF without hiding the knowledge
    boundary.
@@ -251,7 +251,7 @@ Chapters 6–10
 Chapters 11–16
 
 - [11. Queries, answers, and proofs](#11-queries-answers-and-proofs)
-- [12. Integrity constraints and inference fuses](#12-integrity-constraints-and-inference-fuses)
+- [12. Integrity checks as ordinary predicates](#12-integrity-checks-as-ordinary-predicates)
 - [13. Termination, tabling, and performance](#13-termination-tabling-and-performance)
 - [14. Knowledge engineering](#14-knowledge-engineering)
 - [15. RDF 1.2 as the interoperable data boundary](#15-rdf-12-as-the-interoperable-data-boundary)
@@ -1305,7 +1305,7 @@ and termination.
 
 An answer becomes useful when its grounds remain visible. Here reasoning is
 treated as an accountable structure: queries define the question, proofs retain
-support, fuses guard integrity, and knowledge boundaries stay explicit.
+support, integrity checks expose invalid states, and knowledge boundaries stay explicit.
 
 ## 11. Queries, answers, and proofs
 
@@ -1374,73 +1374,80 @@ produces a better theory.
 identify the queried goal, the rule that derived it, the source fact used, and
 the binding carried between them.
 
-## 12. Integrity constraints and inference fuses
+## 12. Integrity checks as ordinary predicates
 
-A rule headed by `false` is an **inference fuse**:
+Integrity conditions are ordinary relations that describe invalid input states:
 
 ```eyepl
-false :-
+invalid_probability(Disease, Probability) :-
   probability(Disease, Probability),
   (Probability > 1).
 ```
 
-Eyepl checks fuses before queries. The first match aborts the CLI with exit code
-`65` and reports the rule and matched instance. A bare `false.` is unconditional.
+A host that requires validated input queries the integrity relation explicitly
+before it asks for domain decisions. This keeps the policy visible: the host may
+reject the input, report every defect, or continue in a diagnostic mode.
+
+`false/0` keeps its ISO meaning: it is a built-in goal that always fails. It is
+a protected static procedure, so `false.` and clauses of the form
+`false :- Body.` are rejected with
+`permission_error(modify, static_procedure)` rather than acquiring special
+pre-query behavior.
 
 <figure>
-  <img src="book-assets/inference-fuse-control-panel.svg" alt="Conflicting engineering limits trigger a red inference fuse before operation.">
-  <figcaption>An inference fuse is a domain interlock: contradictory limits stop every downstream query instead of allowing decisions from an invalid theory.</figcaption>
+  <img src="book-assets/integrity-check-control-panel.svg" alt="An explicit invalid-state query identifies conflicting engineering limits before operation.">
+  <figcaption>An integrity relation reports the invalid state; the host decides whether that state blocks later decisions.</figcaption>
 </figure>
 
 ```eyepl
-false :-
+invalid_assignment(Person, Role, Other) :-
   assigned(Person, Role),
   incompatible_roles(Role, Other),
   assigned(Person, Other).
 ```
 
-The logical reading is that no acceptable model contains this combination.
-Fuses express domain contradictions, not resource bounds or search limits.
+The logical reading is that the program can derive witnesses for an inadmissible
+combination. The operational response is outside the relation itself and remains
+an explicit host decision.
 
-### Designing a fuse from the invalid state
+### Designing an integrity relation
 
-Start with a sentence that must never be true, then translate its witnesses
-into positive, finite goals. “No person has two incompatible roles” becomes
-the conjunction above. A useful fuse is:
+Start with a sentence that must never be accepted, then translate its witnesses
+into positive, finite goals. “No person has two incompatible roles” becomes the
+relation above. A useful integrity check is:
 
 - **domain-specific:** it names an impossible or inadmissible state;
-- **finite:** its body can be checked completely before queries begin;
-- **diagnostic:** its bindings identify the offending records; and
-- **independent:** it rejects bad premises rather than encoding a desired
-  query answer.
+- **finite:** its intended validation query can be checked completely;
+- **diagnostic:** its arguments identify the offending records; and
+- **explicit:** callers can choose whether to reject, report, or inspect defects.
 
-Four outcomes that look like “failure” at a shell prompt have different
+Four outcomes that can look like “failure” at a shell prompt have different
 meanings:
 
 | Outcome | Interpretation | Appropriate response |
 | --- | --- | --- |
 | query has no answer | this theory did not derive the selected goal | inspect data, rules, and closed-world assumptions |
-| inference fuse fires | the loaded theory contains a forbidden combination | repair or reject the theory |
+| integrity query has an answer | the supplied input contains a forbidden combination | repair, reject, or report the input |
 | resource ceiling is reached | the computation exceeded an operational budget | bound or redesign the search |
 | parser or type error | the program or call violates the language contract | correct the source or interface |
 
-Do not turn every undesirable business result into `false`. A declined
+Do not treat every undesirable business result as invalid input. A declined
 application, unavailable route, or negative test may be a perfectly valid
-answer of the theory. Reserve a fuse for states from which *no* downstream
-answer should be trusted.
+answer of the theory. Reserve integrity relations for states whose witnesses
+must be handled before trusted downstream decisions.
 
-To see the failure path directly, run:
+To see the explicit validation path, run:
 
 ```sh
-node bin/eyepl.js examples/inference-fuse.pl
+node bin/eyepl.js examples/integrity-check.pl
 ```
 
-It exits with status `65` and reports the fired rule plus its matched ground
-instance; it does not print the otherwise derivable status query.
+It prints the invalid-state witness and the resulting diagnostic status. Nothing
+runs implicitly before the supplied goals.
 
-**Checkpoint.** Explain the difference between an ordinary query with no
-answer and a fuse that aborts every query. Write one invalid state that belongs
-in a fuse and one ordinary negative result that should remain query failure.
+**Checkpoint.** Explain the difference between an ordinary query with no answer
+and an integrity query that returns a defect. Write one invalid-state relation
+and one ordinary negative result that should remain query failure.
 
 ## 13. Termination, tabling, and performance
 
@@ -1589,7 +1596,7 @@ claim that an RDF graph and a Prolog rule set have the same semantics. It
 preserves RDF terms and graph membership as data, after which Prolog rules may
 derive application-specific conclusions. This separation matters because RDF
 normally supports open-world data integration, whereas a Prolog rule may use a
-closed finite relation, negation as failure, or an integrity fuse.
+closed finite relation, negation as failure, or an explicit integrity relation.
 
 <figure>
   <img src="book-assets/rdf-adapter-pipeline.svg" alt="Several RDF formats pass through an explicit adapter into Prolog rules and derived N-Quads.">
@@ -1741,8 +1748,8 @@ for a call. A mode-sensitive extension can additionally provide `ready`,
 `fallbackWhenNotReady`, and `shouldUse` metadata. This metadata affects
 dispatch and safe early filtering, so it belongs to the extension's contract.
 
-Fired fuses throw `InferenceFuseError` with code
-`INFERENCE_FUSE_EXIT_CODE`. Programs expose stratification diagnostics through
+The ISO `false/0` built-in always fails, and source clauses that attempt to
+define it raise `permission_error(modify, static_procedure)`. Programs expose stratification diagnostics through
 `stratifiedNegation`, `negationStratificationErrors`, and
 `assertStratifiedNegation()`.
 
@@ -1807,7 +1814,7 @@ stand in for the other two.
 Part III moved from obtaining answers to trusting them:
 
 - a query selects a question; a proof records one successful justification;
-- an inference fuse rejects a theory that is unfit to answer;
+- an explicit integrity query identifies input that a host may reject;
 - automatic tabling computes fixed points for eligible positive recursion;
 - indexing and ready filters improve control without changing intended meaning;
 - knowledge engineering separates sources, concepts, decisions, and reasons;
@@ -1815,7 +1822,7 @@ Part III moved from obtaining answers to trusting them:
 - embedding and sockets divide logical derivation from host authority.
 
 You should now be able to distinguish proof trees from search trees, state what
-a fuse guarantees, explain the finite-answer argument behind tabling, and name
+an integrity query establishes, explain the finite-answer argument behind tabling, and name
 which trust duties remain outside the solver.
 
 ### Historical note: from answers to accountable inference
@@ -2183,19 +2190,20 @@ routes below a cost, or some other finite family is intended.
 
 ### Integrity is not merely failure
 
-Ordinary failure says that one attempted proof did not work. An inference fuse
-says that the supplied theory violates a condition that must hold:
+Ordinary failure says that one attempted proof did not work. An explicit
+integrity relation can instead return the evidence for an invalid state:
 
 ```eyepl
-false :-
+invalid_limits(Name, Low, High) :-
   lower_limit(Name, Low),
   upper_limit(Name, High),
   (Low > High).
 ```
 
 This distinction matters operationally and socially. A failed eligibility
-query may be a legitimate negative result. Contradictory limits invalidate the
-knowledge base and should stop all decisions until repaired.
+query may be a legitimate negative result. A successful `invalid_limits/3`
+query identifies contradictory limits; the host can then stop decisions until
+the input is repaired.
 
 **Checkpoint.** For one recursive relation, state three claims separately:
 partial correctness, completeness in one intended mode, and termination in
@@ -3051,21 +3059,22 @@ domain vocabulary, while the proof records actual clauses and bindings.
 
 ### Integrity before decisions
 
-Contradictory badge states stop every query:
+Contradictory badge states are exposed by an explicit validation relation:
 
 ```eyepl
 incompatible_status(active, revoked).
 incompatible_status(revoked, active).
 
-false :-
+invalid_badge_status(Badge, Status, Other) :-
   badge_status(Badge, Status),
   incompatible_status(Status, Other),
   badge_status(Badge, Other).
 ```
 
-The fuse does not say that one permit failed. It says the theory is unfit to
-decide. Other fuses can reject a badge assigned to two people or a zone with
-incompatible clearance definitions.
+This result does not say that one permit failed. It identifies input that is
+unfit for a trusted decision. The host can query `invalid_badge_status/3` before
+permit goals, alongside checks for a badge assigned to two people or a zone
+with incompatible clearance definitions.
 
 ### Tests are policy examples
 
@@ -3102,7 +3111,7 @@ decision can be reconstructed under the rules that actually governed it.
 1. Add time-bounded training using explicit dates and `difference/3`.
 2. Model `denial/3` without assuming every failed permit has the same reason.
 3. Add a two-person escort rule and identify duplicate-proof cases.
-4. Write fuses for badges assigned to multiple people.
+4. Write an integrity relation for badges assigned to multiple people.
 5. Design a source socket for badge facts and state what the host must validate.
 6. Run the case with `--proof` and decide which helpers improve the explanation.
 
@@ -3191,7 +3200,7 @@ mathematical acts inside the running machine:
 | Perform induction | base and recursive clauses | reduce to smaller calls |
 | Construct a witness | bind an output term | return evidence, not only truth |
 | Refute a universal guess | search for a counterexample | one answer is enough |
-| Check consistency | an inference fuse | reject the theory before querying |
+| Check consistency | an explicit integrity query | let the host reject or report invalid input |
 | Explain a conclusion | a proof term | expose the successful derivation |
 
 The table is a correspondence, not an identity. A mathematical proof and an
@@ -3647,8 +3656,8 @@ That checklist joins abstract algebra, data modeling, and program design.
    triples and explain every removed symmetry.
 2. Give two representations of an undirected edge. Compare their equality and
    indexing behavior.
-3. Design a normalized rational representation and write fuses for invalid
-   denominators and noncanonical zero.
+3. Design a normalized rational representation and write integrity relations for
+   invalid denominators and noncanonical zero.
 4. Use `examples/d3-group.pl` to test identity, inverses, and associativity.
    Which checks are exhaustive, and why?
 5. Find a matrix counterexample showing that multiplication is not
@@ -3845,7 +3854,7 @@ This yields four layers of trust:
 4. **Derivation trust:** does this answer have a valid proof from this exact
    theory?
 
-Inference fuses address contradictions and invalid states inside the supplied
+Explicit integrity relations expose contradictions and invalid states inside the supplied
 theory. Conformance tests address the implementation. Proof output addresses
 the derivation. Provenance, signatures, calibration, peer review, and domain
 validation address other layers. No single mechanism replaces the rest.
@@ -3858,7 +3867,7 @@ counterexample has standing against a thousand confirming cases.
 
 Logic programming should preserve this culture. Write negative tests before
 the theory becomes emotionally expensive. Search boundary cases. Ask for
-forbidden states. Turn domain invariants into fuses. Keep the failed model that
+forbidden states. Turn domain invariants into queryable integrity relations. Keep the failed model that
 forced a redesign.
 
 A knowledge system becomes trustworthy not when it never changes, but when it
@@ -4166,17 +4175,17 @@ test fails.
 Use answer regression broadly. Use proof regression selectively where
 provenance, explanation, or policy accountability is part of the product.
 
-### Test failures, fuses, and warnings
+### Test failures, integrity results, and warnings
 
 Three outcomes carry different meanings:
 
 - an ordinary query has no answer: the relation did not establish that goal;
-- an inference fuse fires: the supplied theory violates a forbidden condition;
+- an integrity query succeeds: the supplied input violates a forbidden condition;
 - `--warnings` reports unstratified negation: execution may proceed, but the
   program crosses a portability and semantic boundary.
 
 A mature suite covers all three. Include malformed source in parser tests,
-inconsistent source in fuse tests, and semantically dubious dependency cycles
+inconsistent source in integrity-query tests, and semantically dubious dependency cycles
 in warning tests.
 
 ### A release-quality test matrix
@@ -4191,7 +4200,7 @@ Before releasing a theory or embedded service, cover:
 | Search | smallest witness, competing witnesses, ties, and empty domain |
 | Negation | ground success, ground failure, and stratification check |
 | Aggregation | empty, singleton, duplicates, and deterministic tie handling |
-| Integrity | every fuse matched once and shown not to overfire |
+| Integrity | each invalid state is detected and valid input is not misclassified |
 | Proof | representative derivation with source premises visible |
 | Scale | a case large enough to expose indexing or table behavior |
 | Reproducibility | fixed time, source version, stable fixtures, and clean output |
@@ -4208,7 +4217,7 @@ Before releasing a theory or embedded service, cover:
 5. Design a test that distinguishes “no answer” from “invalid input theory.”
 
 **Checkpoint.** Assemble a minimum release matrix for one public relation:
-positive, absent, boundary, alternate mode, recursive or cyclic, fuse, proof,
+positive, absent, boundary, alternate mode, recursive or cyclic, integrity, proof,
 and scale cases. State which expected outputs should be exact goldens.
 
 ## 32. Debugging by meaning, search, and proof
@@ -4382,7 +4391,7 @@ optimization.
 Every repaired defect should leave behind one of:
 
 - a new positive or negative case;
-- a fuse;
+- an integrity regression;
 - a documented mode and tests for that call pattern;
 - a bounded property;
 - a proof golden;
@@ -4558,18 +4567,20 @@ proof reads in domain vocabulary.
 **Problem:** contradictory or impossible input would make ordinary conclusions
 misleading.
 
-**Form:** encode forbidden combinations as rules headed by `false`.
+**Form:** encode forbidden combinations as ordinary relations with diagnostic
+arguments.
 
 ```eyepl
-false :-
+invalid_badge_assignment(Badge, PersonA, PersonB) :-
   assigned_badge(PersonA, Badge),
   assigned_badge(PersonB, Badge),
   (PersonA \= PersonB).
 ```
 
-**Consequence:** the theory fails closed before queries run. A fuse is not a
-replacement for a reportable `invalid/1` relation when callers need to collect
-all defects.
+**Consequence:** callers can collect every defect, and a host that requires
+validated input can query this relation before it requests trusted decisions.
+The rejection policy remains explicit rather than being hidden in clause-head
+syntax.
 
 ### Pattern 10: Version the evidence boundary
 
@@ -4662,7 +4673,7 @@ Part VII made theory development repeatable:
 - binding ledgers diagnose readiness and accidental joins;
 - debugging moves from meaning to bindings, search, and proof;
 - named patterns connect recurring problems to reusable relational forms;
-- every repaired defect should leave a case, invariant, fuse, or explanation.
+- every repaired defect should leave a case, invariant, integrity check, or explanation.
 
 You should now be able to design a release-quality test matrix, reduce a
 surprising result to one ground question, compare a reference relation with an
@@ -5103,10 +5114,11 @@ solutions, exceptions, flags, initialization and inclusion directives, and
 standard stream and term I/O. Modules and DCG notation remain outside this
 Part 1 profile.
 
-### Directives and inference fuses
+### Directives and protected built-ins
 
-A clause headed by `false` is an inference fuse: it is checked before host
-goals and aborts execution when its body succeeds.
+`false/0` is the ISO always-failing built-in. It is protected as a static
+procedure, so source clauses headed by `false` are rejected instead of being
+interpreted as directives or integrity constraints.
 
 Standard directives include `dynamic/1`, `multifile/1`, `discontiguous/1`,
 `op/3`, `char_conversion/2`, `initialization/1`, `include/1`,
@@ -5143,8 +5155,8 @@ An unbound goal raises `instantiation_error`; a non-callable goal raises
 answers. The host:
 
 1. parses all inputs into one program;
-2. collects source facts, queries, and inference fuses;
-3. checks every fuse;
+2. collects source facts and host-supplied goals;
+3. runs initialization goals;
 4. solves each supplied goal;
 5. retains only ground answers;
 6. removes answers identical to source facts and suppresses duplicates;
@@ -5164,11 +5176,11 @@ profile. Where a predicate is defined by ISO/IEC 13211-1:1995, Eyepl uses its
 standard predicate indicator; the registry also includes a few later or common
 compatibility predicates identified below. Arithmetic is expressed through
 `is/2` rather than output arguments on arithmetic predicates. The registry
-contains 114 name/arity entries across 93 names.
+contains 115 name/arity entries across 94 names.
 
 | Family | Registered predicate indicators |
 | --- | --- |
-| Control and exceptions | `true/0`, `fail/0`, `!/0`, `call/1`, `\+/1`, `once/1`, `repeat/0`, `;/2`, `->/2`, `catch/3`, `throw/1`, `halt/0`, `halt/1` |
+| Control and exceptions | `true/0`, `fail/0`, `false/0`, `!/0`, `call/1`, `\+/1`, `once/1`, `repeat/0`, `;/2`, `->/2`, `catch/3`, `throw/1`, `halt/0`, `halt/1` |
 | Unification and identity | `=/2`, `unify_with_occurs_check/2`, `\=/2`, `==/2`, `\==/2` |
 | Type tests | `var/1`, `nonvar/1`, `atom/1`, `integer/1`, `float/1`, `number/1`, `atomic/1`, `compound/1`, `callable/1`, `ground/1` |
 | Profile term order | `compare/3`, `@</2`, `@=</2`, `@>/2`, `@>=/2` |
@@ -5185,8 +5197,8 @@ contains 114 name/arity entries across 93 names.
 | Term output | `write/1`, `write/2`, `writeq/1`, `writeq/2`, `write_canonical/1`, `write_canonical/2`, `write_term/2`, `write_term/3` |
 | Arithmetic | `is/2`, `=:=/2`, `=\=/2`, `</2`, `=</2`, `>/2`, `>=/2` |
 
-The atom `false` is reserved for Eyepl inference-fuse heads; ordinary Prolog
-failure is `fail`.
+`false/0` and `fail/0` both fail as goals. `false/0` is a protected static
+procedure and cannot be defined by source clauses or declared dynamic.
 
 ### Arithmetic expressions
 
@@ -5229,7 +5241,7 @@ source module and no runtime Prolog-library parse or program overlay.
 ISO-only registry remains available through `createDefaultRegistry()` and
 `getDefaultRegistry()` for conformance work and advanced embedders.
 
-The complete registry contains **168 predicate indicators**: 114 in the isolated
+The complete registry contains **169 predicate indicators**: 115 in the isolated
 ISO profile and 54 Eyepl library indicators implemented in `src/library.js`. Every
 Eyepl library definition is tagged with `eyeplLibrary: true`, so tests and
 embedders can audit the boundary directly.
@@ -5530,8 +5542,7 @@ eyepl --stats --goal 'path(a, X)' examples/path-discovery.pl > answers.pl 2> run
 Normal answers and `why/2` terms go to stdout, which makes them suitable for a
 golden file or another Eyepl input. Warnings and statistics go to stderr so
 they do not corrupt that logical stream. A successful run normally exits with
-status zero; an inference fuse uses status `65`; loading, syntax, option, and
-other uncaught errors use status `1`. `halt/0-1` can deliberately choose the
+status zero; loading, syntax, option, and other uncaught errors use status `1`. `halt/0-1` can deliberately choose the
 process status from inside a program.
 
 Statistics are comparative evidence, not a score in isolation. Preserve the
@@ -5558,7 +5569,7 @@ all three channels before rerunning it.
 
 For a first week, run `socrates.pl` and `ancestor.pl`, rewrite them from memory,
 inspect their proofs, learn `member/2`, `append/3`, and `select/3`, solve one
-finite puzzle, and add one inference fuse.
+finite puzzle, and add one explicit integrity query.
 
 ### Course-length schedules
 
@@ -5570,7 +5581,7 @@ include prediction, execution, one changed input, and a short explanation.
 | 1 | Chapters 1–2; Socrates and family facts | Chapters 1–2; Laboratory 1 begins | Chapters 1–2; predicates, terms, and unification |
 | 2 | Chapters 3–5; recursion and lists | Chapters 3–5; Laboratories 1–2 | Chapters 3–4; rules, semantics, and recursion |
 | 3 | Chapters 6–10; one finite puzzle | Chapters 6–8; finite generation and absence | Chapters 5–6; lists and arithmetic |
-| 4 | Chapters 11–14 and 17–20; proof, integrity, construction | Chapters 9–12; contexts, models, proofs, and fuses | Chapters 7–8; negation and aggregation |
+| 4 | Chapters 11–14 and 17–20; proof, integrity, construction | Chapters 9–12; contexts, models, proofs, and integrity checks | Chapters 7–8; negation and aggregation |
 | 5 | Choose Chapters 21–25 or 26–30 | Chapters 13–16; performance and boundaries | Chapters 9–10; structured data and finite models |
 | 6 | Chapters 31–33; release matrix and reflection | Chapters 17–20; construction and improvement | Chapters 11–12; answers, proofs, and integrity |
 | 7 | — | Chapters 21–25; one advanced case | Chapters 13–14; termination and knowledge engineering |
@@ -5615,7 +5626,7 @@ Review questions:
 4. Why should variables usually be bound before `\+/1`?
 5. What does automatic tabling solve, and what does it not solve?
 6. Why is proof output useful when the answer is already known?
-7. When is a fuse preferable to an ordinary `invalid/1` conclusion?
+7. When should a host query an `invalid/1` relation before domain decisions?
 8. What does an explicit RDF adapter preserve about the core language?
 9. In what sense is a ground query answer an existential witness?
 10. Why are partial correctness, completeness, and termination three different
@@ -5886,7 +5897,7 @@ decisions, reasons, integrity conditions, and proof.
 | [Purpose mapping](https://github.com/eyereasoner/eyepl/blob/main/examples/dpv-odrl-purpose-mapping.pl) | Explicit mapping relations connect two policy vocabularies. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/dpv-odrl-purpose-mapping.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/dpv-odrl-purpose-mapping.pl) |
 | [Trust-flow provenance threshold](https://github.com/eyereasoner/eyepl/blob/main/examples/trust-flow-provenance-threshold.pl) | Provenance and trust values remain premises of the derived threshold decision, including its arithmetic and comparison steps. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/trust-flow-provenance-threshold.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/trust-flow-provenance-threshold.pl) |
 | [Data negotiation](https://github.com/eyereasoner/eyepl/blob/main/examples/data-negotiation.pl) | Offered and required data conditions derive an agreement or mismatch. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/data-negotiation.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/data-negotiation.pl) |
-| [Inference fuse](https://github.com/eyereasoner/eyepl/blob/main/examples/inference-fuse.pl) | A forbidden state aborts evaluation before ordinary decisions are emitted. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/inference-fuse.pl) |
+| [Integrity check](https://github.com/eyereasoner/eyepl/blob/main/examples/integrity-check.pl) | An explicit invalid-state relation reports contradictory input and a diagnostic status. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/integrity-check.pl) |
 
 When studying a policy proof, circle every premise imported from outside the
 theory. The derivation validates the transition from those premises to the
@@ -6005,7 +6016,7 @@ node test/run-conformance-report.mjs
 ```
 
 The complete suite must pass before release. The file-based conformance corpus
-contains 690 cases, including 277 focused ISO
+contains 686 cases, including 279 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 200 normal
 examples, 55 proof examples, and extracted book displays. The seven-case
@@ -6034,8 +6045,8 @@ termination. `compare/3`, `callable/1`, `ground/1`, and `term_variables/2` are
 additional compatibility conveniences.
 
 This breadth is not a formal certification of every processor requirement.
-The executable examples are Eyepl-profile programs; invoke them with `--goal`,
-strings, inference fuses, automatic tabling, or the Eyepl library.
+The executable examples are Eyepl-profile programs using host-supplied goals,
+strings, explicit integrity relations, automatic tabling, and the Eyepl library.
 The remaining qualifications are:
 
 - zero-arity compound syntax such as `ready()` is represented by the atom
@@ -6103,7 +6114,7 @@ specifications.
 
 - Kurt Gödel,
   [“Über formal unentscheidbare Sätze der *Principia Mathematica* und
-  verwandter Systeme I”](https://doi.org/10.1007/BF01700692),
+  verwandter Systeme I”](https://doi.org/10.1007/BF01700686),
   *Monatshefte für Mathematik und Physik* 38, 1931, pp. 173–198. The
   incompleteness theorems establish intrinsic limits for sufficiently
   expressive effectively axiomatized formal systems. Chapter 30 treats such
@@ -6338,8 +6349,8 @@ and function symbols of a program.
 **Indexing.** Implementation machinery that narrows candidate clauses using
 bound arguments without changing the intended answer set.
 
-**Inference fuse.** A rule headed by `false`. If its body succeeds, Eyepl aborts
-before ordinary query execution.
+**Integrity check.** An ordinary predicate whose answers identify invalid input.
+The host decides whether to reject, report, or inspect those answers.
 
 **Least Herbrand model.** The smallest Herbrand interpretation satisfying a
 definite program; equivalently, the fixed point obtained by repeatedly adding
@@ -6467,7 +6478,7 @@ grandparent, and cousin.
 **Requirements:**
 
 - state the ground reading and principal modes of every predicate;
-- prevent a person from being their own parent with a fuse;
+- expose a person being their own parent through an integrity relation;
 - include one family branch that produces multiple cousins;
 - query both forward and inverse modes.
 
@@ -6613,7 +6624,7 @@ occurs?
 
 - separate source, normalized concept, decision, and reason layers;
 - state every closed-world assumption;
-- add at least three inference fuses;
+- add at least three explicit integrity relations;
 - retain source and theory version facts;
 - produce proof goldens for one permit and one denial-like conclusion.
 
@@ -6633,7 +6644,7 @@ epidemiology, or statistics.
 - document every quantity and unit;
 - expose derived intermediate quantities;
 - include valid, boundary, and invalid scenarios;
-- use a fuse for an impossible input state;
+- use an integrity relation for an impossible input state;
 - state floating-point and approximation assumptions.
 
 **Acceptance:** a proof for the final classification includes measurements,
@@ -6670,7 +6681,7 @@ core?
 - define a JavaScript boundary that supplies or loads facts;
 - validate inputs before constructing the theory;
 - test the principal modes and expected solution counts of public predicates;
-- include semantic cases, bounded properties, metamorphic tests, fuses,
+- include semantic cases, bounded properties, metamorphic tests, integrity queries,
   warnings, proof goldens, and one scale case;
 - retain source snapshot, theory version, and proof with every audited result;
 - state time, memory, solution, and proof-size budgets;

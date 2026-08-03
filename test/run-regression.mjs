@@ -371,36 +371,23 @@ why(
       },
     },
     {
-      name: 'CLI inference fuse exits with code 65 and reports its match',
+      name: 'CLI false/0 fails as an ordinary goal',
       run: () => {
-        const input = [
-          '%% goal: answer(X)',
-          'bad(a).',
-          'false :- bad(X).',
-          'answer(ok) :- ok = ok.',
-          '',
-        ].join('\n');
+        const input = '%% goal: answer(X)\nanswer(ok) :- false.\n';
         const result = runCli(['-'], { input });
-        assertEqual(result.status, 65, 'exit status');
-        assertEqual(result.stdout, [
-          '% Inference fuse triggered.',
-          '% Fired rule:',
-          '%   false :- bad(X).',
-          '% Matched instance:',
-          '%   false :- bad(a).',
-          '',
-        ].join('\n'), 'stdout');
+        assertEqual(result.status, 0, 'exit status');
+        assertEqual(result.stdout, '', 'stdout');
         assertEqual(result.stderr, '', 'stderr');
       },
     },
     {
-      name: 'non-matching inference fuse permits queries',
+      name: 'CLI rejects clauses headed by false/0',
       run: () => {
-        const input = '%% goal: answer(X)\nbad(a).\nfalse :- bad(X), X = b.\nanswer(ok) :- ok = ok.\n';
+        const input = 'false :- true.\n';
         const result = runCli(['-'], { input });
-        assertEqual(result.status, 0, 'exit status');
-        assertEqual(result.stdout, 'answer(ok).\n', 'stdout');
-        assertEqual(result.stderr, '', 'stderr');
+        assertEqual(result.status, 1, 'exit status');
+        assertEqual(result.stdout, '', 'stdout');
+        assertIncludes(result.stderr, 'error(permission_error(modify, static_procedure), /(false, 0))', 'stderr');
       },
     },
   ];
@@ -672,32 +659,26 @@ function apiCases() {
       },
     },
     {
-      name: 'run exposes inference fuse errors and exit code',
+      name: 'run exposes false/0 as an always-failing built-in',
       run: () => {
-        let error = null;
-        try {
-          run('bad(a).\nfalse :- bad(X).\n');
-        } catch (caught) {
-          error = caught;
-        }
-        assertEqual(error?.name, 'InferenceFuseError', 'error name');
-        assertEqual(error?.code, publicApi.INFERENCE_FUSE_EXIT_CODE, 'error code');
-        assertEqual(error?.code, 65, 'standard fuse exit code');
-        assertIncludes(error?.stdout ?? '', '%   false :- bad(a).\n', 'matched fuse');
+        const result = run('answer(ok) :- false.\n', { goal: 'answer(X)' });
+        assertEqual(result.stdout, '', 'stdout');
+        assertEqual(Boolean(createDefaultRegistry().get('false', 0)), true, 'false/0 is registered');
       },
     },
     {
-      name: 'bare false is an unconditional inference fuse',
+      name: 'source clauses cannot redefine false/0',
       run: () => {
-        let error = null;
-        try {
-          run('false.\n');
-        } catch (caught) {
-          error = caught;
+        for (const source of ['false.\n', 'false :- true.\n', ':- dynamic(false/0).\n']) {
+          let error = null;
+          try {
+            Program.parse(source);
+          } catch (caught) {
+            error = caught;
+          }
+          assertEqual(error?.name, 'PrologError', 'error name');
+          assertEqual(error?.message, 'error(permission_error(modify, static_procedure), /(false, 0))', 'error');
         }
-        assertEqual(error?.code, 65, 'error code');
-        assertIncludes(error?.stdout ?? '', '%   false.\n', 'fired fuse');
-        assertNotIncludes(error?.stdout ?? '', 'Matched instance:', 'unconditional fuse output');
       },
     },
 
@@ -880,7 +861,7 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not ISO core');
         assertEqual(library.eyeplLibrary, true, 'complete registry marker');
-        assertEqual(library.defs.size, 168, 'complete registry size');
+        assertEqual(library.defs.size, 169, 'complete registry size');
         assertEqual(registeredEyeplLibraryNames().length, 54, 'Eyepl library size');
         assertEqual(library.get('append', 3)?.eyeplLibrary, true, 'append/3 metadata');
         assertEqual(library.get('maplist', 3)?.eyeplLibrary, true, 'maplist/3 metadata');

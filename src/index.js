@@ -3,7 +3,6 @@
 export { Program, makeProgram } from './program.js';
 export { parseClauses, parseGoalText, parseProgramText } from './parser.js';
 export { Solver } from './solver.js';
-export { INFERENCE_FUSE_EXIT_CODE, InferenceFuseError, checkInferenceFuses, formatInferenceFuse } from './fuse.js';
 export * from './term.js';
 export {
   BuiltinRegistry,
@@ -24,7 +23,6 @@ import { Solver } from './solver.js';
 import { whyNoProof, whyProof } from './explain.js';
 import { HaltSignal, PrologError } from './iso.js';
 import { getEyeplRegistry } from './library.js';
-import { checkInferenceFuses } from './fuse.js';
 import { parseGoalText } from './parser.js';
 
 export function run(source, options = {}) {
@@ -45,7 +43,6 @@ export function run(source, options = {}) {
     },
   });
   program = solver.program;
-  checkInferenceFuses(program, solver);
   const goals = normalizeGoals(options);
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
   const facts = program.sourceFactLines(queriedKeys);

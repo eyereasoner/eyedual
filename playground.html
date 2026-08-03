@@ -537,7 +537,7 @@
           "heron-theorem",
           "ideal-gas-law",
           "illegitimate-reasoning",
-          "inference-fuse",
+          "integrity-check",
           "integer-partitions",
           "intuitionistic-logic-kripke",
           "iso-atomic-conversion",
@@ -1046,12 +1046,6 @@
       runButton.disabled = false;
       stopButton.disabled = true;
       if (!message.ok) {
-        if (message.code === 65) {
-          output.textContent = message.stdout || '% Inference fuse triggered.\n';
-          elapsed.textContent = 'Fuse triggered.';
-          setStatus('Inference fuse triggered.', true);
-          return;
-        }
         const errorText = message.error || 'Unknown error.';
         const parseLine = extractParseErrorLine(errorText);
         const editorLine = editorLineForParseLine(parseLine);

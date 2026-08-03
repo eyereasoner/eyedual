@@ -1,5 +1,5 @@
 % From The Art of Eyepl, Chapter 33 — Pattern 9: Integrity before inference.
-false :-
+invalid_badge_assignment(Badge, PersonA, PersonB) :-
   assigned_badge(PersonA, Badge),
   assigned_badge(PersonB, Badge),
   (PersonA \= PersonB).

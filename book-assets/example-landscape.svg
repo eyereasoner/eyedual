@@ -25,7 +25,7 @@
   <path class="region" fill="#ead7d7" d="M35 280H245L300 345L270 440H35Z"/>
   <text class="label" x="145" y="326" text-anchor="middle">POLICY &amp; TRUST</text>
   <text class="small" x="145" y="353" text-anchor="middle">decisions · provenance</text>
-  <text class="small" x="145" y="374" text-anchor="middle">fuses · audit</text>
+  <text class="small" x="145" y="374" text-anchor="middle">integrity · audit</text>
 
   <path class="region" fill="#c7dfe2" d="M655 280H865V440H630L600 345Z"/>
   <text class="label" x="755" y="326" text-anchor="middle">SCIENCE &amp; RDF</text>

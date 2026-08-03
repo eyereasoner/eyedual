@@ -1,6 +1,6 @@
 // Program representation and clause indexing.
 // Indexes are deliberately conservative: they speed up common scalar arguments but never replace unification as the final check.
-import { ATOM, COMPOUND, VAR, Env, atom, deref, flattenConjunction, isScalar, properListItems, termToString } from './term.js';
+import { ATOM, COMPOUND, VAR, Env, atom, compound, deref, flattenConjunction, isScalar, numberTerm, properListItems, termToString } from './term.js';
 import { ISO_OPERATOR_DEFINITIONS, parseClauses } from './parser.js';
 import { PrologError } from './iso.js';
 import { currentWorkingDirectory, fs, path } from './platform.js';
@@ -14,13 +14,16 @@ export class Program {
     for (const [priority, specifier, name] of ISO_OPERATOR_DEFINITIONS) {
       this.defineOperator(priority, specifier, name);
     }
-    this.fuses = [];
     this.initializations = [];
     this.prologFlagDirectives = [];
     this.charConversionDirectives = [];
     this._revisionState = { value: 0 };
     for (const clause of this.clauses) {
-      for (const indicator of dynamicDirectiveIndicators(clause)) this.dynamicPredicates.add(indicator.key);
+      assertClauseHeadIsDefinable(clause);
+      for (const indicator of dynamicDirectiveIndicators(clause)) {
+        assertDynamicIndicatorIsDefinable(indicator);
+        this.dynamicPredicates.add(indicator.key);
+      }
       const operator = operatorDirective(clause);
       if (operator) {
         for (const name of operator.names) this.defineOperator(operator.priority, operator.specifier, name);
@@ -48,10 +51,6 @@ export class Program {
       const clause = this.clauses[index];
       clause.index = index;
       if (isDirectiveClause(clause)) continue;
-      if (isInferenceFuse(clause)) {
-        this.fuses.push(clause);
-        continue;
-      }
       this.indexClause(clause);
     }
     this._negationAnalysis = null;
@@ -105,6 +104,7 @@ export class Program {
   }
   indexClause(clause) {
     const head = clause.head;
+    assertHeadIsDefinable(head);
     if (head.type !== ATOM && head.type !== COMPOUND) return;
     const key = `${head.name}/${head.arity}`;
     let group = this.groups.get(key);
@@ -126,6 +126,7 @@ export class Program {
     return this.groups.get(`${name}/${arity}`) ?? null;
   }
   ensureDynamicGroup(name, arity) {
+    assertPredicateIsDefinable(name, arity);
     const key = `${name}/${arity}`;
     let group = this.groups.get(key);
     if (!group) {
@@ -401,8 +402,29 @@ function operatorDirective(clause) {
   };
 }
 
-function isInferenceFuse(clause) {
-  return clause.head.type === ATOM && clause.head.name === 'false';
+function assertClauseHeadIsDefinable(clause) {
+  if (!isDirectiveClause(clause)) assertHeadIsDefinable(clause.head);
+}
+
+function assertHeadIsDefinable(head) {
+  if (head.type === ATOM) assertPredicateIsDefinable(head.name, head.arity);
+}
+
+function assertDynamicIndicatorIsDefinable(indicator) {
+  assertPredicateIsDefinable(indicator.name, indicator.arity);
+}
+
+function assertPredicateIsDefinable(name, arity) {
+  if (name === 'false' && arity === 0) {
+    throw staticProcedureModificationError(name, arity);
+  }
+}
+
+function staticProcedureModificationError(name, arity) {
+  return new PrologError(
+    'permission_error(modify, static_procedure)',
+    compound('/', [atom(name), numberTerm(arity)]),
+  );
 }
 
 function componentHasNegativeEdge(start, deps, negativeEdges) {

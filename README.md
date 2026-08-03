@@ -97,19 +97,19 @@ console.log(result.stdout);
 The default runtime includes Eyepl's ISO/IEC 13211-1:1995 core profile plus
 54 Eyepl library predicates implemented in `src/library.js`, covering strings,
 lists, aggregation, dates, and arithmetic. The ISO profile itself has
-114 registered predicate indicators across 93 names.
+115 registered predicate indicators across 94 names.
 
 This is broad standards coverage, not a formal certification claim. Eyepl
 retains documented host conventions—most visibly host-supplied goals, automatic tabling,
-inference fuses, and a distinct double-quoted string scalar—and exhaustive
+explicit integrity checks, and a distinct double-quoted string scalar—and exhaustive
 standard error/option combinations remain part of the conformance work.
 Library predicates such as `append/3`, `member/2`, and `select/3` are available
 without a CLI flag or JavaScript registry option.
 
 Advanced embedders and the ISO conformance suite can still select the isolated
 core registry explicitly with `createDefaultRegistry()` or
-`getDefaultRegistry()`. `createEyeplRegistry()` creates the complete 168-entry
-registry: 114 ISO indicators and 54 Eyepl library indicators. Normal applications can rely on the default and do not need to
+`getDefaultRegistry()`. `createEyeplRegistry()` creates the complete 169-entry
+registry: 115 ISO indicators and 54 Eyepl library indicators. Normal applications can rely on the default and do not need to
 install either explicitly.
 
 ISO streams are solver-owned and shared by nested goals. JavaScript callers
@@ -124,9 +124,11 @@ const result = run(source, {
 });
 ```
 
-Rules headed by `false` are inference fuses. A matching fuse aborts before
-queries run; the CLI exits with code `65`, while the JavaScript API throws an
-`InferenceFuseError` carrying the same code and a matched-rule diagnostic.
+`false/0` is the ISO built-in predicate that always fails. It is a protected
+static procedure: source clauses headed by `false` and declarations that make
+`false/0` dynamic raise `permission_error(modify, static_procedure)`. Model
+domain integrity conditions as ordinary predicates such as `invalid_state/2`,
+and have the host query them explicitly before trusting downstream decisions.
 
 ## STEM showcase: evidence-backed diagnosis
 
@@ -196,8 +198,8 @@ in *The Art of Eyepl* covers the mapping and `--include-source` behavior.
 
 ## Tests
 
-Every release must pass the complete test suite. The current 690-file
-conformance corpus includes 277 focused ISO cases covering the success,
+Every release must pass the complete test suite. The current 686-file
+conformance corpus includes 279 focused ISO cases covering the success,
 failure, mode, and error behavior derived from ISO/IEC 13211-1 clauses 7 and
 8. The generated `conformance-report.md` is the authoritative source for
 current category totals.

@@ -76,10 +76,10 @@ npm run generate
 
 - [01-why.pl](chapter-11/01-why.pl)
 
-## Chapter 12: Integrity constraints and inference fuses
+## Chapter 12: Integrity checks as ordinary predicates
 
-- [01-program.pl](chapter-12/01-program.pl)
-- [02-program-2.pl](chapter-12/02-program-2.pl)
+- [01-invalid_probability.pl](chapter-12/01-invalid_probability.pl)
+- [02-invalid_assignment.pl](chapter-12/02-invalid_assignment.pl)
 
 ## Chapter 14: Knowledge engineering
 
@@ -112,7 +112,7 @@ npm run generate
 ## Chapter 19: Correctness and termination
 
 - [01-factorial.pl](chapter-19/01-factorial.pl) — Termination needs its own argument
-- [02-program.pl](chapter-19/02-program.pl) — Integrity is not merely failure
+- [02-invalid_limits.pl](chapter-19/02-invalid_limits.pl) — Integrity is not merely failure
 
 ## Chapter 20: Improving a program
 
@@ -198,7 +198,7 @@ npm run generate
 - [06-step.pl](chapter-33/06-step.pl) — Pattern 6: Explicit state transition
 - [07-depends.pl](chapter-33/07-depends.pl) — Pattern 7: Fixed-point closure
 - [08-within_limit.pl](chapter-33/08-within_limit.pl) — Pattern 8: Proof façade
-- [09-program.pl](chapter-33/09-program.pl) — Pattern 9: Integrity before inference
+- [09-invalid_badge_assignment.pl](chapter-33/09-invalid_badge_assignment.pl) — Pattern 9: Integrity before inference
 - [10-theory_version.pl](chapter-33/10-theory_version.pl) — Pattern 10: Version the evidence boundary
 
 ## Chapter 34: Control, exceptions, and grouped solutions
