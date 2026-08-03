@@ -78,47 +78,40 @@ The governing design rule is:
 
 ## Compared with alternatives
 
-### Notation3 and EYE
+### Notation3
 
-Eyepl does not begin from a blank slate. It grows out of approximately 25 years of work on Web reasoning with [Notation3](https://w3c.github.io/N3/spec/) and the [EYE reasoner](https://github.com/eyereasoner/eye).
+[Notation3](https://w3c.github.io/N3/spec/) should be considered independently of any particular reasoner. It is a Web-native logic language that extends the RDF family with quoted formulae, implication, variables, built-in relations, and rules. Facts, rules, queries, and conclusions can all be expressed in one compact notation.
 
-Notation3 is unusually important in this comparison because it already joins RDF syntax and executable rules. N3 extends the RDF family with quoted formulae, implication, variables, built-in relations, and rule constructs. Facts, rules, queries, and conclusions can all remain in a compact Web-native notation. EYE has shown over many years that this model can support practical forward, backward, and proof-producing reasoning over linked data.
-
-That history gives N3 and EYE strengths that Eyepl should acknowledge explicitly:
+That design gives N3 distinctive strengths:
 
 - rules and RDF data share one Web-native syntax;
-- formulae can be quoted, nested, passed as terms, and reasoned about;
-- IRIs identify both vocabulary and built-in relations;
-- the language naturally supports rule exchange as linked data;
-- EYE has a mature body of examples, deployments, interoperability experience, and proof work; and
-- the approach has been tested against real Semantic Web use cases for decades.
+- rules can themselves be published, linked, quoted, and exchanged as data;
+- formulae can be nested, passed as terms, and reasoned about;
+- IRIs identify vocabulary and built-in relations;
+- graph-level metareasoning is part of the language model; and
+- the notation remains closely connected to Semantic Web architecture.
 
-N3 is therefore more than an alternative implementation. It is the principal practical lineage from which Eyepl emerges.
+N3 is therefore not merely an RDF serialization with rule syntax added. It offers an integrated model in which data, rules, and quoted graphs belong to the same language.
 
-Its standards position is nevertheless different. The W3C N3 Community Group develops separate language, built-in, and semantics specifications, but its reports are Community Group work: they are not W3C Standards and are not currently on the W3C Standards Track. The N3 language also defines a complete logic notation beyond RDF, so interoperability depends on processors agreeing on that additional syntax, semantics, and built-in vocabulary.
+Its standards position differs from Eyepl's. The W3C N3 Community Group develops language, built-in, and semantics specifications, but Community Group reports are not W3C Standards and are not currently on the W3C Standards Track. N3 also defines a complete logic notation beyond RDF, so interoperability depends on processors agreeing on that additional syntax, semantics, and built-in vocabulary.
 
-Eyepl explores a complementary design:
+Eyepl explores a complementary standards architecture:
 
-- retain ISO Prolog as the rule language rather than defining another complete rule language;
-- retain RDF 1.2 as the external graph model;
-- make the mapping between Prolog terms and RDF terms explicit;
-- keep standardized Prolog constructs at their standardized meanings;
-- expose the integration profile as a small, testable boundary; and
-- provide proofs without requiring rules themselves to use RDF syntax.
+- ISO Prolog is the rule language;
+- RDF 1.2 is the external graph data model;
+- the mapping between Prolog terms and RDF terms is explicit;
+- standardized Prolog constructs retain their standardized meanings; and
+- proofs are produced without requiring rules themselves to use RDF syntax.
 
 The trade-off is clear.
 
-N3 and EYE are stronger when rules should themselves be Web data, when quoted formulae and graph-level metareasoning are central, or when compatibility with the established N3 ecosystem matters. Eyepl is stronger when users want conventional Prolog syntax and semantics, an ISO-defined language core, direct term-level programming, or a sharply separated interface between logic and RDF.
+N3 is stronger when rules should themselves be Web data, or when quoted formulae and graph-level metareasoning are central. Eyepl is stronger when users want conventional Prolog syntax and semantics, an ISO-defined language core, direct term-level programming, or a sharply separated interface between executable logic and RDF data.
 
-Eyepl should therefore not be described as replacing N3 or EYE. A better description is:
-
-> **Eyepl carries forward 25 years of EYE and Notation3 reasoning experience while testing a different standards architecture: ISO Prolog for rules, RDF 1.2 for linked data, and an explicit bridge between them.**
-
-The two approaches may also interoperate. N3 can remain the Web-native exchange and publication form, while compatible rules or data are translated into Eyepl for ISO-Prolog execution. Conversely, Eyepl conclusions and proofs can be serialized as RDF or N3 for use by existing Semantic Web tooling.
+The two approaches can interoperate at the language and data-model level. N3 can serve as a Web-native exchange and publication form, while compatible rules or data are translated into Eyepl for ISO-Prolog execution. Eyepl conclusions and proofs can in turn be serialized as RDF or N3.
 
 In brief:
 
-> **N3 and EYE provide the proven Web-reasoning lineage; Eyepl asks whether that experience can be grounded in a smaller composition of established standards.**
+> **Notation3 provides an integrated, Web-native language for data and rules; Eyepl separates an ISO-standard rule language from the RDF data model and makes the bridge explicit.**
 
 ### RIF
 
@@ -288,7 +281,6 @@ That is a focused and defensible reason for Eyepl to exist.
 
 - [Notation3 Language](https://w3c.github.io/N3/spec/)
 - [Notation3 Community Group](https://www.w3.org/groups/cg/n3-dev)
-- [EYE reasoner](https://github.com/eyereasoner/eye)
 - [ISO/IEC 13211-1:1995 — Prolog, Part 1: General core](https://www.iso.org/standard/21413.html)
 - [RDF 1.2 Concepts and Abstract Data Model](https://www.w3.org/TR/rdf12-concepts/)
 - [SHACL 1.2 Rules](https://www.w3.org/TR/shacl12-rules/)
