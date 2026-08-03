@@ -2,8 +2,6 @@
   <img src="book-assets/title-page.svg" alt="Integrated front page for The Art of Eyepl showing the title, subtitle, author, a central eye, and panels for relation graph, executable clauses, and syntax tree." width="720">
 </p>
 
-**Applies to Eyepl:** `0.2.8`
-
 **Copyright © 2021–2026 Jos De Roo, KNoWS office of IDLab, Ghent University –
 imec.** This book is licensed under [Creative Commons Attribution 4.0
 International](https://creativecommons.org/licenses/by/4.0/). You may copy,

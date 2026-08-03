@@ -1474,12 +1474,6 @@ function bookMetadataSyncIssues() {
       .filter((name) => name.endsWith('.pl')).length, 0);
   const issues = [];
 
-  const version = book.match(/^\*\*Applies to Eyepl:\*\* `([^`]+)`$/m)?.[1];
-  if (version == null) issues.push('the-art-of-eyepl.md: applicability version not found');
-  else if (version !== pkg.version) {
-    issues.push(`the-art-of-eyepl.md: applicability version ${version} != ${pkg.version}`);
-  }
-
   const checks = [
     {
       file: 'README.md',
