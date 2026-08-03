@@ -63,23 +63,21 @@
 
   <!-- upper labels -->
   <g id="labels">
-    <text x="210" y="455" text-anchor="middle" class="section wine">RELATIONS</text>
-    <text x="210" y="480" text-anchor="middle" class="smallserif wine">(LOGIC)</text>
-    <text x="790" y="455" text-anchor="middle" class="section green">LINKED DATA</text>
-    <text x="790" y="480" text-anchor="middle" class="smallserif green">(RDF)</text>
+    <text x="210" y="455" text-anchor="middle" class="section wine">ISO PROLOG</text>
+    <text x="210" y="480" text-anchor="middle" class="smallserif wine">(RULES)</text>
+    <text x="790" y="455" text-anchor="middle" class="section green">RDF 1.2</text>
+    <text x="790" y="480" text-anchor="middle" class="smallserif green">(LINKED DATA)</text>
   </g>
 
   <!-- hero diagrams -->
-  <g id="logic-graph">
-    <line x1="145" y1="610" x2="210" y2="540" class="green-stroke mid round"/>
-    <line x1="210" y1="540" x2="275" y2="610" class="green-stroke mid round"/>
-    <line x1="145" y1="610" x2="275" y2="610" class="green-stroke mid round"/>
-    <circle cx="210" cy="540" r="28" class="node"/>
-    <circle cx="145" cy="610" r="28" class="node"/>
-    <circle cx="275" cy="610" r="28" class="node"/>
-    <text x="210" y="548" text-anchor="middle" class="label">a</text>
-    <text x="145" y="618" text-anchor="middle" class="label">b</text>
-    <text x="275" y="618" text-anchor="middle" class="label">c</text>
+  <g id="prolog-rules">
+    <rect x="80" y="510" width="220" height="180" rx="18"
+          fill="#fffdf8" stroke="#94493f" stroke-width="3"/>
+    <text x="100" y="552" class="codesm" style="font-size:14px">path(X, Y) :-</text>
+    <text x="122" y="580" class="codesm" style="font-size:14px">edge(X, Y).</text>
+    <text x="100" y="615" class="codesm" style="font-size:14px">path(X, Y) :-</text>
+    <text x="122" y="643" class="codesm" style="font-size:14px">edge(X, Z),</text>
+    <text x="122" y="671" class="codesm" style="font-size:14px">path(Z, Y).</text>
   </g>
 
   <g id="rdf-graph">
@@ -111,7 +109,7 @@
           class="navy-stroke mid round"/>
 
     <path d="M442 488 L558 488 L572 556 L428 556 Z" fill="#f0ddb5" stroke="#233a59" stroke-width="3"/>
-    <text x="500" y="523" text-anchor="middle" class="section navy" style="font-size:14px; letter-spacing:0.5px;">ENTAILMENT</text>
+    <text x="500" y="523" text-anchor="middle" class="section navy" style="font-size:14px; letter-spacing:0.5px;">WEBENTAIL</text>
 
     <rect x="290" y="690" width="68" height="148" rx="7" fill="#ead6a8" stroke="#233a59" stroke-width="3"/>
     <rect x="278" y="676" width="92" height="22" rx="5" fill="#d7ba7b" stroke="#233a59" stroke-width="3"/>
@@ -149,47 +147,43 @@
   <g id="panel1">
     <rect x="45" y="925" width="280" height="360" rx="28" class="panel" stroke="#94493f"/>
     <circle cx="185" cy="925" r="38" fill="#fffdf8" stroke="#94493f" stroke-width="3"/>
-    <circle cx="185" cy="908" r="7" fill="#fffdf8" stroke="#94493f" stroke-width="3"/>
-    <circle cx="166" cy="942" r="7" fill="#fffdf8" stroke="#94493f" stroke-width="3"/>
-    <circle cx="204" cy="942" r="7" fill="#fffdf8" stroke="#94493f" stroke-width="3"/>
-    <path d="M185 915 L166 935 M185 915 L204 935 M166 942 L204 942" class="wine-stroke mid round"/>
-    <text x="185" y="990" text-anchor="middle" class="paneltitle wine">1. RELATION GRAPH</text>
+    <text x="185" y="936" text-anchor="middle" class="code wine" style="font-size:27px">:-</text>
+    <text x="185" y="990" text-anchor="middle" class="paneltitle wine" style="font-size:20px">1. ISO PROLOG RULES</text>
 
-    <line x1="105" y1="1045" x2="160" y2="1100" class="green-stroke mid round"/>
-    <line x1="160" y1="1100" x2="225" y2="1060" class="green-stroke mid round"/>
-    <line x1="225" y1="1060" x2="268" y2="1128" class="green-stroke mid round" stroke-dasharray="6 6"/>
-    <circle cx="105" cy="1045" r="21" class="node"/>
-    <circle cx="160" cy="1100" r="21" class="node"/>
-    <circle cx="225" cy="1060" r="21" class="node"/>
-    <circle cx="268" cy="1128" r="21" class="node"/>
-    <text x="105" y="1052" text-anchor="middle" class="label">a</text>
-    <text x="160" y="1107" text-anchor="middle" class="label">b</text>
-    <text x="225" y="1067" text-anchor="middle" class="label">c</text>
-    <text x="268" y="1135" text-anchor="middle" class="label">d</text>
+    <text x="75" y="1050" class="codesm">path(X, Y) :-</text>
+    <text x="100" y="1080" class="codesm">edge(X, Y).</text>
 
-    <text x="82" y="1188" class="codesm">path(a, b).</text>
-    <text x="82" y="1217" class="codesm">path(b, c).</text>
-    <text x="82" y="1246" class="codesm">edge(c, d).</text>
+    <text x="75" y="1130" class="codesm">path(X, Y) :-</text>
+    <text x="100" y="1160" class="codesm">edge(X, Z),</text>
+    <text x="100" y="1190" class="codesm">path(Z, Y).</text>
+
+    <line x1="75" y1="1220" x2="295" y2="1220" class="wine-stroke thin"/>
+    <text x="185" y="1250" text-anchor="middle" class="smallserif wine" style="font-size:16px">clauses · unification · recursion</text>
   </g>
 
   <g id="panel2">
     <rect x="340" y="925" width="320" height="360" rx="28" class="panel" stroke="#2f7d63"/>
     <circle cx="500" cy="925" r="38" fill="#fffdf8" stroke="#2f7d63" stroke-width="3"/>
-    <text x="500" y="936" text-anchor="middle" class="code green" style="font-size:28px">&lt;/&gt;</text>
-    <text x="500" y="990" text-anchor="middle" class="paneltitle green">2. EXECUTABLE CLAUSES</text>
+    <circle cx="484" cy="925" r="6" class="rdfnode"/>
+    <circle cx="516" cy="908" r="6" class="rdfnode"/>
+    <circle cx="520" cy="942" r="6" class="rdfnode"/>
+    <path d="M490 922 L510 911 M490 928 L514 939 M516 914 L519 936" class="green-stroke thin round"/>
+    <text x="500" y="990" text-anchor="middle" class="paneltitle green">2. RDF 1.2 DATASET</text>
 
-    <text x="375" y="1045" class="code">path(X, Y) :- edge(X, Y).</text>
-    <text x="375" y="1095" class="code">path(X, Y) :-</text>
-    <text x="415" y="1128" class="code">edge(X, Z),</text>
-    <text x="415" y="1161" class="code">path(Z, Y).</text>
+    <circle cx="405" cy="1060" r="18" class="rdfnode"/>
+    <circle cx="500" cy="1060" r="18" class="rdfnode"/>
+    <circle cx="595" cy="1060" r="18" class="rdfnode"/>
+    <line x1="423" y1="1060" x2="482" y2="1060" class="green-stroke mid round"/>
+    <line x1="518" y1="1060" x2="577" y2="1060" class="green-stroke mid round"/>
 
-    <rect x="376" y="1208" width="248" height="44" rx="8" fill="#f4f7f1" stroke="#2f7d63" stroke-width="2"/>
-    <text x="500" y="1228" text-anchor="middle" class="codesm">webentail --goal</text>
-    <text x="500" y="1245" text-anchor="middle" class="codesm">'path(a, X)' program.pl</text>
+    <rect x="375" y="1110" width="250" height="38" rx="8" fill="#f4f7f1" stroke="#2f7d63" stroke-width="2"/>
+    <text x="500" y="1135" text-anchor="middle" class="codesm">ex:alice ex:knows ex:bob</text>
 
-    <circle cx="390" cy="1268" r="14" fill="#fffdf8" stroke="#2f7d63" stroke-width="3"/>
-    <path d="M383 1268 L389 1274 L398 1260" fill="none" stroke="#2f7d63" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="412" y="1274" class="codesm" style="font-size:14px; fill:#2f7d63;">answers and proofs agree</text>
+    <rect x="375" y="1160" width="250" height="54" rx="8" fill="#f4f7f1" stroke="#2f7d63" stroke-width="2"/>
+    <text x="500" y="1183" text-anchor="middle" class="codesm" style="font-size:13px">named graphs · literals</text>
+    <text x="500" y="1202" text-anchor="middle" class="codesm" style="font-size:13px">triple terms</text>
+
+    <text x="500" y="1250" text-anchor="middle" class="smallserif green" style="font-size:16px">linked data remains RDF</text>
   </g>
 
   <g id="panel3">
@@ -199,7 +193,7 @@
     <rect x="790" y="934" width="16" height="12" rx="2" fill="#fffdf8" stroke="#233a59" stroke-width="2"/>
     <rect x="824" y="934" width="16" height="12" rx="2" fill="#fffdf8" stroke="#233a59" stroke-width="2"/>
     <path d="M815 915 V926 M798 926 H832 M798 926 V934 M832 926 V934" class="navy-stroke thin round"/>
-    <text x="815" y="990" text-anchor="middle" class="paneltitle navy">3. SYNTAX &amp; PROOFS</text>
+    <text x="815" y="990" text-anchor="middle" class="paneltitle navy">3. ANSWERS &amp; PROOFS</text>
 
     <rect x="758" y="1038" width="114" height="38" rx="8" class="softbox"/>
     <text x="815" y="1062" text-anchor="middle" class="codesm">path(a, X)</text>
@@ -220,7 +214,7 @@
   <g id="footer">
     <line x1="145" y1="1350" x2="285" y2="1350" class="gold-stroke thin round"/>
     <circle cx="310" cy="1350" r="4" class="gold"/>
-    <text x="500" y="1360" text-anchor="middle" class="subtitle" style="font-size:20px; font-style:italic;">Bridging logic and linked data</text>
+    <text x="500" y="1360" text-anchor="middle" class="subtitle" style="font-size:20px; font-style:italic;">ISO Prolog rules over RDF linked data</text>
     <circle cx="690" cy="1350" r="4" class="gold"/>
     <line x1="715" y1="1350" x2="855" y2="1350" class="gold-stroke thin round"/>
     <path d="M500 1390 L510 1400 L500 1410 L490 1400 Z" class="green"/>
