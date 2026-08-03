@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { compileRdfDocumentToEyepl, compileRdfToEyepl } from '../tools/rdf-to-eyepl.mjs';
-import { extractEyeplRdf } from '../tools/eyepl-to-rdf.mjs';
+import { compileRdfDocumentToWebEntail, compileRdfToWebEntail } from '../tools/rdf-to-webentail.mjs';
+import { extractWebEntailRdf } from '../tools/webentail-to-rdf.mjs';
 import { run } from '../src/index.js';
 import { TestReporter, isMainModule } from './test-style.mjs';
 
@@ -8,29 +8,29 @@ export async function runRdfTools(reporter = new TestReporter()) {
   reporter.section('RDF tools');
   reporter.test('N-Quads survives an include-source round trip', () => {
     const input = '<https://example/s> <https://example/p> "chat"@fr <https://example/g> .\n_:a <https://example/value> "42"^^<http://www.w3.org/2001/XMLSchema#integer> .\n';
-    const output = run(compileRdfToEyepl(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
-    equal(extractEyeplRdf(output), '<https://example/s> <https://example/p> "chat"@fr <https://example/g> .\n_:e646f63_61 <https://example/value> "42"^^<http://www.w3.org/2001/XMLSchema#integer> .\n');
+    const output = run(compileRdfToWebEntail(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
+    equal(extractWebEntailRdf(output), '<https://example/s> <https://example/p> "chat"@fr <https://example/g> .\n_:e646f63_61 <https://example/value> "42"^^<http://www.w3.org/2001/XMLSchema#integer> .\n');
   });
   reporter.test('default mode emits only rule-derived quads', () => {
     const input = '<https://example/s> <https://example/parent> <https://example/o> .\n';
     const rules = 'rdf(S, iri("https://example/ancestor"), O, G) :- rdf(S, iri("https://example/parent"), O, G).';
-    const output = run(compileRdfToEyepl(input, { rules }), { goal: 'rdf(S, P, O, G)' }).stdout;
-    equal(extractEyeplRdf(output), '<https://example/s> <https://example/ancestor> <https://example/o> .\n');
+    const output = run(compileRdfToWebEntail(input, { rules }), { goal: 'rdf(S, P, O, G)' }).stdout;
+    equal(extractWebEntailRdf(output), '<https://example/s> <https://example/ancestor> <https://example/o> .\n');
   });
   reporter.test('RDF 1.2 terms survive an include-source round trip', () => {
     const input = 'VERSION "1.2"\n<https://example/s> <https://example/says> <<( _:a <https://example/text> "مرحبا"@ar--rtl )>> .\n';
-    const output = run(compileRdfToEyepl(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
-    equal(extractEyeplRdf(output), '<https://example/s> <https://example/says> <<( _:e646f63_61 <https://example/text> "مرحبا"@ar--rtl )>> .\n');
+    const output = run(compileRdfToWebEntail(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
+    equal(extractWebEntailRdf(output), '<https://example/s> <https://example/says> <<( _:e646f63_61 <https://example/text> "مرحبا"@ar--rtl )>> .\n');
   });
   reporter.test('nested RDF 1.2 triple terms survive a round trip', () => {
     const input = '<https://example/s> <https://example/p> <<( <https://example/a> <https://example/b> <<( _:x <https://example/c> "line\\nfeed" )>> )>> .\n';
-    const output = run(compileRdfToEyepl(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
-    equal(extractEyeplRdf(output), '<https://example/s> <https://example/p> <<( <https://example/a> <https://example/b> <<( _:e646f63_78 <https://example/c> "line\\nfeed" )>> )>> .\n');
+    const output = run(compileRdfToWebEntail(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
+    equal(extractWebEntailRdf(output), '<https://example/s> <https://example/p> <<( <https://example/a> <https://example/b> <<( _:e646f63_78 <https://example/c> "line\\nfeed" )>> )>> .\n');
   });
   reporter.test('RDF blank-node labels accept the full Unicode production', () => {
     const input = '_:éclair <https://example/p> _:名.\n';
-    const output = run(compileRdfToEyepl(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
-    equal(extractEyeplRdf(output), '_:e646f63_c3a9636c616972 <https://example/p> _:e646f63_e5908d .\n');
+    const output = run(compileRdfToWebEntail(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
+    equal(extractWebEntailRdf(output), '_:e646f63_c3a9636c616972 <https://example/p> _:e646f63_e5908d .\n');
   });
   const documents = [
     ['Turtle 1.2', 'example.ttl', '@prefix ex: <https://example/>. ex:s ex:p <<( ex:a ex:b "hello"@en--ltr )>>.'],
@@ -40,8 +40,8 @@ export async function runRdfTools(reporter = new TestReporter()) {
     ['RDFa', 'example.html', '<div prefix="ex: https://example/" about="ex:s"><a property="ex:p" href="https://example/o">o</a></div>'],
   ];
   for (const [name, inputPath, source] of documents) {
-    const program = await compileRdfDocumentToEyepl(source, { inputPath, includeSource: true, scope: inputPath, baseIRI: 'https://example/base' });
-    const output = extractEyeplRdf(run(program, { goal: 'rdf(S, P, O, G)' }).stdout);
+    const program = await compileRdfDocumentToWebEntail(source, { inputPath, includeSource: true, scope: inputPath, baseIRI: 'https://example/base' });
+    const output = extractWebEntailRdf(run(program, { goal: 'rdf(S, P, O, G)' }).stdout);
     reporter.test(`${name} input is accepted`, () => { if (!output) throw new Error('expected at least one RDF quad'); });
   }
   reporter.sectionTotal('RDF tool');

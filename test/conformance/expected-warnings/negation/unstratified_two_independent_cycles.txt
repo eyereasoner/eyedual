@@ -1,4 +1,4 @@
-eyepl warning: unstratified negation
+webentail warning: unstratified negation
   p/1 depends negatively on q/1
   q/1 depends negatively on p/1
   r/1 depends negatively on s/1

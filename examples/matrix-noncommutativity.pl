@@ -1,7 +1,7 @@
 % Matrix multiplication and non-commutativity.
 %
 % The original matrix example contains a larger matrix library.  This compact
-% Eyepl case keeps the core operation visible: multiply two 2x2 matrices and
+% WebEntail case keeps the core operation visible: multiply two 2x2 matrices and
 % show that, in general, A*B is not the same matrix as B*A.
 
 %% goal: matrix_result(X0, X1)

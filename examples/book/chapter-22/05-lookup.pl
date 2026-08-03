@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 22.
+% From The Art of WebEntail, Chapter 22.
 lookup(Name, [binding(Name, Value) | _], Value).
 lookup(Name, [_ | Rest], Value) :- lookup(Name, Rest, Value).
 

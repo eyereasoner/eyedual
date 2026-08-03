@@ -10,7 +10,7 @@
 %
 % That order matters in a goal-directed reasoner.  A left-recursive closure
 % rule such as `path(A, C) :- path(A, B), path(B, C).` starts by asking for
-% the same open relation it is currently proving, so eyepl's recursion guard
+% the same open relation it is currently proving, so webentail's recursion guard
 % must stop it to avoid an infinite loop.  The result is under-generation: only
 % direct edges are printed.  Starting with the concrete generator `oneway/2`
 % first makes each recursive step smaller and yields the complete closure.

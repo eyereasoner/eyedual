@@ -1,4 +1,4 @@
-% Provenance-derived trust-flow thresholding in Eyepl.
+% Provenance-derived trust-flow thresholding in WebEntail.
 %
 % Each message combines publisher trust, signature strength, and transform quality
 % into one confidence score.  Receiver-specific thresholds then classify messages

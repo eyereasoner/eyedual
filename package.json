@@ -1,15 +1,15 @@
 {
-  "name": "eyepl",
+  "name": "webentail",
   "publishConfig": {
     "access": "public"
   },
   "version": "0.3.4",
-  "description": "Eyepl turns facts and rules into answers and proofs.",
+  "description": "WebEntail turns facts and rules into answers and proofs.",
   "type": "module",
   "main": "./index.js",
   "types": "./index.d.ts",
   "bin": {
-    "eyepl": "./bin/eyepl.js"
+    "webentail": "./bin/webentail.js"
   },
   "keywords": [
     "logic",
@@ -22,21 +22,22 @@
   "author": "Jos De Roo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eyereasoner/eyepl.git"
+    "url": "git+https://github.com/eyereasoner/webentail.git"
   },
-  "homepage": "https://github.com/eyereasoner/eyepl#readme",
+  "homepage": "https://github.com/eyereasoner/webentail#readme",
   "files": [
     "LICENSE.md",
     "README.md",
     "index.js",
     "index.d.ts",
     "playground.html",
-    "eyepl-logo.png",
+    "webentail-logo.png",
     "bin",
     "src",
     "tools",
     "conformance-report.md",
-    "the-art-of-eyepl.md",
+    "the-art-of-webentail.md",
+    "why-webentail.md",
     "book-assets",
     "examples",
     "test"
@@ -47,7 +48,7 @@
   "scripts": {
     "test": "node test/run-all.mjs",
     "generate": "node tools/extract-book-examples.mjs",
-    "test:eyepl": "node test/run-all.mjs",
+    "test:webentail": "node test/run-all.mjs",
     "test:conformance": "node test/run-conformance.mjs",
     "test:examples": "node test/run-examples.mjs",
     "test:regression": "node test/run-regression.mjs",

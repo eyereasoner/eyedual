@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_abolish_1_01 and eddbali_abolish_1_06.
-% Modified for Eyepl's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for WebEntail's conformance harness. See test/conformance/THIRD_PARTY.md.
 :- dynamic(foo/1).
 foo(a).
 %% goal: abolish_result

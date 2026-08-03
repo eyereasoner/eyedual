@@ -1,6 +1,6 @@
 % DPLL-style SAT solving for a small CNF formula.
 %
-% The example keeps the solver itself in Eyepl.  It recursively assigns
+% The example keeps the solver itself in WebEntail.  It recursively assigns
 % variables in a fixed order, prunes a branch as soon as any clause is already
 % impossible, and accepts a complete assignment when every clause is satisfied.
 % aggregate_min/5 is then used only to choose one canonical satisfying model.

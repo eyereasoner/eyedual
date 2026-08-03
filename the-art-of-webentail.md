@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="book-assets/title-page.svg" alt="Integrated front page for The Art of Eyepl showing the title, subtitle, author, a central eye, and panels for relation graph, executable clauses, and syntax tree." width="720">
+  <img src="book-assets/title-page.svg" alt="Integrated front page for The Art of WebEntail showing the title, subtitle, author, a central eye, and panels for relation graph, executable clauses, and syntax tree." width="720">
 </p>
 
 **Copyright © 2021–2026 Jos De Roo, KNoWS office of IDLab, Ghent University –
@@ -10,12 +10,12 @@ appropriate credit, link to the licence, and indicate changes.
 
 ---
 
-Eyepl turns facts and rules into answers and inspectable proofs. This book is an
+WebEntail turns facts and rules into answers and inspectable proofs. This book is an
 original introduction to the habits of logic programming: describe a world,
 state the relationships that hold in it, and let unification and search connect
 the two.
 
-This book is also the reference for the Eyepl implementation. Eyepl is a
+This book is also the reference for the WebEntail implementation. WebEntail is a
 standards-based reasoning system: programs use the documented and tested ISO
 Prolog profile, while RDF 1.2 provides an interoperable data boundary.
 Chapters 38–40 define the supported ISO Prolog profile, built-ins, and execution interface,
@@ -27,29 +27,29 @@ Its subject is not syntax alone. A logic program has two inseparable aspects:
 the relation described by its clauses and the procedure induced when goals are
 selected and clauses are tried. The first tells us what answers are justified;
 the second tells us whether and how the machine will find them. Learning to
-program with Eyepl means learning to move comfortably between these views.
+program with WebEntail means learning to move comfortably between these views.
 
-The name *Eyepl* combines *EYE* with *pl*: EYE-style reasoning through Prolog.
-Eyepl implements a broad ISO Prolog profile with facts, clauses, terms, lists,
+The name *WebEntail* combines *EYE* with *pl*: EYE-style reasoning through Prolog.
+WebEntail implements a broad ISO Prolog profile with facts, clauses, terms, lists,
 control, arithmetic, dynamic predicates, operators, streams, and standard
 built-ins. Automatic
 tabling, explicit integrity checks, proof output, and RDF adapters are implementation
-capabilities around that standards-based foundation. Eyepl does not attempt to
+capabilities around that standards-based foundation. WebEntail does not attempt to
 claim formal certification of every ISO processor edge case.
 
 Standards are crucial because knowledge and rules often outlive the software
 that first processes them. Using ISO Prolog for programs and RDF 1.2 for
 interchange keeps the representation teachable, inspectable, and portable
-across tools. Eyepl aims to provide a compact implementation of those standards
+across tools. WebEntail aims to provide a compact implementation of those standards
 with explanations and practical host integration, not another proprietary rule
 language.
 
-This places Eyepl in a tradition that joins automated deduction, database
+This places WebEntail in a tradition that joins automated deduction, database
 querying, and programming. Jacques Herbrand's doctoral work made ground terms
 and ground instances central to proof theory; Robinson's later resolution
 principle turned unification and refutation into a general proof procedure;
 early Prolog showed that Horn clauses could also be executable programs;
-deductive databases emphasized finite relations and fixed points. Eyepl
+deductive databases emphasized finite relations and fixed points. WebEntail
 borrows from all three traditions without pretending that they are identical.
 Its clauses are logical statements, its query execution is an ordered
 computation, and its proof terms make the connection between the two available
@@ -59,18 +59,18 @@ That history explains a recurring theme of the book. Logic programming is not
 the claim that control disappears. It is the discipline of stating the
 relation clearly enough that control can be studied and improved separately.
 Robert Kowalski's phrase “algorithm = logic + control” names this separation;
-Eyepl's focused surface makes it unusually easy to see in running examples.
+WebEntail's focused surface makes it unusually easy to see in running examples.
 
-Complete Eyepl code displays from the book are also available as files under
-[`examples/book/`](https://github.com/eyereasoner/eyepl/tree/main/examples/book/), grouped by chapter. From a source checkout,
+Complete WebEntail code displays from the book are also available as files under
+[`examples/book/`](https://github.com/eyereasoner/webentail/tree/main/examples/book/), grouped by chapter. From a source checkout,
 use Node.js 18 or newer, install the dependencies, and run the CLI:
 
 ```sh
 npm install
-node bin/eyepl.js examples/socrates.pl
+node bin/webentail.js examples/socrates.pl
 ```
 
-The Eyepl command should print:
+The WebEntail command should print:
 
 ```text
 type(socrates, mortal).
@@ -80,14 +80,14 @@ holds_result(test, true).
 Then ask for the derivations:
 
 ```sh
-node bin/eyepl.js --proof examples/socrates.pl
+node bin/webentail.js --proof examples/socrates.pl
 ```
 
 Readers who do not want to install anything can begin in the
-[browser playground](https://eyereasoner.github.io/eyepl/playground). Paste
+[browser playground](https://eyereasoner.github.io/webentail/playground). Paste
 the source of `examples/socrates.pl` into the editor and run it. The playground
 and local CLI accept the same in-memory Prolog source and load the same portable
-Eyepl library by default, so relations such as `append/3` and `member/2` need no
+WebEntail library by default, so relations such as `append/3` and `member/2` need no
 extra switch. The page starts a dedicated ES-module worker for each run. Serve a
 local checkout over HTTP(S), rather than opening the page as a `file:` URL.
 Filesystem predicates and `include/1` are Node-only; URL and embedding examples
@@ -102,14 +102,14 @@ Use `npm run generate` after editing the book to refresh the extracted
 
 Code displays serve three different purposes:
 
-- an `eyepl` block is Prolog source accepted by Eyepl; complete blocks are extracted under
+- an `webentail` block is Prolog source accepted by WebEntail; complete blocks are extracted under
   `examples/book/`, although a short block may rely on facts introduced in the
   surrounding chapter;
 - a `text` block shows output, a trace, a data shape, or pseudocode and is not
-  necessarily accepted as Eyepl input;
+  necessarily accepted as WebEntail input;
 - a `sh` or `js` block is a host command or embedding example.
 
-Top-level programs under [`examples/`](https://github.com/eyereasoner/eyepl/tree/main/examples/) are the complete runnable
+Top-level programs under [`examples/`](https://github.com/eyereasoner/webentail/tree/main/examples/) are the complete runnable
 cases. Their exact outputs live under `examples/output/`; selected proof
 outputs live under `examples/proof/`. Use the chapter extractions for copying a
 particular display and the top-level corpus for end-to-end experiments.
@@ -155,7 +155,7 @@ Approach each example through the same six moves:
 This rhythm deliberately joins declarative reading, operational reading, and
 program construction. Readers new to logic programming can follow Parts I–III
 in order. Experienced Prolog programmers can begin with Chapters 3, 13, and
-17 to see where Eyepl's hybrid execution and proof-oriented design differ.
+17 to see where WebEntail's hybrid execution and proof-oriented design differ.
 Chapter 41 gives further routes through the material.
 
 ### When a run surprises you
@@ -255,7 +255,7 @@ Chapters 11–16
 - [13. Termination, tabling, and performance](#13-termination-tabling-and-performance)
 - [14. Knowledge engineering](#14-knowledge-engineering)
 - [15. RDF 1.2 as the interoperable data boundary](#15-rdf-12-as-the-interoperable-data-boundary)
-- [16. Embedding Eyepl](#16-embedding-eyepl)
+- [16. Embedding WebEntail](#16-embedding-webentail)
 
 ### Part IV — The craft of logic programming
 
@@ -309,7 +309,7 @@ Chapters 38–43
 
 - [38. Language and ISO profile](#38-language-and-iso-profile)
 - [39. Built-in predicates by programming role](#39-built-in-predicates-by-programming-role)
-- [40. Running Eyepl: command line and corpus](#40-running-eyepl-command-line-and-corpus)
+- [40. Running WebEntail: command line and corpus](#40-running-webentail-command-line-and-corpus)
 - [41. Study paths, review, and further examples](#41-study-paths-review-and-further-examples)
 - [42. Standards, limits, and implementation boundaries](#42-standards-limits-and-implementation-boundaries)
 - [43. Glossary and notes for continued study](#43-glossary-and-notes-for-continued-study)
@@ -351,7 +351,7 @@ Logic programming begins with a change of emphasis. Instead of listing the
 steps that calculate an answer, write sentences that are true in the problem
 domain.
 
-```eyepl
+```webentail
 parent(ada, byron).
 parent(byron, clara).
 parent(clara, diego).
@@ -360,23 +360,23 @@ parent(clara, diego).
 Each line is a **fact**. `parent/2` is a relation: the name is `parent` and the
 arity is two. Arity matters. `parent/2` and `parent/3` are different predicates.
 
-A **query declaration** selects the relation whose ground answers Eyepl prints:
+A **query declaration** selects the relation whose ground answers WebEntail prints:
 
-```eyepl
+```webentail
 child(Child, Parent) :- parent(Parent, Child).
-eyepl --goal 'child(X, Y)' program.pl
+webentail --goal 'child(X, Y)' program.pl
 ```
 
 The answers are:
 
-```eyepl
+```webentail
 child(byron, ada).
 child(clara, byron).
 child(diego, clara).
 ```
 
-Eyepl distinguishes solutions found by the solver from answers printed by the
-CLI. A query such as `eyepl --goal 'parent(X, Y)' program.pl` can find the three source facts
+WebEntail distinguishes solutions found by the solver from answers printed by the
+CLI. A query such as `webentail --goal 'parent(X, Y)' program.pl` can find the three source facts
 internally, but the normal CLI output suppresses answers that merely repeat
 source facts. Derived `child/2` answers are printed. Chapter 11 explains this
 output policy; it does not change what calls inside rules can prove.
@@ -434,12 +434,12 @@ grandparents, then only the grandparents of `diego`.
 
 **Checkpoint.** Before continuing, make sure you can (1) read
 `parent(ada, byron)` as a sentence, (2) explain what the two variables in
-`eyepl --goal 'child(X, Y)' program.pl` ask for, and (3) predict which output changes after adding
+`webentail --goal 'child(X, Y)' program.pl` ask for, and (3) predict which output changes after adding
 `parent(diego, elena).`
 
 ## 2. Terms, variables, and substitution
 
-Prolog programs accepted by Eyepl are built from terms:
+Prolog programs accepted by WebEntail are built from terms:
 
 - atom constants: `ada`, `accepted`, `'atom with spaces'`;
 - strings: `"sensor too hot"`;
@@ -477,13 +477,13 @@ may receive a binding; a nested pair of compounds causes the same comparison
 to continue recursively. The result shown is the most general substitution:
 it commits to exactly what structural agreement requires and nothing more.
 
-Eyepl exposes unification as `=/2`:
+WebEntail exposes unification as `=/2`:
 
-```eyepl
+```webentail
 same_shape(Pair) :- (Pair = pair(X, X)).
 
-eyepl --goal 'same_shape(pair(red, red))' program.pl
-eyepl --goal 'same_shape(pair(red, blue))' program.pl
+webentail --goal 'same_shape(pair(red, red))' program.pl
+webentail --goal 'same_shape(pair(red, blue))' program.pl
 ```
 
 Only the first query succeeds. `\=/2` succeeds when two resolved terms are not
@@ -491,7 +491,7 @@ structurally equal.
 
 Compound terms retain domain structure:
 
-```eyepl
+```webentail
 measurement(battery_1, sample(17, volts(28.4), amps(12.1))).
 route(a, d, path([a, b, d], cost(9))).
 ```
@@ -502,7 +502,7 @@ The same surface form serves both roles; context decides which.
 `ready` is an atom constant and `"ready"` is a string. Keep symbolic vocabulary
 as atoms and human text as strings. Quoted atoms remain atoms:
 
-```eyepl
+```webentail
 label(sensor_1, "Cabin temperature").
 web_name(sensor_1, '<https://example.org/sensor/1>').
 ```
@@ -510,7 +510,7 @@ web_name(sensor_1, '<https://example.org/sensor/1>').
 **Exercise.** Write `diagonal/1`, which succeeds for `point(X, X)`. Then write
 `same_ends/1` for a three-element list whose first and last values agree.
 
-**Checkpoint.** Without running Eyepl, decide whether each pair unifies:
+**Checkpoint.** Without running WebEntail, decide whether each pair unifies:
 `point(X, X)` with `point(red, red)`, `point(X, X)` with
 `point(red, blue)`, and `[Head | Tail]` with `[a, b, c]`. Then run a small
 `=/2` query to check each prediction.
@@ -520,14 +520,14 @@ web_name(sensor_1, '<https://example.org/sensor/1>').
 The executable-clause idea emerged from work on automated theorem proving.
 Robinson's resolution principle supplied a general proof rule, while the
 development of Prolog specialized proof search around clauses that could be
-read as procedures. Eyepl begins further downstream: it offers a compact
+read as procedures. WebEntail begins further downstream: it offers a compact
 definite-clause language rather than a general first-order theorem prover. The
 restriction buys a direct correspondence between a rule body and the
 subquestions used to establish its head.
 
 A rule has a head and a comma-separated body:
 
-```eyepl
+```webentail
 eligible(Person) :-
   age(Person, Years),
   (Years >= 18),
@@ -537,7 +537,7 @@ eligible(Person) :-
 Read it declaratively: a person is eligible if the person has an age of at
 least 18 and is registered. Read it operationally: to solve the head, solve the
 body goals in their written dependency order, carrying bindings into later
-goals. Eyepl normally selects from left to right. As a safe optimization, it
+goals. WebEntail normally selects from left to right. As a safe optimization, it
 may run a ready deterministic built-in filter early; such a filter cannot add
 alternative answers and already has the inputs its registered mode requires.
 
@@ -556,7 +556,7 @@ prevents a beautiful specification from wandering forever without producing
 an answer. Much of the craft in this book consists of keeping one reading
 steady while improving the other.
 
-```eyepl
+```webentail
 adult(Person) :-
   age(Person, Years),
   (Years >= 18).
@@ -564,14 +564,14 @@ adult(Person) :-
 
 Multiple clauses express alternatives:
 
-```eyepl
+```webentail
 can_enter(Person) :- staff(Person).
 can_enter(Person) :- visitor(Person), escorted(Person).
 ```
 
 Helper predicates reveal the model and improve explanations:
 
-```eyepl
+```webentail
 high_score(Case) :-
   score(Case, Score),
   threshold(Threshold),
@@ -608,13 +608,13 @@ resolution calculus, nor did his thesis state the later least-model semantics
 of logic programs in its modern form. Rather, his proof theory laid essential
 groundwork. Resolution supplied a powerful subsequent inference mechanism, and
 van Emden and Kowalski later gave definite logic programs their fixed-point and
-least-Herbrand-model account. Eyepl sits downstream of this sequence:
+least-Herbrand-model account. WebEntail sits downstream of this sequence:
 
 ```text
 Herbrand: ground terms and instances as a proof-theoretic foundation
   -> Robinson: resolution and unification as a proof procedure
   -> logic programming: executable clauses and least-model semantics
-  -> Eyepl: a focused Prolog implementation with inspectable derivations
+  -> WebEntail: a focused Prolog implementation with inspectable derivations
 ```
 
 Herbrand completed this work while still in his early twenties and died in
@@ -625,7 +625,7 @@ book rather than appearing only as historical attribution.
 ### The Herbrand world
 
 The declarative reading needs a precise answer to a deceptively simple
-question: what can a term denote? Eyepl uses **Herbrand semantics**. Its
+question: what can a term denote? WebEntail uses **Herbrand semantics**. Its
 universe contains exactly the ground terms that can be constructed from the
 program's atom constants, strings, numbers, list constructors, and compound
 functors. There are no unnamed elements hiding behind the notation. A ground
@@ -653,13 +653,13 @@ without confusing mention with assertion.
 A **Herbrand interpretation** is a set of ground atomic formulas regarded as
 true. A source fact contributes one such formula:
 
-```eyepl
+```webentail
 parent(pat, jan).
 ```
 
 A rule stands for all of its ground instances. Thus:
 
-```eyepl
+```webentail
 ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).
 ```
 
@@ -680,7 +680,7 @@ model from the bottom up.
 Herbrand semantics is a particular form of ordinary model theory, chosen
 because logic programs inspect and construct symbolic terms. Consider:
 
-```eyepl
+```webentail
 different(alice, bob) :- (alice \= bob).
 different(ticket(alice), ticket(bob)) :-
   (ticket(alice) \= ticket(bob)).
@@ -705,20 +705,20 @@ so with `same_as(robert, bob)` or normalize them to one canonical term. The
 Herbrand layer keeps names unambiguous; domain rules express equivalence.
 
 The runnable
-[`examples/herbrand-semantics.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/herbrand-semantics.pl) example and
+[`examples/herbrand-semantics.pl`](https://github.com/eyereasoner/webentail/blob/main/examples/herbrand-semantics.pl) example and
 its normal and proof outputs make this distinction concrete.
 
 ### Quantification and visible witnesses
 
 Variables range over Herbrand terms, not external records, pointers, or
 host-language objects. Variables in a selected goal are existential in the
-logic-programming sense: Eyepl searches for substitutions that make the goal
+logic-programming sense: WebEntail searches for substitutions that make the goal
 follow from the program.
 
-Eyepl has no blank nodes or existential variables in rule heads. When a rule
+WebEntail has no blank nodes or existential variables in rule heads. When a rule
 needs to name a consequent object, construct an explicit witness:
 
-```eyepl
+```webentail
 has_parent(Child, parent_of(Child)) :-
   person(Child).
 
@@ -734,18 +734,18 @@ rather than being an anonymous object created behind the program's back.
 
 Equality in the pure Herbrand reading is syntactic identity after substitution.
 Operationally, unification discovers a substitution that makes terms
-identical. Eyepl performs an occurs check whenever unification would bind a
+identical. WebEntail performs an occurs check whenever unification would bind a
 variable. It therefore uses finite-tree unification and rejects a binding when
 the variable occurs anywhere in the proposed value. For example, this call
 fails rather than constructing a cyclic term:
 
-```eyepl
+```webentail
 (X = wrapper(X)).
 ```
 
 ### Meaning is not the search strategy
 
-Eyepl's evaluator is goal-directed. It resolves selected goals against facts,
+WebEntail's evaluator is goal-directed. It resolves selected goals against facts,
 rules, and built-ins using ordered conjunction, clause selection, indexing,
 tabling, and deterministic host operations. Written order defines the normal
 dataflow; a mode-ready deterministic built-in may be selected early as a pure
@@ -767,14 +767,14 @@ User-defined negative dependencies should be stratified. In a stratified
 program, positive dependencies may remain in the same or a lower layer, while
 every negative dependency points strictly downward:
 
-```eyepl
+```webentail
 closed(X) :- blocked(X).
 open(X) :- candidate(X), \+ closed(X).
 ```
 
 A cycle containing a negative edge is not stratified:
 
-```eyepl
+```webentail
 p(X) :- q(X).
 q(X) :- \+ p(X).
 ```
@@ -795,10 +795,10 @@ Herbrand bases and interpretations without guilt; recursion is next.
 Recursive rules define an unbounded family of finite proofs. An ancestor is a
 parent, or a parent of an ancestor:
 
-```eyepl
+```webentail
 ancestor(X, Y) :- parent(X, Y).
 ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).
-eyepl --goal 'ancestor(X, Y)' program.pl
+webentail --goal 'ancestor(X, Y)' program.pl
 ```
 
 The first clause is the base case. The second reduces an ancestor question to a
@@ -830,7 +830,7 @@ open recursive question before selecting an edge and may destroy the useful
 mode. Meaning and control must be reviewed separately.
 
 Real graphs contain cycles. Naive depth-first recursion can revisit a call
-forever. Eyepl analyzes predicate dependencies and automatically tables
+forever. WebEntail analyzes predicate dependencies and automatically tables
 suitable positive recursive groups. A table records answers for a recursive
 call, iterates cyclic calls to a fixed point, and reuses results. Authors
 describe `path/2`; the engine chooses the recursive strategy.
@@ -846,7 +846,7 @@ Keep the selected query and its generators finite.
 
 A relation can construct a witness:
 
-```eyepl
+```webentail
 path(X, Y, [X, Y]) :- edge(X, Y).
 path(X, Z, [X | Rest]) :-
   edge(X, Y),
@@ -877,7 +877,7 @@ derivation.
   <figcaption>A list resembles a train: expose the first carriage as the head, pass the remaining train as the tail, or join two trains with an append relation.</figcaption>
 </figure>
 
-```eyepl
+```webentail
 first([Head | _], Head).
 
 contains_item(X, [X | _]).
@@ -893,14 +893,14 @@ practical meaning of a relational definition.
 
 Some algorithms carry explicit state through an accumulator:
 
-```eyepl
+```webentail
 reverse_acc(List, Reversed) :- reverse_go(List, [], Reversed).
 reverse_go([], Acc, Acc).
 reverse_go([X | Xs], Acc, Reversed) :-
   reverse_go(Xs, [X | Acc], Reversed).
 ```
 
-No mutation occurs; every call receives a new term. Eyepl also includes
+No mutation occurs; every call receives a new term. WebEntail also includes
 `member/2`, `append/3`, `select/3`, `nth0/3`, `reverse/2`, `length/2`,
 `sort/2`, slicing helpers, and numeric summaries. Improper lists such as
 `[a | Tail]` are valid terms, but operations requiring a proper finite list
@@ -966,7 +966,7 @@ infix operator syntax:
   <figcaption>Arithmetic goals consume bindings rather than inventing them: generate a finite candidate, compute from ready inputs, then filter the ground result.</figcaption>
 </figure>
 
-```eyepl
+```webentail
 next(X, Y) :- (Y is X + 1).
 area_rectangle(W, H, Area) :- (Area is W * H).
 
@@ -980,7 +980,7 @@ hypotenuse(A, B, C) :-
 Inputs must be bound to suitable numbers before a numeric function runs.
 Comparisons filter generated solutions:
 
-```eyepl
+```webentail
 safe_reading(Sensor, Value) :-
   reading(Sensor, Value),
   (Value >= 0),
@@ -990,7 +990,7 @@ safe_reading(Sensor, Value) :-
 `between(Low, High, Value)` enumerates an inclusive integer range or checks an
 already-bound value:
 
-```eyepl
+```webentail
 square(N, Square) :-
   between(1, 10, N),
   (Square is N * N).
@@ -998,7 +998,7 @@ square(N, Square) :-
 
 Finite generators turn loops into searches. Recurrences need intended modes:
 
-```eyepl
+```webentail
 factorial(0, 1).
 factorial(N, F) :-
   (N > 0),
@@ -1029,7 +1029,7 @@ modeler must say which knowledge boundary is complete.
 
 `\+ Goal` succeeds when `Goal` has no solution:
 
-```eyepl
+```webentail
 allowed(User) :-
   user(User),
   \+ blocked(User).
@@ -1049,13 +1049,13 @@ Negative dependencies should be stratified: compute a lower relation, then
 negate it from a higher layer. Use `--warnings` to report negative recursion:
 
 ```sh
-eyepl --warnings program.pl
+webentail --warnings program.pl
 ```
 
 Universal checking needs no extension predicate: define the counterexample and
 negate it.
 
-```eyepl
+```webentail
 all_tests_pass(Suite) :-
   \+ failing_test(Suite).
 
@@ -1076,13 +1076,13 @@ completeness assumption needed before calling either result “allowed.”
 
 Finite aggregation asks about a solution set:
 
-```eyepl
+```webentail
 findall(Template, Goal, List).
 countall(Goal, Count).
 sumall(Value, Goal, Sum).
 ```
 
-```eyepl
+```webentail
 outgoing_costs(Node, Costs) :-
   findall(Cost, edge(Node, _, Cost), Costs).
 
@@ -1115,7 +1115,7 @@ changing the question.
 
 Optimization can retain only a best solution:
 
-```eyepl
+```webentail
 best_route(From, To, Route, Cost) :-
   aggregate_min(
     [CandidateCost, CandidateRoute],
@@ -1152,7 +1152,7 @@ Term predicates decompose or construct general terms:
   <figcaption>Normalize text into explicit structure at the boundary; inspecting a member inside one context does not turn it into an ambient fact.</figcaption>
 </figure>
 
-```eyepl
+```webentail
 functor(Term, Name, Arity).
 arg(Index, Term, Value).
 (Term =.. [Name | Arguments]).
@@ -1163,7 +1163,7 @@ is known; use inspection for generic transformations.
 
 Text is best normalized at the model boundary:
 
-```eyepl
+```webentail
 normalized(Input, Words) :-
   trim(Input, Trimmed),
   lowercase(Trimmed, Lower),
@@ -1177,7 +1177,7 @@ rules relational.
 
 Parenthesized comma terms can serve as context data:
 
-```eyepl
+```webentail
 message(event_17, (severity(high), source(sensor_3), reading(temp, 91))).
 
 context_member((Left, _right), Member) :- context_member(Left, Member).
@@ -1206,7 +1206,7 @@ globally.
 A robust finite search has three layers: generate candidates, constrain them,
 and present a concise answer.
 
-```eyepl
+```webentail
 color(red).
 color(green).
 color(blue).
@@ -1220,13 +1220,13 @@ coloring(A, B, C) :-
   (A \= C).
 
 answer(colors(A, B, C)) :- coloring(A, B, C).
-eyepl --goal 'answer(X)' program.pl
+webentail --goal 'answer(X)' program.pl
 ```
 
 Place cheap, selective constraints as soon as their inputs are bound. For
 state-transition problems, represent state and moves explicitly:
 
-```eyepl
+```webentail
 plan(State, State, _, []).
 plan(State, Goal, Seen, [Move | Moves]) :-
   transition(State, Move, Next),
@@ -1234,10 +1234,10 @@ plan(State, Goal, Seen, [Move | Moves]) :-
   plan(Next, Goal, [Next | Seen], Moves).
 ```
 
-The visited list makes a finite state space explicit. Eyepl is strongest when
+The visited list makes a finite state space explicit. WebEntail is strongest when
 the result is a logical consequence with a compact witness: a path, matching,
 classification, schedule, proof, or bounded model. Mutable arrays and large
-numerical kernels generally belong in a host, with Eyepl as the decision layer.
+numerical kernels generally belong in a host, with WebEntail as the decision layer.
 
 For the coloring program, the six printed answers are the permutations of
 `red`, `green`, and `blue`:
@@ -1289,7 +1289,7 @@ database reading. Later work on stratification disciplined negative
 dependencies. Aggregation continued the database lineage: a set of solutions
 could itself become data, provided the nested search was finite.
 
-These distinctions explain Eyepl's conservative treatment. Negation and
+These distinctions explain WebEntail's conservative treatment. Negation and
 aggregation are powerful because they expose a bounded subcomputation. Their
 safety comes not from punctuation but from a mathematical argument about scope
 and termination.
@@ -1309,8 +1309,8 @@ support, integrity checks expose invalid states, and knowledge boundaries stay e
 
 ## 11. Queries, answers, and proofs
 
-Eyepl goals are supplied by the host, for example
-`eyepl --goal 'child(X, Y)' program.pl`. Eyepl prints ground answers, removes
+WebEntail goals are supplied by the host, for example
+`webentail --goal 'child(X, Y)' program.pl`. WebEntail prints ground answers, removes
 duplicates, and suppresses answers that merely repeat source facts. Answers
 are not inserted back into the running program.
 
@@ -1325,10 +1325,10 @@ instead of trusting an opaque status code.
 Use `--proof` or `-p` to add a machine-readable `why/2` fact after every answer:
 
 ```sh
-eyepl --proof examples/socrates.pl
+webentail --proof examples/socrates.pl
 ```
 
-```eyepl
+```webentail
 why(
   type(socrates, mortal),
   proof(
@@ -1345,10 +1345,10 @@ why(
 ).
 ```
 
-Proof output is valid Eyepl input:
+Proof output is valid WebEntail input:
 
 ```sh
-eyepl --proof examples/socrates.pl > socrates.why.pl
+webentail --proof examples/socrates.pl > socrates.why.pl
 ```
 
 A normal answer is one resolved ground term followed by a period. Strings,
@@ -1378,7 +1378,7 @@ the binding carried between them.
 
 Integrity conditions are ordinary relations that describe invalid input states:
 
-```eyepl
+```webentail
 invalid_probability(Disease, Probability) :-
   probability(Disease, Probability),
   (Probability > 1).
@@ -1399,7 +1399,7 @@ pre-query behavior.
   <figcaption>An integrity relation reports the invalid state; the host decides whether that state blocks later decisions.</figcaption>
 </figure>
 
-```eyepl
+```webentail
 invalid_assignment(Person, Role, Other) :-
   assigned(Person, Role),
   incompatible_roles(Role, Other),
@@ -1439,7 +1439,7 @@ must be handled before trusted downstream decisions.
 To see the explicit validation path, run:
 
 ```sh
-node bin/eyepl.js examples/integrity-check.pl
+node bin/webentail.js examples/integrity-check.pl
 ```
 
 It prints the invalid-state witness and the resulting diagnostic status. Nothing
@@ -1502,7 +1502,7 @@ search strategy.
 Inspect counters without changing answer output:
 
 ```sh
-eyepl --stats examples/observability-log-correlation.pl
+webentail --stats examples/observability-log-correlation.pl
 ```
 
 The reported counters include completed goal lists, calls to the goal solver
@@ -1543,7 +1543,7 @@ than hiding them in rule order.
 
 An evidence-backed diagnosis can separate physics from policy:
 
-```eyepl
+```webentail
 heating(Battery, Watts) :-
   current(Battery, Amps),
   resistance(Battery, Ohms),
@@ -1575,7 +1575,7 @@ itself.
 
 ## 15. RDF 1.2 as the interoperable data boundary
 
-Eyepl keeps RDF 1.2 at an explicit standards boundary. Adapter tools translate
+WebEntail keeps RDF 1.2 at an explicit standards boundary. Adapter tools translate
 datasets into ordinary `rdf(Subject, Predicate, Object, Graph)` facts, allowing
 standard RDF data to be queried by the supported ISO Prolog profile:
 
@@ -1604,9 +1604,9 @@ closed finite relation, negation as failure, or an explicit integrity relation.
 </figure>
 
 ```sh
-node tools/rdf-to-eyepl.mjs --rules rules.pl data.trig -o program.pl
-eyepl program.pl > derived.pl
-node tools/eyepl-to-rdf.mjs derived.pl -o derived.nq
+node tools/rdf-to-webentail.mjs --rules rules.pl data.trig -o program.pl
+webentail program.pl > derived.pl
+node tools/webentail-to-rdf.mjs derived.pl -o derived.nq
 ```
 
 Supported inputs include RDF 1.2 Turtle, TriG, N-Triples, N-Quads, RDF/XML,
@@ -1626,7 +1626,7 @@ JSON-LD, RDFa, Microdata, Notation3, and SHACL Compact Syntax. For stdin, supply
 Scopes distinguish blank nodes from different documents. Triple terms may
 nest, and named graphs occupy the fourth argument.
 
-```eyepl
+```webentail
 rdf(S, iri("https://example/ancestor"), O, G) :-
   rdf(S, iri("https://example/parent"), O, G).
 ```
@@ -1637,17 +1637,17 @@ By default, source quads support inference but are not copied to output. Pass
 
 **Checkpoint.** For one RDF statement, identify its subject, predicate, object,
 and graph term after conversion. Then explain why preserving a triple term as
-nested data does not assert that nested triple as a global Eyepl fact.
+nested data does not assert that nested triple as a global WebEntail fact.
 
-## 16. Embedding Eyepl
+## 16. Embedding WebEntail
 
 The JavaScript API exposes a convenience runner and lower-level types:
 
 ```js
-import { run, Program, Solver } from 'eyepl';
+import { run, Program, Solver } from 'webentail';
 
 const result = run(`
-eyepl --goal 'answer(X)' program.pl
+webentail --goal 'answer(X)' program.pl
 answer(ok) :- ok = ok.
 `);
 console.log(result.stdout);
@@ -1669,7 +1669,7 @@ For applications that inspect or prepare a theory before running it, use
 
 ```js
 const source = `
-eyepl --goal 'path(a, X)' program.pl
+webentail --goal 'path(a, X)' program.pl
 edge(a, b).
 edge(b, c).
 path(X, Y) :- edge(X, Y).
@@ -1696,7 +1696,7 @@ truncate search; it does not prove that no further answer exists.
 
 The source layout mirrors the public registry boundary. `src/iso.js` contains
 the isolated ISO processor predicates and registry. `src/library.js` contains
-the complete Eyepl library predicates as native JavaScript
+the complete WebEntail library predicates as native JavaScript
 builtins described in Chapter 39. No bundled Prolog source is parsed or
 overlaid at startup. Normal CLI, JavaScript, solver, and proof execution uses
 that composed registry. The browser entry `src/playground-worker.js` constructs
@@ -1708,19 +1708,19 @@ and proof machinery.
 
 ### Extending the built-in registry
 
-An embedder can start from the default Eyepl registry and add a host relation. A
+An embedder can start from the default WebEntail registry and add a host relation. A
 handler is a generator over environments. It should clone before binding and
 yield only environments in which its result unifies:
 
 ```js
 import {
   atom,
-  createEyeplRegistry,
+  createWebEntailRegistry,
   run,
   unify
-} from 'eyepl';
+} from 'webentail';
 
-const registry = createEyeplRegistry();
+const registry = createWebEntailRegistry();
 
 registry.add(
   'host_status',
@@ -1738,7 +1738,7 @@ registry.add(
 );
 
 const result = run(`
-eyepl --goal 'answer(X)' program.pl
+webentail --goal 'answer(X)' program.pl
 answer(X) :- host_status(service, X).
 `, { registry });
 ```
@@ -1753,7 +1753,7 @@ define it raise `permission_error(modify, static_procedure)`. Programs expose st
 `stratifiedNegation`, `negationStratificationErrors`, and
 `assertStratifiedNegation()`.
 
-Treat remote source as executable logic. Although Eyepl has no arbitrary host
+Treat remote source as executable logic. Although WebEntail has no arbitrary host
 call primitive, search can consume CPU and memory. Embedders should impose
 appropriate depth, solution, input-size, and time limits.
 
@@ -1765,7 +1765,7 @@ conclusion.
 
 Rules often outlive the source of their facts. Today `parent/2` may be written
 in the same file as `ancestor/2`; tomorrow it may come from a database adapter,
-a document extractor, or an agent. An **Eyepl Socket** gives that opening a
+a document extractor, or an agent. An **WebEntail Socket** gives that opening a
 name and a contract:
 
 <figure>
@@ -1773,7 +1773,7 @@ name and a contract:
   <figcaption>A socket separates a stable reasoning contract from interchangeable providers; supplied claims remain Prolog terms that proofs can cite.</figcaption>
 </figure>
 
-```eyepl
+```webentail
 socket(family_source, provides(predicate(parent, 2))).
 plug(family_file, family_source).
 
@@ -1786,7 +1786,7 @@ ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).
 
 The portable vocabulary is deliberately small:
 
-```eyepl
+```webentail
 socket(Name, Contract).
 plug(Provider, Name).
 provides(Signature).
@@ -1801,11 +1801,11 @@ know about them can check that a provider offers the promised predicate.
 
 Sockets are particularly valuable at an AI boundary. A model can propose
 claims, but the claims should enter the theory as visible facts or rules. The
-socket states what kind of knowledge may enter; Eyepl checks and combines the
+socket states what kind of knowledge may enter; WebEntail checks and combines the
 result; `why/2` records which supplied clauses actually supported an answer.
 
 **Checkpoint.** Name three separate responsibilities in an embedded service:
-what the host validates before constructing terms, what Eyepl derives from
+what the host validates before constructing terms, what WebEntail derives from
 those terms, and what resource limits may interrupt the run. None can safely
 stand in for the other two.
 
@@ -1831,14 +1831,14 @@ The least-model semantics developed by van Emden and Kowalski in 1976 connected
 definite programs to a mathematical fixed point: repeatedly add supported
 ground consequences until nothing new appears. Tabled logic programming later
 turned fixed-point ideas into a goal-directed technique that shares recursive
-calls and accumulates answers. Eyepl's automatic positive tabling is smaller
+calls and accumulates answers. WebEntail's automatic positive tabling is smaller
 than the general systems in that literature, but inherits their central
 insight: remembering a recursive question can change termination without
 changing what the relation says.
 
 In parallel, deductive databases and Semantic Web systems asked where facts
 come from, how vocabularies align, and how derived claims retain provenance.
-EYE belongs to that proof-producing Semantic Web tradition. Eyepl adopts the
+EYE belongs to that proof-producing Semantic Web tradition. WebEntail adopts the
 expectation that conclusions should be inspectable while implementing a
 focused ISO Prolog profile and explicit RDF 1.2 adapters.
 
@@ -1852,7 +1852,7 @@ when those boundaries became named rather than implicit.
 # Part IV — The craft of logic programming
 
 <figure>
-  <img src="book-assets/part-4-craft.svg" alt="A logic programmer works between domain sketches, design questions, and tested Eyepl clauses.">
+  <img src="book-assets/part-4-craft.svg" alt="A logic programmer works between domain sketches, design questions, and tested WebEntail clauses.">
   <figcaption>Craft moves repeatedly between the real domain, the relations on paper, executable clauses, answers, and proofs.</figcaption>
 </figure>
 
@@ -1872,7 +1872,7 @@ what resource cost. A change in indexing, goal order, or tabling policy should
 ideally preserve the first while improving the second. In practice, modeful
 built-ins and incomplete searches mean that programmers must reason about both.
 
-```eyepl
+```webentail
 path(X, Y) :- edge(X, Y).
 path(X, Z) :- edge(X, Y), path(Y, Z).
 ```
@@ -1895,7 +1895,7 @@ finite set, and which recursive call is smaller or already tabled?
 Conjunction is logically commutative, but its textual order guides search.
 These two rules have the same intended ground consequences:
 
-```eyepl
+```webentail
 adult(Person) :- person(Person), age(Person, Age), (Age >= 18).
 
 adult(Person) :- (Age >= 18), age(Person, Age), person(Person).
@@ -1911,14 +1911,14 @@ Clause order also gives a search order. Put simple and common proofs where
 they can be found cheaply, provided doing so does not starve a necessary base
 case. A recursive clause that calls itself before consuming input is a warning:
 
-```eyepl
+```webentail
 % Poor control: recursion starts before one list cell is exposed.
 bad_member(X, List) :- bad_member(X, Rest), (List = [_ | Rest]).
 ```
 
 The usual definition exposes the decreasing structure first:
 
-```eyepl
+```webentail
 item(X, [X | _]).
 item(X, [_ | Rest]) :- item(X, Rest).
 ```
@@ -1998,7 +1998,7 @@ invariants.
 Suppose packages must be routed through compatible hubs. Start with sentences
 that contain no variables:
 
-```eyepl
+```webentail
 routeable(parcel_7, hub_north).
 ```
 
@@ -2008,7 +2008,7 @@ a ground sentence becomes ambiguity in every rule built on it.
 
 Now name the evidence:
 
-```eyepl
+```webentail
 routeable(Parcel, Hub) :-
   destination_zone(Parcel, Zone),
   serves(Hub, Zone),
@@ -2035,7 +2035,7 @@ prefix([b], [a,b])         false
 The empty example suggests the base clause. Comparing the second example with
 a smaller one suggests removing a matching head from both lists:
 
-```eyepl
+```webentail
 prefix([], _).
 prefix([X | Xs], [X | Ys]) :- prefix(Xs, Ys).
 ```
@@ -2049,7 +2049,7 @@ no reduction is needed.
 Finite combinatorial programs become easier to read when their jobs are
 separate:
 
-```eyepl
+```webentail
 candidate_pair(A, B) :-
   person(A),
   person(B).
@@ -2069,7 +2069,7 @@ proofs say whether a step generated or rejected a choice.
 
 For performance, tests may be interleaved as soon as their inputs are ready:
 
-```eyepl
+```webentail
 compatible_pair(A, B) :-
   person(A),
   person(B),
@@ -2156,7 +2156,7 @@ identify a well-founded measure:
 The measure must decrease before the recursive call in the intended mode. For
 factorial, `N` decreases while remaining a nonnegative integer:
 
-```eyepl
+```webentail
 factorial(0, 1).
 factorial(N, F) :-
   (N > 0),
@@ -2180,7 +2180,7 @@ constructs `s(s(s(...)))` without bound.
 search. Their meaning is usable only when that search can finish. Before
 writing:
 
-```eyepl
+```webentail
 \+ disqualified(Person)
 ```
 
@@ -2193,7 +2193,7 @@ routes below a cost, or some other finite family is intended.
 Ordinary failure says that one attempted proof did not work. An explicit
 integrity relation can instead return the evidence for an invalid state:
 
-```eyepl
+```webentail
 invalid_limits(Name, Low, High) :-
   lower_limit(Name, Low),
   upper_limit(Name, High),
@@ -2226,7 +2226,7 @@ when the caller needs only existence.
 
 Compare:
 
-```eyepl
+```webentail
 connected(X, Y) :- path_with_nodes(X, Y, _).
 ```
 
@@ -2239,7 +2239,7 @@ Keep the witness-producing relation for callers that truly need a path.
 Inlining every condition creates wide clauses with repeated work. A helper can
 name a stable concept:
 
-```eyepl
+```webentail
 within_thermal_limits(Battery) :-
   temperature(Battery, T),
   temperature_limit(Max),
@@ -2255,7 +2255,7 @@ avoid names such as `step2/3` that merely expose an implementation sequence.
 If a recursive call repeatedly computes a value that does not change, compute
 it once and pass the result:
 
-```eyepl
+```webentail
 search(Request, Answer) :-
   normalized_request(Request, Normalized),
   search_normalized(Normalized, initial_state, Answer).
@@ -2326,7 +2326,7 @@ invariants and modes. Sterling and Shapiro made construction and improvement
 central to *The Art of Prolog*, showing that declarative clarity and
 procedural competence mature together.
 
-Eyepl removes several classic Prolog control devices, especially cut. The
+WebEntail removes several classic Prolog control devices, especially cut. The
 smaller surface changes the techniques but not the problem: authors must still
 turn a true relation into a productive computation and say what was preserved.
 
@@ -2343,7 +2343,7 @@ a search tree, represent languages and evaluators as relations, transform a
 correct program without losing its meaning, and organize a decision system
 whose conclusions remain auditable.
 
-Eyepl now supplies the Part 1 control, dynamic-database, operator, and I/O
+WebEntail now supplies the Part 1 control, dynamic-database, operator, and I/O
 families. It remains deliberately smaller than the wider Prolog ecosystem:
 modules, predicate variables in callable position, and definite-clause grammar
 notation are outside this profile. The examples still prefer explicit domain
@@ -2363,7 +2363,7 @@ This and–or structure is the operational counterpart of the program's logical
 structure. A conjunction asks for several supporting claims; multiple clauses
 offer alternative justifications.
 
-```eyepl
+```webentail
 parent(ada, byron).
 parent(byron, clara).
 parent(clara, diego).
@@ -2371,7 +2371,7 @@ parent(clara, diego).
 ancestor(X, Y) :- parent(X, Y).
 ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).
 
-eyepl --goal 'ancestor(ada, Who)' program.pl
+webentail --goal 'ancestor(ada, Who)' program.pl
 ```
 
 For `ancestor(ada, Who)`, the first clause asks
@@ -2414,7 +2414,7 @@ A substitution is a set of bindings carried through the remaining goals.
 Bindings are not local return values. If the first goal binds a variable, every
 later occurrence of that variable sees the same term:
 
-```eyepl
+```webentail
 grandparent(X, Z) :-
   parent(X, Y),
   parent(Y, Z).
@@ -2426,7 +2426,7 @@ binds `Y` to `byron`, the second goal is the selective
 
 Repeated variables impose equality through unification:
 
-```eyepl
+```webentail
 loop_edge(Node) :- edge(Node, Node).
 ```
 
@@ -2437,7 +2437,7 @@ shared variable makes equal endpoints part of the pattern being matched.
 
 Suppose a later goal fails:
 
-```eyepl
+```webentail
 eligible(Person) :-
   applicant(Person),
   age(Person, Age),
@@ -2461,7 +2461,7 @@ the same question forever.
 The table does not prove termination for every recursive program. If each call
 constructs a larger pattern, then the calls are not variants:
 
-```eyepl
+```webentail
 grows(X) :- grows(wrapper(X)).
 ```
 
@@ -2505,7 +2505,7 @@ arguments are the children. Lists are one familiar tree encoding, but syntax,
 plans, types, circuits, formulas, and organizational structures can all be
 represented directly.
 
-```eyepl
+```webentail
 tree(
   oak,
   tree(birch, empty, empty),
@@ -2515,7 +2515,7 @@ tree(
 
 A structural relation follows the representation:
 
-```eyepl
+```webentail
 tree_member(X, tree(X, _, _)).
 tree_member(X, tree(_, Left, _)) :- tree_member(X, Left).
 tree_member(X, tree(_, _, Right)) :- tree_member(X, Right).
@@ -2533,7 +2533,7 @@ observable.
 
 ### Transforming a tree
 
-```eyepl
+```webentail
 mirror(empty, empty).
 mirror(
   tree(Value, Left, Right),
@@ -2557,7 +2557,7 @@ correct, the constructed parent is correct.
 A recognizer can relate an input list to its unconsumed suffix. The pair of
 arguments makes sequencing explicit:
 
-```eyepl
+```webentail
 sentence(Input, Rest) :-
   noun_phrase(Input, AfterNoun),
   verb_phrase(AfterNoun, Rest).
@@ -2577,7 +2577,7 @@ verb([observes | Rest], Rest).
 
 complete_sentence(Words) :- sentence(Words, []).
 
-eyepl --goal 'complete_sentence([the, robot, helps, a, scientist])' program.pl
+webentail --goal 'complete_sentence([the, robot, helps, a, scientist])' program.pl
 ```
 
 The first argument is the list before a phrase and the second is the suffix
@@ -2595,7 +2595,7 @@ modes need the same termination analysis as other recursive relations.
 
 Syntax trees separate the expression from the act of evaluating it:
 
-```eyepl
+```webentail
 evaluate(number(N), N).
 
 evaluate(add(Left, Right), Value) :-
@@ -2609,8 +2609,8 @@ evaluate(multiply(Left, Right), Value) :-
   (Value is L * R).
 ```
 
-```eyepl
-eyepl --goal 'evaluate(
+```webentail
+webentail --goal 'evaluate(
     add(number(2), multiply(number(3), number(4))),
     Value
   )' program.pl
@@ -2621,7 +2621,7 @@ literal evaluations support one multiplication and one addition.
 
 An extension can add variables and an explicit environment:
 
-```eyepl
+```webentail
 lookup(Name, [binding(Name, Value) | _], Value).
 lookup(Name, [_ | Rest], Value) :- lookup(Name, Rest, Value).
 
@@ -2637,7 +2637,7 @@ determined by list order and should be documented as part of `lookup/3`.
 Evaluation collapses syntax to a value. Rewriting preserves syntax while
 replacing one form with an equivalent or preferred form:
 
-```eyepl
+```webentail
 simplify(add(number(0), X), X).
 simplify(add(X, number(0)), X).
 simplify(multiply(number(1), X), X).
@@ -2664,7 +2664,7 @@ simplification and permits unbounded rewriting.
    repeatedly combined.
 
 **Checkpoint.** For one compound term, label the object-language syntax, the
-Eyepl relation that inspects it, and the environment or state used to interpret
+WebEntail relation that inspects it, and the environment or state used to interpret
 it. Then identify a rewrite pair that would create a cycle if both directions
 were enabled.
 
@@ -2694,7 +2694,7 @@ duplicate work, or alter proof shape.
 
 Start with:
 
-```eyepl
+```webentail
 adult(Person) :-
   recorded_age(Person, Age),
   adult_age(Age).
@@ -2704,7 +2704,7 @@ adult_age(Age) :- (Age >= 18).
 
 Unfolding `adult_age/1` gives:
 
-```eyepl
+```webentail
 adult(Person) :-
   recorded_age(Person, Age),
   (Age >= 18).
@@ -2718,7 +2718,7 @@ alternative. If it is recursive, unrestricted unfolding may never finish.
 
 Folding moves in the other direction. Suppose decisions repeat:
 
-```eyepl
+```webentail
 can_board(Person) :-
   registered(Person),
   identity_checked(Person),
@@ -2734,7 +2734,7 @@ can_enter_lounge(Person) :-
 
 Name the shared concept:
 
-```eyepl
+```webentail
 traveler_in_good_standing(Person) :-
   registered(Person),
   identity_checked(Person),
@@ -2757,13 +2757,13 @@ assumption behind `\+ suspended(Person)`.
 
 A general transport database may use:
 
-```eyepl
+```webentail
 connection(Mode, From, To, Cost).
 ```
 
 An application that only plans rail journeys can define:
 
-```eyepl
+```webentail
 rail_connection(From, To, Cost) :-
   connection(rail, From, To, Cost).
 ```
@@ -2777,7 +2777,7 @@ against which specialized answers are compared.
 
 A direct list sum performs work after recursion:
 
-```eyepl
+```webentail
 sum_numbers([], 0).
 sum_numbers([X | Xs], Sum) :-
   sum_numbers(Xs, Rest),
@@ -2786,7 +2786,7 @@ sum_numbers([X | Xs], Sum) :-
 
 An accumulator makes the partial sum explicit:
 
-```eyepl
+```webentail
 sum_numbers_acc(List, Sum) :- sum_from(List, 0, Sum).
 
 sum_from([], Accumulator, Accumulator).
@@ -2848,7 +2848,7 @@ A clear search program often has three layers:
 2. constrain the candidate;
 3. describe or score the surviving witness.
 
-```eyepl
+```webentail
 worker(ada).
 worker(byron).
 worker(clara).
@@ -2866,7 +2866,7 @@ assignment(Worker, Task) :-
   task(Task),
   qualified(Worker, Task).
 
-eyepl --goal 'assignment(Worker, Task)' program.pl
+webentail --goal 'assignment(Worker, Task)' program.pl
 ```
 
 `worker/1` and `task/1` make the search space explicit. `qualified/2` is both a
@@ -2879,7 +2879,7 @@ A state-space problem needs a state term, a finite move relation, a goal test,
 a policy for repeated states, and a witness representation. A simple graph
 path carries visited nodes:
 
-```eyepl
+```webentail
 simple_path(From, To, Path) :-
   walk(From, To, [From], Reversed),
   reverse(Reversed, Path).
@@ -2900,7 +2900,7 @@ bound, such as maximum steps or cost.
 
 These questions have very different costs:
 
-```eyepl
+```webentail
 reachable(From, To).
 once(simple_path(From, To, Path)).
 findall(Path, simple_path(From, To, Path), Paths).
@@ -2915,7 +2915,7 @@ the caller's need.
 
 An optimal answer requires a finite candidate relation and a comparison key:
 
-```eyepl
+```webentail
 best_plan(Request, Plan, Cost) :-
   aggregate_min(
     [CandidateCost, CandidatePlan],
@@ -2991,7 +2991,7 @@ it can only make the chosen answers precise.
 
 Represent observations without embedding decisions:
 
-```eyepl
+```webentail
 person(ada).
 badge(b17, ada).
 badge_status(b17, active).
@@ -3006,7 +3006,7 @@ records harder to detect.
 
 Build vocabulary that reads like the policy:
 
-```eyepl
+```webentail
 active_badge(Person, Badge) :-
   badge(Badge, Person),
   badge_status(Badge, active).
@@ -3027,7 +3027,7 @@ decision clause.
 
 If the suspension list is authoritative and complete, absence can be used:
 
-```eyepl
+```webentail
 in_good_standing(Person) :-
   person(Person),
   \+ suspended(Person).
@@ -3039,7 +3039,7 @@ about the knowledge boundary, not a matter of syntax.
 
 ### Decision, reasons, and proof
 
-```eyepl
+```webentail
 permit(Person, Zone) :-
   active_badge(Person, Badge),
   cleared_for(Badge, Zone),
@@ -3049,8 +3049,8 @@ permit(Person, Zone) :-
 reason(Person, Zone, badge_and_training_verified) :-
   permit(Person, Zone).
 
-eyepl --goal 'permit(Person, Zone)' program.pl
-eyepl --goal 'reason(Person, Zone, Reason)' program.pl
+webentail --goal 'permit(Person, Zone)' program.pl
+webentail --goal 'reason(Person, Zone, Reason)' program.pl
 ```
 
 `reason/3` supplies a stable user-facing summary. With `--proof`, the same
@@ -3061,7 +3061,7 @@ domain vocabulary, while the proof records actual clauses and bindings.
 
 Contradictory badge states are exposed by an explicit validation relation:
 
-```eyepl
+```webentail
 incompatible_status(active, revoked).
 incompatible_status(revoked, active).
 
@@ -3090,14 +3090,14 @@ several proofs. If badge identity belongs in the answer, define
 
 ### Embedding and audit
 
-Authenticate source systems in the host, convert records to Eyepl facts, run
+Authenticate source systems in the host, convert records to WebEntail facts, run
 the theory, and store the answer with its proof and input version. The solver
 can explain logical support; it cannot attest that a badge database was current
 or a training provider trustworthy.
 
 ```text
 authenticated source snapshot
-  -> normalized Eyepl facts
+  -> normalized WebEntail facts
   -> checked theory
   -> permit and reason
   -> proof referencing clauses and facts
@@ -3149,13 +3149,13 @@ relation could be specialized when part of its input was known.
 Futamura's work in the 1970s gave partial evaluation a striking interpretation:
 specializing an interpreter with respect to a source program can produce a
 compiled form. Logic-program transformation developed related practices of
-unfolding, folding, and specialization. The inheritance for Eyepl is not a
+unfolding, folding, and specialization. The inheritance for WebEntail is not a
 promise that every classic transformation is built in. It is the demand that a
 transformation name its invariant and preserve a stated answer contract.
 
 *The Art of Prolog* joined computation, construction, nondeterminism, grammars,
 interpreters, transformation, and applications into a sustained account of
-craft. Part V pays tribute to that breadth through Eyepl's explicit subset:
+craft. Part V pays tribute to that breadth through WebEntail's explicit subset:
 syntax is data, state is an argument, and audit evidence remains visible.
 
 ---
@@ -3185,13 +3185,13 @@ inherits the twentieth century's harder questions. What counts as a formal
 proof? What is an effective procedure? Which truths follow from a finite set
 of axioms? Which questions cannot be decided by any uniform mechanical method?
 
-Eyepl is a very small descendant of those questions. It is not a foundation
+WebEntail is a very small descendant of those questions. It is not a foundation
 for all mathematics, a computer algebra system, or an interactive theorem
 prover. Its definite clauses cover only a disciplined fragment of logic.
 Precisely because the fragment is small, however, one can see the ancient
 mathematical acts inside the running machine:
 
-| Mathematical act | Eyepl form | Operational consequence |
+| Mathematical act | WebEntail form | Operational consequence |
 | --- | --- | --- |
 | Define a class | facts and clauses | enumerate its instances |
 | Introduce an unknown | a variable | seek a substitution |
@@ -3204,7 +3204,7 @@ mathematical acts inside the running machine:
 | Explain a conclusion | a proof term | expose the successful derivation |
 
 The table is a correspondence, not an identity. A mathematical proof and an
-Eyepl execution answer different questions unless the encoding between them is
+WebEntail execution answer different questions unless the encoding between them is
 itself justified. This Part develops both the power and the limit of the
 correspondence.
 
@@ -3226,7 +3226,7 @@ that proof.
 
 Logic programming enters through one particular connection. A definite clause
 
-```eyepl
+```webentail
 mortal(X) :- human(X).
 ```
 
@@ -3275,7 +3275,7 @@ methods.
 
 Consider a relation for a Pythagorean triple:
 
-```eyepl
+```webentail
 triple(A, B, C) :-
   between(1, 20, A),
   between(A, 20, B),
@@ -3285,7 +3285,7 @@ triple(A, B, C) :-
   (Sum is AA + BB),
   (Sum is C * C).
 
-eyepl --goal 'triple(A, B, C)' program.pl
+webentail --goal 'triple(A, B, C)' program.pl
 ```
 
 The open query asks an existential question over a finite domain: find values
@@ -3301,14 +3301,14 @@ should come from.
 
 This is an important distinction between mathematical existence and
 executable witness production. A classical proof may establish that something
-exists without furnishing an efficient construction. An Eyepl query produces
+exists without furnishing an efficient construction. An WebEntail query produces
 a witness only when its clauses and control actually reach one.
 
 ### Proof objects and proof checking
 
 The normal answer
 
-```eyepl
+```webentail
 triple(3, 4, 5).
 ```
 
@@ -3335,7 +3335,7 @@ of this operation is the least Herbrand model.
 
 For
 
-```eyepl
+```webentail
 edge(a, b).
 edge(b, c).
 
@@ -3379,7 +3379,7 @@ construction toward smaller objects.
 
 For natural numbers represented as `z`, `s(z)`, `s(s(z))`, and so on:
 
-```eyepl
+```webentail
 natural(z).
 natural(s(N)) :- natural(N).
 
@@ -3436,7 +3436,7 @@ Lists carry their induction principle in their syntax:
 
 A relation following that structure is easy to reason about:
 
-```eyepl
+```webentail
 list_length([], 0).
 list_length([_ | Tail], N) :-
   list_length(Tail, M),
@@ -3459,7 +3459,7 @@ principles available.
 An accumulator often improves control but makes the induction hypothesis more
 subtle:
 
-```eyepl
+```webentail
 reverse_acc(List, Reversed) :-
   reverse_go(List, [], Reversed).
 
@@ -3523,7 +3523,7 @@ clauses depend only on their constructors and laws.
 
 The goal
 
-```eyepl
+```webentail
 (pair(X, f(Y)) = pair(g(a), f(b))).
 ```
 
@@ -3554,7 +3554,7 @@ Suppose a triangle is represented by three side lengths. Searching all
 permutations repeats the same geometric object six times. Ordering the sides
 removes the symmetry:
 
-```eyepl
+```webentail
 triangle(A, B, C) :-
   between(1, 20, A),
   between(A, 20, B),
@@ -3578,7 +3578,7 @@ which distinctions belong to the problem and which are artifacts of notation.
 
 A function privileges one direction. An equation or relation contains several:
 
-```eyepl
+```webentail
 rectangle(W, H, Area) :- (Area is W * H).
 ```
 
@@ -3586,13 +3586,13 @@ In a supported arithmetic mode, this relation may verify an area or calculate
 it from width and height. With a finite generator it can also search for
 factorizations:
 
-```eyepl
+```webentail
 integer_rectangle(Area, W, H) :-
   between(1, Area, W),
   between(W, Area, H),
   (Area is W * H).
 
-eyepl --goal 'integer_rectangle(24, W, H)' program.pl
+webentail --goal 'integer_rectangle(24, W, H)' program.pl
 ```
 
 The relational view makes inverse questions conceptually ordinary, even when
@@ -3612,7 +3612,7 @@ If a mapping is claimed to preserve an operation, write the preservation law
 as a testable relation. For a symbolic mapping `image/2` and operation
 `combine/3`:
 
-```eyepl
+```webentail
 preserves_combine(X, Y) :-
   combine(X, Y, XY),
   image(X, IX),
@@ -3664,7 +3664,7 @@ That checklist joins abstract algebra, data modeling, and program design.
    commutative. Explain why one witness refutes a universal law.
 
 **Checkpoint.** Pick a domain value with two possible representations. State
-whether Eyepl regards them as structurally equal, whether the domain regards
+whether WebEntail regards them as structurally equal, whether the domain regards
 them as equivalent, and which normalization or explicit relation connects the
 two notions.
 
@@ -3690,7 +3690,7 @@ theorem over an unbounded domain.
 
 This boundary can be written directly:
 
-```eyepl
+```webentail
 counterexample_to_odd_square(N) :-
   between(1, 100, N),
   (1 is N mod 2),
@@ -3698,7 +3698,7 @@ counterexample_to_odd_square(N) :-
   (Remainder is Square mod 2),
   (Remainder \= 1).
 
-eyepl --goal 'counterexample_to_odd_square(N)' program.pl
+webentail --goal 'counterexample_to_odd_square(N)' program.pl
 ```
 
 No answer means only that no counterexample was found in the generated range
@@ -3718,7 +3718,7 @@ search especially valuable for criticism. Testing associativity over random
 inputs offers evidence; finding one triple where associativity fails settles
 the negative question.
 
-```eyepl
+```webentail
 noncommuting_pair(A, B) :-
   matrix(A),
   matrix(B),
@@ -3735,7 +3735,7 @@ testing are so productive.
 ### Finite model exploration
 
 A finite structure consists of a finite carrier and interpretations of its
-operations and relations. Eyepl can enumerate candidates, apply axioms as
+operations and relations. WebEntail can enumerate candidates, apply axioms as
 filters, and return models or countermodels. The method is mathematically
 serious because the scope is explicit.
 
@@ -3833,7 +3833,7 @@ axioms + definitions + inference rules
   -> theorem
 ```
 
-Every trustworthy Eyepl conclusion has the same broad shape:
+Every trustworthy WebEntail conclusion has the same broad shape:
 
 ```text
 source facts + clauses + built-in semantics + execution assumptions
@@ -3890,7 +3890,7 @@ effective method that settles every sufficiently expressive mathematical
 question. No amount of faster hardware turns an undecidable general problem
 into a decidable one.
 
-Eyepl has smaller, immediate limits:
+WebEntail has smaller, immediate limits:
 
 - some relations have infinitely many answers;
 - depth-first search may pursue an unproductive branch;
@@ -3929,7 +3929,7 @@ certainty whose boundary is visible.
 
 ### A final program-reading ritual
 
-Before trusting an Eyepl conclusion, ask:
+Before trusting an WebEntail conclusion, ask:
 
 1. What does the ground answer say in the domain?
 2. Which facts and rules support it?
@@ -3956,7 +3956,7 @@ Preserve the proof.
    visible in its explanation.
 4. Find one claim in your own program for which tests provide evidence but not
    proof. State the missing universal argument.
-5. Write a one-page “trust contract” for an embedded Eyepl service: accepted
+5. Write a one-page “trust contract” for an embedded WebEntail service: accepted
    sources, model scope, numeric assumptions, resource bounds, proof retention,
    and known limits.
 
@@ -4000,7 +4000,7 @@ inspected together.
 
 The deeper inheritance is a style of honesty. Mathematics advanced by proving
 not only more statements but also where methods fail, separating truth,
-provability, decidability, and computation. Eyepl's finite bounds, mode
+provability, decidability, and computation. WebEntail's finite bounds, mode
 restrictions, search risks, and trust boundaries belong inside its account for
 the same reason: limits are part of the result, not fine print.
 
@@ -4056,27 +4056,27 @@ empty? No test framework can choose the definition for you.
 
 Queries naturally record positive expectations:
 
-```eyepl
+```webentail
 edge(a, b).
 edge(b, c).
 
 path(X, Y) :- edge(X, Y).
 path(X, Z) :- edge(X, Y), path(Y, Z).
 
-eyepl --goal 'path(a, b)' program.pl
-eyepl --goal 'path(a, c)' program.pl
+webentail --goal 'path(a, b)' program.pl
+webentail --goal 'path(a, c)' program.pl
 ```
 
 To make an expected absence visible, define a finite observer:
 
-```eyepl
+```webentail
 unexpected_path :-
   path(a, d).
 
 expected_absence :-
   \+ unexpected_path.
 
-eyepl --goal 'expected_absence' program.pl
+webentail --goal 'expected_absence' program.pl
 ```
 
 This is a test over a ground, terminating goal. It does not turn negation as
@@ -4091,9 +4091,9 @@ golden answer file is an executable specification of the expected answer set.
 
 Suppose `append/3` is intended both to concatenate and to split:
 
-```eyepl
-eyepl --goal 'append([a, b], [c], Whole)' program.pl
-eyepl --goal 'append(Prefix, Suffix, [a, b])' program.pl
+```webentail
+webentail --goal 'append([a, b], [c], Whole)' program.pl
+webentail --goal 'append(Prefix, Suffix, [a, b])' program.pl
 ```
 
 The first call should construct one list. The second should enumerate three
@@ -4117,7 +4117,7 @@ supported call pattern directly.
 Examples test selected points. A finite generated property tests every point
 in a declared scope:
 
-```eyepl
+```webentail
 double(N, D) :- (D is N + N).
 
 double_is_even(N) :-
@@ -4131,7 +4131,7 @@ bounded_double_counterexample :-
   between(-100, 100, N),
   \+ double_is_even(N).
 
-eyepl --goal 'bounded_double_law' program.pl
+webentail --goal 'bounded_double_law' program.pl
 ```
 
 This is exhaustive for the 201 generated integers, not for all integers.
@@ -4245,8 +4245,8 @@ Use four views in a fixed order:
 Do not begin with an open query that prints hundreds of answers. Name one
 conclusion that is missing or surprising:
 
-```eyepl
-eyepl --goal 'eligible(alex)' program.pl
+```webentail
+webentail --goal 'eligible(alex)' program.pl
 ```
 
 Then expand only the clause intended to prove it. Replace broad generators
@@ -4260,7 +4260,7 @@ Rewrite the domain sentence first.
 
 Consider:
 
-```eyepl
+```webentail
 eligible(Person) :-
   (Age >= 18),
   age(Person, Age).
@@ -4276,7 +4276,7 @@ The intended mathematics is easy to recognize, but `>=/2` sees an unbound
 
 Reordering the goals repairs the operational mode:
 
-```eyepl
+```webentail
 eligible(Person) :-
   age(Person, Age),
   (Age >= 18).
@@ -4333,7 +4333,7 @@ open.
 
 Temporary helpers can expose intermediate concepts:
 
-```eyepl
+```webentail
 candidate_debug(Person, Age) :-
   age(Person, Age).
 
@@ -4341,8 +4341,8 @@ adult_debug(Person, Age) :-
   candidate_debug(Person, Age),
   (Age >= 18).
 
-eyepl --goal 'candidate_debug(Person, Age)' program.pl
-eyepl --goal 'adult_debug(Person, Age)' program.pl
+webentail --goal 'candidate_debug(Person, Age)' program.pl
+webentail --goal 'adult_debug(Person, Age)' program.pl
 ```
 
 Once the fault is understood, either remove the helper or rename it as a
@@ -4355,7 +4355,7 @@ For a bounded domain, write a deliberately simple reference relation and
 compare it with the optimized one. The reference may be slow; its purpose is
 clarity.
 
-```eyepl
+```webentail
 reference_square(N, S) :-
   between(0, 20, N),
   (S is N * N).
@@ -4368,7 +4368,7 @@ disagreement(N, S) :-
   reference_square(N, S),
   \+ optimized_square(N, S).
 
-eyepl --goal 'disagreement(N, S)' program.pl
+webentail --goal 'disagreement(N, S)' program.pl
 ```
 
 A complete equivalence check needs both directions and must account for
@@ -4434,7 +4434,7 @@ being written.
 **Form:** write one representative ground fact and read it aloud before adding
 variables.
 
-```eyepl
+```webentail
 assigned_badge(alex, badge_17).
 ```
 
@@ -4449,7 +4449,7 @@ domain rule.
 **Form:** retain source facts, derive one canonical vocabulary, and make core
 rules depend only on the normalized layer.
 
-```eyepl
+```webentail
 source_role(person_7, "Doctor").
 
 canonical_role(Person, clinician) :-
@@ -4468,7 +4468,7 @@ explanation until none can be reasoned about separately.
 **Form:** generate a finite candidate, apply the cheapest selective constraints
 in dependency order, then construct a witness or reason.
 
-```eyepl
+```webentail
 chosen_pair(pair(X, Y), reason(sum_is_ten)) :-
   between(0, 10, X),
   between(X, 10, Y),
@@ -4485,7 +4485,7 @@ needed for explanation or later computation.
 **Form:** add a structured output containing the path, assignment, schedule, or
 evidence summary.
 
-```eyepl
+```webentail
 path(X, Y, [X, Y]) :- edge(X, Y).
 path(X, Z, [X | Rest]) :-
   edge(X, Y),
@@ -4503,7 +4503,7 @@ only after a complete finite search.
 **Form:** bind the subject and finite scope before `\+/1`; isolate the
 closed-world step behind a clearly named predicate.
 
-```eyepl
+```webentail
 unregistered(Person) :-
   person(Person),
   \+ registered(Person).
@@ -4518,7 +4518,7 @@ not be mistaken for an explicit fact that the person is not registered.
 
 **Form:** represent the old and new states as terms related by an action.
 
-```eyepl
+```webentail
 step(state(Room, outside), enter(Room), state(Room, inside)).
 ```
 
@@ -4533,7 +4533,7 @@ subquestions.
 **Form:** state the positive recursive relation directly and let eligible
 components be tabled.
 
-```eyepl
+```webentail
 depends(X, Y) :- direct_dependency(X, Y).
 depends(X, Z) :- direct_dependency(X, Y), depends(Y, Z).
 ```
@@ -4549,7 +4549,7 @@ unreadable explanations.
 **Form:** introduce stable domain concepts and a small public decision relation
 whose premises are meaningful reasons.
 
-```eyepl
+```webentail
 within_limit(Device) :-
   reading(Device, Value),
   maximum(Max),
@@ -4570,7 +4570,7 @@ misleading.
 **Form:** encode forbidden combinations as ordinary relations with diagnostic
 arguments.
 
-```eyepl
+```webentail
 invalid_badge_assignment(Badge, PersonA, PersonB) :-
   assigned_badge(PersonA, Badge),
   assigned_badge(PersonB, Badge),
@@ -4590,7 +4590,7 @@ semantics are known.
 **Form:** retain source snapshot, theory version, adapter version, and relevant
 clock or numeric assumptions beside the proof.
 
-```eyepl
+```webentail
 theory_version("2026-07-24").
 source_snapshot("telemetry-0042").
 numeric_model(ieee_754_double).
@@ -4732,7 +4732,7 @@ that contains it. If-then-else commits to the first successful condition:
   <figcaption>Control narrows or redirects search; collection then gives a finite solution stream a deliberate list or grouping shape.</figcaption>
 </figure>
 
-```eyepl
+```webentail
 travel_status(From, To, Status) :-
   (route(From, To) -> Status = connected ; Status = disconnected).
 ```
@@ -4745,7 +4745,7 @@ answer set before and after introducing it.
 
 Exceptions separate an exceptional call from ordinary logical failure:
 
-```eyepl
+```webentail
 require_route(From, To) :-
   (route(From, To) -> true ; throw(no_route(From, To))).
 
@@ -4771,7 +4771,7 @@ instead creates a group for each binding of a free variable and fails when
 there are no solutions. `setof/3` has the same grouping rule, then sorts and
 deduplicates each group. The `^/2` notation marks a goal variable existential:
 
-```eyepl
+```webentail
 regional_total(Region, Total) :-
   bagof(Amount, Seller^sale(Region, Seller, Amount), Amounts),
   sum_amounts(Amounts, Total).
@@ -4781,7 +4781,7 @@ Here `Region` deliberately remains free and produces one answer per region;
 `Seller` is hidden from grouping. This distinction matters whenever a
 collection unexpectedly arrives as several answers.
 
-Integer arithmetic has similarly precise choices. In Eyepl's supported
+Integer arithmetic has similarly precise choices. In WebEntail's supported
 profile, `div` and `//` both truncate the quotient toward zero. With a positive
 divisor, `mod` returns a nonnegative modulo while `rem` keeps the dividend's
 sign. For `-7` and `3`, the quotient is `-2`, but the two remainders are `2`
@@ -4790,11 +4790,11 @@ integers.
 
 Run the focused examples:
 
-- [`iso-control-and-errors.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-control-and-errors.pl)
+- [`iso-control-and-errors.pl`](https://github.com/eyereasoner/webentail/blob/main/examples/iso-control-and-errors.pl)
   covers `call/1`, `once/1`, cut, if-then-else, and recovery;
-- [`iso-grouped-solutions.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-grouped-solutions.pl)
+- [`iso-grouped-solutions.pl`](https://github.com/eyereasoner/webentail/blob/main/examples/iso-grouped-solutions.pl)
   contrasts the three collectors and inspects a source clause; and
-- [`iso-integer-arithmetic.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-integer-arithmetic.pl)
+- [`iso-integer-arithmetic.pl`](https://github.com/eyereasoner/webentail/blob/main/examples/iso-integer-arithmetic.pl)
   makes division and bit-operation results visible.
 
 **Checkpoint.** Explain why `bagof(Amount, sale(Region, Seller, Amount), X)`
@@ -4817,7 +4817,7 @@ generic walkers, schema checkers, interpreters, and source transformations.
 argument. `=../2`—traditionally called *univ*—relates a term to a list whose
 head is the functor and whose tail contains the arguments:
 
-```eyepl
+```webentail
 term_shape(Term, shape(Name, Arity, Arguments)) :-
   functor(Term, Name, Arity),
   (Term =.. [Name | Arguments]).
@@ -4848,15 +4848,15 @@ Atomic conversion predicates expose reversible representations:
 - `char_code/2` converts one character; and
 - `number_chars/2` and `number_codes/2` parse or render ISO numbers.
 
-These are atom relations, not the Eyepl library's string convenience
+These are atom relations, not the WebEntail library's string convenience
 predicates. Quoted atoms such as `'λ'` remain atoms; double-quoted values remain
-Eyepl strings.
+WebEntail strings.
 
-[`iso-reflective-terms.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-reflective-terms.pl)
+[`iso-reflective-terms.pl`](https://github.com/eyereasoner/webentail/blob/main/examples/iso-reflective-terms.pl)
 walks through shape, rebuilding, fresh copying, variables, and order.
-[`iso-atomic-conversion.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-atomic-conversion.pl)
+[`iso-atomic-conversion.pl`](https://github.com/eyereasoner/webentail/blob/main/examples/iso-atomic-conversion.pl)
 demonstrates both conversion directions and every three-character sub-atom of
-`eyepl`.
+`webentail`.
 
 **Checkpoint.** Given `pair(X, X)`, predict the variable list before and after
 `copy_term/2`. Then explain why `atom_codes/2` belongs at a text boundary
@@ -4872,7 +4872,7 @@ it before updates:
   <figcaption>Dynamic predicates change solver-local clause order; operator declarations change how subsequent source is parsed. Both effects are explicit and ordered.</figcaption>
 </figure>
 
-```eyepl
+```webentail
 :- dynamic(task/2).
 
 prepare_queue :-
@@ -4894,7 +4894,7 @@ in a narrow lifecycle layer.
 The queue example performs setup in `initialization/1`, so query order does not
 determine its state:
 
-```eyepl
+```webentail
 :- initialization(prepare_queue).
 ```
 
@@ -4906,7 +4906,7 @@ should be set deliberately near the boundary that relies on them.
 
 Operators offer readable syntax without adding a new data model:
 
-```eyepl
+```webentail
 :- op(600, xfx, reports).
 
 sensor_7 reports temperature.
@@ -4918,9 +4918,9 @@ determine position and associativity. `current_op/3` inspects the table;
 `op(0, Specifier, Name)` removes a definition. Because declarations affect
 parsing of subsequent text, place them before their first use.
 
-Run [`iso-dynamic-database.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-dynamic-database.pl)
+Run [`iso-dynamic-database.pl`](https://github.com/eyereasoner/webentail/blob/main/examples/iso-dynamic-database.pl)
 for an explicitly stateful queue and
-[`iso-operators.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-operators.pl)
+[`iso-operators.pl`](https://github.com/eyereasoner/webentail/blob/main/examples/iso-operators.pl)
 to see custom notation decomposed back into an ordinary term.
 
 **Checkpoint.** State the final clause order after one `asserta/1` and two
@@ -4939,7 +4939,7 @@ application code.
   <figcaption>A term round trip has visible lifecycle obligations: open the right stream type, write readable syntax with a period, read in order, observe end state, and close.</figcaption>
 </figure>
 
-```eyepl
+```webentail
 write_event(Path, Event) :-
   open(Path, write, Stream, [type(text)]),
   write_canonical(Stream, Event),
@@ -4972,7 +4972,7 @@ End of file is a state transition, not merely a character. With
 tests the position. Repeated input after the end follows the selected
 `eof_action`.
 
-[`iso-term-io.pl`](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-term-io.pl)
+[`iso-term-io.pl`](https://github.com/eyereasoner/webentail/blob/main/examples/iso-term-io.pl)
 writes a temporary fixture, reads its terms in order, checks variable metadata,
 and observes end of stream. The file lives under `/tmp`; running the example
 does not modify the checkout.
@@ -4983,7 +4983,7 @@ effect belongs outside the central relation that decides what the term means.
 
 ## Part VIII summary
 
-The supported ISO facilities make Eyepl suitable for more than closed rule
+The supported ISO facilities make WebEntail suitable for more than closed rule
 files:
 
 - control predicates delimit choices and exception recovery;
@@ -5015,11 +5015,11 @@ The long catalogs are meant to be entered locally, not memorized linearly.
 ## 38. Language and ISO profile
 
 The standards baseline is ISO/IEC 13211-1:1995, as corrected by Technical
-Corrigenda 1:2007, 2:2012, and 3:2017. Eyepl implements the compatibility
+Corrigenda 1:2007, 2:2012, and 3:2017. WebEntail implements the compatibility
 profile documented here; it does not claim certification as a complete
 conforming processor.
 
-Prolog source accepted by Eyepl is UTF-8. `%` starts a line comment and
+Prolog source accepted by WebEntail is UTF-8. `%` starts a line comment and
 `/* ... */` delimits a block comment. Plain atoms begin with a
 lowercase ASCII letter. Variables begin with uppercase or underscore. The bare
 `_` is fresh each time. Single quotes delimit quoted atoms; double quotes
@@ -5029,7 +5029,7 @@ hexadecimal integers, and character-code constants are accepted.
 Unquoted names deliberately use ASCII spelling. Unicode belongs inside quoted
 atoms and strings:
 
-```eyepl
+```webentail
 city('München').
 message("café").
 ```
@@ -5045,7 +5045,7 @@ angle-bracket IRIs are not syntax; quote names containing such punctuation.
 
 In the grammar below, `{ x }` means zero or more repetitions of `x`, `[ x ]`
 means that `x` is optional, and parentheses group alternatives. These marks
-describe the grammar; they are not characters written in Eyepl source.
+describe the grammar; they are not characters written in WebEntail source.
 
 ```text
 program             ::= { clause }
@@ -5109,7 +5109,7 @@ depth-first resolution, while eligible positive recursive groups are tabled
 automatically. `\+/1` is stratified negation as failure, not classical
 negation.
 
-Eyepl supports cut, operator declarations, dynamic database updates, grouped
+WebEntail supports cut, operator declarations, dynamic database updates, grouped
 solutions, exceptions, flags, initialization and inclusion directives, and
 standard stream and term I/O. Modules and DCG notation remain outside this
 Part 1 profile.
@@ -5129,7 +5129,7 @@ in place; repeated `ensure_loaded/1` designations are loaded once.
 Normal output contains only ground query answers, one term and period at a
 time. Source facts are not echoed as new conclusions, and duplicate answers
 are suppressed. Answers are not asserted back into the running program.
-Supported output syntax is designed to be readable as Prolog input accepted by Eyepl.
+Supported output syntax is designed to be readable as Prolog input accepted by WebEntail.
 
 #### Automatic hybrid reasoning
 
@@ -5171,8 +5171,8 @@ Queries for predicates with no group follow the known groups.
 
 ## 39. Built-in predicates by programming role
 
-Eyepl's default registry contains the built-ins in its ISO compatibility
-profile. Where a predicate is defined by ISO/IEC 13211-1:1995, Eyepl uses its
+WebEntail's default registry contains the built-ins in its ISO compatibility
+profile. Where a predicate is defined by ISO/IEC 13211-1:1995, WebEntail uses its
 standard predicate indicator; the registry also includes a few later or common
 compatibility predicates identified below. Arithmetic is expressed through
 `is/2` rather than output arguments on arithmetic predicates. The registry
@@ -5210,7 +5210,7 @@ floating-point literals, unary `+` and `-`, `+`, `-`, `*`, `/`, `//`, `div`,
 
 Arithmetic comparisons evaluate both operands. Standard term-order predicates
 (`@<`, `@=<`, `@>`, `@>=`) compare terms without arithmetic evaluation.
-Eyepl's documented profile order is not the complete ISO term order: strings
+WebEntail's documented profile order is not the complete ISO term order: strings
 are a distinct scalar category, and numeric terms share one exact numeric
 ordering category.
 
@@ -5230,9 +5230,9 @@ The JavaScript `ioOptions.input` and `ioOptions.write` hooks connect standard
 streams to an embedder. File-backed streams use synchronous lifecycle semantics
 so side effects occur in Prolog execution order.
 
-### The Eyepl library
+### The WebEntail library
 
-The runtime registry combines the supported ISO Prolog profile with the Eyepl library, implemented entirely in JavaScript. It is
+The runtime registry combines the supported ISO Prolog profile with the WebEntail library, implemented entirely in JavaScript. It is
 loaded automatically by the CLI, `run()`, `Solver`, proof replay, and the browser
 playground. Ordinary programs therefore use the same built-ins throughout.
 All of these relations live in `src/library.js`; there is no second portable
@@ -5242,13 +5242,13 @@ ISO-only registry remains available through `createDefaultRegistry()` and
 `getDefaultRegistry()` for conformance work and advanced embedders.
 
 The complete registry contains **169 predicate indicators**: 115 in the isolated
-ISO profile and 54 Eyepl library indicators implemented in `src/library.js`. Every
-Eyepl library definition is tagged with `eyeplLibrary: true`, so tests and
+ISO profile and 54 WebEntail library indicators implemented in `src/library.js`. Every
+WebEntail library definition is tagged with `webEntailLibrary: true`, so tests and
 embedders can audit the boundary directly.
 
-<!-- eyepl-library-catalog:start -->
+<!-- webentail-library-catalog:start -->
 
-| Eyepl library predicates |
+| WebEntail library predicates |
 | --- |
 | `append/3`, `member/2`, `select/3`, `head/2`, `rest/2`, `last/2` |
 | `nth0/3`, `nth1/3`, `set_nth0/4`, `take/3`, `drop/3`, `slice/4` |
@@ -5270,19 +5270,19 @@ embedders can audit the boundary directly.
 | `lowercase/2`, `uppercase/2`, `trim/2` |
 | `number_string/2`, `atom_string/2`, `term_string/2` |
 
-<!-- eyepl-library-catalog:end -->
+<!-- webentail-library-catalog:end -->
 
-On the command line, the Eyepl library is already present:
+On the command line, the WebEntail library is already present:
 
 ```sh
-eyepl program.pl
-eyepl -p program.pl        # add proof output
+webentail program.pl
+webentail -p program.pl        # add proof output
 ```
 
 JavaScript uses the same registry by default:
 
 ```js
-import { run } from 'eyepl';
+import { run } from 'webentail';
 
 const result = run(source);
 ```
@@ -5293,7 +5293,7 @@ The mode notation below is descriptive:
 - `-` means the predicate produces that argument;
 - `?` means a bound value can be checked or an unbound value generated.
 
-Most Eyepl library predicates are projections or filters. When an input is
+Most WebEntail library predicates are projections or filters. When an input is
 unbound, malformed, outside its domain, or incompatible with the requested
 output, they normally **fail** rather than raising the ISO errors described in
 the errors section above. They do not invent open-ended domains. Bind arithmetic operands, source
@@ -5306,14 +5306,14 @@ the corresponding predicate.
 | --- | --- |
 | `tan/2`, `asin/2`, `acos/2`, `atan2/3` | Floating-point functions not supplied as evaluable functions by ISO/IEC 13211-1. |
 | `lt(+A,+B)`, `le(+A,+B)`, `gt(+A,+B)`, `ge(+A,+B)` | Compare integers exactly, finite numeric text numerically, `PnYnMnD` duration text component-wise, and other lexical values by string order. These differ from ISO arithmetic comparison and standard term order. |
-| `local_time(-Date)` | Produces the host-local calendar date as `"YYYY-MM-DD"`. Tests and reproducible hosts may set `EYEPL_LOCAL_TIME`. |
+| `local_time(-Date)` | Produces the host-local calendar date as `"YYYY-MM-DD"`. Tests and reproducible hosts may set `WEBENTAIL_LOCAL_TIME`. |
 | `difference(+End,+Start,-Duration)` | Computes a nonnegative calendar difference between ISO date prefixes and returns `"PnYnMnD"`. Invalid dates or an end before the start fail. |
 
-```eyepl
+```webentail
 answer(square, S) :- (S is 12 * 12).
 answer(day_count, N) :- between(3, 5, N).
 answer(age, D) :- difference("2026-07-28", "2020-05-20", D).
-eyepl --goal 'answer(Kind, Value)' program.pl
+webentail --goal 'answer(Kind, Value)' program.pl
 ```
 
 The library deliberately does not register named arithmetic wrappers such as
@@ -5323,14 +5323,14 @@ expresses them: for example, `R is A + B`, `R is abs(A)`, and
 modulo, powers, sine, cosine, exponential, logarithm, and the ISO rounding
 functions.
 
-The bundled Eyepl library layer defines `between/3`, `min/3`, `max/3`, and
+The bundled WebEntail library layer defines `between/3`, `min/3`, `max/3`, and
 `smallest_divisor_from/3` using ISO arithmetic and comparisons. They are
-available in the default runtime, but they are part of the Eyepl library.
+available in the default runtime, but they are part of the WebEntail library.
 `between/3` and `smallest_divisor_from/3` retain measured native accelerators.
 
 #### List relations
 
-These relations are JavaScript implementations provided by the Eyepl library.
+These relations are JavaScript implementations provided by the WebEntail library.
 Their relational modes and error behavior are regression-checked against
 equivalent clause definitions. Every list-consuming relation below expects a
 proper list unless explicitly stated otherwise. Indexes and counts are
@@ -5354,24 +5354,24 @@ zero-based, nonnegative safe integers.
 | `reverse(+List,-Reversed)` | Reverses a proper list. |
 | `length(?List,?Length)` | Reports or checks the length of a proper list, or generates a list skeleton when `Length` is a bound nonnegative integer. |
 | `sum_list(+List,-Sum)` | Sums numeric elements with ISO `is/2`. The empty sum is `0`; invalid arithmetic raises the corresponding ISO error. |
-| `min_list(+List,-Min)`, `max_list(+List,-Max)` | Select by Eyepl term order, not numeric coercion. Empty lists fail. |
+| `min_list(+List,-Min)`, `max_list(+List,-Max)` | Select by WebEntail term order, not numeric coercion. Empty lists fail. |
 | `list_to_set(+List,-Set)` | Removes later structural duplicates while preserving first-occurrence order. |
 | `sort(+List,-Set)` | Sorts by standard term order and removes structural duplicates. |
 
-```eyepl
+```webentail
 answer(split, pair(Prefix, Suffix)) :-
   append(Prefix, Suffix, [a, b]).
 
 answer(second, Item) :-
   nth0(1, [a, b, c], Item).
 
-eyepl --goal 'answer(Kind, Value)' program.pl
+webentail --goal 'answer(Kind, Value)' program.pl
 ```
 
 #### Native strings, lexical values, and regular expressions
 
 A **lexical value** is the textual spelling of a ground atom, string, or
-number. Most string predicates accept any of those inputs but produce Eyepl
+number. Most string predicates accept any of those inputs but produce WebEntail
 string terms unless their name says otherwise.
 
 | Predicate and principal mode | Behavior |
@@ -5387,13 +5387,13 @@ string terms unless their name says otherwise.
 | `lowercase(+Text,-Lower)`, `uppercase(+Text,-Upper)`, `trim(+Text,-Trimmed)` | Apply JavaScript Unicode case conversion or surrounding-whitespace trimming. |
 | `number_string(?Number,?Text)` | Converts a number to a string or parses numeric string/atom text. At least one conversion direction must be ready. |
 | `atom_string(?Atom,?Text)` | Converts an atom to a string or a ground string, atom, or number to an atom. |
-| `term_string(+Term,-Text)` | Renders a nonvariable term using Eyepl readback syntax. It does not parse text back into a term. |
+| `term_string(+Term,-Text)` | Renders a nonvariable term using WebEntail readback syntax. It does not parse text back into a term. |
 
 `contains/2` and `matches/2` retain measured native accelerators for bound
 lexical inputs. Calls outside that mode fall through to the native builtins,
 so user-defined relational clauses with the same indicators remain visible.
 
-```eyepl
+```webentail
 answer(words, Words) :-
   trim("  Logic Made Visible  ", Clean),
   lowercase(Clean, Lower),
@@ -5402,7 +5402,7 @@ answer(words, Words) :-
 answer(captures, Context) :-
   matches("2026-07", "^(?<year>[0-9]{4})-(?<month>[0-9]{2})$", Context).
 
-eyepl --goal 'answer(Kind, Value)' program.pl
+webentail --goal 'answer(Kind, Value)' program.pl
 ```
 
 #### Native aggregation and bounded control
@@ -5419,7 +5419,7 @@ intended to restrict its domain.
 | `aggregate_min(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the smallest resolved key under standard term order. |
 | `aggregate_max(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the largest resolved key. Both best-value predicates fail on an empty solution set and retain the first solution on an equal key. |
 
-ISO `findall/3` is present in both registries. The Eyepl library aggregates follow
+ISO `findall/3` is present in both registries. The WebEntail library aggregates follow
 the same scoping principle: variables created inside the nested search do not
 leak except through the declared templates and outputs.
 
@@ -5427,7 +5427,7 @@ There are no `not/1` or `forall/2` semantic host conveniences. Use ISO `\+/1`;
 define a named counterexample relation for universal checks. `once/1` is
 supplied directly by the ISO registry.
 
-```eyepl
+```webentail
 cost(a, 8).
 cost(b, 3).
 cost(c, 3).
@@ -5438,7 +5438,7 @@ answer(best(Name), Cost) :-
                 cost(CandidateName, CandidateCost),
                 Cost, Name).
 
-eyepl --goal 'answer(Kind, Value)' program.pl
+webentail --goal 'answer(Kind, Value)' program.pl
 ```
 
 #### Contexts with ordinary terms
@@ -5446,7 +5446,7 @@ eyepl --goal 'answer(Kind, Value)' program.pl
 A comma-context needs no special native predicate. A small program relation can
 walk its members, and ISO `=../2` can expose any member's name and argument list.
 
-```eyepl
+```webentail
 message(event_17,
         (severity(high), source(sensor_3), reading(temp, 91))).
 
@@ -5463,14 +5463,14 @@ answer(field(Name, Args)) :-
   message(event_17, Context),
   context_parts(Context, Name, Args).
 
-eyepl --goal 'answer(X)' program.pl
+webentail --goal 'answer(X)' program.pl
 ```
 
 The ISO profile includes `functor/3`, `arg/3`, and `=../2`. Use `=../2` for whole-argument-list
 decomposition and construction, `=/2` for unification, and `\=/2` for
 non-unifiability; redundant aliases are not registered.
 
-## 40. Running Eyepl: command line and corpus
+## 40. Running WebEntail: command line and corpus
 
 The command line is an observation boundary around a theory. Keep the program
 fixed while selecting the evidence you need: ordinary output for answers,
@@ -5478,12 +5478,12 @@ proof output for support, warnings for portability risks, and statistics for
 search behavior.
 
 <figure>
-  <img src="book-assets/cli-observation-loop.svg" alt="An Eyepl source and query enter the CLI, which separates ground answers and proofs on standard output, warnings and statistics on standard error, and a process status for automation; comparison leads back to program revision.">
+  <img src="book-assets/cli-observation-loop.svg" alt="An WebEntail source and query enter the CLI, which separates ground answers and proofs on standard output, warnings and statistics on standard error, and a process status for automation; comparison leads back to program revision.">
   <figcaption>The CLI exposes three independent channels. Compare each with the right prediction before revising the theory: answers and proofs on stdout, diagnostics on stderr, and status for the calling process.</figcaption>
 </figure>
 
 ```text
-eyepl [options] [file-or-url.pl|- ...]
+webentail [options] [file-or-url.pl|- ...]
 ```
 
 ### Selecting goals
@@ -5492,10 +5492,10 @@ A Prolog source file states facts, rules, and ISO directives; the command line
 selects what to solve. Supply `--goal` followed by a callable Prolog goal:
 
 ```sh
-eyepl --goal 'ancestor(ada, Who)' examples/ancestor.pl
+webentail --goal 'ancestor(ada, Who)' examples/ancestor.pl
 ```
 
-Repeat `--goal` to request several result relations in one run. Eyepl prints
+Repeat `--goal` to request several result relations in one run. WebEntail prints
 their ground answers in the order the goals were supplied. This separation
 keeps program text portable and makes the observed question explicit in a
 script, shell history, or API call.
@@ -5513,7 +5513,7 @@ script, shell history, or API call.
 Short flags may be combined, so `-pw` is equivalent to `-p -w`.
 
 Inputs may be local files, HTTP(S) URLs, or one `-` for stdin. The bare command
-`eyepl` prints help. When options are present but no input is named, stdin is
+`webentail` prints help. When options are present but no input is named, stdin is
 used; writing `-` explicitly is clearer in scripts. Multiple sources are
 parsed as one program, so facts, rules, and directives can be separated across
 files. A relative `include/1` inside a local file resolves from that file's
@@ -5533,14 +5533,14 @@ Work in a fixed sequence:
 For example:
 
 ```sh
-eyepl --goal 'ancestor(X, Y)' examples/ancestor.pl
-eyepl --proof --goal 'type(X, Y)' examples/socrates.pl
-eyepl --warnings --goal 'answer(X)' test/conformance/warnings/negation/unstratified_mutual.pl
-eyepl --stats --goal 'path(a, X)' examples/path-discovery.pl > answers.pl 2> run.stats
+webentail --goal 'ancestor(X, Y)' examples/ancestor.pl
+webentail --proof --goal 'type(X, Y)' examples/socrates.pl
+webentail --warnings --goal 'answer(X)' test/conformance/warnings/negation/unstratified_mutual.pl
+webentail --stats --goal 'path(a, X)' examples/path-discovery.pl > answers.pl 2> run.stats
 ```
 
 Normal answers and `why/2` terms go to stdout, which makes them suitable for a
-golden file or another Eyepl input. Warnings and statistics go to stderr so
+golden file or another WebEntail input. Warnings and statistics go to stderr so
 they do not corrupt that logical stream. A successful run normally exits with
 status zero; loading, syntax, option, and other uncaught errors use status `1`. `halt/0-1` can deliberately choose the
 process status from inside a program.
@@ -5639,19 +5639,19 @@ Review questions:
 ### Further examples
 
 <figure>
-  <img src="book-assets/example-landscape.svg" alt="A map connects Eyepl examples across mathematics, search, planning, policy, science, program analysis, symbolic systems, and RDF.">
+  <img src="book-assets/example-landscape.svg" alt="A map connects WebEntail examples across mathematics, search, planning, policy, science, program analysis, symbolic systems, and RDF.">
   <figcaption>The corpus is a connected landscape. Every path leads from a readable source program to checked answers and, for selected examples, checked proofs.</figcaption>
 </figure>
 
-The [examples directory](https://github.com/eyereasoner/eyepl/tree/main/examples/) is the book's executable companion. The
+The [examples directory](https://github.com/eyereasoner/webentail/tree/main/examples/) is the book's executable companion. The
 top-level directory contains **200 self-contained runnable programs**. Every
 source program has an exact answer file under
-[examples/output](https://github.com/eyereasoner/eyepl/tree/main/examples/output/), and **55 selected programs** have a checked
-explanation under [examples/proof](https://github.com/eyereasoner/eyepl/tree/main/examples/proof/). The selected pointers below
+[examples/output](https://github.com/eyereasoner/webentail/tree/main/examples/output/), and **55 selected programs** have a checked
+explanation under [examples/proof](https://github.com/eyereasoner/webentail/tree/main/examples/proof/). The selected pointers below
 open the program itself rather than merely naming it.
 
-The generated [`examples/book/`](https://github.com/eyereasoner/eyepl/tree/main/examples/book/) tree serves a different
-purpose: it mirrors the complete inline Eyepl displays chapter by chapter.
+The generated [`examples/book/`](https://github.com/eyereasoner/webentail/tree/main/examples/book/) tree serves a different
+purpose: it mirrors the complete inline WebEntail displays chapter by chapter.
 Those files are checked for syntax, and displays containing queries are
 executed, but some teaching fragments deliberately depend on neighboring
 facts or helpers. Use the top-level catalog below when you want a self-contained
@@ -5669,8 +5669,8 @@ For any named example, the three useful views are:
 Run one program directly:
 
 ```sh
-node bin/eyepl.js examples/ancestor.pl
-node bin/eyepl.js --proof examples/ancestor.pl
+node bin/webentail.js examples/ancestor.pl
+node bin/webentail.js --proof examples/ancestor.pl
 ```
 
 Then compare the result with its linked golden file. A productive reading
@@ -5692,14 +5692,14 @@ mode at a time.
 
 | Program | Standard facility | Checked answer |
 | --- | --- | --- |
-| [Control and errors](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-control-and-errors.pl) | `call/1`, `once/1`, cut, if-then-else, `throw/1`, and `catch/3`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-control-and-errors.pl) |
-| [Grouped solutions](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-grouped-solutions.pl) | `findall/3`, `bagof/3`, `setof/3`, existential qualification, and `clause/2`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-grouped-solutions.pl) |
-| [Integer arithmetic](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-integer-arithmetic.pl) | Integer quotient/remainder choices plus bit operations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-integer-arithmetic.pl) |
-| [Reflective terms](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-reflective-terms.pl) | Term shape, construction, copying, variables, identity, and standard order. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-reflective-terms.pl) |
-| [Atomic conversion](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-atomic-conversion.pl) | Atom splitting, character atoms, Unicode codes, and numeric parsing. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-atomic-conversion.pl) |
-| [Dynamic database](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-dynamic-database.pl) | Initialization and ordered updates to a declared dynamic procedure. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-dynamic-database.pl) |
-| [Operators](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-operators.pl) | Custom syntax, standard term order, and operator-table inspection. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-operators.pl) |
-| [Term I/O](https://github.com/eyereasoner/eyepl/blob/main/examples/iso-term-io.pl) | Text-stream lifecycle, canonical writing, reading, metadata, and end state. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/iso-term-io.pl) |
+| [Control and errors](https://github.com/eyereasoner/webentail/blob/main/examples/iso-control-and-errors.pl) | `call/1`, `once/1`, cut, if-then-else, `throw/1`, and `catch/3`. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/iso-control-and-errors.pl) |
+| [Grouped solutions](https://github.com/eyereasoner/webentail/blob/main/examples/iso-grouped-solutions.pl) | `findall/3`, `bagof/3`, `setof/3`, existential qualification, and `clause/2`. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/iso-grouped-solutions.pl) |
+| [Integer arithmetic](https://github.com/eyereasoner/webentail/blob/main/examples/iso-integer-arithmetic.pl) | Integer quotient/remainder choices plus bit operations. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/iso-integer-arithmetic.pl) |
+| [Reflective terms](https://github.com/eyereasoner/webentail/blob/main/examples/iso-reflective-terms.pl) | Term shape, construction, copying, variables, identity, and standard order. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/iso-reflective-terms.pl) |
+| [Atomic conversion](https://github.com/eyereasoner/webentail/blob/main/examples/iso-atomic-conversion.pl) | Atom splitting, character atoms, Unicode codes, and numeric parsing. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/iso-atomic-conversion.pl) |
+| [Dynamic database](https://github.com/eyereasoner/webentail/blob/main/examples/iso-dynamic-database.pl) | Initialization and ordered updates to a declared dynamic procedure. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/iso-dynamic-database.pl) |
+| [Operators](https://github.com/eyereasoner/webentail/blob/main/examples/iso-operators.pl) | Custom syntax, standard term order, and operator-table inspection. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/iso-operators.pl) |
+| [Term I/O](https://github.com/eyereasoner/webentail/blob/main/examples/iso-term-io.pl) | Text-stream lifecycle, canonical writing, reading, metadata, and end state. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/iso-term-io.pl) |
 
 Read these beside Part VIII. Then use the ISO conformance cases when a program
 depends on the exact failure or error behavior of a particular mode.
@@ -5711,17 +5711,17 @@ studies.
 
 | Program | What to notice | Checked companions |
 | --- | --- | --- |
-| [Socrates](https://github.com/eyereasoner/eyepl/blob/main/examples/socrates.pl) | A fact and one rule turn the classical syllogism into a ground derivation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/socrates.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/socrates.pl) |
-| [Age](https://github.com/eyereasoner/eyepl/blob/main/examples/age.pl) | Arithmetic comparison acts as a filter after a fact supplies the age. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/age.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/age.pl) |
-| [Ancestor](https://github.com/eyereasoner/eyepl/blob/main/examples/ancestor.pl) | The canonical base-plus-recursive definition computes a transitive family relation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/ancestor.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/ancestor.pl) |
-| [Animal](https://github.com/eyereasoner/eyepl/blob/main/examples/animal.pl) | Several clauses form a small classification theory with inspectable reasons. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/animal.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/animal.pl) |
-| [Dog](https://github.com/eyereasoner/eyepl/blob/main/examples/dog.pl) | A compact inheritance chain shows how intermediate concepts appear in a proof. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/dog.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/dog.pl) |
-| [Good cobbler](https://github.com/eyereasoner/eyepl/blob/main/examples/good-cobbler.pl) | Multiple premises combine into a conclusion without hidden mutation or control state. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/good-cobbler.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/good-cobbler.pl) |
-| [Derived rule](https://github.com/eyereasoner/eyepl/blob/main/examples/derived-rule.pl) | A conclusion depends on another derived predicate rather than directly on a source fact. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/derived-rule.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/derived-rule.pl) |
-| [Existential rule](https://github.com/eyereasoner/eyepl/blob/main/examples/existential-rule.pl) | Structured Herbrand terms carry explicit generated witnesses. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/existential-rule.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/existential-rule.pl) |
-| [Herbrand witnesses](https://github.com/eyereasoner/eyepl/blob/main/examples/herbrand-witnesses.pl) | Functional witness terms make existential structure and syntactic identity visible in both answers and derivations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/herbrand-witnesses.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/herbrand-witnesses.pl) |
-| [Annotation](https://github.com/eyereasoner/eyepl/blob/main/examples/annotation.pl) | Terms attach descriptive data while the logical relation remains ordinary. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/annotation.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/annotation.pl) |
-| [Reusable built-ins](https://github.com/eyereasoner/eyepl/blob/main/examples/reusable-builtins.pl) | Arithmetic, strings, lists, and term inspection compose through ordinary variables. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/reusable-builtins.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/reusable-builtins.pl) |
+| [Socrates](https://github.com/eyereasoner/webentail/blob/main/examples/socrates.pl) | A fact and one rule turn the classical syllogism into a ground derivation. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/socrates.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/socrates.pl) |
+| [Age](https://github.com/eyereasoner/webentail/blob/main/examples/age.pl) | Arithmetic comparison acts as a filter after a fact supplies the age. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/age.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/age.pl) |
+| [Ancestor](https://github.com/eyereasoner/webentail/blob/main/examples/ancestor.pl) | The canonical base-plus-recursive definition computes a transitive family relation. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/ancestor.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/ancestor.pl) |
+| [Animal](https://github.com/eyereasoner/webentail/blob/main/examples/animal.pl) | Several clauses form a small classification theory with inspectable reasons. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/animal.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/animal.pl) |
+| [Dog](https://github.com/eyereasoner/webentail/blob/main/examples/dog.pl) | A compact inheritance chain shows how intermediate concepts appear in a proof. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/dog.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/dog.pl) |
+| [Good cobbler](https://github.com/eyereasoner/webentail/blob/main/examples/good-cobbler.pl) | Multiple premises combine into a conclusion without hidden mutation or control state. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/good-cobbler.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/good-cobbler.pl) |
+| [Derived rule](https://github.com/eyereasoner/webentail/blob/main/examples/derived-rule.pl) | A conclusion depends on another derived predicate rather than directly on a source fact. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/derived-rule.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/derived-rule.pl) |
+| [Existential rule](https://github.com/eyereasoner/webentail/blob/main/examples/existential-rule.pl) | Structured Herbrand terms carry explicit generated witnesses. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/existential-rule.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/existential-rule.pl) |
+| [Herbrand witnesses](https://github.com/eyereasoner/webentail/blob/main/examples/herbrand-witnesses.pl) | Functional witness terms make existential structure and syntactic identity visible in both answers and derivations. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/herbrand-witnesses.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/herbrand-witnesses.pl) |
+| [Annotation](https://github.com/eyereasoner/webentail/blob/main/examples/annotation.pl) | Terms attach descriptive data while the logical relation remains ordinary. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/annotation.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/annotation.pl) |
+| [Reusable built-ins](https://github.com/eyereasoner/webentail/blob/main/examples/reusable-builtins.pl) | Arithmetic, strings, lists, and term inspection compose through ordinary variables. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/reusable-builtins.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/reusable-builtins.pl) |
 
 Suggested path: Socrates → Age → Ancestor → Derived rule → Reusable built-ins.
 At each step, say aloud what one ground instance of every predicate means.
@@ -5734,15 +5734,15 @@ recursion as one technique.
 
 | Program | What to notice | Checked companions |
 | --- | --- | --- |
-| [List collection](https://github.com/eyereasoner/eyepl/blob/main/examples/list-collection.pl) | `findall/3`, list construction, and aggregation turn a solution stream into data. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/list-collection.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/list-collection.pl) |
-| [Graph reachability](https://github.com/eyereasoner/eyepl/blob/main/examples/graph-reachability.pl) | A visited list bounds cyclic traversal and makes explicit negative test cases finite. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/graph-reachability.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/graph-reachability.pl) |
-| [Cyclic path](https://github.com/eyereasoner/eyepl/blob/main/examples/cyclic-path.pl) | A deliberately cyclic graph exposes repeated calls and the need for disciplined recursion. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/cyclic-path.pl) |
-| [Path discovery](https://github.com/eyereasoner/eyepl/blob/main/examples/path-discovery.pl) | Witness paths, not only endpoint pairs, are constructed during a larger graph search. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/path-discovery.pl) |
-| [Deep taxonomy: 10](https://github.com/eyereasoner/eyepl/blob/main/examples/deep-taxonomy-10.pl) | A small generated hierarchy is readable by hand and establishes the benchmark shape. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/deep-taxonomy-10.pl) |
-| [Deep taxonomy: 1,000](https://github.com/eyereasoner/eyepl/blob/main/examples/deep-taxonomy-1000.pl) | The same logical theory tests indexing and recursive closure at a realistic depth. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/deep-taxonomy-1000.pl) |
-| [Deep taxonomy: 100,000](https://github.com/eyereasoner/eyepl/blob/main/examples/deep-taxonomy-100000.pl) | A stress case separates semantic simplicity from implementation scale. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/deep-taxonomy-100000.pl) |
-| [Family cousins](https://github.com/eyereasoner/eyepl/blob/main/examples/family-cousins.pl) | Several relational joins derive kinship beyond a simple transitive closure. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/family-cousins.pl) |
-| [Chart parser](https://github.com/eyereasoner/eyepl/blob/main/examples/chart-parser.pl) | A finite chart represents shared parsing subproblems and recursive grammatical structure. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/chart-parser.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/chart-parser.pl) |
+| [List collection](https://github.com/eyereasoner/webentail/blob/main/examples/list-collection.pl) | `findall/3`, list construction, and aggregation turn a solution stream into data. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/list-collection.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/list-collection.pl) |
+| [Graph reachability](https://github.com/eyereasoner/webentail/blob/main/examples/graph-reachability.pl) | A visited list bounds cyclic traversal and makes explicit negative test cases finite. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/graph-reachability.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/graph-reachability.pl) |
+| [Cyclic path](https://github.com/eyereasoner/webentail/blob/main/examples/cyclic-path.pl) | A deliberately cyclic graph exposes repeated calls and the need for disciplined recursion. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/cyclic-path.pl) |
+| [Path discovery](https://github.com/eyereasoner/webentail/blob/main/examples/path-discovery.pl) | Witness paths, not only endpoint pairs, are constructed during a larger graph search. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/path-discovery.pl) |
+| [Deep taxonomy: 10](https://github.com/eyereasoner/webentail/blob/main/examples/deep-taxonomy-10.pl) | A small generated hierarchy is readable by hand and establishes the benchmark shape. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/deep-taxonomy-10.pl) |
+| [Deep taxonomy: 1,000](https://github.com/eyereasoner/webentail/blob/main/examples/deep-taxonomy-1000.pl) | The same logical theory tests indexing and recursive closure at a realistic depth. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/deep-taxonomy-1000.pl) |
+| [Deep taxonomy: 100,000](https://github.com/eyereasoner/webentail/blob/main/examples/deep-taxonomy-100000.pl) | A stress case separates semantic simplicity from implementation scale. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/deep-taxonomy-100000.pl) |
+| [Family cousins](https://github.com/eyereasoner/webentail/blob/main/examples/family-cousins.pl) | Several relational joins derive kinship beyond a simple transitive closure. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/family-cousins.pl) |
+| [Chart parser](https://github.com/eyereasoner/webentail/blob/main/examples/chart-parser.pl) | A finite chart represents shared parsing subproblems and recursive grammatical structure. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/chart-parser.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/chart-parser.pl) |
 
 Read the three taxonomy programs as one experiment: the mathematical relation
 does not change as the data scale changes. Any difference in runtime belongs
@@ -5755,20 +5755,20 @@ finite search space, and which constraint removes which branches?
 
 | Program | Search design | Checked answer |
 | --- | --- | --- |
-| [Eight queens](https://github.com/eyereasoner/eyepl/blob/main/examples/n-queens-8.pl) | A permutation supplies one queen per row; diagonal tests prune candidates; `once/1` retains one witness. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/n-queens-8.pl) |
-| [N-Queens enumeration](https://github.com/eyereasoner/eyepl/blob/main/examples/n-queens.pl) | `select/3` chooses each row and diagonal checks prune partial placements; the query enumerates all 92 eight-queen solutions in the default runtime. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/n-queens.pl) |
-| [Zebra puzzle](https://github.com/eyereasoner/eyepl/blob/main/examples/zebra.pl) | House records, adjacency relations, and clue constraints jointly determine the famous solution. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/zebra.pl) |
-| [SEND + MORE = MONEY](https://github.com/eyereasoner/eyepl/blob/main/examples/send-more-money.pl) | Digit assignments are generated under distinctness, leading-zero, and column constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/send-more-money.pl) |
-| [DONALD + GERALD = ROBERT](https://github.com/eyereasoner/eyepl/blob/main/examples/donald-gerald-robert.pl) | The 200th example assigns all ten decimal digits to ten distinct letters. Right-to-left carry propagation cuts a naive 10! search space to one solution. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/donald-gerald-robert.pl) |
-| [Four-color map](https://github.com/eyereasoner/eyepl/blob/main/examples/four-color-map.pl) | A finite color assignment is filtered by adjacency constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/four-color-map.pl) |
-| [Sudoku 4×4](https://github.com/eyereasoner/eyepl/blob/main/examples/sudoku-4x4.pl) | Small domains make row, column, and block constraints completely inspectable. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/sudoku-4x4.pl) |
-| [Hamiltonian path](https://github.com/eyereasoner/eyepl/blob/main/examples/hamiltonian-path.pl) | A witness must visit every vertex exactly once; path construction and global coverage meet. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/hamiltonian-path.pl) |
-| [Eulerian path](https://github.com/eyereasoner/eyepl/blob/main/examples/eulerian-path.pl) | The state tracks remaining edges rather than merely visited vertices. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/eulerian-path.pl) |
-| [Knapsack optimization](https://github.com/eyereasoner/eyepl/blob/main/examples/knapsack-optimization.pl) | Candidate subsets become feasible solutions, then aggregation selects a best value. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/knapsack-optimization.pl) |
-| [Weighted interval scheduling](https://github.com/eyereasoner/eyepl/blob/main/examples/weighted-interval-scheduling.pl) | Compatibility constraints and an ordered objective select a maximum-value schedule. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/weighted-interval-scheduling.pl) |
-| [Job-shop scheduling](https://github.com/eyereasoner/eyepl/blob/main/examples/job-shop-scheduling.pl) | Resource and precedence constraints interact in a larger finite schedule space. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/job-shop-scheduling.pl) |
-| [Stable marriage](https://github.com/eyereasoner/eyepl/blob/main/examples/stable-marriage.pl) | Preference data, matching generation, and the absence of blocking pairs define stability. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/stable-marriage.pl) |
-| [Register allocation](https://github.com/eyereasoner/eyepl/blob/main/examples/register-allocation.pl) | Interference constraints turn compiler allocation into graph coloring. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/register-allocation.pl) |
+| [Eight queens](https://github.com/eyereasoner/webentail/blob/main/examples/n-queens-8.pl) | A permutation supplies one queen per row; diagonal tests prune candidates; `once/1` retains one witness. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/n-queens-8.pl) |
+| [N-Queens enumeration](https://github.com/eyereasoner/webentail/blob/main/examples/n-queens.pl) | `select/3` chooses each row and diagonal checks prune partial placements; the query enumerates all 92 eight-queen solutions in the default runtime. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/n-queens.pl) |
+| [Zebra puzzle](https://github.com/eyereasoner/webentail/blob/main/examples/zebra.pl) | House records, adjacency relations, and clue constraints jointly determine the famous solution. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/zebra.pl) |
+| [SEND + MORE = MONEY](https://github.com/eyereasoner/webentail/blob/main/examples/send-more-money.pl) | Digit assignments are generated under distinctness, leading-zero, and column constraints. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/send-more-money.pl) |
+| [DONALD + GERALD = ROBERT](https://github.com/eyereasoner/webentail/blob/main/examples/donald-gerald-robert.pl) | The 200th example assigns all ten decimal digits to ten distinct letters. Right-to-left carry propagation cuts a naive 10! search space to one solution. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/donald-gerald-robert.pl) |
+| [Four-color map](https://github.com/eyereasoner/webentail/blob/main/examples/four-color-map.pl) | A finite color assignment is filtered by adjacency constraints. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/four-color-map.pl) |
+| [Sudoku 4×4](https://github.com/eyereasoner/webentail/blob/main/examples/sudoku-4x4.pl) | Small domains make row, column, and block constraints completely inspectable. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/sudoku-4x4.pl) |
+| [Hamiltonian path](https://github.com/eyereasoner/webentail/blob/main/examples/hamiltonian-path.pl) | A witness must visit every vertex exactly once; path construction and global coverage meet. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/hamiltonian-path.pl) |
+| [Eulerian path](https://github.com/eyereasoner/webentail/blob/main/examples/eulerian-path.pl) | The state tracks remaining edges rather than merely visited vertices. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/eulerian-path.pl) |
+| [Knapsack optimization](https://github.com/eyereasoner/webentail/blob/main/examples/knapsack-optimization.pl) | Candidate subsets become feasible solutions, then aggregation selects a best value. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/knapsack-optimization.pl) |
+| [Weighted interval scheduling](https://github.com/eyereasoner/webentail/blob/main/examples/weighted-interval-scheduling.pl) | Compatibility constraints and an ordered objective select a maximum-value schedule. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/weighted-interval-scheduling.pl) |
+| [Job-shop scheduling](https://github.com/eyereasoner/webentail/blob/main/examples/job-shop-scheduling.pl) | Resource and precedence constraints interact in a larger finite schedule space. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/job-shop-scheduling.pl) |
+| [Stable marriage](https://github.com/eyereasoner/webentail/blob/main/examples/stable-marriage.pl) | Preference data, matching generation, and the absence of blocking pairs define stability. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/stable-marriage.pl) |
+| [Register allocation](https://github.com/eyereasoner/webentail/blob/main/examples/register-allocation.pl) | Interference constraints turn compiler allocation into graph coloring. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/register-allocation.pl) |
 
 A useful comparative exercise is to draw the first three levels of the search
 tree for Eight queens, SEND + MORE = MONEY, DONALD + GERALD = ROBERT, and
@@ -5783,16 +5783,16 @@ and search for a sequence whose final state satisfies a goal.
 
 | Program | State-space idea | Checked answer |
 | --- | --- | --- |
-| [Route planning](https://github.com/eyereasoner/eyepl/blob/main/examples/route-planning.pl) | Weighted edges construct candidate routes and expose the chosen path as a witness. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/route-planning.pl) |
-| [Lee routing](https://github.com/eyereasoner/eyepl/blob/main/examples/lee.pl) | Breadth-first wave expansion reaches a destination on a grid, then reconstructs a path around rectangular obstacles using the standard list relations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/lee.pl) |
-| [Blocks world](https://github.com/eyereasoner/eyepl/blob/main/examples/blocks-world-planning.pl) | Symbolic actions transform a compact arrangement of blocks. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/blocks-world-planning.pl) |
-| [Wolf, goat, and cabbage](https://github.com/eyereasoner/eyepl/blob/main/examples/wolf-goat-cabbage.pl) | Safety invariants reject river-bank states before they enter a valid plan. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/wolf-goat-cabbage.pl) |
-| [Missionaries and cannibals](https://github.com/eyereasoner/eyepl/blob/main/examples/missionaries-cannibals.pl) | Numeric state constraints must hold on both banks after every crossing. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/missionaries-cannibals.pl) |
-| [Monkey and bananas](https://github.com/eyereasoner/eyepl/blob/main/examples/monkey-bananas.pl) | Actions change location, support, and possession facts until the goal becomes true. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/monkey-bananas.pl) |
-| [Hanoi](https://github.com/eyereasoner/eyepl/blob/main/examples/hanoi.pl) | A recursive plan mirrors the inductive structure of moving a tower. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/hanoi.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/hanoi.pl) |
-| [Critical-path schedule](https://github.com/eyereasoner/eyepl/blob/main/examples/critical-path-schedule.pl) | Dependency closure and duration arithmetic derive project timing. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/critical-path-schedule.pl) |
-| [Drone corridor planner](https://github.com/eyereasoner/eyepl/blob/main/examples/drone-corridor-planner.pl) | Route feasibility combines graph structure with domain restrictions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/drone-corridor-planner.pl) |
-| [Microgrid dispatch](https://github.com/eyereasoner/eyepl/blob/main/examples/microgrid-dispatch.pl) | Candidate operating decisions are checked against supply, demand, and engineering limits. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/microgrid-dispatch.pl) |
+| [Route planning](https://github.com/eyereasoner/webentail/blob/main/examples/route-planning.pl) | Weighted edges construct candidate routes and expose the chosen path as a witness. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/route-planning.pl) |
+| [Lee routing](https://github.com/eyereasoner/webentail/blob/main/examples/lee.pl) | Breadth-first wave expansion reaches a destination on a grid, then reconstructs a path around rectangular obstacles using the standard list relations. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/lee.pl) |
+| [Blocks world](https://github.com/eyereasoner/webentail/blob/main/examples/blocks-world-planning.pl) | Symbolic actions transform a compact arrangement of blocks. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/blocks-world-planning.pl) |
+| [Wolf, goat, and cabbage](https://github.com/eyereasoner/webentail/blob/main/examples/wolf-goat-cabbage.pl) | Safety invariants reject river-bank states before they enter a valid plan. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/wolf-goat-cabbage.pl) |
+| [Missionaries and cannibals](https://github.com/eyereasoner/webentail/blob/main/examples/missionaries-cannibals.pl) | Numeric state constraints must hold on both banks after every crossing. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/missionaries-cannibals.pl) |
+| [Monkey and bananas](https://github.com/eyereasoner/webentail/blob/main/examples/monkey-bananas.pl) | Actions change location, support, and possession facts until the goal becomes true. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/monkey-bananas.pl) |
+| [Hanoi](https://github.com/eyereasoner/webentail/blob/main/examples/hanoi.pl) | A recursive plan mirrors the inductive structure of moving a tower. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/hanoi.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/hanoi.pl) |
+| [Critical-path schedule](https://github.com/eyereasoner/webentail/blob/main/examples/critical-path-schedule.pl) | Dependency closure and duration arithmetic derive project timing. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/critical-path-schedule.pl) |
+| [Drone corridor planner](https://github.com/eyereasoner/webentail/blob/main/examples/drone-corridor-planner.pl) | Route feasibility combines graph structure with domain restrictions. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/drone-corridor-planner.pl) |
+| [Microgrid dispatch](https://github.com/eyereasoner/webentail/blob/main/examples/microgrid-dispatch.pl) | Candidate operating decisions are checked against supply, demand, and engineering limits. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/microgrid-dispatch.pl) |
 
 Compare the witness shape: Hanoi returns an inductively constructed move list;
 route planning returns a graph path; Lee routing reconstructs a path from
@@ -5809,26 +5809,26 @@ the clauses.
 
 | Program | Mathematical content | Checked answer |
 | --- | --- | --- |
-| [Peano calculus](https://github.com/eyereasoner/eyepl/blob/main/examples/peano-calculus.pl) | Addition, multiplication, and factorial follow the constructors `z` and `s/1`. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/peano-calculus.pl) |
-| [Peano arithmetic](https://github.com/eyereasoner/eyepl/blob/main/examples/peano-arithmetic.pl) | Explicit natural-number terms support arithmetic relations and structural recursion. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/peano-arithmetic.pl) |
-| [Fundamental theorem of arithmetic](https://github.com/eyereasoner/eyepl/blob/main/examples/fundamental-theorem-arithmetic.pl) | Two factorization strategies construct normalized prime-factor witnesses and check reconstruction. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/fundamental-theorem-arithmetic.pl) |
-| [Prime range](https://github.com/eyereasoner/eyepl/blob/main/examples/prime-range.pl) | Bounded integer generation and divisor tests enumerate primes over an explicit finite interval. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/prime-range.pl) |
-| [Goldbach](https://github.com/eyereasoner/eyepl/blob/main/examples/goldbach.pl) | Bounded search checks Goldbach decompositions for powers of two; the default native `smallest_divisor_from/3` accelerator makes the range through `2^35` practical. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/goldbach.pl) |
-| [Pi](https://github.com/eyereasoner/eyepl/blob/main/examples/pi.pl) | The Nilakantha series is a deterministic numeric recurrence; Eyepl recognizes its accumulator shape and executes 10,000 terms without tabling or heap growth. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/pi.pl) |
-| [Sieve](https://github.com/eyereasoner/eyepl/blob/main/examples/sieve.pl) | List filtering presents a different operational route to finite prime generation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/sieve.pl) |
-| [Fibonacci](https://github.com/eyereasoner/eyepl/blob/main/examples/fibonacci.pl) | A recurrence becomes an executable relation with a visibly decreasing argument. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/fibonacci.pl) |
-| [Fast exponentiation](https://github.com/eyereasoner/eyepl/blob/main/examples/fastpow.pl) | Algebraic decomposition by parity changes a linear recurrence into logarithmic-depth recursion. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/fastpow.pl) |
-| [Modular exponentiation](https://github.com/eyereasoner/eyepl/blob/main/examples/modular-exponentiation.pl) | Intermediate reduction preserves the residue while controlling numeric growth. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/modular-exponentiation.pl) |
-| [Integer partitions](https://github.com/eyereasoner/eyepl/blob/main/examples/integer-partitions.pl) | Recursive generation constructs unordered additive decompositions without permutation duplicates. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/integer-partitions.pl) |
-| [Stirling and Bell numbers](https://github.com/eyereasoner/eyepl/blob/main/examples/stirling-bell-numbers.pl) | Inclusion–exclusion and recurrence count set partitions in two related ways. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/stirling-bell-numbers.pl) |
-| [Catalan convolution](https://github.com/eyereasoner/eyepl/blob/main/examples/catalan-convolution.pl) | A classic convolution identity is evaluated over a bounded range. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/catalan-convolution.pl) |
-| [Binomial Vandermonde](https://github.com/eyereasoner/eyepl/blob/main/examples/binomial-vandermonde.pl) | Two finite sums compute the sides of Vandermonde's identity. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/binomial-vandermonde.pl) |
-| [D3 group](https://github.com/eyereasoner/eyepl/blob/main/examples/d3-group.pl) | A finite Cayley table, inverses, and subgroup closure make group laws executable. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/d3-group.pl) |
-| [Matrix noncommutativity](https://github.com/eyereasoner/eyepl/blob/main/examples/matrix-noncommutativity.pl) | Two concrete products provide a counterexample to universal commutativity. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/matrix-noncommutativity.pl) |
-| [Group inverse uniqueness](https://github.com/eyereasoner/eyepl/blob/main/examples/group-inverse-uniqueness.pl) | A short derivation exposes the algebraic premises needed for uniqueness. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/group-inverse-uniqueness.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/group-inverse-uniqueness.pl) |
-| [Greatest lower bound uniqueness](https://github.com/eyereasoner/eyepl/blob/main/examples/greatest-lower-bound-uniqueness.pl) | Order-theoretic definitions support a uniqueness argument. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/greatest-lower-bound-uniqueness.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/greatest-lower-bound-uniqueness.pl) |
-| [Pell equation](https://github.com/eyereasoner/eyepl/blob/main/examples/pell-equation.pl) | Bounded generation searches for integer witnesses to a Diophantine equation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/pell-equation.pl) |
-| [Totient summatory function](https://github.com/eyereasoner/eyepl/blob/main/examples/totient-summatory.pl) | Divisibility, coprimality, counting, and summation compose over finite domains. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/totient-summatory.pl) |
+| [Peano calculus](https://github.com/eyereasoner/webentail/blob/main/examples/peano-calculus.pl) | Addition, multiplication, and factorial follow the constructors `z` and `s/1`. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/peano-calculus.pl) |
+| [Peano arithmetic](https://github.com/eyereasoner/webentail/blob/main/examples/peano-arithmetic.pl) | Explicit natural-number terms support arithmetic relations and structural recursion. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/peano-arithmetic.pl) |
+| [Fundamental theorem of arithmetic](https://github.com/eyereasoner/webentail/blob/main/examples/fundamental-theorem-arithmetic.pl) | Two factorization strategies construct normalized prime-factor witnesses and check reconstruction. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/fundamental-theorem-arithmetic.pl) |
+| [Prime range](https://github.com/eyereasoner/webentail/blob/main/examples/prime-range.pl) | Bounded integer generation and divisor tests enumerate primes over an explicit finite interval. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/prime-range.pl) |
+| [Goldbach](https://github.com/eyereasoner/webentail/blob/main/examples/goldbach.pl) | Bounded search checks Goldbach decompositions for powers of two; the default native `smallest_divisor_from/3` accelerator makes the range through `2^35` practical. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/goldbach.pl) |
+| [Pi](https://github.com/eyereasoner/webentail/blob/main/examples/pi.pl) | The Nilakantha series is a deterministic numeric recurrence; WebEntail recognizes its accumulator shape and executes 10,000 terms without tabling or heap growth. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/pi.pl) |
+| [Sieve](https://github.com/eyereasoner/webentail/blob/main/examples/sieve.pl) | List filtering presents a different operational route to finite prime generation. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/sieve.pl) |
+| [Fibonacci](https://github.com/eyereasoner/webentail/blob/main/examples/fibonacci.pl) | A recurrence becomes an executable relation with a visibly decreasing argument. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/fibonacci.pl) |
+| [Fast exponentiation](https://github.com/eyereasoner/webentail/blob/main/examples/fastpow.pl) | Algebraic decomposition by parity changes a linear recurrence into logarithmic-depth recursion. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/fastpow.pl) |
+| [Modular exponentiation](https://github.com/eyereasoner/webentail/blob/main/examples/modular-exponentiation.pl) | Intermediate reduction preserves the residue while controlling numeric growth. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/modular-exponentiation.pl) |
+| [Integer partitions](https://github.com/eyereasoner/webentail/blob/main/examples/integer-partitions.pl) | Recursive generation constructs unordered additive decompositions without permutation duplicates. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/integer-partitions.pl) |
+| [Stirling and Bell numbers](https://github.com/eyereasoner/webentail/blob/main/examples/stirling-bell-numbers.pl) | Inclusion–exclusion and recurrence count set partitions in two related ways. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/stirling-bell-numbers.pl) |
+| [Catalan convolution](https://github.com/eyereasoner/webentail/blob/main/examples/catalan-convolution.pl) | A classic convolution identity is evaluated over a bounded range. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/catalan-convolution.pl) |
+| [Binomial Vandermonde](https://github.com/eyereasoner/webentail/blob/main/examples/binomial-vandermonde.pl) | Two finite sums compute the sides of Vandermonde's identity. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/binomial-vandermonde.pl) |
+| [D3 group](https://github.com/eyereasoner/webentail/blob/main/examples/d3-group.pl) | A finite Cayley table, inverses, and subgroup closure make group laws executable. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/d3-group.pl) |
+| [Matrix noncommutativity](https://github.com/eyereasoner/webentail/blob/main/examples/matrix-noncommutativity.pl) | Two concrete products provide a counterexample to universal commutativity. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/matrix-noncommutativity.pl) |
+| [Group inverse uniqueness](https://github.com/eyereasoner/webentail/blob/main/examples/group-inverse-uniqueness.pl) | A short derivation exposes the algebraic premises needed for uniqueness. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/group-inverse-uniqueness.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/group-inverse-uniqueness.pl) |
+| [Greatest lower bound uniqueness](https://github.com/eyereasoner/webentail/blob/main/examples/greatest-lower-bound-uniqueness.pl) | Order-theoretic definitions support a uniqueness argument. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/greatest-lower-bound-uniqueness.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/greatest-lower-bound-uniqueness.pl) |
+| [Pell equation](https://github.com/eyereasoner/webentail/blob/main/examples/pell-equation.pl) | Bounded generation searches for integer witnesses to a Diophantine equation. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/pell-equation.pl) |
+| [Totient summatory function](https://github.com/eyereasoner/webentail/blob/main/examples/totient-summatory.pl) | Divisibility, coprimality, counting, and summation compose over finite domains. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/totient-summatory.pl) |
 
 For a focused seminar, read Peano calculus, Fast exponentiation, D3 group,
 Matrix noncommutativity, and Fundamental theorem of arithmetic. They exhibit,
@@ -5838,27 +5838,27 @@ model checking, refutation by one witness, and witness-producing number theory.
 #### Symbolic mathematics, languages, and metaprogramming
 
 Here terms denote syntax, formulas, expressions, or programs. The crucial
-discipline is to keep object language and Eyepl metalanguage distinct.
+discipline is to keep object language and WebEntail metalanguage distinct.
 
 | Program | What the terms represent | Checked answer |
 | --- | --- | --- |
-| [Expression evaluator](https://github.com/eyereasoner/eyepl/blob/main/examples/expression-eval.pl) | Arithmetic expression trees are interpreted under an explicit environment. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/expression-eval.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/expression-eval.pl) |
-| [Fast Fourier Transform](https://github.com/eyereasoner/eyepl/blob/main/examples/fast-fourier-transform.pl) | Recursive evaluation builds a shared expression tree and treats graphic operators such as `+` and `*` as data atoms. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/fast-fourier-transform.pl) |
-| [Symbolic derivative](https://github.com/eyereasoner/eyepl/blob/main/examples/symbolic-derivative.pl) | Differentiation rules transform expression trees without evaluating them numerically; the proof golden exposes the recursive construction. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/symbolic-derivative.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/symbolic-derivative.pl) |
-| [Polynomial](https://github.com/eyereasoner/eyepl/blob/main/examples/polynomial.pl) | Structured coefficients and powers support symbolic polynomial operations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/polynomial.pl) |
-| [Partial evaluator](https://github.com/eyereasoner/eyepl/blob/main/examples/partial-evaluator.pl) | Known inputs specialize an expression or program while unknown parts remain symbolic. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/partial-evaluator.pl) |
-| [Equality saturation](https://github.com/eyereasoner/eyepl/blob/main/examples/equality-saturation.pl) | Repeated rewrite closure explores equivalent symbolic forms to a fixed point. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/equality-saturation.pl) |
-| [Knuth–Bendix completion](https://github.com/eyereasoner/eyepl/blob/main/examples/knuth-bendix-completion.pl) | Oriented equations and critical interactions seek a more canonical rewrite system. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/knuth-bendix-completion.pl) |
-| [Language](https://github.com/eyereasoner/eyepl/blob/main/examples/language.pl) | A small grammar recognizes a finite relational language. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/language.pl) |
-| [Chart parser](https://github.com/eyereasoner/eyepl/blob/main/examples/chart-parser.pl) | Shared chart items prevent grammatical subproblems from being rediscovered independently. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/chart-parser.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/chart-parser.pl) |
-| [Turing machine](https://github.com/eyereasoner/eyepl/blob/main/examples/turing.pl) | Machine configuration terms and transition rules expose a classical computation model. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/turing.pl) |
-| [SAT solver: DPLL](https://github.com/eyereasoner/eyepl/blob/main/examples/sat-solver-dpll.pl) | Formula representation, assignment, simplification, and branching form a compact solver. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/sat-solver-dpll.pl) |
-| [SAT solver: CDCL](https://github.com/eyereasoner/eyepl/blob/main/examples/cdcl-sat-solver.pl) | The example extends the SAT vocabulary toward conflicts and learned information. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/cdcl-sat-solver.pl) |
+| [Expression evaluator](https://github.com/eyereasoner/webentail/blob/main/examples/expression-eval.pl) | Arithmetic expression trees are interpreted under an explicit environment. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/expression-eval.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/expression-eval.pl) |
+| [Fast Fourier Transform](https://github.com/eyereasoner/webentail/blob/main/examples/fast-fourier-transform.pl) | Recursive evaluation builds a shared expression tree and treats graphic operators such as `+` and `*` as data atoms. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/fast-fourier-transform.pl) |
+| [Symbolic derivative](https://github.com/eyereasoner/webentail/blob/main/examples/symbolic-derivative.pl) | Differentiation rules transform expression trees without evaluating them numerically; the proof golden exposes the recursive construction. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/symbolic-derivative.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/symbolic-derivative.pl) |
+| [Polynomial](https://github.com/eyereasoner/webentail/blob/main/examples/polynomial.pl) | Structured coefficients and powers support symbolic polynomial operations. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/polynomial.pl) |
+| [Partial evaluator](https://github.com/eyereasoner/webentail/blob/main/examples/partial-evaluator.pl) | Known inputs specialize an expression or program while unknown parts remain symbolic. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/partial-evaluator.pl) |
+| [Equality saturation](https://github.com/eyereasoner/webentail/blob/main/examples/equality-saturation.pl) | Repeated rewrite closure explores equivalent symbolic forms to a fixed point. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/equality-saturation.pl) |
+| [Knuth–Bendix completion](https://github.com/eyereasoner/webentail/blob/main/examples/knuth-bendix-completion.pl) | Oriented equations and critical interactions seek a more canonical rewrite system. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/knuth-bendix-completion.pl) |
+| [Language](https://github.com/eyereasoner/webentail/blob/main/examples/language.pl) | A small grammar recognizes a finite relational language. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/language.pl) |
+| [Chart parser](https://github.com/eyereasoner/webentail/blob/main/examples/chart-parser.pl) | Shared chart items prevent grammatical subproblems from being rediscovered independently. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/chart-parser.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/chart-parser.pl) |
+| [Turing machine](https://github.com/eyereasoner/webentail/blob/main/examples/turing.pl) | Machine configuration terms and transition rules expose a classical computation model. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/turing.pl) |
+| [SAT solver: DPLL](https://github.com/eyereasoner/webentail/blob/main/examples/sat-solver-dpll.pl) | Formula representation, assignment, simplification, and branching form a compact solver. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/sat-solver-dpll.pl) |
+| [SAT solver: CDCL](https://github.com/eyereasoner/webentail/blob/main/examples/cdcl-sat-solver.pl) | The example extends the SAT vocabulary toward conflicts and learned information. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/cdcl-sat-solver.pl) |
 
 Inspect the outermost functor of every data term. In the derivative example it
 names an expression constructor; in the SAT examples it names logical syntax;
 in the Turing example it helps describe a machine configuration. None of those
-nested terms is automatically asserted as an Eyepl goal.
+nested terms is automatically asserted as an WebEntail goal.
 
 #### Program analysis and verification
 
@@ -5867,15 +5867,15 @@ reasoning.
 
 | Program | Analysis idea | Checked answer |
 | --- | --- | --- |
-| [Abstract interpretation](https://github.com/eyereasoner/eyepl/blob/main/examples/abstract-interpretation.pl) | A finite sign domain conservatively approximates many concrete executions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/abstract-interpretation.pl) |
-| [Pointer analysis](https://github.com/eyereasoner/eyepl/blob/main/examples/pointer-analysis.pl) | Allocation and assignment constraints derive a points-to relation by closure. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/pointer-analysis.pl) |
-| [Type inference](https://github.com/eyereasoner/eyepl/blob/main/examples/type-inference.pl) | Structural unification solves type constraints for a tiny expression language. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/type-inference.pl) |
-| [Register allocation](https://github.com/eyereasoner/eyepl/blob/main/examples/register-allocation.pl) | Liveness interference becomes a finite coloring problem. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/register-allocation.pl) |
-| [Cache performance](https://github.com/eyereasoner/eyepl/blob/main/examples/cache-performance.pl) | Configuration and workload facts derive performance classifications and reasons. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/cache-performance.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/cache-performance.pl) |
-| [Canary release](https://github.com/eyereasoner/eyepl/blob/main/examples/canary-release.pl) | Observations and thresholds support a deployment decision with auditable evidence. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/canary-release.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/canary-release.pl) |
-| [Security incident correlation](https://github.com/eyereasoner/eyepl/blob/main/examples/security-incident-correlation.pl) | Distributed observations combine into incident conclusions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/security-incident-correlation.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/security-incident-correlation.pl) |
-| [Observability log correlation](https://github.com/eyereasoner/eyepl/blob/main/examples/observability-log-correlation.pl) | Structured log events join across identifiers and time-related facts. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/observability-log-correlation.pl) |
-| [Truth-maintenance system](https://github.com/eyereasoner/eyepl/blob/main/examples/truth-maintenance-system.pl) | Justifications remain explicit when conclusions depend on defeasible information. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/truth-maintenance-system.pl) |
+| [Abstract interpretation](https://github.com/eyereasoner/webentail/blob/main/examples/abstract-interpretation.pl) | A finite sign domain conservatively approximates many concrete executions. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/abstract-interpretation.pl) |
+| [Pointer analysis](https://github.com/eyereasoner/webentail/blob/main/examples/pointer-analysis.pl) | Allocation and assignment constraints derive a points-to relation by closure. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/pointer-analysis.pl) |
+| [Type inference](https://github.com/eyereasoner/webentail/blob/main/examples/type-inference.pl) | Structural unification solves type constraints for a tiny expression language. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/type-inference.pl) |
+| [Register allocation](https://github.com/eyereasoner/webentail/blob/main/examples/register-allocation.pl) | Liveness interference becomes a finite coloring problem. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/register-allocation.pl) |
+| [Cache performance](https://github.com/eyereasoner/webentail/blob/main/examples/cache-performance.pl) | Configuration and workload facts derive performance classifications and reasons. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/cache-performance.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/cache-performance.pl) |
+| [Canary release](https://github.com/eyereasoner/webentail/blob/main/examples/canary-release.pl) | Observations and thresholds support a deployment decision with auditable evidence. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/canary-release.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/canary-release.pl) |
+| [Security incident correlation](https://github.com/eyereasoner/webentail/blob/main/examples/security-incident-correlation.pl) | Distributed observations combine into incident conclusions. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/security-incident-correlation.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/security-incident-correlation.pl) |
+| [Observability log correlation](https://github.com/eyereasoner/webentail/blob/main/examples/observability-log-correlation.pl) | Structured log events join across identifiers and time-related facts. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/observability-log-correlation.pl) |
+| [Truth-maintenance system](https://github.com/eyereasoner/webentail/blob/main/examples/truth-maintenance-system.pl) | Justifications remain explicit when conclusions depend on defeasible information. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/truth-maintenance-system.pl) |
 
 Abstract interpretation deserves special care: an abstract warning is not the
 claim that every concrete execution fails. It says the abstraction cannot rule
@@ -5888,16 +5888,16 @@ decisions, reasons, integrity conditions, and proof.
 
 | Program | Decision domain | Checked companions |
 | --- | --- | --- |
-| [Access control policy](https://github.com/eyereasoner/eyepl/blob/main/examples/access-control-policy.pl) | Attribute and policy facts derive permit status and reasons. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/access-control-policy.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/access-control-policy.pl) |
-| [GDPR compliance](https://github.com/eyereasoner/eyepl/blob/main/examples/gdpr-compliance.pl) | Purpose, basis, and processing facts support compliance conclusions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/gdpr-compliance.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/gdpr-compliance.pl) |
-| [Clinical-trial screening](https://github.com/eyereasoner/eyepl/blob/main/examples/clinical-trial-screening.pl) | Inclusion and exclusion criteria produce an evidence-backed eligibility result. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/clinical-trial-screening.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/clinical-trial-screening.pl) |
-| [Workplace compliance](https://github.com/eyereasoner/eyepl/blob/main/examples/workplace-compliance.pl) | Training, role, and workplace conditions feed a compact compliance theory. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/workplace-compliance.pl) |
-| [ODRL–DPV risk ranking](https://github.com/eyereasoner/eyepl/blob/main/examples/odrl-dpv-risk-ranked.pl) | Policy and privacy vocabulary is normalized before candidates are ranked. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/odrl-dpv-risk-ranked.pl) |
-| [Healthcare ODRL–DPV risk](https://github.com/eyereasoner/eyepl/blob/main/examples/odrl-dpv-healthcare-risk-ranked.pl) | The same architecture is specialized to a richer healthcare scenario. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/odrl-dpv-healthcare-risk-ranked.pl) |
-| [Purpose mapping](https://github.com/eyereasoner/eyepl/blob/main/examples/dpv-odrl-purpose-mapping.pl) | Explicit mapping relations connect two policy vocabularies. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/dpv-odrl-purpose-mapping.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/dpv-odrl-purpose-mapping.pl) |
-| [Trust-flow provenance threshold](https://github.com/eyereasoner/eyepl/blob/main/examples/trust-flow-provenance-threshold.pl) | Provenance and trust values remain premises of the derived threshold decision, including its arithmetic and comparison steps. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/trust-flow-provenance-threshold.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/trust-flow-provenance-threshold.pl) |
-| [Data negotiation](https://github.com/eyereasoner/eyepl/blob/main/examples/data-negotiation.pl) | Offered and required data conditions derive an agreement or mismatch. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/data-negotiation.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/data-negotiation.pl) |
-| [Integrity check](https://github.com/eyereasoner/eyepl/blob/main/examples/integrity-check.pl) | An explicit invalid-state relation reports contradictory input and a diagnostic status. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/integrity-check.pl) |
+| [Access control policy](https://github.com/eyereasoner/webentail/blob/main/examples/access-control-policy.pl) | Attribute and policy facts derive permit status and reasons. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/access-control-policy.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/access-control-policy.pl) |
+| [GDPR compliance](https://github.com/eyereasoner/webentail/blob/main/examples/gdpr-compliance.pl) | Purpose, basis, and processing facts support compliance conclusions. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/gdpr-compliance.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/gdpr-compliance.pl) |
+| [Clinical-trial screening](https://github.com/eyereasoner/webentail/blob/main/examples/clinical-trial-screening.pl) | Inclusion and exclusion criteria produce an evidence-backed eligibility result. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/clinical-trial-screening.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/clinical-trial-screening.pl) |
+| [Workplace compliance](https://github.com/eyereasoner/webentail/blob/main/examples/workplace-compliance.pl) | Training, role, and workplace conditions feed a compact compliance theory. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/workplace-compliance.pl) |
+| [ODRL–DPV risk ranking](https://github.com/eyereasoner/webentail/blob/main/examples/odrl-dpv-risk-ranked.pl) | Policy and privacy vocabulary is normalized before candidates are ranked. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/odrl-dpv-risk-ranked.pl) |
+| [Healthcare ODRL–DPV risk](https://github.com/eyereasoner/webentail/blob/main/examples/odrl-dpv-healthcare-risk-ranked.pl) | The same architecture is specialized to a richer healthcare scenario. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/odrl-dpv-healthcare-risk-ranked.pl) |
+| [Purpose mapping](https://github.com/eyereasoner/webentail/blob/main/examples/dpv-odrl-purpose-mapping.pl) | Explicit mapping relations connect two policy vocabularies. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/dpv-odrl-purpose-mapping.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/dpv-odrl-purpose-mapping.pl) |
+| [Trust-flow provenance threshold](https://github.com/eyereasoner/webentail/blob/main/examples/trust-flow-provenance-threshold.pl) | Provenance and trust values remain premises of the derived threshold decision, including its arithmetic and comparison steps. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/trust-flow-provenance-threshold.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/trust-flow-provenance-threshold.pl) |
+| [Data negotiation](https://github.com/eyereasoner/webentail/blob/main/examples/data-negotiation.pl) | Offered and required data conditions derive an agreement or mismatch. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/data-negotiation.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/data-negotiation.pl) |
+| [Integrity check](https://github.com/eyereasoner/webentail/blob/main/examples/integrity-check.pl) | An explicit invalid-state relation reports contradictory input and a diagnostic status. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/integrity-check.pl) |
 
 When studying a policy proof, circle every premise imported from outside the
 theory. The derivation validates the transition from those premises to the
@@ -5910,18 +5910,18 @@ illustrative models, not professional engineering or medical advice.
 
 | Program | Model | Checked companions |
 | --- | --- | --- |
-| [Spacecraft battery diagnosis](https://github.com/eyereasoner/eyepl/blob/main/examples/spacecraft-battery-diagnosis.pl) | Telemetry, `P = I²R`, limits, and redundant sensing support diagnosis and action. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/spacecraft-battery-diagnosis.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/spacecraft-battery-diagnosis.pl) |
-| [Beam deflection](https://github.com/eyereasoner/eyepl/blob/main/examples/beam-deflection.pl) | A mechanics equation combines load, geometry, and material parameters. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/beam-deflection.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/beam-deflection.pl) |
-| [Electrical RC filter](https://github.com/eyereasoner/eyepl/blob/main/examples/electrical-rc-filter.pl) | Component values derive circuit behavior under an explicit formula. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/electrical-rc-filter.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/electrical-rc-filter.pl) |
-| [Competitive enzyme kinetics](https://github.com/eyereasoner/eyepl/blob/main/examples/competitive-enzyme-kinetics.pl) | A biochemical rate law becomes a numeric relational model. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/competitive-enzyme-kinetics.pl) |
-| [Orbital transfer design](https://github.com/eyereasoner/eyepl/blob/main/examples/orbital-transfer-design.pl) | Candidate orbital parameters are evaluated against transfer equations. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/orbital-transfer-design.pl) |
-| [Buck converter design](https://github.com/eyereasoner/eyepl/blob/main/examples/buck-converter-design.pl) | Electrical design candidates are checked against component and performance constraints. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/buck-converter-design.pl) |
-| [Control system](https://github.com/eyereasoner/eyepl/blob/main/examples/control-system.pl) | System parameters derive stability- and response-related quantities. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/control-system.pl) |
-| [Least-squares regression](https://github.com/eyereasoner/eyepl/blob/main/examples/least-squares-regression.pl) | Finite observations are summarized into a fitted linear model. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/least-squares-regression.pl) |
-| [Statistics summary](https://github.com/eyereasoner/eyepl/blob/main/examples/statistics-summary.pl) | Aggregates compute descriptive statistics over a finite list. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/statistics-summary.pl) |
-| [Epidemic policy](https://github.com/eyereasoner/eyepl/blob/main/examples/epidemic-policy.pl) | Observations and thresholds connect a simple epidemic model to policy conclusions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/epidemic-policy.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/epidemic-policy.pl) |
-| [Dairy energy balance](https://github.com/eyereasoner/eyepl/blob/main/examples/dairy-energy-balance.pl) | Intake and expenditure quantities are combined in an agricultural model. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/dairy-energy-balance.pl) |
-| [Field nitrogen balance](https://github.com/eyereasoner/eyepl/blob/main/examples/field-nitrogen-balance.pl) | Inputs, removal, and losses form a conservation-style accounting relation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/field-nitrogen-balance.pl) |
+| [Spacecraft battery diagnosis](https://github.com/eyereasoner/webentail/blob/main/examples/spacecraft-battery-diagnosis.pl) | Telemetry, `P = I²R`, limits, and redundant sensing support diagnosis and action. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/spacecraft-battery-diagnosis.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/spacecraft-battery-diagnosis.pl) |
+| [Beam deflection](https://github.com/eyereasoner/webentail/blob/main/examples/beam-deflection.pl) | A mechanics equation combines load, geometry, and material parameters. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/beam-deflection.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/beam-deflection.pl) |
+| [Electrical RC filter](https://github.com/eyereasoner/webentail/blob/main/examples/electrical-rc-filter.pl) | Component values derive circuit behavior under an explicit formula. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/electrical-rc-filter.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/electrical-rc-filter.pl) |
+| [Competitive enzyme kinetics](https://github.com/eyereasoner/webentail/blob/main/examples/competitive-enzyme-kinetics.pl) | A biochemical rate law becomes a numeric relational model. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/competitive-enzyme-kinetics.pl) |
+| [Orbital transfer design](https://github.com/eyereasoner/webentail/blob/main/examples/orbital-transfer-design.pl) | Candidate orbital parameters are evaluated against transfer equations. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/orbital-transfer-design.pl) |
+| [Buck converter design](https://github.com/eyereasoner/webentail/blob/main/examples/buck-converter-design.pl) | Electrical design candidates are checked against component and performance constraints. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/buck-converter-design.pl) |
+| [Control system](https://github.com/eyereasoner/webentail/blob/main/examples/control-system.pl) | System parameters derive stability- and response-related quantities. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/control-system.pl) |
+| [Least-squares regression](https://github.com/eyereasoner/webentail/blob/main/examples/least-squares-regression.pl) | Finite observations are summarized into a fitted linear model. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/least-squares-regression.pl) |
+| [Statistics summary](https://github.com/eyereasoner/webentail/blob/main/examples/statistics-summary.pl) | Aggregates compute descriptive statistics over a finite list. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/statistics-summary.pl) |
+| [Epidemic policy](https://github.com/eyereasoner/webentail/blob/main/examples/epidemic-policy.pl) | Observations and thresholds connect a simple epidemic model to policy conclusions. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/epidemic-policy.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/epidemic-policy.pl) |
+| [Dairy energy balance](https://github.com/eyereasoner/webentail/blob/main/examples/dairy-energy-balance.pl) | Intake and expenditure quantities are combined in an agricultural model. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/dairy-energy-balance.pl) |
+| [Field nitrogen balance](https://github.com/eyereasoner/webentail/blob/main/examples/field-nitrogen-balance.pl) | Inputs, removal, and losses form a conservation-style accounting relation. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/field-nitrogen-balance.pl) |
 
 For each scientific example, write a five-column audit: quantity, unit, source,
 equation, and approximation. A machine-checked derivation is only as
@@ -5930,22 +5930,22 @@ interpretable as that modeling boundary.
 #### RDF 1.2 and knowledge boundaries
 
 These programs are generated from RDF inputs by the repository tools. Follow
-the source data, generated Eyepl facts, rules, answers, and serialized RDF as
+the source data, generated WebEntail facts, rules, answers, and serialized RDF as
 one adapter pipeline.
 
 | Program | RDF feature | Checked answer |
 | --- | --- | --- |
-| [Triple term](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-triple-term.pl) | An RDF 1.2 triple term is represented as nested Eyepl data and projected by a rule. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-triple-term.pl) |
-| [Nested triple term](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-nested-triple-term.pl) | Triple terms occur recursively without becoming asserted facts merely by nesting. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-nested-triple-term.pl) |
-| [TriG named graph](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-trig-named-graph.pl) | The fourth `rdf/4` argument preserves graph identity. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-trig-named-graph.pl) |
-| [TriG triple term](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-trig-triple-term.pl) | RDF 1.2 triple terms and dataset graph structure appear together. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-trig-triple-term.pl) |
-| [TriG graph join](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-trig-graph-join.pl) | Rules join facts while retaining their graph-sensitive representation. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-trig-graph-join.pl) |
-| [Directional language](https://github.com/eyereasoner/eyepl/blob/main/examples/rdf12-directional-language.pl) | Language direction remains explicit in the lossless literal encoding. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/rdf12-directional-language.pl) |
-| [Web names](https://github.com/eyereasoner/eyepl/blob/main/examples/web-names.pl) | Quoted web identifiers remain atom constants in ordinary Prolog terms. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/web-names.pl) |
-| [Aliases and namespaces](https://github.com/eyereasoner/eyepl/blob/main/examples/aliases-and-namespaces.pl) | Explicit name relations avoid adding hidden namespace semantics to the core. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/aliases-and-namespaces.pl) · [proof](https://github.com/eyereasoner/eyepl/blob/main/examples/proof/aliases-and-namespaces.pl) |
+| [Triple term](https://github.com/eyereasoner/webentail/blob/main/examples/rdf12-triple-term.pl) | An RDF 1.2 triple term is represented as nested WebEntail data and projected by a rule. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/rdf12-triple-term.pl) |
+| [Nested triple term](https://github.com/eyereasoner/webentail/blob/main/examples/rdf12-nested-triple-term.pl) | Triple terms occur recursively without becoming asserted facts merely by nesting. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/rdf12-nested-triple-term.pl) |
+| [TriG named graph](https://github.com/eyereasoner/webentail/blob/main/examples/rdf12-trig-named-graph.pl) | The fourth `rdf/4` argument preserves graph identity. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/rdf12-trig-named-graph.pl) |
+| [TriG triple term](https://github.com/eyereasoner/webentail/blob/main/examples/rdf12-trig-triple-term.pl) | RDF 1.2 triple terms and dataset graph structure appear together. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/rdf12-trig-triple-term.pl) |
+| [TriG graph join](https://github.com/eyereasoner/webentail/blob/main/examples/rdf12-trig-graph-join.pl) | Rules join facts while retaining their graph-sensitive representation. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/rdf12-trig-graph-join.pl) |
+| [Directional language](https://github.com/eyereasoner/webentail/blob/main/examples/rdf12-directional-language.pl) | Language direction remains explicit in the lossless literal encoding. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/rdf12-directional-language.pl) |
+| [Web names](https://github.com/eyereasoner/webentail/blob/main/examples/web-names.pl) | Quoted web identifiers remain atom constants in ordinary Prolog terms. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/web-names.pl) |
+| [Aliases and namespaces](https://github.com/eyereasoner/webentail/blob/main/examples/aliases-and-namespaces.pl) | Explicit name relations avoid adding hidden namespace semantics to the core. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/aliases-and-namespaces.pl) · [proof](https://github.com/eyereasoner/webentail/blob/main/examples/proof/aliases-and-namespaces.pl) |
 
 The original RDF fixtures and adapter rules are available in
-[examples/input](https://github.com/eyereasoner/eyepl/tree/main/examples/input/). Chapter 15 explains why the conversion is
+[examples/input](https://github.com/eyereasoner/webentail/tree/main/examples/input/). Chapter 15 explains why the conversion is
 an explicit boundary instead of extra syntax inside the reasoning core.
 
 #### Large integrated cases
@@ -5955,12 +5955,12 @@ reading. Begin by drawing their predicate dependency layers.
 
 | Program | Why it is a capstone | Checked answer |
 | --- | --- | --- |
-| [AuroraCare](https://github.com/eyereasoner/eyepl/blob/main/examples/auroracare.pl) | A large healthcare-oriented knowledge theory combines many domain concepts and decisions. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/auroracare.pl) |
-| [Basic monadic](https://github.com/eyereasoner/eyepl/blob/main/examples/basic-monadic.pl) | A large generated symbolic theory stresses parsing, terms, and relational execution. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/basic-monadic.pl) |
-| [Flandor](https://github.com/eyereasoner/eyepl/blob/main/examples/flandor.pl) | A broad rule set provides practice navigating a less tutorial-shaped theory. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/flandor.pl) |
-| [LLDM](https://github.com/eyereasoner/eyepl/blob/main/examples/lldm.pl) | A larger logical model demonstrates layered derivation over substantial source data. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/lldm.pl) |
-| [Knowledge-engineering alignment flow](https://github.com/eyereasoner/eyepl/blob/main/examples/knowledge-engineering-alignment-flow.pl) | Source concepts, mappings, validation, and derived alignment are kept in explicit layers. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/knowledge-engineering-alignment-flow.pl) |
-| [Manufacturing quality control](https://github.com/eyereasoner/eyepl/blob/main/examples/manufacturing-quality-control.pl) | Measurements, limits, classifications, and actions form an auditable industrial decision. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/manufacturing-quality-control.pl) |
+| [AuroraCare](https://github.com/eyereasoner/webentail/blob/main/examples/auroracare.pl) | A large healthcare-oriented knowledge theory combines many domain concepts and decisions. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/auroracare.pl) |
+| [Basic monadic](https://github.com/eyereasoner/webentail/blob/main/examples/basic-monadic.pl) | A large generated symbolic theory stresses parsing, terms, and relational execution. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/basic-monadic.pl) |
+| [Flandor](https://github.com/eyereasoner/webentail/blob/main/examples/flandor.pl) | A broad rule set provides practice navigating a less tutorial-shaped theory. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/flandor.pl) |
+| [LLDM](https://github.com/eyereasoner/webentail/blob/main/examples/lldm.pl) | A larger logical model demonstrates layered derivation over substantial source data. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/lldm.pl) |
+| [Knowledge-engineering alignment flow](https://github.com/eyereasoner/webentail/blob/main/examples/knowledge-engineering-alignment-flow.pl) | Source concepts, mappings, validation, and derived alignment are kept in explicit layers. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/knowledge-engineering-alignment-flow.pl) |
+| [Manufacturing quality control](https://github.com/eyereasoner/webentail/blob/main/examples/manufacturing-quality-control.pl) | Measurements, limits, classifications, and actions form an auditable industrial decision. | [answers](https://github.com/eyereasoner/webentail/blob/main/examples/output/manufacturing-quality-control.pl) |
 
 Do not read a capstone from the first line to the last as if it were prose.
 Start at the supplied goal, find its predicate heads, follow their dependencies
@@ -5993,13 +5993,13 @@ When adding an example:
 7. run the full corpus before treating the example as documentation.
 
 The full set of runnable source programs is checked against exact output.
-This chapter is curated rather than exhaustive: use the [complete directory listing](https://github.com/eyereasoner/eyepl/tree/main/examples/) for
+This chapter is curated rather than exhaustive: use the [complete directory listing](https://github.com/eyereasoner/webentail/tree/main/examples/) for
 the remaining demonstrations, then apply the same reading discipline—sentence,
 mode, finite domain, answer, proof, and revision.
 
 ## 42. Standards, limits, and implementation boundaries
 
-This book is the single reference for the Eyepl implementation. Chapters 38–40
+This book is the single reference for the WebEntail implementation. Chapters 38–40
 describe its supported ISO Prolog syntax, directives, execution model,
 built-in predicates, and command-line interface. The earlier chapters explain the reasoner, automatic tabling,
 proof terms, warnings, answer formatting, embedding, and external data
@@ -6034,7 +6034,7 @@ npm run test:playground
 
 ### Supported ISO Prolog profile
 
-Eyepl executes a documented and tested **ISO compatibility profile** based on
+WebEntail executes a documented and tested **ISO compatibility profile** based on
 ISO/IEC 13211-1:1995 and its three technical corrigenda. The exact supported
 predicate indicators—not a claim about the standard's complete processor
 environment—are listed in Chapter 39. The profile includes control and
@@ -6045,15 +6045,15 @@ termination. `compare/3`, `callable/1`, `ground/1`, and `term_variables/2` are
 additional compatibility conveniences.
 
 This breadth is not a formal certification of every processor requirement.
-The executable examples are Eyepl-profile programs using host-supplied goals,
-strings, explicit integrity relations, automatic tabling, and the Eyepl library.
+The executable examples are WebEntail-profile programs using host-supplied goals,
+strings, explicit integrity relations, automatic tabling, and the WebEntail library.
 The remaining qualifications are:
 
 - zero-arity compound syntax such as `ready()` is represented by the atom
   `ready`;
 - modules and DCG notation are outside this Part 1 profile;
 - variables cannot occupy functor or predicate position;
-- double-quoted text is a distinct Eyepl string scalar rather than switching
+- double-quoted text is a distinct WebEntail string scalar rather than switching
   representation with the `double_quotes` flag;
 - operator-aware `write_term/3` formatting and some option/error precedence
   combinations remain implementation-profile behavior;
@@ -6063,12 +6063,12 @@ The remaining qualifications are:
 Write terms explicitly, keep variables uppercase or underscore-prefixed, and
 quote atom names that are neither lowercase plain names nor graphic tokens.
 These boundaries distinguish implemented ISO functionality from certification.
-The Eyepl corpus verifies this documented profile; it is not an independent
+The WebEntail corpus verifies this documented profile; it is not an independent
 certification that every conforming Prolog text will run unchanged.
 
 ### Security and resource use
 
-Eyepl has no general host-call primitive, yet an untrusted theory is still
+WebEntail has no general host-call primitive, yet an untrusted theory is still
 executable input. It can request enormous finite searches or construct
 unbounded terms. URL inputs also cross a network and trust boundary.
 Applications should restrict accepted sources and impose suitable input-size,
@@ -6083,9 +6083,9 @@ provider and validating what it supplies.
 
 ### Notes and references
 
-The book is self-contained as an Eyepl guide. These sources provide historical
-and technical background for the ideas that Eyepl adapts. They describe larger
-languages and theories, so they should not be read as additional Eyepl
+The book is self-contained as an WebEntail guide. These sources provide historical
+and technical background for the ideas that WebEntail adapts. They describe larger
+languages and theories, so they should not be read as additional WebEntail
 specifications.
 
 - ISO/IEC,
@@ -6095,7 +6095,7 @@ specifications.
   [Technical Corrigendum 2:2012](https://www.iso.org/standard/58033.html),
   and
   [Technical Corrigendum 3:2017](https://www.iso.org/standard/73194.html).
-  Chapter 38 defines the precise Eyepl compatibility profile against this
+  Chapter 38 defines the precise WebEntail compatibility profile against this
   standards baseline; Chapter 39 lists the implemented predicate indicators.
 
 - Michael Genesereth,
@@ -6185,7 +6185,7 @@ specifications.
   originally published in 1971 and republished in English translation.
   Futamura showed how specializing an interpreter with respect to a source
   program connects partial evaluation with compilation. Part V invokes this
-  as historical context for specialization, not as an Eyepl implementation
+  as historical context for specialization, not as an WebEntail implementation
   claim.
 
 - Krzysztof R. Apt, Howard A. Blair, and Adrian Walker,
@@ -6199,7 +6199,7 @@ specifications.
   [“Tabled Evaluation with Delaying for General Logic
   Programs”](https://doi.org/10.1145/227595.227597), *Journal of the ACM*
   43(1), 1996, pp. 20–74. A foundational treatment of tabled logic-program
-  evaluation. Eyepl's automatic positive tabling is smaller in scope, but the
+  evaluation. WebEntail's automatic positive tabling is smaller in scope, but the
   shared-call and fixed-point intuitions are closely related.
 
 - W3C, [*RDF 1.2 Concepts and Abstract
@@ -6212,8 +6212,8 @@ specifications.
 - Dörthe Arndt and Stephan Mennicke,
   [“Notation3 as an Existential Rule
   Language”](https://arxiv.org/abs/2308.07332), 2023. Context for the N3 and
-  EYE side of Eyepl's name and for the relationship between Semantic Web rule
-  languages and existential-rule reasoning. Eyepl deliberately implements a
+  EYE side of WebEntail's name and for the relationship between Semantic Web rule
+  languages and existential-rule reasoning. WebEntail deliberately implements a
   different, compact Horn-clause language.
 
 - Leon Sterling and Ehud Shapiro,
@@ -6222,16 +6222,16 @@ specifications.
   MIT Press, 1994. Its sustained treatment of computation, program
   construction, nondeterminism, transformation, interpreters, grammars,
   search, and applications is an important pedagogical benchmark for Part V.
-  Eyepl differs substantially from full Prolog, so the material here develops
-  those themes only through Eyepl's explicit, supported relations.
+  WebEntail differs substantially from full Prolog, so the material here develops
+  those themes only through WebEntail's explicit, supported relations.
 
-The aim of Eyepl is not to make every difficult problem easy. It is to keep the
+The aim of WebEntail is not to make every difficult problem easy. It is to keep the
 theory visible while the machine searches it: facts you can inspect, rules you
 can discuss, answers you can test, and proofs you can carry forward as data.
 
 ### Glossary
 
-This glossary fixes the book's vocabulary. Definitions describe Eyepl unless a
+This glossary fixes the book's vocabulary. Definitions describe WebEntail unless a
 broader mathematical meaning is explicitly stated.
 
 **Aggregate.** A relation that evaluates a finite nested solution space and
@@ -6239,7 +6239,7 @@ combines its solutions, as `findall/3`, `countall/2`, `sumall/3`,
 `aggregate_min/5`, or `aggregate_max/5` does.
 
 **Answer.** A ground instance of a declared query goal produced by successful
-search. Eyepl suppresses duplicate printed answers and source facts already
+search. WebEntail suppresses duplicate printed answers and source facts already
 identical to queried conclusions.
 
 **Answer set.** The distinct ground answers for a query, considered without
@@ -6279,7 +6279,7 @@ decidable by structural equality.
 **Clause.** A fact or rule terminated by a period.
 
 **Closed-world assumption.** The decision to treat failure to derive a
-sufficiently scoped claim as evidence for its absence. Eyepl's `\+/1` performs
+sufficiently scoped claim as evidence for its absence. WebEntail's `\+/1` performs
 negation as failure; the modeler is responsible for justifying the scope.
 
 **Compound term.** Structured data with a functor and one or more arguments,
@@ -6292,7 +6292,7 @@ profile and implementation extensions under `test/conformance/`.
 run left to right while carrying bindings forward.
 
 **Constraint.** In this book, a goal that rejects candidates not satisfying a
-property. Eyepl does not provide a general persistent constraint store.
+property. WebEntail does not provide a general persistent constraint store.
 
 **Declarative reading.** What ground instances of clauses mean independently
 of the particular order in which a solver searches.
@@ -6332,7 +6332,7 @@ finite lists, or bounded numeric ranges.
 **Golden file.** Checked expected output stored in the repository. Normal
 example goldens record answers; proof goldens record explanations.
 
-**Ground.** Containing no variables. Eyepl prints only ground query answers.
+**Ground.** Containing no variables. WebEntail prints only ground query answers.
 
 **Head.** The atomic formula to the left of `:-`, or the entire formula in a
 fact. A successful rule use derives an instance of its head.
@@ -6370,7 +6370,7 @@ selected, which bindings it needs and produces, and which alternatives it
 creates.
 
 **Occurs check.** A unification check that prevents binding a variable to a
-term containing that variable. Eyepl performs it consistently for ordinary
+term containing that variable. WebEntail performs it consistently for ordinary
 unification as well as `unify_with_occurs_check/2`.
 
 **Predicate indicator.** A predicate name paired with its arity, conventionally
@@ -6662,14 +6662,14 @@ facts, derive one new relation, and serialize the result.
 
 - preserve IRIs, literals, graph identity, and one RDF 1.2 feature;
 - keep adapter rules separate from domain rules;
-- query the generated Prolog program with Eyepl directly;
+- query the generated Prolog program with WebEntail directly;
 - compare the final N-Quads with a checked golden;
 - document what the host authenticates.
 
 **Acceptance:** the round trip retains the selected RDF term distinctions, and
 nested triple data is not accidentally asserted as a global fact.
 
-**Reflect:** what simplicity does the explicit adapter preserve in the Eyepl
+**Reflect:** what simplicity does the explicit adapter preserve in the WebEntail
 core?
 
 ### Laboratory 12. A release-quality reasoning service
@@ -6727,7 +6727,7 @@ canonical implementation.
 ### Foundations: Chapters 1–10
 
 **Chapter 1.** `parent(ada, byron)` says that Ada is a parent of Byron.
-`eyepl --goal 'child(X, Y)' program.pl` asks for every ground child–parent pair derivable by the
+`webentail --goal 'child(X, Y)' program.pl` asks for every ground child–parent pair derivable by the
 program. Adding `parent(diego, elena).` adds `child(elena, diego).`; it does not
 change the earlier three child answers.
 

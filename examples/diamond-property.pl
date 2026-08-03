@@ -1,7 +1,7 @@
 % Diamond property, adapted from Eyelet's input/diamond-property.pl.
 %
 % A relation has the diamond property when two outgoing steps from the same
-% source can be joined again.  This compact eyepl version keeps the same
+% source can be joined again.  This compact webentail version keeps the same
 % diamond idea and also checks that it is preserved by reflexive closure.
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.

@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 22 — Interpreting an expression.
+% From The Art of WebEntail, Chapter 22 — Interpreting an expression.
 evaluate(number(N), N).
 
 evaluate(add(Left, Right), Value) :-

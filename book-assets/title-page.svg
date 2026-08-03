@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1450" viewBox="0 0 1000 1450" role="img" aria-labelledby="title desc">
-  <title id="title">The Art of Eyepl</title>
-  <desc id="desc">Front page for The Art of Eyepl with an abstract eye, title, subtitle, author, and panels for relation graph, executable clauses, and syntax tree.</desc>
+  <title id="title">The Art of WebEntail</title>
+  <desc id="desc">Front page for The Art of WebEntail with an abstract eye, title, subtitle, author, and panels for relation graph, executable clauses, and syntax tree.</desc>
   <defs>
     <style>
       .bg { fill:#f7f1e6; }
@@ -32,7 +32,7 @@
   <rect width="1000" height="1450" class="bg"/>
 
   <!-- Header -->
-  <text x="500" y="120" text-anchor="middle" class="title">The Art of Eyepl</text>
+  <text x="500" y="120" text-anchor="middle" class="title">The Art of WebEntail</text>
   <line x1="140" y1="166" x2="860" y2="166" class="gold thin"/>
   <circle cx="500" cy="166" r="7" class="dot"/>
   <text x="500" y="245" text-anchor="middle" class="subtitle">Standards-based relations, search, and explanations</text>
@@ -93,7 +93,7 @@
   <text x="500" y="900" text-anchor="middle" class="panel-title">executable clauses</text>
   <text x="500" y="970" text-anchor="middle" class="code">path(X, Y) :-</text>
   <text x="500" y="1022" text-anchor="middle" class="code">edge(X, Y).</text>
-  <text x="500" y="1088" text-anchor="middle" class="code">eyepl --goal 'path(a, X)' program.pl</text>
+  <text x="500" y="1088" text-anchor="middle" class="code">webentail --goal 'path(a, X)' program.pl</text>
   <line x1="390" y1="1125" x2="610" y2="1125" class="green mid"/>
   <circle cx="390" cy="1163" r="17" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
   <path d="M382 1164L389 1171L400 1156" class="green mid"/>

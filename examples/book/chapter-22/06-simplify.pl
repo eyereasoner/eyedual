@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 22 — Rewriting symbolic expressions.
+% From The Art of WebEntail, Chapter 22 — Rewriting symbolic expressions.
 simplify(add(number(0), X), X).
 simplify(add(X, number(0)), X).
 simplify(multiply(number(1), X), X).

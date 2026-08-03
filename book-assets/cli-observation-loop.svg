@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470" role="img" aria-labelledby="title desc">
   <title id="title">The command line observation loop</title>
-  <desc id="desc">A predicted result and an Eyepl program enter the command line. It emits answers and proofs on standard output, warnings and statistics on standard error, and a process status. Comparison of prediction and evidence leads to a focused revision.</desc>
+  <desc id="desc">A predicted result and an WebEntail program enter the command line. It emits answers and proofs on standard output, warnings and statistics on standard error, and a process status. Comparison of prediction and evidence leads to a focused revision.</desc>
   <defs>
     <style>
       .bg{fill:#f4efe3}.source{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}.engine{fill:#243447;stroke:#172334;stroke-width:3}.out{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}.diag{fill:#c7dfe2;stroke:#376e75;stroke-width:2}.status{fill:#ead7d7;stroke:#8b3a3a;stroke-width:2}.compare{fill:#fffdf7;stroke:#526273;stroke-width:2}
@@ -17,7 +17,7 @@
 
   <path class="line" d="M245 158H320"/><path class="arrow" d="M310 150L324 158L310 166Z"/>
   <rect class="engine" x="325" y="100" width="220" height="115" rx="18"/>
-  <text class="code" x="435" y="145" text-anchor="middle">eyepl -pws</text>
+  <text class="code" x="435" y="145" text-anchor="middle">webentail -pws</text>
   <text class="code" x="435" y="177" text-anchor="middle">program.pl</text>
 
   <path class="line" d="M545 158H590M590 85V305"/>

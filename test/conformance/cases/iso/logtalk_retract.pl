@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_retract_1_01 through 06.
-% Modified for Eyepl's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for WebEntail's conformance harness. See test/conformance/THIRD_PARTY.md.
 :- dynamic(insect/1).
 insect(ant). insect(bee).
 :- dynamic(legs/2).

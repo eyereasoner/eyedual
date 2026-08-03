@@ -1,2 +1,2 @@
-eyepl warning: unstratified negation
+webentail warning: unstratified negation
   p/1 depends negatively on p/1

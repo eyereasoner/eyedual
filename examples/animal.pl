@@ -1,6 +1,6 @@
 % Animal classification, adapted from Eyelet's input/animal.pl.
 %
-% The Eyelet source uses Unicode predicate names; this eyepl version keeps the
+% The Eyelet source uses Unicode predicate names; this webentail version keeps the
 % same tiny inheritance idea with plain vocabulary names.
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.

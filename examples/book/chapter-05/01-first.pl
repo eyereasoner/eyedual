@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 5.
+% From The Art of WebEntail, Chapter 5.
 first([Head | _], Head).
 
 contains_item(X, [X | _]).

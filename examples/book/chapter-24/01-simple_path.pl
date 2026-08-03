@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 24 — Search over states.
+% From The Art of WebEntail, Chapter 24 — Search over states.
 simple_path(From, To, Path) :-
   walk(From, To, [From], Reversed),
   reverse(Reversed, Path).

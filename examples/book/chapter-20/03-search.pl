@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 20 — Move invariant work outward.
+% From The Art of WebEntail, Chapter 20 — Move invariant work outward.
 search(Request, Answer) :-
   normalized_request(Request, Normalized),
   search_normalized(Normalized, initial_state, Answer).

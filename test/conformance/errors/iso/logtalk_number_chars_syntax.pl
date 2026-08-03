@@ -1,4 +1,4 @@
-% Adapted from Logtalk sics_number_chars_2_29. Modified for Eyepl's harness.
+% Adapted from Logtalk sics_number_chars_2_29. Modified for WebEntail's harness.
 % See test/conformance/THIRD_PARTY.md.
 %% goal: number_chars(_, [a])
 

@@ -1,4 +1,4 @@
-% Adapted from Logtalk iso_arg_3_11. Modified for Eyepl's harness.
+% Adapted from Logtalk iso_arg_3_11. Modified for WebEntail's harness.
 % See test/conformance/THIRD_PARTY.md.
 %% goal: arg(0, 3, _)
 

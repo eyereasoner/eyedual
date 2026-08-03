@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="eyepl-logo.png">
-  <title>Eyepl Playground</title>
+  <link rel="icon" type="image/png" href="webentail-logo.png">
+  <title>WebEntail Playground</title>
   <style>
     :root {
       color-scheme: light dark;
@@ -353,8 +353,8 @@
 </head>
 <body>
   <header>
-    <h1>The Eyepl Playground</h1>
-    <p>Run Eyepl programs in your browser with syntax coloring, examples, proofs, and shareable editor links.</p>
+    <h1>The WebEntail Playground</h1>
+    <p>Run WebEntail programs in your browser with syntax coloring, examples, proofs, and shareable editor links.</p>
   </header>
 
   <main>
@@ -371,7 +371,7 @@
       <details>
         <summary id="advanced-heading">⚙ Advanced configuration</summary>
         <div class="toolbar" aria-label="URL loader">
-          <label for="source-url">Load Eyepl from URL</label>
+          <label for="source-url">Load WebEntail from URL</label>
           <input id="source-url" type="url" placeholder="https://example.org/program.pl">
           <button id="load-url" type="button">Load from URL</button>
         </div>
@@ -385,7 +385,7 @@
           <label><input id="stats" type="checkbox"> Show stats</label>
         </div>
         <div class="panel-body">
-          <p class="hint">Enter any Eyepl file URL and click “Load from URL”. Background knowledge is prepended when the program runs.</p>
+          <p class="hint">Enter any WebEntail file URL and click “Load from URL”. Background knowledge is prepended when the program runs.</p>
         </div>
       </details>
     </section>
@@ -393,14 +393,14 @@
     <section aria-labelledby="editor-heading">
       <div class="editor-shell">
         <div class="editor-label">
-          <strong id="editor-heading">Editable Eyepl program</strong>
+          <strong id="editor-heading">Editable WebEntail program</strong>
           <span id="source-name" class="hint">custom program</span>
         </div>
         <div class="editor">
           <div id="line-numbers" class="line-numbers" aria-hidden="true"><div class="line-numbers-inner"></div></div>
           <div id="error-line-marker" class="error-line-marker" aria-hidden="true"></div>
           <pre id="highlight" aria-hidden="true"><code></code></pre>
-          <textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Editable Eyepl source"></textarea>
+          <textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Editable WebEntail source"></textarea>
         </div>
       </div>
       <div class="toolbar button-row">
@@ -423,7 +423,7 @@
       <pre id="output" class="output">(no output yet)</pre>
       <div class="status">
         <span id="status">Ready.</span>
-        <span id="version">eyepl v…</span>
+        <span id="version">webentail v…</span>
       </div>
       <div class="panel-body">
         <p class="hint">For local use, serve the checkout with a small HTTP server first; browser modules and example loading usually do not work from <code>file://</code>.</p>
@@ -432,7 +432,7 @@
   </main>
 
   <footer>
-    Powered by <a href="https://github.com/eyereasoner/eyepl">Eyepl</a>.
+    Powered by <a href="https://github.com/eyereasoner/webentail">WebEntail</a>.
   </footer>
 
   <script type="module">
@@ -642,7 +642,7 @@
 `;
     const HIGHLIGHT_LIMIT = 200000;
     const MAX_SHARE_URL_LENGTH = 1900;
-    const GIST_STATE_FILENAME = 'eyepl-playground-state.json';
+    const GIST_STATE_FILENAME = 'webentail-playground-state.json';
     const KEYWORDS = new Set(['false', 'table']);
     const BUILTINS = new Set([
             "abs",
@@ -954,7 +954,7 @@
       clearSyntaxError();
       output.textContent = '';
       elapsed.textContent = 'Running…';
-      setStatus('Running Eyepl…');
+      setStatus('Running WebEntail…');
       runButton.disabled = true;
       stopButton.disabled = false;
 
@@ -1151,7 +1151,7 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            description: 'Eyepl playground share',
+            description: 'WebEntail playground share',
             public: false,
             files,
           }),
@@ -1276,7 +1276,7 @@
         const response = await fetch('package.json', { cache: 'no-store' });
         if (!response.ok) return;
         const pkg = await response.json();
-        if (pkg.version) document.querySelector('#version').textContent = `eyepl v${pkg.version}`;
+        if (pkg.version) document.querySelector('#version').textContent = `webentail v${pkg.version}`;
       } catch (_) {
         // Package metadata is optional when the page is copied elsewhere.
       }

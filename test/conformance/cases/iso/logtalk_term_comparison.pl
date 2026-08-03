@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_term_comparison_01 through 19 and
-% lgt_term_comparison_20 through 27. Modified for Eyepl's conformance harness.
+% lgt_term_comparison_20 through 27. Modified for WebEntail's conformance harness.
 % See test/conformance/THIRD_PARTY.md.
 %% goal: term_comparison_order
 

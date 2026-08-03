@@ -1,15 +1,15 @@
-// Eyepl proof output helpers.
+// WebEntail proof output helpers.
 // The explanation printer replays a successful goal against the program and emits
-// ordinary Eyepl facts with nested proof terms.  Explanations are therefore both
+// ordinary WebEntail facts with nested proof terms.  Explanations are therefore both
 // human-readable and machine-readable.
 import { ATOM, COMPOUND, Env, Term, VAR, deref, flattenConjunction, freshTerm, termToString, unify, variantTerms } from './term.js';
 import { selectClauseCandidates } from './program.js';
-import { getEyeplRegistry } from './library.js';
+import { getWebEntailRegistry } from './library.js';
 import { Solver, nextFreshId } from './solver.js';
 
 export function whyProof(program, goal, options = {}) {
   const maxDepth = options.maxDepth ?? 256;
-  const registry = options.registry ?? getEyeplRegistry();
+  const registry = options.registry ?? getWebEntailRegistry();
   const env = options.env ?? new Env();
   for (const proof of proveGoalAll(program, goal, env, 0, maxDepth, registry, [])) {
     return { ok: true, text: renderWhyFacts(goal, proof.node, proof.env) };

@@ -10,14 +10,14 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import * as publicApi from '../src/index.js';
 import {
-  run as runEyepl,
+  run as runWebEntail,
   Program,
   makeProgram,
   Solver,
   Env,
   BuiltinRegistry,
   createDefaultRegistry,
-  getEyeplRegistry,
+  getWebEntailRegistry,
   atom,
   compound,
   listFromItems,
@@ -42,7 +42,7 @@ import { goalsFromSource } from './goal-metadata.mjs';
 
 const testRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)));
 const packageRoot = path.resolve(testRoot, '..');
-const bin = path.join(packageRoot, 'bin', 'eyepl.js');
+const bin = path.join(packageRoot, 'bin', 'webentail.js');
 const pkg = JSON.parse(fs.readFileSync(path.join(packageRoot, 'package.json'), 'utf8'));
 let tmp = null;
 let tmpCounter = 0;
@@ -53,11 +53,11 @@ function run(source, options = {}) {
   const goals = options.goals ?? (options.goal == null
     ? (programSource instanceof Program ? [] : goalsFromSource(text))
     : [options.goal]);
-  return runEyepl(programSource, { ...options, goals });
+  return runWebEntail(programSource, { ...options, goals });
 }
 
 export function runRegression(reporter = new TestReporter()) {
-  tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'eyepl-regression.'));
+  tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'webentail-regression.'));
   tmpCounter = 0;
 
   try {
@@ -170,11 +170,11 @@ why(
       },
     },
     {
-      name: 'EYEPL_LOCAL_TIME fixes local_time builtin',
+      name: 'WEBENTAIL_LOCAL_TIME fixes local_time builtin',
       run: () => {
         const result = runCli(['--goal', 'local_time_answer(D)', '-'], {
           input: 'local_time_answer(D) :- local_time(D).\n',
-          env: { EYEPL_LOCAL_TIME: '2024-01-02' },
+          env: { WEBENTAIL_LOCAL_TIME: '2024-01-02' },
         });
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, 'local_time_answer("2024-01-02").\n', 'stdout');
@@ -186,18 +186,18 @@ why(
       run: () => {
         const result = runCli([]);
         assertEqual(result.status, 0, 'exit status');
-        assertIncludes(result.stdout, 'Usage:\n  eyepl [options] [file-or-url.pl|- ...]', 'stdout');
+        assertIncludes(result.stdout, 'Usage:\n  webentail [options] [file-or-url.pl|- ...]', 'stdout');
         assertIncludes(result.stdout, '-p, --proof', 'stdout');
         assertIncludes(result.stdout, '-s, --stats', 'stdout');
         assertIncludes(result.stdout, '-v, --version', 'stdout');
         assertIncludes(result.stdout, '-w, --warnings', 'stdout');
         assertIncludes(result.stdout, '-v, --version         Show the package version and exit.\n  -w, --warnings        Print non-fatal portability warnings to stderr.', 'stdout');
-        assertIncludes(result.stdout, 'Read an Eyepl program', 'stdout');
+        assertIncludes(result.stdout, 'Read an WebEntail program', 'stdout');
         assertEqual(result.stderr, '', 'stderr');
       },
     },
     {
-      name: 'CLI loads Eyepl library predicates by default',
+      name: 'CLI loads WebEntail library predicates by default',
       run: () => {
         const result = runCli(['-'], {
           input: '%% goal: answer(X)\nanswer(X) :- member(X, [library]).\n',
@@ -212,7 +212,7 @@ why(
       run: () => {
         const result = runCli(['--version']);
         assertEqual(result.status, 0, 'exit status');
-        assertEqual(result.stdout, `eyepl ${pkg.version}\n`, 'stdout');
+        assertEqual(result.stdout, `webentail ${pkg.version}\n`, 'stdout');
         assertEqual(result.stderr, '', 'stderr');
       },
     },
@@ -221,20 +221,20 @@ why(
       run: () => {
         const result = runCli(['-v']);
         assertEqual(result.status, 0, 'exit status');
-        assertEqual(result.stdout, `eyepl ${pkg.version}\n`, 'stdout');
+        assertEqual(result.stdout, `webentail ${pkg.version}\n`, 'stdout');
         assertEqual(result.stderr, '', 'stderr');
       },
     },
     {
       name: 'npm exec can run package CLI bin from checkout',
       run: () => {
-        const result = spawnSync('npm', ['exec', '--loglevel=silent', '--yes', '--package=.', '--', 'eyepl', '--version'], {
+        const result = spawnSync('npm', ['exec', '--loglevel=silent', '--yes', '--package=.', '--', 'webentail', '--version'], {
           cwd: packageRoot,
           encoding: 'utf8',
           env: { ...process.env, npm_config_update_notifier: 'false' },
         });
         assertEqual(result.status, 0, 'exit status');
-        assertEqual(result.stdout, `eyepl ${pkg.version}\n`, 'stdout');
+        assertEqual(result.stdout, `webentail ${pkg.version}\n`, 'stdout');
         assertEqual(result.stderr, '', 'stderr');
       },
     },
@@ -280,7 +280,7 @@ why(
         const result = runCli(['-pw', '-'], { input });
         assertEqual(result.status, 0, 'exit status');
         assertIncludes(result.stdout, 'answer(ok).\nwhy(', 'stdout');
-        assertIncludes(result.stderr, 'eyepl warning: unstratified negation\n', 'stderr');
+        assertIncludes(result.stderr, 'webentail warning: unstratified negation\n', 'stderr');
       },
     },
     {
@@ -289,7 +289,7 @@ why(
         const result = runCli(['-px']);
         assertEqual(result.status, 1, 'exit status');
         assertEqual(result.stdout, '', 'stdout');
-        assertIncludes(result.stderr, 'eyepl: unknown option: -px\n', 'stderr');
+        assertIncludes(result.stderr, 'webentail: unknown option: -px\n', 'stderr');
       },
     },
 
@@ -300,7 +300,7 @@ why(
         const result = runCli(['--stats', '-'], { input: '%% goal: q(X, Y)\np(a, b).\nq(X, Y) :- p(X, Y).\n' });
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, 'q(a, b).\n', 'stdout');
-        assertIncludes(result.stderr, 'eyepl stats:\n', 'stderr');
+        assertIncludes(result.stderr, 'webentail stats:\n', 'stderr');
         assertIncludes(result.stderr, '  solve_goals_calls:', 'stderr');
       },
     },
@@ -310,7 +310,7 @@ why(
         const result = runCli(['-s', '-'], { input: '%% goal: q(X, Y)\np(a, b).\nq(X, Y) :- p(X, Y).\n' });
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, 'q(a, b).\n', 'stdout');
-        assertIncludes(result.stderr, 'eyepl stats:\n', 'stderr');
+        assertIncludes(result.stderr, 'webentail stats:\n', 'stderr');
         assertIncludes(result.stderr, '  solve_goals_calls:', 'stderr');
       },
     },
@@ -327,7 +327,7 @@ why(
         const result = runCli(['--warnings', '-'], { input });
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, '', 'stdout');
-        assertIncludes(result.stderr, 'eyepl warning: unstratified negation\n', 'stderr');
+        assertIncludes(result.stderr, 'webentail warning: unstratified negation\n', 'stderr');
         assertIncludes(result.stderr, 'p/1 depends negatively on q/1', 'stderr');
         assertIncludes(result.stderr, 'q/1 depends negatively on p/1', 'stderr');
       },
@@ -345,7 +345,7 @@ why(
         const result = runCli(['-w', '-'], { input });
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, '', 'stdout');
-        assertIncludes(result.stderr, 'eyepl warning: unstratified negation\n', 'stderr');
+        assertIncludes(result.stderr, 'webentail warning: unstratified negation\n', 'stderr');
       },
     },
     {
@@ -410,14 +410,14 @@ function documentationSyncCases() {
       },
     },
     {
-      name: 'book Eyepl library matches runtime registry',
-      run: () => assertArrayEqual(bookEyeplLibraryNames(), registeredEyeplLibraryNames(), 'Eyepl library predicates'),
+      name: 'book WebEntail library matches runtime registry',
+      run: () => assertArrayEqual(bookWebEntailLibraryNames(), registeredWebEntailLibraryNames(), 'WebEntail library predicates'),
     },
     {
       name: 'README and book document the runtime and browser boundaries',
       run: () => {
         const readme = fs.readFileSync(path.join(packageRoot, 'README.md'), 'utf8');
-        const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
+        const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-webentail.md'), 'utf8');
         for (const filename of ['src/iso.js', 'src/library.js', 'src/playground-worker.js']) {
           assertEqual(fs.existsSync(path.join(packageRoot, filename)), true, `${filename} exists`);
           assertIncludes(readme, filename, `README documents ${filename}`);
@@ -474,7 +474,7 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(documentedPublicApiImportIssues(), [], 'documentation API imports'),
     },
     {
-      name: 'documentation uses Eyepl source style',
+      name: 'documentation uses WebEntail source style',
       run: () => assertArrayEqual(documentationSourceStyleIssues(), [], 'documentation source style'),
     },
     {
@@ -515,8 +515,8 @@ function documentationSyncCases() {
     {
       name: 'source-checkout setup docs match package bin',
       run: () => {
-        assertEqual(pkg.bin?.eyepl, './bin/eyepl.js', 'package eyepl bin');
-        const binPath = path.join(packageRoot, pkg.bin.eyepl);
+        assertEqual(pkg.bin?.webentail, './bin/webentail.js', 'package webentail bin');
+        const binPath = path.join(packageRoot, pkg.bin.webentail);
         const binText = fs.readFileSync(binPath, 'utf8');
         assertEqual(binText.startsWith('#!/usr/bin/env node\n'), true, 'bin shebang');
         assertArrayEqual(misleadingDependencyInstallDocs(), [], 'misleading dependency install docs');
@@ -618,14 +618,14 @@ function apiCases() {
       },
     },
     {
-      name: 'default Eyepl registry keeps dynamic program state consistent',
+      name: 'default WebEntail registry keeps dynamic program state consistent',
       run: () => {
         const program = Program.parse([
           ':- dynamic(item/1).',
           '%% goal: done',
           'done :- assertz(item(a)), retract(item(a)), assertz(item(b)), abolish(item/1).',
         ].join('\n'));
-        const result = run(program, { goal: 'done', registry: getEyeplRegistry() });
+        const result = run(program, { goal: 'done', registry: getWebEntailRegistry() });
         assertEqual(result.stdout, 'done.\n', 'stdout');
         assertEqual(program.findGroup('item', 1), null, 'abolished group');
         assertEqual(
@@ -791,14 +791,14 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'run loads the Eyepl library by default',
+      name: 'run loads the WebEntail library by default',
       run: () => {
         const result = run('answer(X) :- append([a], [b], X).', { goal: 'answer(X)' });
         assertEqual(result.stdout, 'answer([a, b]).\n', 'stdout');
       },
     },
     {
-      name: 'Solver loads the Eyepl library by default',
+      name: 'Solver loads the WebEntail library by default',
       run: () => {
         const program = Program.parse('answer(X) :- append([a], [b], X).');
         const solver = new Solver(program);
@@ -843,22 +843,22 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'ISO-only and Eyepl registries expose separate metadata',
+      name: 'ISO-only and WebEntail registries expose separate metadata',
       run: () => {
         const registry = createDefaultRegistry();
-        const library = getEyeplRegistry();
+        const library = getWebEntailRegistry();
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not ISO core');
-        assertEqual(library.eyeplLibrary, true, 'complete registry marker');
+        assertEqual(library.webEntailLibrary, true, 'complete registry marker');
         assertEqual(library.defs.size, 169, 'complete registry size');
-        assertEqual(registeredEyeplLibraryNames().length, 54, 'Eyepl library size');
-        assertEqual(library.get('append', 3)?.eyeplLibrary, true, 'append/3 metadata');
-        assertEqual(library.get('maplist', 3)?.eyeplLibrary, true, 'maplist/3 metadata');
-        assertEqual(library.get('matches', 3)?.eyeplLibrary, true, 'matches/3 metadata');
+        assertEqual(registeredWebEntailLibraryNames().length, 54, 'WebEntail library size');
+        assertEqual(library.get('append', 3)?.webEntailLibrary, true, 'append/3 metadata');
+        assertEqual(library.get('maplist', 3)?.webEntailLibrary, true, 'maplist/3 metadata');
+        assertEqual(library.get('matches', 3)?.webEntailLibrary, true, 'matches/3 metadata');
       },
     },
     {
-      name: 'Eyepl library does not inject program clauses',
+      name: 'WebEntail library does not inject program clauses',
       run: () => {
         const program = Program.parse('answer(X) :- append([a], [b], X).');
         const solver = new Solver(program);
@@ -869,7 +869,7 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'Eyepl library preserves relational and arithmetic behavior',
+      name: 'WebEntail library preserves relational and arithmetic behavior',
       run: () => {
         const result = run([
           '%% goal: answer(A, B, S, M)',
@@ -884,11 +884,11 @@ open(X) :- candidate(X), \\+ closed(X).
           'answer([a], [b], 5, 9007199254740993).',
           'answer([a, b], [], 5, 9007199254740993).',
           '',
-        ].join('\n'), 'Eyepl library behavior');
+        ].join('\n'), 'WebEntail library behavior');
       },
     },
     {
-      name: 'Eyepl library preserves strict modes and ISO arithmetic errors',
+      name: 'WebEntail library preserves strict modes and ISO arithmetic errors',
       run: () => {
         assertEqual(run('answer(X) :- substring("abc", "1", 1, X).', { goal: 'answer(X)' }).stdout, '', 'substring index type');
         let nth1Error = null;
@@ -1270,14 +1270,14 @@ function sectionLabel(name) {
 }
 
 function bookReferenceDocumentationIssues() {
-  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-webentail.md'), 'utf8');
   const guide = fs.readFileSync(path.join(testRoot, 'conformance', 'README.md'), 'utf8');
   const issues = [];
 
-  if (!book.includes('This book is also the reference for the Eyepl implementation.')) {
+  if (!book.includes('This book is also the reference for the WebEntail implementation.')) {
     issues.push('book introduction does not identify itself as the reference');
   }
-  if (!book.includes('This book is the single reference for the Eyepl implementation.')) {
+  if (!book.includes('This book is the single reference for the WebEntail implementation.')) {
     issues.push('book Chapter 42 does not state the single-reference policy');
   }
   for (const standard of [
@@ -1288,16 +1288,16 @@ function bookReferenceDocumentationIssues() {
   ]) {
     if (!book.includes(standard)) issues.push(`book does not identify standards baseline: ${standard}`);
   }
-  if (!book.includes('Eyepl performs it consistently for ordinary\nunification as well as `unify_with_occurs_check/2`.')) {
+  if (!book.includes('WebEntail performs it consistently for ordinary\nunification as well as `unify_with_occurs_check/2`.')) {
     issues.push('book glossary does not match finite-tree unification');
   }
-  if (book.includes('Eyepl does not perform it.')) {
+  if (book.includes('WebEntail does not perform it.')) {
     issues.push('book contradicts implementation occurs-check behavior');
   }
-  for (const heading of ['## 38. Language and ISO profile', '## 39. Built-in predicates by programming role', '## 40. Running Eyepl: command line and corpus']) {
+  for (const heading of ['## 38. Language and ISO profile', '## 39. Built-in predicates by programming role', '## 40. Running WebEntail: command line and corpus']) {
     if (!book.includes(heading)) issues.push(`book is missing ${heading}`);
   }
-  if (!guide.includes('[*The Art of Eyepl*](../../the-art-of-eyepl.md) is the reference')) {
+  if (!guide.includes('[*The Art of WebEntail*](../../the-art-of-webentail.md) is the reference')) {
     issues.push('test guide does not identify the book as the reference');
   }
   if (!guide.includes('not a separate\nlanguage specification')) {
@@ -1312,7 +1312,7 @@ function runWhy({ program, goalText, expected }) {
   fs.writeFileSync(programFile, program);
   const goal = parseGoalText(goalText);
   const parsed = Program.parseSources([{ text: program, filename: path.basename(programFile) }], { sourceMetadata: true });
-  const result = runEyepl(parsed, { proof: true, goal });
+  const result = runWebEntail(parsed, { proof: true, goal });
   const expectedText = expected.replaceAll('__FILE__', path.basename(programFile));
   assertEqual(result.stdout, expectedText, 'stdout');
 
@@ -1329,7 +1329,7 @@ function runWhyLoose({ program, goalText }) {
   fs.writeFileSync(programFile, program);
   const goal = parseGoalText(goalText);
   const parsed = Program.parseSources([{ text: program, filename: path.basename(programFile) }], { sourceMetadata: true });
-  const result = runEyepl(parsed, { proof: true, goal });
+  const result = runWebEntail(parsed, { proof: true, goal });
   Program.parse(result.stdout);
   assertIncludes(result.stdout, '\n).\n\n', 'stdout');
   return result;
@@ -1358,7 +1358,7 @@ function exampleCorpusSyncIssues() {
       pattern: /example corpus now contains \*\*(\d+) runnable examples\*\*/,
     },
     {
-      file: path.join(packageRoot, 'the-art-of-eyepl.md'),
+      file: path.join(packageRoot, 'the-art-of-webentail.md'),
       pattern: /top-level directory contains \*\*(\d+) self-contained runnable programs\*\*/,
     },
   ];
@@ -1393,7 +1393,7 @@ function proofCorpusSyncIssues() {
       pattern: /\*\*(\d+) proof goldens\*\*/,
     },
     {
-      file: path.join(packageRoot, 'the-art-of-eyepl.md'),
+      file: path.join(packageRoot, 'the-art-of-webentail.md'),
       pattern: /\*\*(\d+) selected programs\*\* have a checked/,
     },
   ];
@@ -1410,9 +1410,9 @@ function proofCorpusSyncIssues() {
 }
 
 function bookExampleCatalogIssues() {
-  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-webentail.md'), 'utf8');
   const section = between(book, '### Further examples', '## 42. Standards, limits, and implementation boundaries');
-  const names = [...section.matchAll(/github\.com\/eyereasoner\/eyepl\/blob\/main\/examples\/([A-Za-z0-9_-]+)\.pl/g)]
+  const names = [...section.matchAll(/github\.com\/eyereasoner\/webentail\/blob\/main\/examples\/([A-Za-z0-9_-]+)\.pl/g)]
     .map((match) => match[1]);
   const issues = [];
   if (names.length === 0) issues.push('no source example links found');
@@ -1446,7 +1446,7 @@ function playgroundStaticIssues() {
   const html = fs.readFileSync(playgroundPath, 'utf8');
   const readme = fs.readFileSync(path.join(packageRoot, 'README.md'), 'utf8');
   if (!pkg.files?.includes('playground.html')) issues.push('package files must include playground.html');
-  if (!readme.includes('[Playground](https://eyereasoner.github.io/eyepl/playground)')) issues.push('README must link to the GitHub Pages playground URL');
+  if (!readme.includes('[Playground](https://eyereasoner.github.io/webentail/playground)')) issues.push('README must link to the GitHub Pages playground URL');
   if (!html.includes('<meta name="viewport" content="width=device-width, initial-scale=1">')) issues.push('missing mobile viewport meta');
   if (!html.includes('main {') || !html.includes('display: block;')) {
     issues.push('playground must use a simple vertical layout');
@@ -1468,9 +1468,9 @@ function playgroundStaticIssues() {
   if (!html.includes("new Worker(workerUrl, { type: 'module' })")) issues.push('playground must launch the dedicated module worker');
   const workerText = fs.readFileSync(path.join(packageRoot, 'src', 'playground-worker.js'), 'utf8');
   if (!workerText.includes("from './library.js?playground=") ||
-      !workerText.includes('createEyeplRegistry') ||
+      !workerText.includes('createWebEntailRegistry') ||
       !workerText.includes('executePlaygroundRequest')) {
-    issues.push('playground worker must install the Eyepl library registry');
+    issues.push('playground worker must install the WebEntail library registry');
   }
   if (fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js'))) {
     issues.push('obsolete portable-library.js must be absent');
@@ -1529,9 +1529,9 @@ function registeredBuiltinNames() {
   return [...createDefaultRegistry().defs.keys()].sort();
 }
 
-function registeredEyeplLibraryNames() {
+function registeredWebEntailLibraryNames() {
   const defaults = createDefaultRegistry().defs;
-  return [...getEyeplRegistry().defs.entries()]
+  return [...getWebEntailRegistry().defs.entries()]
     .filter(([name]) => !defaults.has(name))
     .map(([name]) => name)
     .sort();
@@ -1546,17 +1546,17 @@ function registeredBuiltinSummary() {
 }
 
 function bookBuiltinNames() {
-  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '## 39. Built-in predicates by programming role', '### The Eyepl library'), 2);
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-webentail.md'), 'utf8');
+  return documentedBuiltinNames(between(book, '## 39. Built-in predicates by programming role', '### The WebEntail library'), 2);
 }
 
-function bookEyeplLibraryNames() {
-  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '<!-- eyepl-library-catalog:start -->', '<!-- eyepl-library-catalog:end -->'), 1);
+function bookWebEntailLibraryNames() {
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-webentail.md'), 'utf8');
+  return documentedBuiltinNames(between(book, '<!-- webentail-library-catalog:start -->', '<!-- webentail-library-catalog:end -->'), 1);
 }
 
 function bookBuiltinSummary() {
-  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-webentail.md'), 'utf8');
   const match = book.match(/(?:registers|contains) (\d+) name\/arity entries across (\d+) names/);
   if (match == null) throw new Error('book builtin summary not found');
   return { entries: Number(match[1]), names: Number(match[2]) };
@@ -1628,13 +1628,13 @@ function misleadingDependencyInstallDocs() {
 
 function documentationSourceStyleIssues() {
   const issues = [];
-  const file = path.join(packageRoot, 'the-art-of-eyepl.md');
+  const file = path.join(packageRoot, 'the-art-of-webentail.md');
   const text = fs.readFileSync(file, 'utf8');
   if (text.includes('```prolog')) {
-    issues.push('the-art-of-eyepl.md: use eyepl code fences instead of prolog fences');
+    issues.push('the-art-of-webentail.md: use webentail code fences instead of prolog fences');
   }
   if (/\bv\d+\.\d+(?:\.\d+)?\b/i.test(text)) {
-    issues.push('the-art-of-eyepl.md: describe the current system instead of release chronology');
+    issues.push('the-art-of-webentail.md: describe the current system instead of release chronology');
   }
   return issues;
 }
@@ -1688,7 +1688,7 @@ function documentedConformanceMetricIssues() {
       labels: ['total', 'ISO'],
     },
     {
-      file: path.join(packageRoot, 'the-art-of-eyepl.md'),
+      file: path.join(packageRoot, 'the-art-of-webentail.md'),
       pattern: /contains (\d+) cases, including (\d+) focused ISO\s+cases/,
       expected: [total, iso],
       labels: ['total', 'ISO'],
@@ -1727,14 +1727,14 @@ function markdownLinkTargets(text) {
 }
 
 function bookIntroOutputIssues() {
-  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyepl.md'), 'utf8');
-  const match = book.match(/The (?:first|Eyepl) command should print:\s*```text\n([\s\S]*?)```/);
-  if (match == null) return ['the-art-of-eyepl.md: introductory output block not found'];
+  const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-webentail.md'), 'utf8');
+  const match = book.match(/The (?:first|WebEntail) command should print:\s*```text\n([\s\S]*?)```/);
+  if (match == null) return ['the-art-of-webentail.md: introductory output block not found'];
   const documented = `${match[1].trimEnd()}\n`;
   const expected = fs.readFileSync(path.join(packageRoot, 'examples', 'output', 'socrates.pl'), 'utf8');
   return documented === expected
     ? []
-    : ['the-art-of-eyepl.md: introductory Socrates output differs from examples/output/socrates.pl'];
+    : ['the-art-of-webentail.md: introductory Socrates output differs from examples/output/socrates.pl'];
 }
 
 function documentedPublicApiImportIssues() {
@@ -1743,7 +1743,7 @@ function documentedPublicApiImportIssues() {
   for (const file of documentationFiles()) {
     const text = fs.readFileSync(file, 'utf8');
     for (const block of text.matchAll(/^```js\s*\n([\s\S]*?)^```\s*$/gm)) {
-      for (const imported of block[1].matchAll(/import\s*\{([\s\S]*?)\}\s*from\s*['"]eyepl['"]/g)) {
+      for (const imported of block[1].matchAll(/import\s*\{([\s\S]*?)\}\s*from\s*['"]webentail['"]/g)) {
         for (const item of imported[1].split(',')) {
           const name = item.trim().split(/\s+as\s+/)[0];
           if (name && !exported.has(name)) {

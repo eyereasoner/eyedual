@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_setof_3_01 through 09.
-% Modified for Eyepl's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for WebEntail's conformance harness. See test/conformance/THIRD_PARTY.md.
 %% goal: setof_results(X0, X1, X2)
 
 setof_results(Ordered, Unique, Quantified) :-

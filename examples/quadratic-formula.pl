@@ -1,7 +1,7 @@
 % Quadratic formula over sample equations.
 %
 % Each equation is represented as a*x^2 + b*x + c = 0.  The example uses
-% eyepl arithmetic predicates to derive the discriminant and the two roots.
+% webentail arithmetic predicates to derive the discriminant and the two roots.
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.
 %% goal: discriminant(X0, X1)

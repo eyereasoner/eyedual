@@ -1,12 +1,12 @@
-export interface EyeplStats {
+export interface WebEntailStats {
   [key: string]: number;
 }
 
-export interface EyeplRunOptions {
+export interface WebEntailRunOptions {
   /** A host-supplied goal, expressed as Prolog text or a parsed term. */
-  goal?: string | EyeplTerm;
+  goal?: string | WebEntailTerm;
   /** Host-supplied goals, executed in order. */
-  goals?: Array<string | EyeplTerm>;
+  goals?: Array<string | WebEntailTerm>;
   proof?: boolean;
   why?: boolean;
   explain?: boolean;
@@ -23,9 +23,9 @@ export interface EyeplRunOptions {
   [key: string]: unknown;
 }
 
-export interface EyeplRunResult {
+export interface WebEntailRunResult {
   stdout: string;
-  stats: EyeplStats;
+  stats: WebEntailStats;
   haltCode: number | null;
 }
 
@@ -37,25 +37,25 @@ export class StreamManager {
   currentOutput: number;
 }
 
-export interface EyeplSourcePart {
+export interface WebEntailSourcePart {
   text?: string;
   source?: string;
   filename?: string;
   baseDir?: string;
 }
 
-export interface EyeplClause {
-  head: EyeplTerm;
-  body: EyeplTerm[];
+export interface WebEntailClause {
+  head: WebEntailTerm;
+  body: WebEntailTerm[];
   index?: number;
   filename?: string;
   clauseNumber?: number;
 }
 
-export interface EyeplPredicateGroup {
+export interface WebEntailPredicateGroup {
   name: string;
   arity: number;
-  clauses: EyeplClause[];
+  clauses: WebEntailClause[];
   argIndexes: unknown[];
   demandIndexes: Map<string, unknown>;
   rejectedDemandIndexes: Set<string>;
@@ -65,42 +65,42 @@ export interface EyeplPredicateGroup {
   negationStratum: number | null;
 }
 
-export type EyeplTerm = Term | { type: string; name: string; args?: EyeplTerm[]; arity?: number };
+export type WebEntailTerm = Term | { type: string; name: string; args?: WebEntailTerm[]; arity?: number };
 
 export class Term {
-  constructor(type: string, name?: unknown, args?: EyeplTerm[]);
+  constructor(type: string, name?: unknown, args?: WebEntailTerm[]);
   type: string;
   name: string;
-  args: EyeplTerm[];
+  args: WebEntailTerm[];
   get arity(): number;
 }
 
 export class Env {
-  constructor(bindings?: Iterable<readonly [string, EyeplTerm]> | null);
-  bindings: Map<string, EyeplTerm>;
+  constructor(bindings?: Iterable<readonly [string, WebEntailTerm]> | null);
+  bindings: Map<string, WebEntailTerm>;
   clone(): Env;
   has(name: string): boolean;
-  get(name: string): EyeplTerm | undefined;
-  bind(name: string, term: EyeplTerm): void;
+  get(name: string): WebEntailTerm | undefined;
+  bind(name: string, term: WebEntailTerm): void;
 }
 
 export class Program {
-  constructor(clauses?: EyeplClause[], options?: EyeplRunOptions);
-  clauses: EyeplClause[];
-  groups: Map<string, EyeplPredicateGroup>;
+  constructor(clauses?: WebEntailClause[], options?: WebEntailRunOptions);
+  clauses: WebEntailClause[];
+  groups: Map<string, WebEntailPredicateGroup>;
   negationDependencies: Array<{ from: string; to: string; negative: boolean }>;
   negationStratificationErrors: Array<{ from: string; to: string }>;
   stratifiedNegation: boolean;
-  static parse(source: string, options?: EyeplRunOptions): Program;
-  static parseSources(sources?: Array<string | EyeplSourcePart>, options?: EyeplRunOptions): Program;
-  makeGroup(name: string, arity: number): EyeplPredicateGroup;
-  indexClause(clause: EyeplClause): void;
-  findGroup(name: string, arity: number): EyeplPredicateGroup | null;
+  static parse(source: string, options?: WebEntailRunOptions): Program;
+  static parseSources(sources?: Array<string | WebEntailSourcePart>, options?: WebEntailRunOptions): Program;
+  makeGroup(name: string, arity: number): WebEntailPredicateGroup;
+  indexClause(clause: WebEntailClause): void;
+  findGroup(name: string, arity: number): WebEntailPredicateGroup | null;
   markRecursivePredicates(): void;
   analyzeNegationStratification(): Array<{ from: string; to: string }>;
   assertStratifiedNegation(): true;
   isStratifiedNegation(): boolean;
-  groupHasRule(group: EyeplPredicateGroup): boolean;
+  groupHasRule(group: WebEntailPredicateGroup): boolean;
   sourceFactLines(predicateKeys?: Set<string> | null): Set<string>;
 }
 
@@ -109,24 +109,24 @@ export interface BuiltinDefinition {
   arity: number;
   handler: BuiltinHandler;
   deterministic: boolean;
-  ready: ((goal: EyeplTerm, env: Env) => boolean) | null;
+  ready: ((goal: WebEntailTerm, env: Env) => boolean) | null;
   fallbackWhenNotReady: boolean;
-  shouldUse: ((context: { solver: Solver; goal: EyeplTerm; env: Env }) => boolean) | null;
-  eyeplLibrary: boolean;
+  shouldUse: ((context: { solver: Solver; goal: WebEntailTerm; env: Env }) => boolean) | null;
+  webEntailLibrary: boolean;
 }
 
-export type BuiltinHandler = (context: { solver: Solver; goal: EyeplTerm; env: Env }) => Iterable<Env>;
+export type BuiltinHandler = (context: { solver: Solver; goal: WebEntailTerm; env: Env }) => Iterable<Env>;
 
 export class BuiltinRegistry {
   constructor();
   defs: Map<string, BuiltinDefinition>;
-  eyeplLibrary?: boolean;
+  webEntailLibrary?: boolean;
   add(name: string, arity: number, handler: BuiltinHandler, options?: Partial<BuiltinDefinition>): this;
   get(name: string, arity: number): BuiltinDefinition | null;
 }
 
 export class Solver {
-  constructor(program: Program, options?: EyeplRunOptions);
+  constructor(program: Program, options?: WebEntailRunOptions);
   program: Program;
   registry: BuiltinRegistry;
   maxDepth: number;
@@ -134,10 +134,10 @@ export class Solver {
   solutionsSeen: number;
   active: unknown[];
   memo: Map<string, unknown>;
-  stats: EyeplStats;
+  stats: WebEntailStats;
   cloneForInnerGoal(solutionLimit?: number): Solver;
-  solve(goals: EyeplTerm | EyeplTerm[], env?: Env, depth?: number): Iterable<Env>;
-  activeVariant(goal: EyeplTerm, env: Env): boolean;
+  solve(goals: WebEntailTerm | WebEntailTerm[], env?: Env, depth?: number): Iterable<Env>;
+  activeVariant(goal: WebEntailTerm, env: Env): boolean;
 }
 
 export const VAR: 'var';
@@ -151,44 +151,44 @@ export function atom(name: string): Term;
 export function stringTerm(value: string): Term;
 export function numberTerm(value: string | number): Term;
 /** Construct a compound term; an empty argument list is canonicalized to atom(name). */
-export function compound(name: string, args?: EyeplTerm[]): Term;
+export function compound(name: string, args?: WebEntailTerm[]): Term;
 export function emptyList(): Term;
-export function cons(head: EyeplTerm, tail: EyeplTerm): Term;
-export function deref(term: EyeplTerm, env: Env): EyeplTerm;
-export function isScalar(term: EyeplTerm | null | undefined): boolean;
-export function isEmptyList(term: EyeplTerm | null | undefined): boolean;
-export function isCons(term: EyeplTerm | null | undefined): boolean;
-export function isConjunction(term: EyeplTerm | null | undefined): boolean;
-export function unify(left: EyeplTerm, right: EyeplTerm, env: Env): boolean;
-export function cloneTerm(term: EyeplTerm): Term;
-export function freshTerm(term: EyeplTerm, suffix: string | number): Term;
-export function copyResolved(term: EyeplTerm, env: Env): Term;
-export function termIsGround(term: EyeplTerm, env?: Env): boolean;
-export function termToString(term: EyeplTerm, env?: Env, quoteStrings?: boolean): string;
-export function lexicalValue(term: EyeplTerm, env: Env): string | null;
-export function properListItems(list: EyeplTerm, env: Env): EyeplTerm[] | null;
-export function listFromItems(items: EyeplTerm[], start?: number, end?: number, tail?: EyeplTerm): Term;
-export function flattenConjunction(goal: EyeplTerm): EyeplTerm[];
-export function termSignature(term: EyeplTerm | null | undefined): string | null;
-export function variantTerms(left: EyeplTerm, leftEnv: Env, right: EyeplTerm, rightEnv: Env, pairs?: Map<string, string>, reverse?: Map<string, string>): boolean;
-export function compareTerms(left: EyeplTerm, right: EyeplTerm): number;
+export function cons(head: WebEntailTerm, tail: WebEntailTerm): Term;
+export function deref(term: WebEntailTerm, env: Env): WebEntailTerm;
+export function isScalar(term: WebEntailTerm | null | undefined): boolean;
+export function isEmptyList(term: WebEntailTerm | null | undefined): boolean;
+export function isCons(term: WebEntailTerm | null | undefined): boolean;
+export function isConjunction(term: WebEntailTerm | null | undefined): boolean;
+export function unify(left: WebEntailTerm, right: WebEntailTerm, env: Env): boolean;
+export function cloneTerm(term: WebEntailTerm): Term;
+export function freshTerm(term: WebEntailTerm, suffix: string | number): Term;
+export function copyResolved(term: WebEntailTerm, env: Env): Term;
+export function termIsGround(term: WebEntailTerm, env?: Env): boolean;
+export function termToString(term: WebEntailTerm, env?: Env, quoteStrings?: boolean): string;
+export function lexicalValue(term: WebEntailTerm, env: Env): string | null;
+export function properListItems(list: WebEntailTerm, env: Env): WebEntailTerm[] | null;
+export function listFromItems(items: WebEntailTerm[], start?: number, end?: number, tail?: WebEntailTerm): Term;
+export function flattenConjunction(goal: WebEntailTerm): WebEntailTerm[];
+export function termSignature(term: WebEntailTerm | null | undefined): string | null;
+export function variantTerms(left: WebEntailTerm, leftEnv: Env, right: WebEntailTerm, rightEnv: Env, pairs?: Map<string, string>, reverse?: Map<string, string>): boolean;
+export function compareTerms(left: WebEntailTerm, right: WebEntailTerm): number;
 export function isDecimalInteger(text: string | null | undefined): boolean;
 export function compareIntegerText(left: string, right: string): number;
 export function parseFiniteNumber(text: string | null | undefined): number | null;
 export function numberTextFromDouble(value: number): string | null;
 export function compareNumberText(left: string, right: string): number;
 
-export function makeProgram(source: string, options?: EyeplRunOptions): Program;
-export function parseClauses(source: string, options?: EyeplRunOptions): EyeplClause[];
-export function parseProgramText(source: string, options?: EyeplRunOptions): EyeplClause[];
-export function parseGoalText(source: string): EyeplTerm;
+export function makeProgram(source: string, options?: WebEntailRunOptions): Program;
+export function parseClauses(source: string, options?: WebEntailRunOptions): WebEntailClause[];
+export function parseProgramText(source: string, options?: WebEntailRunOptions): WebEntailClause[];
+export function parseGoalText(source: string): WebEntailTerm;
 export function createDefaultRegistry(): BuiltinRegistry;
-export function createEyeplRegistry(): BuiltinRegistry;
+export function createWebEntailRegistry(): BuiltinRegistry;
 export function getDefaultRegistry(): BuiltinRegistry;
-export function getEyeplRegistry(): BuiltinRegistry;
+export function getWebEntailRegistry(): BuiltinRegistry;
 export class PrologError extends Error {
   formal: string;
-  culprit: EyeplTerm | null;
+  culprit: WebEntailTerm | null;
 }
 
 export class HaltSignal extends Error {
@@ -196,12 +196,12 @@ export class HaltSignal extends Error {
   code: number;
   constructor(code?: number);
 }
-export function run(source: string | Program, options?: EyeplRunOptions): EyeplRunResult;
-export function whyProof(program: Program, goal: EyeplTerm, options?: EyeplRunOptions): { ok: boolean; text: string };
-export function whyNoProof(goal: EyeplTerm): string;
-export function explainProof(program: Program, goal: EyeplTerm, options?: EyeplRunOptions): { ok: boolean; text: string };
+export function run(source: string | Program, options?: WebEntailRunOptions): WebEntailRunResult;
+export function whyProof(program: Program, goal: WebEntailTerm, options?: WebEntailRunOptions): { ok: boolean; text: string };
+export function whyNoProof(goal: WebEntailTerm): string;
+export function explainProof(program: Program, goal: WebEntailTerm, options?: WebEntailRunOptions): { ok: boolean; text: string };
 
-declare const eyepl: {
+declare const webentail: {
   VAR: typeof VAR;
   ATOM: typeof ATOM;
   STRING: typeof STRING;
@@ -247,13 +247,13 @@ declare const eyepl: {
   parseClauses: typeof parseClauses;
   parseProgramText: typeof parseProgramText;
   createDefaultRegistry: typeof createDefaultRegistry;
-  createEyeplRegistry: typeof createEyeplRegistry;
+  createWebEntailRegistry: typeof createWebEntailRegistry;
   getDefaultRegistry: typeof getDefaultRegistry;
-  getEyeplRegistry: typeof getEyeplRegistry;
+  getWebEntailRegistry: typeof getWebEntailRegistry;
   run: typeof run;
   whyProof: typeof whyProof;
   whyNoProof: typeof whyNoProof;
   explainProof: typeof explainProof;
 };
 
-export default eyepl;
+export default webentail;

@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 22.
+% From The Art of WebEntail, Chapter 22.
 tree(
   oak,
   tree(birch, empty, empty),

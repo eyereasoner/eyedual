@@ -1,4 +1,4 @@
-// Eyepl Eyepl library implemented entirely as native JavaScript builtins.
+// WebEntail library implemented entirely as native JavaScript builtins.
 // The single registry is shared by Node, embedders, and the browser playground.
 import {
   ATOM,
@@ -35,7 +35,7 @@ import {
 } from './iso.js';
 
 // Numeric builtins for integer-preserving arithmetic, floating point functions, comparisons, and ranges.
-// The code keeps BigInt paths where possible so large Eyepl integers remain exact.
+// The code keeps BigInt paths where possible so large WebEntail integers remain exact.
 
 const unaryNames = ['tan', 'asin', 'acos'];
 const binaryNames = ['atan2'];
@@ -46,10 +46,10 @@ export const arithmeticBuiltins = {
     for (const name of unaryNames) registry.add(name, 2, unary(name), { deterministic: true });
     for (const name of binaryNames) registry.add(name, 3, binary(name), { deterministic: true });
     for (const name of compareNames) registry.add(name, 2, compare(name), { deterministic: true });
-    registry.add('between', 3, between, { eyeplLibrary: true });
+    registry.add('between', 3, between, { webEntailLibrary: true });
     registry.add('smallest_divisor_from', 3, smallestDivisorFrom, {
       deterministic: true,
-      eyeplLibrary: true,
+      webEntailLibrary: true,
     });
   }
 };
@@ -192,7 +192,7 @@ export const metaCallBuiltins = {
   register(registry) {
     registry.add('call', 3, callWithTwoExtraArguments);
     registry.add('maplist', 3, maplistTwoLists, {
-      eyeplLibrary: true,
+      webEntailLibrary: true,
       shouldUse: ({ solver }) => solver.program.findGroup('maplist', 3) == null,
     });
   }
@@ -256,7 +256,7 @@ function* maplistTwoLists({ solver, goal, env }) {
 
 
 function localDateText() {
-  const fixed = typeof process !== 'undefined' ? process.env?.EYEPL_LOCAL_TIME : null;
+  const fixed = typeof process !== 'undefined' ? process.env?.WEBENTAIL_LOCAL_TIME : null;
   if (fixed) return fixed;
 
   const now = new Date();
@@ -438,7 +438,7 @@ function contextFromGroups(groups) {
 function numericText(text) {
   return isDecimalInteger(text) || parseFiniteNumber(text) != null;
 }
-// Native Eyepl library relations.
+// Native WebEntail library relations.
 // These predicates used to be parsed from bundled Prolog source. Keeping them
 // in the builtin registry removes startup parsing, avoids browser module/cache
 // duplication, and gives the hot list/aggregation paths direct JavaScript
@@ -448,11 +448,11 @@ export const standardBuiltins = {
   register(registry) {
     const relation = (name, arity, handler, options = {}) => registry.add(name, arity, handler, {
       ...options,
-      eyeplLibrary: true,
+      webEntailLibrary: true,
     });
     const accelerator = (name, arity, handler, options = {}) => registry.add(name, arity, handler, {
       ...options,
-      eyeplLibrary: true,
+      webEntailLibrary: true,
     });
 
     relation('append', 3, appendBuiltin);
@@ -974,9 +974,9 @@ function integerArgument(term, env) {
   return BigInt(resolved.name);
 }
 
-export function createEyeplRegistry() {
+export function createWebEntailRegistry() {
   const registry = new BuiltinRegistry();
-  registry.eyeplLibrary = true;
+  registry.webEntailLibrary = true;
   for (const mod of [
     coreBuiltins,
     metaCallBuiltins,
@@ -986,16 +986,16 @@ export function createEyeplRegistry() {
   ]) {
     mod.register(registry);
   }
-  for (const definition of registry.defs.values()) definition.eyeplLibrary = true;
+  for (const definition of registry.defs.values()) definition.webEntailLibrary = true;
   // ISO definitions take precedence where names overlap and remain identifiable
-  // as ISO rather than Eyepl-library predicates.
+  // as ISO rather than WebEntail-library predicates.
   isoBuiltins.register(registry);
   return registry;
 }
 
-let eyeplRegistry = null;
+let webEntailRegistry = null;
 
-export function getEyeplRegistry() {
-  if (eyeplRegistry == null) eyeplRegistry = createEyeplRegistry();
-  return eyeplRegistry;
+export function getWebEntailRegistry() {
+  if (webEntailRegistry == null) webEntailRegistry = createWebEntailRegistry();
+  return webEntailRegistry;
 }

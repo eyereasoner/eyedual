@@ -1,21 +1,21 @@
 # RDF round-trip tools
 
-These tools translate RDF files into ordinary Eyepl and queried `rdf/4`
+These tools translate RDF files into ordinary WebEntail and queried `rdf/4`
 facts back into RDF 1.2 N-Quads. Input formats are selected automatically from
 the file extension. Supported inputs include RDF 1.2 Turtle, TriG, N-Triples,
 N-Quads and RDF/XML, plus JSON-LD, RDFa, Microdata, Notation3 and SHACL Compact
-Syntax. Eyepl remains RDF-agnostic.
+Syntax. WebEntail remains RDF-agnostic.
 
 ```bash
-node tools/rdf-to-eyepl.mjs --rules rules.pl data.nq -o program.pl
-node bin/eyepl.js --goal 'rdf(S, P, O, G)' program.pl > derived.pl
-node tools/eyepl-to-rdf.mjs derived.pl -o derived.nq
+node tools/rdf-to-webentail.mjs --rules rules.pl data.nq -o program.pl
+node bin/webentail.js --goal 'rdf(S, P, O, G)' program.pl > derived.pl
+node tools/webentail-to-rdf.mjs derived.pl -o derived.nq
 ```
 
 For standard input, specify an extension or media type with `--format`:
 
 ```bash
-node tools/rdf-to-eyepl.mjs --format turtle --base https://example/ -o program.pl
+node tools/rdf-to-webentail.mjs --format turtle --base https://example/ -o program.pl
 ```
 
 Use `--include-source` when the result should contain input and derived quads.

@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 3 — Why terms denote themselves.
+% From The Art of WebEntail, Chapter 3 — Why terms denote themselves.
 different(alice, bob) :- (alice \= bob).
 different(ticket(alice), ticket(bob)) :-
   (ticket(alice) \= ticket(bob)).

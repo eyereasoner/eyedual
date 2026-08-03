@@ -1,8 +1,8 @@
-# The Art of Eyepl — inline examples
+# The Art of WebEntail — inline examples
 
-These files are generated from the complete `eyepl` code blocks in
-[The Art of Eyepl](../../the-art-of-eyepl.md). They are grouped by chapter and
-retain the source text from the book. Goal fragments and non-Eyepl blocks are
+These files are generated from the complete `webentail` code blocks in
+[The Art of WebEntail](../../the-art-of-webentail.md). They are grouped by chapter and
+retain the source text from the book. Goal fragments and non-WebEntail blocks are
 not extracted.
 
 Regenerate them from the repository root with:
@@ -89,7 +89,7 @@ npm run generate
 
 - [01-rdf.pl](chapter-15/01-rdf.pl)
 
-## Chapter 16: Embedding Eyepl
+## Chapter 16: Embedding WebEntail
 
 - [01-socket.pl](chapter-16/01-socket.pl) — Sockets: naming the knowledge boundary
 - [02-socket-2.pl](chapter-16/02-socket-2.pl)

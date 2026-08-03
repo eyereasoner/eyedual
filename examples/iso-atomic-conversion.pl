@@ -6,13 +6,13 @@
 
 
 report(joined, Atom) :-
-  atom_concat(eye, pl, Atom).
+  atom_concat(web, entail, Atom).
 
 report(prefix, Prefix) :-
-  atom_concat(Prefix, pl, eyepl).
+  atom_concat(Prefix, entail, webentail).
 
 report(characters, Chars) :-
-  atom_chars(eye, Chars).
+  atom_chars(web, Chars).
 
 report(codes, Codes) :-
   atom_codes('AZ', Codes).
@@ -24,4 +24,4 @@ report(number, Number) :-
   number_chars(Number, ['4', '2']).
 
 report(fragment, fragment(Before, Part, After)) :-
-  sub_atom(eyepl, Before, 3, After, Part).
+  sub_atom(webentail, Before, 3, After, Part).

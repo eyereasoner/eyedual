@@ -1,7 +1,7 @@
 % Law of cosines: c^2 = a^2 + b^2 - 2ab cos(C).
 %
 % This pure-geometry example keeps trigonometry outside the language by storing
-% cos(C) as data.  Eyepl then performs the algebraic part of the theorem with
+% cos(C) as data.  WebEntail then performs the algebraic part of the theorem with
 % ordinary arithmetic predicates and querys both c^2 and c.
 %
 % The 60-degree sample uses cos(C) = 0.5, so the proof shows each intermediate

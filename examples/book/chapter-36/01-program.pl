@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 36.
+% From The Art of WebEntail, Chapter 36.
 :- dynamic(task/2).
 
 prepare_queue :-

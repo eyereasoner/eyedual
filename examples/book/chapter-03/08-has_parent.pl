@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 3 — Quantification and visible witnesses.
+% From The Art of WebEntail, Chapter 3 — Quantification and visible witnesses.
 has_parent(Child, parent_of(Child)) :-
   person(Child).
 

@@ -1,7 +1,7 @@
 % Bounded equality saturation over tiny arithmetic expression terms.
 %
 % Real equality-saturation engines use mutable e-graphs, union-find classes,
-% congruence closure, rewrite scheduling, and cost-based extraction.  Eyepl has
+% congruence closure, rewrite scheduling, and cost-based extraction.  WebEntail has
 % none of those primitives, so this example simulates the idea relationally: it
 % enumerates expressions reachable within a small rewrite-fuel bound, scores the
 % generated terms, and extracts the cheapest equivalent expression.

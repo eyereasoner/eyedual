@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 26 — The least model as mathematical closure.
+% From The Art of WebEntail, Chapter 26 — The least model as mathematical closure.
 edge(a, b).
 edge(b, c).
 

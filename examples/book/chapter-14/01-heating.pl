@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 14.
+% From The Art of WebEntail, Chapter 14.
 heating(Battery, Watts) :-
   current(Battery, Amps),
   resistance(Battery, Ohms),

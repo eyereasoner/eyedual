@@ -19,6 +19,6 @@ ok(nativeCompare, true) :- (2 < 3).
 ok(nativeString, true) :- matches("scoped retail insight", "retail|medical").
 tail(nativeList, Tail) :- rest([a, b, c], Tail).
 
-% These names are just user data; eyepl does not give them special meaning.
+% These names are just user data; webentail does not give them special meaning.
 example_label(vocabularyExample, "vocabulary names are ordinary predicate names").
 label(vocabularyExample, Text) :- example_label(vocabularyExample, Text).

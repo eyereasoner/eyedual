@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 33 — Pattern 2: Normalize at the boundary.
+% From The Art of WebEntail, Chapter 33 — Pattern 2: Normalize at the boundary.
 source_role(person_7, "Doctor").
 
 canonical_role(Person, clinician) :-

@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_current_predicate_1_01 through 05.
-% Modified for Eyepl's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for WebEntail's conformance harness. See test/conformance/THIRD_PARTY.md.
 :- dynamic(dog/0).
 dog.
 elk(X) :- moose(X).

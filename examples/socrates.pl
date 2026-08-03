@@ -1,7 +1,7 @@
 % Socrates is mortal, adapted from Eyelet's input/socrates.pl.
 %
 % Eyelet uses type('Socrates', 'Man') and a single rule deriving Mortal.
-% eyepl keeps the same reasoning shape and emits relation facts.
+% webentail keeps the same reasoning shape and emits relation facts.
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.
 %% goal: type(X0, X1)

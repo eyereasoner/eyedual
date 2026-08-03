@@ -1,13 +1,13 @@
 % socket-family.pl
 %
-% A small runnable eyepl Socket example.
+% A small runnable webentail Socket example.
 %
-% The socket facts below are ordinary eyepl data. They document the
+% The socket facts below are ordinary webentail data. They document the
 % semantic opening: this reasoning module expects a provider for parent/2.
 % The plug fact says which provider is connected.
 %
 % Run:
-%   eyepl socket-family.pl
+%   webentail socket-family.pl
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.
 %% goal: ancestor(X0, X1)

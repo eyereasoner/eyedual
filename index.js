@@ -1,4 +1,4 @@
-// Public Eyepl JavaScript API.
+// Public WebEntail JavaScript API.
 export * from './src/index.js';
-import * as eyepl from './src/index.js';
-export default eyepl;
+import * as webentail from './src/index.js';
+export default webentail;

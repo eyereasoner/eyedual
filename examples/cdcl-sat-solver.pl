@@ -1,7 +1,7 @@
 % A tiny CDCL-style SAT trace with one learned clause.
 %
 % Industrial CDCL solvers use watched literals, mutable trails, non-chronological
-% backjumping, clause databases, restarts, and activity heuristics.  Eyepl has
+% backjumping, clause databases, restarts, and activity heuristics.  WebEntail has
 % no mutable state or destructive trail updates, so this example models one small
 % conflict-analysis episode as relations over immutable terms.
 %
@@ -31,7 +31,7 @@ lit_true(neg(Var), Value_rel) :- call_value(Value_rel, Var, false, _).
 lit_false(pos(Var), Value_rel) :- call_value(Value_rel, Var, false, _).
 lit_false(neg(Var), Value_rel) :- call_value(Value_rel, Var, true, _).
 
-% Eyepl cannot pass predicates as first-class values, so this small dispatcher
+% WebEntail cannot pass predicates as first-class values, so this small dispatcher
 % lets the same literal helpers inspect either the initial or final trail.
 call_value(initial, Var, Value, Reason) :- initial_value(Var, Value, Reason).
 call_value(final, Var, Value, Reason) :- final_value(Var, Value, Reason).

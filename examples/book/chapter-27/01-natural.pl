@@ -1,4 +1,4 @@
-% From The Art of Eyepl, Chapter 27.
+% From The Art of WebEntail, Chapter 27.
 natural(z).
 natural(s(N)) :- natural(N).
 
