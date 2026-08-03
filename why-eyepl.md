@@ -80,7 +80,7 @@ The governing design rule is:
 
 ### Notation3
 
-[Notation3](https://w3c.github.io/N3/spec/) should be considered independently of any particular reasoner. It is a Web-native logic language that extends the RDF family with quoted formulae, implication, variables, built-in relations, and rules. Facts, rules, queries, and conclusions can all be expressed in one compact notation.
+[Notation3](https://w3c.github.io/N3/spec/) is a Web-native logic language that extends the RDF family with quoted formulae, implication, variables, built-in relations, and rules. Facts, rules, queries, and conclusions can all be expressed in one compact notation.
 
 That design gives N3 distinctive strengths:
 
