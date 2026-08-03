@@ -5112,10 +5112,9 @@ Part 1 profile.
 
 ### Declarations
 
-`eyepl --goal 'Goal' program.pl` selects a goal for host execution. `mode(Name, Arity, Modes)`,
-`det(Name, Arity)`, and `semidet(Name, Arity)` are advisory documentation for
+`mode(Name, Arity, Modes)`, `det(Name, Arity)`, and `semidet(Name, Arity)` are advisory documentation for
 people and tools; they do not alter proof search. A clause headed by `false`
-is different: it is an inference fuse, checked before queries, and aborts
+is different: it is an inference fuse, checked before host goals, and aborts
 execution when its body succeeds.
 
 Standard directives include `dynamic/1`, `multifile/1`, `discontiguous/1`,
@@ -5497,6 +5496,20 @@ search behavior.
 eyepl [options] [file-or-url.pl|- ...]
 ```
 
+### Selecting goals
+
+A Prolog source file states facts, rules, and ISO directives; the command line
+selects what to solve. Supply `--goal` followed by a callable Prolog goal:
+
+```sh
+eyepl --goal 'ancestor(ada, Who)' examples/ancestor.pl
+```
+
+Repeat `--goal` to request several result relations in one run. Eyepl prints
+their ground answers in the order the goals were supplied. This separation
+keeps program text portable and makes the observed question explicit in a
+script, shell history, or API call.
+
 | Option | Meaning |
 | --- | --- |
 | `-h`, `--help` | Show usage |
@@ -5504,6 +5517,7 @@ eyepl [options] [file-or-url.pl|- ...]
 | `-s`, `--stats` | Print solver counters to stderr |
 | `-v`, `--version` | Print the package version |
 | `-w`, `--warnings` | Print non-fatal portability warnings |
+| `--goal Goal` | Solve a callable goal; may be repeated |
 | `--` | Treat following arguments as inputs |
 
 Short flags may be combined, so `-pw` is equivalent to `-p -w`.
@@ -5529,10 +5543,10 @@ Work in a fixed sequence:
 For example:
 
 ```sh
-eyepl examples/ancestor.pl
-eyepl --proof examples/socrates.pl
-eyepl --warnings test/conformance/warnings/negation/unstratified_mutual.pl
-eyepl --stats examples/path-discovery.pl > answers.pl 2> run.stats
+eyepl --goal 'ancestor(X, Y)' examples/ancestor.pl
+eyepl --proof --goal 'type(X, Y)' examples/socrates.pl
+eyepl --warnings --goal 'answer(X)' test/conformance/warnings/negation/unstratified_mutual.pl
+eyepl --stats --goal 'path(a, X)' examples/path-discovery.pl > answers.pl 2> run.stats
 ```
 
 Normal answers and `why/2` terms go to stdout, which makes them suitable for a
@@ -6386,8 +6400,8 @@ Unlike a search tree, it omits failed alternatives.
 
 **Proper list.** A finite list whose final tail is `[]`.
 
-**Query declaration.** A source fact `eyepl --goal 'Goal' program.pl` selecting a goal for host
-execution.
+**Host goal.** A callable Prolog goal supplied by the CLI or embedding API to
+select the relation whose answers are observed.
 
 **Readiness.** The binding condition under which a mode-sensitive built-in can
 run safely and productively.
