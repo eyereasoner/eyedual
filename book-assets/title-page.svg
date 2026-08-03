@@ -57,7 +57,7 @@
     <text x="500" y="325" text-anchor="middle" class="subtitle">Standards-based relations, search, and explanations</text>
 
     <line x1="300" y1="372" x2="405" y2="372" class="gold-stroke thin round"/>
-    <text x="500" y="381" text-anchor="middle" class="author">Jos De Roo</text>
+    <text x="500" y="381" text-anchor="middle" class="author">Author: Jos De Roo</text>
     <line x1="595" y1="372" x2="700" y2="372" class="gold-stroke thin round"/>
   </g>
 
@@ -111,7 +111,7 @@
           class="navy-stroke mid round"/>
 
     <path d="M448 492 L552 492 L565 548 L435 548 Z" fill="#f0ddb5" stroke="#233a59" stroke-width="3"/>
-    <text x="500" y="527" text-anchor="middle" class="section navy" style="font-size:18px; letter-spacing:1px;">ENTAILMENT</text>
+    <text x="500" y="526" text-anchor="middle" class="section navy" style="font-size:16px; letter-spacing:0.5px;">ENTAILMENT</text>
 
     <rect x="290" y="690" width="68" height="148" rx="7" fill="#ead6a8" stroke="#233a59" stroke-width="3"/>
     <rect x="278" y="676" width="92" height="22" rx="5" fill="#d7ba7b" stroke="#233a59" stroke-width="3"/>
@@ -218,11 +218,11 @@
 
   <!-- footer -->
   <g id="footer">
-    <line x1="175" y1="1350" x2="325" y2="1350" class="gold-stroke thin round"/>
-    <circle cx="345" cy="1350" r="4" class="gold"/>
-    <text x="500" y="1360" text-anchor="middle" class="subtitle" style="font-size:24px; font-style:italic;">Bridging logic and linked data</text>
-    <circle cx="655" cy="1350" r="4" class="gold"/>
-    <line x1="675" y1="1350" x2="825" y2="1350" class="gold-stroke thin round"/>
+    <line x1="145" y1="1350" x2="285" y2="1350" class="gold-stroke thin round"/>
+    <circle cx="310" cy="1350" r="4" class="gold"/>
+    <text x="500" y="1360" text-anchor="middle" class="subtitle" style="font-size:20px; font-style:italic;">Bridging logic and linked data</text>
+    <circle cx="690" cy="1350" r="4" class="gold"/>
+    <line x1="715" y1="1350" x2="855" y2="1350" class="gold-stroke thin round"/>
     <path d="M500 1390 L510 1400 L500 1410 L490 1400 Z" class="green"/>
   </g>
 </svg>
