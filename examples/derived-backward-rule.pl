@@ -10,10 +10,13 @@
 % log_impliedBy/2, then mirrored as an ordinary eyepl rule so the generated
 % childOf relation can feed the ordinary hasParent rule.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(log_impliedBy(X0, X1)).
-query(childOf(X0, X1)).
-query(hasParent(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: log_impliedBy(X0, X1)
+
+%% goal: childOf(X0, X1)
+
+%% goal: hasParent(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 invOf(parentOf, childOf).

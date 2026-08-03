@@ -1,8 +1,8 @@
 // Browser worker entry used by playground.html.
 // Keep this module free of Node-only imports: it is fetched directly by the
 // browser and is also exercised by test/run-playground.mjs.
-import { run } from './index.js?playground=20260801b';
-import { createEyeplRegistry } from './library.js?playground=20260801b';
+import { run } from './index.js?playground=20260803c';
+import { createEyeplRegistry } from './library.js?playground=20260803c';
 
 const registry = createEyeplRegistry();
 

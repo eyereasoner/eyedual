@@ -2,4 +2,5 @@
 record((left(a), right(b))).
 accept((left(a), right(b))).
 answer(ok, F) :- (record(F), accept(F)).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

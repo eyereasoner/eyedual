@@ -3,15 +3,20 @@
 % The rules reduce a list of points to sufficient statistics, then derive the
 % fitted slope, intercept, and coefficient of determination R^2.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
 %
 % Accumulating sufficient statistics keeps the regression formulas compact and
 % makes the proof show the same intermediate values a hand calculation would use.
-query(slope(X0, X1)).
-query(intercept(X0, X1)).
-query(rSquared(X0, X1)).
-query(status(X0, X1)).
-query(reason(X0, X1)).
+%% goal: slope(X0, X1)
+
+%% goal: intercept(X0, X1)
+
+%% goal: rSquared(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 dataset(regression1, [point(1.0, 2.0), point(2.0, 3.0), point(3.0, 5.0), point(4.0, 4.0)]).

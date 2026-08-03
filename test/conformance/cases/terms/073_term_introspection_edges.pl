@@ -1,5 +1,6 @@
 % Reference 9.1: term-inspection built-ins expose scalars, nested arguments, and atom construction from an empty argument list.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 answer(functor_atom, pair(Name, Arity)) :- functor(alpha, Name, Arity).
 answer(functor_number, pair(Name, Arity)) :- functor(42, Name, Arity).
 answer(functor_string, pair(Name, Arity)) :- functor("hi", Name, Arity).

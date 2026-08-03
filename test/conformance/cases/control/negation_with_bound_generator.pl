@@ -1,4 +1,5 @@
-query(answer(X0)).
+%% goal: answer(X0)
+
 item(a).
 item(b).
 blocked(b).

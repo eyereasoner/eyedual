@@ -1,5 +1,6 @@
 % Reference 12: automatically tabled recursive proofs still explain the successful derivation path.
-query(path(X0, X1)).
+%% goal: path(X0, X1)
+
 edge(a, b).
 edge(b, c).
 path(X, Y) :- edge(X, Y).

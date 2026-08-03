@@ -7,7 +7,8 @@
 :- op(9, yfx, yfx).
 :- op(9, xfy, xfy).
 
-query(scryer_operator_precedence(A, B, C, D)).
+%% goal: scryer_operator_precedence(A, B, C, D)
+
 scryer_operator_precedence(A, B, C, D) :-
     A = (fy 1 yf),
     B = (fy 1 yfx 2),

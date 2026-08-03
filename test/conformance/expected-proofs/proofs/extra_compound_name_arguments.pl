@@ -3,7 +3,7 @@ why(
   answer(compound_name_arguments, box, [a, b]),
   proof(
     goal(answer(compound_name_arguments, box, [a, b])),
-    by(rule("<stdin>", clause(2))),
+    by(rule("<stdin>", clause(1))),
     bindings([binding("Name", box), binding("Args", [a, b])]),
     uses([
       proof(

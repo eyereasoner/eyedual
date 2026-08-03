@@ -4,8 +4,10 @@
 % They are self-contained, require no prefix declarations, and can be joined
 % directly across rules just like any other atom.
 
-query(affiliated_with(X0, X1)).
-query(project_contact(X0, X1, X2)).
+%% goal: affiliated_with(X0, X1)
+
+%% goal: project_contact(X0, X1, X2)
+
 
 
 % A tiny graph using absolute IRI atoms directly.

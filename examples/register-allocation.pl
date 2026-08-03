@@ -6,7 +6,8 @@
 % few temporaries to two registers or memory, reject register conflicts, and use
 % aggregate_min/5 to choose the cheapest spill plan.
 
-query(registerAnswer(X0, X1)).
+%% goal: registerAnswer(X0, X1)
+
 
 % Two physical registers are available.  The synthetic place spill means the
 % temporary is kept in memory instead of a register.

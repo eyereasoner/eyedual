@@ -11,9 +11,12 @@
 % deliberately conservative: if the join point can see y = zero on any path, the
 % division is reported as a possible division-by-zero warning.
 
-query(absState(X0, X1, X2)).
-query(absWarning(X0, X1)).
-query(absConclusion(X0, X1)).
+%% goal: absState(X0, X1, X2)
+
+%% goal: absWarning(X0, X1)
+
+%% goal: absConclusion(X0, X1)
+
 
 
 % The abstract domain.

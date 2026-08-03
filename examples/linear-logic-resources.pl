@@ -8,8 +8,10 @@
 %
 % The successful plan turns wheat, yeast, and heat into bread.  The rejected
 % double-spend check shows that one coin cannot be consumed by two purchases.
-query(linear_result(X0, X1, X2)).
-query(linear_check(X0, X1)).
+%% goal: linear_result(X0, X1, X2)
+
+%% goal: linear_check(X0, X1)
+
 
 initial(kitchen, [wheat, yeast, heat]).
 initial(wallet, [coin]).

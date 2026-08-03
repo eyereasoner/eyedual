@@ -5,12 +5,17 @@
 % things that float are made of wood; things made of wood burn; and a woman
 % who burns is a witch.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(floats(X0)).
-query(madeOfWood(X0)).
-query(burns(X0)).
-query(witch(X0)).
-query(holds_result(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: floats(X0)
+
+%% goal: madeOfWood(X0)
+
+%% goal: burns(X0)
+
+%% goal: witch(X0)
+
+%% goal: holds_result(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 % Derivation rules: each rule below contributes one logical step toward the displayed results.

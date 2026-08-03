@@ -15,13 +15,11 @@ npm run generate
 
 - [01-parent.pl](chapter-01/01-parent.pl)
 - [02-child.pl](chapter-01/02-child.pl)
-- [03-child-2.pl](chapter-01/03-child-2.pl)
 
 ## Chapter 2: Terms, variables, and substitution
 
-- [01-same_shape.pl](chapter-02/01-same_shape.pl) — Unification
-- [02-measurement.pl](chapter-02/02-measurement.pl)
-- [03-label.pl](chapter-02/03-label.pl)
+- [01-measurement.pl](chapter-02/01-measurement.pl)
+- [02-label.pl](chapter-02/02-label.pl)
 
 ## Chapter 3: Rules and their two readings
 
@@ -39,8 +37,7 @@ npm run generate
 
 ## Chapter 4: Recursion: describing reachability
 
-- [01-ancestor.pl](chapter-04/01-ancestor.pl)
-- [02-path.pl](chapter-04/02-path.pl) — Constructing the recursive argument
+- [01-path.pl](chapter-04/01-path.pl) — Constructing the recursive argument
 
 ## Chapter 5: Lists as relations
 
@@ -73,8 +70,7 @@ npm run generate
 
 ## Chapter 10: From puzzles to models
 
-- [01-color.pl](chapter-10/01-color.pl)
-- [02-plan.pl](chapter-10/02-plan.pl)
+- [01-plan.pl](chapter-10/01-plan.pl)
 
 ## Chapter 11: Queries, answers, and proofs
 
@@ -127,22 +123,19 @@ npm run generate
 
 ## Chapter 21: Reading the computation
 
-- [01-parent.pl](chapter-21/01-parent.pl)
-- [02-grandparent.pl](chapter-21/02-grandparent.pl) — Substitutions accumulate
-- [03-loop_edge.pl](chapter-21/03-loop_edge.pl)
-- [04-eligible.pl](chapter-21/04-eligible.pl) — Failure rewinds choices, not facts
-- [05-grows.pl](chapter-21/05-grows.pl) — Variants, cycles, and tables
+- [01-grandparent.pl](chapter-21/01-grandparent.pl) — Substitutions accumulate
+- [02-loop_edge.pl](chapter-21/02-loop_edge.pl)
+- [03-eligible.pl](chapter-21/03-eligible.pl) — Failure rewinds choices, not facts
+- [04-grows.pl](chapter-21/04-grows.pl) — Variants, cycles, and tables
 
 ## Chapter 22: Trees, languages, and symbolic evaluation
 
 - [01-tree.pl](chapter-22/01-tree.pl)
 - [02-tree_member.pl](chapter-22/02-tree_member.pl)
 - [03-mirror.pl](chapter-22/03-mirror.pl) — Transforming a tree
-- [04-sentence.pl](chapter-22/04-sentence.pl) — A grammar without special syntax
-- [05-evaluate.pl](chapter-22/05-evaluate.pl) — Interpreting an expression
-- [06-query.pl](chapter-22/06-query.pl)
-- [07-lookup.pl](chapter-22/07-lookup.pl)
-- [08-simplify.pl](chapter-22/08-simplify.pl) — Rewriting symbolic expressions
+- [04-evaluate.pl](chapter-22/04-evaluate.pl) — Interpreting an expression
+- [05-lookup.pl](chapter-22/05-lookup.pl)
+- [06-simplify.pl](chapter-22/06-simplify.pl) — Rewriting symbolic expressions
 
 ## Chapter 23: Transforming programs
 
@@ -157,25 +150,22 @@ npm run generate
 
 ## Chapter 24: Designing finite search
 
-- [01-worker.pl](chapter-24/01-worker.pl) — Generate, constrain, describe
-- [02-simple_path.pl](chapter-24/02-simple_path.pl) — Search over states
-- [03-reachable.pl](chapter-24/03-reachable.pl) — Existence, one witness, and all witnesses
-- [04-best_plan.pl](chapter-24/04-best_plan.pl) — Optimization is search plus an order
+- [01-simple_path.pl](chapter-24/01-simple_path.pl) — Search over states
+- [02-reachable.pl](chapter-24/02-reachable.pl) — Existence, one witness, and all witnesses
+- [03-best_plan.pl](chapter-24/03-best_plan.pl) — Optimization is search plus an order
 
 ## Chapter 25: Case study: an auditable decision service
 
 - [01-person.pl](chapter-25/01-person.pl) — Source and concept layers
 - [02-active_badge.pl](chapter-25/02-active_badge.pl)
 - [03-in_good_standing.pl](chapter-25/03-in_good_standing.pl) — Closed-world choice
-- [04-permit.pl](chapter-25/04-permit.pl) — Decision, reasons, and proof
-- [05-incompatible_status.pl](chapter-25/05-incompatible_status.pl) — Integrity before decisions
+- [04-incompatible_status.pl](chapter-25/04-incompatible_status.pl) — Integrity before decisions
 
 ## Chapter 26: A proof can be a computation
 
 - [01-mortal.pl](chapter-26/01-mortal.pl)
-- [02-triple.pl](chapter-26/02-triple.pl) — Answers are existential witnesses
-- [03-triple-2.pl](chapter-26/03-triple-2.pl) — Proof objects and proof checking
-- [04-edge.pl](chapter-26/04-edge.pl) — The least model as mathematical closure
+- [02-triple.pl](chapter-26/02-triple.pl) — Proof objects and proof checking
+- [03-edge.pl](chapter-26/03-edge.pl) — The least model as mathematical closure
 
 ## Chapter 27: Recursion is induction in motion
 
@@ -188,28 +178,16 @@ npm run generate
 - [01-program.pl](chapter-28/01-program.pl) — Unification is structural equation solving
 - [02-triangle.pl](chapter-28/02-triangle.pl) — Symmetry reduces search
 - [03-rectangle.pl](chapter-28/03-rectangle.pl) — Relations reveal inverse problems
-- [04-integer_rectangle.pl](chapter-28/04-integer_rectangle.pl)
-- [05-preserves_combine.pl](chapter-28/05-preserves_combine.pl) — Composition, homomorphism, and reusable laws
+- [04-preserves_combine.pl](chapter-28/04-preserves_combine.pl) — Composition, homomorphism, and reusable laws
 
 ## Chapter 29: Search as experimental mathematics
 
-- [01-counterexample_to_odd_square.pl](chapter-29/01-counterexample_to_odd_square.pl) — Examples suggest; proofs compel
-- [02-noncommuting_pair.pl](chapter-29/02-noncommuting_pair.pl) — One counterexample has asymmetric power
-
-## Chapter 31: Testing a theory
-
-- [01-edge.pl](chapter-31/01-edge.pl) — Positive and negative observers
-- [02-program.pl](chapter-31/02-program.pl)
-- [03-query.pl](chapter-31/03-query.pl) — Test the relation from more than one mode
-- [04-double.pl](chapter-31/04-double.pl) — Properties over finite domains
+- [01-noncommuting_pair.pl](chapter-29/01-noncommuting_pair.pl) — One counterexample has asymmetric power
 
 ## Chapter 32: Debugging by meaning, search, and proof
 
-- [01-query.pl](chapter-32/01-query.pl) — Reduce to the smallest disputed ground question
-- [02-eligible.pl](chapter-32/02-eligible.pl) — Follow bindings from left to right
-- [03-eligible-2.pl](chapter-32/03-eligible-2.pl)
-- [04-candidate_debug.pl](chapter-32/04-candidate_debug.pl) — Create diagnostic relations
-- [05-reference_square.pl](chapter-32/05-reference_square.pl) — Compare specification and implementation
+- [01-eligible.pl](chapter-32/01-eligible.pl) — Follow bindings from left to right
+- [02-eligible-2.pl](chapter-32/02-eligible-2.pl)
 
 ## Chapter 33: A pattern catalog for reasoning
 
@@ -247,11 +225,3 @@ npm run generate
 ## Chapter 38: Language, declarations, and ISO profile
 
 - [01-city.pl](chapter-38/01-city.pl)
-
-## Chapter 39: Built-in predicates by programming role
-
-- [01-answer.pl](chapter-39/01-answer.pl) — The Eyepl library
-- [02-answer-2.pl](chapter-39/02-answer-2.pl)
-- [03-answer-3.pl](chapter-39/03-answer-3.pl)
-- [04-cost.pl](chapter-39/04-cost.pl)
-- [05-message.pl](chapter-39/05-message.pl)

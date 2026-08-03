@@ -1,5 +1,6 @@
 % Reference 9.2: transcendental functions have stable exact outputs at simple inputs.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 answer(sin_zero, X) :- (X is sin(0)).
 answer(cos_zero, X) :- (X is cos(0)).
 answer(tan_zero, X) :- tan(0, X).

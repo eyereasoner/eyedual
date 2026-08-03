@@ -1,3 +1,4 @@
-query(answer).
+%% goal: answer
+
 answer :-
     throw(Ball).

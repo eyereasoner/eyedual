@@ -4,13 +4,19 @@
 % points, so this example is comparable with examples/output/bayes-diagnosis.n3
 % in the Eyeling repository.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(scores(X0, X1)).
-query(evidenceTotal(X0, X1)).
-query(result(X0, X1)).
-query(disease(X0, X1)).
-query(unnormalized(X0, X1)).
-query(posterior(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: scores(X0, X1)
+
+%% goal: evidenceTotal(X0, X1)
+
+%% goal: result(X0, X1)
+
+%% goal: disease(X0, X1)
+
+%% goal: unnormalized(X0, X1)
+
+%% goal: posterior(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 disease(covid19).

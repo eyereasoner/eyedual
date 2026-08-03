@@ -5,9 +5,11 @@
 % the Eyeling output for a -> f, and scopes the graph inside a quoted term so the
 % route network is not asserted as ambient edge facts.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(edge(X0, X1)).
-query(path(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: edge(X0, X1)
+
+%% goal: path(X0, X1)
+
 
 % The weighted graph stays inside weighted_graph/2; base_link/3 projects only
 % the scoped edges needed by this example before the undirected link/3 view is built.

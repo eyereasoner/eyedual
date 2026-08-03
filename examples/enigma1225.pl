@@ -220,4 +220,5 @@ lists_reform([[A|B]|C], [A|D], [B|E]) :-
     lists_reform(C, D, E).
 
 % query
-query(enigma1225(8, _)).
+%% goal: enigma1225(8, _)
+

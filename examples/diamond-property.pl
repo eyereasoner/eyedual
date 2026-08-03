@@ -4,10 +4,13 @@
 % source can be joined again.  This compact eyepl version keeps the same
 % diamond idea and also checks that it is preserved by reflexive closure.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(holdsFor(X0, X1)).
-query(commonSuccessor(X0, X1)).
-query(preservedUnderReflexiveClosure(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: holdsFor(X0, X1)
+
+%% goal: commonSuccessor(X0, X1)
+
+%% goal: preservedUnderReflexiveClosure(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 node(a).

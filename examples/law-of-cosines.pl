@@ -6,9 +6,12 @@
 %
 % The 60-degree sample uses cos(C) = 0.5, so the proof shows each intermediate
 % numeric step rather than hiding the computation in one builtin.
-query(sideCSquared(X0, X1)).
-query(sideC(X0, X1)).
-query(status(X0, X1)).
+%% goal: sideCSquared(X0, X1)
+
+%% goal: sideC(X0, X1)
+
+%% goal: status(X0, X1)
+
 
 % The triangle fact stores the two known sides and the cosine of the included
 % angle.  Storing cos(C) directly avoids needing trigonometric built-ins while

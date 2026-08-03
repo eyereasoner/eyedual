@@ -1,5 +1,6 @@
 % Reference 9.2: integer arithmetic keeps exact BigInt paths where possible.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 answer(add_big, X) :- (X is 9007199254740993 + 7).
 answer(sub_big, X) :- (X is 9007199254741000 - 7).
 answer(mul_big, X) :- (X is 123456789 * 987654321).

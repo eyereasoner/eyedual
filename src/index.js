@@ -1,7 +1,7 @@
 // Public JavaScript API surface for embedders and the browser playground.
 // The CLI imports the same parser, program, solver, and term primitives from here.
 export { Program, makeProgram } from './program.js';
-export { parseClauses, parseProgramText } from './parser.js';
+export { parseClauses, parseGoalText, parseProgramText } from './parser.js';
 export { Solver } from './solver.js';
 export { INFERENCE_FUSE_EXIT_CODE, InferenceFuseError, checkInferenceFuses, formatInferenceFuse } from './fuse.js';
 export * from './term.js';
@@ -18,13 +18,14 @@ export {
 } from './library.js';
 export { StreamManager } from './io.js';
 
-import { Env, copyResolved, termIsGround, termToString } from './term.js';
+import { ATOM, COMPOUND, VAR, Env, copyResolved, termIsGround, termToString } from './term.js';
 import { Program } from './program.js';
 import { Solver } from './solver.js';
 import { whyNoProof, whyProof } from './explain.js';
-import { HaltSignal } from './iso.js';
+import { HaltSignal, PrologError } from './iso.js';
 import { getEyeplRegistry } from './library.js';
 import { checkInferenceFuses } from './fuse.js';
+import { parseGoalText } from './parser.js';
 
 export function run(source, options = {}) {
   const includeWhy = options.proof === true || options.why === true || options.explain === true;
@@ -45,7 +46,7 @@ export function run(source, options = {}) {
   });
   program = solver.program;
   checkInferenceFuses(program, solver);
-  const goals = program.queryGoals();
+  const goals = normalizeGoals(options);
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
   const facts = program.sourceFactLines(queriedKeys);
   const seen = new Set();
@@ -69,6 +70,16 @@ export function run(source, options = {}) {
     haltCode = error.code;
   }
   return { stdout: output.join(''), stats: solver.stats, haltCode };
+}
+
+function normalizeGoals(options) {
+  const requested = options.goals ?? (options.goal == null ? [] : [options.goal]);
+  return requested.map((requestedGoal) => {
+    const goal = typeof requestedGoal === 'string' ? parseGoalText(requestedGoal) : requestedGoal;
+    if (goal.type === VAR) throw new PrologError('instantiation_error');
+    if (goal.type !== ATOM && goal.type !== COMPOUND) throw new PrologError('type_error(callable)', goal);
+    return goal;
+  });
 }
 
 function appendExplanation(output, program, resolved, registry) {

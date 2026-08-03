@@ -2,4 +2,5 @@
 pair(a, one).
 pair(b, two).
 answer(fresh, yes) :- pair(a, _), pair(b, _).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

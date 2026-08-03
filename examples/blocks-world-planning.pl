@@ -4,11 +4,15 @@
 % are sorted lists of on(Block, Support) facts so equality and visited-state
 % checks are purely structural.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(status(X0, X1)).
-query(plan(X0, X1)).
-query(finalState(X0, X1)).
-query(blockCount(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: status(X0, X1)
+
+%% goal: plan(X0, X1)
+
+%% goal: finalState(X0, X1)
+
+%% goal: blockCount(X0, X1)
+
 
 % The initial and goal states are lists of on/2 facts.  Sorting successor states
 % gives canonical terms for equality and visited-state checks.

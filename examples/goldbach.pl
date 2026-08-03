@@ -45,4 +45,5 @@ case(N, G) :-
     between(2, 35, I),
     N is 2^I,
     goldbach(N, G).
-query(case(_, _)).
+%% goal: case(_, _)
+

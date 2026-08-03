@@ -6,14 +6,22 @@
 % choose the highest-scoring world.  Weights are stored as integer tenths of a
 % log weight so the example stays reproducible without floating-point noise.
 
-query(mlnWeight(X0, X1)).
-query(mlnWorld(X0, X1)).
-query(mlnSatisfied(X0, X1)).
-query(mlnViolated(X0, X1)).
-query(mlnContribution(X0, X1, X2)).
-query(mlnWorldScore(X0, X1)).
-query(mlnMapWorld(X0, X1)).
-query(mlnConclusion(X0, X1)).
+%% goal: mlnWeight(X0, X1)
+
+%% goal: mlnWorld(X0, X1)
+
+%% goal: mlnSatisfied(X0, X1)
+
+%% goal: mlnViolated(X0, X1)
+
+%% goal: mlnContribution(X0, X1, X2)
+
+%% goal: mlnWorldScore(X0, X1)
+
+%% goal: mlnMapWorld(X0, X1)
+
+%% goal: mlnConclusion(X0, X1)
+
 
 % Evidence and candidate hidden assignments.
 person(alice).

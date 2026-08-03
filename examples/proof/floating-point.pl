@@ -3,7 +3,7 @@ why(
   value(sum, 3.75),
   proof(
     goal(value(sum, 3.75)),
-    by(rule("floating-point.pl", clause(5))),
+    by(rule("floating-point.pl", clause(3))),
     bindings([binding("X", 3.75)]),
     uses([
       proof(
@@ -19,7 +19,7 @@ why(
   value(difference, 6.875),
   proof(
     goal(value(difference, 6.875)),
-    by(rule("floating-point.pl", clause(6))),
+    by(rule("floating-point.pl", clause(4))),
     bindings([binding("X", 6.875)]),
     uses([
       proof(
@@ -35,7 +35,7 @@ why(
   value(product, 10.0),
   proof(
     goal(value(product, 10.0)),
-    by(rule("floating-point.pl", clause(7))),
+    by(rule("floating-point.pl", clause(5))),
     bindings([binding("X", 10.0)]),
     uses([
       proof(
@@ -51,7 +51,7 @@ why(
   value(quotient, 3.75),
   proof(
     goal(value(quotient, 3.75)),
-    by(rule("floating-point.pl", clause(8))),
+    by(rule("floating-point.pl", clause(6))),
     bindings([binding("X", 3.75)]),
     uses([
       proof(
@@ -67,7 +67,7 @@ why(
   value(sqrtByPower, 3.0),
   proof(
     goal(value(sqrtByPower, 3.0)),
-    by(rule("floating-point.pl", clause(9))),
+    by(rule("floating-point.pl", clause(7))),
     bindings([binding("X", 3.0)]),
     uses([
       proof(
@@ -83,7 +83,7 @@ why(
   value(mathSum, 1.0),
   proof(
     goal(value(mathSum, 1.0)),
-    by(rule("floating-point.pl", clause(10))),
+    by(rule("floating-point.pl", clause(8))),
     bindings([binding("X", 1.0)]),
     uses([
       proof(
@@ -99,7 +99,7 @@ why(
   value(mathProduct, 3.0),
   proof(
     goal(value(mathProduct, 3.0)),
-    by(rule("floating-point.pl", clause(11))),
+    by(rule("floating-point.pl", clause(9))),
     bindings([binding("X", 3.0)]),
     uses([
       proof(
@@ -115,12 +115,12 @@ why(
   value(comfortable, true),
   proof(
     goal(value(comfortable, true)),
-    by(rule("floating-point.pl", clause(13))),
+    by(rule("floating-point.pl", clause(11))),
     bindings([binding("R", 21.5)]),
     uses([
       proof(
         goal(sample(roomC, 21.5)),
-        by(fact("floating-point.pl", clause(3)))
+        by(fact("floating-point.pl", clause(1)))
       ),
       proof(
         goal(>=(21.5, 21.0)),
@@ -139,16 +139,16 @@ why(
   than(warmer, targetC),
   proof(
     goal(than(warmer, targetC)),
-    by(rule("floating-point.pl", clause(12))),
+    by(rule("floating-point.pl", clause(10))),
     bindings([binding("R", 21.5), binding("T", 19.25)]),
     uses([
       proof(
         goal(sample(roomC, 21.5)),
-        by(fact("floating-point.pl", clause(3)))
+        by(fact("floating-point.pl", clause(1)))
       ),
       proof(
         goal(sample(targetC, 19.25)),
-        by(fact("floating-point.pl", clause(4)))
+        by(fact("floating-point.pl", clause(2)))
       ),
       proof(
         goal(>(21.5, 19.25)),

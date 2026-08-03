@@ -3,7 +3,8 @@
 % A solution is represented as a list of row numbers, one per column.  Using a
 % permutation enforces one queen per row automatically; safe_rows/1 only has to
 % reject diagonal attacks.
-query(n_queens_answer(X0, X1)).
+%% goal: n_queens_answer(X0, X1)
+
 
 % Cache diagonal checks; the same row/distance/suffix states recur across many
 % candidate permutations during the 8-queens search.  The example asks only for

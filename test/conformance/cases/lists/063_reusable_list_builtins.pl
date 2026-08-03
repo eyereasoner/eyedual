@@ -1,5 +1,6 @@
 % Reference 9.1: reusable list selectors, slices, summaries, and stable set conversion.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 answer(head, X) :- head([alpha, beta, gamma, beta], X).
 answer(last, X) :- last([alpha, beta, gamma, beta], X).
 answer(take, X) :- take(2, [alpha, beta, gamma, beta], X).

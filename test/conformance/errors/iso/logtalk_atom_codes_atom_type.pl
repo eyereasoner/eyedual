@@ -1,3 +1,4 @@
 % Adapted from Logtalk eddbali_atom_codes_2_09. Modified for Eyepl's harness.
 % See test/conformance/THIRD_PARTY.md.
-query(atom_codes(f(a), _)).
+%% goal: atom_codes(f(a), _)
+

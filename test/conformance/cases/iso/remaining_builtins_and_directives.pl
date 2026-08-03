@@ -10,12 +10,14 @@ distributed(first).
 between_clause(ok).
 distributed(second).
 
-query(directive_state(Value, Debug)).
+%% goal: directive_state(Value, Debug)
+
 directive_state(Value, Debug) :-
     stored(Value),
     current_prolog_flag(debug, Debug).
 
-query(character_conversion(Term, From, To)).
+%% goal: character_conversion(Term, From, To)
+
 character_conversion(Term, From, To) :-
     open('/tmp/eyepl-iso-conversion.txt', write, Output),
     put_char(Output, '&'),
@@ -26,7 +28,8 @@ character_conversion(Term, From, To) :-
     close(Input),
     current_char_conversion(From, To).
 
-query(remove_conversion(ok)).
+%% goal: remove_conversion(ok)
+
 remove_conversion(ok) :-
     char_conversion('&', '&'),
     \+ current_char_conversion('&', _).

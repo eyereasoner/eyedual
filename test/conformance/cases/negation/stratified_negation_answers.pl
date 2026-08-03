@@ -1,5 +1,6 @@
 % Stratified negation is portable and produces ordinary answers.
-query(open(X0)).
+%% goal: open(X0)
+
 place(a).
 place(b).
 closed(b).

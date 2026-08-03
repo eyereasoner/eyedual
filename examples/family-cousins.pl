@@ -1,9 +1,12 @@
 % Memoize scoped family projection and recursive labels; cousin derivation asks
 % for the same generation and branch facts many times.
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(generation(X0, X1)).
-query(branch(X0, X1)).
-query(cousin(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: generation(X0, X1)
+
+%% goal: branch(X0, X1)
+
+%% goal: cousin(X0, X1)
+
 
 % The family tree is scoped inside family_graph/2.  family_statement/3 projects
 % only the parent and seedBranch facts that the cousin rules need.

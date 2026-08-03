@@ -4,7 +4,8 @@
 dog.
 elk(X) :- moose(X).
 
-query(predicate_reflection(X0)).
+%% goal: predicate_reflection(X0)
+
 predicate_reflection(Arity) :-
     current_predicate(dog/0),
     current_predicate(elk/Arity),

@@ -1,5 +1,6 @@
 % Each `_` occurrence is anonymous and independent.
-query(answer(X0)).
+%% goal: answer(X0)
+
 pair(a, b).
 pair(c, d).
 answer(left(X)) :- pair(X, _).

@@ -1,3 +1,4 @@
 % Isolated ISO mode-table success case.
-query(answer).
+%% goal: answer
+
 answer :- functor(Term, made, 2), Term = made(left, right).

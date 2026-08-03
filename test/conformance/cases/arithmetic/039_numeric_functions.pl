@@ -6,4 +6,5 @@ answer(sin_zero, X) :- (X is sin(0)).
 answer(cos_zero, X) :- (X is cos(0)).
 answer(log_one, X) :- (X is log(1)).
 answer(float_division, X) :- (X is 7.0 / 2.0).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

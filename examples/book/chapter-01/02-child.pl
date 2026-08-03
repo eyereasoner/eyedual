@@ -1,3 +1,4 @@
 % From The Art of Eyepl, Chapter 1.
-child(Child, Parent) :- parent(Parent, Child).
-query(child(X, Y)).
+child(byron, ada).
+child(clara, byron).
+child(diego, clara).

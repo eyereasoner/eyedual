@@ -1,5 +1,6 @@
 % Reference 11.1: recursive predicate groups are detected automatically.
-query(reach(X0, X1)).
+%% goal: reach(X0, X1)
+
 
 edge(a, b).
 edge(b, c).

@@ -4,8 +4,9 @@
 % The output mirrors the Eyeling golden result shape:
 % sameInputByCompositeInjectivity(h, a, b) and the symmetric counterpart.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(sameInputByCompositeInjectivity(X0, X1, X2)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: sameInputByCompositeInjectivity(X0, X1, X2)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 inX(a).

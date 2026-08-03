@@ -1,6 +1,7 @@
 % Adapted from Logtalk iso_unify_with_occurs_check_2_01 through 17, 19, and 20.
 % Modified for Eyepl's conformance harness. See test/conformance/THIRD_PARTY.md.
-query(occurs_check_results(X0, X1)).
+%% goal: occurs_check_results(X0, X1)
+
 occurs_check_results(One, Def) :-
     unify_with_occurs_check(One, 1),
     unify_with_occurs_check(X, Y),

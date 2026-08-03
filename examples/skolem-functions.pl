@@ -4,14 +4,21 @@
 % function symbol whose arguments contain the values that make the resource
 % unique, such as skolem_observation(Patient, Test).
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(type(X0, X1)).
-query(patient(X0, X1)).
-query(test(X0, X1)).
-query(value(X0, X1)).
-query(about(X0, X1)).
-query(sameInputsSameId(X0, X1)).
-query(noObservationClash(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: type(X0, X1)
+
+%% goal: patient(X0, X1)
+
+%% goal: test(X0, X1)
+
+%% goal: value(X0, X1)
+
+%% goal: about(X0, X1)
+
+%% goal: sameInputsSameId(X0, X1)
+
+%% goal: noObservationClash(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 test_result(alice, glucose, 6.8).

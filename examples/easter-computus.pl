@@ -3,9 +3,12 @@
 % Butcher remainders, the final month/day, and a separate window check showing
 % that the result lies in the legal Gregorian Easter range.
 
-query(easterDate(X0, X1)).
-query(computusRemainders(X0, X1)).
-query(legalGregorianWindow(X0, X1)).
+%% goal: easterDate(X0, X1)
+
+%% goal: computusRemainders(X0, X1)
+
+%% goal: legalGregorianWindow(X0, X1)
+
 
 % Sample years for which the computed Easter date is queried.
 case(y2026, 2026).

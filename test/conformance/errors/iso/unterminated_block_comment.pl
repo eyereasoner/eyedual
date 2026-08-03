@@ -1,2 +1,2 @@
-query(answer).
+%% goal: answer
 answer. /* never closed

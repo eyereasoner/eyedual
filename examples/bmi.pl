@@ -7,38 +7,69 @@
 % For reproducibility and documentation only; not medical advice.
 
 % Editable metric input.
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(unitSystem(X0, X1)).
-query(weight(X0, X1)).
-query(height(X0, X1)).
-query(weightKg(X0, X1)).
-query(heightM(X0, X1)).
-query(units(X0, X1)).
-query(heightSquared(X0, X1)).
-query(bmi(X0, X1)).
-query(bmiRoundedInt(X0, X1)).
-query(healthyMinKg(X0, X1)).
-query(healthyMaxKg(X0, X1)).
-query(healthyMinKgRoundedInt(X0, X1)).
-query(healthyMaxKgRoundedInt(X0, X1)).
-query(category(X0, X1)).
-query(heightCm(X0, X1)).
-query(formula(X0, X1)).
-query(calculation(X0, X1)).
-query(categoryRule(X0, X1)).
-query(unitsExplanation(X0, X1)).
-query(c1(X0, X1)).
-query(c2(X0, X1)).
-query(c3(X0, X1)).
-query(c4(X0, X1)).
-query(c5(X0, X1)).
-query(c6(X0, X1)).
-query(c7(X0, X1)).
-query(c8(X0, X1)).
-query(c9(X0, X1)).
-query(result(X0, X1)).
-query(healthyWeightRangeKg(X0, X1)).
-query(checkPassed(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: unitSystem(X0, X1)
+
+%% goal: weight(X0, X1)
+
+%% goal: height(X0, X1)
+
+%% goal: weightKg(X0, X1)
+
+%% goal: heightM(X0, X1)
+
+%% goal: units(X0, X1)
+
+%% goal: heightSquared(X0, X1)
+
+%% goal: bmi(X0, X1)
+
+%% goal: bmiRoundedInt(X0, X1)
+
+%% goal: healthyMinKg(X0, X1)
+
+%% goal: healthyMaxKg(X0, X1)
+
+%% goal: healthyMinKgRoundedInt(X0, X1)
+
+%% goal: healthyMaxKgRoundedInt(X0, X1)
+
+%% goal: category(X0, X1)
+
+%% goal: heightCm(X0, X1)
+
+%% goal: formula(X0, X1)
+
+%% goal: calculation(X0, X1)
+
+%% goal: categoryRule(X0, X1)
+
+%% goal: unitsExplanation(X0, X1)
+
+%% goal: c1(X0, X1)
+
+%% goal: c2(X0, X1)
+
+%% goal: c3(X0, X1)
+
+%% goal: c4(X0, X1)
+
+%% goal: c5(X0, X1)
+
+%% goal: c6(X0, X1)
+
+%% goal: c7(X0, X1)
+
+%% goal: c8(X0, X1)
+
+%% goal: c9(X0, X1)
+
+%% goal: result(X0, X1)
+
+%% goal: healthyWeightRangeKg(X0, X1)
+
+%% goal: checkPassed(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 unitSystem(input, metric).

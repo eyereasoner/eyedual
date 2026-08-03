@@ -5,7 +5,8 @@
 :- dynamic(task/2).
 :- initialization(prepare_queue).
 
-query(report(X0, X1)).
+%% goal: report(X0, X1)
+
 
 task(old_probe, obsolete).
 

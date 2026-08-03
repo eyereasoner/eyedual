@@ -1,5 +1,6 @@
 % Reference 9.6: number_string/2, atom_string/2, and term_string/2 are portable scalar bridges.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 answer(number_to_string, X) :- number_string(42, X).
 answer(decimal_string_to_number, X) :- number_string(X, "-12.75").
 answer(scientific_string_to_number, X) :- number_string(X, "1e3").

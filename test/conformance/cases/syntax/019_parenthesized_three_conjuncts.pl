@@ -4,4 +4,5 @@ q(a).
 r(a).
 ok(X) :- (p(X), q(X), r(X)).
 answer(ok, X) :- ok(X).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

@@ -5,10 +5,14 @@
 % impossible, and accepts a complete assignment when every clause is satisfied.
 % aggregate_min/5 is then used only to choose one canonical satisfying model.
 
-query(satModel(X0)).
-query(satValue(X0, X1)).
-query(satClauseStatus(X0, X1)).
-query(satConclusion(X0, X1)).
+%% goal: satModel(X0)
+
+%% goal: satValue(X0, X1)
+
+%% goal: satClauseStatus(X0, X1)
+
+%% goal: satConclusion(X0, X1)
+
 
 % CNF formula:
 %   (a or b)
@@ -17,11 +21,11 @@ query(satConclusion(X0, X1)).
 %   (not c or d)
 %   (c or not d)
 variable_order([a, b, c, d]).
-clause(c1, [pos(a), pos(b)]).
-clause(c2, [neg(a), pos(c)]).
-clause(c3, [neg(b), pos(c)]).
-clause(c4, [neg(c), pos(d)]).
-clause(c5, [pos(c), neg(d)]).
+cnf_clause(c1, [pos(a), pos(b)]).
+cnf_clause(c2, [neg(a), pos(c)]).
+cnf_clause(c3, [neg(b), pos(c)]).
+cnf_clause(c4, [neg(c), pos(d)]).
+cnf_clause(c5, [pos(c), neg(d)]).
 
 bool(false).
 bool(true).
@@ -39,22 +43,25 @@ literal_false(pos(Var), Assignment) :- lookup_bool(Var, Assignment, false).
 literal_false(neg(Var), Assignment) :- lookup_bool(Var, Assignment, true).
 
 clause_satisfied(Assignment, Clause_name) :-
-  clause(Clause_name, Literals),
+  cnf_clause(Clause_name, Literals),
   member(Literal, Literals),
   literal_true(Literal, Assignment).
 
 % A partial branch is impossible when every literal in a clause is already false.
 % Unassigned literals keep the branch alive, just as in DPLL.
 clause_impossible(Assignment, Clause_name) :-
-  clause(Clause_name, Literals),
+  cnf_clause(Clause_name, Literals),
   \+ nonfalse_literal(Literals, Assignment).
 nonfalse_literal(Literals, Assignment) :-
   member(Literal, Literals),
   \+ literal_false(Literal, Assignment).
-partial_consistent(Assignment) :- \+ (clause(Name, _), clause_impossible(Assignment, Name)).
-complete_model(Assignment) :- \+ unsatisfied_clause(Assignment).
-unsatisfied_clause(Assignment) :-
-  clause(Name, _),
+partial_consistent(Assignment) :- \+ has_impossible_clause(Assignment).
+has_impossible_clause(Assignment) :-
+  cnf_clause(Name, _),
+  clause_impossible(Assignment, Name).
+complete_model(Assignment) :- \+ has_unsatisfied_clause(Assignment).
+has_unsatisfied_clause(Assignment) :-
+  cnf_clause(Name, _),
   \+ clause_satisfied(Assignment, Name).
 
 % Recursive DPLL search: choose a truth value, prune if inconsistent, then

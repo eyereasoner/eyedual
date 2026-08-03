@@ -3,11 +3,15 @@
 % Four simplified models classify the same road scenarios. The example is not a
 % real safety calculator; it demonstrates rule-level model comparison.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(safeInWorld(X0, X1)).
-query(riskyInWorld(X0, X1)).
-query(status(X0, X1)).
-query(reason(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: safeInWorld(X0, X1)
+
+%% goal: riskyInWorld(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 scenario(city_dry, 13.9, 0.8, 40.0).

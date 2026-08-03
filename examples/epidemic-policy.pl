@@ -3,11 +3,16 @@
 % reproduction-risk estimate.  The recommended policy is the only candidate
 % that satisfies the outbreak threshold in this simplified model.
 
-query(riskScore(X0, X1)).
-query(cost(X0, X1)).
-query(status(X0, X1)).
-query(recommendedPolicy(X0, X1)).
-query(reason(X0, X1)).
+%% goal: riskScore(X0, X1)
+
+%% goal: cost(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: recommendedPolicy(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Candidate interventions combine vaccination and mask factors.
 policy(no_mandate).

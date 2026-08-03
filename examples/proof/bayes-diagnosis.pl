@@ -3,12 +3,12 @@ why(
   evidenceTotal(case, 0.0016436300000000003),
   proof(
     goal(evidenceTotal(case, 0.0016436300000000003)),
-    by(rule("bayes-diagnosis.pl", clause(52))),
+    by(rule("bayes-diagnosis.pl", clause(46))),
     bindings([binding("Total", 0.0016436300000000003)]),
     uses([
       proof(
         goal(total_score_decimal(0.0016436300000000003)),
-        by(fact("bayes-diagnosis.pl", clause(46)))
+        by(fact("bayes-diagnosis.pl", clause(40)))
       )
     ])
   )
@@ -19,12 +19,12 @@ why(
   result(case, result(covid19)),
   proof(
     goal(result(case, result(covid19))),
-    by(rule("bayes-diagnosis.pl", clause(53))),
+    by(rule("bayes-diagnosis.pl", clause(47))),
     bindings([binding("Disease", covid19)]),
     uses([
       proof(
         goal(disease(covid19)),
-        by(fact("bayes-diagnosis.pl", clause(7)))
+        by(fact("bayes-diagnosis.pl", clause(1)))
       )
     ])
   )
@@ -35,12 +35,12 @@ why(
   result(case, result(influenza)),
   proof(
     goal(result(case, result(influenza))),
-    by(rule("bayes-diagnosis.pl", clause(53))),
+    by(rule("bayes-diagnosis.pl", clause(47))),
     bindings([binding("Disease", influenza)]),
     uses([
       proof(
         goal(disease(influenza)),
-        by(fact("bayes-diagnosis.pl", clause(8)))
+        by(fact("bayes-diagnosis.pl", clause(2)))
       )
     ])
   )
@@ -51,12 +51,12 @@ why(
   result(case, result(allergicRhinitis)),
   proof(
     goal(result(case, result(allergicRhinitis))),
-    by(rule("bayes-diagnosis.pl", clause(53))),
+    by(rule("bayes-diagnosis.pl", clause(47))),
     bindings([binding("Disease", allergicRhinitis)]),
     uses([
       proof(
         goal(disease(allergicRhinitis)),
-        by(fact("bayes-diagnosis.pl", clause(9)))
+        by(fact("bayes-diagnosis.pl", clause(3)))
       )
     ])
   )
@@ -67,12 +67,12 @@ why(
   result(case, result(bacterialPneumonia)),
   proof(
     goal(result(case, result(bacterialPneumonia))),
-    by(rule("bayes-diagnosis.pl", clause(53))),
+    by(rule("bayes-diagnosis.pl", clause(47))),
     bindings([binding("Disease", bacterialPneumonia)]),
     uses([
       proof(
         goal(disease(bacterialPneumonia)),
-        by(fact("bayes-diagnosis.pl", clause(10)))
+        by(fact("bayes-diagnosis.pl", clause(4)))
       )
     ])
   )
@@ -83,12 +83,12 @@ why(
   disease(result(covid19), covid19),
   proof(
     goal(disease(result(covid19), covid19)),
-    by(rule("bayes-diagnosis.pl", clause(54))),
+    by(rule("bayes-diagnosis.pl", clause(48))),
     bindings([binding("Disease", covid19)]),
     uses([
       proof(
         goal(disease(covid19)),
-        by(fact("bayes-diagnosis.pl", clause(7)))
+        by(fact("bayes-diagnosis.pl", clause(1)))
       )
     ])
   )
@@ -99,12 +99,12 @@ why(
   disease(result(influenza), influenza),
   proof(
     goal(disease(result(influenza), influenza)),
-    by(rule("bayes-diagnosis.pl", clause(54))),
+    by(rule("bayes-diagnosis.pl", clause(48))),
     bindings([binding("Disease", influenza)]),
     uses([
       proof(
         goal(disease(influenza)),
-        by(fact("bayes-diagnosis.pl", clause(8)))
+        by(fact("bayes-diagnosis.pl", clause(2)))
       )
     ])
   )
@@ -115,12 +115,12 @@ why(
   disease(result(allergicRhinitis), allergicRhinitis),
   proof(
     goal(disease(result(allergicRhinitis), allergicRhinitis)),
-    by(rule("bayes-diagnosis.pl", clause(54))),
+    by(rule("bayes-diagnosis.pl", clause(48))),
     bindings([binding("Disease", allergicRhinitis)]),
     uses([
       proof(
         goal(disease(allergicRhinitis)),
-        by(fact("bayes-diagnosis.pl", clause(9)))
+        by(fact("bayes-diagnosis.pl", clause(3)))
       )
     ])
   )
@@ -131,12 +131,12 @@ why(
   disease(result(bacterialPneumonia), bacterialPneumonia),
   proof(
     goal(disease(result(bacterialPneumonia), bacterialPneumonia)),
-    by(rule("bayes-diagnosis.pl", clause(54))),
+    by(rule("bayes-diagnosis.pl", clause(48))),
     bindings([binding("Disease", bacterialPneumonia)]),
     uses([
       proof(
         goal(disease(bacterialPneumonia)),
-        by(fact("bayes-diagnosis.pl", clause(10)))
+        by(fact("bayes-diagnosis.pl", clause(4)))
       )
     ])
   )
@@ -147,12 +147,12 @@ why(
   unnormalized(result(covid19), 0.0015470000000000002),
   proof(
     goal(unnormalized(result(covid19), 0.0015470000000000002)),
-    by(rule("bayes-diagnosis.pl", clause(55))),
+    by(rule("bayes-diagnosis.pl", clause(49))),
     bindings([binding("Disease", covid19), binding("Score", 0.0015470000000000002)]),
     uses([
       proof(
         goal(score_decimal(covid19, 0.0015470000000000002)),
-        by(fact("bayes-diagnosis.pl", clause(42)))
+        by(fact("bayes-diagnosis.pl", clause(36)))
       )
     ])
   )
@@ -163,12 +163,12 @@ why(
   unnormalized(result(influenza), 0.000048000000000000015),
   proof(
     goal(unnormalized(result(influenza), 0.000048000000000000015)),
-    by(rule("bayes-diagnosis.pl", clause(55))),
+    by(rule("bayes-diagnosis.pl", clause(49))),
     bindings([binding("Disease", influenza), binding("Score", 0.000048000000000000015)]),
     uses([
       proof(
         goal(score_decimal(influenza, 0.000048000000000000015)),
-        by(fact("bayes-diagnosis.pl", clause(43)))
+        by(fact("bayes-diagnosis.pl", clause(37)))
       )
     ])
   )
@@ -179,12 +179,12 @@ why(
   unnormalized(result(allergicRhinitis), 7.499999999999999e-7),
   proof(
     goal(unnormalized(result(allergicRhinitis), 7.499999999999999e-7)),
-    by(rule("bayes-diagnosis.pl", clause(55))),
+    by(rule("bayes-diagnosis.pl", clause(49))),
     bindings([binding("Disease", allergicRhinitis), binding("Score", 7.499999999999999e-7)]),
     uses([
       proof(
         goal(score_decimal(allergicRhinitis, 7.499999999999999e-7)),
-        by(fact("bayes-diagnosis.pl", clause(44)))
+        by(fact("bayes-diagnosis.pl", clause(38)))
       )
     ])
   )
@@ -195,12 +195,12 @@ why(
   unnormalized(result(bacterialPneumonia), 0.000047879999999999996),
   proof(
     goal(unnormalized(result(bacterialPneumonia), 0.000047879999999999996)),
-    by(rule("bayes-diagnosis.pl", clause(55))),
+    by(rule("bayes-diagnosis.pl", clause(49))),
     bindings([binding("Disease", bacterialPneumonia), binding("Score", 0.000047879999999999996)]),
     uses([
       proof(
         goal(score_decimal(bacterialPneumonia, 0.000047879999999999996)),
-        by(fact("bayes-diagnosis.pl", clause(45)))
+        by(fact("bayes-diagnosis.pl", clause(39)))
       )
     ])
   )

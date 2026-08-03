@@ -3,7 +3,7 @@ why(
   answer(5),
   proof(
     goal(answer(5)),
-    by(rule("<stdin>", clause(2))),
+    by(rule("<stdin>", clause(1))),
     bindings([binding("X", 5)]),
     uses([
       proof(

@@ -14,4 +14,5 @@ tak([X, Y, Z], A) :-
     tak([A1, A2, A3], A).
 
 % query
-query(tak([34, 13, 8], _)).
+%% goal: tak([34, 13, 8], _)
+

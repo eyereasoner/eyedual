@@ -27,8 +27,8 @@ export async function runPlayground(reporter = new TestReporter()) {
 
   await reporter.testAsync('worker loads append/3 from the Eyepl library', async () => {
     const result = executePlaygroundRequest({
-      source: 'query(answer(X)).\nanswer(X) :- append([a], [b], X).\n',
-      options: {},
+      source: 'answer(X) :- append([a], [b], X).\n',
+      options: { goal: 'answer(X)' },
     }, deterministicClock());
     assertEqual(result.ok, true, 'worker result status');
     assertEqual(result.stdout, 'answer([a, b]).\n', 'append/3 output');
@@ -37,12 +37,12 @@ export async function runPlayground(reporter = new TestReporter()) {
 
   await reporter.testAsync('worker keeps the Eyepl library across runs', async () => {
     const first = executePlaygroundRequest({
-      source: 'query(answer(X)).\nanswer(X) :- reverse([a, b, c], X).\n',
-      options: {},
+      source: 'answer(X) :- reverse([a, b, c], X).\n',
+      options: { goal: 'answer(X)' },
     });
     const second = executePlaygroundRequest({
-      source: 'query(answer(X)).\nanswer(X) :- member(X, [red, green]).\n',
-      options: {},
+      source: 'answer(X) :- member(X, [red, green]).\n',
+      options: { goal: 'answer(X)' },
     });
     assertEqual(first.stdout, 'answer([c, b, a]).\n', 'first worker output');
     assertEqual(second.stdout, 'answer(red).\nanswer(green).\n', 'second worker output');
@@ -54,8 +54,8 @@ export async function runPlayground(reporter = new TestReporter()) {
     installPlaygroundWorker(scope);
     scope.onmessage({
       data: {
-        source: 'query(answer(X)).\nanswer(X) :- append([], [ok], X).\n',
-        options: { stats: true },
+        source: 'answer(X) :- append([], [ok], X).\n',
+        options: { goal: 'answer(X)', stats: true },
       },
     });
     assertEqual(messages.length, 1, 'posted message count');
@@ -66,8 +66,8 @@ export async function runPlayground(reporter = new TestReporter()) {
 
   await reporter.testAsync('worker serializes parse failures for the UI', async () => {
     const result = executePlaygroundRequest({
-      source: 'query(broken(.\n',
-      options: {},
+      source: 'broken(.\n',
+      options: { goal: 'answer' },
     });
     assertEqual(result.ok, false, 'parse result status');
     assertIncludes(result.error, 'parse line 1', 'parse error');

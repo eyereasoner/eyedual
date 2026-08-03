@@ -3,4 +3,5 @@ color(red).
 color(blue).
 paint(X) :- color(X).
 answer(color, X) :- paint(X).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

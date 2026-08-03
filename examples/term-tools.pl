@@ -8,7 +8,8 @@
 %
 % This is a good reference example when writing rules that need to treat terms as
 % data rather than only as predicate calls.
-query(report(X0, X1)).
+%% goal: report(X0, X1)
+
 
 edge(a, b, 3).
 edge(b, c, 4).

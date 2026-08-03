@@ -3,45 +3,83 @@
 % the neutral insight, policy envelope, authorization, package choice, and checks
 % as queried relation output.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(caseName(X0, X1)).
-query(regionName(X0, X1)).
-query(metric(X0, X1)).
-query(activeNeedCount(X0, X1)).
-query(activeNeedThreshold(X0, X1)).
-query(recommendedPackageName(X0, X1)).
-query(budgetCapMEUR(X0, X1)).
-query(packageCostMEUR(X0, X1)).
-query(envelopeExpiresAt(X0, X1)).
-query(workerCoverage(X0, X1)).
-query(gridReliefMW(X0, X1)).
-query(outcome(X0, X1)).
-query(target(X0, X1)).
-query(reason(X0, X1)).
-query(alg(X0, X1)).
-query(payloadHashSHA256(X0, X1)).
-query(signatureHMAC(X0, X1)).
-query(auditEntries(X0, X1)).
-query(filesWritten(X0, X1)).
-query(allChecksPass(X0, X1)).
-query(exportWeakness(X0, X1)).
-query(skillsStrain(X0, X1)).
-query(gridStress(X0, X1)).
-query(needsRetoolingPulse(X0, X1)).
-query(derivedFromNeed(X0, X1)).
-query(signatureVerifies(X0, X1)).
-query(payloadHashMatches(X0, X1)).
-query(hmacMatches(X0, X1)).
-query(minimizationStripsSensitiveTerms(X0, X1)).
-query(scopeComplete(X0, X1)).
-query(authorizationAllowed(X0, X1)).
-query(thresholdReached(X0, X1)).
-query(packageWithinBudget(X0, X1)).
-query(packageCoversAllNeeds(X0, X1)).
-query(dutyTimingConsistent(X0, X1)).
-query(surveillanceReuseProhibited(X0, X1)).
-query(filesWrittenExpected(X0, X1)).
-query(lowestCostEligiblePackageChosen(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: caseName(X0, X1)
+
+%% goal: regionName(X0, X1)
+
+%% goal: metric(X0, X1)
+
+%% goal: activeNeedCount(X0, X1)
+
+%% goal: activeNeedThreshold(X0, X1)
+
+%% goal: recommendedPackageName(X0, X1)
+
+%% goal: budgetCapMEUR(X0, X1)
+
+%% goal: packageCostMEUR(X0, X1)
+
+%% goal: envelopeExpiresAt(X0, X1)
+
+%% goal: workerCoverage(X0, X1)
+
+%% goal: gridReliefMW(X0, X1)
+
+%% goal: outcome(X0, X1)
+
+%% goal: target(X0, X1)
+
+%% goal: reason(X0, X1)
+
+%% goal: alg(X0, X1)
+
+%% goal: payloadHashSHA256(X0, X1)
+
+%% goal: signatureHMAC(X0, X1)
+
+%% goal: auditEntries(X0, X1)
+
+%% goal: filesWritten(X0, X1)
+
+%% goal: allChecksPass(X0, X1)
+
+%% goal: exportWeakness(X0, X1)
+
+%% goal: skillsStrain(X0, X1)
+
+%% goal: gridStress(X0, X1)
+
+%% goal: needsRetoolingPulse(X0, X1)
+
+%% goal: derivedFromNeed(X0, X1)
+
+%% goal: signatureVerifies(X0, X1)
+
+%% goal: payloadHashMatches(X0, X1)
+
+%% goal: hmacMatches(X0, X1)
+
+%% goal: minimizationStripsSensitiveTerms(X0, X1)
+
+%% goal: scopeComplete(X0, X1)
+
+%% goal: authorizationAllowed(X0, X1)
+
+%% goal: thresholdReached(X0, X1)
+
+%% goal: packageWithinBudget(X0, X1)
+
+%% goal: packageCoversAllNeeds(X0, X1)
+
+%% goal: dutyTimingConsistent(X0, X1)
+
+%% goal: surveillanceReuseProhibited(X0, X1)
+
+%% goal: filesWrittenExpected(X0, X1)
+
+%% goal: lowestCostEligiblePackageChosen(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 % Case metadata describes the request, audit window, and expected file writes.

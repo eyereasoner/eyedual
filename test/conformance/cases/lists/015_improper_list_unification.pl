@@ -3,4 +3,5 @@ cell([head | tail], head, tail).
 answer(list, L) :- cell(L, head, tail).
 answer(head, H) :- cell([H | tail], H, tail).
 answer(tail, T) :- cell([head | T], head, T).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

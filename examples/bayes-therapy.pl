@@ -1,22 +1,33 @@
 % Memoize shared inference layers: the score vector, disease likelihood tails,
 % and expected therapy success are reused by several report relations.
-% Output declarations: query/1 selects the relations written to this example's golden output.
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
 %
 % Read this as two stacked inference problems: first infer disease posterior
 % probabilities from symptoms, then score each therapy by averaging outcomes
 % over that posterior distribution. The recursive predicates are
 % shared layers used by several queried reports.
-query(diseases(X0, X1)).
-query(therapies(X0, X1)).
-query(evidence(X0, X1)).
-query(scores(X0, X1)).
-query(evidenceTotal(X0, X1)).
-query(posteriors(X0, X1)).
-query(posterior(X0, X1)).
-query(expectedSuccess(X0, X1)).
-query(expectedAdverse(X0, X1)).
-query(utility(X0, X1)).
-query(recommendedTherapy(X0, X1)).
+%% goal: diseases(X0, X1)
+
+%% goal: therapies(X0, X1)
+
+%% goal: evidence(X0, X1)
+
+%% goal: scores(X0, X1)
+
+%% goal: evidenceTotal(X0, X1)
+
+%% goal: posteriors(X0, X1)
+
+%% goal: posterior(X0, X1)
+
+%% goal: expectedSuccess(X0, X1)
+
+%% goal: expectedAdverse(X0, X1)
+
+%% goal: utility(X0, X1)
+
+%% goal: recommendedTherapy(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 

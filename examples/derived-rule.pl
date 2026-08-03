@@ -9,10 +9,13 @@
 % var(y) is not a eyepl variable; it is a ground term that names
 % a variable placeholder inside the quoted formula.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(type(X0, X1)).
-query(log_implies(X0, X1)).
-query(holds_result(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: type(X0, X1)
+
+%% goal: log_implies(X0, X1)
+
+%% goal: holds_result(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 type(minka, cat).

@@ -1,5 +1,6 @@
 % Reference 3, 5, 11: scalars, compounds, lists, and read-back printing.
-query(value(X0, X1)).
+%% goal: value(X0, X1)
+
 raw_value(atom, pat).
 raw_value(quoted_atom, 'atom with spaces').
 raw_value(quoted_quote, 'needs''quote').

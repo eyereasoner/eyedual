@@ -364,7 +364,7 @@ A **query declaration** selects the relation whose ground answers Eyepl prints:
 
 ```eyepl
 child(Child, Parent) :- parent(Parent, Child).
-query(child(X, Y)).
+eyepl --goal 'child(X, Y)' program.pl
 ```
 
 The answers are:
@@ -376,7 +376,7 @@ child(diego, clara).
 ```
 
 Eyepl distinguishes solutions found by the solver from answers printed by the
-CLI. A query such as `query(parent(X, Y)).` can find the three source facts
+CLI. A query such as `eyepl --goal 'parent(X, Y)' program.pl` can find the three source facts
 internally, but the normal CLI output suppresses answers that merely repeat
 source facts. Derived `child/2` answers are printed. Chapter 11 explains this
 output policy; it does not change what calls inside rules can prove.
@@ -434,7 +434,7 @@ grandparents, then only the grandparents of `diego`.
 
 **Checkpoint.** Before continuing, make sure you can (1) read
 `parent(ada, byron)` as a sentence, (2) explain what the two variables in
-`query(child(X, Y))` ask for, and (3) predict which output changes after adding
+`eyepl --goal 'child(X, Y)' program.pl` ask for, and (3) predict which output changes after adding
 `parent(diego, elena).`
 
 ## 2. Terms, variables, and substitution
@@ -482,8 +482,8 @@ Eyepl exposes unification as `=/2`:
 ```eyepl
 same_shape(Pair) :- (Pair = pair(X, X)).
 
-query(same_shape(pair(red, red))).
-query(same_shape(pair(red, blue))).
+eyepl --goal 'same_shape(pair(red, red))' program.pl
+eyepl --goal 'same_shape(pair(red, blue))' program.pl
 ```
 
 Only the first query succeeds. `\=/2` succeeds when two resolved terms are not
@@ -798,7 +798,7 @@ parent, or a parent of an ancestor:
 ```eyepl
 ancestor(X, Y) :- parent(X, Y).
 ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).
-query(ancestor(X, Y)).
+eyepl --goal 'ancestor(X, Y)' program.pl
 ```
 
 The first clause is the base case. The second reduces an ancestor question to a
@@ -1222,7 +1222,7 @@ coloring(A, B, C) :-
   (A \= C).
 
 answer(colors(A, B, C)) :- coloring(A, B, C).
-query(answer(X)).
+eyepl --goal 'answer(X)' program.pl
 ```
 
 Place cheap, selective constraints as soon as their inputs are bound. For
@@ -1311,9 +1311,10 @@ support, fuses guard integrity, and knowledge boundaries stay explicit.
 
 ## 11. Queries, answers, and proofs
 
-`query/1` is a host declaration selecting goals to run. Eyepl prints ground
-answers, removes duplicates, and suppresses answers that merely repeat source
-facts. Answers are not inserted back into the running program.
+Eyepl goals are supplied by the host, for example
+`eyepl --goal 'child(X, Y)' program.pl`. Eyepl prints ground answers, removes
+duplicates, and suppresses answers that merely repeat source facts. Answers
+are not inserted back into the running program.
 
 An answer and a derivation serve different audiences. An answer records *what*
 the theory supports; a derivation records *how this run supported it*. In
@@ -1524,7 +1525,7 @@ A maintainable theory separates:
 - helpers: normalization, classifications, and reachability;
 - decisions: `status/2`, `action/2`, `risk/2`, and `reason/2`;
 - integrity constraints: rules headed by `false`;
-- outputs: focused `query/1` declarations.
+- outputs: focused host-supplied goals.
 
 <figure>
   <img src="book-assets/knowledge-engineering-workflow.svg" alt="Source facts pass through normalization and domain concepts into a decision and proof.">
@@ -1641,7 +1642,7 @@ The JavaScript API exposes a convenience runner and lower-level types:
 import { run, Program, Solver } from 'eyepl';
 
 const result = run(`
-query(answer(X)).
+eyepl --goal 'answer(X)' program.pl
 answer(ok) :- ok = ok.
 `);
 console.log(result.stdout);
@@ -1663,7 +1664,7 @@ For applications that inspect or prepare a theory before running it, use
 
 ```js
 const source = `
-query(path(a, X)).
+eyepl --goal 'path(a, X)' program.pl
 edge(a, b).
 edge(b, c).
 path(X, Y) :- edge(X, Y).
@@ -1732,7 +1733,7 @@ registry.add(
 );
 
 const result = run(`
-query(answer(X)).
+eyepl --goal 'answer(X)' program.pl
 answer(X) :- host_status(service, X).
 `, { registry });
 ```
@@ -2369,7 +2370,7 @@ parent(clara, diego).
 ancestor(X, Y) :- parent(X, Y).
 ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).
 
-query(ancestor(ada, Who)).
+eyepl --goal 'ancestor(ada, Who)' program.pl
 ```
 
 For `ancestor(ada, Who)`, the first clause asks
@@ -2575,7 +2576,7 @@ verb([observes | Rest], Rest).
 
 complete_sentence(Words) :- sentence(Words, []).
 
-query(complete_sentence([the, robot, helps, a, scientist])).
+eyepl --goal 'complete_sentence([the, robot, helps, a, scientist])' program.pl
 ```
 
 The first argument is the list before a phrase and the second is the suffix
@@ -2608,12 +2609,10 @@ evaluate(multiply(Left, Right), Value) :-
 ```
 
 ```eyepl
-query(
-  evaluate(
+eyepl --goal 'evaluate(
     add(number(2), multiply(number(3), number(4))),
     Value
-  )
-).
+  )' program.pl
 ```
 
 The value is `14`. More importantly, the proof follows the syntax tree: two
@@ -2866,7 +2865,7 @@ assignment(Worker, Task) :-
   task(Task),
   qualified(Worker, Task).
 
-query(assignment(Worker, Task)).
+eyepl --goal 'assignment(Worker, Task)' program.pl
 ```
 
 `worker/1` and `task/1` make the search space explicit. `qualified/2` is both a
@@ -3049,8 +3048,8 @@ permit(Person, Zone) :-
 reason(Person, Zone, badge_and_training_verified) :-
   permit(Person, Zone).
 
-query(permit(Person, Zone)).
-query(reason(Person, Zone, Reason)).
+eyepl --goal 'permit(Person, Zone)' program.pl
+eyepl --goal 'reason(Person, Zone, Reason)' program.pl
 ```
 
 `reason/3` supplies a stable user-facing summary. With `--proof`, the same
@@ -3284,7 +3283,7 @@ triple(A, B, C) :-
   (Sum is AA + BB),
   (Sum is C * C).
 
-query(triple(A, B, C)).
+eyepl --goal 'triple(A, B, C)' program.pl
 ```
 
 The open query asks an existential question over a finite domain: find values
@@ -3591,7 +3590,7 @@ integer_rectangle(Area, W, H) :-
   between(W, Area, H),
   (Area is W * H).
 
-query(integer_rectangle(24, W, H)).
+eyepl --goal 'integer_rectangle(24, W, H)' program.pl
 ```
 
 The relational view makes inverse questions conceptually ordinary, even when
@@ -3697,7 +3696,7 @@ counterexample_to_odd_square(N) :-
   (Remainder is Square mod 2),
   (Remainder \= 1).
 
-query(counterexample_to_odd_square(N)).
+eyepl --goal 'counterexample_to_odd_square(N)' program.pl
 ```
 
 No answer means only that no counterexample was found in the generated range
@@ -4062,8 +4061,8 @@ edge(b, c).
 path(X, Y) :- edge(X, Y).
 path(X, Z) :- edge(X, Y), path(Y, Z).
 
-query(path(a, b)).
-query(path(a, c)).
+eyepl --goal 'path(a, b)' program.pl
+eyepl --goal 'path(a, c)' program.pl
 ```
 
 To make an expected absence visible, define a finite observer:
@@ -4075,7 +4074,7 @@ unexpected_path :-
 expected_absence :-
   \+ unexpected_path.
 
-query(expected_absence).
+eyepl --goal 'expected_absence' program.pl
 ```
 
 This is a test over a ground, terminating goal. It does not turn negation as
@@ -4091,8 +4090,8 @@ golden answer file is an executable specification of the expected answer set.
 Suppose `append/3` is intended both to concatenate and to split:
 
 ```eyepl
-query(append([a, b], [c], Whole)).
-query(append(Prefix, Suffix, [a, b])).
+eyepl --goal 'append([a, b], [c], Whole)' program.pl
+eyepl --goal 'append(Prefix, Suffix, [a, b])' program.pl
 ```
 
 The first call should construct one list. The second should enumerate three
@@ -4130,7 +4129,7 @@ bounded_double_counterexample :-
   between(-100, 100, N),
   \+ double_is_even(N).
 
-query(bounded_double_law).
+eyepl --goal 'bounded_double_law' program.pl
 ```
 
 This is exhaustive for the 201 generated integers, not for all integers.
@@ -4245,7 +4244,7 @@ Do not begin with an open query that prints hundreds of answers. Name one
 conclusion that is missing or surprising:
 
 ```eyepl
-query(eligible(alex)).
+eyepl --goal 'eligible(alex)' program.pl
 ```
 
 Then expand only the clause intended to prove it. Replace broad generators
@@ -4340,8 +4339,8 @@ adult_debug(Person, Age) :-
   candidate_debug(Person, Age),
   (Age >= 18).
 
-query(candidate_debug(Person, Age)).
-query(adult_debug(Person, Age)).
+eyepl --goal 'candidate_debug(Person, Age)' program.pl
+eyepl --goal 'adult_debug(Person, Age)' program.pl
 ```
 
 Once the fault is understood, either remove the helper or rename it as a
@@ -4367,7 +4366,7 @@ disagreement(N, S) :-
   reference_square(N, S),
   \+ optimized_square(N, S).
 
-query(disagreement(N, S)).
+eyepl --goal 'disagreement(N, S)' program.pl
 ```
 
 A complete equivalence check needs both directions and must account for
@@ -5113,7 +5112,7 @@ Part 1 profile.
 
 ### Declarations
 
-`query(Goal)` selects a goal for host execution. `mode(Name, Arity, Modes)`,
+`eyepl --goal 'Goal' program.pl` selects a goal for host execution. `mode(Name, Arity, Modes)`,
 `det(Name, Arity)`, and `semidet(Name, Arity)` are advisory documentation for
 people and tools; they do not alter proof search. A clause headed by `false`
 is different: it is an inference fuse, checked before queries, and aborts
@@ -5148,21 +5147,21 @@ infinite relation into a table. This changes control, not declarative meaning.
 
 #### Query execution
 
-The argument of `query/1` must be callable and may contain constants or
-variables. An unbound argument raises `instantiation_error`; a non-callable
-argument raises `type_error(callable)`. A program without queries prints no
-normal answers. The host:
+The host-supplied goal must be callable and may contain constants or variables.
+An unbound goal raises `instantiation_error`; a non-callable goal raises
+`type_error(callable)`. A program without a supplied goal prints no normal
+answers. The host:
 
 1. parses all inputs into one program;
 2. collects source facts, queries, and inference fuses;
 3. checks every fuse;
-4. solves each declared query;
+4. solves each supplied goal;
 5. retains only ground answers;
 6. removes answers identical to source facts and suppresses duplicates;
 7. prints each answer and, only when requested, its `why/2` explanation.
 
-`query/1` affects host execution rather than the program's logical meaning.
-One query's answers are not asserted for later queries, although internal
+Goal selection affects host execution rather than the program's logical meaning.
+One goal's answers are not asserted for later goals, although internal
 tables may be reused during the solver run. For stable output, queries for
 known predicates are grouped by the source order in which their predicate
 groups first appear; declarations within one group retain their declaration
@@ -5325,7 +5324,7 @@ the corresponding predicate.
 answer(square, S) :- (S is 12 * 12).
 answer(day_count, N) :- between(3, 5, N).
 answer(age, D) :- difference("2026-07-28", "2020-05-20", D).
-query(answer(Kind, Value)).
+eyepl --goal 'answer(Kind, Value)' program.pl
 ```
 
 The library deliberately does not register named arithmetic wrappers such as
@@ -5377,7 +5376,7 @@ answer(split, pair(Prefix, Suffix)) :-
 answer(second, Item) :-
   nth0(1, [a, b, c], Item).
 
-query(answer(Kind, Value)).
+eyepl --goal 'answer(Kind, Value)' program.pl
 ```
 
 #### Native strings, lexical values, and regular expressions
@@ -5414,7 +5413,7 @@ answer(words, Words) :-
 answer(captures, Context) :-
   matches("2026-07", "^(?<year>[0-9]{4})-(?<month>[0-9]{2})$", Context).
 
-query(answer(Kind, Value)).
+eyepl --goal 'answer(Kind, Value)' program.pl
 ```
 
 #### Native aggregation and bounded control
@@ -5450,7 +5449,7 @@ answer(best(Name), Cost) :-
                 cost(CandidateName, CandidateCost),
                 Cost, Name).
 
-query(answer(Kind, Value)).
+eyepl --goal 'answer(Kind, Value)' program.pl
 ```
 
 #### Contexts with ordinary terms
@@ -5475,7 +5474,7 @@ answer(field(Name, Args)) :-
   message(event_17, Context),
   context_parts(Context, Name, Args).
 
-query(answer(X)).
+eyepl --goal 'answer(X)' program.pl
 ```
 
 The ISO profile includes `functor/3`, `arg/3`, and `=../2`. Use `=../2` for whole-argument-list
@@ -5961,7 +5960,7 @@ reading. Begin by drawing their predicate dependency layers.
 | [Manufacturing quality control](https://github.com/eyereasoner/eyepl/blob/main/examples/manufacturing-quality-control.pl) | Measurements, limits, classifications, and actions form an auditable industrial decision. | [answers](https://github.com/eyereasoner/eyepl/blob/main/examples/output/manufacturing-quality-control.pl) |
 
 Do not read a capstone from the first line to the last as if it were prose.
-Start at `query/1`, find the queried predicate heads, follow their dependencies
+Start at the supplied goal, find its predicate heads, follow their dependencies
 downward, and only then inspect the source facts. This is backward slicing by
 hand.
 
@@ -6017,7 +6016,7 @@ The complete suite must pass before release. The file-based conformance corpus
 contains 695 cases, including 277 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 200 normal
-examples, 55 proof examples, and 134 extracted book displays. The seven-case
+examples, 55 proof examples, and extracted book displays. The seven-case
 playground contract suite imports the production worker, sends real reasoning
 requests through its message protocol, and crawls the served module graph for
 missing assets, bad MIME types, and static Node-only imports. The generated
@@ -6043,7 +6042,7 @@ termination. `compare/3`, `callable/1`, `ground/1`, and `term_variables/2` are
 additional compatibility conveniences.
 
 This breadth is not a formal certification of every processor requirement.
-The executable examples are Eyepl-profile programs and commonly use `query/1`,
+The executable examples are Eyepl-profile programs; invoke them with `--goal`,
 strings, inference fuses, automatic tabling, or the Eyepl library.
 The remaining qualifications are:
 
@@ -6387,7 +6386,7 @@ Unlike a search tree, it omits failed alternatives.
 
 **Proper list.** A finite list whose final tail is `[]`.
 
-**Query declaration.** A source fact `query(Goal)` selecting a goal for host
+**Query declaration.** A source fact `eyepl --goal 'Goal' program.pl` selecting a goal for host
 execution.
 
 **Readiness.** The binding condition under which a mode-sensitive built-in can
@@ -6729,7 +6728,7 @@ canonical implementation.
 ### Foundations: Chapters 1–10
 
 **Chapter 1.** `parent(ada, byron)` says that Ada is a parent of Byron.
-`query(child(X, Y))` asks for every ground child–parent pair derivable by the
+`eyepl --goal 'child(X, Y)' program.pl` asks for every ground child–parent pair derivable by the
 program. Adding `parent(diego, elena).` adds `child(elena, diego).`; it does not
 change the earlier three child answers.
 

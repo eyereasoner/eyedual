@@ -14,7 +14,8 @@
 % reason c1 with the conflict c2 learns not(a).  After backjumping, learned
 % not(a) forces a=false, c2 gives c=false, and c3 forces b=true.
 
-query(cdclAnswer(X0, X1)).
+%% goal: cdclAnswer(X0, X1)
+
 
 clause(c1, [neg(a), pos(c)]).
 clause(c2, [neg(c)]).

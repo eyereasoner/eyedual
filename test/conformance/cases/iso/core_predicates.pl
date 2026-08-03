@@ -1,4 +1,5 @@
-query(answer(X0, X1, X2, X3)).
+%% goal: answer(X0, X1, X2, X3)
+
 answer(X, Kind, Order, CopyDistinct) :-
     =(X, foo),
     atom(X),

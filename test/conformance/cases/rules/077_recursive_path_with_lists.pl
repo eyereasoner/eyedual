@@ -1,5 +1,6 @@
 % Reference 5.4, 7.3, 9.7: recursive path construction can carry list evidence.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 edge(a, b).
 edge(b, c).
 edge(c, d).

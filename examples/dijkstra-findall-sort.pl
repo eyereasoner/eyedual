@@ -3,9 +3,12 @@
 % Each expansion collects unvisited neighbors with findall/3, appends them to
 % the frontier, and uses sort/2 so the cheapest frontier entry is processed next.
 
-query(shortestPath(X0, X1)).
-query(cost(X0, X1)).
-query(reason(X0, X1)).
+%% goal: shortestPath(X0, X1)
+
+%% goal: cost(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Weighted undirected graph; the symmetric edge rule below adds reverse arcs.
 edge(a, b, 4).

@@ -3,7 +3,7 @@ why(
   answer(findall_builtin, [a, b]),
   proof(
     goal(answer(findall_builtin, [a, b])),
-    by(rule("<stdin>", clause(4))),
+    by(rule("<stdin>", clause(3))),
     bindings([binding("Bag", [a, b])]),
     uses([
       proof(

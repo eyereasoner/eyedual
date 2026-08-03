@@ -3,6 +3,10 @@ export interface EyeplStats {
 }
 
 export interface EyeplRunOptions {
+  /** A host-supplied goal, expressed as Prolog text or a parsed term. */
+  goal?: string | EyeplTerm;
+  /** Host-supplied goals, executed in order. */
+  goals?: Array<string | EyeplTerm>;
   proof?: boolean;
   why?: boolean;
   explain?: boolean;
@@ -87,7 +91,6 @@ export class Program {
   constructor(clauses?: EyeplClause[], options?: EyeplRunOptions);
   clauses: EyeplClause[];
   groups: Map<string, EyeplPredicateGroup>;
-  queries: EyeplTerm[];
   fuses: EyeplClause[];
   negationDependencies: Array<{ from: string; to: string; negative: boolean }>;
   negationStratificationErrors: Array<{ from: string; to: string }>;
@@ -104,7 +107,6 @@ export class Program {
   isStratifiedNegation(): boolean;
   groupHasRule(group: EyeplPredicateGroup): boolean;
   sourceFactLines(predicateKeys?: Set<string> | null): Set<string>;
-  queryGoals(): EyeplTerm[];
 }
 
 export const INFERENCE_FUSE_EXIT_CODE: 65;
@@ -195,6 +197,7 @@ export function compareNumberText(left: string, right: string): number;
 export function makeProgram(source: string, options?: EyeplRunOptions): Program;
 export function parseClauses(source: string, options?: EyeplRunOptions): EyeplClause[];
 export function parseProgramText(source: string, options?: EyeplRunOptions): EyeplClause[];
+export function parseGoalText(source: string): EyeplTerm;
 export function createDefaultRegistry(): BuiltinRegistry;
 export function createEyeplRegistry(): BuiltinRegistry;
 export function getDefaultRegistry(): BuiltinRegistry;

@@ -3,16 +3,22 @@
 % The received word has one corrupted bit. Syndrome bits identify the bad
 % position, then the corrected codeword and decoded payload are derived.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
 %
 % Positions are one-based to match the textbook parity-check layout. The
 % syndrome value is both the error certificate and the index of the bit to fix.
-query(syndrome(X0, X1)).
-query(errorBit(X0, X1)).
-query(correctedCodeword(X0, X1)).
-query(decodedPayload(X0, X1)).
-query(status(X0, X1)).
-query(reason(X0, X1)).
+%% goal: syndrome(X0, X1)
+
+%% goal: errorBit(X0, X1)
+
+%% goal: correctedCodeword(X0, X1)
+
+%% goal: decodedPayload(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 received_bit(packet1, 1, 1).

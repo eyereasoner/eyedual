@@ -4,17 +4,28 @@
 % paths accumulate action sequence, duration, cost, belief, and comfort; table
 % keeps repeated comparison and explanation queries from recomputing paths.
 
-query(recommendedRoute(X0, X1)).
-query(outcome(X0, X1)).
-query(statement(X0, X1, X2)).
-query(label(X0, X1)).
-query(actionSequence(X0, X1)).
-query(durationSeconds(X0, X1)).
-query(cost(X0, X1)).
-query(belief(X0, X1)).
-query(comfort(X0, X1)).
-query(selectedRoute(X0, X1)).
-query(comparison(X0, X1)).
+%% goal: recommendedRoute(X0, X1)
+
+%% goal: outcome(X0, X1)
+
+%% goal: statement(X0, X1, X2)
+
+%% goal: label(X0, X1)
+
+%% goal: actionSequence(X0, X1)
+
+%% goal: durationSeconds(X0, X1)
+
+%% goal: cost(X0, X1)
+
+%% goal: belief(X0, X1)
+
+%% goal: comfort(X0, X1)
+
+%% goal: selectedRoute(X0, X1)
+
+%% goal: comparison(X0, X1)
+
 
 
 case_graph(caseGraph, (

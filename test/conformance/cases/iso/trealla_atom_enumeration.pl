@@ -1,10 +1,12 @@
 % Adapted from Trealla Prolog tests/tests/test018.pl and test100.pl.
 % See test/conformance/THIRD_PARTY.md.
 
-query(concat_split(Left, Right)).
+%% goal: concat_split(Left, Right)
+
 concat_split(Left, Right) :-
     atom_concat(Left, Right, abcdef).
 
-query(sub_atom_match(Before, Length, After)).
+%% goal: sub_atom_match(Before, Length, After)
+
 sub_atom_match(Before, Length, After) :-
     sub_atom(banana, Before, Length, After, ana).

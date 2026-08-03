@@ -13,9 +13,12 @@
    ─────────────────────────────────────────────────────────────────────────── */
 
 % Eyelet Directives
-query(answer(_)).
-query(reason(_)).
-query(check(_, _, _)).
+%% goal: answer(_)
+
+%% goal: reason(_)
+
+%% goal: check(_, _, _)
+
 
 :- dynamic(solution_cache/2).
 

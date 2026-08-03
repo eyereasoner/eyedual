@@ -3,11 +3,16 @@
 % of area.  The rules compute F*L^3/(3*E*I), convert meters to millimeters, and
 % classify the design against a deflection limit.
 
-query(type(X0, X1)).
-query(tipDeflection_m(X0, X1)).
-query(tipDeflection_mm(X0, X1)).
-query(limit_mm(X0, X1)).
-query(status(X0, X1)).
+%% goal: type(X0, X1)
+
+%% goal: tipDeflection_m(X0, X1)
+
+%% goal: tipDeflection_mm(X0, X1)
+
+%% goal: limit_mm(X0, X1)
+
+%% goal: status(X0, X1)
+
 
 beam(beam1, force_N, 1200.0).
 beam(beam1, length_m, 2.5).

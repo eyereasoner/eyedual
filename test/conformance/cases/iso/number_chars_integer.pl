@@ -1,3 +1,4 @@
 % Isolated ISO mode-table success case.
-query(answer).
+%% goal: answer
+
 answer :- number_chars(-25, ['-', '2', '5']).

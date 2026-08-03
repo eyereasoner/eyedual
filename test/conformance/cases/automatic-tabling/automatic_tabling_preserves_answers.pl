@@ -1,5 +1,6 @@
 % Automatic tabling is a search-control strategy and does not change answers.
-query(path(X0, X1)).
+%% goal: path(X0, X1)
+
 edge(a, b).
 edge(b, c).
 path(X, Y) :- edge(X, Y).

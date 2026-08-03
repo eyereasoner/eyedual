@@ -1,4 +1,5 @@
-query(answer(X0)).
+%% goal: answer(X0)
+
 answer(one).
 answer(two, ignored).
 answer(three, ignored, ignored).

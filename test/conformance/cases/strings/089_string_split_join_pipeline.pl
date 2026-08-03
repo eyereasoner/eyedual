@@ -1,5 +1,6 @@
 % Reference 9.6: split/join/trim compose for simple data-cleaning workflows.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 raw("  alpha,beta,gamma  ").
 answer(parts, X) :- raw(R), trim(R, T), split(T, ",", X).
 answer(pipe, X) :- raw(R), trim(R, T), split(T, ",", Parts), join(Parts, "|", X).

@@ -4,10 +4,13 @@
 % finite logical conditions.  The universal allOf/noneOf checks use negation
 % as failure over bound policy facts.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(policy(X0, X1)).
-query(status(X0, X1)).
-query(reason(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: policy(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 policy_request(test1, policy_x).

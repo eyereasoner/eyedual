@@ -3,7 +3,7 @@ why(
   answer(ok),
   proof(
     goal(answer(ok)),
-    by(rule("<stdin>", clause(3))),
+    by(rule("<stdin>", clause(2))),
     uses([
       proof(
         goal('\\+'(known(b))),

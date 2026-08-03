@@ -3,9 +3,12 @@
 % the Cayley table and inverse/2 as the inverse relation.  Candidate subsets are
 % generated as subsequences, then filtered for subgroup closure.
 
-query(subgroups(X0, X1)).
-query(subgroupCount(X0, X1)).
-query(reason(X0, X1)).
+%% goal: subgroups(X0, X1)
+
+%% goal: subgroupCount(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Six symmetries of an equilateral triangle: identity, rotations, reflections.
 symmetry(identity).

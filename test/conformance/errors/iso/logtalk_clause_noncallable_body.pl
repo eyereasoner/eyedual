@@ -2,4 +2,5 @@
 % See test/conformance/THIRD_PARTY.md.
 :- dynamic(f/1).
 f(a).
-query(clause(f(_), 5)).
+%% goal: clause(f(_), 5)
+

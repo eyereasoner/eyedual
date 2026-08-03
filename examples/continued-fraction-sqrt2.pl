@@ -4,7 +4,8 @@
 % Because each convergent depends on the previous two, memoization avoids the
 % exponential recomputation that the direct Horn-clause recurrence would have.
 % pell_error/2 connects the approximation sequence with P^2 - 2Q^2 = +/-1.
-query(convergent_answer(X0, X1)).
+%% goal: convergent_answer(X0, X1)
+
 
 
 % Base convergents are 1/1 and 3/2.

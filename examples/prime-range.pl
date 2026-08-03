@@ -5,7 +5,8 @@
 % numbers are described by proper divisors, primes are candidates that are not
 % composite, and `totient/2` counts numbers coprime with the input.
 
-query(prime_result(X0, X1)).
+%% goal: prime_result(X0, X1)
+
 
 candidate(N) :-
   between(2, 30, N).

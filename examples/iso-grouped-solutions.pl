@@ -2,7 +2,8 @@
 %
 % findall/3 makes one flat collection. bagof/3 groups answers by free
 % variables, while setof/3 additionally sorts and removes duplicates.
-query(report(X0, X1)).
+%% goal: report(X0, X1)
+
 
 sale(north, ada, 7).
 sale(north, ada, 7).

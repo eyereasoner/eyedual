@@ -5,4 +5,5 @@ link(c, d).
 path(X, Y) :- link(X, Y).
 path(X, Z) :- link(X, Y), path(Y, Z).
 answer(reachable, X) :- path(a, X).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

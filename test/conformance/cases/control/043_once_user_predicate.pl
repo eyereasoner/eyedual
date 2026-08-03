@@ -2,4 +2,5 @@
 choice(a).
 choice(b).
 answer(first, X) :- once(choice(X)).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

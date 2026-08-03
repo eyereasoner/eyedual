@@ -3,8 +3,10 @@
 % not(member(...)).  This keeps reachability finite and also lets the example
 % derive explicit not_reachable/2 evidence for a negative test case.
 
-query(reachable(X0, X1)).
-query(not_reachable(X0, X1)).
+%% goal: reachable(X0, X1)
+
+%% goal: not_reachable(X0, X1)
+
 
 edge(a, b).
 edge(a, c).

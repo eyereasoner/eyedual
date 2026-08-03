@@ -1,3 +1,4 @@
 % Adapted from Logtalk sics_number_codes_2_18. Modified for Eyepl's harness.
 % See test/conformance/THIRD_PARTY.md.
-query(number_codes(_, [97 | _])).
+%% goal: number_codes(_, [97 | _])
+

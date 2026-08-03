@@ -1,5 +1,6 @@
 % Reference 9.8: aggregation copies resolved structured templates from inner goals.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 score(alice, math, 9).
 score(alice, logic, 7).
 score(bob, math, 5).

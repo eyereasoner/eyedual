@@ -4,7 +4,8 @@
 % tiny: it demonstrates that a derived fact can be justified by a numeric
 % comparison in the rule body.
 
-query(isIndeedMoreInterestingThan(X0, X1)).
+%% goal: isIndeedMoreInterestingThan(X0, X1)
+
 
 moreInterestingThan(X, Y) :- (X > Y).
 

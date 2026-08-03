@@ -3,11 +3,15 @@
 % For small oscillations, T = 2*pi*sqrt(length / gravity).  Gravity is chosen
 % as pi^2 m/s^2 so a one-meter pendulum has a period of two seconds.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(period_s(X0, X1)).
-query(periodError_s(X0, X1)).
-query(status(X0, X1)).
-query(reason(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: period_s(X0, X1)
+
+%% goal: periodError_s(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 constant(pi, 3.141592653589793).

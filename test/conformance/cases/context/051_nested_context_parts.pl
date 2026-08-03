@@ -5,4 +5,5 @@ context_member((_left, Right), Member) :- context_member(Right, Member).
 context_member(Member, Member) :- Member \= (_left, _right).
 context_parts(Context, Name, Args) :- context_member(Context, Statement), (Statement =.. [Name | Args]), atom(Name).
 answer(parts, exposed(Name, Args)) :- context(C), context_parts(C, Name, Args).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

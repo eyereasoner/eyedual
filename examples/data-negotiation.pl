@@ -3,7 +3,8 @@
 % requester lacks the data, the provider has it, the requester policy allows
 % asking for it, and the provider policy allows sharing it.
 
-query(negotiate(X0, X1)).
+%% goal: negotiate(X0, X1)
+
 
 % Each agent has local data, desired remote data, and a simple policy.
 hasData(agent1, [data1, data2, data3]).

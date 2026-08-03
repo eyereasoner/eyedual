@@ -3,7 +3,8 @@
 % bounds recursion; path/9 sums duration and cost while multiplying belief and
 % comfort.  Memoization helps because many surviving-plan checks reuse prefixes.
 
-query(gps_plan(X0, X1)).
+%% goal: gps_plan(X0, X1)
+
 
 
 fuel(fuel7, [t, t, t, t, t, t, t]).

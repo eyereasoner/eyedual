@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import { Program, run } from '../src/index.js';
 import { TestReporter, isMainModule } from './test-style.mjs';
+import { goalsFromSource } from './goal-metadata.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const examplesRoot = path.join(root, 'examples', 'book');
@@ -23,7 +24,8 @@ export function runBookExamples(reporter = new TestReporter()) {
 function validateBookExample(filename) {
   const source = fs.readFileSync(filename, 'utf8');
   const program = Program.parse(source);
-  if (/^query\s*\(/m.test(source)) run(program);
+  const goals = goalsFromSource(source);
+  if (goals.length) run(program, { goals });
 }
 
 function listPrograms(directory) {

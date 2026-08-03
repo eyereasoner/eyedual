@@ -1,6 +1,7 @@
 % Adapted from Logtalk iso_once_1_01 through 04.
 % Modified for Eyepl's conformance harness. See test/conformance/THIRD_PARTY.md.
-query(once_results(X0)).
+%% goal: once_results(X0)
+
 once_results(Values) :-
     once(!),
     findall(X, choose_after_once(X), Values),

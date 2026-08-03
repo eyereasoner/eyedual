@@ -1,3 +1,4 @@
 % Isolated ISO mode-table success case.
-query(answer).
+%% goal: answer
+
 answer :- ground(tree(a, [b, c])).

@@ -1,3 +1,4 @@
 % Adapted from Logtalk iso_asserta_1_05. Modified for Eyepl's harness.
 % See test/conformance/THIRD_PARTY.md.
-query(asserta(4)).
+%% goal: asserta(4)
+

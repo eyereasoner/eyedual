@@ -1,3 +1,4 @@
 % Adapted from Logtalk iso_op_3_04. Modified for Eyepl's harness.
 % See test/conformance/THIRD_PARTY.md.
-query(op(-30, xfy, '++')).
+%% goal: op(-30, xfy, '++')
+

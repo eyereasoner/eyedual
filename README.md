@@ -19,7 +19,7 @@ Install the published CLI globally:
 ```bash
 npm install --global eyepl
 eyepl --version
-printf 'query(works(stdin, true)).\nworks(stdin, true) :- ok = ok.\n' | eyepl -
+printf 'works(stdin, true) :- ok = ok.\n' | eyepl --goal 'works(stdin, true)' -
 ```
 
 Eyepl has no build step. From a source checkout, install its RDF parser
@@ -30,7 +30,7 @@ npm install
 node bin/eyepl.js examples/ancestor.pl
 node bin/eyepl.js --proof examples/socrates.pl
 node bin/eyepl.js --warnings test/conformance/warnings/negation/unstratified_mutual.pl
-printf 'query(works(stdin, true)).\nworks(stdin, true) :- ok = ok.\n' | node bin/eyepl.js -
+printf 'works(stdin, true) :- ok = ok.\n' | node bin/eyepl.js --goal 'works(stdin, true)' -
 ```
 
 For one-off local CLI use from the checkout, npm can run the package bin without a manual symlink:
@@ -85,7 +85,7 @@ checked solution ([golden](examples/output/donald-gerald-robert.pl)).
 import { run, Program, Solver } from 'eyepl';
 
 const result = run(`
-query(answer(X0)).
+% Run with: eyepl --goal 'answer(X0)' program.pl
 answer(ok) :- ok = ok.
 `);
 console.log(result.stdout);
@@ -100,7 +100,7 @@ lists, aggregation, dates, and arithmetic. The ISO profile itself has
 114 registered predicate indicators across 93 names.
 
 This is broad standards coverage, not a formal certification claim. Eyepl
-retains documented host conventions—most visibly `query/1`, automatic tabling,
+retains documented host conventions—most visibly host-supplied goals, automatic tabling,
 inference fuses, and a distinct double-quoted string scalar—and exhaustive
 standard error/option combinations remain part of the conformance work.
 Library predicates such as `append/3`, `member/2`, and `select/3` are available
@@ -202,7 +202,7 @@ failure, mode, and error behavior derived from ISO/IEC 13211-1 clauses 7 and
 8. The generated `conformance-report.md` is the authoritative source for
 current category totals.
 The example runner compares **200 answer goldens** and **55 proof goldens**
-byte-for-byte; the extracted-book runner checks 134 executable displays. The
+byte-for-byte; the extracted-book runner keeps executable displays synchronized with the book. The
 dedicated seven-case playground suite executes the exact production module-worker
 request path, checks that the Eyepl library is present across repeated browser
 runs, verifies serializable success and parse-error messages, and crawls the served

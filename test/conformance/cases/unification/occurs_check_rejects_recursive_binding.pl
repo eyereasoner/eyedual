@@ -1,4 +1,5 @@
-query(answer(occurs_check)).
+%% goal: answer(occurs_check)
+
 
 answer(occurs_check) :-
   (X \= wrapper(X)),

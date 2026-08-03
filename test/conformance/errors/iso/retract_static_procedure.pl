@@ -1,5 +1,6 @@
 fixed(value).
 
-query(answer).
+%% goal: answer
+
 answer :-
     retract(fixed(value)).

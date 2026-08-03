@@ -3,15 +3,20 @@
 % Four simplified worlds classify candidate transit signals using either Bayes,
 % sensitivity-only reasoning, a heuristic threshold, or a stricter Bayesian rule.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
 %
 % The example is intentionally qualitative: several independent signals must
 % align before a candidate is promoted from plausible to confirmed in a world.
-query(ppvPlanetGivenDetection(X0, X1)).
-query(confirmsInWorld(X0, X1)).
-query(rejectsInWorld(X0, X1)).
-query(status(X0, X1)).
-query(reason(X0, X1)).
+%% goal: ppvPlanetGivenDetection(X0, X1)
+
+%% goal: confirmsInWorld(X0, X1)
+
+%% goal: rejectsInWorld(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % candidate/4 stores occurrence rate, sensitivity, and specificity.  world/2
 % names the alternative validation policies applied to the same signals.

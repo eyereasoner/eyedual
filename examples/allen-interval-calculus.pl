@@ -4,11 +4,15 @@
 % The input interval table is a list of records, showing how tabular data can
 % stay scoped as one term instead of many unrelated global start/end facts.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(start(X0, X1)).
-query(end(X0, X1)).
-query(duration(X0, X1)).
-query(statement(X0, X1, X2)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: start(X0, X1)
+
+%% goal: end(X0, X1)
+
+%% goal: duration(X0, X1)
+
+%% goal: statement(X0, X1, X2)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 interval_table([

@@ -2,17 +2,28 @@
 % The source facts describe one care/research process: controller, recipient, data, action, purpose, and legal basis.
 % The derived predicates query the corresponding ODRL policy, permission, target, party, action, and constraints.
 
-query(type(X0, X1)).
-query(odrl_permission(X0, X1)).
-query(odrl_assigner(X0, X1)).
-query(odrl_assignee(X0, X1)).
-query(odrl_target(X0, X1)).
-query(odrl_action(X0, X1)).
-query(odrl_constraint(X0, X1)).
-query(odrl_leftOperand(X0, X1)).
-query(odrl_operator(X0, X1)).
-query(odrl_rightOperand(X0, X1)).
-query(derived_from_process(X0, X1)).
+%% goal: type(X0, X1)
+
+%% goal: odrl_permission(X0, X1)
+
+%% goal: odrl_assigner(X0, X1)
+
+%% goal: odrl_assignee(X0, X1)
+
+%% goal: odrl_target(X0, X1)
+
+%% goal: odrl_action(X0, X1)
+
+%% goal: odrl_constraint(X0, X1)
+
+%% goal: odrl_leftOperand(X0, X1)
+
+%% goal: odrl_operator(X0, X1)
+
+%% goal: odrl_rightOperand(X0, X1)
+
+%% goal: derived_from_process(X0, X1)
+
 
 process(alpha_care_process).
 data_controller(alpha_care_process, hospital_a).

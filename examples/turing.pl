@@ -4,10 +4,13 @@
 % A tape is split into a reversed left side, current cell, and right side; move/7
 % updates that zipper representation.  The blank tape symbol is #.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(input(X0, X1)).
-query(output(X0, X1)).
-query(addsOne(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: input(X0, X1)
+
+%% goal: output(X0, X1)
+
+%% goal: addsOne(X0, X1)
+
 
 % compute/2 initializes the tape and starts from the machine's start state.
 compute([], Outtape) :-

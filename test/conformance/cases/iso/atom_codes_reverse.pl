@@ -1,3 +1,4 @@
 % Isolated ISO mode-table success case.
-query(answer).
+%% goal: answer
+
 answer :- atom_codes(Atom, [65, 90]), Atom = 'AZ'.

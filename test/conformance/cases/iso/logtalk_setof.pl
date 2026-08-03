@@ -1,6 +1,7 @@
 % Adapted from Logtalk iso_setof_3_01 through 09.
 % Modified for Eyepl's conformance harness. See test/conformance/THIRD_PARTY.md.
-query(setof_results(X0, X1, X2)).
+%% goal: setof_results(X0, X1, X2)
+
 setof_results(Ordered, Unique, Quantified) :-
     setof(X, (X = 2; X = 1), Ordered),
     setof(Y, (Y = 2; Y = 2), Unique),

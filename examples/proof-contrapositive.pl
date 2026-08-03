@@ -3,10 +3,13 @@
 % The implication itself is represented as data with implies/2.  The proof
 % rule remains ordinary eyepl: if A implies B and B is false, then A is false.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(refutes(X0, X1)).
-query(method(X0, X1)).
-query(reason(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: refutes(X0, X1)
+
+%% goal: method(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 implies(raining, wet_ground).

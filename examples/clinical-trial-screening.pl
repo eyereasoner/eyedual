@@ -4,14 +4,17 @@
 % predicates keep the inclusion/exclusion logic separate from the concise
 % public relation report.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
 %
 % Inclusion criteria are positive requirements; exclusion criteria veto a
 % candidate even when the inclusion checks pass. The emitted reason/2 facts are
 % the audit trail a coordinator would need for a screen-failure report.
-query(type(X0, X1)).
-query(status(X0, X1)).
-query(reason(X0, X1)).
+%% goal: type(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 patient(p001).

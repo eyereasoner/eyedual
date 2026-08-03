@@ -4,7 +4,8 @@
 % would normally report a status, but fuses are checked first and abort the run.
 % expect-exit: 65
 
-query(status(X, Value)).
+%% goal: status(X, Value)
+
 
 color(stone, black).
 color(stone, white).

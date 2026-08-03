@@ -3,7 +3,8 @@
 % A state records missionaries and cannibals on the left bank plus the boat side.
 % crossing/3 applies one legal boat load and state_safe/1 checks both banks.
 % journey/4 carries a visited list to avoid loops in the finite state graph.
-query(missionaries_cannibals_answer(X0, X1)).
+%% goal: missionaries_cannibals_answer(X0, X1)
+
 
 % Boat loads: one or two passengers, with at least one passenger per crossing.
 move(1, 0).

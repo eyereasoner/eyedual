@@ -3,7 +3,7 @@ why(
   answer(a),
   proof(
     goal(answer(a)),
-    by(rule("<stdin>", clause(4))),
+    by(rule("<stdin>", clause(3))),
     bindings([binding("X", a)]),
     uses([
       proof(
@@ -12,7 +12,7 @@ why(
         uses([
           proof(
             goal(choice(a)),
-            by(fact("<stdin>", clause(2)))
+            by(fact("<stdin>", clause(1)))
           )
         ])
       )

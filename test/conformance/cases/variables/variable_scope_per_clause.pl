@@ -1,5 +1,6 @@
 % Reusing a variable name in separate clauses does not connect the clauses.
-query(answer(X0)).
+%% goal: answer(X0)
+
 left(a).
 right(b).
 answer(X) :- left(X).

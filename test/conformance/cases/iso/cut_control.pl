@@ -33,30 +33,37 @@ if_then_cut(Value) :-
     (true -> (!, choice(Value)); fail).
 if_then_cut(fallback).
 
-query(committed_answer(X0)).
+%% goal: committed_answer(X0)
+
 committed_answer(Value) :-
     committed(Value).
 
-query(left_answer(X0)).
+%% goal: left_answer(X0)
+
 left_answer(Value) :-
     left_choice(Value).
 
-query(right_answer(X0, X1)).
+%% goal: right_answer(X0, X1)
+
 right_answer(Left, Right) :-
     right_choice(Left, Right).
 
-query(cut_failure_answer).
+%% goal: cut_failure_answer
+
 cut_failure_answer :-
     \+(cut_failure).
 
-query(disjunction_answer(X0)).
+%% goal: disjunction_answer(X0)
+
 disjunction_answer(Value) :-
     disjunction_cut(Value).
 
-query(call_local_answer(X0, X1)).
+%% goal: call_local_answer(X0, X1)
+
 call_local_answer(Kind, Value) :-
     call_is_local(Kind, Value).
 
-query(if_then_answer(X0)).
+%% goal: if_then_answer(X0)
+
 if_then_answer(Value) :-
     if_then_cut(Value).

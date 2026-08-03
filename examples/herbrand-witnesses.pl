@@ -4,10 +4,14 @@
 % practical executable form is to put a named functional term directly in the
 % rule head.  The term is ordinary data: stable, visible, and proof-friendly.
 
-query(has_parent(X0, X1)).
-query(registration(X0, X1, X2)).
-query(same_witness(X0, X1)).
-query(distinct_witnesses(X0, X1)).
+%% goal: has_parent(X0, X1)
+
+%% goal: registration(X0, X1, X2)
+
+%% goal: same_witness(X0, X1)
+
+%% goal: distinct_witnesses(X0, X1)
+
 
 person(alice).
 person(bob).

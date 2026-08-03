@@ -5,7 +5,8 @@
 % stream explicitly. The path is under /tmp so the source tree is unchanged.
 :- initialization(write_fixture).
 
-query(report(X0, X1)).
+%% goal: report(X0, X1)
+
 
 fixture_path('/tmp/eyepl-iso-term-io-example.pl').
 

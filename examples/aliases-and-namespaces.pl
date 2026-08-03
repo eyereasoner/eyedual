@@ -3,10 +3,14 @@
 %
 % This keeps the language small: add/3, lt/2, matches/3, and rest/2 are native
 % operations, but labels such as nativeMath or vocabularyExample are just data.
-query(value(X0, X1)).
-query(ok(X0, X1)).
-query(tail(X0, X1)).
-query(label(X0, X1)).
+%% goal: value(X0, X1)
+
+%% goal: ok(X0, X1)
+
+%% goal: tail(X0, X1)
+
+%% goal: label(X0, X1)
+
 
 % The first four rules call native built-ins; the last two rules show that
 % application vocabulary is modeled with ordinary facts and rules.

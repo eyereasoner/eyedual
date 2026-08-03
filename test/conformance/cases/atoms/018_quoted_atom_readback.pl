@@ -3,4 +3,5 @@ symbol('two words').
 symbol('needs''quote').
 symbol('').
 answer(symbol, X) :- symbol(X).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

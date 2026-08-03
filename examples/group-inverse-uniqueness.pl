@@ -3,8 +3,9 @@
 % The output mirrors the Eyeling golden result shape:
 % sameInverse(x, i, j) and sameInverse(x, j, i).
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(sameInverse(X0, X1, X2)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: sameInverse(X0, X1, X2)
+
 
 % The group table is deliberately tiny: e is the identity, and i and j are
 % two names that both behave as the inverse of x.

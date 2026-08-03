@@ -1,4 +1,5 @@
-query(trigger).
+%% goal: trigger
+
 trigger :-
     open('/tmp/eyepl-iso-closed.txt', write, Stream, []),
     close(Stream),

@@ -1,7 +1,8 @@
 elk(milo).
 insect(ant).
 
-query(answer(X0, X1, X2, X3)).
+%% goal: answer(X0, X1, X2, X3)
+
 answer(Unified, First, Arity, Repeated) :-
     unify_with_occurs_check(pair(X, X), pair(ok, Y)),
     =(Unified, pair(X, Y)),

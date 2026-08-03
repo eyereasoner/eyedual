@@ -9,8 +9,9 @@
 % Run:
 %   eyepl socket-family.pl
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(ancestor(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: ancestor(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 socket(family_source, provides(parent_2)).

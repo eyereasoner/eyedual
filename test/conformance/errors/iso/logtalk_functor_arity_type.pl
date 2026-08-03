@@ -1,3 +1,4 @@
 % Adapted from Logtalk iso_functor_3_14. Modified for Eyepl's harness.
 % See test/conformance/THIRD_PARTY.md.
-query(functor(_, foo, a)).
+%% goal: functor(_, foo, a)
+

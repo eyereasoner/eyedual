@@ -3,7 +3,8 @@
 % largest disk, then moving N-1 disks onto the target peg.  The size-3 answer is
 % small enough for a readable golden output while still exercising list append.
 
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 
 
 hanoi(0, _from, _to, _via, []).

@@ -7,14 +7,21 @@
 
 % Affirming the consequent:
 %   If it rained, the street is wet. The street is wet. Therefore it rained.
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(type(X0, X1)).
-query(fallacy(X0, X1)).
-query(conclusion(X0, X1)).
-query(reason(X0, X1)).
-query(sampleSize(X0, X1)).
-query(requiredSampleSize(X0, X1)).
-query(omittedAlternative(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: type(X0, X1)
+
+%% goal: fallacy(X0, X1)
+
+%% goal: conclusion(X0, X1)
+
+%% goal: reason(X0, X1)
+
+%% goal: sampleSize(X0, X1)
+
+%% goal: requiredSampleSize(X0, X1)
+
+%% goal: omittedAlternative(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 argument(arg_affirming_consequent).

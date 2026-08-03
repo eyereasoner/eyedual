@@ -2,4 +2,5 @@
 pair(a, a).
 pair(a, b).
 answer(shared, _value) :- pair(_value, _value).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

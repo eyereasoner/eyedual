@@ -7,11 +7,13 @@
 :- op(100, yf, yf100).
 :- op(900, xfy, xfy900).
 
-query(swipl_standard_plus(Priority, Specifier)).
+%% goal: swipl_standard_plus(Priority, Specifier)
+
 swipl_standard_plus(Priority, Specifier) :-
     current_op(Priority, Specifier, '+').
 
-query(swipl_operator_syntax(A, B, C)).
+%% goal: swipl_operator_syntax(A, B, C)
+
 swipl_operator_syntax(A, B, C) :-
     A = (xf100 xf200),
     B = (fx100 1 xf200),

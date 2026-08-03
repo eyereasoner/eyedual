@@ -6,11 +6,16 @@
 %
 % Keeping each physical quantity as its own relation makes the proof explanation
 % read like a worked calculation.
-query(type(X0, X1)).
-query(temperatureDifference_K(X0, X1)).
-query(thermalResistance_K_W(X0, X1)).
-query(heatLoss_W(X0, X1)).
-query(status(X0, X1)).
+%% goal: type(X0, X1)
+
+%% goal: temperatureDifference_K(X0, X1)
+
+%% goal: thermalResistance_K_W(X0, X1)
+
+%% goal: heatLoss_W(X0, X1)
+
+%% goal: status(X0, X1)
+
 
 % Wall properties are stored as key/value facts: conductivity, area, thickness,
 % and inside/outside temperatures.

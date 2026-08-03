@@ -1,3 +1,4 @@
 % Adapted from Logtalk sics_findall_3_09. Modified for Eyepl's harness.
 % See test/conformance/THIRD_PARTY.md.
-query(findall(X, X = 1, [_ | 1])).
+%% goal: findall(X, X = 1, [_ | 1])
+

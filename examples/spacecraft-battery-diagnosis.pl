@@ -5,9 +5,12 @@
 % The values and limits are illustrative; they are not operational flight
 % rules.
 
-query(metric(X0, X1, X2)).
-query(diagnosis(X0, X1)).
-query(action(X0, X1)).
+%% goal: metric(X0, X1, X2)
+
+%% goal: diagnosis(X0, X1)
+
+%% goal: action(X0, X1)
+
 
 % Primary telemetry for battery pack bp1.
 telemetry(bp1, temperature_c, 78.0).

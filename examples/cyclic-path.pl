@@ -7,7 +7,8 @@
 % This is a compact regression-style example for active-goal handling in recursive
 % graph search.
 
-query(path(X0, X1)).
+%% goal: path(X0, X1)
+
 
 arc(a, b).
 arc(b, c).

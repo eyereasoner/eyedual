@@ -6,8 +6,10 @@
 % not only the facts listed here.
 
 % Print the finite check summary and the per-zero audit rows.
-query(rh(X0, X1)).
-query(zero_check(X0, X1, X2)).
+%% goal: rh(X0, X1)
+
+%% goal: zero_check(X0, X1, X2)
+
 
 % --- Sample zero catalogue -------------------------------------------------
 %

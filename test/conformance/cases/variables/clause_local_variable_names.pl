@@ -1,4 +1,5 @@
-query(answer(X0)).
+%% goal: answer(X0)
+
 helper(a).
 helper(b).
 answer(X) :- helper(X).

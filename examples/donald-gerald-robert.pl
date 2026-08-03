@@ -3,7 +3,8 @@
 % Ten distinct letters must use all ten decimal digits. A naive assignment
 % explores 10! permutations; this solver instead propagates carries from right
 % to left and removes each chosen or derived digit from a shrinking domain.
-query(pandigital_cryptarithm_answer(X0, X1)).
+%% goal: pandigital_cryptarithm_answer(X0, X1)
+
 
 all_digits([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]).
 

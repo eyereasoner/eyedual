@@ -6,24 +6,41 @@
 %
 % This is one of the richer policy examples: it combines structured policy data,
 % ranked risk computation, and report-oriented query execution.
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(policyGraph(X0, X1)).
-query(contains(X0, X1)).
-query(dpv_hasRisk(X0, X1)).
-query(type(X0, X1)).
-query(scoreRaw(X0, X1)).
-query(score(X0, X1)).
-query(dpv_hasRiskLevel(X0, X1)).
-query(dpv_hasSeverity(X0, X1)).
-query(aboutClause(X0, X1)).
-query(violatesNeed(X0, X1)).
-query(dct_source(X0, X1)).
-query(dct_description(X0, X1)).
-query(reportKey(X0, X1)).
-query(dpv_isMitigatedByMeasure(X0, X1)).
-query(suggestAddGraph(X0, X1)).
-query(firstRisk(X0, X1)).
-query(retentionRiskScore(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: policyGraph(X0, X1)
+
+%% goal: contains(X0, X1)
+
+%% goal: dpv_hasRisk(X0, X1)
+
+%% goal: type(X0, X1)
+
+%% goal: scoreRaw(X0, X1)
+
+%% goal: score(X0, X1)
+
+%% goal: dpv_hasRiskLevel(X0, X1)
+
+%% goal: dpv_hasSeverity(X0, X1)
+
+%% goal: aboutClause(X0, X1)
+
+%% goal: violatesNeed(X0, X1)
+
+%% goal: dct_source(X0, X1)
+
+%% goal: dct_description(X0, X1)
+
+%% goal: reportKey(X0, X1)
+
+%% goal: dpv_isMitigatedByMeasure(X0, X1)
+
+%% goal: suggestAddGraph(X0, X1)
+
+%% goal: firstRisk(X0, X1)
+
+%% goal: retentionRiskScore(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 party(hospital).

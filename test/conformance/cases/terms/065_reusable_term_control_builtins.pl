@@ -1,5 +1,6 @@
 % Reference 9.1: term introspection/construction, term strings, and forall/2.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 item(1).
 item(2).
 item(3).

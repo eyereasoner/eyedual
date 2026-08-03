@@ -7,10 +7,14 @@
 % The example keeps vectors as ordinary Eyepl lists, so it doubles as a compact
 % demonstration of numeric recursion over list structure.
 
-query(dotProduct(X0, X1)).
-query(normA(X0, X1)).
-query(normB(X0, X1)).
-query(cosineSimilarity(X0, X1)).
+%% goal: dotProduct(X0, X1)
+
+%% goal: normA(X0, X1)
+
+%% goal: normB(X0, X1)
+
+%% goal: cosineSimilarity(X0, X1)
+
 
 % Two named vectors form the single cosine-similarity case.
 vector(pair1, a, [1.0, 2.0, 3.0]).

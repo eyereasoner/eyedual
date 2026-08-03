@@ -4,10 +4,14 @@
 % local date so the derived ageAbove/2 fact remains an executable temporal
 % check rather than a precomputed constant.
 
-query(birthDay(X0, X1)).
-query(duration(X0, X1)).
-query(ageAbove(X0, X1)).
-query(holds_result(X0, X1)).
+%% goal: birthDay(X0, X1)
+
+%% goal: duration(X0, X1)
+
+%% goal: ageAbove(X0, X1)
+
+%% goal: holds_result(X0, X1)
+
 
 birthDay(patH, "1944-08-21").
 duration(check, "P80Y").

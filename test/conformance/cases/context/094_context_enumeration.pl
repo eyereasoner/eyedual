@@ -1,5 +1,6 @@
 % Reference 9.9: recursion and =../2 enumerate comma-context terms left to right.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 context((kind(alert), severity(high), owner(alice))).
 context_member((Left, _right), Member) :- context_member(Left, Member).
 context_member((_left, Right), Member) :- context_member(Right, Member).

@@ -1,7 +1,8 @@
 % Adapted from Logtalk op/3 tests 01, 02, 09, 18, 32, and 33 and
 % current_op/3 tests 01 through 39. Modified for Eyepl's harness.
 % See test/conformance/THIRD_PARTY.md.
-query(operator_results(X0, X1, X2)).
+%% goal: operator_results(X0, X1, X2)
+
 operator_results(RulePriority, PlusPriority, PlusSpecifier) :-
     current_op(RulePriority, xfx, ':-'),
     current_op(PlusPriority, PlusSpecifier, '+'),

@@ -4,7 +4,8 @@
 % the final point repeats the first point.  Each recursive step consumes one
 % adjacent pair and contributes `(x1*y2 - y1*x2) / 2` to the oriented area.
 
-query(polygon_area(X0, X1)).
+%% goal: polygon_area(X0, X1)
+
 
 sample_polygon([[3, 2], [6, 2], [7, 6], [4, 6], [5, 5], [5, 3], [3, 2]]).
 

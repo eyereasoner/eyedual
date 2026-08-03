@@ -4,7 +4,8 @@
 % rule can still express the practical executable shape of an existential
 % consequence by putting a named functional term directly in the head.
 
-query(holds_result(X0, X1)).
+%% goal: holds_result(X0, X1)
+
 
 type(socrates, human).
 type(plato, human).

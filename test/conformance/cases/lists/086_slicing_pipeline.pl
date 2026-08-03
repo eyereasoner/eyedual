@@ -1,5 +1,6 @@
 % Reference 9.7: head/rest/last/take/drop/slice are deterministic reusable list operations.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 data([zero, one, two, three, four]).
 answer(head, X) :- data(L), head(L, X).
 answer(rest, X) :- data(L), rest(L, X).

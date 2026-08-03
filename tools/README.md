@@ -8,7 +8,7 @@ Syntax. Eyepl remains RDF-agnostic.
 
 ```bash
 node tools/rdf-to-eyepl.mjs --rules rules.pl data.nq -o program.pl
-node bin/eyepl.js program.pl > derived.pl
+node bin/eyepl.js --goal 'rdf(S, P, O, G)' program.pl > derived.pl
 node tools/eyepl-to-rdf.mjs derived.pl -o derived.nq
 ```
 

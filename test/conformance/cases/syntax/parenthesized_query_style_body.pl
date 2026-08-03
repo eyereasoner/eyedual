@@ -1,5 +1,6 @@
 % Parentheses may group a body conjunction without changing meaning.
-query(answer(X0)).
+%% goal: answer(X0)
+
 a(ok).
 b(ok).
 answer(X) :- (a(X), b(X)).

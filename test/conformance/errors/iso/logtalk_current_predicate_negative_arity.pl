@@ -1,3 +1,4 @@
 % Adapted from Logtalk eclipse_current_predicate_1_11. Modified for Eyepl's harness.
 % See test/conformance/THIRD_PARTY.md.
-query(current_predicate(f / -1)).
+%% goal: current_predicate(f / -1)
+

@@ -1,3 +1,4 @@
 % Isolated ISO mode-table success case.
-query(answer).
+%% goal: answer
+
 answer :- copy_term(pair(X, X), pair(A, B)), A = copied, B = copied, var(X).

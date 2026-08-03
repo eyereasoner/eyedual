@@ -5,7 +5,8 @@
 % `log/1`, and so on.  The result is intentionally unsimplified so the rule that
 % produced each part remains visible.
 
-query(derivative_result(X0, X1)).
+%% goal: derivative_result(X0, X1)
+
 
 expr(square, mul(var(x), var(x))).
 expr(linear_plus_const, add(var(x), const(3))).

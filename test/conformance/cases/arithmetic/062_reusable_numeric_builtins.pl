@@ -1,5 +1,6 @@
 % Reference 9.1: reusable numeric functions and max/3.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 answer(max, X) :- max(17, 42, X).
 answer(sqrt, X) :- (X is sqrt(81)).
 answer(floor, X) :- (X is floor(3.9)).

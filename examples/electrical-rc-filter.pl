@@ -6,9 +6,12 @@
 % The model uses key/value component facts so the same pattern can be extended to
 % multiple named filters or extra component attributes without changing the rules.
 
-query(type(X0, X1)).
-query(timeConstant_s(X0, X1)).
-query(cutoffFrequency_Hz(X0, X1)).
+%% goal: type(X0, X1)
+
+%% goal: timeConstant_s(X0, X1)
+
+%% goal: cutoffFrequency_Hz(X0, X1)
+
 
 component(filter1, resistor_ohm, 10000.0).
 component(filter1, capacitor_f, 0.000001).

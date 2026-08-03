@@ -8,37 +8,67 @@
 % Rules project only the fields they need, avoiding global permission/prohibition
 % facts that could contradict another policy formula in the same program.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(caseName(X0, X1)).
-query(needsLowSugar(X0, X1)).
-query(derivedFromNeed(X0, X1)).
-query(outcome(X0, X1)).
-query(target(X0, X1)).
-query(metric(X0, X1)).
-query(threshold(X0, X1)).
-query(scope(X0, X1)).
-query(retailer(X0, X1)).
-query(expiresAt(X0, X1)).
-query(scannedProduct(X0, X1)).
-query(suggestedAlternative(X0, X1)).
-query(headline(X0, X1)).
-query(note(X0, X1)).
-query(reason(X0, X1)).
-query(value(X0, X1)).
-query(alg(X0, X1)).
-query(auditEntries(X0, X1)).
-query(filesWritten(X0, X1)).
-query(allChecksPass(X0, X1)).
-query(signatureVerifies(X0, X1)).
-query(payloadHashMatches(X0, X1)).
-query(minimizationStripsSensitiveTerms(X0, X1)).
-query(scopeComplete(X0, X1)).
-query(authorizationAllowed(X0, X1)).
-query(bannerFlagsHighSugar(X0, X1)).
-query(alternativeIsLowerSugar(X0, X1)).
-query(dutyTimingConsistent(X0, X1)).
-query(marketingProhibited(X0, X1)).
-query(filesWrittenExpected(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: caseName(X0, X1)
+
+%% goal: needsLowSugar(X0, X1)
+
+%% goal: derivedFromNeed(X0, X1)
+
+%% goal: outcome(X0, X1)
+
+%% goal: target(X0, X1)
+
+%% goal: metric(X0, X1)
+
+%% goal: threshold(X0, X1)
+
+%% goal: scope(X0, X1)
+
+%% goal: retailer(X0, X1)
+
+%% goal: expiresAt(X0, X1)
+
+%% goal: scannedProduct(X0, X1)
+
+%% goal: suggestedAlternative(X0, X1)
+
+%% goal: headline(X0, X1)
+
+%% goal: note(X0, X1)
+
+%% goal: reason(X0, X1)
+
+%% goal: value(X0, X1)
+
+%% goal: alg(X0, X1)
+
+%% goal: auditEntries(X0, X1)
+
+%% goal: filesWritten(X0, X1)
+
+%% goal: allChecksPass(X0, X1)
+
+%% goal: signatureVerifies(X0, X1)
+
+%% goal: payloadHashMatches(X0, X1)
+
+%% goal: minimizationStripsSensitiveTerms(X0, X1)
+
+%% goal: scopeComplete(X0, X1)
+
+%% goal: authorizationAllowed(X0, X1)
+
+%% goal: bannerFlagsHighSugar(X0, X1)
+
+%% goal: alternativeIsLowerSugar(X0, X1)
+
+%% goal: dutyTimingConsistent(X0, X1)
+
+%% goal: marketingProhibited(X0, X1)
+
+%% goal: filesWrittenExpected(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 % Context-valued facts keep each input graph scoped and easy to project.

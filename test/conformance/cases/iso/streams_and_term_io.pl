@@ -1,5 +1,6 @@
 % ISO 8.11-8.12: stream lifecycle, text/binary units, term I/O, and properties.
-query(text_roundtrip(Term, Peek, Code, Mode, Alias)).
+%% goal: text_roundtrip(Term, Peek, Code, Mode, Alias)
+
 text_roundtrip(Term, Peek, Code, Mode, Alias) :-
     open('/tmp/eyepl-iso-text.txt', write, Output, [alias(iso_text_output), type(text)]),
     writeq(iso_text_output, sample(42)),
@@ -15,7 +16,8 @@ text_roundtrip(Term, Peek, Code, Mode, Alias) :-
     at_end_of_stream(Input),
     close(Input).
 
-query(binary_roundtrip(Peek, Byte, End)).
+%% goal: binary_roundtrip(Peek, Byte, End)
+
 binary_roundtrip(Peek, Byte, End) :-
     open('/tmp/eyepl-iso-binary.bin', write, Output, [type(binary)]),
     put_byte(Output, 65),
@@ -26,7 +28,8 @@ binary_roundtrip(Peek, Byte, End) :-
     get_byte(Input, End),
     close(Input).
 
-query(read_term_metadata(ok)).
+%% goal: read_term_metadata(ok)
+
 read_term_metadata(ok) :-
     open('/tmp/eyepl-iso-read-term.txt', write, Output, []),
     writeq(Output, pair(X, X, Y)),
@@ -48,7 +51,8 @@ read_term_metadata(ok) :-
     C \== D,
     close(Input).
 
-query(default_streams(ok)).
+%% goal: default_streams(ok)
+
 default_streams(ok) :-
     current_input(Input),
     current_output(Output),
@@ -56,7 +60,8 @@ default_streams(ok) :-
     stream_property(Output, alias(user_output)),
     flush_output(Output).
 
-query(standard_write(ok)).
+%% goal: standard_write(ok)
+
 standard_write(ok) :-
     write(io_marker),
     nl.

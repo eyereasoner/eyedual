@@ -3,10 +3,13 @@
 % a subject with both defaults is reported as conflicted rather than forced to
 % choose one extension.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(defaultSupports(X0, X1)).
-query(conflict(X0, X1)).
-query(status(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: defaultSupports(X0, X1)
+
+%% goal: conflict(X0, X1)
+
+%% goal: status(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 kind(nixon, quaker).

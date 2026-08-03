@@ -1,6 +1,7 @@
 % Equality unifies, while inequality tests current
 % non-unifiability and does not create a constraint or rewrite same_as/2.
-query(answer(X0)).
+%% goal: answer(X0)
+
 
 same_as(alice, bob).
 

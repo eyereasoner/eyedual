@@ -1,3 +1,4 @@
 % Adapted from Logtalk sics_current_op_3_41. Modified for Eyepl's harness.
 % See test/conformance/THIRD_PARTY.md.
-query(current_op(1201, _, _)).
+%% goal: current_op(1201, _, _)
+

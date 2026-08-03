@@ -3,13 +3,20 @@
 % field(Field, SoilN, FertilizerN, LossFraction, CropDemandN) stores a compact
 % nutrient budget.  Rules derive retained nitrogen, deficit, surplus, and a
 % leaching-risk index before assigning each field a status.
-query(availableN_kg_ha(X0, X1)).
-query(deficitN_kg_ha(X0, X1)).
-query(surplusN_kg_ha(X0, X1)).
-query(leachingIndex(X0, X1)).
-query(status(X0, X1)).
-query(highestLeachingRisk(X0, X1)).
-query(reason(X0, X1)).
+%% goal: availableN_kg_ha(X0, X1)
+
+%% goal: deficitN_kg_ha(X0, X1)
+
+%% goal: surplusN_kg_ha(X0, X1)
+
+%% goal: leachingIndex(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: highestLeachingRisk(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % The four fields cover under-supplied, balanced, and over-supplied scenarios
 % with different loss fractions so leaching risk is not just total surplus.

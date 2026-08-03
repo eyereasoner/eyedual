@@ -3,7 +3,8 @@
 % matching/1 enumerates one-to-one pairings for four men and four women.  A
 % pairing is stable precisely when no blocking pair exists: two people who would
 % both prefer each other over their assigned partners.
-query(stable_marriage_answer(X0, X1)).
+%% goal: stable_marriage_answer(X0, X1)
+
 
 man(adam).
 man(brian).

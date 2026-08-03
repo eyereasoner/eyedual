@@ -3,7 +3,8 @@
 % span(Sentence, Category, Start, End) is the dynamic-programming chart item:
 % Category covers a half-open token interval.  Memoizing span/4 turns recursive
 % grammar recognition into chart parsing, so ambiguous phrases share subparses.
-query(chart_parser_answer(X0, X1)).
+%% goal: chart_parser_answer(X0, X1)
+
 
 
 % Two sample sentences share the same tiny grammar but have different parse counts.

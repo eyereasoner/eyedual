@@ -1,6 +1,8 @@
 % Performance example: repeated multi-key relational lookups.
-query(lookupResult(X0, X1)).
-query(reason(X0, X1)).
+%% goal: lookupResult(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 relation(a0, b0, c0, v0_0).
 relation(a0, b31, c1, v0_1).

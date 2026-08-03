@@ -5,7 +5,8 @@ item(old).
 temp(a).
 temp(b).
 
-query(database_roundtrip(X0, X1, X2)).
+%% goal: database_roundtrip(X0, X1, X2)
+
 database_roundtrip(All, Remaining, RuleBody) :-
     asserta(item(first)),
     assertz(item(last)),
@@ -17,6 +18,7 @@ database_roundtrip(All, Remaining, RuleBody) :-
     abolish(derived/1),
     \+(current_predicate(derived/1)).
 
-query(retracted(X0)).
+%% goal: retracted(X0)
+
 retracted(Value) :-
     retract(temp(Value)).

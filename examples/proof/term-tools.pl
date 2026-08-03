@@ -3,7 +3,7 @@ why(
   report(shape, shape(edge, 3)),
   proof(
     goal(report(shape, shape(edge, 3))),
-    by(rule("term-tools.pl", clause(4))),
+    by(rule("term-tools.pl", clause(3))),
     bindings([binding("Name", edge), binding("Arity", 3)]),
     uses([
       proof(
@@ -19,7 +19,7 @@ why(
   report(second_argument, b),
   proof(
     goal(report(second_argument, b)),
-    by(rule("term-tools.pl", clause(5))),
+    by(rule("term-tools.pl", clause(4))),
     bindings([binding("Node", b)]),
     uses([
       proof(
@@ -35,7 +35,7 @@ why(
   report(parts, parts(edge, [a, b, 3])),
   proof(
     goal(report(parts, parts(edge, [a, b, 3]))),
-    by(rule("term-tools.pl", clause(6))),
+    by(rule("term-tools.pl", clause(5))),
     bindings([binding("Name", edge), binding("Args", [a, b, 3])]),
     uses([
       proof(
@@ -51,7 +51,7 @@ why(
   report(rebuilt, edge(c, d, 5)),
   proof(
     goal(report(rebuilt, edge(c, d, 5))),
-    by(rule("term-tools.pl", clause(7))),
+    by(rule("term-tools.pl", clause(6))),
     bindings([binding("Term", edge(c, d, 5))]),
     uses([
       proof(
@@ -67,7 +67,7 @@ why(
   report(rendered, "edge(a, [b, c])"),
   proof(
     goal(report(rendered, "edge(a, [b, c])")),
-    by(rule("term-tools.pl", clause(8))),
+    by(rule("term-tools.pl", clause(7))),
     bindings([binding("Text", "edge(a, [b, c])")]),
     uses([
       proof(
@@ -83,7 +83,7 @@ why(
   report(all_weights_positive, yes),
   proof(
     goal(report(all_weights_positive, yes)),
-    by(rule("term-tools.pl", clause(9))),
+    by(rule("term-tools.pl", clause(8))),
     uses([
       proof(
         goal('\\+'(nonpositive_edge)),

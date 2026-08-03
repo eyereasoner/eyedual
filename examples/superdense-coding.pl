@@ -7,10 +7,13 @@
 % with a single support path after the interference choices are expanded.
 
 % |R) = |0, 0) + |1, 1)
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(decodesAs(X0, X1)).
-query(preservesMessage(X0, X1)).
-query(cancelsCrossTalk(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: decodesAs(X0, X1)
+
+%% goal: preservesMessage(X0, X1)
+
+%% goal: cancelsCrossTalk(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 r(false, false).

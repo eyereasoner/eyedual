@@ -4,9 +4,12 @@
 %
 % The noisy health-check line is deliberately present to show that only logs
 % matching the pattern become parsed events.
-query(parsed_event(X0, X1, X2, X3, X4)).
-query(captured_field(X0, X1, X2)).
-query(trace_alert(X0, X1, X2)).
+%% goal: parsed_event(X0, X1, X2, X3, X4)
+
+%% goal: captured_field(X0, X1, X2)
+
+%% goal: trace_alert(X0, X1, X2)
+
 
 log_pattern("^ts=(?<ts>\\S+) level=(?<level>\\w+) event=(?<event>\\w+) user=(?<user>\\w+) ip=(?<ip>\\S+) traceparent=00-(?<trace_id>[0-9a-f]{32})-(?<span_id>[0-9a-f]{16})-(?<flags>[0-9a-f]{2})$").
 

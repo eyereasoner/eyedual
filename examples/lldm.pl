@@ -4,13 +4,19 @@
 % the default relation query execution stays concise.  The visible output is
 % the alarm plus the small set of relations explaining why the alarm fired.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(type(X0, X1)).
-query(lld_left_length_cm(X0, X1)).
-query(lld_right_length_cm(X0, X1)).
-query(lld_discrepancy_cm(X0, X1)).
-query(lld_threshold_cm(X0, X1)).
-query(lld_reason(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: type(X0, X1)
+
+%% goal: lld_left_length_cm(X0, X1)
+
+%% goal: lld_right_length_cm(X0, X1)
+
+%% goal: lld_discrepancy_cm(X0, X1)
+
+%% goal: lld_threshold_cm(X0, X1)
+
+%% goal: lld_reason(X0, X1)
+
 
 % val/3 stores raw landmark coordinates, derived deltas, line coefficients,
 % projected landmarks, lengths, and alarm values in one measurement namespace.

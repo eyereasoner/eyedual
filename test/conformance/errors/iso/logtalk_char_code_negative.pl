@@ -1,3 +1,4 @@
 % Adapted from Logtalk eddbali_char_code_2_09. Modified for Eyepl's harness.
 % See test/conformance/THIRD_PARTY.md.
-query(char_code(_, -2)).
+%% goal: char_code(_, -2)
+

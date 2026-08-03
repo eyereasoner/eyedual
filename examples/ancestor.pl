@@ -4,8 +4,10 @@
 % parent edge before continuing through the chain.  Both source and derived
 % relations are queried so the output shows the closure explicitly.
 
-query(parent(X0, X1)).
-query(ancestor(X0, X1)).
+%% goal: parent(X0, X1)
+
+%% goal: ancestor(X0, X1)
+
 
 % Direct parent facts form a simple chain.
 parent(pat, jan).

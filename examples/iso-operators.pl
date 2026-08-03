@@ -5,7 +5,8 @@
 :- op(600, xfx, reports).
 :- op(500, xfy, and).
 
-query(report(X0, X1)).
+%% goal: report(X0, X1)
+
 
 sensor_7 reports temperature.
 sensor_7 reports humidity.

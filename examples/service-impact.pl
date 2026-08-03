@@ -3,10 +3,13 @@
 % fraud_service, fraud_service calls risk_rules, and risk_rules calls payment_service
 % for authorization data. A payment outage should still produce a finite impact set.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(impactedByFailureOf(X0, X1)).
-query(status(X0, X1)).
-query(businessFunctionAtRisk(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: impactedByFailureOf(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: businessFunctionAtRisk(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 depends_on(web_store, checkout_api).

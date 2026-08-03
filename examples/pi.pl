@@ -14,4 +14,5 @@ pi(A, B, C, D, E) :-
     pi(F, B, L, D, M).
 
 % query
-query(pi(100000, _)).
+%% goal: pi(100000, _)
+

@@ -93,7 +93,7 @@
   <text x="500" y="900" text-anchor="middle" class="panel-title">executable clauses</text>
   <text x="500" y="970" text-anchor="middle" class="code">path(X, Y) :-</text>
   <text x="500" y="1022" text-anchor="middle" class="code">edge(X, Y).</text>
-  <text x="500" y="1088" text-anchor="middle" class="code">query(path(a, X)).</text>
+  <text x="500" y="1088" text-anchor="middle" class="code">eyepl --goal 'path(a, X)' program.pl</text>
   <line x1="390" y1="1125" x2="610" y2="1125" class="green mid"/>
   <circle cx="390" cy="1163" r="17" fill="#fffdf8" stroke="#2f7d63" stroke-width="4"/>
   <path d="M382 1164L389 1171L400 1156" class="green mid"/>

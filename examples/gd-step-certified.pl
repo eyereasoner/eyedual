@@ -1,19 +1,28 @@
 % Memoize interval computations reused across width, midpoint, gradient, step,
 % objective, and contraction report relations.
-% Output declarations: query/1 selects the relations written to this example's golden output.
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
 %
 % This is a proof-friendly optimization trace: every numeric fact needed to
 % justify the step is queried, so proof output can certify why the update
 % is accepted.
-query(eta(X0, X1)).
-query(etaLeHalf(X0, X1)).
-query(xBounds(X0, X1)).
-query(midpoint(X0, X1)).
-query(width(X0, X1)).
-query(gradientBounds(X0, X1)).
-query(stepBounds(X0, X1)).
-query(objectiveBounds(X0, X1)).
-query(widthContractsAt(X0, X1)).
+%% goal: eta(X0, X1)
+
+%% goal: etaLeHalf(X0, X1)
+
+%% goal: xBounds(X0, X1)
+
+%% goal: midpoint(X0, X1)
+
+%% goal: width(X0, X1)
+
+%% goal: gradientBounds(X0, X1)
+
+%% goal: stepBounds(X0, X1)
+
+%% goal: objectiveBounds(X0, X1)
+
+%% goal: widthContractsAt(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 

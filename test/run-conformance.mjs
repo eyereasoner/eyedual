@@ -7,6 +7,7 @@ import { spawnSync } from 'node:child_process';
 import { Program, createDefaultRegistry, run } from '../src/index.js';
 import { fileURLToPath } from 'node:url';
 import { TestReporter, isMainModule } from './test-style.mjs';
+import { goalsFromSource } from './goal-metadata.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)));
 const filterArg = process.argv[2] ?? null;
@@ -81,7 +82,7 @@ function runCase(name, file) {
   const expected = path.join(expectedDir, `${name}.pl`);
   const text = fs.readFileSync(programFile, 'utf8');
   const program = Program.parseSources([{ text, filename: file }], { sourceMetadata: false, markRecursive: false });
-  const actual = run(program, { registry: file.startsWith('iso/') ? createDefaultRegistry() : undefined }).stdout;
+  const actual = run(program, { goals: goalsFromSource(text), registry: file.startsWith('iso/') ? createDefaultRegistry() : undefined }).stdout;
 
   compareExpectedFile(expected, actual, name, 'output');
 }
@@ -96,7 +97,7 @@ function runErrorCase(name, file) {
 
   try {
     const program = Program.parseSources([{ text, filename: file }], { sourceMetadata: false, markRecursive: false });
-    run(program, { registry: file.startsWith('iso/') ? createDefaultRegistry() : undefined });
+    run(program, { goals: goalsFromSource(text), registry: file.startsWith('iso/') ? createDefaultRegistry() : undefined });
   } catch (error) {
     actual = `${error?.message ?? String(error)}\n`;
   }
@@ -120,7 +121,7 @@ function runWarningCase(name, file) {
     markRecursive: false,
   });
   const stderr = formatWarnings(program);
-  const stdout = run(program).stdout;
+  const stdout = run(program, { goals: goalsFromSource(text) }).stdout;
 
   compareExpectedFile(expectedStdout, stdout, name, 'warning stdout');
   compareExpectedFile(expectedStderr, stderr, name, 'warning stderr');
@@ -136,7 +137,7 @@ function runProofCase(name, file) {
     sourceMetadata: true,
     markRecursive: true,
   });
-  const stdout = run(program, { proof: true }).stdout;
+  const stdout = run(program, { goals: goalsFromSource(text), proof: true }).stdout;
 
   compareExpectedFile(expected, stdout, name, 'proof output');
   Program.parse(stdout);

@@ -3,7 +3,7 @@ why(
   answer(nested_list_binding, [c]),
   proof(
     goal(answer(nested_list_binding, [c])),
-    by(rule("<stdin>", clause(2))),
+    by(rule("<stdin>", clause(1))),
     bindings([binding("Tail", [c])]),
     uses([
       proof(

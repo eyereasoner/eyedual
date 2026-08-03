@@ -5,9 +5,11 @@
 % has_bananas].  The selected output searches bounded move lists and derives successful
 % plans.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(plan(X0, X1)).
-query(solved(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: plan(X0, X1)
+
+%% goal: solved(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 

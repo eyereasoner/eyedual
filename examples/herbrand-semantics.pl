@@ -1,9 +1,10 @@
 % Herbrand terms denote themselves: distinct names and constructor applications
 % remain distinct without extra unique-name or free-constructor axioms.
 
-% Output declaration: query/1 selects the relation written to this
+% Output declaration: host-supplied goals select the relation written to this
 % example's golden output.
-query(different(X0, X1)).
+%% goal: different(X0, X1)
+
 
 % Under unrestricted Tarskian semantics, alice and bob could denote the same
 % element. In Eyepl's Herbrand universe, their different syntax is enough.

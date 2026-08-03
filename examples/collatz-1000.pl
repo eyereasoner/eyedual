@@ -5,10 +5,11 @@
 % Source N3:
 % https://raw.githubusercontent.com/eyereasoner/eyeling/refs/heads/main/examples/collatz-1000.n3
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
 % Automatic tabling caches shared suffix trajectories so the 1000 starts do not recompute
 % the same Collatz tails hundreds of times.
-query(collatzTrajectory(X0, X1)).
+%% goal: collatzTrajectory(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 % The N3 source defines repeat/2 recursively; this Eyepl version uses the

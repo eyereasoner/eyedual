@@ -3,11 +3,16 @@
 % Activity remaining after elapsed time is initial_activity * 0.5^(t/half_life).
 % The file querys half-lives elapsed, remaining activity, decayed activity,
 % and a threshold-based low-activity status.
-query(halfLivesElapsed(X0, X1)).
-query(remainingActivity_Bq(X0, X1)).
-query(decayedActivity_Bq(X0, X1)).
-query(status(X0, X1)).
-query(reason(X0, X1)).
+%% goal: halfLivesElapsed(X0, X1)
+
+%% goal: remainingActivity_Bq(X0, X1)
+
+%% goal: decayedActivity_Bq(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % The iodine sample has elapsed for two half-lives, making the expected remaining
 % activity one quarter of the initial activity.

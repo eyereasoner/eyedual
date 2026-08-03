@@ -5,7 +5,8 @@
 % s(s(z)), and so on.  The rules are relational; the query answers choose
 % a few finite calculations as readable examples.
 
-query(peano_answer(X0, X1)).
+%% goal: peano_answer(X0, X1)
+
 
 % Addition.
 padd(A, z, A).

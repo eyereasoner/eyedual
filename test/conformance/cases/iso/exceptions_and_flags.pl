@@ -5,7 +5,8 @@ boom(X) :-
 choice(first).
 choice(second).
 
-query(answer(X0, X1, X2, X3, X4)).
+%% goal: answer(X0, X1, X2, X3, X4)
+
 answer(Caught, Nested, ProcessorError, Normal, UnknownCaught) :-
     catch(boom(Value), ball(Caught), =(Caught, Value)),
     catch(catch(throw(red), blue, fail), Nested, true),
@@ -17,7 +18,8 @@ answer(Caught, Nested, ProcessorError, Normal, UnknownCaught) :-
         =(UnknownCaught, caught(ErrorContext))),
     set_prolog_flag(unknown, fail).
 
-query(flags(X0, X1, X2)).
+%% goal: flags(X0, X1, X2)
+
 flags(DebugBefore, DebugAfter, All) :-
     current_prolog_flag(debug, DebugBefore),
     set_prolog_flag(debug, on),

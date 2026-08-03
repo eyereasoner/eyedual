@@ -1,7 +1,8 @@
 % Adapted from Logtalk iso_term_comparison_01 through 19 and
 % lgt_term_comparison_20 through 27. Modified for Eyepl's conformance harness.
 % See test/conformance/THIRD_PARTY.md.
-query(term_comparison_order).
+%% goal: term_comparison_order
+
 
 term_comparison_order :-
     1.0 @< 1,

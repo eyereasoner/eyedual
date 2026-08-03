@@ -3,4 +3,5 @@ answer(eq_variable, X) :- (X = pair(a, [b, c])).
 answer(eq_nested, true) :- (pair(X, X) = pair(same, same)).
 answer(neq_atoms, true) :- (alice \= bob).
 answer(neq_structures, true) :- (pair(a) \= pair(a, b)).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

@@ -3,8 +3,9 @@
 % The EYE example defines add, multiply and factorial over Peano numerals.
 % Its selected output computes (1 * 2 + 3)! and emits the factorial of 5.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(factorial(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: factorial(X0, X1)
+
 
 % Numbers are represented only with 0 and successor terms s(...).  The final
 % query constructs the Peano value for five through add and multiply.

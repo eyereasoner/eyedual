@@ -1,5 +1,6 @@
 % Reference 9.10: functor/3 reports scalar terms with arity zero.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 answer(atom, pair(Name, Arity)) :- functor(alpha, Name, Arity).
 answer(quoted_atom, pair(Name, Arity)) :- functor('hello-world', Name, Arity).
 answer(string, pair(Name, Arity)) :- functor("text", Name, Arity).

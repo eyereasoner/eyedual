@@ -3,4 +3,5 @@ candidate(a).
 candidate(b).
 candidate(c).
 answer(not_present, X) :- candidate(X), not_member(X, [a, b]).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

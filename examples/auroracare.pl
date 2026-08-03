@@ -3,27 +3,47 @@
 % translation querys the policy decisions, reasons, traces, and ARC-style
 % check values as ordinary relation output.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(label(X0, X1)).
-query(description(X0, X1)).
-query(careTeamLinked(X0, X1)).
-query(subjectOptIn(X0, X1)).
-query(subjectOptOut(X0, X1)).
-query(decision(X0, X1)).
-query(reason(X0, X1)).
-query(matchedPolicyUid(X0, X1)).
-query(matchedProhibition(X0, X1)).
-query(trace(X0, X1)).
-query(checkC1(X0, X1)).
-query(checkC2(X0, X1)).
-query(checkC3(X0, X1)).
-query(checkC4(X0, X1)).
-query(checkC5(X0, X1)).
-query(checkC6(X0, X1)).
-query(checkC7(X0, X1)).
-query(checkC8(X0, X1)).
-query(checkC9(X0, X1)).
-query(checkC10Text(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: label(X0, X1)
+
+%% goal: description(X0, X1)
+
+%% goal: careTeamLinked(X0, X1)
+
+%% goal: subjectOptIn(X0, X1)
+
+%% goal: subjectOptOut(X0, X1)
+
+%% goal: decision(X0, X1)
+
+%% goal: reason(X0, X1)
+
+%% goal: matchedPolicyUid(X0, X1)
+
+%% goal: matchedProhibition(X0, X1)
+
+%% goal: trace(X0, X1)
+
+%% goal: checkC1(X0, X1)
+
+%% goal: checkC2(X0, X1)
+
+%% goal: checkC3(X0, X1)
+
+%% goal: checkC4(X0, X1)
+
+%% goal: checkC5(X0, X1)
+
+%% goal: checkC6(X0, X1)
+
+%% goal: checkC7(X0, X1)
+
+%% goal: checkC8(X0, X1)
+
+%% goal: checkC9(X0, X1)
+
+%% goal: checkC10Text(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 caseName(case, "auroracare").

@@ -5,7 +5,8 @@ insect(ant). insect(bee).
 :- dynamic(legs/2).
 legs(octopus, 8).
 legs(A, 6) :- insect(A).
-query(retract_results(X0, X1)).
+%% goal: retract_results(X0, X1)
+
 retract_results(Body, FirstInsect) :-
     retract(legs(octopus, 8)),
     \+ retract(legs(spider, 6)),

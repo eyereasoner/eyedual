@@ -4,9 +4,11 @@
 % the context as ordinary comma-term data, decomposes each member with =../2,
 % computes the arity, and checks that shape against an allowed schema.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(context_shape(X0, X1, X2)).
-query(schema_violation(X0, X1, X2)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: context_shape(X0, X1, X2)
+
+%% goal: schema_violation(X0, X1, X2)
+
 
 % Program structure: each message carries heterogeneous context data.  The
 % members deliberately use different arities: heartbeat/0, source/1,

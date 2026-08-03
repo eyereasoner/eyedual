@@ -3,7 +3,8 @@
 % pow_mod(Base, Exp, Modulus, Result) uses the even/odd exponent split, giving
 % logarithmic-depth arithmetic.  Memoization matters when the same modular powers
 % are reused by Fermat-style congruence checks.
-query(modular_answer(X0, X1)).
+%% goal: modular_answer(X0, X1)
+
 
 
 % Base case: any nonzero base to exponent zero is 1 modulo Mod.

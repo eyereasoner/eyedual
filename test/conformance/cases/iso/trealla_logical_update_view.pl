@@ -5,7 +5,8 @@
 insect(ant).
 insect(bee).
 
-query(logical_update(X)).
+%% goal: logical_update(X)
+
 logical_update(X) :-
     retract(insect(X)),
     (X = ant -> retract(insect(bee)); true).

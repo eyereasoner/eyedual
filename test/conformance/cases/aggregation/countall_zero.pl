@@ -1,2 +1,3 @@
-query(answer(X0)).
+%% goal: answer(X0)
+
 answer(N) :- countall(missing(X), N).

@@ -1,5 +1,6 @@
 % Reference 3.5, 5.2, 11: graphic atom constants are scalar terms.
-query(value(X0, X1)).
+%% goal: value(X0, X1)
+
 raw_value(hash, #).
 raw_value(arrow, =>).
 raw_value(comparison, =<).

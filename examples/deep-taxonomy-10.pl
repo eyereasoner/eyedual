@@ -5,13 +5,19 @@
 % the next taxonomy class together with two side labels.
 % =============================================================================================================================
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(holds_result(X0, X1)).
-query(answer(X0, X1)).
-query(reason(X0, X1)).
-query(result(X0, X1)).
-query(checkPassed(X0, X1)).
-query(arc(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: holds_result(X0, X1)
+
+%% goal: answer(X0, X1)
+
+%% goal: reason(X0, X1)
+
+%% goal: result(X0, X1)
+
+%% goal: checkPassed(X0, X1)
+
+%% goal: arc(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 % fact

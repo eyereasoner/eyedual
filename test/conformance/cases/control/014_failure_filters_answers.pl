@@ -4,4 +4,5 @@ candidate(b).
 allowed(a).
 answer(X, ok) :- candidate(X), allowed(X).
 
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

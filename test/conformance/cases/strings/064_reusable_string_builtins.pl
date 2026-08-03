@@ -1,5 +1,6 @@
 % Reference 9.1: reusable string normalization, splitting, joining, replacement, and conversions.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 answer(trim, X) :- trim("  Hello Eyepl  ", X).
 answer(lower, X) :- lowercase("Hello Eyepl", X).
 answer(upper, X) :- uppercase("Hello Eyepl", X).

@@ -3,13 +3,15 @@
 % Complex values are represented as two-item lists [Real, Imaginary], matching
 % the pair-shaped pair lists used by the Eyeling source.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
 %
 % The example derives arithmetic identities, polar conversions, powers, roots,
 % exponential/trigonometric functions, and distance/normalization results from
 % a small complex-number toolkit.
-query(complex_power(X0, X1, X2, X3)).
-query(complex_function(X0, X1, X2, X3)).
+%% goal: complex_power(X0, X1, X2, X3)
+
+%% goal: complex_function(X0, X1, X2, X3)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 pi(3.141592653589793).

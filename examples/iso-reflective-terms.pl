@@ -2,7 +2,8 @@
 %
 % These operations are useful when a program manipulates syntax trees,
 % schemas, or other terms whose shape is not fixed in the calling clause.
-query(report(X0, X1)).
+%% goal: report(X0, X1)
+
 
 sample(event(sensor_7, reading(temperature, 21))).
 

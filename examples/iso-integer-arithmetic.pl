@@ -2,7 +2,8 @@
 %
 % In Eyepl's supported profile, div and // both truncate the quotient toward
 % zero. mod normalizes by a positive divisor while rem keeps the dividend sign.
-query(report(X0, X1)).
+%% goal: report(X0, X1)
+
 
 report(div_mod, quotient_remainder(Q, R)) :-
   Q is -7 div 3,

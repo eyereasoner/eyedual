@@ -1,4 +1,5 @@
-query(answer).
+%% goal: answer
+
 
 answer :-
   Term =.. [pair | Tail].

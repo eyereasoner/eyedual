@@ -14,7 +14,6 @@ export class Program {
     for (const [priority, specifier, name] of ISO_OPERATOR_DEFINITIONS) {
       this.defineOperator(priority, specifier, name);
     }
-    this.queries = [];
     this.fuses = [];
     this.initializations = [];
     this.prologFlagDirectives = [];
@@ -51,10 +50,6 @@ export class Program {
       if (isDirectiveClause(clause)) continue;
       if (isInferenceFuse(clause)) {
         this.fuses.push(clause);
-        continue;
-      }
-      if (isQueryDeclaration(clause)) {
-        this.queries.push(clause.head.args[0]);
         continue;
       }
       this.indexClause(clause);
@@ -358,26 +353,11 @@ export class Program {
     const lines = new Set();
     const env = new Env();
     for (const clause of this.clauses) {
-      if (clause.body.length !== 0 || (clause.head.type !== ATOM && clause.head.type !== COMPOUND) || isQueryDeclaration(clause)) continue;
+      if (clause.body.length !== 0 || (clause.head.type !== ATOM && clause.head.type !== COMPOUND)) continue;
       if (predicateKeys && !predicateKeys.has(`${clause.head.name}/${clause.head.arity}`)) continue;
       lines.add(`${termToString(clause.head, env, true)}.\n`);
     }
     return lines;
-  }
-  queryGoals() {
-    for (const goal of this.queries) {
-      if (goal.type === VAR) throw new PrologError('instantiation_error');
-      if (goal.type !== ATOM && goal.type !== COMPOUND) throw new PrologError('type_error(callable)', goal);
-    }
-    const groupOrder = new Map([...this.groups.keys()].map((key, index) => [key, index]));
-    return this.queries
-      .map((goal, index) => ({ goal, index }))
-      .sort((left, right) => {
-        const leftOrder = groupOrder.get(`${left.goal.name}/${left.goal.arity}`) ?? Number.MAX_SAFE_INTEGER;
-        const rightOrder = groupOrder.get(`${right.goal.name}/${right.goal.arity}`) ?? Number.MAX_SAFE_INTEGER;
-        return leftOrder - rightOrder || left.index - right.index;
-      })
-      .map(({ goal }) => goal);
   }
 }
 
@@ -414,13 +394,6 @@ function expandIncludedClauses(clauses, options, ensured) {
     expanded.push(...expandIncludedClauses(included, childOptions, ensured));
   }
   return expanded;
-}
-
-function isQueryDeclaration(clause) {
-  return clause.body.length === 0
-    && clause.head.type === COMPOUND
-    && clause.head.name === 'query'
-    && clause.head.arity === 1;
 }
 
 function isDirectiveClause(clause) {

@@ -7,11 +7,16 @@
 % The file also includes deliberately slower and tower-style reports, making it a
 % small arithmetic benchmark for recursive definitions, modular arithmetic, and
 % bounded output selection.
-query(pow(X0, X1)).
-query(powSlow(X0, X1)).
-query(powMod1e6(X0, X1)).
-query(tower(X0, X1)).
-query(towerMod1e6(X0, X1)).
+%% goal: pow(X0, X1)
+
+%% goal: powSlow(X0, X1)
+
+%% goal: powMod1e6(X0, X1)
+
+%% goal: tower(X0, X1)
+
+%% goal: towerMod1e6(X0, X1)
+
 
 % Base case and parity split for exponentiation by squaring.  Even exponents
 % square the half-power; odd exponents peel off one base factor.

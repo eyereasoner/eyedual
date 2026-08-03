@@ -3,11 +3,15 @@
 % The sample is the textbook data set [2,4,4,4,5,5,7,9], whose population
 % mean is 5, variance is 4, and standard dederivation is 2.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(count(X0, X1)).
-query(mean(X0, X1)).
-query(populationVariance(X0, X1)).
-query(populationStddev(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: count(X0, X1)
+
+%% goal: mean(X0, X1)
+
+%% goal: populationVariance(X0, X1)
+
+%% goal: populationStddev(X0, X1)
+
 
 % The sample is one list fact, which lets recursive list folds demonstrate
 % aggregation without introducing a separate row relation.

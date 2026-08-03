@@ -3,4 +3,5 @@ text(a, "alpha").
 text(b, "beta").
 answer(has_ph, K) :- text(K, T), matches(T, "ph").
 answer(no_ph, K) :- text(K, T), \+ matches(T, "ph").
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

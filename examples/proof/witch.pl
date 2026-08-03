@@ -3,31 +3,31 @@ why(
   witch(girl),
   proof(
     goal(witch(girl)),
-    by(rule("witch.pl", clause(6))),
+    by(rule("witch.pl", clause(1))),
     bindings([binding("X", girl)]),
     uses([
       proof(
         goal(burns(girl)),
-        by(rule("witch.pl", clause(8))),
+        by(rule("witch.pl", clause(3))),
         bindings([binding("X", girl)]),
         uses([
           proof(
             goal(madeOfWood(girl)),
-            by(rule("witch.pl", clause(9))),
+            by(rule("witch.pl", clause(4))),
             bindings([binding("X", girl)]),
             uses([
               proof(
                 goal(floats(girl)),
-                by(rule("witch.pl", clause(11))),
+                by(rule("witch.pl", clause(6))),
                 bindings([binding("Y", girl), binding("X", duck)]),
                 uses([
                   proof(
                     goal(sameWeight(duck, girl)),
-                    by(fact("witch.pl", clause(12)))
+                    by(fact("witch.pl", clause(7)))
                   ),
                   proof(
                     goal(floats(duck)),
-                    by(fact("witch.pl", clause(10)))
+                    by(fact("witch.pl", clause(5)))
                   )
                 ])
               )
@@ -37,7 +37,7 @@ why(
       ),
       proof(
         goal(woman(girl)),
-        by(fact("witch.pl", clause(7)))
+        by(fact("witch.pl", clause(2)))
       )
     ])
   )
@@ -48,17 +48,17 @@ why(
   burns(duck),
   proof(
     goal(burns(duck)),
-    by(rule("witch.pl", clause(8))),
+    by(rule("witch.pl", clause(3))),
     bindings([binding("X", duck)]),
     uses([
       proof(
         goal(madeOfWood(duck)),
-        by(rule("witch.pl", clause(9))),
+        by(rule("witch.pl", clause(4))),
         bindings([binding("X", duck)]),
         uses([
           proof(
             goal(floats(duck)),
-            by(fact("witch.pl", clause(10)))
+            by(fact("witch.pl", clause(5)))
           )
         ])
       )
@@ -71,26 +71,26 @@ why(
   burns(girl),
   proof(
     goal(burns(girl)),
-    by(rule("witch.pl", clause(8))),
+    by(rule("witch.pl", clause(3))),
     bindings([binding("X", girl)]),
     uses([
       proof(
         goal(madeOfWood(girl)),
-        by(rule("witch.pl", clause(9))),
+        by(rule("witch.pl", clause(4))),
         bindings([binding("X", girl)]),
         uses([
           proof(
             goal(floats(girl)),
-            by(rule("witch.pl", clause(11))),
+            by(rule("witch.pl", clause(6))),
             bindings([binding("Y", girl), binding("X", duck)]),
             uses([
               proof(
                 goal(sameWeight(duck, girl)),
-                by(fact("witch.pl", clause(12)))
+                by(fact("witch.pl", clause(7)))
               ),
               proof(
                 goal(floats(duck)),
-                by(fact("witch.pl", clause(10)))
+                by(fact("witch.pl", clause(5)))
               )
             ])
           )
@@ -105,12 +105,12 @@ why(
   madeOfWood(duck),
   proof(
     goal(madeOfWood(duck)),
-    by(rule("witch.pl", clause(9))),
+    by(rule("witch.pl", clause(4))),
     bindings([binding("X", duck)]),
     uses([
       proof(
         goal(floats(duck)),
-        by(fact("witch.pl", clause(10)))
+        by(fact("witch.pl", clause(5)))
       )
     ])
   )
@@ -121,21 +121,21 @@ why(
   madeOfWood(girl),
   proof(
     goal(madeOfWood(girl)),
-    by(rule("witch.pl", clause(9))),
+    by(rule("witch.pl", clause(4))),
     bindings([binding("X", girl)]),
     uses([
       proof(
         goal(floats(girl)),
-        by(rule("witch.pl", clause(11))),
+        by(rule("witch.pl", clause(6))),
         bindings([binding("Y", girl), binding("X", duck)]),
         uses([
           proof(
             goal(sameWeight(duck, girl)),
-            by(fact("witch.pl", clause(12)))
+            by(fact("witch.pl", clause(7)))
           ),
           proof(
             goal(floats(duck)),
-            by(fact("witch.pl", clause(10)))
+            by(fact("witch.pl", clause(5)))
           )
         ])
       )
@@ -148,16 +148,16 @@ why(
   floats(girl),
   proof(
     goal(floats(girl)),
-    by(rule("witch.pl", clause(11))),
+    by(rule("witch.pl", clause(6))),
     bindings([binding("Y", girl), binding("X", duck)]),
     uses([
       proof(
         goal(sameWeight(duck, girl)),
-        by(fact("witch.pl", clause(12)))
+        by(fact("witch.pl", clause(7)))
       ),
       proof(
         goal(floats(duck)),
-        by(fact("witch.pl", clause(10)))
+        by(fact("witch.pl", clause(5)))
       )
     ])
   )
@@ -168,35 +168,35 @@ why(
   holds_result(witchExample, true),
   proof(
     goal(holds_result(witchExample, true)),
-    by(rule("witch.pl", clause(13))),
+    by(rule("witch.pl", clause(8))),
     uses([
       proof(
         goal(witch(girl)),
-        by(rule("witch.pl", clause(6))),
+        by(rule("witch.pl", clause(1))),
         bindings([binding("X", girl)]),
         uses([
           proof(
             goal(burns(girl)),
-            by(rule("witch.pl", clause(8))),
+            by(rule("witch.pl", clause(3))),
             bindings([binding("X", girl)]),
             uses([
               proof(
                 goal(madeOfWood(girl)),
-                by(rule("witch.pl", clause(9))),
+                by(rule("witch.pl", clause(4))),
                 bindings([binding("X", girl)]),
                 uses([
                   proof(
                     goal(floats(girl)),
-                    by(rule("witch.pl", clause(11))),
+                    by(rule("witch.pl", clause(6))),
                     bindings([binding("Y", girl), binding("X", duck)]),
                     uses([
                       proof(
                         goal(sameWeight(duck, girl)),
-                        by(fact("witch.pl", clause(12)))
+                        by(fact("witch.pl", clause(7)))
                       ),
                       proof(
                         goal(floats(duck)),
-                        by(fact("witch.pl", clause(10)))
+                        by(fact("witch.pl", clause(5)))
                       )
                     ])
                   )
@@ -206,7 +206,7 @@ why(
           ),
           proof(
             goal(woman(girl)),
-            by(fact("witch.pl", clause(7)))
+            by(fact("witch.pl", clause(2)))
           )
         ])
       )

@@ -4,14 +4,17 @@
 % four colours. This eyepl version keeps the same map/assignment shape and adds
 % a rule-level validation layer that rejects equal colours across borders.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
 %
 % The countries form a small planar-style adjacency graph. The example is a
 % constraint problem: assign colours, reject border conflicts, then query
 % the canonical colour vector and validation status.
-query(color(X0, X1)).
-query(status(X0, X1)).
-query(reason(X0, X1)).
+%% goal: color(X0, X1)
+
+%% goal: status(X0, X1)
+
+%% goal: reason(X0, X1)
+
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 country(belgium). country(netherlands). country(luxemburg). country(france).

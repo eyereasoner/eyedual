@@ -1,4 +1,5 @@
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 num(1).
 num(2).
 num(3).

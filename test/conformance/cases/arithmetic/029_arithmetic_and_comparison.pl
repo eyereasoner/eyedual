@@ -8,4 +8,5 @@ answer(power, X) :- (X is 2 ** 8).
 answer(minimum, X) :- min(3, 9, X).
 answer(less_than, true) :- (3 < 9).
 answer(greater_equal, true) :- (9 >= 9).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

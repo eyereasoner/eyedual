@@ -3,4 +3,5 @@ p(b).
 p(a).
 p(b).
 answer(bag, X) :- findall(P, p(P), X).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

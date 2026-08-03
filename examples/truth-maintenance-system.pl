@@ -5,10 +5,14 @@
 % which environments support a belief and which environments are inconsistent
 % because they support contradictory conclusions.
 
-query(tmsSupport(X0, X1)).
-query(tmsJustification(X0, X1, X2)).
-query(tmsInconsistent(X0)).
-query(tmsConclusion(X0, X1)).
+%% goal: tmsSupport(X0, X1)
+
+%% goal: tmsJustification(X0, X1, X2)
+
+%% goal: tmsInconsistent(X0)
+
+%% goal: tmsConclusion(X0, X1)
+
 
 
 % Candidate environments.

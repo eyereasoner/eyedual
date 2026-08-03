@@ -404,6 +404,8 @@
         </div>
       </div>
       <div class="toolbar button-row">
+        <label for="goal">Goals</label>
+        <input id="goal" type="text" placeholder="ancestor(ada, Who); path(a, X)" aria-label="Goals to solve, separated by semicolons">
         <button id="run" type="button" class="primary">Run reasoning</button>
         <button id="stop" type="button" disabled>Stop</button>
         <button id="copy-source" type="button">Copy source</button>
@@ -636,13 +638,12 @@
           "workplace-compliance",
           "zebra"
     ];
-    const FALLBACK_SOURCE = `query(answer(X)).
-answer(ok) :- eq(ok, ok).
+    const FALLBACK_SOURCE = `answer(ok) :- eq(ok, ok).
 `;
     const HIGHLIGHT_LIMIT = 200000;
     const MAX_SHARE_URL_LENGTH = 1900;
     const GIST_STATE_FILENAME = 'eyepl-playground-state.json';
-    const KEYWORDS = new Set(['false', 'query', 'table']);
+    const KEYWORDS = new Set(['false', 'table']);
     const BUILTINS = new Set([
             "abs",
             "acos",
@@ -724,6 +725,7 @@ answer(ok) :- eq(ok, ok).
       ]);
 
     const source = document.querySelector('#source');
+    const goal = document.querySelector('#goal');
     const highlight = document.querySelector('#highlight');
     const lineNumbers = document.querySelector('#line-numbers');
     const lineNumbersInner = lineNumbers.firstElementChild;
@@ -843,11 +845,22 @@ answer(ok) :- eq(ok, ok).
 
     function setSource(text, name, reference = { kind: 'custom' }) {
       source.value = text;
+      const suggestedGoals = suggestedGoalsFromSource(text);
+      if (suggestedGoals.length) goal.value = suggestedGoals.join('; ');
+      else if (reference.kind !== 'custom') goal.value = '';
       sourceName.textContent = name;
       sourceReference = reference;
       sourceDirty = false;
       clearSyntaxError();
       render();
+    }
+
+    function suggestedGoalsFromSource(text) {
+      return [...text.matchAll(/^\s*%%\s*goal:\s*(.+)$/gm)].map((match) => match[1].trim());
+    }
+
+    function selectedGoals() {
+      return goal.value.split(';').map((text) => text.trim()).filter(Boolean);
     }
 
     function render() {
@@ -945,7 +958,7 @@ answer(ok) :- eq(ok, ok).
       runButton.disabled = true;
       stopButton.disabled = false;
 
-      const workerUrl = new URL('./src/playground-worker.js?playground=20260731c', location.href);
+      const workerUrl = new URL('./src/playground-worker.js?playground=20260803d', location.href);
       activeWorker = new Worker(workerUrl, { type: 'module' });
       activeWorker.onmessage = (event) => finishRun(event.data);
       activeWorker.onerror = (event) => {
@@ -964,7 +977,7 @@ answer(ok) :- eq(ok, ok).
       });
       activeWorker.postMessage({
         source: combinedSource(),
-        options: { proof: proof.checked, stats: stats.checked },
+        options: { goals: selectedGoals(), proof: proof.checked, stats: stats.checked },
       });
     }
 
@@ -1048,7 +1061,7 @@ answer(ok) :- eq(ok, ok).
         setStatus(editorLine == null ? 'Run failed.' : `Syntax error on line ${editorLine}.`, true);
         return;
       }
-      let text = message.stdout || '(no query answers)\n';
+      let text = message.stdout || '(no answers)\n';
       if (stats.checked && message.stats) text += '\n% stats\n' + formatStats(message.stats);
       output.textContent = text;
       const seconds = (message.elapsedMs / 1000).toFixed(3);
@@ -1162,6 +1175,7 @@ answer(ok) :- eq(ok, ok).
     function currentShareState() {
       return {
         source: source.value,
+        goal: goal.value,
         proof: proof.checked,
         stats: stats.checked,
         backgroundSource,
@@ -1249,6 +1263,7 @@ answer(ok) :- eq(ok, ok).
 
     function applySharedState(payload, label) {
       setSource(String(payload.source || ''), label, { kind: 'custom' });
+      goal.value = String(payload.goal || suggestedGoalsFromSource(source.value).join('; '));
       proof.checked = Boolean(payload.proof);
       stats.checked = Boolean(payload.stats);
       backgroundSource = String(payload.backgroundSource || '');

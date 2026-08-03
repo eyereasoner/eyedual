@@ -36,7 +36,7 @@
   <rect class="core" x="335" y="175" width="230" height="150" rx="18"/>
   <text class="code" x="450" y="212" text-anchor="middle">source.pl</text>
   <path class="path" d="M372 235H528"/>
-  <text class="code" x="450" y="268" text-anchor="middle">query(Question).</text>
+  <text class="code" x="450" y="268" text-anchor="middle">eyepl --goal 'Question' program.pl</text>
   <text class="code" x="450" y="300" text-anchor="middle">rule :- evidence.</text>
 
   <rect x="305" y="385" width="140" height="55" rx="10" fill="#fffdf7" stroke="#2f6f55" stroke-width="2"/>

@@ -1,5 +1,6 @@
 % Reference 9.1: aggregation handles empty result sets, structured templates, and ordered best answers.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 score(alice, 2).
 score(bob, 1).
 score(cara, 3).

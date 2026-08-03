@@ -1,5 +1,6 @@
 % Reference 9.1: reusable string built-ins cover empty results and scalar list items.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 answer(split_missing_separator, X) :- split("abc", ",", X).
 answer(split_empty_separator, X) :- split("abc", "", X).
 answer(join_empty, X) :- join([], ",", X).

@@ -2,4 +2,5 @@
 raw(string, "line\nnext\t\\slash").
 raw(atom, 'line\nnext\t\\slash').
 answer(K, V) :- raw(K, V).
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+

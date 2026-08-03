@@ -3,7 +3,8 @@
 % The example treats goals as data with call/1, commits to one answer with
 % once/1, makes a local if-then-else decision, and turns a thrown domain term
 % into an ordinary result with catch/3.
-query(report(X0, X1)).
+%% goal: report(X0, X1)
+
 
 route(antwerp, ghent).
 route(antwerp, brussels).

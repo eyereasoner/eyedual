@@ -1,5 +1,5 @@
 // Command-line interface for Eyepl.
-// It loads programs from files, URLs, or stdin, then runs their declared queries.
+// It loads programs from files, URLs, or stdin, then runs requested goals.
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
@@ -19,6 +19,7 @@ export async function main(argv) {
     stats: false,
     version: false,
     warnings: false,
+    goals: [],
   };
 
   let endOptions = false;
@@ -39,6 +40,10 @@ export async function main(argv) {
       options.version = true;
     } else if (!endOptions && (arg === '--warnings' || arg === '-w')) {
       options.warnings = true;
+    } else if (!endOptions && arg === '--goal') {
+      const goal = argv[++i];
+      if (goal == null) throw new Error('option --goal requires a goal');
+      options.goals.push(goal);
     } else if (!endOptions && arg.startsWith('-') && !arg.startsWith('--') && arg.length > 2) {
       const flags = arg.slice(1);
       for (const flag of flags) {
@@ -99,15 +104,16 @@ export async function main(argv) {
 
 async function loadEngine() {
   if (engineModule == null) {
-    const [term, program, solver, iso, library, fuse] = await Promise.all([
+    const [term, parser, program, solver, iso, library, fuse] = await Promise.all([
       import('./term.js'),
+      import('./parser.js'),
       import('./program.js'),
       import('./solver.js'),
       import('./iso.js'),
       import('./library.js'),
       import('./fuse.js'),
     ]);
-    engineModule = { ...term, ...program, ...solver, ...iso, ...library, ...fuse };
+    engineModule = { ...term, ...parser, ...program, ...solver, ...iso, ...library, ...fuse };
   }
   return engineModule;
 }
@@ -118,7 +124,12 @@ async function loadExplanation() {
 }
 
 async function runDefault(engine, program, options) {
-  const goals = program.queryGoals();
+  const goals = options.goals.map((text) => {
+    const goal = engine.parseGoalText(text);
+    if (goal.type === 'var') throw new engine.PrologError('instantiation_error');
+    if (goal.type !== 'atom' && goal.type !== 'compound') throw new engine.PrologError('type_error(callable)', goal);
+    return goal;
+  });
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
   const facts = program.sourceFactLines(queriedKeys);
   const lines = new Set();
@@ -177,6 +188,7 @@ Options:
   -s, --stats           Print solver statistics to stderr after execution.
   -v, --version         Show the package version and exit.
   -w, --warnings        Print non-fatal portability warnings to stderr.
+  --goal goal           Solve goal and print its ground answers; may be repeated.
   --                    Stop option parsing; following arguments are treated as files.
 `);
 }

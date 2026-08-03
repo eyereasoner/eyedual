@@ -3,7 +3,8 @@
 % Each report/2 clause demonstrates a small reusable operation: trimming and
 % lowercasing text, splitting and joining tags, de-duplicating lists, slicing a
 % window, aggregating scores, and validating facts with forall/2.
-query(report(X0, X1)).
+%% goal: report(X0, X1)
+
 
 name_raw("  Ada Lovelace  ").
 tag_csv("logic,math,logic,programming").

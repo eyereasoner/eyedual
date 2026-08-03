@@ -1,5 +1,5 @@
 // Inference fuses are integrity constraints written as `false :- Goals.`
-// They are checked before output queries and abort reasoning on the first match.
+// They are checked before output goals and abort reasoning on the first match.
 import { Env, copyResolved, termToString } from './term.js';
 
 export const INFERENCE_FUSE_EXIT_CODE = 65;

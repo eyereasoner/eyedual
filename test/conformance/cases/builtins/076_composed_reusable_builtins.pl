@@ -1,5 +1,6 @@
 % Reference 9.1: reusable built-ins compose without special host predicates.
-query(answer(X0, X1)).
+%% goal: answer(X0, X1)
+
 line("  red,green,blue  ").
 answer(clean_join, X) :- line(Raw), trim(Raw, Trimmed), split(Trimmed, ",", Parts), join(Parts, "|", X).
 answer(middle_upper, X) :- line(Raw), trim(Raw, Trimmed), split(Trimmed, ",", Parts), nth0(1, Parts, Middle), uppercase(Middle, X).

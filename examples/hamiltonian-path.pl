@@ -4,9 +4,11 @@
 % vertex set directly and derives every path that visits each vertex exactly
 % once.
 
-% Output declarations: query/1 selects the relations written to this example's golden output.
-query(hasHamiltonianPath(X0, X1)).
-query(hamiltonianPath(X0, X1)).
+% Output declarations: host-supplied goals select the relations written to this example's golden output.
+%% goal: hasHamiltonianPath(X0, X1)
+
+%% goal: hamiltonianPath(X0, X1)
+
 
 % The finite six-vertex graph is small enough to search directly.  adjacent/2
 % is tabled because every candidate path repeatedly asks the same edge tests.

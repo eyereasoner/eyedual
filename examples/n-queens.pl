@@ -30,4 +30,5 @@ attack(X, N, [_|Ys]) :-
     attack(X, N1, Ys).
 
 % query
-query(queens(8, _)).
+%% goal: queens(8, _)
+
