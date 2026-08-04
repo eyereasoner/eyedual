@@ -1,4 +1,4 @@
-% From The Art of WebEntail, Chapter 25.
+% From The Art of EyeDual, Chapter 25.
 active_badge(Person, Badge) :-
   badge(Badge, Person),
   badge_status(Badge, active).

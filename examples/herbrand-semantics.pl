@@ -7,7 +7,7 @@
 
 
 % Under unrestricted Tarskian semantics, alice and bob could denote the same
-% element. In WebEntail's Herbrand universe, their different syntax is enough.
+% element. In EyeDual's Herbrand universe, their different syntax is enough.
 different(alice, bob) :-
   (alice \= bob).
 

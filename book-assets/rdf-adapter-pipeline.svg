@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="380" viewBox="0 0 900 380" role="img" aria-labelledby="title desc">
-  <title id="title">RDF data passing through the WebEntail adapter</title>
-  <desc id="desc">Documents and named graphs enter an adapter, become rdf facts for WebEntail rules, and leave as derived N-Quads.</desc>
+  <title id="title">RDF data passing through the EyeDual adapter</title>
+  <desc id="desc">Documents and named graphs enter an adapter, become rdf facts for EyeDual rules, and leave as derived N-Quads.</desc>
   <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L0 6 L9 3Z" fill="#536b78"/></marker></defs>
   <style>
     .bg{fill:#e9f1ee}.paper{fill:#fffdf7;stroke:#243447;stroke-width:2}.adapter{fill:#dcefe8;stroke:#2f6f55;stroke-width:4}
@@ -9,6 +9,6 @@
   </style>
   <rect width="900" height="380" class="bg"/>
   <g transform="translate(35 65)"><rect class="paper" width="190" height="240" rx="6"/><text class="title" x="95" y="35" text-anchor="middle">RDF SOURCES</text><circle cx="52" cy="90" r="13" fill="#a55246"/><circle cx="135" cy="75" r="13" fill="#2f6f55"/><circle cx="115" cy="145" r="13" fill="#d9b85f"/><path class="graph" d="M65 87 L122 78 M128 88 L119 132 M62 99 L105 139"/><text class="text" x="95" y="195" text-anchor="middle">Turtle · TriG</text><text class="text" x="95" y="220" text-anchor="middle">JSON-LD · RDF/XML</text></g>
-  <path class="flow" d="M230 185 H295"/><rect class="adapter" x="305" y="92" width="290" height="186" rx="16"/><text class="title" x="450" y="125" text-anchor="middle">EXPLICIT ADAPTER</text><text class="text" x="330" y="165">rdf(Subject,</text><text class="text" x="365" y="190">Predicate,</text><text class="text" x="365" y="215">Object, Graph)</text><text class="text" x="330" y="250">+ WebEntail rules</text>
+  <path class="flow" d="M230 185 H295"/><rect class="adapter" x="305" y="92" width="290" height="186" rx="16"/><text class="title" x="450" y="125" text-anchor="middle">EXPLICIT ADAPTER</text><text class="text" x="330" y="165">rdf(Subject,</text><text class="text" x="365" y="190">Predicate,</text><text class="text" x="365" y="215">Object, Graph)</text><text class="text" x="330" y="250">+ EyeDual rules</text>
   <path class="flow" d="M595 185 H660"/><g transform="translate(670 65)"><rect class="paper" width="195" height="240" rx="6"/><text class="title" x="98" y="35" text-anchor="middle">DERIVED RDF</text><text class="text" x="20" y="82">&lt;s&gt; &lt;ancestor&gt; &lt;o&gt;</text><text class="text" x="20" y="110">&lt;s&gt; &lt;status&gt; "safe"</text><text class="text" x="20" y="160">RDF 1.2 N-Quads</text><text class="text" x="20" y="195">named graphs and</text><text class="text" x="20" y="220">triple terms retained</text></g>
 </svg>

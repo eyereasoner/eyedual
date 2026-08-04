@@ -1,4 +1,4 @@
-% From The Art of WebEntail, Chapter 34.
+% From The Art of EyeDual, Chapter 34.
 require_route(From, To) :-
   (route(From, To) -> true ; throw(no_route(From, To))).
 

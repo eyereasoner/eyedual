@@ -1,4 +1,4 @@
-% ODRL + DPV + local FPV trust-flow decisioning in WebEntail.
+% ODRL + DPV + local FPV trust-flow decisioning in EyeDual.
 %
 % Each flow has a source, recipient, data item, action, and purpose.  Permissions
 % and prohibitions are checked together with source trust scores to produce

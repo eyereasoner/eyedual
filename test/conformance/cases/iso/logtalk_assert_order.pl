@@ -1,5 +1,5 @@
 % Adapted from Logtalk asserta/1 and assertz/1 ISO examples.
-% Modified for WebEntail's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for EyeDual's conformance harness. See test/conformance/THIRD_PARTY.md.
 :- dynamic(item/1).
 item(middle).
 %% goal: assert_order(X0)

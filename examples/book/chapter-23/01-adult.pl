@@ -1,4 +1,4 @@
-% From The Art of WebEntail, Chapter 23 — Unfolding and folding.
+% From The Art of EyeDual, Chapter 23 — Unfolding and folding.
 adult(Person) :-
   recorded_age(Person, Age),
   adult_age(Age).

@@ -1,4 +1,4 @@
-% From The Art of WebEntail, Chapter 19 — Termination needs its own argument.
+% From The Art of EyeDual, Chapter 19 — Termination needs its own argument.
 factorial(0, 1).
 factorial(N, F) :-
   (N > 0),

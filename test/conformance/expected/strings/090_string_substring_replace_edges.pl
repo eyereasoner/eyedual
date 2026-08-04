@@ -1,4 +1,4 @@
-answer(prefix, "webentail").
+answer(prefix, "eyedual").
 answer(middle, "la").
 answer(suffix, "lla").
 answer(empty_at_end, "").

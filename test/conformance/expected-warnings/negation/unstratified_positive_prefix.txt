@@ -1,2 +1,2 @@
-webentail warning: unstratified negation
+eyedual warning: unstratified negation
   helper/1 depends negatively on q/1

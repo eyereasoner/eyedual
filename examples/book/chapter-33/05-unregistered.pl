@@ -1,4 +1,4 @@
-% From The Art of WebEntail, Chapter 33 — Pattern 5: Bound absence.
+% From The Art of EyeDual, Chapter 33 — Pattern 5: Bound absence.
 unregistered(Person) :-
   person(Person),
   \+ registered(Person).

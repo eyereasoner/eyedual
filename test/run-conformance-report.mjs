@@ -24,7 +24,7 @@ export function buildConformanceReport() {
   for (const { kind, expectedKind, expectedExt, column } of KINDS) {
     const base = path.join(conformanceRoot, kind);
     if (!fs.existsSync(base)) continue;
-    for (const file of listWebEntailFiles(base)) {
+    for (const file of listEyeDualFiles(base)) {
       const category = categoryOf(file);
       const counts = ensureCategory(categories, category);
       counts[column]++;
@@ -56,7 +56,7 @@ export function buildConformanceReport() {
 
 export function formatConformanceReport(report = buildConformanceReport()) {
   const lines = [
-    '# WebEntail conformance report',
+    '# EyeDual conformance report',
     '',
     'This report summarizes the file-based conformance corpus under `test/conformance/`.',
     '',
@@ -77,12 +77,12 @@ export function formatConformanceReport(report = buildConformanceReport()) {
   return `${lines.join('\n')}\n`;
 }
 
-function listWebEntailFiles(base, dir = base) {
+function listEyeDualFiles(base, dir = base) {
   const files = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      files.push(...listWebEntailFiles(base, full));
+      files.push(...listEyeDualFiles(base, full));
     } else if (entry.isFile() && entry.name.endsWith('.pl')) {
       files.push(path.relative(base, full).split(path.sep).join('/'));
     }

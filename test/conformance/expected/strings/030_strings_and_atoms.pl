@@ -1,2 +1,2 @@
-answer(str_concat, "webentail").
+answer(str_concat, "eyedual").
 answer(contains, true).

@@ -7,7 +7,7 @@
 %   { X childOf Y. } => { X hasParent Y. }.
 %
 % The generated backward rule is represented as quoted formula data in
-% log_impliedBy/2, then mirrored as an ordinary webentail rule so the generated
+% log_impliedBy/2, then mirrored as an ordinary eyedual rule so the generated
 % childOf relation can feed the ordinary hasParent rule.
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.

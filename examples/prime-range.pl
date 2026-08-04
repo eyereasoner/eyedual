@@ -1,7 +1,7 @@
 % Prime ranges and Euler totient over finite integer domains.
 %
 % The source example combines prime search with Euler's totient function.  This
-% WebEntail version keeps the computation finite and declarative: composite
+% EyeDual version keeps the computation finite and declarative: composite
 % numbers are described by proper divisors, primes are candidates that are not
 % composite, and `totient/2` counts numbers coprime with the input.
 

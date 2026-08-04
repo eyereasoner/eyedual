@@ -1,7 +1,7 @@
 % Register allocation as bounded graph coloring with spilling.
 %
 % Production allocators combine liveness analysis, interference graphs, register
-% classes, coalescing, requery execution, and spill-code insertion.  This WebEntail
+% classes, coalescing, requery execution, and spill-code insertion.  This EyeDual
 % example reduces the problem to its logical core: enumerate assignments of a
 % few temporaries to two registers or memory, reject register conflicts, and use
 % aggregate_min/5 to choose the cheapest spill plan.

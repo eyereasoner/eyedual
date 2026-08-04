@@ -1,4 +1,4 @@
-% From The Art of WebEntail, Chapter 8.
+% From The Art of EyeDual, Chapter 8.
 outgoing_costs(Node, Costs) :-
   findall(Cost, edge(Node, _, Cost), Costs).
 

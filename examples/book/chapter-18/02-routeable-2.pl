@@ -1,4 +1,4 @@
-% From The Art of WebEntail, Chapter 18.
+% From The Art of EyeDual, Chapter 18.
 routeable(Parcel, Hub) :-
   destination_zone(Parcel, Zone),
   serves(Hub, Zone),

@@ -1,4 +1,4 @@
-% From The Art of WebEntail, Chapter 23.
+% From The Art of EyeDual, Chapter 23.
 can_board(Person) :-
   registered(Person),
   identity_checked(Person),

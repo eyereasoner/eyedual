@@ -1,4 +1,4 @@
-% Web names as first-class WebEntail atoms.
+% Web names as first-class EyeDual atoms.
 %
 % Angle-bracket IRI atoms are ordinary atoms with globally meaningful names.
 % They are self-contained, require no prefix declarations, and can be joined
@@ -16,9 +16,9 @@ triple('<https://data.ugent.be/id/josd>', '<https://schema.org/email>', "josdero
 triple('<https://data.ugent.be/id/josd>', '<https://schema.org/affiliation>', '<https://data.ugent.be/id/idlab>').
 triple('<https://data.ugent.be/id/idlab>', '<https://schema.org/parentOrganization>', '<https://data.ugent.be/id/ugent>').
 
-triple('<https://github.com/eyereasoner/webentail>', '<https://schema.org/name>', "webentail").
-triple('<https://github.com/eyereasoner/webentail>', '<https://schema.org/codeRepository>', '<https://github.com/eyereasoner/webentail>').
-triple('<https://github.com/eyereasoner/webentail>', '<https://schema.org/maintainer>', '<https://data.ugent.be/id/josd>').
+triple('<https://github.com/eyereasoner/eyedual>', '<https://schema.org/name>', "eyedual").
+triple('<https://github.com/eyereasoner/eyedual>', '<https://schema.org/codeRepository>', '<https://github.com/eyereasoner/eyedual>').
+triple('<https://github.com/eyereasoner/eyedual>', '<https://schema.org/maintainer>', '<https://data.ugent.be/id/josd>').
 
 % Organization membership follows parentOrganization links transitively.
 parent_organization(Unit, Org) :-

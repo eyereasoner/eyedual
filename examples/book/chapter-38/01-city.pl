@@ -1,3 +1,3 @@
-% From The Art of WebEntail, Chapter 38.
+% From The Art of EyeDual, Chapter 38.
 city('München').
 message("café").

@@ -1,8 +1,8 @@
 % socket-age.pl
 %
-% A small runnable webentail Socket example for age reasoning.
+% A small runnable eyedual Socket example for age reasoning.
 %
-% The socket facts are ordinary webentail data. They document the semantic
+% The socket facts are ordinary eyedual data. They document the semantic
 % openings that this rule module expects:
 %
 %   - a patient registry that provides birthDay/2
@@ -12,7 +12,7 @@
 % The plug facts say which concrete providers are connected.
 %
 % Run:
-%   webentail socket-age.pl
+%   eyedual socket-age.pl
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.
 %% goal: ageAbove(X0, X1)

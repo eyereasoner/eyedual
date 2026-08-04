@@ -1,4 +1,4 @@
-# WebEntail conformance report
+# EyeDual conformance report
 
 This report summarizes the file-based conformance corpus under `test/conformance/`.
 

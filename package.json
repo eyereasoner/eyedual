@@ -1,15 +1,15 @@
 {
-  "name": "webentail",
+  "name": "eyedual",
   "publishConfig": {
     "access": "public"
   },
   "version": "0.4.0",
-  "description": "WebEntail turns facts and rules into answers and proofs.",
+  "description": "EyeDual turns facts and rules into answers and proofs.",
   "type": "module",
   "main": "./index.js",
   "types": "./index.d.ts",
   "bin": {
-    "webentail": "./bin/webentail.js"
+    "eyedual": "./bin/eyedual.js"
   },
   "keywords": [
     "logic",
@@ -22,22 +22,22 @@
   "author": "Jos De Roo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eyereasoner/webentail.git"
+    "url": "git+https://github.com/eyereasoner/eyedual.git"
   },
-  "homepage": "https://github.com/eyereasoner/webentail#readme",
+  "homepage": "https://github.com/eyereasoner/eyedual#readme",
   "files": [
     "LICENSE.md",
     "README.md",
     "index.js",
     "index.d.ts",
     "playground.html",
-    "webentail-logo.png",
+    "eyedual-logo.png",
     "bin",
     "src",
     "tools",
     "conformance-report.md",
-    "the-art-of-webentail.md",
-    "why-webentail.md",
+    "the-art-of-eyedual.md",
+    "why-eyedual.md",
     "book-assets",
     "examples",
     "test"
@@ -48,7 +48,7 @@
   "scripts": {
     "test": "node test/run-all.mjs",
     "generate": "node tools/extract-book-examples.mjs",
-    "test:webentail": "node test/run-all.mjs",
+    "test:eyedual": "node test/run-all.mjs",
     "test:conformance": "node test/run-conformance.mjs",
     "test:examples": "node test/run-examples.mjs",
     "test:regression": "node test/run-regression.mjs",

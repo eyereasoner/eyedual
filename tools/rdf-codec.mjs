@@ -1,4 +1,4 @@
-// Lossless RDF 1.2 <-> ordinary WebEntail term encoding.
+// Lossless RDF 1.2 <-> ordinary EyeDual term encoding.
 export const XSD_STRING = 'http://www.w3.org/2001/XMLSchema#string';
 export const RDF_LANG_STRING = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#langString';
 export const RDF_DIR_LANG_STRING = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString';
@@ -170,15 +170,15 @@ export function fromRdfJs(term, scope = 'input') {
   throw new Error(`unsupported RDF/JS term type: ${term.termType}`);
 }
 
-export function quadToWebEntail(q, predicate = 'rdf') {
-  return `${predicate}(${toWebEntail(q.subject)}, ${toWebEntail(q.predicate)}, ${toWebEntail(q.object)}, ${toWebEntail(q.graph)}).`;
+export function quadToEyeDual(q, predicate = 'rdf') {
+  return `${predicate}(${toEyeDual(q.subject)}, ${toEyeDual(q.predicate)}, ${toEyeDual(q.object)}, ${toEyeDual(q.graph)}).`;
 }
 
-export function toWebEntail(t) {
+export function toEyeDual(t) {
   if (t.kind === 'namedNode') return `iri(${quote(t.value)})`;
   if (t.kind === 'blankNode') return `bnode(${quote(t.scope)}, ${quote(t.value)})`;
   if (t.kind === 'defaultGraph') return 'default_graph';
-  if (t.kind === 'triple') return `triple(${toWebEntail(t.subject)}, ${toWebEntail(t.predicate)}, ${toWebEntail(t.object)})`;
+  if (t.kind === 'triple') return `triple(${toEyeDual(t.subject)}, ${toEyeDual(t.predicate)}, ${toEyeDual(t.object)})`;
   if (t.kind === 'literal') {
     const annotation = t.language
       ? (t.direction ? `lang(${quote(t.language)}, ${t.direction})` : `lang(${quote(t.language)})`)
@@ -188,20 +188,20 @@ export function toWebEntail(t) {
   throw new Error(`unsupported RDF term kind: ${t?.kind ?? typeof t}`);
 }
 
-export function webEntailQuadToNQuad(term) {
+export function eyeDualQuadToNQuad(term) {
   if (term?.type !== 'compound' || term.name !== 'rdf' || term.args.length !== 4) throw new Error('expected rdf/4 fact');
-  const [subject, predicate, object, graph] = term.args.map(fromWebEntail);
+  const [subject, predicate, object, graph] = term.args.map(fromEyeDual);
   assertTriple(subject, predicate, object);
   if (!['namedNode', 'blankNode', 'defaultGraph'].includes(graph.kind)) throw new Error('invalid RDF graph');
   return `${toNQ(subject)} ${toNQ(predicate)} ${toNQ(object)}${graph.kind === 'defaultGraph' ? '' : ` ${toNQ(graph)}`} .`;
 }
 
-export function fromWebEntail(t) {
+export function fromEyeDual(t) {
   if (t?.type === 'atom' && t.name === 'default_graph') return { kind: 'defaultGraph' };
   if (compound(t, 'iri', 1)) return { kind: 'namedNode', value: scalar(t.args[0], 'IRI') };
   if (compound(t, 'bnode', 2)) return { kind: 'blankNode', scope: scalar(t.args[0], 'blank-node scope'), value: scalar(t.args[1], 'blank-node label') };
   if (compound(t, 'triple', 3)) {
-    const [subject, predicate, object] = t.args.map(fromWebEntail);
+    const [subject, predicate, object] = t.args.map(fromEyeDual);
     assertTriple(subject, predicate, object);
     return { kind: 'triple', subject, predicate, object };
   }

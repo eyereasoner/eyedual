@@ -1,7 +1,7 @@
 % Prime enumeration inspired by Eyelet input/sieve.pl.
 % The 1000-limit answer matches Eyelet output-swipl/sieve.pl.
 %
-% webentail uses the built-in smallest_divisor_from/3 relation to keep the
+% eyedual uses the built-in smallest_divisor_from/3 relation to keep the
 % example fast while preserving the same generated prime list.
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.

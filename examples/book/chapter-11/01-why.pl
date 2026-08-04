@@ -1,4 +1,4 @@
-% From The Art of WebEntail, Chapter 11.
+% From The Art of EyeDual, Chapter 11.
 why(
   type(socrates, mortal),
   proof(

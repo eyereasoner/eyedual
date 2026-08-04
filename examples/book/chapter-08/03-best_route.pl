@@ -1,4 +1,4 @@
-% From The Art of WebEntail, Chapter 8.
+% From The Art of EyeDual, Chapter 8.
 best_route(From, To, Route, Cost) :-
   aggregate_min(
     [CandidateCost, CandidateRoute],

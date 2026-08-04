@@ -1,4 +1,4 @@
-// Built-ins in WebEntail's documented ISO compatibility profile. This is a
+// Built-ins in EyeDual's documented ISO compatibility profile. This is a
 // deliberately incomplete profile, not the complete standard environment.
 import {
   ATOM, COMPOUND, NUMBER, STRING, VAR, Env,
@@ -1311,7 +1311,7 @@ function formalErrorTerm(error) {
   if (error.culprit != null && formal.type === COMPOUND) {
     formal = compound(formal.name, [...formal.args, error.culprit]);
   }
-  return compound('error', [formal, atom('webentail')]);
+  return compound('error', [formal, atom('eyedual')]);
 }
 function* catchBuiltin({ solver, goal, env }) {
   const protectedGoal = callable(goal.args[0], env);
@@ -1505,7 +1505,7 @@ export class BuiltinRegistry {
       ready: options.ready ?? null,
       fallbackWhenNotReady: options.fallbackWhenNotReady ?? false,
       shouldUse: options.shouldUse ?? null,
-      webEntailLibrary: options.webEntailLibrary ?? false,
+      eyeDualLibrary: options.eyeDualLibrary ?? false,
     });
     return this;
   }

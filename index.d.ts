@@ -1,12 +1,12 @@
-export interface WebEntailStats {
+export interface EyeDualStats {
   [key: string]: number;
 }
 
-export interface WebEntailRunOptions {
+export interface EyeDualRunOptions {
   /** A host-supplied goal, expressed as Prolog text or a parsed term. */
-  goal?: string | WebEntailTerm;
+  goal?: string | EyeDualTerm;
   /** Host-supplied goals, executed in order. */
-  goals?: Array<string | WebEntailTerm>;
+  goals?: Array<string | EyeDualTerm>;
   proof?: boolean;
   why?: boolean;
   explain?: boolean;
@@ -23,9 +23,9 @@ export interface WebEntailRunOptions {
   [key: string]: unknown;
 }
 
-export interface WebEntailRunResult {
+export interface EyeDualRunResult {
   stdout: string;
-  stats: WebEntailStats;
+  stats: EyeDualStats;
   haltCode: number | null;
 }
 
@@ -37,25 +37,25 @@ export class StreamManager {
   currentOutput: number;
 }
 
-export interface WebEntailSourcePart {
+export interface EyeDualSourcePart {
   text?: string;
   source?: string;
   filename?: string;
   baseDir?: string;
 }
 
-export interface WebEntailClause {
-  head: WebEntailTerm;
-  body: WebEntailTerm[];
+export interface EyeDualClause {
+  head: EyeDualTerm;
+  body: EyeDualTerm[];
   index?: number;
   filename?: string;
   clauseNumber?: number;
 }
 
-export interface WebEntailPredicateGroup {
+export interface EyeDualPredicateGroup {
   name: string;
   arity: number;
-  clauses: WebEntailClause[];
+  clauses: EyeDualClause[];
   argIndexes: unknown[];
   demandIndexes: Map<string, unknown>;
   rejectedDemandIndexes: Set<string>;
@@ -65,42 +65,42 @@ export interface WebEntailPredicateGroup {
   negationStratum: number | null;
 }
 
-export type WebEntailTerm = Term | { type: string; name: string; args?: WebEntailTerm[]; arity?: number };
+export type EyeDualTerm = Term | { type: string; name: string; args?: EyeDualTerm[]; arity?: number };
 
 export class Term {
-  constructor(type: string, name?: unknown, args?: WebEntailTerm[]);
+  constructor(type: string, name?: unknown, args?: EyeDualTerm[]);
   type: string;
   name: string;
-  args: WebEntailTerm[];
+  args: EyeDualTerm[];
   get arity(): number;
 }
 
 export class Env {
-  constructor(bindings?: Iterable<readonly [string, WebEntailTerm]> | null);
-  bindings: Map<string, WebEntailTerm>;
+  constructor(bindings?: Iterable<readonly [string, EyeDualTerm]> | null);
+  bindings: Map<string, EyeDualTerm>;
   clone(): Env;
   has(name: string): boolean;
-  get(name: string): WebEntailTerm | undefined;
-  bind(name: string, term: WebEntailTerm): void;
+  get(name: string): EyeDualTerm | undefined;
+  bind(name: string, term: EyeDualTerm): void;
 }
 
 export class Program {
-  constructor(clauses?: WebEntailClause[], options?: WebEntailRunOptions);
-  clauses: WebEntailClause[];
-  groups: Map<string, WebEntailPredicateGroup>;
+  constructor(clauses?: EyeDualClause[], options?: EyeDualRunOptions);
+  clauses: EyeDualClause[];
+  groups: Map<string, EyeDualPredicateGroup>;
   negationDependencies: Array<{ from: string; to: string; negative: boolean }>;
   negationStratificationErrors: Array<{ from: string; to: string }>;
   stratifiedNegation: boolean;
-  static parse(source: string, options?: WebEntailRunOptions): Program;
-  static parseSources(sources?: Array<string | WebEntailSourcePart>, options?: WebEntailRunOptions): Program;
-  makeGroup(name: string, arity: number): WebEntailPredicateGroup;
-  indexClause(clause: WebEntailClause): void;
-  findGroup(name: string, arity: number): WebEntailPredicateGroup | null;
+  static parse(source: string, options?: EyeDualRunOptions): Program;
+  static parseSources(sources?: Array<string | EyeDualSourcePart>, options?: EyeDualRunOptions): Program;
+  makeGroup(name: string, arity: number): EyeDualPredicateGroup;
+  indexClause(clause: EyeDualClause): void;
+  findGroup(name: string, arity: number): EyeDualPredicateGroup | null;
   markRecursivePredicates(): void;
   analyzeNegationStratification(): Array<{ from: string; to: string }>;
   assertStratifiedNegation(): true;
   isStratifiedNegation(): boolean;
-  groupHasRule(group: WebEntailPredicateGroup): boolean;
+  groupHasRule(group: EyeDualPredicateGroup): boolean;
   sourceFactLines(predicateKeys?: Set<string> | null): Set<string>;
 }
 
@@ -109,24 +109,24 @@ export interface BuiltinDefinition {
   arity: number;
   handler: BuiltinHandler;
   deterministic: boolean;
-  ready: ((goal: WebEntailTerm, env: Env) => boolean) | null;
+  ready: ((goal: EyeDualTerm, env: Env) => boolean) | null;
   fallbackWhenNotReady: boolean;
-  shouldUse: ((context: { solver: Solver; goal: WebEntailTerm; env: Env }) => boolean) | null;
-  webEntailLibrary: boolean;
+  shouldUse: ((context: { solver: Solver; goal: EyeDualTerm; env: Env }) => boolean) | null;
+  eyeDualLibrary: boolean;
 }
 
-export type BuiltinHandler = (context: { solver: Solver; goal: WebEntailTerm; env: Env }) => Iterable<Env>;
+export type BuiltinHandler = (context: { solver: Solver; goal: EyeDualTerm; env: Env }) => Iterable<Env>;
 
 export class BuiltinRegistry {
   constructor();
   defs: Map<string, BuiltinDefinition>;
-  webEntailLibrary?: boolean;
+  eyeDualLibrary?: boolean;
   add(name: string, arity: number, handler: BuiltinHandler, options?: Partial<BuiltinDefinition>): this;
   get(name: string, arity: number): BuiltinDefinition | null;
 }
 
 export class Solver {
-  constructor(program: Program, options?: WebEntailRunOptions);
+  constructor(program: Program, options?: EyeDualRunOptions);
   program: Program;
   registry: BuiltinRegistry;
   maxDepth: number;
@@ -134,10 +134,10 @@ export class Solver {
   solutionsSeen: number;
   active: unknown[];
   memo: Map<string, unknown>;
-  stats: WebEntailStats;
+  stats: EyeDualStats;
   cloneForInnerGoal(solutionLimit?: number): Solver;
-  solve(goals: WebEntailTerm | WebEntailTerm[], env?: Env, depth?: number): Iterable<Env>;
-  activeVariant(goal: WebEntailTerm, env: Env): boolean;
+  solve(goals: EyeDualTerm | EyeDualTerm[], env?: Env, depth?: number): Iterable<Env>;
+  activeVariant(goal: EyeDualTerm, env: Env): boolean;
 }
 
 export const VAR: 'var';
@@ -151,44 +151,44 @@ export function atom(name: string): Term;
 export function stringTerm(value: string): Term;
 export function numberTerm(value: string | number): Term;
 /** Construct a compound term; an empty argument list is canonicalized to atom(name). */
-export function compound(name: string, args?: WebEntailTerm[]): Term;
+export function compound(name: string, args?: EyeDualTerm[]): Term;
 export function emptyList(): Term;
-export function cons(head: WebEntailTerm, tail: WebEntailTerm): Term;
-export function deref(term: WebEntailTerm, env: Env): WebEntailTerm;
-export function isScalar(term: WebEntailTerm | null | undefined): boolean;
-export function isEmptyList(term: WebEntailTerm | null | undefined): boolean;
-export function isCons(term: WebEntailTerm | null | undefined): boolean;
-export function isConjunction(term: WebEntailTerm | null | undefined): boolean;
-export function unify(left: WebEntailTerm, right: WebEntailTerm, env: Env): boolean;
-export function cloneTerm(term: WebEntailTerm): Term;
-export function freshTerm(term: WebEntailTerm, suffix: string | number): Term;
-export function copyResolved(term: WebEntailTerm, env: Env): Term;
-export function termIsGround(term: WebEntailTerm, env?: Env): boolean;
-export function termToString(term: WebEntailTerm, env?: Env, quoteStrings?: boolean): string;
-export function lexicalValue(term: WebEntailTerm, env: Env): string | null;
-export function properListItems(list: WebEntailTerm, env: Env): WebEntailTerm[] | null;
-export function listFromItems(items: WebEntailTerm[], start?: number, end?: number, tail?: WebEntailTerm): Term;
-export function flattenConjunction(goal: WebEntailTerm): WebEntailTerm[];
-export function termSignature(term: WebEntailTerm | null | undefined): string | null;
-export function variantTerms(left: WebEntailTerm, leftEnv: Env, right: WebEntailTerm, rightEnv: Env, pairs?: Map<string, string>, reverse?: Map<string, string>): boolean;
-export function compareTerms(left: WebEntailTerm, right: WebEntailTerm): number;
+export function cons(head: EyeDualTerm, tail: EyeDualTerm): Term;
+export function deref(term: EyeDualTerm, env: Env): EyeDualTerm;
+export function isScalar(term: EyeDualTerm | null | undefined): boolean;
+export function isEmptyList(term: EyeDualTerm | null | undefined): boolean;
+export function isCons(term: EyeDualTerm | null | undefined): boolean;
+export function isConjunction(term: EyeDualTerm | null | undefined): boolean;
+export function unify(left: EyeDualTerm, right: EyeDualTerm, env: Env): boolean;
+export function cloneTerm(term: EyeDualTerm): Term;
+export function freshTerm(term: EyeDualTerm, suffix: string | number): Term;
+export function copyResolved(term: EyeDualTerm, env: Env): Term;
+export function termIsGround(term: EyeDualTerm, env?: Env): boolean;
+export function termToString(term: EyeDualTerm, env?: Env, quoteStrings?: boolean): string;
+export function lexicalValue(term: EyeDualTerm, env: Env): string | null;
+export function properListItems(list: EyeDualTerm, env: Env): EyeDualTerm[] | null;
+export function listFromItems(items: EyeDualTerm[], start?: number, end?: number, tail?: EyeDualTerm): Term;
+export function flattenConjunction(goal: EyeDualTerm): EyeDualTerm[];
+export function termSignature(term: EyeDualTerm | null | undefined): string | null;
+export function variantTerms(left: EyeDualTerm, leftEnv: Env, right: EyeDualTerm, rightEnv: Env, pairs?: Map<string, string>, reverse?: Map<string, string>): boolean;
+export function compareTerms(left: EyeDualTerm, right: EyeDualTerm): number;
 export function isDecimalInteger(text: string | null | undefined): boolean;
 export function compareIntegerText(left: string, right: string): number;
 export function parseFiniteNumber(text: string | null | undefined): number | null;
 export function numberTextFromDouble(value: number): string | null;
 export function compareNumberText(left: string, right: string): number;
 
-export function makeProgram(source: string, options?: WebEntailRunOptions): Program;
-export function parseClauses(source: string, options?: WebEntailRunOptions): WebEntailClause[];
-export function parseProgramText(source: string, options?: WebEntailRunOptions): WebEntailClause[];
-export function parseGoalText(source: string): WebEntailTerm;
+export function makeProgram(source: string, options?: EyeDualRunOptions): Program;
+export function parseClauses(source: string, options?: EyeDualRunOptions): EyeDualClause[];
+export function parseProgramText(source: string, options?: EyeDualRunOptions): EyeDualClause[];
+export function parseGoalText(source: string): EyeDualTerm;
 export function createDefaultRegistry(): BuiltinRegistry;
-export function createWebEntailRegistry(): BuiltinRegistry;
+export function createEyeDualRegistry(): BuiltinRegistry;
 export function getDefaultRegistry(): BuiltinRegistry;
-export function getWebEntailRegistry(): BuiltinRegistry;
+export function getEyeDualRegistry(): BuiltinRegistry;
 export class PrologError extends Error {
   formal: string;
-  culprit: WebEntailTerm | null;
+  culprit: EyeDualTerm | null;
 }
 
 export class HaltSignal extends Error {
@@ -196,12 +196,12 @@ export class HaltSignal extends Error {
   code: number;
   constructor(code?: number);
 }
-export function run(source: string | Program, options?: WebEntailRunOptions): WebEntailRunResult;
-export function whyProof(program: Program, goal: WebEntailTerm, options?: WebEntailRunOptions): { ok: boolean; text: string };
-export function whyNoProof(goal: WebEntailTerm): string;
-export function explainProof(program: Program, goal: WebEntailTerm, options?: WebEntailRunOptions): { ok: boolean; text: string };
+export function run(source: string | Program, options?: EyeDualRunOptions): EyeDualRunResult;
+export function whyProof(program: Program, goal: EyeDualTerm, options?: EyeDualRunOptions): { ok: boolean; text: string };
+export function whyNoProof(goal: EyeDualTerm): string;
+export function explainProof(program: Program, goal: EyeDualTerm, options?: EyeDualRunOptions): { ok: boolean; text: string };
 
-declare const webentail: {
+declare const eyedual: {
   VAR: typeof VAR;
   ATOM: typeof ATOM;
   STRING: typeof STRING;
@@ -247,13 +247,13 @@ declare const webentail: {
   parseClauses: typeof parseClauses;
   parseProgramText: typeof parseProgramText;
   createDefaultRegistry: typeof createDefaultRegistry;
-  createWebEntailRegistry: typeof createWebEntailRegistry;
+  createEyeDualRegistry: typeof createEyeDualRegistry;
   getDefaultRegistry: typeof getDefaultRegistry;
-  getWebEntailRegistry: typeof getWebEntailRegistry;
+  getEyeDualRegistry: typeof getEyeDualRegistry;
   run: typeof run;
   whyProof: typeof whyProof;
   whyNoProof: typeof whyNoProof;
   explainProof: typeof explainProof;
 };
 
-export default webentail;
+export default eyedual;

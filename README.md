@@ -1,56 +1,56 @@
-# WebEntail
+# EyeDual
 
 <p align="center">
-  <img src="webentail-logo.png" alt="WebEntail logo" width="160">
+  <img src="eyedual-logo.png" alt="EyeDual logo" width="160">
 </p>
 
-[![npm version](https://img.shields.io/npm/v/webentail.svg)](https://www.npmjs.com/package/webentail)
+[![npm version](https://img.shields.io/npm/v/eyedual.svg)](https://www.npmjs.com/package/eyedual)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21446308-blue.svg)](https://doi.org/10.5281/zenodo.21446308)
 
-WebEntail combines ISO Prolog and W3C RDF 1.2 to turn portable rules and linked data into answers and inspectable proofs.
+EyeDual combines ISO Prolog and W3C RDF 1.2 to turn portable rules and linked data into answers and inspectable proofs.
 
-[Playground](https://eyereasoner.github.io/webentail/playground) ·
-[*The Art of WebEntail*](https://eyereasoner.github.io/webentail/the-art-of-webentail)
+[Playground](https://eyereasoner.github.io/eyedual/playground) ·
+[*The Art of EyeDual*](https://eyereasoner.github.io/eyedual/the-art-of-eyedual)
 
 ## Quick start
 
 Install the published CLI globally:
 
 ```bash
-npm install --global webentail
-webentail --version
-printf 'works(stdin, true) :- ok = ok.\n' | webentail --goal 'works(stdin, true)' -
+npm install --global eyedual
+eyedual --version
+printf 'works(stdin, true) :- ok = ok.\n' | eyedual --goal 'works(stdin, true)' -
 ```
 
-WebEntail has no build step. From a source checkout, install its RDF parser
+EyeDual has no build step. From a source checkout, install its RDF parser
 dependencies and run the CLI directly with Node.js 18 or newer:
 
 ```bash
 npm install
-node bin/webentail.js examples/ancestor.pl
-node bin/webentail.js --proof examples/socrates.pl
-node bin/webentail.js --warnings test/conformance/warnings/negation/unstratified_mutual.pl
-printf 'works(stdin, true) :- ok = ok.\n' | node bin/webentail.js --goal 'works(stdin, true)' -
+node bin/eyedual.js examples/ancestor.pl
+node bin/eyedual.js --proof examples/socrates.pl
+node bin/eyedual.js --warnings test/conformance/warnings/negation/unstratified_mutual.pl
+printf 'works(stdin, true) :- ok = ok.\n' | node bin/eyedual.js --goal 'works(stdin, true)' -
 ```
 
 For one-off local CLI use from the checkout, npm can run the package bin without a manual symlink:
 
 ```bash
-npm exec --yes --package=. -- webentail --version
-npm exec --yes --package=. -- webentail examples/ancestor.pl
+npm exec --yes --package=. -- eyedual --version
+npm exec --yes --package=. -- eyedual examples/ancestor.pl
 ```
 
-To install the checkout's `webentail` command on your `PATH`, use npm's package link:
+To install the checkout's `eyedual` command on your `PATH`, use npm's package link:
 
 ```bash
 npm link
-webentail --version
+eyedual --version
 ```
 
 For local browser use, run `python3 -m http.server` from the checkout and open
 `http://localhost:8000/playground.html`. Do not open `playground.html` directly as a
 `file:` URL: module workers require HTTP(S). Each run uses the dedicated
-`src/playground-worker.js` module, which creates the same WebEntail library registry used by the CLI and JavaScript API. Predicates such as `append/3` and
+`src/playground-worker.js` module, which creates the same EyeDual library registry used by the CLI and JavaScript API. Predicates such as `append/3` and
 `member/2` therefore work without a browser option. The playground supports the
 in-memory reasoner; filesystem predicates and `include/1` remain Node-only.
 After replacing playground files in an already-open tab, perform one hard refresh
@@ -59,14 +59,14 @@ to terminate the previous worker and discard its cached module graph.
 ## Classical and challenge search examples
 
 The example corpus now contains **200 runnable examples**. Three useful search
-stress cases exercise the WebEntail library, which is loaded by
+stress cases exercise the EyeDual library, which is loaded by
 default in the CLI, JavaScript API, and browser playground. Their exact checked
 answers live beside the other goldens under `examples/output/`:
 
 ```bash
-node bin/webentail.js examples/lee.pl
-node bin/webentail.js examples/n-queens.pl
-node bin/webentail.js examples/donald-gerald-robert.pl
+node bin/eyedual.js examples/lee.pl
+node bin/eyedual.js examples/n-queens.pl
+node bin/eyedual.js examples/donald-gerald-robert.pl
 ```
 
 [`lee.pl`](examples/lee.pl) performs Lee wavefront routing around rectangular
@@ -82,10 +82,10 @@ checked solution ([golden](examples/output/donald-gerald-robert.pl)).
 ## JavaScript API
 
 ```js
-import { run, Program, Solver } from 'webentail';
+import { run, Program, Solver } from 'eyedual';
 
 const result = run(`
-% Run with: webentail --goal 'answer(X0)' program.pl
+% Run with: eyedual --goal 'answer(X0)' program.pl
 answer(ok) :- ok = ok.
 `);
 console.log(result.stdout);
@@ -94,12 +94,12 @@ console.log(result.stdout);
 `run` returns captured `stdout`, numeric solver `stats`, and a nullable
 `haltCode` when `halt/0` or `halt/1` terminates the processor.
 
-The default runtime includes WebEntail's ISO/IEC 13211-1:1995 core profile plus
-54 WebEntail library predicates implemented in `src/library.js`, covering strings,
+The default runtime includes EyeDual's ISO/IEC 13211-1:1995 core profile plus
+54 EyeDual library predicates implemented in `src/library.js`, covering strings,
 lists, aggregation, dates, and arithmetic. The ISO profile itself has
 115 registered predicate indicators across 94 names.
 
-This is broad standards coverage, not a formal certification claim. WebEntail
+This is broad standards coverage, not a formal certification claim. EyeDual
 retains documented host conventions—most visibly host-supplied goals, automatic tabling,
 explicit integrity checks, and a distinct double-quoted string scalar—and exhaustive
 standard error/option combinations remain part of the conformance work.
@@ -108,8 +108,8 @@ without a CLI flag or JavaScript registry option.
 
 Advanced embedders and the ISO conformance suite can still select the isolated
 core registry explicitly with `createDefaultRegistry()` or
-`getDefaultRegistry()`. `createWebEntailRegistry()` creates the complete 169-entry
-registry: 115 ISO indicators and 54 WebEntail library indicators. Normal applications can rely on the default and do not need to
+`getDefaultRegistry()`. `createEyeDualRegistry()` creates the complete 169-entry
+registry: 115 ISO indicators and 54 EyeDual library indicators. Normal applications can rely on the default and do not need to
 install either explicitly.
 
 ISO streams are solver-owned and shared by nested goals. JavaScript callers
@@ -137,8 +137,8 @@ The spacecraft battery example combines sensor telemetry, the physical relation
 derive a diagnosis and safety action:
 
 ```bash
-node bin/webentail.js examples/spacecraft-battery-diagnosis.pl
-node bin/webentail.js -p examples/spacecraft-battery-diagnosis.pl
+node bin/eyedual.js examples/spacecraft-battery-diagnosis.pl
+node bin/eyedual.js -p examples/spacecraft-battery-diagnosis.pl
 ```
 
 The normal output reports computed metrics, a thermal-runaway precursor, and an
@@ -148,8 +148,8 @@ and the independent temperature channel.
 
 ## How it works
 
-The name *WebEntail* describes the system's purpose: deriving and explaining
-what follows from rules and linked data on the Web.
+The name *EyeDual* reflects the two standards at its foundation: ISO Prolog
+for executable rules and W3C RDF for linked data.
 
 Its default execution is automatically hybrid: ordinary goals use indexed
 depth-first resolution, while recursive helper predicate groups are detected
@@ -162,23 +162,23 @@ building indexes for small, weakly selective, or variable-heavy clause groups.
 The runtime boundary is intentionally visible in the source tree:
 [`src/iso.js`](src/iso.js) contains the isolated ISO processor registry, while
 [`src/library.js`](src/library.js) composes that core with host conveniences and
-the small profile-guided accelerator set. The complete WebEntail library is implemented directly in the browser-safe
+the small profile-guided accelerator set. The complete EyeDual library is implemented directly in the browser-safe
 [`src/library.js`](src/library.js), and the
 playground executes requests through the dedicated
 [`src/playground-worker.js`](src/playground-worker.js). Normal CLI, API, solver,
-proof, and playground execution uses the default WebEntail registry; advanced
+proof, and playground execution uses the default EyeDual registry; advanced
 embedders can still request the ISO-only registry. Every path uses the same
 parser, terms, solver, streams, and proof machinery.
 
 ## RDF 1.2 files
 
-The tools convert standard RDF files to ordinary WebEntail `rdf/4` facts, run
-WebEntail rules, and serialize query answers as RDF 1.2 N-Quads:
+The tools convert standard RDF files to ordinary EyeDual `rdf/4` facts, run
+EyeDual rules, and serialize query answers as RDF 1.2 N-Quads:
 
 ```bash
-node tools/rdf-to-webentail.mjs --rules rules.pl data.ttl -o program.pl
-node bin/webentail.js program.pl > derived.pl
-node tools/webentail-to-rdf.mjs derived.pl -o derived.nq
+node tools/rdf-to-eyedual.mjs --rules rules.pl data.ttl -o program.pl
+node bin/eyedual.js program.pl > derived.pl
+node tools/eyedual-to-rdf.mjs derived.pl -o derived.nq
 ```
 
 The input format is detected from the filename. Supported inputs include RDF
@@ -187,14 +187,14 @@ Microdata, Notation3 and SHACL Compact Syntax. For stdin, provide the format;
 use `--base` when relative IRIs need an explicit base:
 
 ```bash
-node tools/rdf-to-webentail.mjs --format turtle --base https://example/ -
+node tools/rdf-to-eyedual.mjs --format turtle --base https://example/ -
 ```
 
 RDF IRIs, scoped blank nodes, literals, directional language strings, nested
-triple terms, named graphs and the default graph all have lossless WebEntail term
+triple terms, named graphs and the default graph all have lossless EyeDual term
 encodings. The
-[RDF 1.2 chapter](https://eyereasoner.github.io/webentail/the-art-of-webentail#15-rdf-12-as-relational-data)
-in *The Art of WebEntail* covers the mapping and `--include-source` behavior.
+[RDF 1.2 chapter](https://eyereasoner.github.io/eyedual/the-art-of-eyedual#15-rdf-12-as-relational-data)
+in *The Art of EyeDual* covers the mapping and `--include-source` behavior.
 
 ## Tests
 
@@ -206,7 +206,7 @@ current category totals.
 The example runner compares **200 answer goldens** and **55 proof goldens**
 byte-for-byte; the extracted-book runner keeps executable displays synchronized with the book. The
 dedicated seven-case playground suite executes the exact production module-worker
-request path, checks that the WebEntail library is present across repeated browser
+request path, checks that the EyeDual library is present across repeated browser
 runs, verifies serializable success and parse-error messages, and crawls the served
 ES-module graph for missing assets, incorrect MIME types, and static Node-only
 imports.

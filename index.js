@@ -1,4 +1,4 @@
-// Public WebEntail JavaScript API.
+// Public EyeDual JavaScript API.
 export * from './src/index.js';
-import * as webentail from './src/index.js';
-export default webentail;
+import * as eyedual from './src/index.js';
+export default eyedual;

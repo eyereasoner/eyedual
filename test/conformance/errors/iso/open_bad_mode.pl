@@ -1,3 +1,3 @@
 %% goal: trigger
 
-trigger :- open('/tmp/webentail-never-opened', sideways, _, []).
+trigger :- open('/tmp/eyedual-never-opened', sideways, _, []).

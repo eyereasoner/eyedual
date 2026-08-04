@@ -2,7 +2,7 @@
 % Eyelet's input/superdense-coding.pl.
 %
 % The Eyelet program toggles dynamic sdcoding/2 facts so answers appearing an
-% even number of times cancel. webentail expresses the same finite example
+% even number of times cancel. eyedual expresses the same finite example
 % declaratively: for this protocol the surviving messages are exactly those
 % with a single support path after the interference choices are expanded.
 

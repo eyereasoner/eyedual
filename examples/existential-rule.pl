@@ -1,6 +1,6 @@
 % Existential-style introduction with explicit Herbrand witnesses.
 %
-% WebEntail has no blank nodes and no existential variables in rule heads.  A
+% EyeDual has no blank nodes and no existential variables in rule heads.  A
 % rule can still express the practical executable shape of an existential
 % consequence by putting a named functional term directly in the head.
 

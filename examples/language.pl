@@ -1,6 +1,6 @@
-% WebEntail language-identity example.
+% EyeDual language-identity example.
 %
-% This file intentionally uses the modern WebEntail surface syntax:
+% This file intentionally uses the modern EyeDual surface syntax:
 %   - `.pl` source files instead of Prolog `.pl` files
 %   - ISO Prolog-style uppercase variables
 %   - automatic tabling for recursive predicates

@@ -1,5 +1,5 @@
 % Bayesian diagnosis adapted from Eyeling bayes-diagnosis.n3.
-% The integer-scaled rules keep the model executable in webentail.  The emitted
+% The integer-scaled rules keep the model executable in eyedual.  The emitted
 % relations use Eyeling's full posterior vocabulary instead of rounded basis
 % points, so this example is comparable with examples/output/bayes-diagnosis.n3
 % in the Eyeling repository.
