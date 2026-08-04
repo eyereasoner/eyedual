@@ -1125,6 +1125,27 @@ function whiteBoxCases() {
       },
     },
     {
+      name: 'fast parser bounds rule-marker scans to the current fact line',
+      run: () => {
+        const lines = ['q(X, Y) :- p(X, Y).'];
+        for (let index = 0; index < 2_000; index++) lines.push(`p(a${index}, b${index}).`);
+        const source = lines.join('\n');
+        const originalIndexOf = String.prototype.indexOf;
+        let wholeSourceRuleScans = 0;
+        String.prototype.indexOf = function patchedIndexOf(search, ...args) {
+          if (search === ':-' && String(this) === source) wholeSourceRuleScans++;
+          return originalIndexOf.call(this, search, ...args);
+        };
+        try {
+          const program = Program.parse(source, { sourceMetadata: false });
+          assertEqual(program.clauses.length, 2_001, 'clause count');
+          assertEqual(wholeSourceRuleScans, 0, 'whole-source rule scans');
+        } finally {
+          String.prototype.indexOf = originalIndexOf;
+        }
+      },
+    },
+    {
       name: 'clause candidate selection builds arbitrary-width indexes on demand',
       run: () => {
         const facts = ['row(a0, b0, c0, first).', 'row(a0, X, c0, wildcard).'];

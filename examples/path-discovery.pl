@@ -23,7 +23,7 @@ route_between(Fromlabel, Tolabel, Maxstopovers, Routetext) :-
   reverse(Reversepath, Path),
   route_text(Path, Routetext).
 
-simple_path(Node, Node, _remaininglegs, Visited, Visited).
+simple_path(Node, Node, _Remaininglegs, Visited, Visited).
 simple_path(Node, Goal, Remaininglegs, Visited, Path) :-
   (Remaininglegs > 0),
   flight(Node, Next),

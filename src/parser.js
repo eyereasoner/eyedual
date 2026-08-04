@@ -725,16 +725,25 @@ function parseClausesFastNoSource(source) {
     return bodyGoal ? { head, body: [bodyGoal] } : null;
   };
 
+  const findRuleInRange = (text, start, end) => {
+    // String#indexOf has no end bound. Using it here used to scan the rest of
+    // the complete source for every fact line, making large fact files
+    // quadratic when their rules appeared before the facts.
+    for (let i = start; i + 1 < end; i++) {
+      if (text.charCodeAt(i) === 58 && text.charCodeAt(i + 1) === 45) return i;
+    }
+    return -1;
+  };
+
   const parseFastRange = (text, start, end) => {
     if (start >= end || text.charCodeAt(end - 1) !== 46) return null;
     const termEnd = end - 1;
-    const rule = text.indexOf(':-', start);
-    if (rule < 0 || rule >= termEnd) {
+    const rule = findRuleInRange(text, start, termEnd);
+    if (rule < 0) {
       const head = parseBinaryCompoundRange(text, start, termEnd);
       return head ? { head, body: [] } : null;
     }
-    const nextRule = text.indexOf(':-', rule + 2);
-    if (nextRule >= 0 && nextRule < termEnd) return null;
+    if (findRuleInRange(text, rule + 2, termEnd) >= 0) return null;
     const head = parseBinaryCompoundRange(text, start, rule);
     if (!head) return null;
     const bodyGoal = parseBinaryCompoundRange(text, rule + 2, termEnd);
