@@ -1,7 +1,7 @@
 # EyeDual
 
 <p align="center">
-  <img src="eyedual-logo.png" alt="EyeDual logo" width="160">
+  <img src="eyedual-logo.png" alt="EyeDual logo" width="520">
 </p>
 
 [![npm version](https://img.shields.io/npm/v/eyedual.svg)](https://www.npmjs.com/package/eyedual)
