@@ -1,13 +1,92 @@
 // Program representation and clause indexing.
 // Indexes are deliberately conservative: they speed up common scalar arguments but never replace unification as the final check.
-import { ATOM, COMPOUND, VAR, Env, atom, compound, deref, flattenConjunction, isScalar, numberTerm, properListItems, termToString } from './term.js';
-import { ISO_OPERATOR_DEFINITIONS, parseClauses } from './parser.js';
+import { ATOM, COMPOUND, VAR, Env, atom, compound, deref, flattenConjunction, isScalar, numberTerm, properListItems, termToString, variable } from './term.js';
+import {
+  ISO_OPERATOR_DEFINITIONS,
+  parseClauses,
+  parseClausesInto,
+  tryParseClausesFastInto,
+} from './parser.js';
 import { PrologError } from './iso.js';
 import { currentWorkingDirectory, fs, path } from './platform.js';
 
+const DEFER_PROGRAM_BUILD = Symbol('deferProgramBuild');
+const FAST_PARSE_ABORT = Symbol('fastParseAbort');
+const PROGRAM_BUILD_BATCH_SIZE = 16384;
+const EMPTY_CLAUSE_BODY = Object.freeze([]);
+
+class CompactBinaryClause {
+  constructor(headName, head0Type, head0Name, head1Type, head1Name,
+      bodyName, body0Type, body0Name, body1Type, body1Name) {
+    this.compactBinary = true;
+    this.headName = headName;
+    this.head0Type = head0Type;
+    this.head0Name = head0Name;
+    this.head1Type = head1Type;
+    this.head1Name = head1Name;
+    this.bodyName = bodyName;
+    this.body0Type = body0Type;
+    this.body0Name = body0Name;
+    this.body1Type = body1Type;
+    this.body1Name = body1Name;
+  }
+
+  get head() {
+    if (!this._head) {
+      this._head = compound(this.headName, [
+        compactTerm(this.head0Type, this.head0Name),
+        compactTerm(this.head1Type, this.head1Name),
+      ]);
+    }
+    return this._head;
+  }
+
+  get body() {
+    if (this.bodyName == null) return EMPTY_CLAUSE_BODY;
+    if (!this._body) {
+      this._body = [compound(this.bodyName, [
+        compactTerm(this.body0Type, this.body0Name),
+        compactTerm(this.body1Type, this.body1Name),
+      ])];
+    }
+    return this._body;
+  }
+}
+
+function compactTerm(type, name) {
+  if (type === VAR) return variable(name);
+  if (type === 'number') return numberTerm(name);
+  return atom(name);
+}
+
+function isCompactBinaryClause(clause) {
+  return clause?.compactBinary === true;
+}
+
+function compactHeadArgType(clause, index) {
+  return index === 0 ? clause.head0Type : clause.head1Type;
+}
+
+function compactHeadArgName(clause, index) {
+  return index === 0 ? clause.head0Name : clause.head1Name;
+}
+
+function compactBodyArgType(clause, index) {
+  return index === 0 ? clause.body0Type : clause.body1Type;
+}
+
+function compactBodyArgName(clause, index) {
+  return index === 0 ? clause.body0Name : clause.body1Name;
+}
+
+function clauseBodyLength(clause) {
+  return isCompactBinaryClause(clause) ? (clause.bodyName == null ? 0 : 1) : clause.body.length;
+}
+
+
 export class Program {
   constructor(clauses = [], options = {}) {
-    this.clauses = clauses;
+    this.clauses = [];
     this.groups = new Map();
     this.dynamicPredicates = new Set();
     this.operators = new Map();
@@ -18,47 +97,12 @@ export class Program {
     this.prologFlagDirectives = [];
     this.charConversionDirectives = [];
     this._revisionState = { value: 0 };
-    const declaredDynamicIndicators = [];
-    for (let index = 0; index < this.clauses.length; index++) {
-      const clause = this.clauses[index];
-      clause.index = index;
-      if (!isDirectiveClause(clause)) {
-        assertHeadIsDefinable(clause.head);
-        this._indexClause(clause, true);
-        continue;
-      }
-      for (const indicator of dynamicDirectiveIndicators(clause)) {
-        assertDynamicIndicatorIsDefinable(indicator);
-        this.dynamicPredicates.add(indicator.key);
-        declaredDynamicIndicators.push(indicator);
-        const existing = this.groups.get(indicator.key);
-        if (existing) existing.dynamic = true;
-      }
-      const operator = operatorDirective(clause);
-      if (operator) {
-        for (const name of operator.names) this.defineOperator(operator.priority, operator.specifier, name);
-      }
-      const directive = clause.head.args[0];
-      if (directive?.type === COMPOUND && directive.name === 'initialization' && directive.arity === 1) {
-        this.initializations.push(directive.args[0]);
-      } else if (directive?.type === COMPOUND && directive.name === 'set_prolog_flag' && directive.arity === 2) {
-        this.prologFlagDirectives.push(directive.args);
-      } else if (directive?.type === COMPOUND && directive.name === 'char_conversion' && directive.arity === 2) {
-        this.charConversionDirectives.push(directive.args);
-      }
-    }
-    // A dynamic declaration creates a procedure even when it has no clauses.
-    // Calls to that procedure must fail normally instead of being handled as
-    // calls to an unknown predicate.
-    for (const indicator of declaredDynamicIndicators) {
-      if (!this.groups.has(indicator.key)) {
-        this.groups.set(indicator.key, this.makeGroup(indicator.name, indicator.arity));
-      }
-    }
+    this.mutable = false;
     this._negationAnalysis = null;
-    this.markRecursivePredicates();
-    if (options.analyzeNegation === true || options.strictNegation === true) this.analyzeNegationStratification();
-    if (options.strictNegation === true) this.assertStratifiedNegation();
+    if (options[DEFER_PROGRAM_BUILD] === true) return;
+    const builder = new ProgramBuilder(options, this);
+    builder.addClauses(clauses);
+    builder.finish();
   }
   defineOperator(priority, specifier, name) {
     const key = `${specifier}\u0000${name}`;
@@ -66,32 +110,10 @@ export class Program {
     else this.operators.set(key, { priority, specifier, name });
   }
   static parse(source, options = {}) {
-    const ensured = new Set();
-    return new Program(expandIncludedClauses(parseSourceClauses(source, options), options, ensured), options);
+    return buildProgramFromSources([source], options);
   }
   static parseSources(sources = [], options = {}) {
-    const ensured = new Set();
-    if (sources.length === 1) {
-      const source = sources[0];
-      const sourceOptions = typeof source === 'string'
-        ? options
-        : { ...options, filename: source?.filename ?? '<input>', baseDir: source?.baseDir ?? options.baseDir };
-      const parsed = typeof source === 'string'
-        ? parseSourceClauses(source, options)
-        : parseSourceClauses(source?.text ?? source?.source ?? '', sourceOptions);
-      return new Program(expandIncludedClauses(parsed, sourceOptions, ensured), options);
-    }
-    const clauses = [];
-    for (const source of sources) {
-      const sourceOptions = typeof source === 'string'
-        ? options
-        : { ...options, filename: source?.filename ?? '<input>', baseDir: source?.baseDir ?? options.baseDir };
-      const parsed = typeof source === 'string'
-        ? parseSourceClauses(source, options)
-        : parseSourceClauses(source?.text ?? source?.source ?? '', sourceOptions);
-      for (const clause of expandIncludedClauses(parsed, sourceOptions, ensured)) clauses.push(clause);
-    }
-    return new Program(clauses, options);
+    return buildProgramFromSources(sources, options);
   }
   makeGroup(name, arity) {
     // A group corresponds to one predicate indicator, for example edge/3.
@@ -149,6 +171,7 @@ export class Program {
     let group = this.groups.get(key);
     if (!group) {
       this.dynamicPredicates.add(key);
+      this.mutable = true;
       group = this.makeGroup(name, arity);
       group.dynamic = true;
       this.groups.set(key, group);
@@ -204,6 +227,13 @@ export class Program {
     for (const group of groups) {
       const groupIndex = indexByGroup.get(group);
       for (const clause of group.clauses) {
+        if (isCompactBinaryClause(clause)) {
+          if (clause.bodyName != null) {
+            const dep = this.groups.get(`${clause.bodyName}/2`);
+            if (dep) deps[groupIndex].add(indexByGroup.get(dep));
+          }
+          continue;
+        }
         for (const goal of clause.body) {
           const directKey = directGoalDependencyKey(goal);
           if (directKey) {
@@ -338,12 +368,18 @@ export class Program {
   }
 
   groupHasRule(group) {
-    return group.clauses.some((clause) => clause.body.length > 0);
+    return group.clauses.some((clause) => clauseBodyLength(clause) > 0);
   }
   sourceFactLines(predicateKeys = null) {
     const lines = new Set();
     const env = new Env();
     for (const clause of this.clauses) {
+      if (isCompactBinaryClause(clause)) {
+        if (clause.bodyName != null) continue;
+        if (predicateKeys && !predicateKeys.has(`${clause.headName}/2`)) continue;
+        lines.add(`${termToString(clause.head, env, true)}.\n`);
+        continue;
+      }
       if (clause.body.length !== 0 || (clause.head.type !== ATOM && clause.head.type !== COMPOUND)) continue;
       if (predicateKeys && !predicateKeys.has(`${clause.head.name}/${clause.head.arity}`)) continue;
       lines.add(`${termToString(clause.head, env, true)}.\n`);
@@ -352,50 +388,241 @@ export class Program {
   }
 }
 
-function expandIncludedClauses(clauses, options, ensured) {
-  let hasIncludeDirective = false;
-  for (const clause of clauses) {
-    const directive = isDirectiveClause(clause) ? clause.head.args[0] : null;
-    if (directive?.type === COMPOUND && directive.arity === 1 &&
-        (directive.name === 'include' || directive.name === 'ensure_loaded')) {
-      hasIncludeDirective = true;
-      break;
-    }
+class ProgramBuilder {
+  constructor(options = {}, program = null) {
+    this.options = options;
+    this.program = program ?? new Program([], { [DEFER_PROGRAM_BUILD]: true });
+    this.declaredDynamicIndicators = new Map();
+    this.lastGroupKey = null;
+    this.lastGroup = null;
+    this.finished = false;
   }
-  if (!hasIncludeDirective) return clauses;
 
-  const expanded = [];
-  for (const clause of clauses) {
-    const directive = isDirectiveClause(clause) ? clause.head.args[0] : null;
-    if (directive?.type !== COMPOUND || directive.arity !== 1 ||
-        !['include', 'ensure_loaded'].includes(directive.name)) {
-      expanded.push(clause);
-      continue;
+  addClauses(clauses) {
+    if (this.finished) throw new Error('program builder is already finalized');
+    const program = this.program;
+    let lastGroupKey = this.lastGroupKey;
+    let lastGroup = this.lastGroup;
+
+    for (const clause of clauses) {
+      clause.index = program.clauses.length;
+      program.clauses.push(clause);
+
+      if (isCompactBinaryClause(clause)) {
+        assertPredicateIsDefinable(clause.headName, 2);
+        const key = `${clause.headName}/2`;
+        let group = key === lastGroupKey ? lastGroup : program.groups.get(key);
+        if (!group) {
+          group = program.makeGroup(clause.headName, 2);
+          program.groups.set(key, group);
+        }
+        lastGroupKey = key;
+        lastGroup = group;
+        const clausePosition = group.clauses.length;
+        group.clauses.push(clause);
+        clause.groundHead = clause.head0Type !== VAR && clause.head1Type !== VAR;
+        clause.scalarHead = clause.groundHead;
+        if (clause.bodyName != null || !clause.scalarHead) group.scalarFactsOnly = false;
+        indexCompactOne(group.argIndexes[0], clause.head0Type, clause.head0Name, clause, group.clauses, clausePosition);
+        indexCompactOne(group.argIndexes[1], clause.head1Type, clause.head1Name, clause, group.clauses, clausePosition);
+        continue;
+      }
+
+      if (!isDirectiveClause(clause)) {
+        assertHeadIsDefinable(clause.head);
+        const head = clause.head;
+        if (head.type !== ATOM && head.type !== COMPOUND) continue;
+        const key = `${head.name}/${head.arity}`;
+        let group = key === lastGroupKey ? lastGroup : program.groups.get(key);
+        if (!group) {
+          group = program.makeGroup(head.name, head.arity);
+          program.groups.set(key, group);
+        }
+        lastGroupKey = key;
+        lastGroup = group;
+        const clausePosition = group.clauses.length;
+        group.clauses.push(clause);
+        clause.groundHead = termHasNoVariables(head);
+        clause.scalarHead = head.type === COMPOUND && head.args.every(isScalar);
+        if (clause.body.length !== 0 || !clause.scalarHead) group.scalarFactsOnly = false;
+        for (let i = 0; i < head.arity; i++) {
+          indexOne(group.argIndexes[i], head.args[i], clause, group.clauses, clausePosition);
+        }
+        continue;
+      }
+
+      this.addDirectiveClause(clause);
     }
-    const designation = directive.args[0];
-    if (designation.type !== ATOM) throw new PrologError('type_error(atom)', designation);
-    if (!fs || !path) {
-      throw new PrologError('permission_error(access, source_sink)', atom(designation.name));
-    }
-    const base = options.baseDir ?? (
-      options.filename && path.isAbsolute(String(options.filename))
-        ? path.dirname(path.resolve(options.filename))
-        : currentWorkingDirectory()
-    );
-    const filename = path.resolve(base, designation.name);
-    if (directive.name === 'ensure_loaded' && ensured.has(filename)) continue;
-    if (directive.name === 'ensure_loaded') ensured.add(filename);
-    let text;
-    try {
-      text = fs.readFileSync(filename, 'utf8');
-    } catch (_) {
-      throw new PrologError('existence_error(source_sink)', atom(designation.name));
-    }
-    const childOptions = { ...options, filename, baseDir: path.dirname(filename) };
-    const included = parseSourceClauses(text, childOptions);
-    expanded.push(...expandIncludedClauses(included, childOptions, ensured));
+
+    this.lastGroupKey = lastGroupKey;
+    this.lastGroup = lastGroup;
   }
-  return expanded;
+
+  addDirectiveClause(clause) {
+    const program = this.program;
+    for (const indicator of dynamicDirectiveIndicators(clause)) {
+      assertDynamicIndicatorIsDefinable(indicator);
+      program.dynamicPredicates.add(indicator.key);
+      this.declaredDynamicIndicators.set(indicator.key, indicator);
+      const existing = program.groups.get(indicator.key);
+      if (existing) existing.dynamic = true;
+    }
+
+    const operator = operatorDirective(clause);
+    if (operator) {
+      for (const name of operator.names) program.defineOperator(operator.priority, operator.specifier, name);
+    }
+
+    const directive = clause.head.args[0];
+    if (directive?.type === COMPOUND && directive.name === 'initialization' && directive.arity === 1) {
+      program.initializations.push(directive.args[0]);
+    } else if (directive?.type === COMPOUND && directive.name === 'set_prolog_flag' && directive.arity === 2) {
+      program.prologFlagDirectives.push(directive.args);
+    } else if (directive?.type === COMPOUND && directive.name === 'char_conversion' && directive.arity === 2) {
+      program.charConversionDirectives.push(directive.args);
+    }
+  }
+
+  finish() {
+    if (this.finished) return this.program;
+    this.finished = true;
+    const program = this.program;
+
+    // A dynamic declaration creates a procedure even when it has no clauses.
+    // Calls to that procedure fail normally instead of being treated as calls
+    // to an unknown predicate.
+    for (const indicator of this.declaredDynamicIndicators.values()) {
+      if (!program.groups.has(indicator.key)) {
+        program.groups.set(indicator.key, program.makeGroup(indicator.name, indicator.arity));
+      }
+    }
+    program.mutable = program.dynamicPredicates.size > 0;
+
+    // Static indexes are built while clauses stream into the builder. Dynamic
+    // updates still rebuild only the affected predicate group.
+    program.markRecursivePredicates();
+    if (this.options.analyzeNegation === true || this.options.strictNegation === true) {
+      program.analyzeNegationStratification();
+    }
+    if (this.options.strictNegation === true) program.assertStratifiedNegation();
+    return program;
+  }
+}
+
+function buildProgramFromSources(sources, options) {
+  // The source-metadata-free path is common for CLI and conformance runs.  It
+  // attempts the compact line parser directly into a fresh builder.  Should a
+  // source require the full parser (for example because it defines custom
+  // operators), the partial builder is simply discarded and the source set is
+  // rebuilt once with the general streaming parser.
+  if (options.sourceMetadata === false) {
+    const builder = new ProgramBuilder(options);
+    if (loadSourcesIntoBuilder(builder, sources, options, true)) return builder.finish();
+  }
+
+  const builder = new ProgramBuilder(options);
+  loadSourcesIntoBuilder(builder, sources, options, false);
+  return builder.finish();
+}
+
+function loadSourcesIntoBuilder(builder, sources, options, fast) {
+  const ensured = new Set();
+  try {
+    for (const source of sources) {
+      const sourceOptions = sourceOptionsFor(source, options);
+      const text = typeof source === 'string' ? source : source?.text ?? source?.source ?? '';
+      if (!loadSourceIntoBuilder(builder, text, sourceOptions, ensured, fast)) return false;
+    }
+    return true;
+  } catch (error) {
+    if (error === FAST_PARSE_ABORT) return false;
+    throw error;
+  }
+}
+
+function sourceOptionsFor(source, options) {
+  if (typeof source === 'string') return options;
+  return {
+    ...options,
+    filename: source?.filename ?? '<input>',
+    baseDir: source?.baseDir ?? options.baseDir,
+  };
+}
+
+function loadSourceIntoBuilder(builder, source, options, ensured, fast) {
+  const batch = [];
+  const flush = () => {
+    if (batch.length === 0) return;
+    builder.addClauses(batch);
+    batch.length = 0;
+  };
+  const accept = (clause) => {
+    const include = includeDirective(clause);
+    if (!include) {
+      batch.push(clause);
+      if (batch.length >= PROGRAM_BUILD_BATCH_SIZE) flush();
+      return;
+    }
+    flush();
+    const child = readIncludedSource(include, options, ensured);
+    if (!child) return;
+    if (!loadSourceIntoBuilder(builder, child.text, child.options, ensured, fast)) {
+      throw FAST_PARSE_ABORT;
+    }
+  };
+
+  if (fast) {
+    const acceptBinary = (headName, head0Type, head0Name, head1Type, head1Name,
+        bodyName, body0Type, body0Name, body1Type, body1Name) => {
+      batch.push(new CompactBinaryClause(
+        headName, head0Type, head0Name, head1Type, head1Name,
+        bodyName, body0Type, body0Name, body1Type, body1Name,
+      ));
+      if (batch.length >= PROGRAM_BUILD_BATCH_SIZE) flush();
+    };
+    const parsed = tryParseClausesFastInto(source, accept, acceptBinary);
+    if (parsed) flush();
+    return parsed;
+  }
+  parseClausesInto(source, options, accept);
+  flush();
+  return true;
+}
+
+function includeDirective(clause) {
+  if (isCompactBinaryClause(clause) || !isDirectiveClause(clause)) return null;
+  const directive = clause.head.args[0];
+  return directive?.type === COMPOUND && directive.arity === 1 &&
+    (directive.name === 'include' || directive.name === 'ensure_loaded')
+    ? directive
+    : null;
+}
+
+function readIncludedSource(directive, options, ensured) {
+  const designation = directive.args[0];
+  if (designation.type !== ATOM) throw new PrologError('type_error(atom)', designation);
+  if (!fs || !path) {
+    throw new PrologError('permission_error(access, source_sink)', atom(designation.name));
+  }
+  const base = options.baseDir ?? (
+    options.filename && path.isAbsolute(String(options.filename))
+      ? path.dirname(path.resolve(options.filename))
+      : currentWorkingDirectory()
+  );
+  const filename = path.resolve(base, designation.name);
+  if (directive.name === 'ensure_loaded' && ensured.has(filename)) return null;
+  if (directive.name === 'ensure_loaded') ensured.add(filename);
+
+  let text;
+  try {
+    text = fs.readFileSync(filename, 'utf8');
+  } catch (_) {
+    throw new PrologError('existence_error(source_sink)', atom(designation.name));
+  }
+  return {
+    text,
+    options: { ...options, filename, baseDir: path.dirname(filename) },
+  };
 }
 
 function isDirectiveClause(clause) {
@@ -437,10 +664,6 @@ function operatorDirective(clause) {
   };
 }
 
-function assertClauseHeadIsDefinable(clause) {
-  if (!isDirectiveClause(clause)) assertHeadIsDefinable(clause.head);
-}
-
 function assertHeadIsDefinable(head) {
   if (head.type === ATOM) assertPredicateIsDefinable(head.name, head.arity);
 }
@@ -468,21 +691,29 @@ function componentHasNegativeEdge(start, deps, negativeEdges) {
   return negativeEdges.some(([from, to]) => component.has(from) && component.has(to));
 }
 
+function compactClauseIsDirectRecursive(clause, group) {
+  return isCompactBinaryClause(clause) && clause.bodyName === group.name && group.arity === 2;
+}
+
+function clauseHasCut(clause) {
+  return !isCompactBinaryClause(clause) && clause.body.some(termContainsCut);
+}
+
+function clauseIsDirectRecursive(clause, group) {
+  if (isCompactBinaryClause(clause)) return compactClauseIsDirectRecursive(clause, group);
+  return clause.body.some((goal) =>
+    goal.type === COMPOUND && goal.name === group.name && goal.arity === group.arity
+  );
+}
+
 function componentHasCut(start, deps, groups) {
   const forward = reachableIndexes(start, deps);
   const component = [...forward].filter((index) => reachableIndexes(index, deps).has(start));
   return component.some((index) => {
     const group = groups[index];
-    const directRecursive = group.clauses.some((clause) => clause.body.some((goal) =>
-      goal.type === COMPOUND && goal.name === group.name && goal.arity === group.arity
-    ));
-    if (!directRecursive) return group.clauses.some((clause) => clause.body.some(termContainsCut));
-    return group.clauses.some((clause) => {
-      const recursive = clause.body.some((goal) =>
-        goal.type === COMPOUND && goal.name === group.name && goal.arity === group.arity
-      );
-      return recursive && clause.body.some(termContainsCut);
-    });
+    const directRecursive = group.clauses.some((clause) => clauseIsDirectRecursive(clause, group));
+    if (!directRecursive) return group.clauses.some(clauseHasCut);
+    return group.clauses.some((clause) => clauseIsDirectRecursive(clause, group) && clauseHasCut(clause));
   });
 }
 
@@ -509,6 +740,17 @@ function inferStructuralInputPositions(group) {
   const changed = new Uint8Array(group.arity);
 
   for (const clause of group.clauses) {
+    if (isCompactBinaryClause(clause)) {
+      if (!compactClauseIsDirectRecursive(clause, group)) continue;
+      for (let index = 0; index < 2; index++) {
+        const headType = compactHeadArgType(clause, index);
+        if (headType !== VAR && (firstPatternedPosition < 0 || index < firstPatternedPosition)) {
+          firstPatternedPosition = index;
+        }
+      }
+      continue;
+    }
+
     changed.fill(0);
     let recursive = false;
     for (const goal of clause.body) {
@@ -542,6 +784,13 @@ function inferStructuralInputPositions(group) {
 function hasLinearNumericRecursion(group) {
   let recursiveClause = null;
   for (const clause of group.clauses) {
+    if (isCompactBinaryClause(clause)) {
+      if (clause.head0Type !== VAR || clause.head1Type !== VAR) return false;
+      if (!compactClauseIsDirectRecursive(clause, group)) continue;
+      if (recursiveClause) return false;
+      recursiveClause = clause;
+      continue;
+    }
     for (const arg of clause.head.args) if (arg.type !== 'var') return false;
     let recursive = false;
     for (const goal of clause.body) {
@@ -554,14 +803,14 @@ function hasLinearNumericRecursion(group) {
     if (recursiveClause) return false;
     recursiveClause = clause;
   }
-  return recursiveClause != null && recursiveClause.body.some((goal) =>
+  return recursiveClause != null && !isCompactBinaryClause(recursiveClause) && recursiveClause.body.some((goal) =>
     goal.type === COMPOUND && goal.name === 'is' && goal.arity === 2
   );
 }
 
 function isPiAccumulator(group) {
   return group.name === 'pi' && group.arity === 5 && group.clauses.some((clause) =>
-    clause.body.some((goal) => goal.type === COMPOUND && goal.name === 'is' && goal.arity === 2)
+    !isCompactBinaryClause(clause) && clause.body.some((goal) => goal.type === COMPOUND && goal.name === 'is' && goal.arity === 2)
   );
 }
 
@@ -744,6 +993,24 @@ function clauseCollectionAt(clauses, index) {
   return Array.isArray(clauses) ? clauses[index] : index === 0 ? clauses : undefined;
 }
 
+function compactScalarBuckets(index, type) {
+  if (type === ATOM) return index.atomBuckets;
+  if (type === 'number') return index.numberBuckets;
+  return index.stringBuckets;
+}
+
+function indexCompactOne(index, type, name, clause, clauses = null, clausePosition = -1) {
+  if (type !== VAR) {
+    if (!index.sawScalar) {
+      index.sawScalar = true;
+      if (clauses && clausePosition > 0) index.fallback = clauses.slice(0, clausePosition);
+    }
+    addClauseBucket(compactScalarBuckets(index, type), name, clause);
+  } else if (index.sawScalar) {
+    index.fallback.push(clause);
+  }
+}
+
 function indexOne(index, arg, clause, clauses = null, clausePosition = -1) {
   if (isScalar(arg)) {
     if (!index.sawScalar) {
@@ -767,6 +1034,14 @@ function rebuildGroupIndexes(group) {
   group.scalarFactsOnly = true;
   for (let clausePosition = 0; clausePosition < group.clauses.length; clausePosition++) {
     const clause = group.clauses[clausePosition];
+    if (isCompactBinaryClause(clause)) {
+      clause.groundHead = clause.head0Type !== VAR && clause.head1Type !== VAR;
+      clause.scalarHead = clause.groundHead;
+      if (clause.bodyName != null || !clause.scalarHead) group.scalarFactsOnly = false;
+      indexCompactOne(group.argIndexes[0], clause.head0Type, clause.head0Name, clause, group.clauses, clausePosition);
+      indexCompactOne(group.argIndexes[1], clause.head1Type, clause.head1Name, clause, group.clauses, clausePosition);
+      continue;
+    }
     clause.groundHead = termHasNoVariables(clause.head);
     clause.scalarHead = clause.head.type === COMPOUND && clause.head.args.every(isScalar);
     if (clause.body.length !== 0 || !clause.scalarHead) group.scalarFactsOnly = false;
@@ -792,6 +1067,16 @@ function demandValueKey(values) {
 function buildDemandIndex(group, positions) {
   const index = { positions, buckets: new Map(), fallback: [] };
   for (const clause of group.clauses) {
+    if (isCompactBinaryClause(clause)) {
+      const values = positions.map((position) => compactTerm(
+        compactHeadArgType(clause, position), compactHeadArgName(clause, position)));
+      if (!values.every(isScalar)) {
+        index.fallback.push(clause);
+        continue;
+      }
+      addClauseBucket(index.buckets, demandValueKey(values), clause);
+      continue;
+    }
     const values = positions.map((position) => clause.head.args[position]);
     if (!values.every(isScalar)) {
       index.fallback.push(clause);

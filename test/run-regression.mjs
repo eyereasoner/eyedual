@@ -1167,6 +1167,19 @@ function whiteBoxCases() {
       },
     },
     {
+      name: 'streaming program builder preserves source order and dynamic declarations',
+      run: () => {
+        const program = Program.parseSources([
+          { text: 'item(a).\n:- dynamic(later/1).\n', filename: 'first.pl' },
+          { text: 'item(b).\nlater(c).\n', filename: 'second.pl' },
+        ], { sourceMetadata: false });
+        assertEqual(program.clauses.length, 4, 'clause count');
+        assertEqual(program.clauses.map((clause) => clause.index).join(','), '0,1,2,3', 'source indexes');
+        assertEqual(program.findGroup('item', 1).clauses.map((clause) => clause.index).join(','), '0,2', 'group order');
+        assertEqual(program.findGroup('later', 1).dynamic, true, 'dynamic declaration');
+      },
+    },
+    {
       name: 'clause candidate selection builds arbitrary-width indexes on demand',
       run: () => {
         const facts = ['row(a0, b0, c0, first).', 'row(a0, X, c0, wildcard).'];

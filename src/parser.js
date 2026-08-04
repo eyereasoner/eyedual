@@ -503,8 +503,10 @@ class Parser {
     }
     throw new Error(`parse line ${this.token.line}: bad term`);
   }
-  parseProgram() {
-    const clauses = [];
+  parseProgram(emit = null) {
+    const clauses = emit ? null : [];
+    let clauseNumber = 0;
+    const accept = emit ?? ((clause) => clauses.push(clause));
     while (this.token.type !== TOK.EOF) {
       const line = this.token.line;
       if (this.token.type === TOK.IF) {
@@ -521,8 +523,9 @@ class Parser {
         this.expect(TOK.DOT, '.');
         this.advance();
         const clause = { head: compound(':-', [directive]), body: [] };
-        if (this.sourceMetadata) clause.source = { filename: this.filename, line, clause: clauses.length + 1 };
-        clauses.push(clause);
+        clauseNumber++;
+        if (this.sourceMetadata) clause.source = { filename: this.filename, line, clause: clauseNumber };
+        accept(clause);
         continue;
       }
       const head = this.parseTerm(3);
@@ -541,8 +544,9 @@ class Parser {
       this.expect(TOK.DOT, '.');
       this.advance();
       const clause = { head, body };
-      if (this.sourceMetadata) clause.source = { filename: this.filename, line, clause: clauses.length + 1 };
-      clauses.push(clause);
+      clauseNumber++;
+      if (this.sourceMetadata) clause.source = { filename: this.filename, line, clause: clauseNumber };
+      accept(clause);
     }
     return clauses;
   }
@@ -568,6 +572,17 @@ export function parseClauses(source, options = {}) {
   return new Parser(source, options).parseProgram();
 }
 
+// Streaming parser entry points used by ProgramBuilder.  The ordinary public
+// parseClauses API still returns an array; these avoid a second, temporary
+// clause array when a Program is being built directly from source text.
+export function parseClausesInto(source, options = {}, emit) {
+  new Parser(source, options).parseProgram(emit);
+}
+
+export function tryParseClausesFastInto(source, emit, emitBinary = null) {
+  return parseClausesFastNoSource(source, emit, emitBinary) !== null;
+}
+
 function isSimpleName(text) {
   if (!text) return false;
   const first = text.charCodeAt(0);
@@ -586,12 +601,13 @@ const SIMPLE_VARIABLE = /^(?:_|[A-Z_][A-Za-z0-9_]*)$/;
 const SIMPLE_ATOM = /^[a-z][A-Za-z0-9_]*$/;
 const GRAPHIC_ATOM = /^[#$&*+\-\/<=>@^~\\]+$/;
 
-function parseClausesFastNoSource(source) {
+function parseClausesFastNoSource(source, emit = null, emitBinary = null) {
   source = String(source ?? '');
   const numberCache = new Map();
   const stringCache = new Map();
   const variableCache = new Map();
-  const clauses = [];
+  const clauses = emit ? null : [];
+  const accept = emit ?? ((clause) => clauses.push(clause));
   let anonymous = 0;
   let chunk = '';
 
@@ -680,6 +696,49 @@ function parseClausesFastNoSource(source) {
     return null;
   };
 
+  const rawHead = {};
+  const rawBody = {};
+
+  const scalarTokenRange = (text, start, end, out, slot) => {
+    [start, end] = trimRange(text, start, end);
+    const kind = tokenKindInRange(text, start, end);
+    let type = kind;
+    if (kind == null && simpleNumberInRange(text, start, end)) type = 'number';
+    if (type == null) return false;
+    let name = text.slice(start, end);
+    if (type === 'var' && name === '_') name = `__anon${anonymous++}`;
+    out[`arg${slot}Type`] = type;
+    out[`arg${slot}Name`] = name;
+    return true;
+  };
+
+  const parseBinaryRawRange = (text, start, end, out) => {
+    [start, end] = trimRange(text, start, end);
+    let i = start;
+    const first = text.charCodeAt(i);
+    if (!(first >= 97 && first <= 122)) return false;
+    i++;
+    while (i < end && isNameContinueCode(text.charCodeAt(i))) i++;
+    const nameEnd = i;
+    while (i < end && isWhitespaceCode(text.charCodeAt(i))) i++;
+    if (text.charCodeAt(i) !== 40) return false;
+    i++;
+    const arg0Start = i;
+    while (i < end && text.charCodeAt(i) !== 44 && text.charCodeAt(i) !== 40 && text.charCodeAt(i) !== 41 && text.charCodeAt(i) !== 91 && text.charCodeAt(i) !== 93 && text.charCodeAt(i) !== 124 && text.charCodeAt(i) !== 34 && text.charCodeAt(i) !== 39) i++;
+    if (i >= end || text.charCodeAt(i) !== 44) return false;
+    const arg0End = i++;
+    const arg1Start = i;
+    while (i < end && text.charCodeAt(i) !== 41 && text.charCodeAt(i) !== 40 && text.charCodeAt(i) !== 44 && text.charCodeAt(i) !== 91 && text.charCodeAt(i) !== 93 && text.charCodeAt(i) !== 124 && text.charCodeAt(i) !== 34 && text.charCodeAt(i) !== 39) i++;
+    if (i >= end || text.charCodeAt(i) !== 41) return false;
+    const arg1End = i++;
+    while (i < end && isWhitespaceCode(text.charCodeAt(i))) i++;
+    if (i !== end) return false;
+    if (!scalarTokenRange(text, arg0Start, arg0End, out, 0) ||
+        !scalarTokenRange(text, arg1Start, arg1End, out, 1)) return false;
+    out.name = text.slice(start, nameEnd);
+    return true;
+  };
+
   const parseBinaryCompoundRange = (text, start = 0, end = text.length) => {
     [start, end] = trimRange(text, start, end);
     let i = start;
@@ -733,6 +792,26 @@ function parseClausesFastNoSource(source) {
       if (text.charCodeAt(i) === 58 && text.charCodeAt(i + 1) === 45) return i;
     }
     return -1;
+  };
+
+  const emitFastBinaryRange = (text, start, end) => {
+    if (!emitBinary || start >= end || text.charCodeAt(end - 1) !== 46) return false;
+    const termEnd = end - 1;
+    const rule = findRuleInRange(text, start, termEnd);
+    if (rule < 0) {
+      if (!parseBinaryRawRange(text, start, termEnd, rawHead)) return false;
+      emitBinary(rawHead.name,
+        rawHead.arg0Type, rawHead.arg0Name, rawHead.arg1Type, rawHead.arg1Name,
+        null, null, null, null, null);
+      return true;
+    }
+    if (findRuleInRange(text, rule + 2, termEnd) >= 0 ||
+        !parseBinaryRawRange(text, start, rule, rawHead) ||
+        !parseBinaryRawRange(text, rule + 2, termEnd, rawBody)) return false;
+    emitBinary(rawHead.name,
+      rawHead.arg0Type, rawHead.arg0Name, rawHead.arg1Type, rawHead.arg1Name,
+      rawBody.name, rawBody.arg0Type, rawBody.arg0Name, rawBody.arg1Type, rawBody.arg1Name);
+    return true;
   };
 
   const parseFastRange = (text, start, end) => {
@@ -790,12 +869,12 @@ function parseClausesFastNoSource(source) {
     if (!text) return true;
     const simple = parseSimple(text);
     if (simple) {
-      clauses.push(simple);
+      accept(simple);
       return true;
     }
     try {
       const parsed = new Parser(text, { sourceMetadata: false }).parseProgram();
-      clauses.push(...parsed);
+      for (const clause of parsed) accept(clause);
       return true;
     } catch (_) {
       return false;
@@ -812,11 +891,15 @@ function parseClausesFastNoSource(source) {
     [contentStart, contentEnd] = trimRange(source, contentStart, contentEnd);
     if (contentStart < contentEnd && source.charCodeAt(contentStart) !== 37) {
       if (!chunk && source.charCodeAt(contentEnd - 1) === 46) {
-        const simple = parseFastRange(source, contentStart, contentEnd);
-        if (simple) clauses.push(simple);
-        else {
-          chunk = source.slice(lineStart, lineEnd) + '\n';
-          if (!flush()) return null;
+        if (emitFastBinaryRange(source, contentStart, contentEnd)) {
+          // The program builder accepted a compact binary clause directly.
+        } else {
+          const simple = parseFastRange(source, contentStart, contentEnd);
+          if (simple) accept(simple);
+          else {
+            chunk = source.slice(lineStart, lineEnd) + '\n';
+            if (!flush()) return null;
+          }
         }
       } else {
         chunk += source.slice(lineStart, lineEnd) + '\n';
@@ -829,7 +912,7 @@ function parseClausesFastNoSource(source) {
     lineStart = lineEnd + 1;
   }
   if (chunk.trim() && !flush()) return null;
-  return clauses;
+  return clauses ?? true;
 }
 
 export function parseProgramText(source) {
