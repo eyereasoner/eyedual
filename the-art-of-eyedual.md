@@ -2,6 +2,10 @@
   <img src="book-assets/title-page.svg" alt="Front page for The Art of EyeDual, presenting its dual foundation in ISO Prolog rules and RDF linked data." width="720">
 </p>
 
+<p align="center">
+  <img src="eyedual-logo.png" alt="EyeDual logo joining ISO Prolog rules with RDF linked data." width="420">
+</p>
+
 **Copyright © 2021–2026 Jos De Roo, KNoWS office of IDLab, Ghent University –
 imec.** This book is licensed under [Creative Commons Attribution 4.0
 International](https://creativecommons.org/licenses/by/4.0/). You may copy,
