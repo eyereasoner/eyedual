@@ -1,10 +1,15 @@
 % New Scientist puzzle Enigma 1225
 % Original code from https://www.sciencedirect.com/science/article/pii/S0898122106002057
+%
+% The maximum is retained in one pass with aggregate_max/5.  The recursive
+% helpers below are deterministic in the modes used by square/5; their cuts
+% make that operational contract explicit and keep automatic tabling for the
+% genuinely generative partition relation only.
 
 enigma1225(Size, [Permutation, Board, Max]) :-
-    setof(Total, M^Freq^Perm^square(Size, M, Total, Freq, Perm), Totals),
-    lastlist(Totals, Max),
-    square(Size, Board, Max, _, Permutation).
+    aggregate_max(Total, board(M, Perm),
+                  square(Size, M, Total, _, Perm),
+                  Max, board(Board, Permutation)).
 
 var_matrix(Size, M) :-
     repeat(Size, Size, RowLengths),
@@ -13,6 +18,7 @@ var_matrix(Size, M) :-
 repeat(X, 1, [X]) :-
     !.
 repeat(X, N, [X|R]) :-
+    !,
     NewN is N - 1,
     repeat(X, NewN, R).
 
@@ -22,6 +28,7 @@ var_list(N, L) :-
 list_permute([], _, []).
 list_permute([P1|Rest], L, [H|T]) :-
     nth1(P1, L, H),
+    !,
     list_permute(Rest, L, T).
 
 snd((_, X), X).
@@ -29,6 +36,7 @@ snd((_, X), X).
 retain_var(_, [], []).
 retain_var(V, [H|T], [H|L]) :-
     H == V,
+    !,
     retain_var(V, T, L).
 retain_var(V, [H|T], L) :-
     H \== V,
@@ -43,6 +51,7 @@ total(IntPairs, Total) :-
 
 total([], S, S).
 total([(X, Y)|T], Acc, S) :-
+    !,
     NewAcc is Acc + X*Y,
     total(T, NewAcc, S).
 
@@ -51,6 +60,7 @@ zip([], _, []) :-
 zip(_, [], []) :-
     !.
 zip([H1|T1], [H2|T2], [(H1, H2)|T]) :-
+    !,
     zip(T1, T2, T).
 
 from_to(M, N, L) :-
@@ -87,11 +97,13 @@ eval_matrix(Matrix, FreqSorted) :-
 distinct([_]).
 distinct([H|T]) :-
     notin(H, T),
+    !,
     distinct(T).
 
 notin(_, []).
 notin(E, [H|T]) :-
     E \== H,
+    !,
     notin(E, T).
 
 next_partition([(2, 1)|T], [(1, 2)|T]).
@@ -158,6 +170,7 @@ splitter([], [(_, 0)], Acc, S) :-
     reverse(Acc, S),
     !.
 splitter(L, [(_, 0)|T], Acc, S) :-
+    !,
     splitter(L, T, Acc, S).
 splitter(L, [(K, AlphaK)|T], Acc, S) :-
     AlphaK > 0,
@@ -204,6 +217,7 @@ lastlist([X|Xs], Last) :-
 
 lastlist_([], Last, Last).
 lastlist_([X|Xs], _, Last) :-
+    !,
     lastlist_(Xs, X, Last).
 
 transpose_matrix([], []).
@@ -212,11 +226,13 @@ transpose_matrix([A|B], C) :-
 
 transpose_matrix([], _, []).
 transpose_matrix([_|A], B, [C|D]) :-
+    !,
     lists_reform(B, C, E),
     transpose_matrix(A, E, D).
 
 lists_reform([], [], []).
 lists_reform([[A|B]|C], [A|D], [B|E]) :-
+    !,
     lists_reform(C, D, E).
 
 % query

@@ -5501,9 +5501,20 @@ eyedual --goal 'ancestor(ada, Who)' examples/ancestor.pl
 ```
 
 Repeat `--goal` to request several result relations in one run. EyeDual prints
-their ground answers in the order the goals were supplied. This separation
-keeps program text portable and makes the observed question explicit in a
-script, shell history, or API call.
+their ground answers in the order the goals were supplied.
+
+For a self-running example, place the host goal in an ordinary comment:
+
+```eyedual
+%% goal: ancestor(ada, Who)
+```
+
+When no `--goal` option is present, the CLI reads these comments from all input
+sources and runs them in source order. An explicit `--goal` overrides them.
+Because `%% goal:` is a comment rather than a Prolog directive, another ISO
+processor may ignore it and the program remains portable Prolog text. External
+goals are still preferable when a script, shell history, or API call should
+make the observed question explicit.
 
 | Option | Meaning |
 | --- | --- |
@@ -5512,7 +5523,7 @@ script, shell history, or API call.
 | `-s`, `--stats` | Print solver counters to stderr |
 | `-v`, `--version` | Print the package version |
 | `-w`, `--warnings` | Print non-fatal portability warnings |
-| `--goal Goal` | Solve a callable goal; may be repeated |
+| `--goal Goal` | Solve a callable goal; may be repeated; overrides `%% goal:` comments |
 | `--` | Treat following arguments as inputs |
 
 Short flags may be combined, so `-pw` is equivalent to `-p -w`.

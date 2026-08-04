@@ -3,6 +3,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { goalsFromSource } from './goal-metadata.js';
 
 let engineModule = null;
 let explanationModule = null;
@@ -92,6 +93,10 @@ export async function main(argv) {
         baseDir: path.dirname(path.resolve(file)),
       });
     }
+  }
+
+  if (options.goals.length === 0) {
+    for (const source of sourceParts) options.goals.push(...goalsFromSource(source.text));
   }
 
   const engine = await loadEngine();
@@ -186,6 +191,7 @@ Options:
   -v, --version         Show the package version and exit.
   -w, --warnings        Print non-fatal portability warnings to stderr.
   --goal goal           Solve goal and print its ground answers; may be repeated.
+                        If omitted, use %% goal: comments from the inputs.
   --                    Stop option parsing; following arguments are treated as files.
 `);
 }

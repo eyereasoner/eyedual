@@ -33,6 +33,12 @@ node bin/eyedual.js --warnings test/conformance/warnings/negation/unstratified_m
 printf 'works(stdin, true) :- ok = ok.\n' | node bin/eyedual.js --goal 'works(stdin, true)' -
 ```
 
+Most checked examples contain an ISO-safe host comment such as
+`%% goal: enigma1225(8, _)`. When no `--goal` option is supplied, the CLI runs
+those commented goals in source order. An explicit `--goal` always overrides
+the comments, so scripts can select a different query without editing the
+program.
+
 For one-off local CLI use from the checkout, npm can run the package bin without a manual symlink:
 
 ```bash

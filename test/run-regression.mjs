@@ -249,6 +249,40 @@ why(
     },
 
     {
+      name: 'CLI reads repeated goal comments when --goal is omitted',
+      run: () => {
+        const input = [
+          '%% goal: answer(first, X)',
+          '%% goal: answer(second, X)',
+          'value(first, one).',
+          'value(second, two).',
+          'answer(Kind, Value) :- value(Kind, Value).',
+          '',
+        ].join('\n');
+        const result = runCli(['-'], { input });
+        assertEqual(result.status, 0, 'exit status');
+        assertEqual(result.stdout, 'answer(first, one).\nanswer(second, two).\n', 'stdout');
+        assertEqual(result.stderr, '', 'stderr');
+      },
+    },
+    {
+      name: 'explicit CLI goals override goal comments',
+      run: () => {
+        const input = [
+          '%% goal: answer(metadata, X)',
+          'value(metadata, ignored).',
+          'value(explicit, selected).',
+          'answer(Kind, Value) :- value(Kind, Value).',
+          '',
+        ].join('\n');
+        const result = runCli(['--goal', 'answer(explicit, X)', '-'], { input });
+        assertEqual(result.status, 0, 'exit status');
+        assertEqual(result.stdout, 'answer(explicit, selected).\n', 'stdout');
+        assertEqual(result.stderr, '', 'stderr');
+      },
+    },
+
+    {
       name: '--proof enables query explanations',
       run: () => {
         const result = runCli(['--proof', '-'], { input: '%% goal: q(X, Y)\np(a, b).\nq(X, Y) :- p(X, Y).\n' });
@@ -1791,16 +1825,7 @@ function between(text, startMarker, endMarker) {
 }
 
 function runCli(args, options = {}) {
-  const separator = args.indexOf('--');
-  const file = separator === -1
-    ? args.find((arg) => arg.endsWith('.pl'))
-    : args[separator + 1];
-  const source = options.input ?? (file ? fs.readFileSync(file, 'utf8') : undefined);
-  const goalArgs = source ? goalsFromSource(source).flatMap((goal) => ['--goal', goal]) : [];
-  const commandArgs = separator === -1
-    ? [...goalArgs, ...args]
-    : [...goalArgs, ...args.slice(0, separator), '--', ...args.slice(separator + 1)];
-  return spawnSync(process.execPath, [bin, ...commandArgs], {
+  return spawnSync(process.execPath, [bin, ...args], {
     cwd: packageRoot,
     encoding: 'utf8',
     env: options.env ? { ...process.env, ...options.env } : process.env,
