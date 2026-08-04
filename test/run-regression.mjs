@@ -448,13 +448,17 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(bookEyeDualLibraryNames(), registeredEyeDualLibraryNames(), 'EyeDual library predicates'),
     },
     {
-      name: 'README and book document the runtime and browser boundaries',
+      name: 'README links to the book and the book documents runtime boundaries',
       run: () => {
         const readme = fs.readFileSync(path.join(packageRoot, 'README.md'), 'utf8');
         const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyedual.md'), 'utf8');
+        assertIncludes(
+          readme,
+          '[Book — *The Art of EyeDual*](https://eyereasoner.github.io/eyedual/the-art-of-eyedual)',
+          'README links to the book',
+        );
         for (const filename of ['src/iso.js', 'src/library.js', 'src/playground-worker.js']) {
           assertEqual(fs.existsSync(path.join(packageRoot, filename)), true, `${filename} exists`);
-          assertIncludes(readme, filename, `README documents ${filename}`);
           assertIncludes(book, filename, `book documents ${filename}`);
         }
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js')), false, 'obsolete duplicate library module is absent');
@@ -1415,10 +1419,6 @@ function exampleCorpusSyncIssues() {
   const issues = arrayDiffMessages(listGoldenExampleNames(), examples, 'examples/output');
   const checks = [
     {
-      file: path.join(packageRoot, 'README.md'),
-      pattern: /example corpus now contains \*\*(\d+) runnable examples\*\*/,
-    },
-    {
       file: path.join(packageRoot, 'the-art-of-eyedual.md'),
       pattern: /top-level directory contains \*\*(\d+) self-contained runnable programs\*\*/,
     },
@@ -1449,10 +1449,6 @@ function proofCorpusSyncIssues() {
     }
   }
   const checks = [
-    {
-      file: path.join(packageRoot, 'README.md'),
-      pattern: /\*\*(\d+) proof goldens\*\*/,
-    },
     {
       file: path.join(packageRoot, 'the-art-of-eyedual.md'),
       pattern: /\*\*(\d+) selected programs\*\* have a checked/,
@@ -1742,12 +1738,6 @@ function documentedConformanceMetricIssues() {
   const iso = report.rows.find((row) => row.category === 'iso')?.total;
   const total = report.total.total;
   const checks = [
-    {
-      file: path.join(packageRoot, 'README.md'),
-      pattern: /current (\d+)-file[\s\S]{0,100}?includes (\d+) focused ISO cases/,
-      expected: [total, iso],
-      labels: ['total', 'ISO'],
-    },
     {
       file: path.join(packageRoot, 'the-art-of-eyedual.md'),
       pattern: /contains (\d+) cases, including (\d+) focused ISO\s+cases/,

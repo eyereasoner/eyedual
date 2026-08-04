@@ -6042,6 +6042,20 @@ missing assets, bad MIME types, and static Node-only imports. The generated
 `conformance-report.md` is the authoritative source for current conformance
 category totals.
 
+### Generated and checked repository material
+
+Repository artifacts have distinct roles:
+
+- `conformance-report.md` is generated from the file-based conformance corpus;
+- `examples/book/` is extracted from executable code blocks in this book and
+  should be rebuilt with `npm run generate` rather than edited directly;
+- `examples/output/` and `examples/proof/` contain reviewed exact-output
+  goldens that make behavior changes visible in version control.
+
+Release preparation runs the complete suite and refreshes the conformance
+report. Keeping these details here allows the README to remain a short project
+landing page while this book remains the implementation reference.
+
 Run the browser contract independently with:
 
 ```sh
