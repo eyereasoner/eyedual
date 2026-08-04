@@ -3766,9 +3766,9 @@ generation contains `n^k` leaves. If order does not matter, permutations may
 be redundant. If partial choices already violate a constraint, pruning saves
 an entire subtree.
 
-This is why combinatorial examples are not toys. `n-queens-8.pl` retains one
-witness, while `n-queens.pl` exposes the complete 92-solution search. Together
-with `send-more-money.pl`, `integer-partitions.pl`, `stirling-bell-numbers.pl`,
+This is why combinatorial examples are not toys. `n-queens.pl` exposes the
+complete 92-solution search. Together with `send-more-money.pl`,
+`integer-partitions.pl`, `stirling-bell-numbers.pl`,
 and `weighted-interval-scheduling.pl`, they show different geometries of
 choice: permutations, digit assignments, recursive decompositions, set
 partitions, and ordered optimization.
@@ -5661,7 +5661,7 @@ Review questions:
 </figure>
 
 The [examples directory](https://github.com/eyereasoner/eyedual/tree/main/examples/) is the book's executable companion. The
-top-level directory contains **200 self-contained runnable programs**. Every
+top-level directory contains **199 self-contained runnable programs**. Every
 source program has an exact answer file under
 [examples/output](https://github.com/eyereasoner/eyedual/tree/main/examples/output/), and **55 selected programs** have a checked
 explanation under [examples/proof](https://github.com/eyereasoner/eyedual/tree/main/examples/proof/). The selected pointers below
@@ -5772,11 +5772,10 @@ finite search space, and which constraint removes which branches?
 
 | Program | Search design | Checked answer |
 | --- | --- | --- |
-| [Eight queens](https://github.com/eyereasoner/eyedual/blob/main/examples/n-queens-8.pl) | A permutation supplies one queen per row; diagonal tests prune candidates; `once/1` retains one witness. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/n-queens-8.pl) |
 | [N-Queens enumeration](https://github.com/eyereasoner/eyedual/blob/main/examples/n-queens.pl) | `select/3` chooses each row and diagonal checks prune partial placements; the query enumerates all 92 eight-queen solutions in the default runtime. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/n-queens.pl) |
 | [Zebra puzzle](https://github.com/eyereasoner/eyedual/blob/main/examples/zebra.pl) | House records, adjacency relations, and clue constraints jointly determine the famous solution. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/zebra.pl) |
 | [SEND + MORE = MONEY](https://github.com/eyereasoner/eyedual/blob/main/examples/send-more-money.pl) | Digit assignments are generated under distinctness, leading-zero, and column constraints. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/send-more-money.pl) |
-| [DONALD + GERALD = ROBERT](https://github.com/eyereasoner/eyedual/blob/main/examples/donald-gerald-robert.pl) | The 200th example assigns all ten decimal digits to ten distinct letters. Right-to-left carry propagation cuts a naive 10! search space to one solution. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/donald-gerald-robert.pl) |
+| [DONALD + GERALD = ROBERT](https://github.com/eyereasoner/eyedual/blob/main/examples/donald-gerald-robert.pl) | All ten decimal digits are assigned to ten distinct letters. Right-to-left carry propagation cuts a naive 10! search space to one solution. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/donald-gerald-robert.pl) |
 | [Four-color map](https://github.com/eyereasoner/eyedual/blob/main/examples/four-color-map.pl) | A finite color assignment is filtered by adjacency constraints. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/four-color-map.pl) |
 | [Sudoku 4×4](https://github.com/eyereasoner/eyedual/blob/main/examples/sudoku-4x4.pl) | Small domains make row, column, and block constraints completely inspectable. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/sudoku-4x4.pl) |
 | [Hamiltonian path](https://github.com/eyereasoner/eyedual/blob/main/examples/hamiltonian-path.pl) | A witness must visit every vertex exactly once; path construction and global coverage meet. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/hamiltonian-path.pl) |
@@ -5788,7 +5787,7 @@ finite search space, and which constraint removes which branches?
 | [Register allocation](https://github.com/eyereasoner/eyedual/blob/main/examples/register-allocation.pl) | Interference constraints turn compiler allocation into graph coloring. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/register-allocation.pl) |
 
 A useful comparative exercise is to draw the first three levels of the search
-tree for Eight queens, SEND + MORE = MONEY, DONALD + GERALD = ROBERT, and
+tree for N-Queens, SEND + MORE = MONEY, DONALD + GERALD = ROBERT, and
 Knapsack. Mark whether each branching decision chooses a permutation element,
 assigns a digit, derives a carry-constrained digit, or includes an item. The
 syntax is similar; the combinatorial objects and pruning strength are different.
@@ -5986,7 +5985,7 @@ hand.
 
 #### Running and extending the corpus
 
-Run all 200 normal answer goldens and the 55 selected proof goldens with:
+Run all 199 normal answer goldens and the 55 selected proof goldens with:
 
 ```sh
 npm run test:examples
@@ -6035,7 +6034,7 @@ node test/run-conformance-report.mjs
 The complete suite must pass before release. The file-based conformance corpus
 contains 684 cases, including 279 focused ISO
 cases derived from the success, failure, mode, and error behavior in
-ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 200 normal
+ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 199 normal
 examples, 55 proof examples, and extracted book displays. The seven-case
 playground contract suite imports the production worker, sends real reasoning
 requests through its message protocol, and crawls the served module graph for

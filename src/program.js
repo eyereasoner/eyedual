@@ -18,17 +18,22 @@ export class Program {
     this.prologFlagDirectives = [];
     this.charConversionDirectives = [];
     this._revisionState = { value: 0 };
+    const declaredDynamicIndicators = [];
     for (const clause of this.clauses) {
-      assertClauseHeadIsDefinable(clause);
+      if (!isDirectiveClause(clause)) {
+        assertHeadIsDefinable(clause.head);
+        continue;
+      }
       for (const indicator of dynamicDirectiveIndicators(clause)) {
         assertDynamicIndicatorIsDefinable(indicator);
         this.dynamicPredicates.add(indicator.key);
+        declaredDynamicIndicators.push(indicator);
       }
       const operator = operatorDirective(clause);
       if (operator) {
         for (const name of operator.names) this.defineOperator(operator.priority, operator.specifier, name);
       }
-      const directive = isDirectiveClause(clause) ? clause.head.args[0] : null;
+      const directive = clause.head.args[0];
       if (directive?.type === COMPOUND && directive.name === 'initialization' && directive.arity === 1) {
         this.initializations.push(directive.args[0]);
       } else if (directive?.type === COMPOUND && directive.name === 'set_prolog_flag' && directive.arity === 2) {
@@ -40,18 +45,16 @@ export class Program {
     // A dynamic declaration creates a procedure even when it has no clauses.
     // Calls to that procedure must fail normally instead of being handled as
     // calls to an unknown predicate.
-    for (const clause of this.clauses) {
-      for (const indicator of dynamicDirectiveIndicators(clause)) {
-        if (!this.groups.has(indicator.key)) {
-          this.groups.set(indicator.key, this.makeGroup(indicator.name, indicator.arity));
-        }
+    for (const indicator of declaredDynamicIndicators) {
+      if (!this.groups.has(indicator.key)) {
+        this.groups.set(indicator.key, this.makeGroup(indicator.name, indicator.arity));
       }
     }
     for (let index = 0; index < this.clauses.length; index++) {
       const clause = this.clauses[index];
       clause.index = index;
       if (isDirectiveClause(clause)) continue;
-      this.indexClause(clause);
+      this._indexClause(clause, true);
     }
     this._negationAnalysis = null;
     this.markRecursivePredicates();
@@ -68,8 +71,18 @@ export class Program {
     return new Program(expandIncludedClauses(parseSourceClauses(source, options), options, ensured), options);
   }
   static parseSources(sources = [], options = {}) {
-    const clauses = [];
     const ensured = new Set();
+    if (sources.length === 1) {
+      const source = sources[0];
+      const sourceOptions = typeof source === 'string'
+        ? options
+        : { ...options, filename: source?.filename ?? '<input>', baseDir: source?.baseDir ?? options.baseDir };
+      const parsed = typeof source === 'string'
+        ? parseSourceClauses(source, options)
+        : parseSourceClauses(source?.text ?? source?.source ?? '', sourceOptions);
+      return new Program(expandIncludedClauses(parsed, sourceOptions, ensured), options);
+    }
+    const clauses = [];
     for (const source of sources) {
       const sourceOptions = typeof source === 'string'
         ? options
@@ -90,7 +103,7 @@ export class Program {
       name,
       arity,
       clauses: [],
-      argIndexes: Array.from({ length: arity }, () => ({ buckets: new Map(), fallback: [] })),
+      argIndexes: Array.from({ length: arity }, () => ({ buckets: new Map(), fallback: [], sawScalar: false })),
       demandIndexes: new Map(),
       rejectedDemandIndexes: new Set(),
       tabled: false,
@@ -103,8 +116,11 @@ export class Program {
     return group;
   }
   indexClause(clause) {
+    this._indexClause(clause, false);
+  }
+  _indexClause(clause, initialBuild) {
     const head = clause.head;
-    assertHeadIsDefinable(head);
+    if (!initialBuild) assertHeadIsDefinable(head);
     if (head.type !== ATOM && head.type !== COMPOUND) return;
     const key = `${head.name}/${head.arity}`;
     let group = this.groups.get(key);
@@ -117,10 +133,13 @@ export class Program {
     if (clause.body.length !== 0 || !clause.scalarHead) group.scalarFactsOnly = false;
     // Keep already-used groups correct when embedders append clauses through
     // the public indexClause method.
-    group.demandIndexes.clear();
-    group.rejectedDemandIndexes.clear();
+    if (!initialBuild) {
+      group.demandIndexes.clear();
+      group.rejectedDemandIndexes.clear();
+    }
     group.clauses.push(clause);
-    for (let i = 0; i < head.arity; i++) indexOne(group.argIndexes[i], head.args[i], clause);
+    const clausePosition = group.clauses.length - 1;
+    for (let i = 0; i < head.arity; i++) indexOne(group.argIndexes[i], head.args[i], clause, group.clauses, clausePosition);
   }
   findGroup(name, arity) {
     return this.groups.get(`${name}/${arity}`) ?? null;
@@ -187,6 +206,12 @@ export class Program {
       const groupIndex = indexByGroup.get(group);
       for (const clause of group.clauses) {
         for (const goal of clause.body) {
+          const directKey = directGoalDependencyKey(goal);
+          if (directKey) {
+            const dep = this.groups.get(directKey);
+            if (dep) deps[groupIndex].add(indexByGroup.get(dep));
+            continue;
+          }
           for (const dependency of collectGoalDependencies(goal, false)) {
             const dep = this.groups.get(dependency.key);
             if (dep) {
@@ -329,6 +354,17 @@ export class Program {
 }
 
 function expandIncludedClauses(clauses, options, ensured) {
+  let hasIncludeDirective = false;
+  for (const clause of clauses) {
+    const directive = isDirectiveClause(clause) ? clause.head.args[0] : null;
+    if (directive?.type === COMPOUND && directive.arity === 1 &&
+        (directive.name === 'include' || directive.name === 'ensure_loaded')) {
+      hasIncludeDirective = true;
+      break;
+    }
+  }
+  if (!hasIncludeDirective) return clauses;
+
   const expanded = [];
   for (const clause of clauses) {
     const directive = isDirectiveClause(clause) ? clause.head.args[0] : null;
@@ -469,45 +505,59 @@ function reachableIndexes(start, deps) {
 }
 
 function inferStructuralInputPositions(group) {
-  const patternedPositions = new Set();
-  const linkedInputPositions = new Set();
+  let firstPatternedPosition = -1;
+  let firstLinkedInputPosition = -1;
+  const changed = new Uint8Array(group.arity);
+
   for (const clause of group.clauses) {
-    const recursiveGoals = clause.body.filter((goal) =>
-      goal.type === COMPOUND && goal.name === group.name && goal.arity === group.arity
-    );
-    if (recursiveGoals.length === 0) continue;
-    const clauseChangedPositions = new Set();
-    for (let index = 0; index < clause.head.args.length; index++) {
-      if (clause.head.args[index].type !== 'var') patternedPositions.add(index);
-      if (recursiveGoals.some((goal) => !sameClauseTerm(clause.head.args[index], goal.args[index]))) {
-        clauseChangedPositions.add(index);
+    changed.fill(0);
+    let recursive = false;
+    for (const goal of clause.body) {
+      if (goal.type !== COMPOUND || goal.name !== group.name || goal.arity !== group.arity) continue;
+      recursive = true;
+      for (let index = 0; index < group.arity; index++) {
+        if (!sameClauseTerm(clause.head.args[index], goal.args[index])) changed[index] = 1;
       }
     }
-    for (let index = 0; index < clause.head.args.length; index++) {
+    if (!recursive) continue;
+
+    for (let index = 0; index < group.arity; index++) {
       const headArg = clause.head.args[index];
-      if (headArg.type !== 'var' || !clauseChangedPositions.has(index)) continue;
-      if (clause.head.args.some((pattern, patternIndex) =>
-        patternIndex !== index && pattern.type !== 'var' && termContainsVariable(pattern, headArg.name)
-      )) linkedInputPositions.add(index);
+      if (headArg.type !== 'var' && (firstPatternedPosition < 0 || index < firstPatternedPosition)) firstPatternedPosition = index;
+      if (headArg.type !== 'var' || changed[index] === 0) continue;
+      for (let patternIndex = 0; patternIndex < group.arity; patternIndex++) {
+        if (patternIndex === index) continue;
+        const pattern = clause.head.args[patternIndex];
+        if (pattern.type !== 'var' && termContainsVariable(pattern, headArg.name)) {
+          if (firstLinkedInputPosition < 0 || index < firstLinkedInputPosition) firstLinkedInputPosition = index;
+          break;
+        }
+      }
     }
   }
-  if (linkedInputPositions.size > 0) {
-    return [[...linkedInputPositions].sort((left, right) => left - right)[0]];
-  }
-  if (patternedPositions.size > 0) {
-    return [[...patternedPositions].sort((left, right) => left - right)[0]];
-  }
+  if (firstLinkedInputPosition >= 0) return [[firstLinkedInputPosition]];
+  if (firstPatternedPosition >= 0) return [[firstPatternedPosition]];
   return Array.from({ length: group.arity }, (_, index) => index);
 }
 
 function hasLinearNumericRecursion(group) {
-  const recursiveClauses = group.clauses.filter((clause) => clause.body.some((goal) =>
-    goal.type === COMPOUND && goal.name === group.name && goal.arity === group.arity
-  ));
-  if (recursiveClauses.length !== 1 || group.clauses.some((clause) =>
-    clause.head.args.some((arg) => arg.type !== 'var')
-  )) return false;
-  return recursiveClauses[0].body.some((goal) => goal.type === COMPOUND && goal.name === 'is' && goal.arity === 2);
+  let recursiveClause = null;
+  for (const clause of group.clauses) {
+    for (const arg of clause.head.args) if (arg.type !== 'var') return false;
+    let recursive = false;
+    for (const goal of clause.body) {
+      if (goal.type === COMPOUND && goal.name === group.name && goal.arity === group.arity) {
+        recursive = true;
+        break;
+      }
+    }
+    if (!recursive) continue;
+    if (recursiveClause) return false;
+    recursiveClause = clause;
+  }
+  return recursiveClause != null && recursiveClause.body.some((goal) =>
+    goal.type === COMPOUND && goal.name === 'is' && goal.arity === 2
+  );
 }
 
 function isPiAccumulator(group) {
@@ -529,6 +579,19 @@ function sameClauseTerm(left, right) {
 function termHasNoVariables(term) {
   if (!term || term.type === 'var') return false;
   return !term.args?.some((arg) => !termHasNoVariables(arg));
+}
+
+function directGoalDependencyKey(goal) {
+  if (goal.type === ATOM) return `${goal.name}/0`;
+  if (goal.type !== COMPOUND) return null;
+  if (goal.name === ',' && goal.arity === 2) return null;
+  if ((goal.name === '\\+' || goal.name === 'not') && goal.arity === 1) return null;
+  if (goal.name === 'once' && goal.arity === 1) return null;
+  if (goal.name === 'forall' && goal.arity === 2) return null;
+  if ((goal.name === 'findall' || goal.name === 'sumall') && goal.arity === 3) return null;
+  if (goal.name === 'countall' && goal.arity === 2) return null;
+  if ((goal.name === 'aggregate_min' || goal.name === 'aggregate_max') && goal.arity === 5) return null;
+  return `${goal.name}/${goal.arity}`;
 }
 
 function collectGoalDependencies(goal, negated) {
@@ -643,27 +706,48 @@ function scalarIndexKey(term) {
   return `${term.type}\u0000${term.name}`;
 }
 
-function indexOne(index, arg, clause) {
+function addClauseBucket(buckets, key, clause) {
+  const existing = buckets.get(key);
+  if (existing == null) buckets.set(key, clause);
+  else if (Array.isArray(existing)) existing.push(clause);
+  else buckets.set(key, [existing, clause]);
+}
+
+function clauseCollectionLength(clauses) {
+  return clauses == null ? 0 : Array.isArray(clauses) ? clauses.length : 1;
+}
+
+function clauseCollectionAt(clauses, index) {
+  return Array.isArray(clauses) ? clauses[index] : index === 0 ? clauses : undefined;
+}
+
+function indexOne(index, arg, clause, clauses = null, clausePosition = -1) {
   if (isScalar(arg)) {
-    const key = scalarIndexKey(arg);
-    const bucket = index.buckets.get(key);
-    if (bucket) bucket.push(clause);
-    else index.buckets.set(key, [clause]);
-  } else {
+    if (!index.sawScalar) {
+      index.sawScalar = true;
+      if (clauses && clausePosition > 0) index.fallback = clauses.slice(0, clausePosition);
+    }
+    addClauseBucket(index.buckets, scalarIndexKey(arg), clause);
+  } else if (index.sawScalar) {
     index.fallback.push(clause);
   }
 }
 
+function indexFallback(index, group) {
+  return index.sawScalar ? index.fallback : group.clauses;
+}
+
 function rebuildGroupIndexes(group) {
-  group.argIndexes = Array.from({ length: group.arity }, () => ({ buckets: new Map(), fallback: [] }));
+  group.argIndexes = Array.from({ length: group.arity }, () => ({ buckets: new Map(), fallback: [], sawScalar: false }));
   group.demandIndexes.clear();
   group.rejectedDemandIndexes.clear();
   group.scalarFactsOnly = true;
-  for (const clause of group.clauses) {
+  for (let clausePosition = 0; clausePosition < group.clauses.length; clausePosition++) {
+    const clause = group.clauses[clausePosition];
     clause.groundHead = termHasNoVariables(clause.head);
     clause.scalarHead = clause.head.type === COMPOUND && clause.head.args.every(isScalar);
     if (clause.body.length !== 0 || !clause.scalarHead) group.scalarFactsOnly = false;
-    for (let i = 0; i < group.arity; i++) indexOne(group.argIndexes[i], clause.head.args[i], clause);
+    for (let i = 0; i < group.arity; i++) indexOne(group.argIndexes[i], clause.head.args[i], clause, group.clauses, clausePosition);
   }
 }
 
@@ -691,24 +775,28 @@ function buildDemandIndex(group, positions) {
       continue;
     }
     const key = demandValueKey(values);
-    const bucket = index.buckets.get(key);
-    if (bucket) bucket.push(clause);
-    else index.buckets.set(key, [clause]);
+    addClauseBucket(index.buckets, key, clause);
   }
   return index;
 }
 
 function mergeClausesInSourceOrder(primary, fallback) {
+  const primaryLength = clauseCollectionLength(primary);
   if (fallback.length === 0) return primary;
-  if (primary.length === 0) return fallback;
+  if (primaryLength === 0) return fallback;
   const merged = [];
   let left = 0;
   let right = 0;
-  while (left < primary.length && right < fallback.length) {
-    if (primary[left].index < fallback[right].index) merged.push(primary[left++]);
-    else merged.push(fallback[right++]);
+  while (left < primaryLength && right < fallback.length) {
+    const primaryClause = clauseCollectionAt(primary, left);
+    if (primaryClause.index < fallback[right].index) {
+      merged.push(primaryClause);
+      left++;
+    } else {
+      merged.push(fallback[right++]);
+    }
   }
-  while (left < primary.length) merged.push(primary[left++]);
+  while (left < primaryLength) merged.push(clauseCollectionAt(primary, left++));
   while (right < fallback.length) merged.push(fallback[right++]);
   return merged;
 }
@@ -744,9 +832,10 @@ export function selectClauseCandidatesForValues(group, positions, values) {
   // constructed only when none of them reduces the choice set to a small scan.
   for (let i = 0; i < positions.length; i++) {
     const index = group.argIndexes[positions[i]];
-    const parts = { primary: index.buckets.get(scalarIndexKey(values[i])) ?? [], fallback: index.fallback };
-    const length = parts.primary.length + parts.fallback.length;
-    if (index.fallback.length / group.clauses.length > INDEX_MAX_VAR_FRACTION) continue;
+    const fallback = indexFallback(index, group);
+    const parts = { primary: index.buckets.get(scalarIndexKey(values[i])) ?? null, fallback };
+    const length = clauseCollectionLength(parts.primary) + parts.fallback.length;
+    if (fallback.length / group.clauses.length > INDEX_MAX_VAR_FRACTION) continue;
     if (group.clauses.length / Math.max(1, length) < INDEX_MIN_SPEEDUP) continue;
     if (length < bestLength) {
       bestParts = parts;
@@ -757,7 +846,7 @@ export function selectClauseCandidatesForValues(group, positions, values) {
   if (positions.length > 1 && bestLength > 1 && !group.rejectedDemandIndexes.has(wideKey)) {
     const hadWideIndex = group.demandIndexes.has(wideKey);
     const parts = demandCandidateParts(group, positions, values);
-    const length = parts.primary.length + parts.fallback.length;
+    const length = clauseCollectionLength(parts.primary) + parts.fallback.length;
     const variableFraction = parts.fallback.length / group.clauses.length;
     const speedup = group.clauses.length / Math.max(1, length);
     const improvement = bestLength / Math.max(1, length);
@@ -778,7 +867,7 @@ export function selectClauseCandidatesForValues(group, positions, values) {
   // lookup (notably in long deterministic ground chains).
   const best = !bestParts ? group.clauses
     : bestParts.fallback.length === 0 ? bestParts.primary
-      : bestParts.primary.length === 0 ? bestParts.fallback
+      : clauseCollectionLength(bestParts.primary) === 0 ? bestParts.fallback
         : mergeClausesInSourceOrder(bestParts.primary, bestParts.fallback);
   return { primary: best, fallback: [] };
 }
@@ -790,7 +879,7 @@ function demandCandidateParts(group, positions, values) {
     index = buildDemandIndex(group, positions);
     group.demandIndexes.set(indexKey, index);
   }
-  const bucket = index.buckets.get(demandValueKey(values)) ?? [];
+  const bucket = index.buckets.get(demandValueKey(values)) ?? null;
   return { primary: bucket, fallback: index.fallback };
 }
 

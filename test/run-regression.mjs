@@ -1271,16 +1271,19 @@ path(X, Z) :- edge(X, Y), path(Y, Z).
       },
     },
     {
-      name: 'n-queens example keeps diagonal checks tabled',
+      name: 'n-queens example keeps recursive search predicates tabled',
       run: () => {
-        const text = fs.readFileSync(path.join(packageRoot, 'examples', 'n-queens-8.pl'), 'utf8');
-        const program = Program.parseSources([{ text, filename: 'n-queens-8.pl' }]);
-        const group = program.findGroup('no_diagonal_attack', 3);
-        assertEqual(Boolean(group), true, 'no_diagonal_attack/3 group exists');
-        assertEqual(group.tabled, true, 'no_diagonal_attack/3 tabled');
-        assertEqual(group.recursive, true, 'no_diagonal_attack/3 recursive');
-        assertEqual(group.tableInputPositions.join(','), '2', 'diagonal scan uses the remaining rows as input');
-        assertEqual(program.findGroup('perm', 2).tableInputPositions.join(','), '1', 'permutation output stays untabled while open');
+        const text = fs.readFileSync(path.join(packageRoot, 'examples', 'n-queens.pl'), 'utf8');
+        const program = Program.parseSources([{ text, filename: 'n-queens.pl' }]);
+        const attack = program.findGroup('attack', 3);
+        assertEqual(Boolean(attack), true, 'attack/3 group exists');
+        assertEqual(attack.tabled, true, 'attack/3 tabled');
+        assertEqual(attack.recursive, true, 'attack/3 recursive');
+        assertEqual(attack.tableInputPositions.join(','), '2', 'diagonal scan uses the placed rows as input');
+        const queens = program.findGroup('queens', 3);
+        assertEqual(Boolean(queens), true, 'queens/3 group exists');
+        assertEqual(queens.tabled, true, 'queens/3 tabled');
+        assertEqual(queens.recursive, true, 'queens/3 recursive');
       },
     },
     {

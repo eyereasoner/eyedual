@@ -64,7 +64,7 @@ to terminate the previous worker and discard its cached module graph.
 
 ## Classical and challenge search examples
 
-The example corpus now contains **200 runnable examples**. Three useful search
+The example corpus now contains **199 runnable examples**. Three useful search
 stress cases exercise the EyeDual library, which is loaded by
 default in the CLI, JavaScript API, and browser playground. Their exact checked
 answers live beside the other goldens under `examples/output/`:
@@ -79,8 +79,8 @@ node bin/eyedual.js examples/donald-gerald-robert.pl
 obstacles and reconstructs one path ([golden](examples/output/lee.pl)).
 [`n-queens.pl`](examples/n-queens.pl) uses selection and diagonal pruning to
 enumerate all 92 solutions of the eight-queen puzzle
-([golden](examples/output/n-queens.pl)). The milestone 200th example,
-[`donald-gerald-robert.pl`](examples/donald-gerald-robert.pl), solves a
+([golden](examples/output/n-queens.pl)).
+[`donald-gerald-robert.pl`](examples/donald-gerald-robert.pl) solves a
 pandigital cryptarithm whose naive search space is 10!, or 3,628,800 digit
 assignments. Carry propagation and a shrinking digit domain reduce it to one
 checked solution ([golden](examples/output/donald-gerald-robert.pl)).

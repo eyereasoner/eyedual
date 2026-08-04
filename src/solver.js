@@ -323,7 +323,8 @@ export class Solver {
     // semantic shortcut.
     const candidates = selectClauseCandidates(group, goal, env);
     for (const pass of [candidates.primary, candidates.fallback]) {
-      for (const clause of pass) {
+      for (let candidateIndex = 0; candidateIndex < clauseCandidateLength(pass); candidateIndex++) {
+        const clause = clauseCandidateAt(pass, candidateIndex);
         if (clause.body.length === 0 && clause.scalarHead) {
           const next = matchScalarFact(goal, clause.head, env);
           if (!next) continue;
@@ -447,7 +448,8 @@ function pushUserGoalUncachedFrames(stack, solver, group, goal, rest, env, depth
   const release = guarded ? [{ kind: 'releaseActive' }] : [];
   const nextActive = guarded ? [...active, invocation] : active;
   for (const pass of [candidates.primary, candidates.fallback]) {
-    for (const clause of pass) {
+    for (let candidateIndex = 0; candidateIndex < clauseCandidateLength(pass); candidateIndex++) {
+      const clause = clauseCandidateAt(pass, candidateIndex);
       if (clause.body.length === 0 && clause.scalarHead) {
         const next = matchScalarFact(goal, clause.head, env);
         if (next) {
@@ -555,7 +557,8 @@ function tryPushScalarFactRunFrames(stack, solver, goals, env, depth, active) {
     const candidates = selectScalarFactCandidates(groups[state.index], goal, env, state.names, state.values);
     const nextStates = [];
     for (const pass of [candidates.primary, candidates.fallback]) {
-      for (const clause of pass) {
+      for (let candidateIndex = 0; candidateIndex < clauseCandidateLength(pass); candidateIndex++) {
+        const clause = clauseCandidateAt(pass, candidateIndex);
         const match = matchScalarFactLocal(goal, clause.head, env, state.names, state.values);
         if (!match) continue;
         solver.stats.unify_calls++;
@@ -697,7 +700,8 @@ function tryPushGroundChainFrames(stack, solver, group, goal, rest, env, depth, 
     const candidates = selectClauseCandidates(currentGroup, currentGoal, currentEnv);
     const matches = [];
     for (const pass of [candidates.primary, candidates.fallback]) {
-      for (const clause of pass) {
+      for (let candidateIndex = 0; candidateIndex < clauseCandidateLength(pass); candidateIndex++) {
+        const clause = clauseCandidateAt(pass, candidateIndex);
         if (headCannotMatch(currentGoal, clause.head, currentEnv)) continue;
         const match = matchGroundClause(currentGoal, clause);
         if (match === undefined) return false;
@@ -726,6 +730,15 @@ function tryPushGroundChainFrames(stack, solver, group, goal, rest, env, depth, 
 
 
 
+
+
+function clauseCandidateLength(candidate) {
+  return candidate == null ? 0 : Array.isArray(candidate) ? candidate.length : 1;
+}
+
+function clauseCandidateAt(candidate, index) {
+  return Array.isArray(candidate) ? candidate[index] : index === 0 ? candidate : undefined;
+}
 
 function matchGroundClause(goal, clause) {
   if (clause.head.type !== COMPOUND || goal.type !== COMPOUND) return undefined;
@@ -796,7 +809,14 @@ function groundChainKey(term) {
 }
 
 function rememberGroundChainSuccess(solver, seen) {
-  for (const key of seen) solver.groundChainSuccess.add(key);
+  // Cache a sparse set of checkpoints. This preserves fast reuse of long
+  // deterministic chains without retaining every intermediate goal.
+  let index = 0;
+  const last = seen.size - 1;
+  for (const key of seen) {
+    if ((index & 63) === 0 || index === last) solver.groundChainSuccess.add(key);
+    index++;
+  }
 }
 
 function rememberMemoAnswer(entry, goal, env) {

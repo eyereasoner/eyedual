@@ -75,7 +75,8 @@ function* proveGoalAll(program, goal, env, depth, maxDepth, registry, active) {
 
   const candidates = selectClauseCandidates(group, goal, env);
   for (const pass of [candidates.primary, candidates.fallback]) {
-    for (const clause of pass) {
+    for (let candidateIndex = 0; candidateIndex < clauseCandidateLength(pass); candidateIndex++) {
+      const clause = clauseCandidateAt(pass, candidateIndex);
       const id = nextFreshId();
       const freshHead = freshTerm(clause.head, id);
       const freshBody = clause.body.map((term) => freshTerm(term, id));
@@ -125,6 +126,14 @@ function* proveGoalAll(program, goal, env, depth, maxDepth, registry, active) {
       }
     }
   }
+}
+
+function clauseCandidateLength(candidate) {
+  return candidate == null ? 0 : Array.isArray(candidate) ? candidate.length : 1;
+}
+
+function clauseCandidateAt(candidate, index) {
+  return Array.isArray(candidate) ? candidate[index] : index === 0 ? candidate : undefined;
 }
 
 function* proveGoalsAll(program, goals, env, depth, maxDepth, registry, active) {
