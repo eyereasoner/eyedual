@@ -5246,8 +5246,8 @@ source module and no runtime Prolog-library parse or program overlay.
 ISO-only registry remains available through `createDefaultRegistry()` and
 `getDefaultRegistry()` for conformance work and advanced embedders.
 
-The complete registry contains **164 predicate indicators**: 115 in the isolated
-ISO profile and 49 EyeDual library indicators implemented in `src/library.js`. Every
+The complete registry contains **165 predicate indicators**: 115 in the isolated
+ISO profile and 50 EyeDual library indicators implemented in `src/library.js`. Every
 EyeDual library definition is tagged with `eyeDualLibrary: true`, so tests and
 embedders can audit the boundary directly.
 
@@ -5268,7 +5268,7 @@ embedders can audit the boundary directly.
 | `maplist/3` |
 | `acos/2`, `asin/2`, `atan2/3`, `tan/2` |
 | `lt/2`, `le/2`, `gt/2`, `ge/2` |
-| `local_time/1`, `difference/3` |
+| `uuid/1`, `local_time/1`, `difference/3` |
 | `matches/3` |
 | `call/3` |
 | `split/3`, `replace/4` |
@@ -5276,6 +5276,11 @@ embedders can audit the boundary directly.
 | `number_string/2`, `atom_string/2`, `term_string/2` |
 
 <!-- eyedual-library-catalog:end -->
+
+`uuid/1` creates one fresh version 4 UUID atom. It is deterministic in
+the Prolog sense: each call has exactly one solution, although the generated atom
+is intentionally different between calls. The implementation uses the Web Crypto API where available and remains
+portable across Node and the browser playground.
 
 On the command line, the EyeDual library is already present:
 
@@ -5661,7 +5666,7 @@ Review questions:
 </figure>
 
 The [examples directory](https://github.com/eyereasoner/eyedual/tree/main/examples/) is the book's executable companion. The
-top-level directory contains **199 self-contained runnable programs**. Every
+top-level directory contains **200 self-contained runnable programs**. Every
 source program has an exact answer file under
 [examples/output](https://github.com/eyereasoner/eyedual/tree/main/examples/output/), and **55 selected programs** have a checked
 explanation under [examples/proof](https://github.com/eyereasoner/eyedual/tree/main/examples/proof/). The selected pointers below
@@ -5739,6 +5744,7 @@ studies.
 | [Herbrand witnesses](https://github.com/eyereasoner/eyedual/blob/main/examples/herbrand-witnesses.pl) | Functional witness terms make existential structure and syntactic identity visible in both answers and derivations. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/herbrand-witnesses.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/herbrand-witnesses.pl) |
 | [Annotation](https://github.com/eyereasoner/eyedual/blob/main/examples/annotation.pl) | Terms attach descriptive data while the logical relation remains ordinary. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/annotation.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/annotation.pl) |
 | [Reusable built-ins](https://github.com/eyereasoner/eyedual/blob/main/examples/reusable-builtins.pl) | Arithmetic, strings, lists, and term inspection compose through ordinary variables. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/reusable-builtins.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/reusable-builtins.pl) |
+| [UUID](https://github.com/eyereasoner/eyedual/blob/main/examples/uuid.pl) | `uuid/1` creates one version 4 UUID atom; the example validates its shape while keeping the checked answer stable. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/uuid.pl) |
 
 Suggested path: Socrates → Age → Ancestor → Derived rule → Reusable built-ins.
 At each step, say aloud what one ground instance of every predicate means.
@@ -5985,7 +5991,7 @@ hand.
 
 #### Running and extending the corpus
 
-Run all 199 normal answer goldens and the 55 selected proof goldens with:
+Run all 200 normal answer goldens and the 55 selected proof goldens with:
 
 ```sh
 npm run test:examples
@@ -6032,9 +6038,9 @@ node test/run-conformance-report.mjs
 ```
 
 The complete suite must pass before release. The file-based conformance corpus
-contains 684 cases, including 279 focused ISO
+contains 685 cases, including 279 focused ISO
 cases derived from the success, failure, mode, and error behavior in
-ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 199 normal
+ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 200 normal
 examples, 55 proof examples, and extracted book displays. The seven-case
 playground contract suite imports the production worker, sends real reasoning
 requests through its message protocol, and crawls the served module graph for

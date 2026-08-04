@@ -157,6 +157,8 @@ function parseDuration(text) {
 
 export const coreBuiltins = {
   register(registry) {
+    registry.add('uuid', 1, uuidBuiltin, { deterministic: true });
+
     registry.add('local_time', 1, function* ({ goal, env }) {
       const next = env.clone();
       if (unify(goal.args[0], stringTerm(localDateText()), next)) yield next;
@@ -186,6 +188,28 @@ export const coreBuiltins = {
     }, { deterministic: true });
   }
 };
+
+function* uuidBuiltin({ goal, env }) {
+  const next = env.clone();
+  if (unify(goal.args[0], atom(randomUuidV4()), next)) yield next;
+}
+
+function randomUuidV4() {
+  const cryptoApi = globalThis.crypto;
+  if (typeof cryptoApi?.randomUUID === 'function') return cryptoApi.randomUUID();
+  const bytes = new Uint8Array(16);
+  if (typeof cryptoApi?.getRandomValues === 'function') {
+    cryptoApi.getRandomValues(bytes);
+  } else {
+    for (let index = 0; index < bytes.length; index++) {
+      bytes[index] = Math.floor(Math.random() * 256);
+    }
+  }
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0'));
+  return `${hex.slice(0, 4).join('')}-${hex.slice(4, 6).join('')}-${hex.slice(6, 8).join('')}-${hex.slice(8, 10).join('')}-${hex.slice(10).join('')}`;
+}
 
 export const metaCallBuiltins = {
   register(registry) {

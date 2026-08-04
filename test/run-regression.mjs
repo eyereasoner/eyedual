@@ -888,11 +888,12 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not ISO core');
         assertEqual(library.eyeDualLibrary, true, 'complete registry marker');
-        assertEqual(library.defs.size, 164, 'complete registry size');
-        assertEqual(registeredEyeDualLibraryNames().length, 49, 'EyeDual library size');
+        assertEqual(library.defs.size, 165, 'complete registry size');
+        assertEqual(registeredEyeDualLibraryNames().length, 50, 'EyeDual library size');
         assertEqual(library.get('append', 3)?.eyeDualLibrary, true, 'append/3 metadata');
         assertEqual(library.get('maplist', 3)?.eyeDualLibrary, true, 'maplist/3 metadata');
         assertEqual(library.get('matches', 3)?.eyeDualLibrary, true, 'matches/3 metadata');
+        assertEqual(library.get('uuid', 1)?.deterministic, true, 'uuid/1 deterministic metadata');
         for (const [name, arity] of [['not_member', 2], ['head', 2], ['rest', 2], ['min', 3], ['max', 3]]) {
           assertEqual(library.get(name, arity), null, `${name}/${arity} removed from library`);
         }
