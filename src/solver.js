@@ -6,7 +6,7 @@ import {
 } from './term.js';
 import { PrologError } from './iso.js';
 import { getEyeDualRegistry } from './library.js';
-import { selectClauseCandidates, selectClauseCandidatesForValues } from './program.js';
+import { selectClauseCandidates, selectClauseCandidatesForValues, selectGroundClauseCandidates } from './program.js';
 import { StreamManager } from './io.js';
 
 let freshCounter = 0;
@@ -697,9 +697,9 @@ function tryPushGroundChainFrames(stack, solver, group, goal, rest, env, depth, 
     }
     seen.add(key);
 
-    const candidates = selectClauseCandidates(currentGroup, currentGoal, currentEnv);
+    const candidates = selectGroundClauseCandidates(currentGroup, currentGoal);
     const matches = [];
-    for (const pass of [candidates.primary, candidates.fallback]) {
+    for (const pass of [candidates]) {
       for (let candidateIndex = 0; candidateIndex < clauseCandidateLength(pass); candidateIndex++) {
         const clause = clauseCandidateAt(pass, candidateIndex);
         if (headCannotMatch(currentGoal, clause.head, currentEnv)) continue;
@@ -743,6 +743,7 @@ function clauseCandidateAt(candidate, index) {
 function matchGroundClause(goal, clause) {
   if (clause.head.type !== COMPOUND || goal.type !== COMPOUND) return undefined;
   if (clause.head.name !== goal.name || clause.head.arity !== goal.arity) return null;
+  if (goal.arity === 2) return matchGroundBinaryClause(goal, clause);
 
   const names = [];
   const values = [];
@@ -781,6 +782,49 @@ function matchGroundClause(goal, clause) {
     }
   }
   return { nextGoal: compound(bodyGoal.name, args) };
+}
+
+function matchGroundBinaryClause(goal, clause) {
+  const headArgs = clause.head.args;
+  const goalArgs = goal.args;
+  for (let i = 0; i < 2; i++) {
+    const headArg = headArgs[i];
+    if (headArg.type === 'var') {
+      for (let j = 0; j < i; j++) {
+        if (headArgs[j].type === 'var' && headArgs[j].name === headArg.name &&
+            !sameGroundTerm(goalArgs[j], goalArgs[i])) return null;
+      }
+    } else if (isScalarTerm(headArg)) {
+      if (!sameGroundTerm(headArg, goalArgs[i])) return null;
+    } else {
+      return undefined;
+    }
+  }
+
+  if (clause.body.length === 0) return { done: true };
+  if (clause.body.length !== 1) return undefined;
+  const bodyGoal = clause.body[0];
+  if (bodyGoal.type !== COMPOUND) return undefined;
+  const bodyArgs = new Array(bodyGoal.arity);
+  for (let i = 0; i < bodyGoal.arity; i++) {
+    const arg = bodyGoal.args[i];
+    if (arg.type === 'var') {
+      let found = false;
+      for (let j = 0; j < 2; j++) {
+        if (headArgs[j].type === 'var' && headArgs[j].name === arg.name) {
+          bodyArgs[i] = goalArgs[j];
+          found = true;
+          break;
+        }
+      }
+      if (!found) return undefined;
+    } else if (isScalarTerm(arg)) {
+      bodyArgs[i] = arg;
+    } else {
+      return undefined;
+    }
+  }
+  return { nextGoal: compound(bodyGoal.name, bodyArgs) };
 }
 
 function isScalarTerm(term) {

@@ -989,6 +989,22 @@ function whiteBoxCases() {
       },
     },
     {
+      name: 'deep environment chains flatten without losing bindings',
+      run: () => {
+        const env = new Env();
+        for (let i = 0; i < 40; i++) env.bind(`V${i}`, numberTerm(i));
+        assertEqual(env.get('V0').name, '0', 'oldest binding');
+        assertEqual(env.get('V31').name, '31', 'binding before flatten');
+        assertEqual(env.get('V39').name, '39', 'latest binding');
+        assertEqual(env.has('missing'), false, 'missing binding');
+
+        const clone = env.clone();
+        clone.bind('OnlyClone', atom('yes'));
+        assertEqual(clone.get('OnlyClone').name, 'yes', 'clone write');
+        assertEqual(env.has('OnlyClone'), false, 'clone remains isolated');
+      },
+    },
+    {
       name: 'copyResolved and termIsGround follow bindings',
       run: () => {
         const env = new Env();

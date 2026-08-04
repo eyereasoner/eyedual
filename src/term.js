@@ -36,14 +36,22 @@ export const cons = (head, tail) => compound('.', [head, tail]);
 export class Env {
   constructor(bindings) {
     this._state = {
-      bindings: bindings ? new Map(bindings) : new Map(), parent: null, depth: 0,
-      cacheName: null, cacheValue: undefined, cache: null,
+      bindings: bindings ? new Map(bindings) : null,
+      bindingName: null,
+      bindingValue: undefined,
+      parent: null,
+      depth: 0,
+      cacheName: null,
+      cacheValue: undefined,
+      cache: null,
     };
   }
   clone() {
     // Most speculative environments are either rejected without a binding or
     // only compare ground terms. Persistent layers make cloning constant-time
-    // and keep later writes to either branch isolated.
+    // and keep later writes to either branch isolated. Hot-path layers store a
+    // single binding directly; a Map is allocated only when a deep chain is
+    // occasionally flattened.
     const clone = Object.create(Env.prototype);
     clone._state = this._state;
     return clone;
@@ -57,8 +65,16 @@ export class Env {
     const cached = root.cache?.get(name);
     if (cached !== undefined) return cached;
     for (let state = root; state != null; state = state.parent) {
-      if (state.bindings.has(name)) {
-        const value = state.bindings.get(name);
+      let value;
+      let found = false;
+      if (state.bindingName === name) {
+        value = state.bindingValue;
+        found = true;
+      } else if (state.bindings?.has(name)) {
+        value = state.bindings.get(name);
+        found = true;
+      }
+      if (found) {
         if (root.depth >= 4) {
           if (root.cacheName == null) {
             root.cacheName = name;
@@ -76,19 +92,32 @@ export class Env {
     if (this._state.depth >= 32) {
       const flattened = new Map();
       for (let state = this._state; state != null; state = state.parent) {
-        for (const [key, value] of state.bindings) {
-          if (!flattened.has(key)) flattened.set(key, value);
+        if (state.bindingName != null && !flattened.has(state.bindingName)) {
+          flattened.set(state.bindingName, state.bindingValue);
+        }
+        if (state.bindings) {
+          for (const [key, value] of state.bindings) {
+            if (!flattened.has(key)) flattened.set(key, value);
+          }
         }
       }
       flattened.set(name, term);
       this._state = {
-        bindings: flattened, parent: null, depth: 0,
-        cacheName: null, cacheValue: undefined, cache: null,
+        bindings: flattened,
+        bindingName: null,
+        bindingValue: undefined,
+        parent: null,
+        depth: 0,
+        cacheName: null,
+        cacheValue: undefined,
+        cache: null,
       };
       return;
     }
     this._state = {
-      bindings: new Map([[name, term]]),
+      bindings: null,
+      bindingName: name,
+      bindingValue: term,
       parent: this._state,
       depth: this._state.depth + 1,
       cacheName: null,

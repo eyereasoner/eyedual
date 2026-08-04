@@ -19,15 +19,20 @@ export class Program {
     this.charConversionDirectives = [];
     this._revisionState = { value: 0 };
     const declaredDynamicIndicators = [];
-    for (const clause of this.clauses) {
+    for (let index = 0; index < this.clauses.length; index++) {
+      const clause = this.clauses[index];
+      clause.index = index;
       if (!isDirectiveClause(clause)) {
         assertHeadIsDefinable(clause.head);
+        this._indexClause(clause, true);
         continue;
       }
       for (const indicator of dynamicDirectiveIndicators(clause)) {
         assertDynamicIndicatorIsDefinable(indicator);
         this.dynamicPredicates.add(indicator.key);
         declaredDynamicIndicators.push(indicator);
+        const existing = this.groups.get(indicator.key);
+        if (existing) existing.dynamic = true;
       }
       const operator = operatorDirective(clause);
       if (operator) {
@@ -49,12 +54,6 @@ export class Program {
       if (!this.groups.has(indicator.key)) {
         this.groups.set(indicator.key, this.makeGroup(indicator.name, indicator.arity));
       }
-    }
-    for (let index = 0; index < this.clauses.length; index++) {
-      const clause = this.clauses[index];
-      clause.index = index;
-      if (isDirectiveClause(clause)) continue;
-      this._indexClause(clause, true);
     }
     this._negationAnalysis = null;
     this.markRecursivePredicates();
@@ -103,7 +102,7 @@ export class Program {
       name,
       arity,
       clauses: [],
-      argIndexes: Array.from({ length: arity }, () => ({ buckets: new Map(), fallback: [], sawScalar: false })),
+      argIndexes: Array.from({ length: arity }, makeArgumentIndex),
       demandIndexes: new Map(),
       rejectedDemandIndexes: new Set(),
       tabled: false,
@@ -702,6 +701,30 @@ const INDEX_MIN_SPEEDUP = 1.5;
 const INDEX_MAX_VAR_FRACTION = 0.1;
 const MULTI_INDEX_MIN_SPEEDUP_RATIO = 3;
 
+function makeArgumentIndex() {
+  return {
+    atomBuckets: new Map(),
+    stringBuckets: new Map(),
+    numberBuckets: new Map(),
+    fallback: [],
+    sawScalar: false,
+  };
+}
+
+function scalarBuckets(index, term) {
+  if (term.type === ATOM) return index.atomBuckets;
+  if (term.type === 'string') return index.stringBuckets;
+  return index.numberBuckets;
+}
+
+function argumentBucket(index, term) {
+  return scalarBuckets(index, term).get(term.name) ?? null;
+}
+
+function addArgumentBucket(index, term, clause) {
+  addClauseBucket(scalarBuckets(index, term), term.name, clause);
+}
+
 function scalarIndexKey(term) {
   return `${term.type}\u0000${term.name}`;
 }
@@ -727,7 +750,7 @@ function indexOne(index, arg, clause, clauses = null, clausePosition = -1) {
       index.sawScalar = true;
       if (clauses && clausePosition > 0) index.fallback = clauses.slice(0, clausePosition);
     }
-    addClauseBucket(index.buckets, scalarIndexKey(arg), clause);
+    addArgumentBucket(index, arg, clause);
   } else if (index.sawScalar) {
     index.fallback.push(clause);
   }
@@ -738,7 +761,7 @@ function indexFallback(index, group) {
 }
 
 function rebuildGroupIndexes(group) {
-  group.argIndexes = Array.from({ length: group.arity }, () => ({ buckets: new Map(), fallback: [], sawScalar: false }));
+  group.argIndexes = Array.from({ length: group.arity }, makeArgumentIndex);
   group.demandIndexes.clear();
   group.rejectedDemandIndexes.clear();
   group.scalarFactsOnly = true;
@@ -801,6 +824,33 @@ function mergeClausesInSourceOrder(primary, fallback) {
   return merged;
 }
 
+
+export function selectGroundClauseCandidates(group, goal) {
+  if (goal.type !== COMPOUND || group.clauses.length < DEMAND_INDEX_MIN_CLAUSES) return group.clauses;
+  let bestPrimary = null;
+  let bestFallback = null;
+  let bestLength = group.clauses.length;
+  for (let i = 0; i < goal.arity; i++) {
+    const value = goal.args[i];
+    if (!isScalar(value)) continue;
+    const index = group.argIndexes[i];
+    const fallback = indexFallback(index, group);
+    if (fallback.length / group.clauses.length > INDEX_MAX_VAR_FRACTION) continue;
+    const primary = argumentBucket(index, value);
+    const length = clauseCollectionLength(primary) + fallback.length;
+    if (group.clauses.length / Math.max(1, length) < INDEX_MIN_SPEEDUP) continue;
+    if (length < bestLength) {
+      bestPrimary = primary;
+      bestFallback = fallback;
+      bestLength = length;
+    }
+  }
+  if (bestFallback == null) return group.clauses;
+  if (bestFallback.length === 0) return bestPrimary;
+  if (clauseCollectionLength(bestPrimary) === 0) return bestFallback;
+  return mergeClausesInSourceOrder(bestPrimary, bestFallback);
+}
+
 export function selectClauseCandidates(group, goal, env) {
   if (goal.type !== COMPOUND || group.clauses.length < DEMAND_INDEX_MIN_CLAUSES) {
     return { primary: group.clauses, fallback: [] };
@@ -833,7 +883,7 @@ export function selectClauseCandidatesForValues(group, positions, values) {
   for (let i = 0; i < positions.length; i++) {
     const index = group.argIndexes[positions[i]];
     const fallback = indexFallback(index, group);
-    const parts = { primary: index.buckets.get(scalarIndexKey(values[i])) ?? null, fallback };
+    const parts = { primary: argumentBucket(index, values[i]), fallback };
     const length = clauseCollectionLength(parts.primary) + parts.fallback.length;
     if (fallback.length / group.clauses.length > INDEX_MAX_VAR_FRACTION) continue;
     if (group.clauses.length / Math.max(1, length) < INDEX_MIN_SPEEDUP) continue;
