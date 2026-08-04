@@ -1,4 +1,4 @@
-answer(head, alpha).
+answer(first, alpha).
 answer(last, beta).
 answer(take, [alpha, beta]).
 answer(drop, [gamma, beta]).

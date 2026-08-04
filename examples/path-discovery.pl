@@ -27,7 +27,7 @@ simple_path(Node, Node, _remaininglegs, Visited, Visited).
 simple_path(Node, Goal, Remaininglegs, Visited, Path) :-
   (Remaininglegs > 0),
   flight(Node, Next),
-  not_member(Next, Visited),
+  \+ member(Next, Visited),
   (Nextremaininglegs is Remaininglegs - 1),
   simple_path(Next, Goal, Nextremaininglegs, [Next|Visited], Path).
 
@@ -37,8 +37,8 @@ route_text([Node|Rest], Text) :-
   (Rest \= []),
   airport(Node, Label),
   route_text(Rest, Tail),
-  str_concat(Label, " -> ", Prefix),
-  str_concat(Prefix, Tail, Text).
+  string_concat(Label, " -> ", Prefix),
+  string_concat(Prefix, Tail, Text).
 
 airport(res_airport_1, "Goroka Airport").
 airport(res_airport_10, "Thule Air Base").

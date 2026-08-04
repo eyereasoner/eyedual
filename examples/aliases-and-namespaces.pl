@@ -1,8 +1,8 @@
 % Built-ins use one native spelling each, while vocabulary-style predicate names
 % remain ordinary user predicates.
 %
-% This keeps the language small: add/3, lt/2, matches/3, and rest/2 are native
-% operations, but labels such as nativeMath or vocabularyExample are just data.
+% This keeps the language small: arithmetic, comparison, and string operations are native,
+% while list decomposition uses ordinary Prolog pattern matching.
 %% goal: value(X0, X1)
 
 %% goal: ok(X0, X1)
@@ -17,7 +17,7 @@
 value(nativeMath, X) :- (X is 0.125 + 0.875).
 ok(nativeCompare, true) :- (2 < 3).
 ok(nativeString, true) :- matches("scoped retail insight", "retail|medical").
-tail(nativeList, Tail) :- rest([a, b, c], Tail).
+tail(nativeList, Tail) :- [_head|Tail] = [a, b, c].
 
 % These names are just user data; eyedual does not give them special meaning.
 example_label(vocabularyExample, "vocabulary names are ordinary predicate names").

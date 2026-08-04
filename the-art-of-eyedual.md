@@ -858,8 +858,8 @@ path(X, Z, [X | Rest]) :-
   path(Y, Z, Rest).
 ```
 
-On cyclic graphs, track visited vertices and use `not_member/2` to obtain finite
-simple paths rather than arbitrary walks.
+On cyclic graphs, track visited vertices and use ISO negation as
+`\+ member(Next, Visited)` to obtain finite simple paths rather than arbitrary walks.
 
 Notice that `ancestor/2` and `path/3` make different promises. Endpoint
 reachability has at most one logical pair for each pair of vertices, whereas
@@ -1235,7 +1235,7 @@ state-transition problems, represent state and moves explicitly:
 plan(State, State, _, []).
 plan(State, Goal, Seen, [Move | Moves]) :-
   transition(State, Move, Next),
-  not_member(Next, Seen),
+  \+ member(Next, Seen),
   plan(Next, Goal, [Next | Seen], Moves).
 ```
 
@@ -2892,7 +2892,7 @@ simple_path(From, To, Path) :-
 walk(To, To, Visited, Visited).
 walk(From, To, Visited, Path) :-
   edge(From, Next),
-  not_member(Next, Visited),
+  \+ member(Next, Visited),
   walk(Next, To, [Next | Visited], Path).
 ```
 
@@ -5246,8 +5246,8 @@ source module and no runtime Prolog-library parse or program overlay.
 ISO-only registry remains available through `createDefaultRegistry()` and
 `getDefaultRegistry()` for conformance work and advanced embedders.
 
-The complete registry contains **169 predicate indicators**: 115 in the isolated
-ISO profile and 54 EyeDual library indicators implemented in `src/library.js`. Every
+The complete registry contains **164 predicate indicators**: 115 in the isolated
+ISO profile and 49 EyeDual library indicators implemented in `src/library.js`. Every
 EyeDual library definition is tagged with `eyeDualLibrary: true`, so tests and
 embedders can audit the boundary directly.
 
@@ -5255,16 +5255,16 @@ embedders can audit the boundary directly.
 
 | EyeDual library predicates |
 | --- |
-| `append/3`, `member/2`, `select/3`, `head/2`, `rest/2`, `last/2` |
+| `append/3`, `member/2`, `select/3`, `last/2` |
 | `nth0/3`, `nth1/3`, `set_nth0/4`, `take/3`, `drop/3`, `slice/4` |
 | `reverse/2`, `length/2`, `sum_list/2` |
 | `min_list/2`, `max_list/2` |
-| `not_member/2`, `list_to_set/2`, `sort/2` |
-| `str_concat/3`, `contains/2`, `matches/2` |
+| `list_to_set/2`, `sort/2` |
+| `string_concat/3`, `contains/2`, `matches/2` |
 | `join/3`, `substring/4` |
 | `countall/2`, `sumall/3` |
 | `aggregate_min/5`, `aggregate_max/5` |
-| `between/3`, `min/3`, `max/3`, `smallest_divisor_from/3` |
+| `between/3`, `smallest_divisor_from/3` |
 | `maplist/3` |
 | `acos/2`, `asin/2`, `atan2/3`, `tan/2` |
 | `lt/2`, `le/2`, `gt/2`, `ge/2` |
@@ -5328,10 +5328,11 @@ expresses them: for example, `R is A + B`, `R is abs(A)`, and
 modulo, powers, sine, cosine, exponential, logarithm, and the ISO rounding
 functions.
 
-The bundled EyeDual library layer defines `between/3`, `min/3`, `max/3`, and
-`smallest_divisor_from/3` using ISO arithmetic and comparisons. They are
-available in the default runtime, but they are part of the EyeDual library.
-`between/3` and `smallest_divisor_from/3` retain measured native accelerators.
+The bundled EyeDual library layer defines `between/3` and
+`smallest_divisor_from/3`. They are available in the default runtime, but remain
+part of the EyeDual library and retain measured native accelerators. Choose the
+smaller or larger of two arithmetic values directly with ISO control, for example
+`(A =< B -> Min = A ; Min = B)` or `(A >= B -> Max = A ; Max = B)`.
 
 #### List relations
 
@@ -5347,12 +5348,12 @@ zero-based, nonnegative safe integers.
 | `append(-Prefix,-Suffix,+Whole)` | Enumerates every split of a proper `Whole`, from empty prefix to empty suffix. |
 | `member(?Item,+List)` | Produces one answer per matching position, so duplicates remain observable. |
 | `select(?Item,+List,-Rest)` | Removes one occurrence at a time and preserves the order of all other elements. Duplicate occurrences may produce duplicate answers. |
-| `not_member(+Item,+List)` | Succeeds only when `Item` does not unify with any member. Use it after binding the item and list. |
+| `\+ member(+Item,+List)` | Succeeds only when `Item` does not unify with any member. Use it after binding the item and list. |
 | `nth0(?Index,+List,?Item)` | Checks a bound zero-based index or enumerates indexes and their items. |
 | `nth1(+Index,+List,?Item)` | Checks a bound one-based index. |
 | `maplist(+Closure,+List1,?List2)` | Applies a two-argument closure pairwise; `call/3` supplies the closure arguments and supports partially applied compound closures. |
+| `[Head|Tail] = List` | Decomposes a nonempty list directly with ISO unification; no library wrapper is needed. |
 | `set_nth0(+Index,+List,+Item,-NewList)` | Replaces one existing position without mutating the input list. |
-| `head(+List,?Head)`, `rest(+List,?Tail)` | Decompose a nonempty list. `rest/2` may expose an improper tail. |
 | `last(+List,?Last)` | Returns the final element of a nonempty proper list. |
 | `take(+Count,+List,-Prefix)`, `drop(+Count,+List,-Suffix)` | Select the first `Count` elements or remove them. Counts beyond the list length fail. |
 | `slice(+Start,+Count,+List,-Slice)` | Selects exactly `Count` elements beginning at `Start`; an out-of-range slice fails. |
@@ -5381,7 +5382,7 @@ string terms unless their name says otherwise.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |
-| `str_concat(+Left,+Right,-Text)` | Concatenates two scalar lexical values. |
+| `string_concat(?Left,?Right,?Text)` | Concatenates or splits text. At least two arguments must determine the operation; generated parts are strings. |
 | `contains(+Text,+Needle)` | Tests literal containment. |
 | `matches(+Text,+Pattern)` | Tests `|`-separated literal alternatives. |
 | `matches(+Text,+Regex,-Context)` | Runs a JavaScript regular expression and returns named captures as comma-context data such as `(year("2026"), month("07"))`. It fails for an invalid expression, no match, or a match with no named captures. |
@@ -6032,7 +6033,7 @@ node test/run-conformance-report.mjs
 ```
 
 The complete suite must pass before release. The file-based conformance corpus
-contains 686 cases, including 279 focused ISO
+contains 684 cases, including 279 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 200 normal
 examples, 55 proof examples, and extracted book displays. The seven-case

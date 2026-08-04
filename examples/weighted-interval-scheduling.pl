@@ -39,7 +39,7 @@ best_from(I, Best) :-
   best_from(Compatible, Tail),
   interval(I, _start, _finish, Value),
   (Take is Value + Tail),
-  max(Take, Skip, Best).
+  (Take >= Skip -> Best = Take ; Best = Skip).
 
 % Reconstruction emits an interval when the take branch matches the optimal value.
 chosen_from(I, I) :-

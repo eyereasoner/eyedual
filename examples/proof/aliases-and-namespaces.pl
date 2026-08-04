@@ -50,11 +50,11 @@ why(
   proof(
     goal(tail(nativeList, [b, c])),
     by(rule("aliases-and-namespaces.pl", clause(4))),
-    bindings([binding("Tail", [b, c])]),
+    bindings([binding("Tail", [b, c]), binding("_head", a)]),
     uses([
       proof(
-        goal(rest([a, b, c], [b, c])),
-        by(builtin(rest, 2))
+        goal(=([a, b, c], [a, b, c])),
+        by(builtin(=, 2))
       )
     ])
   )

@@ -1,9 +1,9 @@
-% Reference 9.7: head/rest/last/take/drop/slice are deterministic reusable list operations.
+% Reference 9.7: list patterns and last/take/drop/slice compose deterministically.
 %% goal: answer(X0, X1)
 
 data([zero, one, two, three, four]).
-answer(head, X) :- data(L), head(L, X).
-answer(rest, X) :- data(L), rest(L, X).
+answer(first, X) :- data([X|_tail]).
+answer(tail, X) :- data([_head|X]).
 answer(last, X) :- data(L), last(L, X).
 answer(take_three, X) :- data(L), take(3, L, X).
 answer(drop_three, X) :- data(L), drop(3, L, X).

@@ -8,4 +8,4 @@ scores([], []).
 scores([Text | Resttext], [N | Rest]) :- number_string(N, Text), scores(Resttext, Rest).
 answer(total(Name), Total) :- field(Name, Scores), sum_list(Scores, Total).
 answer(maximum(Name), Max) :- field(Name, Scores), max_list(Scores, Max).
-answer(report(Name), Text) :- field(Name, Scores), length(Scores, Count), number_string(Count, Counttext), atom_string(Name, Nametext), str_concat(Nametext, ":", Prefix), str_concat(Prefix, Counttext, Text).
+answer(report(Name), Text) :- field(Name, Scores), length(Scores, Count), number_string(Count, Counttext), atom_string(Name, Nametext), string_concat(Nametext, ":", Prefix), string_concat(Prefix, Counttext, Text).

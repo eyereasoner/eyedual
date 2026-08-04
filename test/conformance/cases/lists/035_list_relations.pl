@@ -1,6 +1,5 @@
-% Reference 9.7: rest/2, select/3, and not_member/2.
-answer(rest, X) :- rest([a, b, c], X).
+% Reference 9.7: list patterns, select/3, and ISO negation compose directly.
+answer(tail, X) :- [_head|X] = [a, b, c].
 answer(select, selected(X, R)) :- select(X, [a, b], R).
-answer(not_member, true) :- not_member(c, [a, b]).
+answer(absent, true) :- \+ member(c, [a, b]).
 %% goal: answer(X0, X1)
-

@@ -6,5 +6,5 @@ simple_path(From, To, Path) :-
 walk(To, To, Visited, Visited).
 walk(From, To, Visited, Path) :-
   edge(From, Next),
-  not_member(Next, Visited),
+  \+ member(Next, Visited),
   walk(Next, To, [Next | Visited], Path).

@@ -39,7 +39,7 @@ crossing(state(Mleft, Cleft, right), state(Nextm, Nextc, left), carry(Movem, Mov
 journey(Goal, Goal, Visited, Visited).
 journey(State, Goal, Visited, Path) :-
   crossing(State, Next, _carry),
-  not_member(Next, Visited),
+  \+ member(Next, Visited),
   journey(Next, Goal, [Next|Visited], Path).
 
 solution(Path) :-

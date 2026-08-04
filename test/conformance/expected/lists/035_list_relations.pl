@@ -1,4 +1,4 @@
-answer(rest, [b, c]).
+answer(tail, [b, c]).
 answer(select, selected(a, [b])).
 answer(select, selected(b, [a])).
-answer(not_member, true).
+answer(absent, true).

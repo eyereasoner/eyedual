@@ -24,13 +24,11 @@ step(state(brugge, mid, P), state(oostende, low, P), public_coastline_brugge_oos
 step(state(brugge, full, P), state(oostende, mid, P), public_coastline_brugge_oostende, 1200.0, 0.006, 0.975, 0.96).
 step(state(kortrijk, full, yes), state(oostende, mid, yes), direct_corridor_kortrijk_oostende, 1100.0, 0.009, 0.955, 0.92).
 
-path(From, To, [Act], Duration, Cost, Belief, Comfort, Fuelin, Fuelout) :-
-  step(From, To, Act, Duration, Cost, Belief, Comfort),
-  rest(Fuelin, Fuelout).
+path(From, To, [Act], Duration, Cost, Belief, Comfort, [_fuel|Fuelout], Fuelout) :-
+  step(From, To, Act, Duration, Cost, Belief, Comfort).
 
-path(From, To, Actions, Duration, Cost, Belief, Comfort, Fuelin, Fuelout) :-
+path(From, To, Actions, Duration, Cost, Belief, Comfort, [_fuel|Fuelmid], Fuelout) :-
   step(From, Mid, Act, D1, C1, B1, M1),
-  rest(Fuelin, Fuelmid),
   path(Mid, To, Restactions, D2, C2, B2, M2, Fuelmid, Fuelout),
   append([Act], Restactions, Actions),
   (Duration is D1 + D2),

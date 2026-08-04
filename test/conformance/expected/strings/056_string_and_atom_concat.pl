@@ -1,1 +1,0 @@
-answer(string, "eyedual").

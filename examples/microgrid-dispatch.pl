@@ -49,7 +49,7 @@ reserve_aware_battery_limit_kW(Site, Limit) :-
 battery_dispatch_kW(Site, Dispatch) :-
   net_deficit_kW(Site, Deficit),
   reserve_aware_battery_limit_kW(Site, Limit),
-  min(Deficit, Limit, Dispatch).
+  (Deficit =< Limit -> Dispatch = Deficit ; Dispatch = Limit).
 
 grid_import_kW(Site, Import) :-
   net_deficit_kW(Site, Deficit),

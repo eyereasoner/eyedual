@@ -37,8 +37,8 @@ feasible_schedule(Makespan, [
   nonoverlap(J1lathestart, J1latheend, J3lathestart, J3latheend),
   nonoverlap(J2lathestart, J2latheend, J3lathestart, J3latheend),
 
-  max(J1latheend, J2millend, Partialmakespan),
-  max(Partialmakespan, J3latheend, Makespan).
+  (J1latheend >= J2millend -> Partialmakespan = J1latheend ; Partialmakespan = J2millend),
+  (Partialmakespan >= J3latheend -> Makespan = Partialmakespan ; Makespan = J3latheend).
 
 % aggregate_min/5 returns both the best makespan and the schedule that achieved it.
 best_schedule(Makespan, Schedule) :-

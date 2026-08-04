@@ -101,7 +101,7 @@ console.log(result.stdout);
 `haltCode` when `halt/0` or `halt/1` terminates the processor.
 
 The default runtime includes EyeDual's ISO/IEC 13211-1:1995 core profile plus
-54 EyeDual library predicates implemented in `src/library.js`, covering strings,
+49 EyeDual library predicates implemented in `src/library.js`, covering strings,
 lists, aggregation, dates, and arithmetic. The ISO profile itself has
 115 registered predicate indicators across 94 names.
 
@@ -114,8 +114,8 @@ without a CLI flag or JavaScript registry option.
 
 Advanced embedders and the ISO conformance suite can still select the isolated
 core registry explicitly with `createDefaultRegistry()` or
-`getDefaultRegistry()`. `createEyeDualRegistry()` creates the complete 169-entry
-registry: 115 ISO indicators and 54 EyeDual library indicators. Normal applications can rely on the default and do not need to
+`getDefaultRegistry()`. `createEyeDualRegistry()` creates the complete 164-entry
+registry: 115 ISO indicators and 49 EyeDual library indicators. Normal applications can rely on the default and do not need to
 install either explicitly.
 
 ISO streams are solver-owned and shared by nested goals. JavaScript callers
@@ -204,7 +204,7 @@ in *The Art of EyeDual* covers the mapping and `--include-source` behavior.
 
 ## Tests
 
-Every release must pass the complete test suite. The current 686-file
+Every release must pass the complete test suite. The current 684-file
 conformance corpus includes 279 focused ISO cases covering the success,
 failure, mode, and error behavior derived from ISO/IEC 13211-1 clauses 7 and
 8. The generated `conformance-report.md` is the authoritative source for

@@ -56,7 +56,7 @@ plan(State, Goal, 0, _visited, [], State) :-
 plan(State, Goal, Depth, Visited, [Move|Moves], Final) :-
   (Depth > 0),
   move(State, Move, Next),
-  not_member(Next, Visited),
+  \+ member(Next, Visited),
   (Restdepth is Depth - 1),
   plan(Next, Goal, Restdepth, [Next|Visited], Moves, Final).
 

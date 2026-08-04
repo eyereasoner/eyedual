@@ -39,11 +39,11 @@ vertex(v6).
 
 hamiltonian_path([A, B, C, D, E, F]) :-
   vertex(A),
-  vertex(B), adjacent(A, B), not_member(B, [A]),
-  vertex(C), adjacent(B, C), not_member(C, [A, B]),
-  vertex(D), adjacent(C, D), not_member(D, [A, B, C]),
-  vertex(E), adjacent(D, E), not_member(E, [A, B, C, D]),
-  vertex(F), adjacent(E, F), not_member(F, [A, B, C, D, E]).
+  vertex(B), adjacent(A, B), \+ member(B, [A]),
+  vertex(C), adjacent(B, C), \+ member(C, [A, B]),
+  vertex(D), adjacent(C, D), \+ member(D, [A, B, C]),
+  vertex(E), adjacent(D, E), \+ member(E, [A, B, C, D]),
+  vertex(F), adjacent(E, F), \+ member(F, [A, B, C, D, E]).
 
 hasHamiltonianPath(graph, true) :-
   hamiltonian_path(_path).

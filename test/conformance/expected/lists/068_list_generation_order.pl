@@ -6,5 +6,4 @@ answer(nth, pair(1, y)).
 answer(select, pair(a, [b, a])).
 answer(select, pair(b, [a, a])).
 answer(select, pair(a, [a, b])).
-answer(not_member_atom, ok).
-answer(not_member_unifiable_rejected, ok).
+answer(absent_atom, ok).

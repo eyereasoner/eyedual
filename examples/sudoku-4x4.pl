@@ -14,7 +14,7 @@ perm(Items, [X|Rest]) :-
 % distinct/1 is the reusable all-different constraint.
 distinct([]).
 distinct([X|Xs]) :-
-  not_member(X, Xs),
+  \+ member(X, Xs),
   distinct(Xs).
 
 row1([1, B, C, 4]) :- perm([1, 2, 3, 4], [1, B, C, 4]).

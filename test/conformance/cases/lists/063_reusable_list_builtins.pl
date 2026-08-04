@@ -1,7 +1,7 @@
 % Reference 9.1: reusable list selectors, slices, summaries, and stable set conversion.
 %% goal: answer(X0, X1)
 
-answer(head, X) :- head([alpha, beta, gamma, beta], X).
+answer(first, X) :- [X|_tail] = [alpha, beta, gamma, beta].
 answer(last, X) :- last([alpha, beta, gamma, beta], X).
 answer(take, X) :- take(2, [alpha, beta, gamma, beta], X).
 answer(drop, X) :- drop(2, [alpha, beta, gamma, beta], X).

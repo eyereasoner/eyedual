@@ -23,7 +23,7 @@ solve(Config, Config, _visited, []).
 solve(Config, Goal, Visited, [Move|Rest]) :-
   move(Config, Move, Nextconfig),
   safe(Nextconfig),
-  not_member(Nextconfig, Visited),
+  \+ member(Nextconfig, Visited),
   solve(Nextconfig, Goal, [Nextconfig|Visited], Rest).
 
 % Each move transforms one configuration into another.

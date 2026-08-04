@@ -24,7 +24,7 @@ request_data(Agenta, Agentb, Data) :-
   hasData(Agenta, Datalista),
   hasData(Agentb, Datalistb),
   member(Data, Datalistb),
-  not_member(Data, Datalista),
+  \+ member(Data, Datalista),
   policy(Agenta, [request, Data]).
 
 % B accepts only requests for data it has and its own policy permits sharing.
