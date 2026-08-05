@@ -1,0 +1,45 @@
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix ex: <https://example.org/> .
+
+ex:healthcare-policy odrl:permission ex:research-use .
+ex:healthcare-policy odrl:permission ex:genomic-sharing .
+ex:healthcare-policy odrl:permission ex:record-retention .
+ex:healthcare-policy ex:riskProfile ex:consent-profile .
+ex:healthcare-policy ex:riskProfile ex:sharing-profile .
+ex:healthcare-policy ex:riskProfile ex:retention-profile .
+
+ex:research-use ex:clause "h1" .
+ex:research-use odrl:action odrl:use .
+
+ex:genomic-sharing ex:clause "h2" .
+ex:genomic-sharing odrl:action ex:disclose .
+ex:genomic-sharing odrl:target ex:genomic-data .
+
+ex:record-retention ex:clause "h4" .
+ex:record-retention odrl:constraint ex:retention-constraint .
+ex:retention-constraint odrl:leftOperand ex:retentionDays .
+ex:retention-constraint odrl:operator odrl:eq .
+ex:retention-constraint odrl:rightOperand "3650" .
+
+ex:consent-profile ex:risk ex:consent-risk .
+ex:consent-profile ex:policyRule ex:research-use .
+ex:consent-profile ex:need ex:explicit-consent-for-research .
+ex:consent-profile ex:baseScore "85" .
+ex:consent-profile ex:mitigation ex:require-explicit-consent .
+
+ex:sharing-profile ex:risk ex:sharing-risk .
+ex:sharing-profile ex:policyRule ex:genomic-sharing .
+ex:sharing-profile ex:need ex:deidentify-before-sharing .
+ex:sharing-profile ex:baseScore "90" .
+ex:sharing-profile ex:mitigation ex:require-deidentification .
+
+ex:retention-profile ex:risk ex:retention-risk .
+ex:retention-profile ex:policyRule ex:record-retention .
+ex:retention-profile ex:need ex:retention-limit-3-years .
+ex:retention-profile ex:baseScore "55" .
+ex:retention-profile ex:mitigation ex:limit-retention-to-1095-days .
+
+ex:explicit-consent-for-research ex:importance "35" .
+ex:deidentify-before-sharing ex:importance "35" .
+ex:retention-limit-3-years ex:importance "15" .
+ex:retention-limit-3-years ex:maximumDays "1095" .

@@ -1,0 +1,10 @@
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix ex: <https://example.org/> .
+
+ex:policy odrl:permission ex:permission .
+ex:permission odrl:target ex:dataset .
+ex:permission odrl:action odrl:use .
+ex:permission odrl:constraint ex:purpose-constraint .
+ex:purpose-constraint odrl:leftOperand odrl:purpose .
+ex:purpose-constraint odrl:operator odrl:eq .
+ex:purpose-constraint odrl:rightOperand ex:research .

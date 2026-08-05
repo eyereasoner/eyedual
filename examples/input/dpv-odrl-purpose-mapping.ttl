@@ -1,0 +1,34 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dpv: <https://w3id.org/dpv#> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix ex: <https://example.org/> .
+
+ex:alpha_care_process rdf:type dpv:Process .
+ex:alpha_care_process dpv:hasDataController ex:hospital_a .
+ex:alpha_care_process dpv:hasRecipient ex:research_partner .
+ex:alpha_care_process dpv:hasPersonalData ex:lab_result .
+ex:alpha_care_process dpv:hasProcessing dpv:Use .
+ex:alpha_care_process dpv:hasPurpose dpv:Healthcare .
+ex:alpha_care_process dpv:hasLegalBasis dpv:Consent .
+
+ex:alpha_policy rdf:type odrl:Policy .
+ex:alpha_policy ex:representsProcess ex:alpha_care_process .
+ex:alpha_policy odrl:permission ex:alpha_permission .
+
+ex:alpha_permission rdf:type odrl:Permission .
+ex:alpha_permission odrl:assigner ex:hospital_a .
+ex:alpha_permission odrl:assignee ex:research_partner .
+ex:alpha_permission odrl:target ex:lab_result .
+ex:alpha_permission odrl:action odrl:use .
+ex:alpha_permission odrl:constraint ex:alpha_purpose_constraint .
+ex:alpha_permission odrl:constraint ex:alpha_basis_constraint .
+
+ex:alpha_purpose_constraint rdf:type odrl:Constraint .
+ex:alpha_purpose_constraint odrl:leftOperand odrl:purpose .
+ex:alpha_purpose_constraint odrl:operator odrl:isA .
+ex:alpha_purpose_constraint odrl:rightOperand dpv:Healthcare .
+
+ex:alpha_basis_constraint rdf:type odrl:Constraint .
+ex:alpha_basis_constraint odrl:leftOperand ex:legalBasis .
+ex:alpha_basis_constraint odrl:operator odrl:isA .
+ex:alpha_basis_constraint odrl:rightOperand dpv:Consent .

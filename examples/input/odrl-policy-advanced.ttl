@@ -1,0 +1,26 @@
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix ex: <https://example.org/> .
+
+ex:advanced-policy odrl:permission ex:research-permission .
+ex:advanced-policy odrl:prohibition ex:transfer-prohibition .
+
+ex:research-permission odrl:target ex:health-dataset .
+ex:research-permission odrl:action odrl:use .
+ex:research-permission odrl:assignee ex:research-hospital .
+ex:research-permission odrl:constraint ex:purpose-constraint .
+ex:research-permission odrl:constraint ex:region-constraint .
+ex:research-permission odrl:duty ex:deidentify-duty .
+
+ex:purpose-constraint odrl:leftOperand odrl:purpose .
+ex:purpose-constraint odrl:operator odrl:eq .
+ex:purpose-constraint odrl:rightOperand ex:medical-research .
+
+ex:region-constraint odrl:leftOperand odrl:spatial .
+ex:region-constraint odrl:operator odrl:eq .
+ex:region-constraint odrl:rightOperand ex:eu .
+
+ex:deidentify-duty odrl:action ex:deidentify .
+
+ex:transfer-prohibition odrl:target ex:health-dataset .
+ex:transfer-prohibition odrl:action odrl:transfer .
+ex:transfer-prohibition odrl:assignee ex:research-hospital .

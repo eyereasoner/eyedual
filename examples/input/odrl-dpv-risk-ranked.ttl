@@ -1,0 +1,59 @@
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix ex: <https://example.org/> .
+
+ex:consumer-policy odrl:permission ex:delete-account .
+ex:consumer-policy odrl:permission ex:change-terms .
+ex:consumer-policy odrl:permission ex:share-data .
+ex:consumer-policy odrl:prohibition ex:export-data .
+ex:consumer-policy ex:riskProfile ex:deletion-profile .
+ex:consumer-policy ex:riskProfile ex:terms-profile .
+ex:consumer-policy ex:riskProfile ex:sharing-profile .
+ex:consumer-policy ex:riskProfile ex:portability-profile .
+
+ex:delete-account ex:clause "c1" .
+ex:delete-account odrl:action ex:remove-account .
+
+ex:change-terms ex:clause "c2" .
+ex:change-terms odrl:action ex:change-terms-action .
+ex:change-terms odrl:duty ex:inform-duty .
+ex:inform-duty odrl:action ex:inform .
+ex:change-terms odrl:constraint ex:notice-constraint .
+ex:notice-constraint odrl:leftOperand ex:noticeDays .
+ex:notice-constraint odrl:operator odrl:eq .
+ex:notice-constraint odrl:rightOperand "3" .
+
+ex:share-data ex:clause "c3" .
+ex:share-data odrl:action ex:disclose .
+
+ex:export-data ex:clause "c4" .
+ex:export-data odrl:action ex:export .
+
+ex:deletion-profile ex:risk ex:deletion-risk .
+ex:deletion-profile ex:policyRule ex:delete-account .
+ex:deletion-profile ex:need ex:no-deletion-without-notice .
+ex:deletion-profile ex:baseScore "90" .
+ex:deletion-profile ex:mitigation ex:require-notice-before-deletion .
+
+ex:terms-profile ex:risk ex:terms-risk .
+ex:terms-profile ex:policyRule ex:change-terms .
+ex:terms-profile ex:need ex:change-only-with-14-days-notice .
+ex:terms-profile ex:baseScore "70" .
+ex:terms-profile ex:mitigation ex:require-14-days-notice .
+
+ex:sharing-profile ex:risk ex:sharing-risk .
+ex:sharing-profile ex:policyRule ex:share-data .
+ex:sharing-profile ex:need ex:no-sharing-without-consent .
+ex:sharing-profile ex:baseScore "85" .
+ex:sharing-profile ex:mitigation ex:require-explicit-consent .
+
+ex:portability-profile ex:risk ex:portability-risk .
+ex:portability-profile ex:policyRule ex:export-data .
+ex:portability-profile ex:need ex:data-portability .
+ex:portability-profile ex:baseScore "60" .
+ex:portability-profile ex:mitigation ex:permit-data-export .
+
+ex:no-deletion-without-notice ex:importance "20" .
+ex:change-only-with-14-days-notice ex:importance "15" .
+ex:change-only-with-14-days-notice ex:minimumNoticeDays "14" .
+ex:no-sharing-without-consent ex:importance "12" .
+ex:data-portability ex:importance "10" .

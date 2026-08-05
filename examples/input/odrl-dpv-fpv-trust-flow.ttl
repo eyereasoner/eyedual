@@ -1,0 +1,38 @@
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix ex: <https://example.org/> .
+
+ex:trust-policy odrl:permission ex:healthcare-permission .
+ex:trust-policy odrl:prohibition ex:marketing-prohibition .
+
+ex:healthcare-permission odrl:assignee ex:research-partner .
+ex:healthcare-permission odrl:target ex:lab-result .
+ex:healthcare-permission odrl:action odrl:use .
+ex:healthcare-permission odrl:purpose ex:healthcare .
+ex:healthcare-permission ex:minTrust "0.80" .
+
+ex:marketing-prohibition odrl:assignee ex:ad-network .
+ex:marketing-prohibition odrl:target ex:lab-result .
+ex:marketing-prohibition odrl:action odrl:distribute .
+ex:marketing-prohibition odrl:purpose ex:marketing .
+
+ex:hospital-a ex:trustScore "0.92" .
+ex:small-clinic ex:trustScore "0.63" .
+ex:ad-network ex:trustScore "0.28" .
+
+ex:flow-care ex:source ex:hospital-a .
+ex:flow-care ex:recipient ex:research-partner .
+ex:flow-care ex:data ex:lab-result .
+ex:flow-care ex:requestedAction odrl:use .
+ex:flow-care ex:requestedPurpose ex:healthcare .
+
+ex:flow-clinic ex:source ex:small-clinic .
+ex:flow-clinic ex:recipient ex:research-partner .
+ex:flow-clinic ex:data ex:lab-result .
+ex:flow-clinic ex:requestedAction odrl:use .
+ex:flow-clinic ex:requestedPurpose ex:healthcare .
+
+ex:flow-ads ex:source ex:hospital-a .
+ex:flow-ads ex:recipient ex:ad-network .
+ex:flow-ads ex:data ex:lab-result .
+ex:flow-ads ex:requestedAction odrl:distribute .
+ex:flow-ads ex:requestedPurpose ex:marketing .
