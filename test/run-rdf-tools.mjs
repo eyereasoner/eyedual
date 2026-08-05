@@ -35,6 +35,7 @@ export async function runRdfTools(reporter = new TestReporter()) {
   });
   const generatedFixtures = [
     ['RDF 1.2 annotation example', 'rdf12-annotation', 'rdf12-annotation'],
+    ['RDF 1.2 annotated claim resolution example', 'rdf12-annotated-claims', 'rdf12-annotated-claims'],
     ['ODRL Turtle policy example', 'odrl-policy-from-turtle', 'odrl-policy'],
     ['advanced ODRL Turtle policy example', 'odrl-policy-advanced-from-turtle', 'odrl-policy-advanced'],
     ['ODRL-DPV-FPV trust-flow example', 'odrl-dpv-fpv-trust-flow', 'odrl-dpv-fpv-trust-flow'],

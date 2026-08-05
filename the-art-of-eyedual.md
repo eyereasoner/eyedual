@@ -5672,7 +5672,7 @@ Review questions:
 </figure>
 
 The [examples directory](https://github.com/eyereasoner/eyedual/tree/main/examples/) is the book's executable companion. The
-top-level directory contains **203 self-contained runnable programs**. Every
+top-level directory contains **204 self-contained runnable programs**. Every
 source program has an exact answer file under
 [examples/output](https://github.com/eyereasoner/eyedual/tree/main/examples/output/), and **71 selected programs** have a checked
 explanation under [examples/proof](https://github.com/eyereasoner/eyedual/tree/main/examples/proof/). The selected pointers below
@@ -5967,6 +5967,7 @@ one adapter pipeline.
 | Program | RDF feature | Checked answer |
 | --- | --- | --- |
 | [Annotated triple](https://github.com/eyereasoner/eyedual/blob/main/examples/rdf12-annotation.pl) | Annotation syntax asserts the base triple and expands provenance metadata through an explicit reifier. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/rdf12-annotation.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/rdf12-annotation.pl) |
+| [Annotated claim resolution](https://github.com/eyereasoner/eyedual/blob/main/examples/rdf12-annotated-claims.pl) | Conflicting bridge-status claims are ranked from annotation confidence and source trust before one auditable action is chosen. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/rdf12-annotated-claims.pl) |
 | [Triple term](https://github.com/eyereasoner/eyedual/blob/main/examples/rdf12-triple-term.pl) | An RDF 1.2 triple term is represented as nested EyeDual data and projected by a rule. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/rdf12-triple-term.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/rdf12-triple-term.pl) |
 | [Nested triple term](https://github.com/eyereasoner/eyedual/blob/main/examples/rdf12-nested-triple-term.pl) | Triple terms occur recursively without becoming asserted facts merely by nesting. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/rdf12-nested-triple-term.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/rdf12-nested-triple-term.pl) |
 | [TriG named graph](https://github.com/eyereasoner/eyedual/blob/main/examples/rdf12-trig-named-graph.pl) | The fourth `rdf/4` argument preserves graph identity. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/rdf12-trig-named-graph.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/rdf12-trig-named-graph.pl) |
@@ -6001,7 +6002,7 @@ hand.
 
 #### Running and extending the corpus
 
-Run all 203 normal answer goldens and the 71 selected proof goldens with:
+Run all 204 normal answer goldens and the 71 selected proof goldens with:
 
 ```sh
 npm run test:examples
@@ -6050,7 +6051,7 @@ node test/run-conformance-report.mjs
 The complete suite must pass before release. The file-based conformance corpus
 contains 685 cases, including 279 focused ISO
 cases derived from the success, failure, mode, and error behavior in
-ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 203 normal
+ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 204 normal
 examples, 71 proof examples, and extracted book displays. The seven-case
 playground contract suite imports the production worker, sends real reasoning
 requests through its message protocol, and crawls the served module graph for

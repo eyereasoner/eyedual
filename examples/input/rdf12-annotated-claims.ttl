@@ -1,0 +1,19 @@
+VERSION "1.2"
+
+@prefix ex:  <https://example.org/> .
+
+# Two incompatible bridge-status claims carry their own provenance metadata.
+ex:bridge ex:status ex:closed
+  ~ ex:authorityClaim {|
+      ex:assertedBy ex:transportAuthority ;
+      ex:confidence 98
+    |} .
+
+ex:bridge ex:status ex:open
+  ~ ex:socialClaim {|
+      ex:assertedBy ex:anonymousPost ;
+      ex:confidence 35
+    |} .
+
+ex:transportAuthority ex:trustScore 95 .
+ex:anonymousPost ex:trustScore 20 .
