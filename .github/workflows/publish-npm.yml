@@ -1,5 +1,5 @@
-name: Publish Eyepl to npm (OIDC)
-run-name: Publish Eyepl ${{ github.ref_name }} to npm
+name: Publish EyeDual to npm (OIDC)
+run-name: Publish EyeDual ${{ github.ref_name }} to npm
 
 on:
   push:
