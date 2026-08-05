@@ -33,7 +33,8 @@ export async function runRdfTools(reporter = new TestReporter()) {
     const output = run(compileRdfToEyeDual(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
     equal(extractEyeDualRdf(output), '_:e646f63_c3a9636c616972 <https://example/p> _:e646f63_e5908d .\n');
   });
-  const odrlFixtures = [
+  const generatedFixtures = [
+    ['RDF 1.2 annotation example', 'rdf12-annotation', 'rdf12-annotation'],
     ['ODRL Turtle policy example', 'odrl-policy-from-turtle', 'odrl-policy'],
     ['advanced ODRL Turtle policy example', 'odrl-policy-advanced-from-turtle', 'odrl-policy-advanced'],
     ['ODRL-DPV-FPV trust-flow example', 'odrl-dpv-fpv-trust-flow', 'odrl-dpv-fpv-trust-flow'],
@@ -41,7 +42,7 @@ export async function runRdfTools(reporter = new TestReporter()) {
     ['consumer ODRL-DPV risk example', 'odrl-dpv-risk-ranked', 'odrl-dpv-risk-ranked'],
     ['DPV-ODRL purpose mapping example', 'dpv-odrl-purpose-mapping', 'dpv-odrl-purpose-mapping'],
   ];
-  for (const [label, programStem, inputStem] of odrlFixtures) {
+  for (const [label, programStem, inputStem] of generatedFixtures) {
     const source = await fs.readFile(new URL(`../examples/input/${inputStem}.ttl`, import.meta.url), 'utf8');
     const rules = await fs.readFile(new URL(`../examples/input/${inputStem}-rules.pl`, import.meta.url), 'utf8');
     const generated = await compileRdfDocumentToEyeDual(source, {

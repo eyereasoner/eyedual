@@ -24,6 +24,8 @@ Without it, the pipeline emits only derived quads. The lossless encoding uses
 Language annotations use `lang/1`; directional language annotations use
 `lang/2`, with `ltr` or `rtl` as the second argument.
 
-Triple terms may be nested. The reader accepts the RDF 1.2 `VERSION "1.2"`
-directive and directional language strings while remaining compatible with
-RDF 1.1 N-Triples and N-Quads.
+Triple terms may be nested. Turtle annotations are expanded into the asserted
+base triple, an `rdf:reifies` triple containing a `triple/3` term, and ordinary
+annotation triples about the reifier. The reader accepts the RDF 1.2 `VERSION
+"1.2"` directive and directional language strings while remaining compatible
+with RDF 1.1 N-Triples and N-Quads.

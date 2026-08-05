@@ -72,6 +72,7 @@ export const proofExamples = [
   'security-incident-correlation.pl',
   'symbolic-derivative.pl',
   'trust-flow-provenance-threshold.pl',
+  'rdf12-annotation.pl',
   'rdf12-triple-term.pl',
   'rdf12-nested-triple-term.pl',
   'rdf12-trig-triple-term.pl',

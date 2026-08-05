@@ -1,0 +1,10 @@
+VERSION "1.2"
+
+@prefix ex:  <https://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:alice ex:name "Alice"
+  ~ ex:claim1 {|
+      ex:statedBy ex:carol ;
+      ex:recorded "2025-01-15"^^xsd:date
+    |} .
