@@ -3,8 +3,6 @@ name: Deploy Pages
 on:
   push:
     branches: ['main']
-    # optional: also deploy on tags
-    # tags: ["v*"]
   workflow_dispatch:
 
 permissions:
