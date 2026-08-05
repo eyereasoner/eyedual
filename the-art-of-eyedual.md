@@ -5666,7 +5666,7 @@ Review questions:
 </figure>
 
 The [examples directory](https://github.com/eyereasoner/eyedual/tree/main/examples/) is the book's executable companion. The
-top-level directory contains **200 self-contained runnable programs**. Every
+top-level directory contains **202 self-contained runnable programs**. Every
 source program has an exact answer file under
 [examples/output](https://github.com/eyereasoner/eyedual/tree/main/examples/output/), and **55 selected programs** have a checked
 explanation under [examples/proof](https://github.com/eyereasoner/eyedual/tree/main/examples/proof/). The selected pointers below
@@ -5914,9 +5914,12 @@ decisions, reasons, integrity conditions, and proof.
 | [GDPR compliance](https://github.com/eyereasoner/eyedual/blob/main/examples/gdpr-compliance.pl) | Purpose, basis, and processing facts support compliance conclusions. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/gdpr-compliance.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/gdpr-compliance.pl) |
 | [Clinical-trial screening](https://github.com/eyereasoner/eyedual/blob/main/examples/clinical-trial-screening.pl) | Inclusion and exclusion criteria produce an evidence-backed eligibility result. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/clinical-trial-screening.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/clinical-trial-screening.pl) |
 | [Workplace compliance](https://github.com/eyereasoner/eyedual/blob/main/examples/workplace-compliance.pl) | Training, role, and workplace conditions feed a compact compliance theory. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/workplace-compliance.pl) |
-| [ODRL–DPV risk ranking](https://github.com/eyereasoner/eyedual/blob/main/examples/odrl-dpv-risk-ranked.pl) | ODRL permissions and prohibitions are checked against DPV needs, then risks are scored and ranked. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/odrl-dpv-risk-ranked.pl) |
-| [Healthcare ODRL–DPV risk](https://github.com/eyereasoner/eyedual/blob/main/examples/odrl-dpv-healthcare-risk-ranked.pl) | A compact policy example derives, scores, and ranks healthcare risks from missing ODRL safeguards and DPV patient needs. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/odrl-dpv-healthcare-risk-ranked.pl) |
-| [Purpose mapping](https://github.com/eyereasoner/eyedual/blob/main/examples/dpv-odrl-purpose-mapping.pl) | Explicit mapping relations connect two policy vocabularies. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/dpv-odrl-purpose-mapping.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/dpv-odrl-purpose-mapping.pl) |
+| [ODRL–DPV risk ranking](https://github.com/eyereasoner/eyedual/blob/main/examples/odrl-dpv-risk-ranked.pl) | A [Turtle agreement](https://github.com/eyereasoner/eyedual/blob/main/examples/input/odrl-dpv-risk-ranked.ttl) supplies ODRL permissions, a prohibition, and DPV-style needs. A [rule file](https://github.com/eyereasoner/eyedual/blob/main/examples/input/odrl-dpv-risk-ranked-rules.pl) derives, scores, and ranks consumer risks. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/odrl-dpv-risk-ranked.pl) |
+| [Healthcare ODRL–DPV risk](https://github.com/eyereasoner/eyedual/blob/main/examples/odrl-dpv-healthcare-risk-ranked.pl) | A [Turtle healthcare policy](https://github.com/eyereasoner/eyedual/blob/main/examples/input/odrl-dpv-healthcare-risk-ranked.ttl) supplies ODRL permissions and DPV-style risk profiles. A [rule file](https://github.com/eyereasoner/eyedual/blob/main/examples/input/odrl-dpv-healthcare-risk-ranked-rules.pl) detects missing safeguards and returns a deterministic ranking. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/odrl-dpv-healthcare-risk-ranked.pl) |
+| [ODRL–DPV–FPV trust flow](https://github.com/eyereasoner/eyedual/blob/main/examples/odrl-dpv-fpv-trust-flow.pl) | A [Turtle dataset](https://github.com/eyereasoner/eyedual/blob/main/examples/input/odrl-dpv-fpv-trust-flow.ttl) holds the ODRL policy, trust scores, and requested flows. A [rule file](https://github.com/eyereasoner/eyedual/blob/main/examples/input/odrl-dpv-fpv-trust-flow-rules.pl) deterministically reports permit, review, and deny outcomes. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/odrl-dpv-fpv-trust-flow.pl) |
+| [ODRL policy from Turtle](https://github.com/eyereasoner/eyedual/blob/main/examples/odrl-policy-from-turtle.pl) | An ODRL permission, target, action, and purpose constraint are loaded from [Turtle](https://github.com/eyereasoner/eyedual/blob/main/examples/input/odrl-policy.ttl) and reduced to one deterministic permit decision by a [small rule file](https://github.com/eyereasoner/eyedual/blob/main/examples/input/odrl-policy-rules.pl). | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/odrl-policy-from-turtle.pl) |
+| [Advanced ODRL policy from Turtle](https://github.com/eyereasoner/eyedual/blob/main/examples/odrl-policy-advanced-from-turtle.pl) | A Turtle policy supplies an assignee, purpose and spatial constraints, a de-identification duty, and a transfer prohibition. A [rule file](https://github.com/eyereasoner/eyedual/blob/main/examples/input/odrl-policy-advanced-rules.pl) deterministically reports a permit with duty, a constraint denial, and a prohibition denial. | [policy](https://github.com/eyereasoner/eyedual/blob/main/examples/input/odrl-policy-advanced.ttl) · [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/odrl-policy-advanced-from-turtle.pl) |
+| [DPV–ODRL purpose mapping](https://github.com/eyereasoner/eyedual/blob/main/examples/dpv-odrl-purpose-mapping.pl) | A [Turtle process and policy](https://github.com/eyereasoner/eyedual/blob/main/examples/input/dpv-odrl-purpose-mapping.ttl) uses DPV and ODRL namespaces. A [small rule file](https://github.com/eyereasoner/eyedual/blob/main/examples/input/dpv-odrl-purpose-mapping-rules.pl) verifies the controller, recipient, data, processing, purpose, and legal-basis correspondences. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/dpv-odrl-purpose-mapping.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/dpv-odrl-purpose-mapping.pl) |
 | [Trust-flow provenance threshold](https://github.com/eyereasoner/eyedual/blob/main/examples/trust-flow-provenance-threshold.pl) | Provenance and trust values remain premises of the derived threshold decision, including its arithmetic and comparison steps. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/trust-flow-provenance-threshold.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/trust-flow-provenance-threshold.pl) |
 | [Data negotiation](https://github.com/eyereasoner/eyedual/blob/main/examples/data-negotiation.pl) | Offered and required data conditions derive an agreement or mismatch. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/data-negotiation.pl) · [proof](https://github.com/eyereasoner/eyedual/blob/main/examples/proof/data-negotiation.pl) |
 | [Integrity check](https://github.com/eyereasoner/eyedual/blob/main/examples/integrity-check.pl) | An explicit invalid-state relation reports contradictory input and a diagnostic status. | [answers](https://github.com/eyereasoner/eyedual/blob/main/examples/output/integrity-check.pl) |
@@ -5991,7 +5994,7 @@ hand.
 
 #### Running and extending the corpus
 
-Run all 200 normal answer goldens and the 55 selected proof goldens with:
+Run all 202 normal answer goldens and the 55 selected proof goldens with:
 
 ```sh
 npm run test:examples
@@ -6040,7 +6043,7 @@ node test/run-conformance-report.mjs
 The complete suite must pass before release. The file-based conformance corpus
 contains 685 cases, including 279 focused ISO
 cases derived from the success, failure, mode, and error behavior in
-ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 200 normal
+ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 202 normal
 examples, 55 proof examples, and extracted book displays. The seven-case
 playground contract suite imports the production worker, sends real reasoning
 requests through its message protocol, and crawls the served module graph for

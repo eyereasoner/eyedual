@@ -1,9 +1,1 @@
-decision(flow_care, fpv_permit).
-decision(flow_clinic, fpv_review).
-decision(flow_ads, fpv_deny).
-confidence(flow_care, 0.92).
-confidence(flow_clinic, 0.63).
-status(flow_care, fpv_executable_flow).
-status(flow_ads, fpv_blocked_flow).
-risk(flow_clinic, risk_trustworthiness_risk).
-risk(flow_ads, risk_unwanted_disclosure_data).
+trust_flow_report([decision(flow_care, permit, confidence(0.92), status(executable_flow)), decision(flow_clinic, review, confidence(0.63), risk(trustworthiness_risk)), decision(flow_ads, deny, status(blocked_flow), risk(unwanted_disclosure))]).

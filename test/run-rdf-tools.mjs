@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import fs from 'node:fs/promises';
 import { compileRdfDocumentToEyeDual, compileRdfToEyeDual } from '../tools/rdf-to-eyedual.mjs';
 import { extractEyeDualRdf } from '../tools/eyedual-to-rdf.mjs';
 import { run } from '../src/index.js';
@@ -32,6 +33,27 @@ export async function runRdfTools(reporter = new TestReporter()) {
     const output = run(compileRdfToEyeDual(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
     equal(extractEyeDualRdf(output), '_:e646f63_c3a9636c616972 <https://example/p> _:e646f63_e5908d .\n');
   });
+  const odrlFixtures = [
+    ['ODRL Turtle policy example', 'odrl-policy-from-turtle', 'odrl-policy'],
+    ['advanced ODRL Turtle policy example', 'odrl-policy-advanced-from-turtle', 'odrl-policy-advanced'],
+    ['ODRL-DPV-FPV trust-flow example', 'odrl-dpv-fpv-trust-flow', 'odrl-dpv-fpv-trust-flow'],
+    ['healthcare ODRL-DPV risk example', 'odrl-dpv-healthcare-risk-ranked', 'odrl-dpv-healthcare-risk-ranked'],
+    ['consumer ODRL-DPV risk example', 'odrl-dpv-risk-ranked', 'odrl-dpv-risk-ranked'],
+    ['DPV-ODRL purpose mapping example', 'dpv-odrl-purpose-mapping', 'dpv-odrl-purpose-mapping'],
+  ];
+  for (const [label, programStem, inputStem] of odrlFixtures) {
+    const source = await fs.readFile(new URL(`../examples/input/${inputStem}.ttl`, import.meta.url), 'utf8');
+    const rules = await fs.readFile(new URL(`../examples/input/${inputStem}-rules.pl`, import.meta.url), 'utf8');
+    const generated = await compileRdfDocumentToEyeDual(source, {
+      inputPath: `${inputStem}.ttl`,
+      scope: `${inputStem}.ttl`,
+      rules,
+    });
+    const committed = await fs.readFile(new URL(`../examples/${programStem}.pl`, import.meta.url), 'utf8');
+    reporter.test(`${label} is generated from its input fixture`, () => {
+      equal(generated, committed);
+    });
+  }
   const documents = [
     ['Turtle 1.2', 'example.ttl', '@prefix ex: <https://example/>. ex:s ex:p <<( ex:a ex:b "hello"@en--ltr )>>.'],
     ['TriG 1.2', 'example.trig', '@prefix ex: <https://example/>. ex:g { ex:s ex:p ex:o }'],

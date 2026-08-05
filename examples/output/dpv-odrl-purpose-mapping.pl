@@ -1,18 +1,1 @@
-type(alpha_policy, odrl_policy).
-type(alpha_permission, odrl_permission).
-type(alpha_purpose_constraint, odrl_constraint).
-type(alpha_basis_constraint, odrl_constraint).
-odrl_permission(alpha_policy, alpha_permission).
-derived_from_process(alpha_permission, alpha_care_process).
-odrl_assigner(alpha_permission, hospital_a).
-odrl_assignee(alpha_permission, research_partner).
-odrl_target(alpha_permission, lab_result).
-odrl_action(alpha_permission, dpv_use).
-odrl_constraint(alpha_permission, alpha_purpose_constraint).
-odrl_constraint(alpha_permission, alpha_basis_constraint).
-odrl_leftOperand(alpha_purpose_constraint, dpv_odrl_purpose).
-odrl_leftOperand(alpha_basis_constraint, dpv_odrl_legal_basis).
-odrl_operator(alpha_purpose_constraint, odrl_isA).
-odrl_operator(alpha_basis_constraint, odrl_isA).
-odrl_rightOperand(alpha_purpose_constraint, dpv_healthcare).
-odrl_rightOperand(alpha_basis_constraint, dpv_consent).
+dpv_odrl_purpose_mapping([mapping(data_controller, hospital_a, assigner), mapping(recipient, research_partner, assignee), mapping(personal_data, lab_result, target), mapping(processing, dpv_use, action), mapping(purpose, dpv_healthcare, constraint(alpha_purpose_constraint)), mapping(legal_basis, dpv_consent, constraint(alpha_basis_constraint))]).

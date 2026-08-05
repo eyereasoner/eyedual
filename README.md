@@ -58,6 +58,15 @@ eyedual program.pl > derived.pl
 node tools/eyedual-to-rdf.mjs derived.pl -o derived.nq
 ```
 
+The ODRL examples keep policy and risk data in Turtle under
+[`examples/input/`](examples/input/) and append small EyeDual rule files to
+produce deterministic decisions and rankings. They range from a
+[basic permission](examples/odrl-policy-from-turtle.pl) and an
+[advanced constrained policy](examples/odrl-policy-advanced-from-turtle.pl) to
+[trust-flow decisions](examples/odrl-dpv-fpv-trust-flow.pl),
+[healthcare risk ranking](examples/odrl-dpv-healthcare-risk-ranked.pl), and
+[consumer risk ranking](examples/odrl-dpv-risk-ranked.pl).
+
 See the book's
 [RDF 1.2 chapter](https://eyereasoner.github.io/eyedual/the-art-of-eyedual#15-rdf-12-as-the-interoperable-data-boundary)
 for term mappings, named graphs, triple terms, formats, and source inclusion.
