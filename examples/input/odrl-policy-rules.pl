@@ -1,6 +1,6 @@
 % Source policy: examples/input/odrl-policy.ttl
 % Regenerate with:
-% node tools/rdf-to-eyedual.mjs --rules examples/input/odrl-policy-rules.pl examples/input/odrl-policy.ttl -o examples/odrl-policy-from-turtle.pl
+% node tools/rdf-to-pl.mjs --rules examples/input/odrl-policy-rules.pl examples/input/odrl-policy.ttl -o examples/odrl-policy-from-turtle.pl
 %
 % Read one deterministic decision from the ODRL policy graph.
 %% goal: odrl_policy_decision(_)

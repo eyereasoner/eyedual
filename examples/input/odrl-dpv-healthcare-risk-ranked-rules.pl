@@ -1,6 +1,6 @@
 % Source data: examples/input/odrl-dpv-healthcare-risk-ranked.ttl
 % Regenerate with:
-% node tools/rdf-to-eyedual.mjs --rules examples/input/odrl-dpv-healthcare-risk-ranked-rules.pl examples/input/odrl-dpv-healthcare-risk-ranked.ttl -o examples/odrl-dpv-healthcare-risk-ranked.pl
+% node tools/rdf-to-pl.mjs --rules examples/input/odrl-dpv-healthcare-risk-ranked-rules.pl examples/input/odrl-dpv-healthcare-risk-ranked.ttl -o examples/odrl-dpv-healthcare-risk-ranked.pl
 %
 % ODRL permissions and DPV-style risk profiles are RDF data. The rules detect
 % missing safeguards, score the risks, and return one deterministic ranking.

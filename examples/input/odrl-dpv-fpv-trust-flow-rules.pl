@@ -1,6 +1,6 @@
 % Source data: examples/input/odrl-dpv-fpv-trust-flow.ttl
 % Regenerate with:
-% node tools/rdf-to-eyedual.mjs --rules examples/input/odrl-dpv-fpv-trust-flow-rules.pl examples/input/odrl-dpv-fpv-trust-flow.ttl -o examples/odrl-dpv-fpv-trust-flow.pl
+% node tools/rdf-to-pl.mjs --rules examples/input/odrl-dpv-fpv-trust-flow-rules.pl examples/input/odrl-dpv-fpv-trust-flow.ttl -o examples/odrl-dpv-fpv-trust-flow.pl
 %
 % ODRL policy rules, trust scores, and requested flows are RDF data. The rules
 % produce one deterministic FPV-style decision report.

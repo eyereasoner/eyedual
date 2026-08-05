@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
-import { compileRdfDocumentToEyeDual, compileRdfToEyeDual } from '../tools/rdf-to-eyedual.mjs';
-import { extractEyeDualRdf } from '../tools/eyedual-to-rdf.mjs';
+import { compileRdfDocumentToEyeDual, compileRdfToEyeDual } from '../tools/rdf-to-pl.mjs';
+import { extractEyeDualRdf } from '../tools/pl-to-rdf.mjs';
 import { run } from '../src/index.js';
 import { TestReporter, isMainModule } from './test-style.mjs';
 

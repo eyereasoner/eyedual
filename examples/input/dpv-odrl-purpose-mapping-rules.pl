@@ -1,6 +1,6 @@
 % Source data: examples/input/dpv-odrl-purpose-mapping.ttl
 % Regenerate with:
-% node tools/rdf-to-eyedual.mjs --rules examples/input/dpv-odrl-purpose-mapping-rules.pl examples/input/dpv-odrl-purpose-mapping.ttl -o examples/dpv-odrl-purpose-mapping.pl
+% node tools/rdf-to-pl.mjs --rules examples/input/dpv-odrl-purpose-mapping-rules.pl examples/input/dpv-odrl-purpose-mapping.ttl -o examples/dpv-odrl-purpose-mapping.pl
 %
 % The DPV process and ODRL policy are RDF data. The rules verify the six
 % correspondences and return one deterministic mapping report.

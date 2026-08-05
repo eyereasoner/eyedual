@@ -33,9 +33,9 @@ Programs may declare their default queries with `%% goal:` comments.
 ## RDF 1.2
 
 ```sh
-node tools/rdf-to-eyedual.mjs --rules rules.pl data.ttl -o program.pl
+node tools/rdf-to-pl.mjs --rules rules.pl data.ttl -o program.pl
 eyedual program.pl > derived.pl
-node tools/eyedual-to-rdf.mjs derived.pl -o derived.nq
+node tools/pl-to-rdf.mjs derived.pl -o derived.nq
 ```
 
 See the book for RDF mappings, graphs, triple terms, reifiers, annotations,

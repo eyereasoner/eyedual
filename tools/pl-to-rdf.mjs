@@ -23,7 +23,7 @@ async function main(argv) {
   const result = extractEyeDualRdf(source);
   if (output === '-') process.stdout.write(result); else await fs.writeFile(output, result);
 }
-function usage() { process.stdout.write('Usage: node tools/eyedual-to-rdf.mjs [options] [input.pl|-]\n\n  -o, --output FILE  Write N-Quads to FILE\n'); }
+function usage() { process.stdout.write('Usage: node tools/pl-to-rdf.mjs [options] [input.pl|-]\n\n  -o, --output FILE  Write N-Quads to FILE\n'); }
 function required(a, i, o) { if (a[i] == null) throw new Error(`${o} requires a value`); return a[i]; }
 function stdin() { return new Promise((resolve, reject) => { let s = ''; process.stdin.setEncoding('utf8'); process.stdin.on('data', (c) => { s += c; }); process.stdin.on('end', () => resolve(s)); process.stdin.on('error', reject); }); }
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main(process.argv.slice(2)).catch((e) => { process.stderr.write(`eyedual-to-rdf: ${e.message}\n`); process.exitCode = 1; });
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main(process.argv.slice(2)).catch((e) => { process.stderr.write(`pl-to-rdf: ${e.message}\n`); process.exitCode = 1; });

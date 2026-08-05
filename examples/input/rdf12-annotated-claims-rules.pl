@@ -1,6 +1,6 @@
 % Source data: examples/input/rdf12-annotated-claims.ttl
 % Regenerate with:
-% node tools/rdf-to-eyedual.mjs --rules examples/input/rdf12-annotated-claims-rules.pl examples/input/rdf12-annotated-claims.ttl -o examples/rdf12-annotated-claims.pl
+% node tools/rdf-to-pl.mjs --rules examples/input/rdf12-annotated-claims-rules.pl examples/input/rdf12-annotated-claims.ttl -o examples/rdf12-annotated-claims.pl
 %
 % Rank conflicting RDF 1.2 annotated claims by annotation confidence and
 % source trust, then derive one auditable bridge-use decision.

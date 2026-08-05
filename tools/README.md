@@ -7,15 +7,15 @@ N-Quads and RDF/XML, plus JSON-LD, RDFa, Microdata, Notation3 and SHACL Compact
 Syntax. EyeDual remains RDF-agnostic.
 
 ```bash
-node tools/rdf-to-eyedual.mjs --rules rules.pl data.nq -o program.pl
+node tools/rdf-to-pl.mjs --rules rules.pl data.nq -o program.pl
 node bin/eyedual.js --goal 'rdf(S, P, O, G)' program.pl > derived.pl
-node tools/eyedual-to-rdf.mjs derived.pl -o derived.nq
+node tools/pl-to-rdf.mjs derived.pl -o derived.nq
 ```
 
 For standard input, specify an extension or media type with `--format`:
 
 ```bash
-node tools/rdf-to-eyedual.mjs --format turtle --base https://example/ -o program.pl
+node tools/rdf-to-pl.mjs --format turtle --base https://example/ -o program.pl
 ```
 
 Use `--include-source` when the result should contain input and derived quads.

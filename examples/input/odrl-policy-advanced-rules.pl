@@ -1,6 +1,6 @@
 % Source policy: examples/input/odrl-policy-advanced.ttl
 % Regenerate with:
-% node tools/rdf-to-eyedual.mjs --rules examples/input/odrl-policy-advanced-rules.pl examples/input/odrl-policy-advanced.ttl -o examples/odrl-policy-advanced-from-turtle.pl
+% node tools/rdf-to-pl.mjs --rules examples/input/odrl-policy-advanced-rules.pl examples/input/odrl-policy-advanced.ttl -o examples/odrl-policy-advanced-from-turtle.pl
 %
 % One policy is evaluated against three requests. The report demonstrates a
 % constrained permission with a duty, a failed purpose constraint, and an

@@ -1609,9 +1609,9 @@ closed finite relation, negation as failure, or an explicit integrity relation.
 </figure>
 
 ```sh
-node tools/rdf-to-eyedual.mjs --rules rules.pl data.trig -o program.pl
+node tools/rdf-to-pl.mjs --rules rules.pl data.trig -o program.pl
 eyedual program.pl > derived.pl
-node tools/eyedual-to-rdf.mjs derived.pl -o derived.nq
+node tools/pl-to-rdf.mjs derived.pl -o derived.nq
 ```
 
 Supported inputs include RDF 1.2 Turtle, TriG, N-Triples, N-Quads, RDF/XML,

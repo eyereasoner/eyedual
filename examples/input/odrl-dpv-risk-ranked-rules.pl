@@ -1,6 +1,6 @@
 % Source data: examples/input/odrl-dpv-risk-ranked.ttl
 % Regenerate with:
-% node tools/rdf-to-eyedual.mjs --rules examples/input/odrl-dpv-risk-ranked-rules.pl examples/input/odrl-dpv-risk-ranked.ttl -o examples/odrl-dpv-risk-ranked.pl
+% node tools/rdf-to-pl.mjs --rules examples/input/odrl-dpv-risk-ranked-rules.pl examples/input/odrl-dpv-risk-ranked.ttl -o examples/odrl-dpv-risk-ranked.pl
 %
 % ODRL agreement rules and DPV-style needs are RDF data. The rules derive one
 % risk per conflict, score it, and return one deterministic ranking.
