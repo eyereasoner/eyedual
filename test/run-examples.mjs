@@ -72,6 +72,21 @@ export const proofExamples = [
   'security-incident-correlation.pl',
   'symbolic-derivative.pl',
   'trust-flow-provenance-threshold.pl',
+  'rdf12-triple-term.pl',
+  'rdf12-nested-triple-term.pl',
+  'rdf12-trig-triple-term.pl',
+  'weighted-interval-scheduling.pl',
+  'rdf12-trig-graph-join.pl',
+  'rdf12-directional-language.pl',
+  'odrl-policy-from-turtle.pl',
+  'integrity-check.pl',
+  'rdf12-trig-named-graph.pl',
+  'prime-range.pl',
+  'd3-group.pl',
+  'iso-operators.pl',
+  'web-names.pl',
+  'iso-dynamic-database.pl',
+  'partial-evaluator.pl',
 ];
 
 export function runExamples(reporter = new TestReporter()) {
