@@ -1,4 +1,4 @@
-// Command-line interface for EyeDual.
+// Command-line interface for EyeLang.
 // It loads programs from files, URLs, or stdin, then runs requested goals.
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -66,7 +66,7 @@ export async function main(argv) {
   }
 
   if (options.version) {
-    process.stdout.write(`eyedual ${await packageVersion()}\n`);
+    process.stdout.write(`eyelang ${await packageVersion()}\n`);
     return;
   }
 
@@ -137,7 +137,7 @@ async function runDefault(engine, program, options) {
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
   const facts = program.sourceFactLines(queriedKeys);
   const lines = new Set();
-  const registry = engine.getEyeDualRegistry();
+  const registry = engine.getEyeLangRegistry();
   const explanation = options.proof ? await loadExplanation() : null;
   const solver = new engine.Solver(program, {
     registry,
@@ -175,14 +175,14 @@ function writeExplanation(explanation, program, resolved, registry) {
 }
 
 async function usage(stream) {
-  stream.write(`eyedual ${await packageVersion()}
+  stream.write(`eyelang ${await packageVersion()}
 
 Usage:
-  eyedual [options] [file-or-url.pl|- ...]
+  eyelang [options] [file-or-url.pl|- ...]
 
 Input:
-  file-or-url.pl        Read an EyeDual program from a local file or http(s) URL.
-  -                     Read an EyeDual program from standard input.
+  file-or-url.pl        Read an EyeLang program from a local file or http(s) URL.
+  -                     Read an EyeLang program from standard input.
 
 Options:
   -h, --help            Show this help text and exit.
@@ -212,14 +212,14 @@ function printWarnings(program) {
   const errors = program.negationStratificationErrors;
   if (errors.length === 0) return;
 
-  process.stderr.write('eyedual warning: unstratified negation\n');
+  process.stderr.write('eyelang warning: unstratified negation\n');
   for (const edge of errors) {
     process.stderr.write(`  ${edge.from} depends negatively on ${edge.to}\n`);
   }
 }
 
 function printStats(stats) {
-  process.stderr.write('eyedual stats:\n');
+  process.stderr.write('eyelang stats:\n');
   for (const [key, value] of Object.entries(stats)) {
     process.stderr.write(`  ${key}: ${value}\n`);
   }

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-labelledby="title desc">
   <title id="title">A logic programmer's workbench</title>
-  <desc id="desc">A programmer moves between domain notes, clause cards, a graph sketch, and tested EyeDual code at a warm workbench.</desc>
+  <desc id="desc">A programmer moves between domain notes, clause cards, a graph sketch, and tested EyeLang code at a warm workbench.</desc>
   <style>
     .wall{fill:#eee5d3}.desk{fill:#a97852}.paper{fill:#fffdf7;stroke:#243447;stroke-width:2}
     .screen{fill:#243447;stroke:#172334;stroke-width:5}.code{fill:#dcefe8;font:16px ui-monospace,monospace}
@@ -16,7 +16,7 @@
   <rect class="screen" x="470" y="35" width="360" height="235" rx="10"/>
   <text class="code" x="495" y="75">path(X, Y) :- edge(X, Y).</text>
   <text class="code" x="495" y="110">path(X, Z) :-</text><text class="code" x="520" y="135">edge(X, Y),</text><text class="code" x="520" y="160">path(Y, Z).</text>
-  <text class="code" x="495" y="205">eyedual --goal 'path(a, X)' program.pl</text>
+  <text class="code" x="495" y="205">eyelang --goal 'path(a, X)' program.pl</text>
   <text x="495" y="240" fill="#8fc9a9" font-family="ui-monospace,monospace" font-size="16">✓ answers and proofs agree</text>
   <path d="M625 270 L675 305 H580Z" fill="#536b78"/>
   <rect x="545" y="304" width="165" height="12" rx="6" fill="#536b78"/>

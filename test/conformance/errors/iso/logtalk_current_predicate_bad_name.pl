@@ -1,4 +1,4 @@
-% Adapted from Logtalk eddbali_current_predicate_1_08. Modified for EyeDual's harness.
+% Adapted from Logtalk eddbali_current_predicate_1_08. Modified for EyeLang's harness.
 % See test/conformance/THIRD_PARTY.md.
 %% goal: current_predicate(0/dog)
 

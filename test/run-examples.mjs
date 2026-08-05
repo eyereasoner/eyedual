@@ -124,8 +124,8 @@ function runProofExample(name) {
 }
 
 function runProgramExample(programFile, filename, options) {
-  const oldLocalTime = process.env.EYEDUAL_LOCAL_TIME;
-  process.env.EYEDUAL_LOCAL_TIME = fixedExampleDate;
+  const oldLocalTime = process.env.EYELANG_LOCAL_TIME;
+  process.env.EYELANG_LOCAL_TIME = fixedExampleDate;
   try {
     const text = fs.readFileSync(programFile, 'utf8');
     const expectedExit = text.match(/^%\s*expect-exit:\s*(\d+)\s*$/m);
@@ -141,8 +141,8 @@ function runProgramExample(programFile, filename, options) {
       throw error;
     }
   } finally {
-    if (oldLocalTime == null) delete process.env.EYEDUAL_LOCAL_TIME;
-    else process.env.EYEDUAL_LOCAL_TIME = oldLocalTime;
+    if (oldLocalTime == null) delete process.env.EYELANG_LOCAL_TIME;
+    else process.env.EYELANG_LOCAL_TIME = oldLocalTime;
   }
 }
 

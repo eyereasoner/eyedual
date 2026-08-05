@@ -1,4 +1,4 @@
-eyedual warning: unstratified negation
+eyelang warning: unstratified negation
   p/1 depends negatively on q/1
   q/1 depends negatively on r/1
   r/1 depends negatively on p/1

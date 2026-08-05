@@ -1,4 +1,4 @@
-% Adapted from Logtalk eddbali_abolish_1_10. Modified for EyeDual's harness.
+% Adapted from Logtalk eddbali_abolish_1_10. Modified for EyeLang's harness.
 % See test/conformance/THIRD_PARTY.md.
 %% goal: abolish(foo / -1)
 

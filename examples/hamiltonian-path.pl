@@ -1,6 +1,6 @@
 % Hamiltonian path, adapted from Eyelet's input/hamiltonian-path.pl.
 %
-% The graph is the same six-vertex undirected graph.  eyedual spells the finite
+% The graph is the same six-vertex undirected graph.  eyelang spells the finite
 % vertex set directly and derives every path that visits each vertex exactly
 % once.
 

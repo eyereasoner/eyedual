@@ -1,6 +1,6 @@
 % Cat Koko, adapted from Eyeling's examples/cat-koko.n3.
 %
-% The Eyeling output contains two existential witnesses. eyedual has no blank
+% The Eyeling output contains two existential witnesses. eyelang has no blank
 % node constructor in the portable core, so this adaptation names those
 % witnesses sk_0 and sk_1.
 

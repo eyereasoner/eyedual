@@ -1,5 +1,5 @@
 % Flandor insight-economy case adapted from Eyeling flandor.n3.
-% The original N3 renders a Markdown ARC report.  This eyedual translation keeps
+% The original N3 renders a Markdown ARC report.  This eyelang translation keeps
 % the neutral insight, policy envelope, authorization, package choice, and checks
 % as queried relation output.
 

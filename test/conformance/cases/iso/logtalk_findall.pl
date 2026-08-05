@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_findall_3_01 through 06 and lgt_findall_3_12.
-% Modified for EyeDual's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for EyeLang's conformance harness. See test/conformance/THIRD_PARTY.md.
 %% goal: findall_results(X0, X1, X2, X3)
 
 findall_results(Ordered, Empty, Duplicates, Bound) :-

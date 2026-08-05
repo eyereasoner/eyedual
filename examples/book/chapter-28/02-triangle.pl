@@ -1,4 +1,4 @@
-% From The Art of EyeDual, Chapter 28 — Symmetry reduces search.
+% From The Art of EyeLang, Chapter 28 — Symmetry reduces search.
 triangle(A, B, C) :-
   between(1, 20, A),
   between(A, 20, B),

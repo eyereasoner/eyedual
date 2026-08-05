@@ -1,4 +1,4 @@
-// Public EyeDual JavaScript API.
+// Public EyeLang JavaScript API.
 export * from './src/index.js';
-import * as eyedual from './src/index.js';
-export default eyedual;
+import * as eyelang from './src/index.js';
+export default eyelang;

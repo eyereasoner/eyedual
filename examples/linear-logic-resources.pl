@@ -1,6 +1,6 @@
 % Linear logic emulation with explicit consumable resources.
 %
-% EyeDual predicates are reusable Horn clauses, so this example represents the
+% EyeLang predicates are reusable Horn clauses, so this example represents the
 % linear part explicitly as a multiset-like state list.  A rule consumes its
 % input resources with select/3 and produces a new state.  If a resource is not
 % present, the step fails, which models the “use exactly once” discipline of

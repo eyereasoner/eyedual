@@ -1,4 +1,4 @@
-% From The Art of EyeDual, Chapter 25 — Source and concept layers.
+% From The Art of EyeLang, Chapter 25 — Source and concept layers.
 person(ada).
 badge(b17, ada).
 badge_status(b17, active).

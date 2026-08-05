@@ -19,6 +19,6 @@ ok(nativeCompare, true) :- (2 < 3).
 ok(nativeString, true) :- matches("scoped retail insight", "retail|medical").
 tail(nativeList, Tail) :- [_head|Tail] = [a, b, c].
 
-% These names are just user data; eyedual does not give them special meaning.
+% These names are just user data; eyelang does not give them special meaning.
 example_label(vocabularyExample, "vocabulary names are ordinary predicate names").
 label(vocabularyExample, Text) :- example_label(vocabularyExample, Text).

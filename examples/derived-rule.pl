@@ -6,7 +6,7 @@
 %   { X a cat. } => { { Y a dog. } => { test is true. }. }.
 %
 % The inner implication is represented directly as quoted formula data.
-% var(y) is not a eyedual variable; it is a ground term that names
+% var(y) is not a eyelang variable; it is a ground term that names
 % a variable placeholder inside the quoted formula.
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.

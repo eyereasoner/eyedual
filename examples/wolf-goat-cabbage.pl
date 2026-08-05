@@ -2,7 +2,7 @@
 % input/wolf-goat-cabbage.pl.
 %
 % A configuration is [man, wolf, goat, cabbage], where each item is on the west
-% bank w or east bank e.  The recursive search keeps a visited list so eyedual
+% bank w or east bank e.  The recursive search keeps a visited list so eyelang
 % explores the finite state space without looping.
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.

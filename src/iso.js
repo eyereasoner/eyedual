@@ -1,4 +1,4 @@
-// Built-ins in EyeDual's documented ISO compatibility profile. This is a
+// Built-ins in EyeLang's documented ISO compatibility profile. This is a
 // deliberately incomplete profile, not the complete standard environment.
 import {
   ATOM, COMPOUND, NUMBER, STRING, VAR, Env,
@@ -1390,7 +1390,7 @@ function formalErrorTerm(error) {
   if (error.culprit != null && formal.type === COMPOUND) {
     formal = compound(formal.name, [...formal.args, error.culprit]);
   }
-  return compound('error', [formal, atom('eyedual')]);
+  return compound('error', [formal, atom('eyelang')]);
 }
 function* catchBuiltin({ solver, goal, env }) {
   const protectedGoal = callable(goal.args[0], env);
@@ -1584,7 +1584,7 @@ export class BuiltinRegistry {
       ready: options.ready ?? null,
       fallbackWhenNotReady: options.fallbackWhenNotReady ?? false,
       shouldUse: options.shouldUse ?? null,
-      eyeDualLibrary: options.eyeDualLibrary ?? false,
+      eyeLangLibrary: options.eyeLangLibrary ?? false,
     });
     return this;
   }

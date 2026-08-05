@@ -19,11 +19,11 @@ directive_state(Value, Debug) :-
 %% goal: character_conversion(Term, From, To)
 
 character_conversion(Term, From, To) :-
-    open('/tmp/eyedual-iso-conversion.txt', write, Output),
+    open('/tmp/eyelang-iso-conversion.txt', write, Output),
     put_char(Output, '&'),
     put_char(Output, '.'),
     close(Output),
-    open('/tmp/eyedual-iso-conversion.txt', read, Input),
+    open('/tmp/eyelang-iso-conversion.txt', read, Input),
     read(Input, Term),
     close(Input),
     current_char_conversion(From, To).

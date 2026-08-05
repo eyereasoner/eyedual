@@ -14,7 +14,7 @@ const filterArg = process.argv[2] ?? null;
 
 export function runConformance(reporter = new TestReporter(), requestedFilter = null) {
   const filter = requestedFilter ?? filterArg;
-  const label = filter == null ? 'eyedual' : `eyedual ${filter}`;
+  const label = filter == null ? 'eyelang' : `eyelang ${filter}`;
   reporter.section(`Conformance ${label}`);
   for (const file of listCaseFiles('cases', filter)) runCaseFile(reporter, file);
   for (const file of listCaseFiles('errors', filter)) runErrorFile(reporter, file);
@@ -26,7 +26,7 @@ export function runConformance(reporter = new TestReporter(), requestedFilter = 
 function listCaseFiles(kind, filter = null) {
   const base = path.join(root, 'conformance', kind);
   if (!fs.existsSync(base)) return [];
-  return listEyeDualFiles(base)
+  return listEyeLangFiles(base)
     .filter((name) => matchesFilter(kind, name, filter))
     .sort();
 }
@@ -42,12 +42,12 @@ function matchesFilter(kind, name, filter) {
     || `${label}/${stem}`.includes(filter);
 }
 
-function listEyeDualFiles(base, dir = base) {
+function listEyeLangFiles(base, dir = base) {
   const files = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      files.push(...listEyeDualFiles(base, full));
+      files.push(...listEyeLangFiles(base, full));
     } else if (entry.isFile() && entry.name.endsWith('.pl')) {
       files.push(path.relative(base, full).split(path.sep).join('/'));
     }
@@ -145,7 +145,7 @@ function formatWarnings(program) {
   const errors = program.negationStratificationErrors;
   if (errors.length === 0) return '';
 
-  let text = 'eyedual warning: unstratified negation\n';
+  let text = 'eyelang warning: unstratified negation\n';
   for (const edge of errors) text += `  ${edge.from} depends negatively on ${edge.to}\n`;
   return text;
 }

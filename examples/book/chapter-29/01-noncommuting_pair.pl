@@ -1,4 +1,4 @@
-% From The Art of EyeDual, Chapter 29 — One counterexample has asymmetric power.
+% From The Art of EyeLang, Chapter 29 — One counterexample has asymmetric power.
 noncommuting_pair(A, B) :-
   matrix(A),
   matrix(B),

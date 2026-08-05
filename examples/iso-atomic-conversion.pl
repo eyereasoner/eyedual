@@ -6,10 +6,10 @@
 
 
 report(joined, Atom) :-
-  atom_concat(eye, dual, Atom).
+  atom_concat(eye, lang, Atom).
 
 report(prefix, Prefix) :-
-  atom_concat(Prefix, dual, eyedual).
+  atom_concat(Prefix, lang, eyelang).
 
 report(characters, Chars) :-
   atom_chars(eye, Chars).
@@ -24,4 +24,4 @@ report(number, Number) :-
   number_chars(Number, ['4', '2']).
 
 report(fragment, fragment(Before, Part, After)) :-
-  sub_atom(eyedual, Before, 3, After, Part).
+  sub_atom(eyelang, Before, 3, After, Part).

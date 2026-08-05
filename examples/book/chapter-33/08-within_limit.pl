@@ -1,4 +1,4 @@
-% From The Art of EyeDual, Chapter 33 — Pattern 8: Proof façade.
+% From The Art of EyeLang, Chapter 33 — Pattern 8: Proof façade.
 within_limit(Device) :-
   reading(Device, Value),
   maximum(Max),

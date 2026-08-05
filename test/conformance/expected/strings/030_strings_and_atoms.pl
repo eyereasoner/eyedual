@@ -1,2 +1,2 @@
-answer(string_concat, "eyedual").
+answer(string_concat, "eyelang").
 answer(contains, true).

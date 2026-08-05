@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_retract_1_01 through 06.
-% Modified for EyeDual's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for EyeLang's conformance harness. See test/conformance/THIRD_PARTY.md.
 :- dynamic(insect/1).
 insect(ant). insect(bee).
 :- dynamic(legs/2).

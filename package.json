@@ -1,15 +1,15 @@
 {
-  "name": "eyedual",
+  "name": "eyelang",
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.4.20",
-  "description": "EyeDual turns facts and rules into answers and proofs.",
+  "version": "0.5.0",
+  "description": "EyeLang turns facts and rules into answers and proofs.",
   "type": "module",
   "main": "./index.js",
   "types": "./index.d.ts",
   "bin": {
-    "eyedual": "./bin/eyedual.js"
+    "eyelang": "./bin/eyelang.js"
   },
   "keywords": [
     "logic",
@@ -22,22 +22,22 @@
   "author": "Jos De Roo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eyereasoner/eyedual.git"
+    "url": "git+https://github.com/eyereasoner/eyelang.git"
   },
-  "homepage": "https://github.com/eyereasoner/eyedual#readme",
+  "homepage": "https://github.com/eyereasoner/eyelang#readme",
   "files": [
     "LICENSE.md",
     "README.md",
     "index.js",
     "index.d.ts",
     "playground.html",
-    "eyedual-logo.png",
+    "eyelang-logo.png",
     "bin",
     "src",
     "tools",
     "conformance-report.md",
-    "the-art-of-eyedual.md",
-    "why-eyedual.md",
+    "the-art-of-eyelang.md",
+    "why-eyelang.md",
     "book-assets",
     "examples",
     "test"
@@ -48,7 +48,7 @@
   "scripts": {
     "test": "node test/run-all.mjs",
     "generate": "node tools/extract-book-examples.mjs",
-    "test:eyedual": "node test/run-all.mjs",
+    "test:eyelang": "node test/run-all.mjs",
     "test:conformance": "node test/run-conformance.mjs",
     "test:examples": "node test/run-examples.mjs",
     "test:regression": "node test/run-regression.mjs",

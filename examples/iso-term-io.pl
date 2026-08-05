@@ -8,7 +8,7 @@
 %% goal: report(X0, X1)
 
 
-fixture_path('/tmp/eyedual-iso-term-io-example.pl').
+fixture_path('/tmp/eyelang-iso-term-io-example.pl').
 
 write_fixture :-
   fixture_path(Path),

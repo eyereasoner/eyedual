@@ -1,4 +1,4 @@
-% Adapted from Logtalk eddbali_atom_codes_2_09. Modified for EyeDual's harness.
+% Adapted from Logtalk eddbali_atom_codes_2_09. Modified for EyeLang's harness.
 % See test/conformance/THIRD_PARTY.md.
 %% goal: atom_codes(f(a), _)
 

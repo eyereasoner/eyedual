@@ -1,4 +1,4 @@
-% From The Art of EyeDual, Chapter 26 — The least model as mathematical closure.
+% From The Art of EyeLang, Chapter 26 — The least model as mathematical closure.
 edge(a, b).
 edge(b, c).
 

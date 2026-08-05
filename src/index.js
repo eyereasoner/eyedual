@@ -12,8 +12,8 @@ export {
   PrologError,
 } from './iso.js';
 export {
-  createEyeDualRegistry,
-  getEyeDualRegistry,
+  createEyeLangRegistry,
+  getEyeLangRegistry,
 } from './library.js';
 export { StreamManager } from './io.js';
 
@@ -22,14 +22,14 @@ import { Program } from './program.js';
 import { Solver } from './solver.js';
 import { whyNoProof, whyProof } from './explain.js';
 import { HaltSignal, PrologError } from './iso.js';
-import { getEyeDualRegistry } from './library.js';
+import { getEyeLangRegistry } from './library.js';
 import { parseGoalText } from './parser.js';
 
 export function run(source, options = {}) {
   const includeWhy = options.proof === true || options.why === true || options.explain === true;
   const parseOptions = { ...options, sourceMetadata: includeWhy };
   let program = source instanceof Program ? source : Program.parse(source, parseOptions);
-  const runOptions = options.registry ? options : { ...options, registry: getEyeDualRegistry() };
+  const runOptions = options.registry ? options : { ...options, registry: getEyeLangRegistry() };
   const output = [];
   const solver = new Solver(program, {
     ...runOptions,

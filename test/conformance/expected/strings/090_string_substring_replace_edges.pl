@@ -1,6 +1,6 @@
-answer(prefix, "eyedual").
+answer(prefix, "eyelang").
 answer(middle, "la").
-answer(suffix, "lla").
+answer(suffix, "gla").
 answer(empty_at_end, "").
 answer(out_of_range_rejected, ok).
 answer(replace_all, "baNANA").

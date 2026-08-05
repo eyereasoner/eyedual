@@ -1,4 +1,4 @@
-% From The Art of EyeDual, Chapter 3.
+% From The Art of EyeLang, Chapter 3.
 eligible(Person) :-
   age(Person, Years),
   (Years >= 18),

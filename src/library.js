@@ -1,4 +1,4 @@
-// EyeDual library implemented entirely as native JavaScript builtins.
+// EyeLang library implemented entirely as native JavaScript builtins.
 // The single registry is shared by Node, embedders, and the browser playground.
 import {
   ATOM,
@@ -34,7 +34,7 @@ import {
 } from './iso.js';
 
 // Numeric builtins for integer-preserving arithmetic, floating point functions, comparisons, and ranges.
-// The code keeps BigInt paths where possible so large EyeDual integers remain exact.
+// The code keeps BigInt paths where possible so large EyeLang integers remain exact.
 
 const unaryNames = ['tan', 'asin', 'acos'];
 const binaryNames = ['atan2'];
@@ -45,10 +45,10 @@ export const arithmeticBuiltins = {
     for (const name of unaryNames) registry.add(name, 2, unary(name), { deterministic: true });
     for (const name of binaryNames) registry.add(name, 3, binary(name), { deterministic: true });
     for (const name of compareNames) registry.add(name, 2, compare(name), { deterministic: true });
-    registry.add('between', 3, between, { eyeDualLibrary: true });
+    registry.add('between', 3, between, { eyeLangLibrary: true });
     registry.add('smallest_divisor_from', 3, smallestDivisorFrom, {
       deterministic: true,
-      eyeDualLibrary: true,
+      eyeLangLibrary: true,
     });
   }
 };
@@ -215,7 +215,7 @@ export const metaCallBuiltins = {
   register(registry) {
     registry.add('call', 3, callWithTwoExtraArguments);
     registry.add('maplist', 3, maplistTwoLists, {
-      eyeDualLibrary: true,
+      eyeLangLibrary: true,
       shouldUse: ({ solver }) => solver.program.findGroup('maplist', 3) == null,
     });
   }
@@ -279,7 +279,7 @@ function* maplistTwoLists({ solver, goal, env }) {
 
 
 function localDateText() {
-  const fixed = typeof process !== 'undefined' ? process.env?.EYEDUAL_LOCAL_TIME : null;
+  const fixed = typeof process !== 'undefined' ? process.env?.EYELANG_LOCAL_TIME : null;
   if (fixed) return fixed;
 
   const now = new Date();
@@ -461,7 +461,7 @@ function contextFromGroups(groups) {
 function numericText(text) {
   return isDecimalInteger(text) || parseFiniteNumber(text) != null;
 }
-// Native EyeDual library relations.
+// Native EyeLang library relations.
 // These predicates used to be parsed from bundled Prolog source. Keeping them
 // in the builtin registry removes startup parsing, avoids browser module/cache
 // duplication, and gives the hot list/aggregation paths direct JavaScript
@@ -471,11 +471,11 @@ export const standardBuiltins = {
   register(registry) {
     const relation = (name, arity, handler, options = {}) => registry.add(name, arity, handler, {
       ...options,
-      eyeDualLibrary: true,
+      eyeLangLibrary: true,
     });
     const accelerator = (name, arity, handler, options = {}) => registry.add(name, arity, handler, {
       ...options,
-      eyeDualLibrary: true,
+      eyeLangLibrary: true,
     });
 
     relation('append', 3, appendBuiltin);
@@ -998,9 +998,9 @@ function integerArgument(term, env) {
   return BigInt(resolved.name);
 }
 
-export function createEyeDualRegistry() {
+export function createEyeLangRegistry() {
   const registry = new BuiltinRegistry();
-  registry.eyeDualLibrary = true;
+  registry.eyeLangLibrary = true;
   for (const mod of [
     coreBuiltins,
     metaCallBuiltins,
@@ -1010,16 +1010,16 @@ export function createEyeDualRegistry() {
   ]) {
     mod.register(registry);
   }
-  for (const definition of registry.defs.values()) definition.eyeDualLibrary = true;
+  for (const definition of registry.defs.values()) definition.eyeLangLibrary = true;
   // ISO definitions take precedence where names overlap and remain identifiable
-  // as ISO rather than EyeDual-library predicates.
+  // as ISO rather than EyeLang-library predicates.
   isoBuiltins.register(registry);
   return registry;
 }
 
-let eyeDualRegistry = null;
+let eyeLangRegistry = null;
 
-export function getEyeDualRegistry() {
-  if (eyeDualRegistry == null) eyeDualRegistry = createEyeDualRegistry();
-  return eyeDualRegistry;
+export function getEyeLangRegistry() {
+  if (eyeLangRegistry == null) eyeLangRegistry = createEyeLangRegistry();
+  return eyeLangRegistry;
 }

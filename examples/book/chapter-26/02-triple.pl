@@ -1,2 +1,2 @@
-% From The Art of EyeDual, Chapter 26 — Proof objects and proof checking.
+% From The Art of EyeLang, Chapter 26 — Proof objects and proof checking.
 triple(3, 4, 5).

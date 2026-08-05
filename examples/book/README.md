@@ -1,8 +1,8 @@
-# The Art of EyeDual — inline examples
+# The Art of EyeLang — inline examples
 
-These files are generated from the complete `eyedual` code blocks in
-[The Art of EyeDual](../../the-art-of-eyedual.md). They are grouped by chapter and
-retain the source text from the book. Goal fragments and non-EyeDual blocks are
+These files are generated from the complete `eyelang` code blocks in
+[The Art of EyeLang](../../the-art-of-eyelang.md). They are grouped by chapter and
+retain the source text from the book. Goal fragments and non-EyeLang blocks are
 not extracted.
 
 Regenerate them from the repository root with:
@@ -89,7 +89,7 @@ npm run generate
 
 - [01-rdf.pl](chapter-15/01-rdf.pl)
 
-## Chapter 16: Embedding EyeDual
+## Chapter 16: Embedding EyeLang
 
 - [01-socket.pl](chapter-16/01-socket.pl) — Sockets: naming the knowledge boundary
 - [02-socket-2.pl](chapter-16/02-socket-2.pl)

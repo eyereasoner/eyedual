@@ -1,8 +1,8 @@
-answer(concat, "eyedual").
+answer(concat, "eyelang").
 answer(check, true).
 answer(prefix, "eye").
-answer(suffix, "dual").
-answer(atom_inputs, "eyedual").
+answer(suffix, "lang").
+answer(atom_inputs, "eyelang").
 answer(split, "", "eye").
 answer(split, "e", "ye").
 answer(split, "ey", "e").

@@ -1,6 +1,6 @@
 % ISO integer division, remainders, shifts, and bit operations.
 %
-% In EyeDual's supported profile, div and // both truncate the quotient toward
+% In EyeLang's supported profile, div and // both truncate the quotient toward
 % zero. mod normalizes by a positive divisor while rem keeps the dividend sign.
 %% goal: report(X0, X1)
 

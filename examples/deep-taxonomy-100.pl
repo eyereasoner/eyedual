@@ -1,5 +1,5 @@
 % =============================================================================================================================
-% Deep Taxonomy - depth 100 - expanded N3-style eyedual
+% Deep Taxonomy - depth 100 - expanded N3-style eyelang
 %
 % Adjacent rules mirror the Eyeling N3 deep-taxonomy chain. Each step derives
 % the next taxonomy class together with two side labels.

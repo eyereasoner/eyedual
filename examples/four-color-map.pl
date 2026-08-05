@@ -1,7 +1,7 @@
 % EYE reasoning-inspired example: four-colour map check for the European Union.
 %
 % The source EYE example encodes the EU neighbourhood map and an answer assigning
-% four colours. This eyedual version keeps the same map/assignment shape and adds
+% four colours. This eyelang version keeps the same map/assignment shape and adds
 % a rule-level validation layer that rejects equal colours across borders.
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.

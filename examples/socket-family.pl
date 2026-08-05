@@ -1,13 +1,13 @@
 % socket-family.pl
 %
-% A small runnable eyedual Socket example.
+% A small runnable eyelang Socket example.
 %
-% The socket facts below are ordinary eyedual data. They document the
+% The socket facts below are ordinary eyelang data. They document the
 % semantic opening: this reasoning module expects a provider for parent/2.
 % The plug fact says which provider is connected.
 %
 % Run:
-%   eyedual socket-family.pl
+%   eyelang socket-family.pl
 
 % Output declarations: host-supplied goals select the relations written to this example's golden output.
 %% goal: ancestor(X0, X1)

@@ -1,4 +1,4 @@
-% From The Art of EyeDual, Chapter 9.
+% From The Art of EyeLang, Chapter 9.
 normalized(Input, Words) :-
   trim(Input, Trimmed),
   lowercase(Trimmed, Lower),
