@@ -101,6 +101,40 @@ function isGraphicAtomCode(code) {
   return graphicAtomChars.includes(String.fromCharCode(code));
 }
 
+function defineParserOperator(state, priority, specifier, name) {
+  const strength = operatorStrength(priority);
+  if (['xfx', 'xfy', 'yfx'].includes(specifier)) {
+    if (priority === 0) state.infixOperators.delete(name);
+    else state.infixOperators.set(name, {
+      precedence: strength,
+      associativity: specifier === 'xfy' ? 'right' : specifier === 'yfx' ? 'left' : 'none',
+    });
+  } else if (specifier === 'fx' || specifier === 'fy') {
+    if (priority === 0) state.prefixOperators.delete(name);
+    else state.prefixOperators.set(name, { precedence: strength, strict: specifier === 'fx' });
+  } else if (specifier === 'xf' || specifier === 'yf') {
+    if (priority === 0) state.postfixOperators.delete(name);
+    else state.postfixOperators.set(name, { precedence: strength, strict: specifier === 'xf' });
+  }
+}
+
+export function createParserOperatorState(definitions = [], includeDefaults = true) {
+  const state = {
+    infixOperators: includeDefaults ? new Map(INFIX_OPERATORS) : new Map(),
+    prefixOperators: includeDefaults
+      ? new Map([...PREFIX_OPERATORS].map(([name, precedence]) => [name, { precedence, strict: false }]))
+      : new Map(),
+    postfixOperators: new Map(),
+  };
+  for (const definition of definitions) {
+    const [priority, specifier, name] = Array.isArray(definition)
+      ? definition
+      : [definition.priority, definition.specifier, definition.name];
+    defineParserOperator(state, Number(priority), specifier, name);
+  }
+  return state;
+}
+
 class Parser {
   constructor(source, options = {}) {
     this.source = String(source ?? '');
@@ -109,29 +143,18 @@ class Parser {
     this.line = 1;
     this.anonymous = 0;
     this.sourceMetadata = options.sourceMetadata !== false;
-    this.infixOperators = new Map(INFIX_OPERATORS);
-    this.prefixOperators = new Map(
-      [...PREFIX_OPERATORS].map(([name, precedence]) => [name, { precedence, strict: false }])
+    const operatorState = options.operatorState ?? createParserOperatorState(
+      options.operatorDefinitions ?? [],
+      options.includeDefaultOperators !== false,
     );
-    this.postfixOperators = new Map();
+    this.infixOperators = operatorState.infixOperators;
+    this.prefixOperators = operatorState.prefixOperators;
+    this.postfixOperators = operatorState.postfixOperators;
     this.previousToken = null;
     this.token = this.nextToken();
   }
   defineOperator(priority, specifier, name) {
-    const strength = operatorStrength(priority);
-    if (['xfx', 'xfy', 'yfx'].includes(specifier)) {
-      if (priority === 0) this.infixOperators.delete(name);
-      else this.infixOperators.set(name, {
-        precedence: strength,
-        associativity: specifier === 'xfy' ? 'right' : specifier === 'yfx' ? 'left' : 'none',
-      });
-    } else if (specifier === 'fx' || specifier === 'fy') {
-      if (priority === 0) this.prefixOperators.delete(name);
-      else this.prefixOperators.set(name, { precedence: strength, strict: specifier === 'fx' });
-    } else if (specifier === 'xf' || specifier === 'yf') {
-      if (priority === 0) this.postfixOperators.delete(name);
-      else this.postfixOperators.set(name, { precedence: strength, strict: specifier === 'xf' });
-    }
+    defineParserOperator(this, priority, specifier, name);
   }
   applyOperatorDirective(directive, line) {
     if (directive.type !== 'compound' || directive.name !== 'op' || directive.arity !== 3) return false;
@@ -920,8 +943,11 @@ export function parseProgramText(source) {
 }
 
 export function parseGoalText(text) {
-  const clauses = parseClauses(`zz_goal(${text}).`);
+  const clauses = parseClauses(`zz_goal((${text})).`);
   const head = clauses[0]?.head;
-  if (!head || head.args.length < 1) throw new Error('bad goal');
+  if (clauses.length !== 1 || head?.type !== 'compound' ||
+      head.name !== 'zz_goal' || head.arity !== 1 || clauses[0].body.length !== 0) {
+    throw new Error('bad goal');
+  }
   return head.args[0];
 }

@@ -4956,7 +4956,8 @@ write_event(Path, Event) :-
 The period is essential when another Prolog processor will read the result as
 a term. `write/1-2` uses readable conventional syntax, `writeq/1-2` quotes
 where needed, and `write_canonical/1-2` exposes canonical structure.
-`write_term/2-3` accepts formatting options.
+`write_term/2-3` supports `quoted/1`, `ignore_ops/1`, `numbervars/1`, and
+`variable_names/1`.
 
 Character operations are `get_char`, `peek_char`, `put_char`, `get_code`,
 `peek_code`, and `put_code`; byte streams use the corresponding byte
@@ -6094,8 +6095,9 @@ The remaining qualifications are:
 - variables cannot occupy functor or predicate position;
 - double-quoted text is a distinct EyeDual string scalar rather than switching
   representation with the `double_quotes` flag;
-- operator-aware `write_term/3` formatting and some option/error precedence
-  combinations remain implementation-profile behavior;
+- `write_term/2-3` implements `quoted/1`, `ignore_ops/1`, `numbervars/1`,
+  and `variable_names/1`; other write options and some option/error precedence
+  combinations remain outside the profile;
 - unification consistently performs an occurs check, rejecting rational-tree
   bindings accepted as extensions by some systems.
 

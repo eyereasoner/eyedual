@@ -3,6 +3,7 @@
 import { ATOM, COMPOUND, VAR, Env, atom, compound, deref, flattenConjunction, isScalar, numberTerm, properListItems, termToString, variable } from './term.js';
 import {
   ISO_OPERATOR_DEFINITIONS,
+  createParserOperatorState,
   parseClauses,
   parseClausesInto,
   tryParseClausesFastInto,
@@ -527,11 +528,21 @@ function buildProgramFromSources(sources, options) {
 
 function loadSourcesIntoBuilder(builder, sources, options, fast) {
   const ensured = new Set();
+  const operatorState = createParserOperatorState();
+  const prepared = sources.map((source) => ({
+    source,
+    options: { ...sourceOptionsFor(source, options), operatorState },
+  }));
+  for (const item of prepared) {
+    const filename = sourcePath(item.options);
+    if (filename) ensured.add(filename);
+  }
   try {
-    for (const source of sources) {
-      const sourceOptions = sourceOptionsFor(source, options);
-      const text = typeof source === 'string' ? source : source?.text ?? source?.source ?? '';
-      if (!loadSourceIntoBuilder(builder, text, sourceOptions, ensured, fast)) return false;
+    for (const item of prepared) {
+      const text = typeof item.source === 'string'
+        ? item.source
+        : item.source?.text ?? item.source?.source ?? '';
+      if (!loadSourceIntoBuilder(builder, text, item.options, ensured, fast)) return false;
     }
     return true;
   } catch (error) {
@@ -547,6 +558,14 @@ function sourceOptionsFor(source, options) {
     filename: source?.filename ?? '<input>',
     baseDir: source?.baseDir ?? options.baseDir,
   };
+}
+
+function sourcePath(options) {
+  if (!path) return null;
+  const filename = String(options.filename ?? '');
+  if (!filename || filename.startsWith('<') || /^https?:\/\//.test(filename)) return null;
+  const base = options.baseDir ?? currentWorkingDirectory();
+  return path.resolve(base, filename);
 }
 
 function loadSourceIntoBuilder(builder, source, options, ensured, fast) {

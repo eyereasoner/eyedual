@@ -6,7 +6,8 @@ import {
   isDecimalInteger, listFromItems, numberTerm, numberTextFromDouble,
   properListItems, termIsGround, termToString, unify, variable, variantTerms,
 } from './term.js';
-import { parseClauses } from './parser.js';
+import { createParserOperatorState, parseClauses } from './parser.js';
+import { formatTermForWrite } from './write.js';
 
 let isoFresh = 0;
 
@@ -117,9 +118,13 @@ export const isoBuiltins = {
     registry.add('read', 2, readBuiltin, { deterministic: true });
     registry.add('read_term', 2, readTermBuiltin, { deterministic: true });
     registry.add('read_term', 3, readTermBuiltin, { deterministic: true });
-    for (const name of ['write', 'writeq', 'write_canonical']) {
-      registry.add(name, 1, writeBuiltin, { deterministic: true });
-      registry.add(name, 2, writeBuiltin, { deterministic: true });
+    for (const [name, mode] of [
+      ['write', 'write'],
+      ['writeq', 'writeq'],
+      ['write_canonical', 'canonical'],
+    ]) {
+      registry.add(name, 1, writeBuiltin(mode), { deterministic: true });
+      registry.add(name, 2, writeBuiltin(mode), { deterministic: true });
     }
     registry.add('write_term', 2, writeTermBuiltin, { deterministic: true });
     registry.add('write_term', 3, writeTermBuiltin, { deterministic: true });
@@ -857,7 +862,16 @@ function* nlBuiltin({ solver, goal, env }) {
   yield env;
 }
 
-function nextTermText(stream) {
+function isTerminatingFullStop(source, index) {
+  const previous = source[index - 1] ?? '';
+  const next = source[index + 1] ?? '';
+  if (previous === '.' || next === '.') return false;
+  if (/\d/.test(previous) && /\d/.test(next)) return false;
+  if (/[A-Za-z0-9_]/.test(previous) && /[A-Za-z0-9_]/.test(next)) return false;
+  return true;
+}
+
+function* termTextCandidates(stream) {
   const source = String(stream.content);
   let quote = null, escaped = false, lineComment = false, blockComment = false;
   for (let i = stream.position; i < source.length; i++) {
@@ -871,17 +885,13 @@ function nextTermText(stream) {
       else if (ch === quote) quote = null;
       continue;
     }
-    if (ch === '%' ) { lineComment = true; continue; }
+    if (ch === '%') { lineComment = true; continue; }
     if (ch === '/' && next === '*') { blockComment = true; i++; continue; }
     if (ch === "'" || ch === '"') { quote = ch; continue; }
-    if (ch === '.' && !(/[0-9]/.test(source[i - 1] ?? '') && /[0-9]/.test(next ?? ''))) {
-      const text = source.slice(stream.position, i + 1);
-      stream.position = i + 1;
-      return text;
+    if (ch === '.' && isTerminatingFullStop(source, i)) {
+      yield { text: source.slice(stream.position, i + 1), end: i + 1 };
     }
   }
-  stream.position = source.length;
-  return null;
 }
 function convertedTermText(text, solver) {
   if (solver.prologFlags.get('char_conversion')?.value?.name !== 'on' || solver.charConversions.size === 0) return text;
@@ -902,15 +912,26 @@ function convertedTermText(text, solver) {
   return result;
 }
 function readTermFromStream(stream, solver) {
-  const text = nextTermText(stream);
-  if (text == null || !text.trim()) return atom('end_of_file');
-  try {
-    const clauses = parseClauses(convertedTermText(text, solver), { sourceMetadata: false });
-    if (clauses.length !== 1 || clauses[0].body.length) throw new Error('bad term');
-    return clauses[0].head;
-  } catch (_) {
-    throw new PrologError('syntax_error(read_term)');
+  let sawCandidate = false;
+  for (const candidate of termTextCandidates(stream)) {
+    sawCandidate = true;
+    try {
+      const operatorState = createParserOperatorState(solver.program.operators.values(), false);
+      const clauses = parseClauses(convertedTermText(candidate.text, solver), {
+        sourceMetadata: false,
+        operatorState,
+      });
+      if (clauses.length !== 1 || clauses[0].body.length) throw new Error('bad term');
+      stream.position = candidate.end;
+      return clauses[0].head;
+    } catch (_) {
+      // A dot inside a graphic operator, such as =.., is only a possible
+      // terminator. Keep scanning until a complete term parses.
+    }
   }
+  stream.position = String(stream.content).length;
+  if (!sawCandidate) return atom('end_of_file');
+  throw new PrologError('syntax_error(read_term)');
 }
 function* readBuiltin({ solver, goal, env }) {
   const stream = inputStreamFor(solver, goal, env);
@@ -955,23 +976,81 @@ function* readTermBuiltin({ solver, goal, env }) {
   }
   yield next;
 }
-function* writeBuiltin({ solver, goal, env }) {
-  const stream = outputStreamFor(solver, goal, env);
-  if (stream.type !== 'text') throw new PrologError('permission_error(output, binary_stream)', streamHandle(stream.id));
-  solver.io.writeUnit(stream, termToString(goal.args[goal.arity - 1], env, true));
-  yield env;
+function defaultTermWriteOptions(mode) {
+  if (mode === 'writeq') return { quoted: true, ignoreOps: false, numbervars: true, variableNames: new Map() };
+  if (mode === 'canonical') return { quoted: true, ignoreOps: true, numbervars: false, variableNames: new Map() };
+  return { quoted: false, ignoreOps: false, numbervars: true, variableNames: new Map() };
+}
+
+function writeOptionBoolean(value, env, option) {
+  value = deref(value, env);
+  if (value.type === VAR) throw new PrologError('instantiation_error');
+  if (value.type !== ATOM || !['true', 'false'].includes(value.name)) {
+    throw new PrologError('domain_error(write_option)', option);
+  }
+  return value.name === 'true';
+}
+
+function writeVariableNames(value, env, option) {
+  value = deref(value, env);
+  if (value.type === VAR) throw new PrologError('instantiation_error');
+  const items = properListItems(value, env);
+  if (items == null) {
+    if (isPartialList(value, env)) throw new PrologError('instantiation_error');
+    throw new PrologError('domain_error(write_option)', option);
+  }
+  const names = new Map();
+  for (const item of items) {
+    const pair = deref(item, env);
+    if (pair.type !== COMPOUND || pair.name !== '=' || pair.arity !== 2) {
+      throw new PrologError('domain_error(write_option)', option);
+    }
+    const name = deref(pair.args[0], env);
+    const target = pair.args[1];
+    if (name.type === VAR) throw new PrologError('instantiation_error');
+    if (name.type !== ATOM || target.type !== VAR) {
+      throw new PrologError('domain_error(write_option)', option);
+    }
+    names.set(target.name, name.name);
+  }
+  return names;
+}
+
+function termWriteOptions(term, env, mode = 'write') {
+  const result = defaultTermWriteOptions(mode);
+  for (const option of optionList(term, env)) {
+    if (option.type !== COMPOUND || option.arity !== 1) {
+      throw new PrologError('domain_error(write_option)', option);
+    }
+    if (option.name === 'quoted') result.quoted = writeOptionBoolean(option.args[0], env, option);
+    else if (option.name === 'ignore_ops') result.ignoreOps = writeOptionBoolean(option.args[0], env, option);
+    else if (option.name === 'numbervars') result.numbervars = writeOptionBoolean(option.args[0], env, option);
+    else if (option.name === 'variable_names') result.variableNames = writeVariableNames(option.args[0], env, option);
+    else throw new PrologError('domain_error(write_option)', option);
+  }
+  return result;
+}
+
+function writeBuiltin(mode) {
+  return function* ({ solver, goal, env }) {
+    const stream = outputStreamFor(solver, goal, env);
+    if (stream.type !== 'text') throw new PrologError('permission_error(output, binary_stream)', streamHandle(stream.id));
+    const options = defaultTermWriteOptions(mode);
+    solver.io.writeUnit(stream, formatTermForWrite(goal.args[goal.arity - 1], env, {
+      ...options,
+      operators: solver.program.operators.values(),
+    }));
+    yield env;
+  };
 }
 function* writeTermBuiltin({ solver, goal, env }) {
   const stream = goal.arity === 2 ? solver.io.resolve(solver.io.currentOutput) : requireStream(solver, goal.args[0], env, 'write');
   if (stream.type !== 'text') throw new PrologError('permission_error(output, binary_stream)', streamHandle(stream.id));
-  const options = optionList(goal.args[goal.arity - 1], env);
-  for (const option of options) {
-    if (option.type !== COMPOUND || option.arity !== 1 ||
-        !['quoted', 'ignore_ops', 'numbervars', 'variable_names'].includes(option.name)) {
-      throw new PrologError('domain_error(write_option)', option);
-    }
-  }
-  solver.io.writeUnit(stream, termToString(goal.args[goal.arity - 2], env, true));
+  const options = termWriteOptions(goal.args[goal.arity - 1], env);
+  solver.io.writeUnit(stream, formatTermForWrite(goal.args[goal.arity - 2], env, {
+    ...options,
+    operators: solver.program.operators.values(),
+  }));
   yield env;
 }
 

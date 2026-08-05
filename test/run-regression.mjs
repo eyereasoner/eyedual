@@ -56,6 +56,10 @@ function run(source, options = {}) {
   return runEyeDual(programSource, { ...options, goals });
 }
 
+function sourceAtom(value) {
+  return `'${String(value).replaceAll('\\', '\\\\').replaceAll("'", "''")}'`;
+}
+
 export function runRegression(reporter = new TestReporter()) {
   tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'eyedual-regression.'));
   tmpCounter = 0;
@@ -401,6 +405,118 @@ why(
         assertEqual(result.status, 0, 'exit status');
         assertEqual(result.stdout, 'q(a, b).\n', 'stdout');
         assertEqual(result.stderr, '', 'stderr');
+      },
+    },
+    {
+      name: 'explicit CLI conjunction goals execute every conjunct',
+      run: () => {
+        const failing = runCli(['--goal', 'a(X), b', '-'], {
+          input: 'a(ok) :- true.\nb :- fail.\n',
+        });
+        assertEqual(failing.status, 0, 'failing conjunction status');
+        assertEqual(failing.stdout, '', 'failing conjunction stdout');
+
+        const succeeding = runCli(['--goal', 'a(X), b', '-'], {
+          input: 'a(ok) :- true.\nb.\n',
+        });
+        assertEqual(succeeding.status, 0, 'succeeding conjunction status');
+        assertEqual(succeeding.stdout, '(a(ok), b).\n', 'succeeding conjunction stdout');
+      },
+    },
+    {
+      name: 'include shares operator declarations in both directions',
+      run: () => {
+        const directory = path.join(tmp, `include-operators-${++tmpCounter}`);
+        fs.mkdirSync(directory);
+        fs.writeFileSync(path.join(directory, 'child.pl'), [
+          'child_rule :- carol likes dave.',
+          ':- op(500, xfx, trusts).',
+          '',
+        ].join('\n'));
+        const parent = [
+          ':- op(500, xfx, likes).',
+          ":- include('child.pl').",
+          'parent_rule :- alice trusts bob.',
+          '',
+        ].join('\n');
+        const program = Program.parseSources([{
+          text: parent,
+          filename: 'parent.pl',
+          baseDir: directory,
+        }], { sourceMetadata: false });
+        assertEqual(
+          termToString(program.findGroup('child_rule', 0).clauses[0].body[0], new Env(), true),
+          'likes(carol, dave)',
+          'operator declared by parent',
+        );
+        assertEqual(
+          termToString(program.findGroup('parent_rule', 0).clauses[0].body[0], new Env(), true),
+          'trusts(alice, bob)',
+          'operator declared by child',
+        );
+      },
+    },
+    {
+      name: 'ensure_loaded treats the top-level source as already loaded',
+      run: () => {
+        const directory = path.join(tmp, `ensure-self-${++tmpCounter}`);
+        fs.mkdirSync(directory);
+        const filename = path.join(directory, 'self.pl');
+        const text = "a.\n:- ensure_loaded('self.pl').\nb.\n";
+        fs.writeFileSync(filename, text);
+        const program = Program.parseSources([{
+          text,
+          filename: 'self.pl',
+          baseDir: directory,
+        }], { sourceMetadata: false });
+        assertEqual(program.clauses.length, 2, 'clause count');
+        assertEqual(program.findGroup('a', 0).clauses.length, 1, 'a/0 count');
+        assertEqual(program.findGroup('b', 0).clauses.length, 1, 'b/0 count');
+      },
+    },
+    {
+      name: 'term input keeps dotted operators intact and uses program operators',
+      run: () => {
+        const univPath = path.join(tmp, `read-univ-${++tmpCounter}.term`);
+        const customPath = path.join(tmp, `read-custom-${++tmpCounter}.term`);
+        const invalidPath = path.join(tmp, `read-invalid-${++tmpCounter}.term`);
+        fs.writeFileSync(univPath, 'foo =.. [bar]/* term end */.\n');
+        fs.writeFileSync(customPath, 'alice likes bob.\n');
+        fs.writeFileSync(invalidPath, 'a..b.\n');
+        const source = [
+          `read_univ(T) :- open(${sourceAtom(univPath)}, read, S, []), read(S, T), close(S).`,
+          `read_custom(T) :- op(500, xfx, likes), open(${sourceAtom(customPath)}, read, S, []), read(S, T), close(S).`,
+          `read_invalid(ok) :- open(${sourceAtom(invalidPath)}, read, S, []), catch(read(S, _), error(syntax_error(read_term), _), true), close(S).`,
+          '',
+        ].join('\n');
+        assertEqual(run(source, { goal: 'read_univ(T)' }).stdout, "read_univ('=..'(foo, [bar])).\n", 'univ term');
+        assertEqual(run(source, { goal: 'read_custom(T)' }).stdout, 'read_custom(likes(alice, bob)).\n', 'custom operator term');
+        assertEqual(run(source, { goal: 'read_invalid(ok)' }).stdout, 'read_invalid(ok).\n', 'invalid dotted term');
+      },
+    },
+    {
+      name: 'write predicates and write_term options select distinct formats',
+      run: () => {
+        const source = [
+          'emit :-',
+          "  write('hello world'), put_char('|'),",
+          "  writeq('hello world'), put_char('|'),",
+          "  write(a+b*c), put_char('|'),",
+          "  write_canonical(a+b*c), put_char('|'),",
+          "  write_term('hello world', [quoted(false)]), put_char('|'),",
+          "  write_term('hello world', [quoted(true)]), put_char('|'),",
+          "  write_term(a+b, [ignore_ops(true)]), put_char('|'),",
+          "  write_term(a+b, [ignore_ops(false)]), put_char('|'),",
+          "  write_term('$VAR'(0), [numbervars(true)]), put_char('|'),",
+          "  write_term('$VAR'(0), [numbervars(false)]), put_char('|'),",
+          "  write_term(pair(X, Y), [variable_names(['Left'=X, 'Right'=Y])]).",
+          '',
+        ].join('\n');
+        assertEqual(
+          run(source, { goal: 'emit' }).stdout,
+          "hello world|'hello world'|a + b * c|'+'(a, *(b, c))|hello world|'hello world'|+(a, b)|a + b|A|$VAR(0)|pair(Left, Right)emit.\n",
+          'stdout',
+        );
       },
     },
     {
