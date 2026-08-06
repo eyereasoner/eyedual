@@ -47,7 +47,7 @@
   <g id="header">
     <text x="500" y="105" text-anchor="middle" class="title1">The Art of</text>
     <text x="500" y="238" text-anchor="middle" class="title2">
-      <tspan fill="#233a59">Eye</tspan><tspan fill="#94493f">Lang</tspan>
+      <tspan fill="#233a59">Eye</tspan><tspan fill="#94493f">lang</tspan>
     </text>
 
     <line x1="110" y1="274" x2="445" y2="274" class="gold-stroke thin round"/>
