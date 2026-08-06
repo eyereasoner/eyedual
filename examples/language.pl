@@ -1,6 +1,6 @@
-% EyeLang language-identity example.
+% Eyelang language-identity example.
 %
-% This file intentionally uses the modern EyeLang surface syntax:
+% This file intentionally uses the modern Eyelang surface syntax:
 %   - `.pl` source files instead of Prolog `.pl` files
 %   - ISO Prolog-style uppercase variables
 %   - automatic tabling for recursive predicates

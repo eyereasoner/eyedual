@@ -1,4 +1,4 @@
-// EyeLang library implemented entirely as native JavaScript builtins.
+// Eyelang library implemented entirely as native JavaScript builtins.
 // The single registry is shared by Node, embedders, and the browser playground.
 import {
   ATOM,
@@ -34,7 +34,7 @@ import {
 } from './iso.js';
 
 // Numeric builtins for integer-preserving arithmetic, floating point functions, comparisons, and ranges.
-// The code keeps BigInt paths where possible so large EyeLang integers remain exact.
+// The code keeps BigInt paths where possible so large Eyelang integers remain exact.
 
 const unaryNames = ['tan', 'asin', 'acos'];
 const binaryNames = ['atan2'];
@@ -461,7 +461,7 @@ function contextFromGroups(groups) {
 function numericText(text) {
   return isDecimalInteger(text) || parseFiniteNumber(text) != null;
 }
-// Native EyeLang library relations.
+// Native Eyelang library relations.
 // These predicates used to be parsed from bundled Prolog source. Keeping them
 // in the builtin registry removes startup parsing, avoids browser module/cache
 // duplication, and gives the hot list/aggregation paths direct JavaScript
@@ -998,7 +998,7 @@ function integerArgument(term, env) {
   return BigInt(resolved.name);
 }
 
-export function createEyeLangRegistry() {
+export function createEyelangRegistry() {
   const registry = new BuiltinRegistry();
   registry.eyeLangLibrary = true;
   for (const mod of [
@@ -1012,14 +1012,14 @@ export function createEyeLangRegistry() {
   }
   for (const definition of registry.defs.values()) definition.eyeLangLibrary = true;
   // ISO definitions take precedence where names overlap and remain identifiable
-  // as ISO rather than EyeLang-library predicates.
+  // as ISO rather than Eyelang-library predicates.
   isoBuiltins.register(registry);
   return registry;
 }
 
 let eyeLangRegistry = null;
 
-export function getEyeLangRegistry() {
-  if (eyeLangRegistry == null) eyeLangRegistry = createEyeLangRegistry();
+export function getEyelangRegistry() {
+  if (eyeLangRegistry == null) eyeLangRegistry = createEyelangRegistry();
   return eyeLangRegistry;
 }

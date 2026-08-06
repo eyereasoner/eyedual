@@ -1,6 +1,6 @@
 % Route planning with explicit route terms.
 %
-% This is the EyeLang version of the classic Paris-to-Nantes path example: the
+% This is the Eyelang version of the classic Paris-to-Nantes path example: the
 % facts describe one-way road links, and `path/2` derives both the endpoint pair
 % and a structured `go(..., ..., ...)` plan.  The plan is ordinary data, so the
 % route can be inspected, stored, or used by later rules.

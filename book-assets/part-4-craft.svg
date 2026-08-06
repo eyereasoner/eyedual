@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-labelledby="title desc">
   <title id="title">A logic programmer's workbench</title>
-  <desc id="desc">A programmer moves between domain notes, clause cards, a graph sketch, and tested EyeLang code at a warm workbench.</desc>
+  <desc id="desc">A programmer moves between domain notes, clause cards, a graph sketch, and tested Eyelang code at a warm workbench.</desc>
   <style>
     .wall{fill:#eee5d3}.desk{fill:#a97852}.paper{fill:#fffdf7;stroke:#243447;stroke-width:2}
     .screen{fill:#243447;stroke:#172334;stroke-width:5}.code{fill:#dcefe8;font:16px ui-monospace,monospace}

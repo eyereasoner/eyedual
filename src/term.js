@@ -187,7 +187,7 @@ function occurs(variableName, term, env) {
 
 export function unify(left, right, env) {
   // Iterative unification avoids deep JavaScript recursion on long lists or
-  // deeply nested compounds. The occurs check gives EyeLang finite-tree
+  // deeply nested compounds. The occurs check gives Eyelang finite-tree
   // unification: a variable cannot be bound to a term containing itself.
   // Bindings are written into the supplied Env.
   const stack = [[left, right]];

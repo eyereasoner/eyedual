@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_number_codes_2_01 through 06 and 09 through 11.
-% Modified for EyeLang's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for Eyelang's conformance harness. See test/conformance/THIRD_PARTY.md.
 %% goal: number_code_results(X0, X1, X2, X3)
 
 number_code_results(IntegerCodes, Float, Negative, Spaced) :-

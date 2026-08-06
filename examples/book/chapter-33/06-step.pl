@@ -1,2 +1,2 @@
-% From The Art of EyeLang, Chapter 33 — Pattern 6: Explicit state transition.
+% From The Art of Eyelang, Chapter 33 — Pattern 6: Explicit state transition.
 step(state(Room, outside), enter(Room), state(Room, inside)).

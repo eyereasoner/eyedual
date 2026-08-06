@@ -1,4 +1,4 @@
-// Built-ins in EyeLang's documented ISO compatibility profile. This is a
+// Built-ins in Eyelang's documented ISO compatibility profile. This is a
 // deliberately incomplete profile, not the complete standard environment.
 import {
   ATOM, COMPOUND, NUMBER, STRING, VAR, Env,

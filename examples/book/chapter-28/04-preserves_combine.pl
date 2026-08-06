@@ -1,4 +1,4 @@
-% From The Art of EyeLang, Chapter 28 — Composition, homomorphism, and reusable laws.
+% From The Art of Eyelang, Chapter 28 — Composition, homomorphism, and reusable laws.
 preserves_combine(X, Y) :-
   combine(X, Y, XY),
   image(X, IX),

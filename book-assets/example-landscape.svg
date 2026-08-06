@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" role="img" aria-labelledby="title desc">
   <title id="title">The executable example landscape</title>
-  <desc id="desc">A map connects a central EyeLang program to mathematics, search, planning, policy, science, program analysis, symbolic systems, and RDF, with paths to answers and proofs.</desc>
+  <desc id="desc">A map connects a central Eyelang program to mathematics, search, planning, policy, science, program analysis, symbolic systems, and RDF, with paths to answers and proofs.</desc>
   <defs>
     <style>
       .bg{fill:#f4efe3}.region{stroke:#243447;stroke-width:2}.core{fill:#243447;stroke:#172334;stroke-width:3}

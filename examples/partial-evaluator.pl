@@ -1,7 +1,7 @@
 % A tiny partial evaluator for expression terms.
 %
 % Real partial evaluation can specialize interpreters, control unfolding, avoid
-% code explosion, and even approach self-application.  This bounded EyeLang
+% code explosion, and even approach self-application.  This bounded Eyelang
 % version specializes a miniature expression language with known static inputs:
 % constants are folded, known variables are substituted, and dynamic variables
 % remain as residual code.

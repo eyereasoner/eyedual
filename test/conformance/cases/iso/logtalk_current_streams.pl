@@ -1,5 +1,5 @@
 % Adapted from Logtalk current_input/1 and current_output/1 tests 01, 03, 05, 06.
-% Modified for EyeLang's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for Eyelang's conformance harness. See test/conformance/THIRD_PARTY.md.
 %% goal: current_streams
 
 current_streams :-

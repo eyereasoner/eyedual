@@ -1,4 +1,4 @@
-% From The Art of EyeLang, Chapter 9.
+% From The Art of Eyelang, Chapter 9.
 message(event_17, (severity(high), source(sensor_3), reading(temp, 91))).
 
 context_member((Left, _right), Member) :- context_member(Left, Member).

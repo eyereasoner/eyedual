@@ -1,4 +1,4 @@
-% Adapted from Logtalk iso_atom_length_2_05. Modified for EyeLang's harness.
+% Adapted from Logtalk iso_atom_length_2_05. Modified for Eyelang's harness.
 % See test/conformance/THIRD_PARTY.md.
 %% goal: atom_length(_, 4)
 

@@ -1,4 +1,4 @@
-% Adapted from Logtalk eclipse_bagof_3_19. Modified for EyeLang's harness.
+% Adapted from Logtalk eclipse_bagof_3_19. Modified for Eyelang's harness.
 % See test/conformance/THIRD_PARTY.md.
 %% goal: bagof(X, (X = 2; X = 1), [1 | 2])
 

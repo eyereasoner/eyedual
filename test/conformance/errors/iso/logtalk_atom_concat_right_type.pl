@@ -1,4 +1,4 @@
-% Adapted from Logtalk eddbali_atom_concat_3_09. Modified for EyeLang's harness.
+% Adapted from Logtalk eddbali_atom_concat_3_09. Modified for Eyelang's harness.
 % See test/conformance/THIRD_PARTY.md.
 %% goal: atom_concat(iso, f(a), _)
 

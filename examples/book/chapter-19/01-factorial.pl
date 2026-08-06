@@ -1,4 +1,4 @@
-% From The Art of EyeLang, Chapter 19 — Termination needs its own argument.
+% From The Art of Eyelang, Chapter 19 — Termination needs its own argument.
 factorial(0, 1).
 factorial(N, F) :-
   (N > 0),

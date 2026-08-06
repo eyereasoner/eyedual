@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_once_1_01 through 04.
-% Modified for EyeLang's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for Eyelang's conformance harness. See test/conformance/THIRD_PARTY.md.
 %% goal: once_results(X0)
 
 once_results(Values) :-

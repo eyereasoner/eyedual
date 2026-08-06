@@ -2,9 +2,9 @@
 // Keep this module free of Node-only imports: it is fetched directly by the
 // browser and is also exercised by test/run-playground.mjs.
 import { run } from './index.js?playground=20260803c';
-import { createEyeLangRegistry } from './library.js?playground=20260803c';
+import { createEyelangRegistry } from './library.js?playground=20260803c';
 
-const registry = createEyeLangRegistry();
+const registry = createEyelangRegistry();
 
 export function executePlaygroundRequest(data, now = defaultNow) {
   const started = now();

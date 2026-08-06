@@ -1,4 +1,4 @@
-answer(trim, "Hello EyeLang").
+answer(trim, "Hello Eyelang").
 answer(lower, "hello eyelang").
 answer(upper, "HELLO EYELANG").
 answer(split, ["red", "green", "blue"]).

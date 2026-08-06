@@ -1,27 +1,27 @@
-# EyeLang profile conformance suite
+# Eyelang profile conformance suite
 
-This directory contains executable tests for the EyeLang implementation and
+This directory contains executable tests for the Eyelang implementation and
 reasoner.
-[*The Art of EyeLang*](../../the-art-of-eyelang.md) is the reference for the
+[*The Art of Eyelang*](../../the-art-of-eyelang.md) is the reference for the
 supported ISO Prolog profile, built-ins, extensions, and reasoner behavior.
 
 The suite is intentionally file-based. Exact standard output, errors, warnings,
 and proof output test the behavior of the JavaScript implementation.
 
-“Conformance” here means conformance to EyeLang's documented ISO compatibility
+“Conformance” here means conformance to Eyelang's documented ISO compatibility
 profile and implementation extensions. The default registry covers the exact
 predicate indicators listed in Appendix B of the book across the supported
 ISO/IEC 13211-1:1995 standard families. This suite is still not an independent certification of
 every processor requirement, lexical edge, option combination, or prescribed
 error precedence. Cases under `iso/` identify standards-derived behavior;
-other directories cover EyeLang host contracts and extensions.
+other directories cover Eyelang host contracts and extensions.
 
 All conformance files live under topic directories such as `arithmetic/`, `lists/`, `syntax/`, or `variables/`; new top-level numbered files should not be added. The report uses those directories as coverage categories.
 
 A normal positive case consists of:
 
 - `conformance/cases/<name>.pl` — input program;
-- `conformance/expected/<name>.pl` — exact expected standard output, stored as EyeLang-readable facts.
+- `conformance/expected/<name>.pl` — exact expected standard output, stored as Eyelang-readable facts.
 
 Expected-error cases consist of:
 

@@ -1,4 +1,4 @@
-% Web names as first-class EyeLang atoms.
+% Web names as first-class Eyelang atoms.
 %
 % Angle-bracket IRI atoms are ordinary atoms with globally meaningful names.
 % They are self-contained, require no prefix declarations, and can be joined

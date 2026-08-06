@@ -1,10 +1,10 @@
 # RDF round-trip tools
 
-These tools translate RDF files into ordinary EyeLang and queried `rdf/4`
+These tools translate RDF files into ordinary Eyelang and queried `rdf/4`
 facts back into RDF 1.2 N-Quads. Input formats are selected automatically from
 the file extension. Supported inputs include RDF 1.2 Turtle, TriG, N-Triples,
 N-Quads and RDF/XML, plus JSON-LD, RDFa, Microdata, Notation3 and SHACL Compact
-Syntax. EyeLang remains RDF-agnostic.
+Syntax. Eyelang remains RDF-agnostic.
 
 ```bash
 node tools/rdf-to-pl.mjs --rules rules.pl data.nq -o program.pl

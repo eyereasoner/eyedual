@@ -48,11 +48,11 @@ for (const match of book.matchAll(/^(## \d+\. ([^\n]+)|# ([^\n]+)|```eyelang\n([
 
 const files = new Map();
 const readme = [
-  '# The Art of EyeLang — inline examples',
+  '# The Art of Eyelang — inline examples',
   '',
   'These files are generated from the complete `eyelang` code blocks in',
-  '[The Art of EyeLang](../../the-art-of-eyelang.md). They are grouped by chapter and',
-  'retain the source text from the book. Goal fragments and non-EyeLang blocks are',
+  '[The Art of Eyelang](../../the-art-of-eyelang.md). They are grouped by chapter and',
+  'retain the source text from the book. Goal fragments and non-Eyelang blocks are',
   'not extracted.',
   '',
   'Regenerate them from the repository root with:',
@@ -79,7 +79,7 @@ for (const item of chapters) {
     const heading = example.section ? ` — ${example.section}` : '';
     files.set(
       relative,
-      `% From The Art of EyeLang, Chapter ${item.number}${heading}.\n${example.source}\n`,
+      `% From The Art of Eyelang, Chapter ${item.number}${heading}.\n${example.source}\n`,
     );
     readme.push(`- [${filename}](${relative})${heading}`);
     total += 1;

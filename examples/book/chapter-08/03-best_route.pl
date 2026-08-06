@@ -1,4 +1,4 @@
-% From The Art of EyeLang, Chapter 8.
+% From The Art of Eyelang, Chapter 8.
 best_route(From, To, Route, Cost) :-
   aggregate_min(
     [CandidateCost, CandidateRoute],

@@ -1,8 +1,8 @@
-# The Art of EyeLang — inline examples
+# The Art of Eyelang — inline examples
 
 These files are generated from the complete `eyelang` code blocks in
-[The Art of EyeLang](../../the-art-of-eyelang.md). They are grouped by chapter and
-retain the source text from the book. Goal fragments and non-EyeLang blocks are
+[The Art of Eyelang](../../the-art-of-eyelang.md). They are grouped by chapter and
+retain the source text from the book. Goal fragments and non-Eyelang blocks are
 not extracted.
 
 Regenerate them from the repository root with:
@@ -89,7 +89,7 @@ npm run generate
 
 - [01-rdf.pl](chapter-15/01-rdf.pl)
 
-## Chapter 16: Embedding EyeLang
+## Chapter 16: Embedding Eyelang
 
 - [01-socket.pl](chapter-16/01-socket.pl) — Sockets: naming the knowledge boundary
 - [02-socket-2.pl](chapter-16/02-socket-2.pl)

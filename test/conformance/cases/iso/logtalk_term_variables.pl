@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_term_variables_2_03, 04, 06, 07, and 08.
-% Modified for EyeLang's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for Eyelang's conformance harness. See test/conformance/THIRD_PARTY.md.
 %% goal: ground_variables(X0)
 
 ground_variables(Ground) :- term_variables(t, Ground).

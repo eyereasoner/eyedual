@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg"
      width="1000" height="1450" viewBox="0 0 1000 1450"
      role="img" aria-labelledby="title desc">
-  <title id="title">The Art of EyeLang</title>
-  <desc id="desc">Editable SVG cover for The Art of EyeLang. All text is live text and kept within its surrounding boxes.</desc>
+  <title id="title">The Art of Eyelang</title>
+  <desc id="desc">Editable SVG cover for The Art of Eyelang. All text is live text and kept within its surrounding boxes.</desc>
 
   <defs>
     <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">

@@ -1,4 +1,4 @@
-% From The Art of EyeLang, Chapter 37.
+% From The Art of Eyelang, Chapter 37.
 write_event(Path, Event) :-
   open(Path, write, Stream, [type(text)]),
   write_canonical(Stream, Event),

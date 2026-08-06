@@ -25,7 +25,7 @@ export async function runPlayground(reporter = new TestReporter()) {
     assertNotIncludes(html, 'URL.createObjectURL(new Blob([workerCode]', 'inline blob worker');
   });
 
-  await reporter.testAsync('worker loads append/3 from the EyeLang library', async () => {
+  await reporter.testAsync('worker loads append/3 from the Eyelang library', async () => {
     const result = executePlaygroundRequest({
       source: 'answer(X) :- append([a], [b], X).\n',
       options: { goal: 'answer(X)' },
@@ -35,7 +35,7 @@ export async function runPlayground(reporter = new TestReporter()) {
     assertEqual(result.elapsedMs, 1, 'elapsed time');
   });
 
-  await reporter.testAsync('worker keeps the EyeLang library across runs', async () => {
+  await reporter.testAsync('worker keeps the Eyelang library across runs', async () => {
     const first = executePlaygroundRequest({
       source: 'answer(X) :- reverse([a, b, c], X).\n',
       options: { goal: 'answer(X)' },
@@ -94,7 +94,7 @@ export async function runPlayground(reporter = new TestReporter()) {
     await withStaticServer(async (baseUrl) => {
       const modules = await crawlModuleGraph(new URL('src/playground-worker.js?playground=test', baseUrl));
       assert(modules.size >= 10, `expected a substantial worker module graph, got ${modules.size}`);
-      assert([...modules].some((url) => url.includes('/src/library.js')), 'EyeLang library missing from worker graph');
+      assert([...modules].some((url) => url.includes('/src/library.js')), 'Eyelang library missing from worker graph');
       assert([...modules].some((url) => url.includes('/src/solver.js')), 'solver missing from worker graph');
     });
   });

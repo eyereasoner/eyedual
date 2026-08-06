@@ -1,4 +1,4 @@
-% From The Art of EyeLang, Chapter 23.
+% From The Art of Eyelang, Chapter 23.
 traveler_in_good_standing(Person) :-
   registered(Person),
   identity_checked(Person),

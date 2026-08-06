@@ -10,14 +10,14 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import * as publicApi from '../src/index.js';
 import {
-  run as runEyeLang,
+  run as runEyelang,
   Program,
   makeProgram,
   Solver,
   Env,
   BuiltinRegistry,
   createDefaultRegistry,
-  getEyeLangRegistry,
+  getEyelangRegistry,
   atom,
   compound,
   listFromItems,
@@ -53,7 +53,7 @@ function run(source, options = {}) {
   const goals = options.goals ?? (options.goal == null
     ? (programSource instanceof Program ? [] : goalsFromSource(text))
     : [options.goal]);
-  return runEyeLang(programSource, { ...options, goals });
+  return runEyelang(programSource, { ...options, goals });
 }
 
 function sourceAtom(value) {
@@ -196,12 +196,12 @@ why(
         assertIncludes(result.stdout, '-v, --version', 'stdout');
         assertIncludes(result.stdout, '-w, --warnings', 'stdout');
         assertIncludes(result.stdout, '-v, --version         Show the package version and exit.\n  -w, --warnings        Print non-fatal portability warnings to stderr.', 'stdout');
-        assertIncludes(result.stdout, 'Read an EyeLang program', 'stdout');
+        assertIncludes(result.stdout, 'Read an Eyelang program', 'stdout');
         assertEqual(result.stderr, '', 'stderr');
       },
     },
     {
-      name: 'CLI loads EyeLang library predicates by default',
+      name: 'CLI loads Eyelang library predicates by default',
       run: () => {
         const result = runCli(['-'], {
           input: '%% goal: answer(X)\nanswer(X) :- member(X, [library]).\n',
@@ -560,8 +560,8 @@ function documentationSyncCases() {
       },
     },
     {
-      name: 'book EyeLang library matches runtime registry',
-      run: () => assertArrayEqual(bookEyeLangLibraryNames(), registeredEyeLangLibraryNames(), 'EyeLang library predicates'),
+      name: 'book Eyelang library matches runtime registry',
+      run: () => assertArrayEqual(bookEyelangLibraryNames(), registeredEyelangLibraryNames(), 'Eyelang library predicates'),
     },
     {
       name: 'README links to the book and the book documents runtime boundaries',
@@ -570,7 +570,7 @@ function documentationSyncCases() {
         const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyelang.md'), 'utf8');
         assertIncludes(
           readme,
-          '[Book — *The Art of EyeLang*](https://eyereasoner.github.io/eyelang/the-art-of-eyelang)',
+          '[Book — *The Art of Eyelang*](https://eyereasoner.github.io/eyelang/the-art-of-eyelang)',
           'README links to the book',
         );
         for (const filename of ['src/iso.js', 'src/library.js', 'src/playground-worker.js']) {
@@ -628,7 +628,7 @@ function documentationSyncCases() {
       run: () => assertArrayEqual(documentedPublicApiImportIssues(), [], 'documentation API imports'),
     },
     {
-      name: 'documentation uses EyeLang source style',
+      name: 'documentation uses Eyelang source style',
       run: () => assertArrayEqual(documentationSourceStyleIssues(), [], 'documentation source style'),
     },
     {
@@ -772,14 +772,14 @@ function apiCases() {
       },
     },
     {
-      name: 'default EyeLang registry keeps dynamic program state consistent',
+      name: 'default Eyelang registry keeps dynamic program state consistent',
       run: () => {
         const program = Program.parse([
           ':- dynamic(item/1).',
           '%% goal: done',
           'done :- assertz(item(a)), retract(item(a)), assertz(item(b)), abolish(item/1).',
         ].join('\n'));
-        const result = run(program, { goal: 'done', registry: getEyeLangRegistry() });
+        const result = run(program, { goal: 'done', registry: getEyelangRegistry() });
         assertEqual(result.stdout, 'done.\n', 'stdout');
         assertEqual(program.findGroup('item', 1), null, 'abolished group');
         assertEqual(
@@ -945,14 +945,14 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'run loads the EyeLang library by default',
+      name: 'run loads the Eyelang library by default',
       run: () => {
         const result = run('answer(X) :- append([a], [b], X).', { goal: 'answer(X)' });
         assertEqual(result.stdout, 'answer([a, b]).\n', 'stdout');
       },
     },
     {
-      name: 'Solver loads the EyeLang library by default',
+      name: 'Solver loads the Eyelang library by default',
       run: () => {
         const program = Program.parse('answer(X) :- append([a], [b], X).');
         const solver = new Solver(program);
@@ -997,15 +997,15 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'ISO-only and EyeLang registries expose separate metadata',
+      name: 'ISO-only and Eyelang registries expose separate metadata',
       run: () => {
         const registry = createDefaultRegistry();
-        const library = getEyeLangRegistry();
+        const library = getEyelangRegistry();
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not ISO core');
         assertEqual(library.eyeLangLibrary, true, 'complete registry marker');
         assertEqual(library.defs.size, 165, 'complete registry size');
-        assertEqual(registeredEyeLangLibraryNames().length, 50, 'EyeLang library size');
+        assertEqual(registeredEyelangLibraryNames().length, 50, 'Eyelang library size');
         assertEqual(library.get('append', 3)?.eyeLangLibrary, true, 'append/3 metadata');
         assertEqual(library.get('maplist', 3)?.eyeLangLibrary, true, 'maplist/3 metadata');
         assertEqual(library.get('matches', 3)?.eyeLangLibrary, true, 'matches/3 metadata');
@@ -1016,7 +1016,7 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'EyeLang library does not inject program clauses',
+      name: 'Eyelang library does not inject program clauses',
       run: () => {
         const program = Program.parse('answer(X) :- append([a], [b], X).');
         const solver = new Solver(program);
@@ -1027,7 +1027,7 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'EyeLang library preserves relational and arithmetic behavior',
+      name: 'Eyelang library preserves relational and arithmetic behavior',
       run: () => {
         const result = run([
           '%% goal: answer(A, B, S, M)',
@@ -1042,11 +1042,11 @@ open(X) :- candidate(X), \\+ closed(X).
           'answer([a], [b], 5, 9007199254740993).',
           'answer([a, b], [], 5, 9007199254740993).',
           '',
-        ].join('\n'), 'EyeLang library behavior');
+        ].join('\n'), 'Eyelang library behavior');
       },
     },
     {
-      name: 'EyeLang library preserves strict modes and ISO arithmetic errors',
+      name: 'Eyelang library preserves strict modes and ISO arithmetic errors',
       run: () => {
         assertEqual(run('answer(X) :- substring("abc", "1", 1, X).', { goal: 'answer(X)' }).stdout, '', 'substring index type');
         let nth1Error = null;
@@ -1485,10 +1485,10 @@ function bookReferenceDocumentationIssues() {
   const guide = fs.readFileSync(path.join(testRoot, 'conformance', 'README.md'), 'utf8');
   const issues = [];
 
-  if (!book.includes('This book is also the reference for the EyeLang implementation.')) {
+  if (!book.includes('This book is also the reference for the Eyelang implementation.')) {
     issues.push('book introduction does not identify itself as the reference');
   }
-  if (!book.includes('This book is the single reference for the EyeLang implementation.')) {
+  if (!book.includes('This book is the single reference for the Eyelang implementation.')) {
     issues.push('book Chapter 42 does not state the single-reference policy');
   }
   for (const standard of [
@@ -1499,16 +1499,16 @@ function bookReferenceDocumentationIssues() {
   ]) {
     if (!book.includes(standard)) issues.push(`book does not identify standards baseline: ${standard}`);
   }
-  if (!book.includes('EyeLang performs it consistently for ordinary\nunification as well as `unify_with_occurs_check/2`.')) {
+  if (!book.includes('Eyelang performs it consistently for ordinary\nunification as well as `unify_with_occurs_check/2`.')) {
     issues.push('book glossary does not match finite-tree unification');
   }
-  if (book.includes('EyeLang does not perform it.')) {
+  if (book.includes('Eyelang does not perform it.')) {
     issues.push('book contradicts implementation occurs-check behavior');
   }
-  for (const heading of ['## 38. Language and ISO profile', '## 39. Built-in predicates by programming role', '## 40. Running EyeLang: command line and corpus']) {
+  for (const heading of ['## 38. Language and ISO profile', '## 39. Built-in predicates by programming role', '## 40. Running Eyelang: command line and corpus']) {
     if (!book.includes(heading)) issues.push(`book is missing ${heading}`);
   }
-  if (!guide.includes('[*The Art of EyeLang*](../../the-art-of-eyelang.md) is the reference')) {
+  if (!guide.includes('[*The Art of Eyelang*](../../the-art-of-eyelang.md) is the reference')) {
     issues.push('test guide does not identify the book as the reference');
   }
   if (!guide.includes('not a separate\nlanguage specification')) {
@@ -1523,7 +1523,7 @@ function runWhy({ program, goalText, expected }) {
   fs.writeFileSync(programFile, program);
   const goal = parseGoalText(goalText);
   const parsed = Program.parseSources([{ text: program, filename: path.basename(programFile) }], { sourceMetadata: true });
-  const result = runEyeLang(parsed, { proof: true, goal });
+  const result = runEyelang(parsed, { proof: true, goal });
   const expectedText = expected.replaceAll('__FILE__', path.basename(programFile));
   assertEqual(result.stdout, expectedText, 'stdout');
 
@@ -1540,7 +1540,7 @@ function runWhyLoose({ program, goalText }) {
   fs.writeFileSync(programFile, program);
   const goal = parseGoalText(goalText);
   const parsed = Program.parseSources([{ text: program, filename: path.basename(programFile) }], { sourceMetadata: true });
-  const result = runEyeLang(parsed, { proof: true, goal });
+  const result = runEyelang(parsed, { proof: true, goal });
   Program.parse(result.stdout);
   assertIncludes(result.stdout, '\n).\n\n', 'stdout');
   return result;
@@ -1671,9 +1671,9 @@ function playgroundStaticIssues() {
   if (!html.includes("new Worker(workerUrl, { type: 'module' })")) issues.push('playground must launch the dedicated module worker');
   const workerText = fs.readFileSync(path.join(packageRoot, 'src', 'playground-worker.js'), 'utf8');
   if (!workerText.includes("from './library.js?playground=") ||
-      !workerText.includes('createEyeLangRegistry') ||
+      !workerText.includes('createEyelangRegistry') ||
       !workerText.includes('executePlaygroundRequest')) {
-    issues.push('playground worker must install the EyeLang library registry');
+    issues.push('playground worker must install the Eyelang library registry');
   }
   if (fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js'))) {
     issues.push('obsolete portable-library.js must be absent');
@@ -1732,9 +1732,9 @@ function registeredBuiltinNames() {
   return [...createDefaultRegistry().defs.keys()].sort();
 }
 
-function registeredEyeLangLibraryNames() {
+function registeredEyelangLibraryNames() {
   const defaults = createDefaultRegistry().defs;
-  return [...getEyeLangRegistry().defs.entries()]
+  return [...getEyelangRegistry().defs.entries()]
     .filter(([name]) => !defaults.has(name))
     .map(([name]) => name)
     .sort();
@@ -1750,10 +1750,10 @@ function registeredBuiltinSummary() {
 
 function bookBuiltinNames() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyelang.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '## 39. Built-in predicates by programming role', '### The EyeLang library'), 2);
+  return documentedBuiltinNames(between(book, '## 39. Built-in predicates by programming role', '### The Eyelang library'), 2);
 }
 
-function bookEyeLangLibraryNames() {
+function bookEyelangLibraryNames() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyelang.md'), 'utf8');
   return documentedBuiltinNames(between(book, '<!-- eyelang-library-catalog:start -->', '<!-- eyelang-library-catalog:end -->'), 1);
 }
@@ -1925,7 +1925,7 @@ function markdownLinkTargets(text) {
 
 function bookIntroOutputIssues() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyelang.md'), 'utf8');
-  const match = book.match(/The (?:first|EyeLang) command should print:\s*```text\n([\s\S]*?)```/);
+  const match = book.match(/The (?:first|Eyelang) command should print:\s*```text\n([\s\S]*?)```/);
   if (match == null) return ['the-art-of-eyelang.md: introductory output block not found'];
   const documented = `${match[1].trimEnd()}\n`;
   const expected = fs.readFileSync(path.join(packageRoot, 'examples', 'output', 'socrates.pl'), 'utf8');

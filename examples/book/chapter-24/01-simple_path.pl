@@ -1,4 +1,4 @@
-% From The Art of EyeLang, Chapter 24 — Search over states.
+% From The Art of Eyelang, Chapter 24 — Search over states.
 simple_path(From, To, Path) :-
   walk(From, To, [From], Reversed),
   reverse(Reversed, Path).

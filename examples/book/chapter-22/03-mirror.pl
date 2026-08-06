@@ -1,4 +1,4 @@
-% From The Art of EyeLang, Chapter 22 — Transforming a tree.
+% From The Art of Eyelang, Chapter 22 — Transforming a tree.
 mirror(empty, empty).
 mirror(
   tree(Value, Left, Right),

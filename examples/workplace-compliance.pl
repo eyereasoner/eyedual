@@ -1,6 +1,6 @@
 % Workplace compliance from explicit action facts.
 %
-% The source example generated a large dynamic dataset.  EyeLang keeps the data
+% The source example generated a large dynamic dataset.  Eyelang keeps the data
 % explicit and reproducible: each `does/2` fact records an observed employee
 % action, and the rules classify compliant and non-compliant behaviour.
 

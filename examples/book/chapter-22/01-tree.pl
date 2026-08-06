@@ -1,4 +1,4 @@
-% From The Art of EyeLang, Chapter 22.
+% From The Art of Eyelang, Chapter 22.
 tree(
   oak,
   tree(birch, empty, empty),

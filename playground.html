@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="eyelang-logo.png">
-  <title>EyeLang Playground</title>
+  <title>Eyelang Playground</title>
   <style>
     :root {
       color-scheme: light dark;
@@ -353,8 +353,8 @@
 </head>
 <body>
   <header>
-    <h1>The EyeLang Playground</h1>
-    <p>Run EyeLang programs in your browser with syntax coloring, examples, proofs, and shareable editor links.</p>
+    <h1>The Eyelang Playground</h1>
+    <p>Run Eyelang programs in your browser with syntax coloring, examples, proofs, and shareable editor links.</p>
   </header>
 
   <main>
@@ -371,7 +371,7 @@
       <details>
         <summary id="advanced-heading">⚙ Advanced configuration</summary>
         <div class="toolbar" aria-label="URL loader">
-          <label for="source-url">Load EyeLang from URL</label>
+          <label for="source-url">Load Eyelang from URL</label>
           <input id="source-url" type="url" placeholder="https://example.org/program.pl">
           <button id="load-url" type="button">Load from URL</button>
         </div>
@@ -385,7 +385,7 @@
           <label><input id="stats" type="checkbox"> Show stats</label>
         </div>
         <div class="panel-body">
-          <p class="hint">Enter any EyeLang file URL and click “Load from URL”. Background knowledge is prepended when the program runs.</p>
+          <p class="hint">Enter any Eyelang file URL and click “Load from URL”. Background knowledge is prepended when the program runs.</p>
         </div>
       </details>
     </section>
@@ -393,14 +393,14 @@
     <section aria-labelledby="editor-heading">
       <div class="editor-shell">
         <div class="editor-label">
-          <strong id="editor-heading">Editable EyeLang program</strong>
+          <strong id="editor-heading">Editable Eyelang program</strong>
           <span id="source-name" class="hint">custom program</span>
         </div>
         <div class="editor">
           <div id="line-numbers" class="line-numbers" aria-hidden="true"><div class="line-numbers-inner"></div></div>
           <div id="error-line-marker" class="error-line-marker" aria-hidden="true"></div>
           <pre id="highlight" aria-hidden="true"><code></code></pre>
-          <textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Editable EyeLang source"></textarea>
+          <textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Editable Eyelang source"></textarea>
         </div>
       </div>
       <div class="toolbar button-row">
@@ -432,7 +432,7 @@
   </main>
 
   <footer>
-    Powered by <a href="https://github.com/eyereasoner/eyelang">EyeLang</a>.
+    Powered by <a href="https://github.com/eyereasoner/eyelang">Eyelang</a>.
   </footer>
 
   <script type="module">
@@ -953,7 +953,7 @@
       clearSyntaxError();
       output.textContent = '';
       elapsed.textContent = 'Running…';
-      setStatus('Running EyeLang…');
+      setStatus('Running Eyelang…');
       runButton.disabled = true;
       stopButton.disabled = false;
 
@@ -1150,7 +1150,7 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            description: 'EyeLang playground share',
+            description: 'Eyelang playground share',
             public: false,
             files,
           }),

@@ -1,7 +1,7 @@
 % Symbolic differentiation over explicit expression terms.
 %
 % The source derivative example uses Prolog operators such as `+`, `*`, `^`, and
-% cut.  EyeLang keeps expressions as ordinary terms: `add/2`, `mul/2`, `pow/2`,
+% cut.  Eyelang keeps expressions as ordinary terms: `add/2`, `mul/2`, `pow/2`,
 % `log/1`, and so on.  The result is intentionally unsimplified so the rule that
 % produced each part remains visible.
 

@@ -1,6 +1,6 @@
 % Existential-style consequences as explicit Herbrand witness terms.
 %
-% EyeLang has no blank nodes and no existential variables in rule heads.  The
+% Eyelang has no blank nodes and no existential variables in rule heads.  The
 % practical executable form is to put a named functional term directly in the
 % rule head.  The term is ordinary data: stable, visible, and proof-friendly.
 

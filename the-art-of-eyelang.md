@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="book-assets/title-page.svg" alt="Front page for The Art of EyeLang, presenting its dual foundation in ISO Prolog rules and RDF linked data." width="720">
+  <img src="book-assets/title-page.svg" alt="Front page for The Art of Eyelang, presenting its dual foundation in ISO Prolog rules and RDF linked data." width="720">
 </p>
 
 <p align="center">
-  <img src="eyelang-logo.png" alt="EyeLang logo joining ISO Prolog rules with RDF linked data." width="420">
+  <img src="eyelang-logo.png" alt="Eyelang logo joining ISO Prolog rules with RDF linked data." width="420">
 </p>
 
 **Copyright © 2021–2026 Jos De Roo, KNoWS office of IDLab, Ghent University –
@@ -14,12 +14,12 @@ appropriate credit, link to the licence, and indicate changes.
 
 ---
 
-EyeLang turns facts and rules into answers and inspectable proofs. This book is an
+Eyelang turns facts and rules into answers and inspectable proofs. This book is an
 original introduction to the habits of logic programming: describe a world,
 state the relationships that hold in it, and let unification and search connect
 the two.
 
-This book is also the reference for the EyeLang implementation. EyeLang is a
+This book is also the reference for the Eyelang implementation. Eyelang is a
 standards-based reasoning system: programs use the documented and tested ISO
 Prolog profile, while RDF 1.2 provides an interoperable data boundary.
 Chapters 38–40 define the supported ISO Prolog profile, built-ins, and execution interface,
@@ -31,30 +31,30 @@ Its subject is not syntax alone. A logic program has two inseparable aspects:
 the relation described by its clauses and the procedure induced when goals are
 selected and clauses are tried. The first tells us what answers are justified;
 the second tells us whether and how the machine will find them. Learning to
-program with EyeLang means learning to move comfortably between these views.
+program with Eyelang means learning to move comfortably between these views.
 
-The name *EyeLang* reflects the two standards at its foundation: ISO Prolog for
-executable rules and W3C RDF for linked data. EyeLang implements a broad ISO
+The name *Eyelang* reflects the two standards at its foundation: ISO Prolog for
+executable rules and W3C RDF for linked data. Eyelang implements a broad ISO
 Prolog profile with facts, clauses, terms, lists,
 control, arithmetic, dynamic predicates, operators, streams, and standard
 built-ins. Automatic
 tabling, explicit integrity checks, proof output, and RDF adapters are implementation
-capabilities around that standards-based foundation. EyeLang does not attempt to
+capabilities around that standards-based foundation. Eyelang does not attempt to
 claim formal certification of every ISO processor edge case.
 
 Standards are crucial because knowledge and rules often outlive the software
 that first processes them. Using ISO Prolog for programs and RDF 1.2 for
 interchange keeps the representation teachable, inspectable, and portable
-across tools. EyeLang aims to provide a compact implementation of those standards
+across tools. Eyelang aims to provide a compact implementation of those standards
 with explanations and practical host integration, not another proprietary rule
 language.
 
-This places EyeLang in a tradition that joins automated deduction, database
+This places Eyelang in a tradition that joins automated deduction, database
 querying, and programming. Jacques Herbrand's doctoral work made ground terms
 and ground instances central to proof theory; Robinson's later resolution
 principle turned unification and refutation into a general proof procedure;
 early Prolog showed that Horn clauses could also be executable programs;
-deductive databases emphasized finite relations and fixed points. EyeLang
+deductive databases emphasized finite relations and fixed points. Eyelang
 borrows from all three traditions without pretending that they are identical.
 Its clauses are logical statements, its query execution is an ordered
 computation, and its proof terms make the connection between the two available
@@ -64,9 +64,9 @@ That history explains a recurring theme of the book. Logic programming is not
 the claim that control disappears. It is the discipline of stating the
 relation clearly enough that control can be studied and improved separately.
 Robert Kowalski's phrase “algorithm = logic + control” names this separation;
-EyeLang's focused surface makes it unusually easy to see in running examples.
+Eyelang's focused surface makes it unusually easy to see in running examples.
 
-Complete EyeLang code displays from the book are also available as files under
+Complete Eyelang code displays from the book are also available as files under
 [`examples/book/`](https://github.com/eyereasoner/eyelang/tree/main/examples/book/), grouped by chapter. From a source checkout,
 use Node.js 18 or newer, install the dependencies, and run the CLI:
 
@@ -75,7 +75,7 @@ npm install
 node bin/eyelang.js examples/socrates.pl
 ```
 
-The EyeLang command should print:
+The Eyelang command should print:
 
 ```text
 type(socrates, mortal).
@@ -92,7 +92,7 @@ Readers who do not want to install anything can begin in the
 [browser playground](https://eyereasoner.github.io/eyelang/playground). Paste
 the source of `examples/socrates.pl` into the editor and run it. The playground
 and local CLI accept the same in-memory Prolog source and load the same portable
-EyeLang library by default, so relations such as `append/3` and `member/2` need no
+Eyelang library by default, so relations such as `append/3` and `member/2` need no
 extra switch. The page starts a dedicated ES-module worker for each run. Serve a
 local checkout over HTTP(S), rather than opening the page as a `file:` URL.
 Filesystem predicates and `include/1` are Node-only; URL and embedding examples
@@ -107,11 +107,11 @@ Use `npm run generate` after editing the book to refresh the extracted
 
 Code displays serve three different purposes:
 
-- an `eyelang` block is Prolog source accepted by EyeLang; complete blocks are extracted under
+- an `eyelang` block is Prolog source accepted by Eyelang; complete blocks are extracted under
   `examples/book/`, although a short block may rely on facts introduced in the
   surrounding chapter;
 - a `text` block shows output, a trace, a data shape, or pseudocode and is not
-  necessarily accepted as EyeLang input;
+  necessarily accepted as Eyelang input;
 - a `sh` or `js` block is a host command or embedding example.
 
 Top-level programs under [`examples/`](https://github.com/eyereasoner/eyelang/tree/main/examples/) are the complete runnable
@@ -160,7 +160,7 @@ Approach each example through the same six moves:
 This rhythm deliberately joins declarative reading, operational reading, and
 program construction. Readers new to logic programming can follow Parts I–III
 in order. Experienced Prolog programmers can begin with Chapters 3, 13, and
-17 to see where EyeLang's hybrid execution and proof-oriented design differ.
+17 to see where Eyelang's hybrid execution and proof-oriented design differ.
 Chapter 41 gives further routes through the material.
 
 ### When a run surprises you
@@ -260,7 +260,7 @@ Chapters 11–16
 - [13. Termination, tabling, and performance](#13-termination-tabling-and-performance)
 - [14. Knowledge engineering](#14-knowledge-engineering)
 - [15. RDF 1.2 as the interoperable data boundary](#15-rdf-12-as-the-interoperable-data-boundary)
-- [16. Embedding EyeLang](#16-embedding-eyelang)
+- [16. Embedding Eyelang](#16-embedding-eyelang)
 
 ### Part IV — The craft of logic programming
 
@@ -314,7 +314,7 @@ Chapters 38–43
 
 - [38. Language and ISO profile](#38-language-and-iso-profile)
 - [39. Built-in predicates by programming role](#39-built-in-predicates-by-programming-role)
-- [40. Running EyeLang: command line and corpus](#40-running-eyelang-command-line-and-corpus)
+- [40. Running Eyelang: command line and corpus](#40-running-eyelang-command-line-and-corpus)
 - [41. Study paths, review, and further examples](#41-study-paths-review-and-further-examples)
 - [42. Standards, limits, and implementation boundaries](#42-standards-limits-and-implementation-boundaries)
 - [43. Glossary and notes for continued study](#43-glossary-and-notes-for-continued-study)
@@ -365,7 +365,7 @@ parent(clara, diego).
 Each line is a **fact**. `parent/2` is a relation: the name is `parent` and the
 arity is two. Arity matters. `parent/2` and `parent/3` are different predicates.
 
-A **query declaration** selects the relation whose ground answers EyeLang prints:
+A **query declaration** selects the relation whose ground answers Eyelang prints:
 
 ```eyelang
 child(Child, Parent) :- parent(Parent, Child).
@@ -380,7 +380,7 @@ child(clara, byron).
 child(diego, clara).
 ```
 
-EyeLang distinguishes solutions found by the solver from answers printed by the
+Eyelang distinguishes solutions found by the solver from answers printed by the
 CLI. A query such as `eyelang --goal 'parent(X, Y)' program.pl` can find the three source facts
 internally, but the normal CLI output suppresses answers that merely repeat
 source facts. Derived `child/2` answers are printed. Chapter 11 explains this
@@ -444,7 +444,7 @@ grandparents, then only the grandparents of `diego`.
 
 ## 2. Terms, variables, and substitution
 
-Prolog programs accepted by EyeLang are built from terms:
+Prolog programs accepted by Eyelang are built from terms:
 
 - atom constants: `ada`, `accepted`, `'atom with spaces'`;
 - strings: `"sensor too hot"`;
@@ -482,7 +482,7 @@ may receive a binding; a nested pair of compounds causes the same comparison
 to continue recursively. The result shown is the most general substitution:
 it commits to exactly what structural agreement requires and nothing more.
 
-EyeLang exposes unification as `=/2`:
+Eyelang exposes unification as `=/2`:
 
 ```eyelang
 same_shape(Pair) :- (Pair = pair(X, X)).
@@ -515,7 +515,7 @@ web_name(sensor_1, '<https://example.org/sensor/1>').
 **Exercise.** Write `diagonal/1`, which succeeds for `point(X, X)`. Then write
 `same_ends/1` for a three-element list whose first and last values agree.
 
-**Checkpoint.** Without running EyeLang, decide whether each pair unifies:
+**Checkpoint.** Without running Eyelang, decide whether each pair unifies:
 `point(X, X)` with `point(red, red)`, `point(X, X)` with
 `point(red, blue)`, and `[Head | Tail]` with `[a, b, c]`. Then run a small
 `=/2` query to check each prediction.
@@ -525,7 +525,7 @@ web_name(sensor_1, '<https://example.org/sensor/1>').
 The executable-clause idea emerged from work on automated theorem proving.
 Robinson's resolution principle supplied a general proof rule, while the
 development of Prolog specialized proof search around clauses that could be
-read as procedures. EyeLang begins further downstream: it offers a compact
+read as procedures. Eyelang begins further downstream: it offers a compact
 definite-clause language rather than a general first-order theorem prover. The
 restriction buys a direct correspondence between a rule body and the
 subquestions used to establish its head.
@@ -542,7 +542,7 @@ eligible(Person) :-
 Read it declaratively: a person is eligible if the person has an age of at
 least 18 and is registered. Read it operationally: to solve the head, solve the
 body goals in their written dependency order, carrying bindings into later
-goals. EyeLang normally selects from left to right. As a safe optimization, it
+goals. Eyelang normally selects from left to right. As a safe optimization, it
 may run a ready deterministic built-in filter early; such a filter cannot add
 alternative answers and already has the inputs its registered mode requires.
 
@@ -613,13 +613,13 @@ resolution calculus, nor did his thesis state the later least-model semantics
 of logic programs in its modern form. Rather, his proof theory laid essential
 groundwork. Resolution supplied a powerful subsequent inference mechanism, and
 van Emden and Kowalski later gave definite logic programs their fixed-point and
-least-Herbrand-model account. EyeLang sits downstream of this sequence:
+least-Herbrand-model account. Eyelang sits downstream of this sequence:
 
 ```text
 Herbrand: ground terms and instances as a proof-theoretic foundation
   -> Robinson: resolution and unification as a proof procedure
   -> logic programming: executable clauses and least-model semantics
-  -> EyeLang: a focused Prolog implementation with inspectable derivations
+  -> Eyelang: a focused Prolog implementation with inspectable derivations
 ```
 
 Herbrand completed this work while still in his early twenties and died in
@@ -630,7 +630,7 @@ book rather than appearing only as historical attribution.
 ### The Herbrand world
 
 The declarative reading needs a precise answer to a deceptively simple
-question: what can a term denote? EyeLang uses **Herbrand semantics**. Its
+question: what can a term denote? Eyelang uses **Herbrand semantics**. Its
 universe contains exactly the ground terms that can be constructed from the
 program's atom constants, strings, numbers, list constructors, and compound
 functors. There are no unnamed elements hiding behind the notation. A ground
@@ -717,10 +717,10 @@ its normal and proof outputs make this distinction concrete.
 
 Variables range over Herbrand terms, not external records, pointers, or
 host-language objects. Variables in a selected goal are existential in the
-logic-programming sense: EyeLang searches for substitutions that make the goal
+logic-programming sense: Eyelang searches for substitutions that make the goal
 follow from the program.
 
-EyeLang has no blank nodes or existential variables in rule heads. When a rule
+Eyelang has no blank nodes or existential variables in rule heads. When a rule
 needs to name a consequent object, construct an explicit witness:
 
 ```eyelang
@@ -739,7 +739,7 @@ rather than being an anonymous object created behind the program's back.
 
 Equality in the pure Herbrand reading is syntactic identity after substitution.
 Operationally, unification discovers a substitution that makes terms
-identical. EyeLang performs an occurs check whenever unification would bind a
+identical. Eyelang performs an occurs check whenever unification would bind a
 variable. It therefore uses finite-tree unification and rejects a binding when
 the variable occurs anywhere in the proposed value. For example, this call
 fails rather than constructing a cyclic term:
@@ -750,7 +750,7 @@ fails rather than constructing a cyclic term:
 
 ### Meaning is not the search strategy
 
-EyeLang's evaluator is goal-directed. It resolves selected goals against facts,
+Eyelang's evaluator is goal-directed. It resolves selected goals against facts,
 rules, and built-ins using ordered conjunction, clause selection, indexing,
 tabling, and deterministic host operations. Written order defines the normal
 dataflow; a mode-ready deterministic built-in may be selected early as a pure
@@ -835,7 +835,7 @@ open recursive question before selecting an edge and may destroy the useful
 mode. Meaning and control must be reviewed separately.
 
 Real graphs contain cycles. Naive depth-first recursion can revisit a call
-forever. EyeLang analyzes predicate dependencies and automatically tables
+forever. Eyelang analyzes predicate dependencies and automatically tables
 suitable positive recursive groups. A table records answers for a recursive
 call, iterates cyclic calls to a fixed point, and reuses results. Authors
 describe `path/2`; the engine chooses the recursive strategy.
@@ -905,7 +905,7 @@ reverse_go([X | Xs], Acc, Reversed) :-
   reverse_go(Xs, [X | Acc], Reversed).
 ```
 
-No mutation occurs; every call receives a new term. EyeLang also includes
+No mutation occurs; every call receives a new term. Eyelang also includes
 `member/2`, `append/3`, `select/3`, `nth0/3`, `reverse/2`, `length/2`,
 `sort/2`, slicing helpers, and numeric summaries. Improper lists such as
 `[a | Tail]` are valid terms, but operations requiring a proper finite list
@@ -1239,10 +1239,10 @@ plan(State, Goal, Seen, [Move | Moves]) :-
   plan(Next, Goal, [Next | Seen], Moves).
 ```
 
-The visited list makes a finite state space explicit. EyeLang is strongest when
+The visited list makes a finite state space explicit. Eyelang is strongest when
 the result is a logical consequence with a compact witness: a path, matching,
 classification, schedule, proof, or bounded model. Mutable arrays and large
-numerical kernels generally belong in a host, with EyeLang as the decision layer.
+numerical kernels generally belong in a host, with Eyelang as the decision layer.
 
 For the coloring program, the six printed answers are the permutations of
 `red`, `green`, and `blue`:
@@ -1294,7 +1294,7 @@ database reading. Later work on stratification disciplined negative
 dependencies. Aggregation continued the database lineage: a set of solutions
 could itself become data, provided the nested search was finite.
 
-These distinctions explain EyeLang's conservative treatment. Negation and
+These distinctions explain Eyelang's conservative treatment. Negation and
 aggregation are powerful because they expose a bounded subcomputation. Their
 safety comes not from punctuation but from a mathematical argument about scope
 and termination.
@@ -1314,8 +1314,8 @@ support, integrity checks expose invalid states, and knowledge boundaries stay e
 
 ## 11. Queries, answers, and proofs
 
-EyeLang goals are supplied by the host, for example
-`eyelang --goal 'child(X, Y)' program.pl`. EyeLang prints ground answers, removes
+Eyelang goals are supplied by the host, for example
+`eyelang --goal 'child(X, Y)' program.pl`. Eyelang prints ground answers, removes
 duplicates, and suppresses answers that merely repeat source facts. Answers
 are not inserted back into the running program.
 
@@ -1350,7 +1350,7 @@ why(
 ).
 ```
 
-Proof output is valid EyeLang input:
+Proof output is valid Eyelang input:
 
 ```sh
 eyelang --proof examples/socrates.pl > socrates.why.pl
@@ -1580,7 +1580,7 @@ itself.
 
 ## 15. RDF 1.2 as the interoperable data boundary
 
-EyeLang keeps RDF 1.2 at an explicit standards boundary. Adapter tools translate
+Eyelang keeps RDF 1.2 at an explicit standards boundary. Adapter tools translate
 datasets into ordinary `rdf(Subject, Predicate, Object, Graph)` facts, allowing
 standard RDF data to be queried by the supported ISO Prolog profile:
 
@@ -1647,9 +1647,9 @@ By default, source quads support inference but are not copied to output. Pass
 
 **Checkpoint.** For one RDF statement, identify its subject, predicate, object,
 and graph term after conversion. Then explain why preserving a triple term as
-nested data does not assert that nested triple as a global EyeLang fact.
+nested data does not assert that nested triple as a global Eyelang fact.
 
-## 16. Embedding EyeLang
+## 16. Embedding Eyelang
 
 The JavaScript API exposes a convenience runner and lower-level types:
 
@@ -1706,7 +1706,7 @@ truncate search; it does not prove that no further answer exists.
 
 The source layout mirrors the public registry boundary. `src/iso.js` contains
 the isolated ISO processor predicates and registry. `src/library.js` contains
-the complete EyeLang library predicates as native JavaScript
+the complete Eyelang library predicates as native JavaScript
 builtins described in Chapter 39. No bundled Prolog source is parsed or
 overlaid at startup. Normal CLI, JavaScript, solver, and proof execution uses
 that composed registry. The browser entry `src/playground-worker.js` constructs
@@ -1718,19 +1718,19 @@ and proof machinery.
 
 ### Extending the built-in registry
 
-An embedder can start from the default EyeLang registry and add a host relation. A
+An embedder can start from the default Eyelang registry and add a host relation. A
 handler is a generator over environments. It should clone before binding and
 yield only environments in which its result unifies:
 
 ```js
 import {
   atom,
-  createEyeLangRegistry,
+  createEyelangRegistry,
   run,
   unify
 } from 'eyelang';
 
-const registry = createEyeLangRegistry();
+const registry = createEyelangRegistry();
 
 registry.add(
   'host_status',
@@ -1763,7 +1763,7 @@ define it raise `permission_error(modify, static_procedure)`. Programs expose st
 `stratifiedNegation`, `negationStratificationErrors`, and
 `assertStratifiedNegation()`.
 
-Treat remote source as executable logic. Although EyeLang has no arbitrary host
+Treat remote source as executable logic. Although Eyelang has no arbitrary host
 call primitive, search can consume CPU and memory. Embedders should impose
 appropriate depth, solution, input-size, and time limits.
 
@@ -1775,7 +1775,7 @@ conclusion.
 
 Rules often outlive the source of their facts. Today `parent/2` may be written
 in the same file as `ancestor/2`; tomorrow it may come from a database adapter,
-a document extractor, or an agent. An **EyeLang Socket** gives that opening a
+a document extractor, or an agent. An **Eyelang Socket** gives that opening a
 name and a contract:
 
 <figure>
@@ -1811,11 +1811,11 @@ know about them can check that a provider offers the promised predicate.
 
 Sockets are particularly valuable at an AI boundary. A model can propose
 claims, but the claims should enter the theory as visible facts or rules. The
-socket states what kind of knowledge may enter; EyeLang checks and combines the
+socket states what kind of knowledge may enter; Eyelang checks and combines the
 result; `why/2` records which supplied clauses actually supported an answer.
 
 **Checkpoint.** Name three separate responsibilities in an embedded service:
-what the host validates before constructing terms, what EyeLang derives from
+what the host validates before constructing terms, what Eyelang derives from
 those terms, and what resource limits may interrupt the run. None can safely
 stand in for the other two.
 
@@ -1841,14 +1841,14 @@ The least-model semantics developed by van Emden and Kowalski in 1976 connected
 definite programs to a mathematical fixed point: repeatedly add supported
 ground consequences until nothing new appears. Tabled logic programming later
 turned fixed-point ideas into a goal-directed technique that shares recursive
-calls and accumulates answers. EyeLang's automatic positive tabling is smaller
+calls and accumulates answers. Eyelang's automatic positive tabling is smaller
 than the general systems in that literature, but inherits their central
 insight: remembering a recursive question can change termination without
 changing what the relation says.
 
 In parallel, deductive databases and Semantic Web systems asked where facts
 come from, how vocabularies align, and how derived claims retain provenance.
-EYE belongs to that proof-producing Semantic Web tradition. EyeLang adopts the
+EYE belongs to that proof-producing Semantic Web tradition. Eyelang adopts the
 expectation that conclusions should be inspectable while implementing a
 focused ISO Prolog profile and explicit RDF 1.2 adapters.
 
@@ -1862,7 +1862,7 @@ when those boundaries became named rather than implicit.
 # Part IV — The craft of logic programming
 
 <figure>
-  <img src="book-assets/part-4-craft.svg" alt="A logic programmer works between domain sketches, design questions, and tested EyeLang clauses.">
+  <img src="book-assets/part-4-craft.svg" alt="A logic programmer works between domain sketches, design questions, and tested Eyelang clauses.">
   <figcaption>Craft moves repeatedly between the real domain, the relations on paper, executable clauses, answers, and proofs.</figcaption>
 </figure>
 
@@ -2336,7 +2336,7 @@ invariants and modes. Sterling and Shapiro made construction and improvement
 central to *The Art of Prolog*, showing that declarative clarity and
 procedural competence mature together.
 
-EyeLang removes several classic Prolog control devices, especially cut. The
+Eyelang removes several classic Prolog control devices, especially cut. The
 smaller surface changes the techniques but not the problem: authors must still
 turn a true relation into a productive computation and say what was preserved.
 
@@ -2353,7 +2353,7 @@ a search tree, represent languages and evaluators as relations, transform a
 correct program without losing its meaning, and organize a decision system
 whose conclusions remain auditable.
 
-EyeLang now supplies the Part 1 control, dynamic-database, operator, and I/O
+Eyelang now supplies the Part 1 control, dynamic-database, operator, and I/O
 families. It remains deliberately smaller than the wider Prolog ecosystem:
 modules, predicate variables in callable position, and definite-clause grammar
 notation are outside this profile. The examples still prefer explicit domain
@@ -2674,7 +2674,7 @@ simplification and permits unbounded rewriting.
    repeatedly combined.
 
 **Checkpoint.** For one compound term, label the object-language syntax, the
-EyeLang relation that inspects it, and the environment or state used to interpret
+Eyelang relation that inspects it, and the environment or state used to interpret
 it. Then identify a rewrite pair that would create a cycle if both directions
 were enabled.
 
@@ -3100,14 +3100,14 @@ several proofs. If badge identity belongs in the answer, define
 
 ### Embedding and audit
 
-Authenticate source systems in the host, convert records to EyeLang facts, run
+Authenticate source systems in the host, convert records to Eyelang facts, run
 the theory, and store the answer with its proof and input version. The solver
 can explain logical support; it cannot attest that a badge database was current
 or a training provider trustworthy.
 
 ```text
 authenticated source snapshot
-  -> normalized EyeLang facts
+  -> normalized Eyelang facts
   -> checked theory
   -> permit and reason
   -> proof referencing clauses and facts
@@ -3159,13 +3159,13 @@ relation could be specialized when part of its input was known.
 Futamura's work in the 1970s gave partial evaluation a striking interpretation:
 specializing an interpreter with respect to a source program can produce a
 compiled form. Logic-program transformation developed related practices of
-unfolding, folding, and specialization. The inheritance for EyeLang is not a
+unfolding, folding, and specialization. The inheritance for Eyelang is not a
 promise that every classic transformation is built in. It is the demand that a
 transformation name its invariant and preserve a stated answer contract.
 
 *The Art of Prolog* joined computation, construction, nondeterminism, grammars,
 interpreters, transformation, and applications into a sustained account of
-craft. Part V pays tribute to that breadth through EyeLang's explicit subset:
+craft. Part V pays tribute to that breadth through Eyelang's explicit subset:
 syntax is data, state is an argument, and audit evidence remains visible.
 
 ---
@@ -3195,13 +3195,13 @@ inherits the twentieth century's harder questions. What counts as a formal
 proof? What is an effective procedure? Which truths follow from a finite set
 of axioms? Which questions cannot be decided by any uniform mechanical method?
 
-EyeLang is a very small descendant of those questions. It is not a foundation
+Eyelang is a very small descendant of those questions. It is not a foundation
 for all mathematics, a computer algebra system, or an interactive theorem
 prover. Its definite clauses cover only a disciplined fragment of logic.
 Precisely because the fragment is small, however, one can see the ancient
 mathematical acts inside the running machine:
 
-| Mathematical act | EyeLang form | Operational consequence |
+| Mathematical act | Eyelang form | Operational consequence |
 | --- | --- | --- |
 | Define a class | facts and clauses | enumerate its instances |
 | Introduce an unknown | a variable | seek a substitution |
@@ -3214,7 +3214,7 @@ mathematical acts inside the running machine:
 | Explain a conclusion | a proof term | expose the successful derivation |
 
 The table is a correspondence, not an identity. A mathematical proof and an
-EyeLang execution answer different questions unless the encoding between them is
+Eyelang execution answer different questions unless the encoding between them is
 itself justified. This Part develops both the power and the limit of the
 correspondence.
 
@@ -3311,7 +3311,7 @@ should come from.
 
 This is an important distinction between mathematical existence and
 executable witness production. A classical proof may establish that something
-exists without furnishing an efficient construction. An EyeLang query produces
+exists without furnishing an efficient construction. An Eyelang query produces
 a witness only when its clauses and control actually reach one.
 
 ### Proof objects and proof checking
@@ -3674,7 +3674,7 @@ That checklist joins abstract algebra, data modeling, and program design.
    commutative. Explain why one witness refutes a universal law.
 
 **Checkpoint.** Pick a domain value with two possible representations. State
-whether EyeLang regards them as structurally equal, whether the domain regards
+whether Eyelang regards them as structurally equal, whether the domain regards
 them as equivalent, and which normalization or explicit relation connects the
 two notions.
 
@@ -3745,7 +3745,7 @@ testing are so productive.
 ### Finite model exploration
 
 A finite structure consists of a finite carrier and interpretations of its
-operations and relations. EyeLang can enumerate candidates, apply axioms as
+operations and relations. Eyelang can enumerate candidates, apply axioms as
 filters, and return models or countermodels. The method is mathematically
 serious because the scope is explicit.
 
@@ -3843,7 +3843,7 @@ axioms + definitions + inference rules
   -> theorem
 ```
 
-Every trustworthy EyeLang conclusion has the same broad shape:
+Every trustworthy Eyelang conclusion has the same broad shape:
 
 ```text
 source facts + clauses + built-in semantics + execution assumptions
@@ -3900,7 +3900,7 @@ effective method that settles every sufficiently expressive mathematical
 question. No amount of faster hardware turns an undecidable general problem
 into a decidable one.
 
-EyeLang has smaller, immediate limits:
+Eyelang has smaller, immediate limits:
 
 - some relations have infinitely many answers;
 - depth-first search may pursue an unproductive branch;
@@ -3939,7 +3939,7 @@ certainty whose boundary is visible.
 
 ### A final program-reading ritual
 
-Before trusting an EyeLang conclusion, ask:
+Before trusting an Eyelang conclusion, ask:
 
 1. What does the ground answer say in the domain?
 2. Which facts and rules support it?
@@ -3966,7 +3966,7 @@ Preserve the proof.
    visible in its explanation.
 4. Find one claim in your own program for which tests provide evidence but not
    proof. State the missing universal argument.
-5. Write a one-page “trust contract” for an embedded EyeLang service: accepted
+5. Write a one-page “trust contract” for an embedded Eyelang service: accepted
    sources, model scope, numeric assumptions, resource bounds, proof retention,
    and known limits.
 
@@ -4010,7 +4010,7 @@ inspected together.
 
 The deeper inheritance is a style of honesty. Mathematics advanced by proving
 not only more statements but also where methods fail, separating truth,
-provability, decidability, and computation. EyeLang's finite bounds, mode
+provability, decidability, and computation. Eyelang's finite bounds, mode
 restrictions, search risks, and trust boundaries belong inside its account for
 the same reason: limits are part of the result, not fine print.
 
@@ -4791,7 +4791,7 @@ Here `Region` deliberately remains free and produces one answer per region;
 `Seller` is hidden from grouping. This distinction matters whenever a
 collection unexpectedly arrives as several answers.
 
-Integer arithmetic has similarly precise choices. In EyeLang's supported
+Integer arithmetic has similarly precise choices. In Eyelang's supported
 profile, `div` and `//` both truncate the quotient toward zero. With a positive
 divisor, `mod` returns a nonnegative modulo while `rem` keeps the dividend's
 sign. For `-7` and `3`, the quotient is `-2`, but the two remainders are `2`
@@ -4858,9 +4858,9 @@ Atomic conversion predicates expose reversible representations:
 - `char_code/2` converts one character; and
 - `number_chars/2` and `number_codes/2` parse or render ISO numbers.
 
-These are atom relations, not the EyeLang library's string convenience
+These are atom relations, not the Eyelang library's string convenience
 predicates. Quoted atoms such as `'λ'` remain atoms; double-quoted values remain
-EyeLang strings.
+Eyelang strings.
 
 [`iso-reflective-terms.pl`](https://github.com/eyereasoner/eyelang/blob/main/examples/iso-reflective-terms.pl)
 walks through shape, rebuilding, fresh copying, variables, and order.
@@ -4994,7 +4994,7 @@ effect belongs outside the central relation that decides what the term means.
 
 ## Part VIII summary
 
-The supported ISO facilities make EyeLang suitable for more than closed rule
+The supported ISO facilities make Eyelang suitable for more than closed rule
 files:
 
 - control predicates delimit choices and exception recovery;
@@ -5026,11 +5026,11 @@ The long catalogs are meant to be entered locally, not memorized linearly.
 ## 38. Language and ISO profile
 
 The standards baseline is ISO/IEC 13211-1:1995, as corrected by Technical
-Corrigenda 1:2007, 2:2012, and 3:2017. EyeLang implements the compatibility
+Corrigenda 1:2007, 2:2012, and 3:2017. Eyelang implements the compatibility
 profile documented here; it does not claim certification as a complete
 conforming processor.
 
-Prolog source accepted by EyeLang is UTF-8. `%` starts a line comment and
+Prolog source accepted by Eyelang is UTF-8. `%` starts a line comment and
 `/* ... */` delimits a block comment. Plain atoms begin with a
 lowercase ASCII letter. Variables begin with uppercase or underscore. The bare
 `_` is fresh each time. Single quotes delimit quoted atoms; double quotes
@@ -5056,7 +5056,7 @@ angle-bracket IRIs are not syntax; quote names containing such punctuation.
 
 In the grammar below, `{ x }` means zero or more repetitions of `x`, `[ x ]`
 means that `x` is optional, and parentheses group alternatives. These marks
-describe the grammar; they are not characters written in EyeLang source.
+describe the grammar; they are not characters written in Eyelang source.
 
 ```text
 program             ::= { clause }
@@ -5120,7 +5120,7 @@ depth-first resolution, while eligible positive recursive groups are tabled
 automatically. `\+/1` is stratified negation as failure, not classical
 negation.
 
-EyeLang supports cut, operator declarations, dynamic database updates, grouped
+Eyelang supports cut, operator declarations, dynamic database updates, grouped
 solutions, exceptions, flags, initialization and inclusion directives, and
 standard stream and term I/O. Modules and DCG notation remain outside this
 Part 1 profile.
@@ -5140,7 +5140,7 @@ in place; repeated `ensure_loaded/1` designations are loaded once.
 Normal output contains only ground query answers, one term and period at a
 time. Source facts are not echoed as new conclusions, and duplicate answers
 are suppressed. Answers are not asserted back into the running program.
-Supported output syntax is designed to be readable as Prolog input accepted by EyeLang.
+Supported output syntax is designed to be readable as Prolog input accepted by Eyelang.
 
 #### Automatic hybrid reasoning
 
@@ -5182,8 +5182,8 @@ Queries for predicates with no group follow the known groups.
 
 ## 39. Built-in predicates by programming role
 
-EyeLang's default registry contains the built-ins in its ISO compatibility
-profile. Where a predicate is defined by ISO/IEC 13211-1:1995, EyeLang uses its
+Eyelang's default registry contains the built-ins in its ISO compatibility
+profile. Where a predicate is defined by ISO/IEC 13211-1:1995, Eyelang uses its
 standard predicate indicator; the registry also includes a few later or common
 compatibility predicates identified below. Arithmetic is expressed through
 `is/2` rather than output arguments on arithmetic predicates. The registry
@@ -5221,7 +5221,7 @@ floating-point literals, unary `+` and `-`, `+`, `-`, `*`, `/`, `//`, `div`,
 
 Arithmetic comparisons evaluate both operands. Standard term-order predicates
 (`@<`, `@=<`, `@>`, `@>=`) compare terms without arithmetic evaluation.
-EyeLang's documented profile order is not the complete ISO term order: strings
+Eyelang's documented profile order is not the complete ISO term order: strings
 are a distinct scalar category, and numeric terms share one exact numeric
 ordering category.
 
@@ -5241,9 +5241,9 @@ The JavaScript `ioOptions.input` and `ioOptions.write` hooks connect standard
 streams to an embedder. File-backed streams use synchronous lifecycle semantics
 so side effects occur in Prolog execution order.
 
-### The EyeLang library
+### The Eyelang library
 
-The runtime registry combines the supported ISO Prolog profile with the EyeLang library, implemented entirely in JavaScript. It is
+The runtime registry combines the supported ISO Prolog profile with the Eyelang library, implemented entirely in JavaScript. It is
 loaded automatically by the CLI, `run()`, `Solver`, proof replay, and the browser
 playground. Ordinary programs therefore use the same built-ins throughout.
 All of these relations live in `src/library.js`; there is no second portable
@@ -5253,13 +5253,13 @@ ISO-only registry remains available through `createDefaultRegistry()` and
 `getDefaultRegistry()` for conformance work and advanced embedders.
 
 The complete registry contains **165 predicate indicators**: 115 in the isolated
-ISO profile and 50 EyeLang library indicators implemented in `src/library.js`. Every
-EyeLang library definition is tagged with `eyeLangLibrary: true`, so tests and
+ISO profile and 50 Eyelang library indicators implemented in `src/library.js`. Every
+Eyelang library definition is tagged with `eyeLangLibrary: true`, so tests and
 embedders can audit the boundary directly.
 
 <!-- eyelang-library-catalog:start -->
 
-| EyeLang library predicates |
+| Eyelang library predicates |
 | --- |
 | `append/3`, `member/2`, `select/3`, `last/2` |
 | `nth0/3`, `nth1/3`, `set_nth0/4`, `take/3`, `drop/3`, `slice/4` |
@@ -5288,7 +5288,7 @@ the Prolog sense: each call has exactly one solution, although the generated ato
 is intentionally different between calls. The implementation uses the Web Crypto API where available and remains
 portable across Node and the browser playground.
 
-On the command line, the EyeLang library is already present:
+On the command line, the Eyelang library is already present:
 
 ```sh
 eyelang program.pl
@@ -5309,7 +5309,7 @@ The mode notation below is descriptive:
 - `-` means the predicate produces that argument;
 - `?` means a bound value can be checked or an unbound value generated.
 
-Most EyeLang library predicates are projections or filters. When an input is
+Most Eyelang library predicates are projections or filters. When an input is
 unbound, malformed, outside its domain, or incompatible with the requested
 output, they normally **fail** rather than raising the ISO errors described in
 the errors section above. They do not invent open-ended domains. Bind arithmetic operands, source
@@ -5339,15 +5339,15 @@ expresses them: for example, `R is A + B`, `R is abs(A)`, and
 modulo, powers, sine, cosine, exponential, logarithm, and the ISO rounding
 functions.
 
-The bundled EyeLang library layer defines `between/3` and
+The bundled Eyelang library layer defines `between/3` and
 `smallest_divisor_from/3`. They are available in the default runtime, but remain
-part of the EyeLang library and retain measured native accelerators. Choose the
+part of the Eyelang library and retain measured native accelerators. Choose the
 smaller or larger of two arithmetic values directly with ISO control, for example
 `(A =< B -> Min = A ; Min = B)` or `(A >= B -> Max = A ; Max = B)`.
 
 #### List relations
 
-These relations are JavaScript implementations provided by the EyeLang library.
+These relations are JavaScript implementations provided by the Eyelang library.
 Their relational modes and error behavior are regression-checked against
 equivalent clause definitions. Every list-consuming relation below expects a
 proper list unless explicitly stated otherwise. Indexes and counts are
@@ -5371,7 +5371,7 @@ zero-based, nonnegative safe integers.
 | `reverse(+List,-Reversed)` | Reverses a proper list. |
 | `length(?List,?Length)` | Reports or checks the length of a proper list, or generates a list skeleton when `Length` is a bound nonnegative integer. |
 | `sum_list(+List,-Sum)` | Sums numeric elements with ISO `is/2`. The empty sum is `0`; invalid arithmetic raises the corresponding ISO error. |
-| `min_list(+List,-Min)`, `max_list(+List,-Max)` | Select by EyeLang term order, not numeric coercion. Empty lists fail. |
+| `min_list(+List,-Min)`, `max_list(+List,-Max)` | Select by Eyelang term order, not numeric coercion. Empty lists fail. |
 | `list_to_set(+List,-Set)` | Removes later structural duplicates while preserving first-occurrence order. |
 | `sort(+List,-Set)` | Sorts by standard term order and removes structural duplicates. |
 
@@ -5388,7 +5388,7 @@ eyelang --goal 'answer(Kind, Value)' program.pl
 #### Native strings, lexical values, and regular expressions
 
 A **lexical value** is the textual spelling of a ground atom, string, or
-number. Most string predicates accept any of those inputs but produce EyeLang
+number. Most string predicates accept any of those inputs but produce Eyelang
 string terms unless their name says otherwise.
 
 | Predicate and principal mode | Behavior |
@@ -5404,7 +5404,7 @@ string terms unless their name says otherwise.
 | `lowercase(+Text,-Lower)`, `uppercase(+Text,-Upper)`, `trim(+Text,-Trimmed)` | Apply JavaScript Unicode case conversion or surrounding-whitespace trimming. |
 | `number_string(?Number,?Text)` | Converts a number to a string or parses numeric string/atom text. At least one conversion direction must be ready. |
 | `atom_string(?Atom,?Text)` | Converts an atom to a string or a ground string, atom, or number to an atom. |
-| `term_string(+Term,-Text)` | Renders a nonvariable term using EyeLang readback syntax. It does not parse text back into a term. |
+| `term_string(+Term,-Text)` | Renders a nonvariable term using Eyelang readback syntax. It does not parse text back into a term. |
 
 `contains/2` and `matches/2` retain measured native accelerators for bound
 lexical inputs. Calls outside that mode fall through to the native builtins,
@@ -5436,7 +5436,7 @@ intended to restrict its domain.
 | `aggregate_min(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the smallest resolved key under standard term order. |
 | `aggregate_max(+KeyTemplate,+ValueTemplate,+Goal,-BestKey,-BestValue)` | Retains the solution with the largest resolved key. Both best-value predicates fail on an empty solution set and retain the first solution on an equal key. |
 
-ISO `findall/3` is present in both registries. The EyeLang library aggregates follow
+ISO `findall/3` is present in both registries. The Eyelang library aggregates follow
 the same scoping principle: variables created inside the nested search do not
 leak except through the declared templates and outputs.
 
@@ -5487,7 +5487,7 @@ The ISO profile includes `functor/3`, `arg/3`, and `=../2`. Use `=../2` for whol
 decomposition and construction, `=/2` for unification, and `\=/2` for
 non-unifiability; redundant aliases are not registered.
 
-## 40. Running EyeLang: command line and corpus
+## 40. Running Eyelang: command line and corpus
 
 The command line is an observation boundary around a theory. Keep the program
 fixed while selecting the evidence you need: ordinary output for answers,
@@ -5495,7 +5495,7 @@ proof output for support, warnings for portability risks, and statistics for
 search behavior.
 
 <figure>
-  <img src="book-assets/cli-observation-loop.svg" alt="An EyeLang source and query enter the CLI, which separates ground answers and proofs on standard output, warnings and statistics on standard error, and a process status for automation; comparison leads back to program revision.">
+  <img src="book-assets/cli-observation-loop.svg" alt="An Eyelang source and query enter the CLI, which separates ground answers and proofs on standard output, warnings and statistics on standard error, and a process status for automation; comparison leads back to program revision.">
   <figcaption>The CLI exposes three independent channels. Compare each with the right prediction before revising the theory: answers and proofs on stdout, diagnostics on stderr, and status for the calling process.</figcaption>
 </figure>
 
@@ -5512,7 +5512,7 @@ selects what to solve. Supply `--goal` followed by a callable Prolog goal:
 eyelang --goal 'ancestor(ada, Who)' examples/ancestor.pl
 ```
 
-Repeat `--goal` to request several result relations in one run. EyeLang prints
+Repeat `--goal` to request several result relations in one run. Eyelang prints
 their ground answers in the order the goals were supplied.
 
 For a self-running example, place the host goal in an ordinary comment:
@@ -5568,7 +5568,7 @@ eyelang --stats --goal 'path(a, X)' examples/path-discovery.pl > answers.pl 2> r
 ```
 
 Normal answers and `why/2` terms go to stdout, which makes them suitable for a
-golden file or another EyeLang input. Warnings and statistics go to stderr so
+golden file or another Eyelang input. Warnings and statistics go to stderr so
 they do not corrupt that logical stream. A successful run normally exits with
 status zero; loading, syntax, option, and other uncaught errors use status `1`. `halt/0-1` can deliberately choose the
 process status from inside a program.
@@ -5667,7 +5667,7 @@ Review questions:
 ### Further examples
 
 <figure>
-  <img src="book-assets/example-landscape.svg" alt="A map connects EyeLang examples across mathematics, search, planning, policy, science, program analysis, symbolic systems, and RDF.">
+  <img src="book-assets/example-landscape.svg" alt="A map connects Eyelang examples across mathematics, search, planning, policy, science, program analysis, symbolic systems, and RDF.">
   <figcaption>The corpus is a connected landscape. Every path leads from a readable source program to checked answers and, for selected examples, checked proofs.</figcaption>
 </figure>
 
@@ -5679,7 +5679,7 @@ explanation under [examples/proof](https://github.com/eyereasoner/eyelang/tree/m
 itself rather than merely naming it.
 
 The generated [`examples/book/`](https://github.com/eyereasoner/eyelang/tree/main/examples/book/) tree serves a different
-purpose: it mirrors the complete inline EyeLang displays chapter by chapter.
+purpose: it mirrors the complete inline Eyelang displays chapter by chapter.
 Those files are checked for syntax, and displays containing queries are
 executed, but some teaching fragments deliberately depend on neighboring
 facts or helpers. Use the top-level catalog below when you want a self-contained
@@ -5889,7 +5889,7 @@ the clauses.
 | [Peano calculus](https://github.com/eyereasoner/eyelang/blob/main/examples/peano-calculus.pl) | Addition, multiplication, and factorial follow the constructors `z` and `s/1`. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/peano-calculus.pl) |
 | [Peasant](https://github.com/eyereasoner/eyelang/blob/main/examples/peasant.pl) | Peasant multiplication and exponentiation cases, adapted from Eyelet. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/peasant.pl) |
 | [Pell equation](https://github.com/eyereasoner/eyelang/blob/main/examples/pell-equation.pl) | Bounded generation searches for integer witnesses to a Diophantine equation. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/pell-equation.pl) |
-| [Pi](https://github.com/eyereasoner/eyelang/blob/main/examples/pi.pl) | The Nilakantha series is a deterministic numeric recurrence; EyeLang recognizes its accumulator shape and executes 10,000 terms without tabling or heap growth. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/pi.pl) |
+| [Pi](https://github.com/eyereasoner/eyelang/blob/main/examples/pi.pl) | The Nilakantha series is a deterministic numeric recurrence; Eyelang recognizes its accumulator shape and executes 10,000 terms without tabling or heap growth. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/pi.pl) |
 | [Prime range](https://github.com/eyereasoner/eyelang/blob/main/examples/prime-range.pl) | Bounded integer generation and divisor tests enumerate primes over an explicit finite interval. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/prime-range.pl) · [proof](https://github.com/eyereasoner/eyelang/blob/main/examples/proof/prime-range.pl) |
 | [Quadratic Formula](https://github.com/eyereasoner/eyelang/blob/main/examples/quadratic-formula.pl) | Quadratic formula over sample equations. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/quadratic-formula.pl) |
 | [Riemann Hypothesis](https://github.com/eyereasoner/eyelang/blob/main/examples/riemann-hypothesis.pl) | A deliberately finite audit of catalogued non-trivial zeros, illustrating the boundary between evidence and universal proof. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/riemann-hypothesis.pl) |
@@ -5907,7 +5907,7 @@ model checking, refutation by one witness, and witness-producing number theory.
 #### Symbolic mathematics, languages, and metaprogramming
 
 Here terms denote syntax, formulas, expressions, or programs. The crucial
-discipline is to keep object language and EyeLang metalanguage distinct.
+discipline is to keep object language and Eyelang metalanguage distinct.
 
 | Program | What the terms represent | Checked answer |
 | --- | --- | --- |
@@ -5934,7 +5934,7 @@ discipline is to keep object language and EyeLang metalanguage distinct.
 Inspect the outermost functor of every data term. In the derivative example it
 names an expression constructor; in the SAT examples it names logical syntax;
 in the Turing example it helps describe a machine configuration. None of those
-nested terms is automatically asserted as an EyeLang goal.
+nested terms is automatically asserted as an Eyelang goal.
 
 #### Program analysis and verification
 
@@ -6030,7 +6030,7 @@ interpretable as that modeling boundary.
 #### RDF 1.2 and knowledge boundaries
 
 These programs are generated from RDF inputs by the repository tools. Follow
-the source data, generated EyeLang facts, rules, answers, and serialized RDF as
+the source data, generated Eyelang facts, rules, answers, and serialized RDF as
 one adapter pipeline.
 
 | Program | RDF feature | Checked answer |
@@ -6045,7 +6045,7 @@ one adapter pipeline.
 | [TriG graph join](https://github.com/eyereasoner/eyelang/blob/main/examples/rdf12-trig-graph-join.pl) | Rules join facts while retaining their graph-sensitive representation. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/rdf12-trig-graph-join.pl) · [proof](https://github.com/eyereasoner/eyelang/blob/main/examples/proof/rdf12-trig-graph-join.pl) |
 | [TriG named graph](https://github.com/eyereasoner/eyelang/blob/main/examples/rdf12-trig-named-graph.pl) | The fourth `rdf/4` argument preserves graph identity. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/rdf12-trig-named-graph.pl) · [proof](https://github.com/eyereasoner/eyelang/blob/main/examples/proof/rdf12-trig-named-graph.pl) |
 | [TriG triple term](https://github.com/eyereasoner/eyelang/blob/main/examples/rdf12-trig-triple-term.pl) | RDF 1.2 triple terms and dataset graph structure appear together. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/rdf12-trig-triple-term.pl) · [proof](https://github.com/eyereasoner/eyelang/blob/main/examples/proof/rdf12-trig-triple-term.pl) |
-| [Triple term](https://github.com/eyereasoner/eyelang/blob/main/examples/rdf12-triple-term.pl) | An RDF 1.2 triple term is represented as nested EyeLang data and projected by a rule. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/rdf12-triple-term.pl) · [proof](https://github.com/eyereasoner/eyelang/blob/main/examples/proof/rdf12-triple-term.pl) |
+| [Triple term](https://github.com/eyereasoner/eyelang/blob/main/examples/rdf12-triple-term.pl) | An RDF 1.2 triple term is represented as nested Eyelang data and projected by a rule. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/rdf12-triple-term.pl) · [proof](https://github.com/eyereasoner/eyelang/blob/main/examples/proof/rdf12-triple-term.pl) |
 | [Web names](https://github.com/eyereasoner/eyelang/blob/main/examples/web-names.pl) | Quoted web identifiers remain atom constants in ordinary Prolog terms. | [answers](https://github.com/eyereasoner/eyelang/blob/main/examples/output/web-names.pl) · [proof](https://github.com/eyereasoner/eyelang/blob/main/examples/proof/web-names.pl) |
 
 The original RDF fixtures and adapter rules are available in
@@ -6105,7 +6105,7 @@ sentence, mode, finite domain, answer, proof, and revision.
 
 ## 42. Standards, limits, and implementation boundaries
 
-This book is the single reference for the EyeLang implementation. Chapters 38–40
+This book is the single reference for the Eyelang implementation. Chapters 38–40
 describe its supported ISO Prolog syntax, directives, execution model,
 built-in predicates, and command-line interface. The earlier chapters explain the reasoner, automatic tabling,
 proof terms, warnings, answer formatting, embedding, and external data
@@ -6154,7 +6154,7 @@ npm run test:playground
 
 ### Supported ISO Prolog profile
 
-EyeLang executes a documented and tested **ISO compatibility profile** based on
+Eyelang executes a documented and tested **ISO compatibility profile** based on
 ISO/IEC 13211-1:1995 and its three technical corrigenda. The exact supported
 predicate indicators—not a claim about the standard's complete processor
 environment—are listed in Chapter 39. The profile includes control and
@@ -6165,15 +6165,15 @@ termination. `compare/3`, `callable/1`, `ground/1`, and `term_variables/2` are
 additional compatibility conveniences.
 
 This breadth is not a formal certification of every processor requirement.
-The executable examples are EyeLang-profile programs using host-supplied goals,
-strings, explicit integrity relations, automatic tabling, and the EyeLang library.
+The executable examples are Eyelang-profile programs using host-supplied goals,
+strings, explicit integrity relations, automatic tabling, and the Eyelang library.
 The remaining qualifications are:
 
 - zero-arity compound syntax such as `ready()` is represented by the atom
   `ready`;
 - modules and DCG notation are outside this Part 1 profile;
 - variables cannot occupy functor or predicate position;
-- double-quoted text is a distinct EyeLang string scalar rather than switching
+- double-quoted text is a distinct Eyelang string scalar rather than switching
   representation with the `double_quotes` flag;
 - `write_term/2-3` implements `quoted/1`, `ignore_ops/1`, `numbervars/1`,
   and `variable_names/1`; other write options and some option/error precedence
@@ -6184,12 +6184,12 @@ The remaining qualifications are:
 Write terms explicitly, keep variables uppercase or underscore-prefixed, and
 quote atom names that are neither lowercase plain names nor graphic tokens.
 These boundaries distinguish implemented ISO functionality from certification.
-The EyeLang corpus verifies this documented profile; it is not an independent
+The Eyelang corpus verifies this documented profile; it is not an independent
 certification that every conforming Prolog text will run unchanged.
 
 ### Security and resource use
 
-EyeLang has no general host-call primitive, yet an untrusted theory is still
+Eyelang has no general host-call primitive, yet an untrusted theory is still
 executable input. It can request enormous finite searches or construct
 unbounded terms. URL inputs also cross a network and trust boundary.
 Applications should restrict accepted sources and impose suitable input-size,
@@ -6204,9 +6204,9 @@ provider and validating what it supplies.
 
 ### Notes and references
 
-The book is self-contained as an EyeLang guide. These sources provide historical
-and technical background for the ideas that EyeLang adapts. They describe larger
-languages and theories, so they should not be read as additional EyeLang
+The book is self-contained as an Eyelang guide. These sources provide historical
+and technical background for the ideas that Eyelang adapts. They describe larger
+languages and theories, so they should not be read as additional Eyelang
 specifications.
 
 - ISO/IEC,
@@ -6216,7 +6216,7 @@ specifications.
   [Technical Corrigendum 2:2012](https://www.iso.org/standard/58033.html),
   and
   [Technical Corrigendum 3:2017](https://www.iso.org/standard/73194.html).
-  Chapter 38 defines the precise EyeLang compatibility profile against this
+  Chapter 38 defines the precise Eyelang compatibility profile against this
   standards baseline; Chapter 39 lists the implemented predicate indicators.
 
 - Michael Genesereth,
@@ -6306,7 +6306,7 @@ specifications.
   originally published in 1971 and republished in English translation.
   Futamura showed how specializing an interpreter with respect to a source
   program connects partial evaluation with compilation. Part V invokes this
-  as historical context for specialization, not as an EyeLang implementation
+  as historical context for specialization, not as an Eyelang implementation
   claim.
 
 - Krzysztof R. Apt, Howard A. Blair, and Adrian Walker,
@@ -6320,7 +6320,7 @@ specifications.
   [“Tabled Evaluation with Delaying for General Logic
   Programs”](https://doi.org/10.1145/227595.227597), *Journal of the ACM*
   43(1), 1996, pp. 20–74. A foundational treatment of tabled logic-program
-  evaluation. EyeLang's automatic positive tabling is smaller in scope, but the
+  evaluation. Eyelang's automatic positive tabling is smaller in scope, but the
   shared-call and fixed-point intuitions are closely related.
 
 - W3C, [*RDF 1.2 Concepts and Abstract
@@ -6333,7 +6333,7 @@ specifications.
 - Dörthe Arndt and Stephan Mennicke,
   [“Notation3 as an Existential Rule
   Language”](https://arxiv.org/abs/2308.07332), 2023. Context for Notation3 and for the relationship between Semantic Web rule
-  languages and existential-rule reasoning. EyeLang deliberately implements a
+  languages and existential-rule reasoning. Eyelang deliberately implements a
   different, compact Horn-clause language.
 
 - Leon Sterling and Ehud Shapiro,
@@ -6342,16 +6342,16 @@ specifications.
   MIT Press, 1994. Its sustained treatment of computation, program
   construction, nondeterminism, transformation, interpreters, grammars,
   search, and applications is an important pedagogical benchmark for Part V.
-  EyeLang differs substantially from full Prolog, so the material here develops
-  those themes only through EyeLang's explicit, supported relations.
+  Eyelang differs substantially from full Prolog, so the material here develops
+  those themes only through Eyelang's explicit, supported relations.
 
-The aim of EyeLang is not to make every difficult problem easy. It is to keep the
+The aim of Eyelang is not to make every difficult problem easy. It is to keep the
 theory visible while the machine searches it: facts you can inspect, rules you
 can discuss, answers you can test, and proofs you can carry forward as data.
 
 ### Glossary
 
-This glossary fixes the book's vocabulary. Definitions describe EyeLang unless a
+This glossary fixes the book's vocabulary. Definitions describe Eyelang unless a
 broader mathematical meaning is explicitly stated.
 
 **Aggregate.** A relation that evaluates a finite nested solution space and
@@ -6359,7 +6359,7 @@ combines its solutions, as `findall/3`, `countall/2`, `sumall/3`,
 `aggregate_min/5`, or `aggregate_max/5` does.
 
 **Answer.** A ground instance of a declared query goal produced by successful
-search. EyeLang suppresses duplicate printed answers and source facts already
+search. Eyelang suppresses duplicate printed answers and source facts already
 identical to queried conclusions.
 
 **Answer set.** The distinct ground answers for a query, considered without
@@ -6399,7 +6399,7 @@ decidable by structural equality.
 **Clause.** A fact or rule terminated by a period.
 
 **Closed-world assumption.** The decision to treat failure to derive a
-sufficiently scoped claim as evidence for its absence. EyeLang's `\+/1` performs
+sufficiently scoped claim as evidence for its absence. Eyelang's `\+/1` performs
 negation as failure; the modeler is responsible for justifying the scope.
 
 **Compound term.** Structured data with a functor and one or more arguments,
@@ -6412,7 +6412,7 @@ profile and implementation extensions under `test/conformance/`.
 run left to right while carrying bindings forward.
 
 **Constraint.** In this book, a goal that rejects candidates not satisfying a
-property. EyeLang does not provide a general persistent constraint store.
+property. Eyelang does not provide a general persistent constraint store.
 
 **Declarative reading.** What ground instances of clauses mean independently
 of the particular order in which a solver searches.
@@ -6452,7 +6452,7 @@ finite lists, or bounded numeric ranges.
 **Golden file.** Checked expected output stored in the repository. Normal
 example goldens record answers; proof goldens record explanations.
 
-**Ground.** Containing no variables. EyeLang prints only ground query answers.
+**Ground.** Containing no variables. Eyelang prints only ground query answers.
 
 **Head.** The atomic formula to the left of `:-`, or the entire formula in a
 fact. A successful rule use derives an instance of its head.
@@ -6490,7 +6490,7 @@ selected, which bindings it needs and produces, and which alternatives it
 creates.
 
 **Occurs check.** A unification check that prevents binding a variable to a
-term containing that variable. EyeLang performs it consistently for ordinary
+term containing that variable. Eyelang performs it consistently for ordinary
 unification as well as `unify_with_occurs_check/2`.
 
 **Predicate indicator.** A predicate name paired with its arity, conventionally
@@ -6782,14 +6782,14 @@ facts, derive one new relation, and serialize the result.
 
 - preserve IRIs, literals, graph identity, and one RDF 1.2 feature;
 - keep adapter rules separate from domain rules;
-- query the generated Prolog program with EyeLang directly;
+- query the generated Prolog program with Eyelang directly;
 - compare the final N-Quads with a checked golden;
 - document what the host authenticates.
 
 **Acceptance:** the round trip retains the selected RDF term distinctions, and
 nested triple data is not accidentally asserted as a global fact.
 
-**Reflect:** what simplicity does the explicit adapter preserve in the EyeLang
+**Reflect:** what simplicity does the explicit adapter preserve in the Eyelang
 core?
 
 ### Laboratory 12. A release-quality reasoning service

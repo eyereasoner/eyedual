@@ -1,5 +1,5 @@
 % Adapted from Logtalk iso_bagof_3_01 through 07 and 12.
-% Modified for EyeLang's conformance harness. See test/conformance/THIRD_PARTY.md.
+% Modified for Eyelang's conformance harness. See test/conformance/THIRD_PARTY.md.
 b(1, 1). b(1, 1). b(1, 2). b(2, 1). b(2, 2). b(2, 2).
 %% goal: bagof_results(X0, X1, X2)
 

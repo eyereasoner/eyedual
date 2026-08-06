@@ -26,7 +26,7 @@ export function runConformance(reporter = new TestReporter(), requestedFilter = 
 function listCaseFiles(kind, filter = null) {
   const base = path.join(root, 'conformance', kind);
   if (!fs.existsSync(base)) return [];
-  return listEyeLangFiles(base)
+  return listEyelangFiles(base)
     .filter((name) => matchesFilter(kind, name, filter))
     .sort();
 }
@@ -42,12 +42,12 @@ function matchesFilter(kind, name, filter) {
     || `${label}/${stem}`.includes(filter);
 }
 
-function listEyeLangFiles(base, dir = base) {
+function listEyelangFiles(base, dir = base) {
   const files = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      files.push(...listEyeLangFiles(base, full));
+      files.push(...listEyelangFiles(base, full));
     } else if (entry.isFile() && entry.name.endsWith('.pl')) {
       files.push(path.relative(base, full).split(path.sep).join('/'));
     }

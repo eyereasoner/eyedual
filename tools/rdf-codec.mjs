@@ -1,4 +1,4 @@
-// Lossless RDF 1.2 <-> ordinary EyeLang term encoding.
+// Lossless RDF 1.2 <-> ordinary Eyelang term encoding.
 export const XSD_STRING = 'http://www.w3.org/2001/XMLSchema#string';
 export const RDF_LANG_STRING = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#langString';
 export const RDF_DIR_LANG_STRING = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString';
@@ -170,15 +170,15 @@ export function fromRdfJs(term, scope = 'input') {
   throw new Error(`unsupported RDF/JS term type: ${term.termType}`);
 }
 
-export function quadToEyeLang(q, predicate = 'rdf') {
-  return `${predicate}(${toEyeLang(q.subject)}, ${toEyeLang(q.predicate)}, ${toEyeLang(q.object)}, ${toEyeLang(q.graph)}).`;
+export function quadToEyelang(q, predicate = 'rdf') {
+  return `${predicate}(${toEyelang(q.subject)}, ${toEyelang(q.predicate)}, ${toEyelang(q.object)}, ${toEyelang(q.graph)}).`;
 }
 
-export function toEyeLang(t) {
+export function toEyelang(t) {
   if (t.kind === 'namedNode') return `iri(${quote(t.value)})`;
   if (t.kind === 'blankNode') return `bnode(${quote(t.scope)}, ${quote(t.value)})`;
   if (t.kind === 'defaultGraph') return 'default_graph';
-  if (t.kind === 'triple') return `triple(${toEyeLang(t.subject)}, ${toEyeLang(t.predicate)}, ${toEyeLang(t.object)})`;
+  if (t.kind === 'triple') return `triple(${toEyelang(t.subject)}, ${toEyelang(t.predicate)}, ${toEyelang(t.object)})`;
   if (t.kind === 'literal') {
     const annotation = t.language
       ? (t.direction ? `lang(${quote(t.language)}, ${t.direction})` : `lang(${quote(t.language)})`)
@@ -190,18 +190,18 @@ export function toEyeLang(t) {
 
 export function eyeLangQuadToNQuad(term) {
   if (term?.type !== 'compound' || term.name !== 'rdf' || term.args.length !== 4) throw new Error('expected rdf/4 fact');
-  const [subject, predicate, object, graph] = term.args.map(fromEyeLang);
+  const [subject, predicate, object, graph] = term.args.map(fromEyelang);
   assertTriple(subject, predicate, object);
   if (!['namedNode', 'blankNode', 'defaultGraph'].includes(graph.kind)) throw new Error('invalid RDF graph');
   return `${toNQ(subject)} ${toNQ(predicate)} ${toNQ(object)}${graph.kind === 'defaultGraph' ? '' : ` ${toNQ(graph)}`} .`;
 }
 
-export function fromEyeLang(t) {
+export function fromEyelang(t) {
   if (t?.type === 'atom' && t.name === 'default_graph') return { kind: 'defaultGraph' };
   if (compound(t, 'iri', 1)) return { kind: 'namedNode', value: scalar(t.args[0], 'IRI') };
   if (compound(t, 'bnode', 2)) return { kind: 'blankNode', scope: scalar(t.args[0], 'blank-node scope'), value: scalar(t.args[1], 'blank-node label') };
   if (compound(t, 'triple', 3)) {
-    const [subject, predicate, object] = t.args.map(fromEyeLang);
+    const [subject, predicate, object] = t.args.map(fromEyelang);
     assertTriple(subject, predicate, object);
     return { kind: 'triple', subject, predicate, object };
   }

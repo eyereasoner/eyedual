@@ -1,17 +1,17 @@
-# EyeLang
+# Eyelang
 
 <p align="center">
-  <img src="eyelang-logo.png" alt="EyeLang logo" width="520">
+  <img src="eyelang-logo.png" alt="Eyelang logo" width="520">
 </p>
 
 [![npm version](https://img.shields.io/npm/v/eyelang.svg)](https://www.npmjs.com/package/eyelang)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21446308-blue.svg)](https://doi.org/10.5281/zenodo.21446308)
 
-EyeLang combines ISO Prolog and W3C RDF 1.2 to produce answers with
+Eyelang combines ISO Prolog and W3C RDF 1.2 to produce answers with
 inspectable proofs.
 
-**[Book — *The Art of EyeLang*](https://eyereasoner.github.io/eyelang/the-art-of-eyelang)** ·
-**[Why EyeLang?](https://eyereasoner.github.io/eyelang/why-eyelang)** ·
+**[Book — *The Art of Eyelang*](https://eyereasoner.github.io/eyelang/the-art-of-eyelang)** ·
+**[Why Eyelang?](https://eyereasoner.github.io/eyelang/why-eyelang)** ·
 **[Playground](https://eyereasoner.github.io/eyelang/playground)**
 
 The book is the reference for the language, command line, JavaScript API,
@@ -19,7 +19,7 @@ RDF 1.2 support, examples, proofs, conformance, and implementation.
 
 ## Quick start
 
-EyeLang requires Node.js 18 or newer.
+Eyelang requires Node.js 18 or newer.
 
 ```sh
 npm install --global eyelang
@@ -50,4 +50,4 @@ npm install
 npm test
 ```
 
-EyeLang is released under the [MIT License](LICENSE.md).
+Eyelang is released under the [MIT License](LICENSE.md).

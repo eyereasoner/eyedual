@@ -1,9 +1,9 @@
 % Reference 9.1: reusable string normalization, splitting, joining, replacement, and conversions.
 %% goal: answer(X0, X1)
 
-answer(trim, X) :- trim("  Hello EyeLang  ", X).
-answer(lower, X) :- lowercase("Hello EyeLang", X).
-answer(upper, X) :- uppercase("Hello EyeLang", X).
+answer(trim, X) :- trim("  Hello Eyelang  ", X).
+answer(lower, X) :- lowercase("Hello Eyelang", X).
+answer(upper, X) :- uppercase("Hello Eyelang", X).
 answer(split, X) :- split("red,green,blue", ",", X).
 answer(join, X) :- join([red, green, blue], ":", X).
 answer(substring, X) :- substring("abcdef", 2, 3, X).

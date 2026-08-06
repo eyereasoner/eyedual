@@ -1,4 +1,4 @@
-// Command-line interface for EyeLang.
+// Command-line interface for Eyelang.
 // It loads programs from files, URLs, or stdin, then runs requested goals.
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -137,7 +137,7 @@ async function runDefault(engine, program, options) {
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
   const facts = program.sourceFactLines(queriedKeys);
   const lines = new Set();
-  const registry = engine.getEyeLangRegistry();
+  const registry = engine.getEyelangRegistry();
   const explanation = options.proof ? await loadExplanation() : null;
   const solver = new engine.Solver(program, {
     registry,
@@ -181,8 +181,8 @@ Usage:
   eyelang [options] [file-or-url.pl|- ...]
 
 Input:
-  file-or-url.pl        Read an EyeLang program from a local file or http(s) URL.
-  -                     Read an EyeLang program from standard input.
+  file-or-url.pl        Read an Eyelang program from a local file or http(s) URL.
+  -                     Read an Eyelang program from standard input.
 
 Options:
   -h, --help            Show this help text and exit.

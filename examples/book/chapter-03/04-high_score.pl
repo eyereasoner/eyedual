@@ -1,4 +1,4 @@
-% From The Art of EyeLang, Chapter 3.
+% From The Art of Eyelang, Chapter 3.
 high_score(Case) :-
   score(Case, Score),
   threshold(Threshold),
