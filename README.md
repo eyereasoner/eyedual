@@ -7,8 +7,7 @@
 [![npm version](https://img.shields.io/npm/v/eyeprolog.svg)](https://www.npmjs.com/package/eyeprolog)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21446308-blue.svg)](https://doi.org/10.5281/zenodo.21446308)
 
-EyeProlog combines ISO Prolog and W3C RDF 1.2 to produce answers with
-inspectable proofs.
+EyeProlog combines ISO Prolog and W3C RDF 1.2 to turn portable rules and linked data into answers and inspectable proofs.
 
 **[Book — *The Art of EyeProlog*](https://eyereasoner.github.io/eyeprolog/the-art-of-eyeprolog)** ·
 **[Why EyeProlog?](https://eyereasoner.github.io/eyeprolog/why-eyeprolog)** ·
