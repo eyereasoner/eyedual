@@ -5220,9 +5220,6 @@ contains 115 name/arity entries across 94 names.
 | Term output | `write/1`, `write/2`, `writeq/1`, `writeq/2`, `write_canonical/1`, `write_canonical/2`, `write_term/2`, `write_term/3` |
 | Arithmetic | `is/2`, `=:=/2`, `=\=/2`, `</2`, `=</2`, `>/2`, `>=/2` |
 
-`false/0` and `fail/0` both fail as goals. `false/0` is a protected static
-procedure and cannot be defined by source clauses or declared dynamic.
-
 ### Reading the built-in reference
 
 The call patterns below use `+` for an argument that must be sufficiently
@@ -5530,27 +5527,15 @@ standard fallback relation.
 
 <!-- eyeprolog-library-catalog:start -->
 
-| EyeProlog library predicates |
-| --- |
-| `append/3`, `member/2`, `select/3`, `last/2` |
-| `nth0/3`, `nth1/3`, `set_nth0/4`, `take/3`, `drop/3`, `slice/4` |
-| `reverse/2`, `length/2`, `sum_list/2` |
-| `min_list/2`, `max_list/2` |
-| `list_to_set/2`, `sort_unique/2` |
-| `string_concat/3`, `contains/2`, `matches/2` |
-| `join/3`, `substring/4` |
-| `countall/2`, `sumall/3` |
-| `aggregate_min/5`, `aggregate_max/5` |
-| `between/3`, `smallest_divisor_from/3`, `random/3` |
-| `apply/3` |
-| `maplist/3` |
-| `acos/2`, `asin/2`, `atan2/3`, `tan/2` |
-| `lt/2`, `le/2`, `gt/2`, `ge/2` |
-| `uuid/3`, `difference/3` |
-| `matches/3` |
-| `split/3`, `replace/4` |
-| `lowercase/2`, `uppercase/2`, `trim/2` |
-| `number_string/2`, `atom_string/2`, `term_string/2` |
+| Family | Registered predicate indicators |
+| --- | --- |
+| Meta-call and mapping | `apply/3`, `maplist/3` |
+| Arithmetic and generation | `tan/2`, `asin/2`, `acos/2`, `atan2/3`, `between/3`, `smallest_divisor_from/3`, `random/3` |
+| Comparison | `lt/2`, `le/2`, `gt/2`, `ge/2` |
+| Identifiers and dates | `uuid/3`, `difference/3` |
+| Lists | `append/3`, `member/2`, `select/3`, `last/2`, `nth0/3`, `nth1/3`, `set_nth0/4`, `take/3`, `drop/3`, `slice/4`, `reverse/2`, `length/2`, `sum_list/2`, `min_list/2`, `max_list/2`, `list_to_set/2`, `sort_unique/2` |
+| Text and pattern matching | `string_concat/3`, `contains/2`, `matches/2`, `matches/3`, `split/3`, `join/3`, `substring/4`, `replace/4`, `lowercase/2`, `uppercase/2`, `trim/2`, `number_string/2`, `atom_string/2`, `term_string/2` |
+| Aggregation | `countall/2`, `sumall/3`, `aggregate_min/5`, `aggregate_max/5` |
 
 <!-- eyeprolog-library-catalog:end -->
 

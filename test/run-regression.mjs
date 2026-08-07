@@ -1858,7 +1858,7 @@ function bookBuiltinNames() {
 
 function bookEyePrologLibraryNames() {
   const book = fs.readFileSync(path.join(packageRoot, 'the-art-of-eyeprolog.md'), 'utf8');
-  return documentedBuiltinNames(between(book, '<!-- eyeprolog-library-catalog:start -->', '<!-- eyeprolog-library-catalog:end -->'), 1);
+  return documentedBuiltinNames(between(book, '<!-- eyeprolog-library-catalog:start -->', '<!-- eyeprolog-library-catalog:end -->'), 2);
 }
 
 function bookBuiltinSummary() {
