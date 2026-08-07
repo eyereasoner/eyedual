@@ -1,11 +1,11 @@
-// Depth-first Eyelang solver with builtin dispatch, memoization, and guarded recursion handling.
+// Depth-first EyeProlog solver with builtin dispatch, memoization, and guarded recursion handling.
 // Most semantic decisions still flow through unification; optimizations only select candidates earlier.
 import {
   COMPOUND, Env, compound, copyResolved, deref, flattenConjunction, freshTerm,
   numberTerm, numberTextFromDouble, termIsGround, termToString, unify, variantTerms,
 } from './term.js';
 import { PrologError } from './iso.js';
-import { getEyelangRegistry } from './library.js';
+import { getEyePrologRegistry } from './library.js';
 import { selectClauseCandidates, selectClauseCandidatesForValues, selectGroundClauseCandidates } from './program.js';
 import { StreamManager } from './io.js';
 
@@ -17,14 +17,14 @@ export function nextFreshId() {
 
 export class Solver {
   constructor(program, options = {}) {
-    this.registry = options.registry ?? getEyelangRegistry();
+    this.registry = options.registry ?? getEyePrologRegistry();
     this.program = program;
     this.mutableProgram = program.mutable === true;
     this.programRevision = this.program.revision ?? 0;
     this.maxDepth = options.maxDepth ?? 100000;
     this.solutionLimit = options.solutionLimit ?? 10000000;
     this.solutionsSeen = 0;
-    this.prologFlags = options.prologFlags ?? defaultPrologFlags(this.registry?.eyeLangLibrary ? 'fail' : 'error');
+    this.prologFlags = options.prologFlags ?? defaultPrologFlags(this.registry?.eyePrologLibrary ? 'fail' : 'error');
     this.charConversions = options.charConversions ?? new Map();
     if (!options.prologFlags) {
       for (const [flag, value] of program.prologFlagDirectives ?? []) {
@@ -196,7 +196,7 @@ export class Solver {
           continue;
         }
 
-        // Eyelang normally solves left-to-right, but ready deterministic builtins can
+        // EyeProlog normally solves left-to-right, but ready deterministic builtins can
         // be run early as pure filters. Stop at internal sentinels so rule-body
         // active guards are released before the caller's remaining goals are seen.
         const selectedIndex = selectReadyDeterministicBuiltin(goals, env, this.registry);

@@ -12,7 +12,7 @@
 
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
-% The N3 source defines repeat/2 recursively; this Eyelang version uses the
+% The N3 source defines repeat/2 recursively; this EyeProlog version uses the
 % equivalent bounded generator so the 1000-case regression remains stack-safe.
 
 % Query / query execution of the test suite.

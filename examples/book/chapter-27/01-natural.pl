@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 27.
+% From The Art of EyeProlog, Chapter 27.
 natural(z).
 natural(s(N)) :- natural(N).
 

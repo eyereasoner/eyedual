@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 27 — Accumulators and strengthened invariants.
+% From The Art of EyeProlog, Chapter 27 — Accumulators and strengthened invariants.
 reverse_acc(List, Reversed) :-
   reverse_go(List, [], Reversed).
 

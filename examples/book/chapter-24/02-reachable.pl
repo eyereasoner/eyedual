@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 24 — Existence, one witness, and all witnesses.
+% From The Art of EyeProlog, Chapter 24 — Existence, one witness, and all witnesses.
 reachable(From, To).
 once(simple_path(From, To, Path)).
 findall(Path, simple_path(From, To, Path), Paths).

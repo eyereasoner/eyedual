@@ -2,12 +2,12 @@
 %% goal: text_roundtrip(Term, Peek, Code, Mode, Alias)
 
 text_roundtrip(Term, Peek, Code, Mode, Alias) :-
-    open('/tmp/eyelang-iso-text.txt', write, Output, [alias(iso_text_output), type(text)]),
+    open('/tmp/eyeprolog-iso-text.txt', write, Output, [alias(iso_text_output), type(text)]),
     writeq(iso_text_output, sample(42)),
     put_char(iso_text_output, '.'),
     put_char(iso_text_output, 'Z'),
     close(Output),
-    open('/tmp/eyelang-iso-text.txt', read, Input, [alias(iso_text_input), eof_action(eof_code)]),
+    open('/tmp/eyeprolog-iso-text.txt', read, Input, [alias(iso_text_input), eof_action(eof_code)]),
     stream_property(Input, mode(Mode)),
     stream_property(Input, alias(Alias)),
     read(iso_text_input, Term),
@@ -19,10 +19,10 @@ text_roundtrip(Term, Peek, Code, Mode, Alias) :-
 %% goal: binary_roundtrip(Peek, Byte, End)
 
 binary_roundtrip(Peek, Byte, End) :-
-    open('/tmp/eyelang-iso-binary.bin', write, Output, [type(binary)]),
+    open('/tmp/eyeprolog-iso-binary.bin', write, Output, [type(binary)]),
     put_byte(Output, 65),
     close(Output),
-    open('/tmp/eyelang-iso-binary.bin', read, Input, [type(binary), eof_action(eof_code)]),
+    open('/tmp/eyeprolog-iso-binary.bin', read, Input, [type(binary), eof_action(eof_code)]),
     peek_byte(Input, Peek),
     get_byte(Input, Byte),
     get_byte(Input, End),
@@ -31,11 +31,11 @@ binary_roundtrip(Peek, Byte, End) :-
 %% goal: read_term_metadata(ok)
 
 read_term_metadata(ok) :-
-    open('/tmp/eyelang-iso-read-term.txt', write, Output, []),
+    open('/tmp/eyeprolog-iso-read-term.txt', write, Output, []),
     writeq(Output, pair(X, X, Y)),
     put_char(Output, '.'),
     close(Output),
-    open('/tmp/eyelang-iso-read-term.txt', read, Input, [reposition(true)]),
+    open('/tmp/eyeprolog-iso-read-term.txt', read, Input, [reposition(true)]),
     read_term(Input, pair(A, A, B), [
         variables([A, B]),
         variable_names([NameA=A, NameB=B]),

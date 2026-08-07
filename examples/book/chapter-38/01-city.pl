@@ -1,3 +1,3 @@
-% From The Art of Eyelang, Chapter 38.
+% From The Art of EyeProlog, Chapter 38.
 city('München').
 message("café").

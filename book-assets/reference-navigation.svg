@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" role="img" aria-labelledby="title desc">
-  <title id="title">Task-driven navigation through the Eyelang reference</title>
+  <title id="title">Task-driven navigation through the EyeProlog reference</title>
   <desc id="desc">A reader question branches to language in Chapter 38, predicates in Chapter 39, or execution in Chapter 40. These lead to study paths in Chapter 41, boundaries in Chapter 42, and vocabulary in Chapter 43.</desc>
   <defs>
     <style>

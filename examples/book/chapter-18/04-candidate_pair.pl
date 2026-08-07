@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 18 — Separate generate, test, and describe.
+% From The Art of EyeProlog, Chapter 18 — Separate generate, test, and describe.
 candidate_pair(A, B) :-
   person(A),
   person(B).

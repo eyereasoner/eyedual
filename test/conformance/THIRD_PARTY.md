@@ -5,7 +5,7 @@
 Selected standard term, atom, character, collection, control, and conversion
 cases under `iso/` are adapted from the `tests/prolog` backend Prolog conformance suite in
 [Logtalk](https://github.com/LogtalkDotOrg/logtalk3). Each adapted file
-identifies its upstream test names. The cases were rewritten for Eyelang's
+identifies its upstream test names. The cases were rewritten for EyeProlog's
 file-based query and exact-output harness and are therefore modified from the
 upstream files.
 
@@ -27,7 +27,7 @@ Selected lexical, term, numeric, comment, and operator cases under `iso/` are
 adapted from `tests-pl/iso-conformity-tests.pl` in
 [Scryer Prolog](https://github.com/mthom/scryer-prolog). Each adapted file
 identifies the corresponding upstream test numbers. The cases were rewritten
-for Eyelang's file-based query and exact-output harness.
+for EyeProlog's file-based query and exact-output harness.
 
 BSD 3-Clause License
 
@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Selected standard-core cases under `iso/` are adapted from the numbered tests
 in [`tests/tests`](https://github.com/trealla-prolog/trealla/tree/main/tests/tests)
 in Trealla Prolog. Each adapted file identifies its upstream test file. The
-cases were rewritten for Eyelang's query and exact-output harness.
+cases were rewritten for EyeProlog's query and exact-output harness.
 
 MIT License
 
@@ -95,7 +95,7 @@ Selected standard-core operator and finite-tree unification cases under `iso/`
 are adapted from `tests/core/test_op.pl` and
 `tests/core/test_occurs_check.pl` in
 [SWI-Prolog](https://github.com/SWI-Prolog/swipl-devel). Each adapted file
-identifies its upstream source. The cases were rewritten for Eyelang's query and
+identifies its upstream source. The cases were rewritten for EyeProlog's query and
 exact-output harness.
 
 BSD 2-Clause License

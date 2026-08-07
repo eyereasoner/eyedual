@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" role="img" aria-labelledby="title desc">
   <title id="title">The executable example landscape</title>
-  <desc id="desc">A map connects a central Eyelang program to mathematics, search, planning, policy, science, program analysis, symbolic systems, and RDF, with paths to answers and proofs.</desc>
+  <desc id="desc">A map connects a central EyeProlog program to mathematics, search, planning, policy, science, program analysis, symbolic systems, and RDF, with paths to answers and proofs.</desc>
   <defs>
     <style>
       .bg{fill:#f4efe3}.region{stroke:#243447;stroke-width:2}.core{fill:#243447;stroke:#172334;stroke-width:3}
@@ -36,7 +36,7 @@
   <rect class="core" x="335" y="175" width="230" height="150" rx="18"/>
   <text class="code" x="450" y="212" text-anchor="middle">source.pl</text>
   <path class="path" d="M372 235H528"/>
-  <text class="code" x="450" y="268" text-anchor="middle">eyelang --goal 'Question' program.pl</text>
+  <text class="code" x="450" y="268" text-anchor="middle">eyeprolog --goal 'Question' program.pl</text>
   <text class="code" x="450" y="300" text-anchor="middle">rule :- evidence.</text>
 
   <rect x="305" y="385" width="140" height="55" rx="10" fill="#fffdf7" stroke="#2f6f55" stroke-width="2"/>

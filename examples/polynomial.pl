@@ -1,7 +1,7 @@
 % Polynomial roots over complex integer candidates, adapted from Eyelet's
 % input/polynomial.pl.
 %
-% Complex numbers are represented as [Real, Imaginary].  This eyelang version
+% Complex numbers are represented as [Real, Imaginary].  This eyeprolog version
 % keeps the example generic by evaluating a polynomial with Horner's rule and
 % searching a finite complex-integer candidate grid.  The two cases below are
 % the same quartic polynomials used by the Eyelet source.

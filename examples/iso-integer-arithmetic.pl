@@ -1,6 +1,6 @@
 % ISO integer division, remainders, shifts, and bit operations.
 %
-% In Eyelang's supported profile, div and // both truncate the quotient toward
+% In EyeProlog's supported profile, div and // both truncate the quotient toward
 % zero. mod normalizes by a positive divisor while rem keeps the dividend sign.
 %% goal: report(X0, X1)
 

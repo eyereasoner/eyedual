@@ -1,11 +1,13 @@
-report(joined, eyelang).
+report(joined, eyeprolog).
 report(prefix, eye).
 report(characters, [e, y, e]).
 report(codes, [65, 90]).
 report(decoded_character, 'λ').
 report(number, 42).
-report(fragment, fragment(0, eye, 4)).
-report(fragment, fragment(1, yel, 3)).
-report(fragment, fragment(2, ela, 2)).
-report(fragment, fragment(3, lan, 1)).
-report(fragment, fragment(4, ang, 0)).
+report(fragment, fragment(0, eye, 6)).
+report(fragment, fragment(1, yep, 5)).
+report(fragment, fragment(2, epr, 4)).
+report(fragment, fragment(3, pro, 3)).
+report(fragment, fragment(4, rol, 2)).
+report(fragment, fragment(5, olo, 1)).
+report(fragment, fragment(6, log, 0)).

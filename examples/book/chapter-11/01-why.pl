@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 11.
+% From The Art of EyeProlog, Chapter 11.
 why(
   type(socrates, mortal),
   proof(

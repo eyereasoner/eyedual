@@ -1,3 +1,3 @@
 %% goal: trigger
 
-trigger :- open('/tmp/eyelang-never-opened', sideways, _, []).
+trigger :- open('/tmp/eyeprolog-never-opened', sideways, _, []).

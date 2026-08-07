@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 25 — Integrity before decisions.
+% From The Art of EyeProlog, Chapter 25 — Integrity before decisions.
 incompatible_status(active, revoked).
 incompatible_status(revoked, active).
 

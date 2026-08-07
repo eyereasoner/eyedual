@@ -1,5 +1,5 @@
 % AuroraCare purpose-based medical-data exchange case adapted from Eyeling auroracare.n3.
-% The original N3 emits one Markdown block per scenario.  This eyelang
+% The original N3 emits one Markdown block per scenario.  This eyeprolog
 % translation querys the policy decisions, reasons, traces, and ARC-style
 % check values as ordinary relation output.
 

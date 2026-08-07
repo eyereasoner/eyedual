@@ -1,2 +1,2 @@
-eyelang warning: unstratified negation
+eyeprolog warning: unstratified negation
   p/1 depends negatively on r/1

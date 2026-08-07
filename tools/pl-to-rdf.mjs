@@ -4,14 +4,14 @@ import process from 'node:process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Program } from '../src/program.js';
-import { eyeLangQuadToNQuad } from './rdf-codec.mjs';
+import { eyePrologQuadToNQuad } from './rdf-codec.mjs';
 
-export function extractEyelangRdf(source) {
+export function extractEyePrologRdf(source) {
   const program = Program.parse(String(source), { sourceMetadata: false });
   const lines = []; const seen = new Set();
   for (const c of program.clauses) {
     if (c.body.length || c.head?.name !== 'rdf' || c.head?.arity !== 4) continue;
-    const line = eyeLangQuadToNQuad(c.head);
+    const line = eyePrologQuadToNQuad(c.head);
     if (!seen.has(line)) { seen.add(line); lines.push(line); }
   }
   return lines.length ? `${lines.join('\n')}\n` : '';
@@ -20,7 +20,7 @@ async function main(argv) {
   let input = '-'; let output = '-';
   for (let i = 0; i < argv.length; i++) { const a = argv[i]; if (a === '-h' || a === '--help') return usage(); if (a === '-o' || a === '--output') output = required(argv, ++i, a); else if (a.startsWith('-') && a !== '-') throw new Error(`unknown option: ${a}`); else if (input === '-') input = a; else throw new Error(`unexpected argument: ${a}`); }
   const source = input === '-' ? await stdin() : await fs.readFile(input, 'utf8');
-  const result = extractEyelangRdf(source);
+  const result = extractEyePrologRdf(source);
   if (output === '-') process.stdout.write(result); else await fs.writeFile(output, result);
 }
 function usage() { process.stdout.write('Usage: node tools/pl-to-rdf.mjs [options] [input.pl|-]\n\n  -o, --output FILE  Write N-Quads to FILE\n'); }

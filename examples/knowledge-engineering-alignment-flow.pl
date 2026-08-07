@@ -1,4 +1,4 @@
-% Knowledge-engineering alignment flow in Eyelang.
+% Knowledge-engineering alignment flow in EyeProlog.
 %
 % The source graph uses local observation predicates.  The mapping facts below
 % align those local names with small SOSA-like and FPV-like vocabulary atoms, then

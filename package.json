@@ -1,15 +1,15 @@
 {
-  "name": "eyelang",
+  "name": "eyeprolog",
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.5.2",
-  "description": "Eyelang turns facts and rules into answers and proofs.",
+  "version": "0.5.3",
+  "description": "EyeProlog turns facts and rules into answers and proofs.",
   "type": "module",
   "main": "./index.js",
   "types": "./index.d.ts",
   "bin": {
-    "eyelang": "./bin/eyelang.js"
+    "eyeprolog": "./bin/eyeprolog.js"
   },
   "keywords": [
     "logic",
@@ -22,22 +22,22 @@
   "author": "Jos De Roo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eyereasoner/eyelang.git"
+    "url": "git+https://github.com/eyereasoner/eyeprolog.git"
   },
-  "homepage": "https://github.com/eyereasoner/eyelang#readme",
+  "homepage": "https://github.com/eyereasoner/eyeprolog#readme",
   "files": [
     "LICENSE.md",
     "README.md",
     "index.js",
     "index.d.ts",
     "playground.html",
-    "eyelang-logo.png",
+    "eyeprolog-logo.png",
     "bin",
     "src",
     "tools",
     "conformance-report.md",
-    "the-art-of-eyelang.md",
-    "why-eyelang.md",
+    "the-art-of-eyeprolog.md",
+    "why-eyeprolog.md",
     "book-assets",
     "examples",
     "test"
@@ -48,7 +48,7 @@
   "scripts": {
     "test": "node test/run-all.mjs",
     "generate": "node tools/extract-book-examples.mjs",
-    "test:eyelang": "node test/run-all.mjs",
+    "test:eyeprolog": "node test/run-all.mjs",
     "test:conformance": "node test/run-conformance.mjs",
     "test:examples": "node test/run-examples.mjs",
     "test:regression": "node test/run-regression.mjs",

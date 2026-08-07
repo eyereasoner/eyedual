@@ -1,2 +1,2 @@
-% From The Art of Eyelang, Chapter 23 — Specializing a relation.
+% From The Art of EyeProlog, Chapter 23 — Specializing a relation.
 connection(Mode, From, To, Cost).

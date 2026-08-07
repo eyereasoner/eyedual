@@ -1,6 +1,6 @@
 %% goal: trigger
 
 trigger :-
-    open('/tmp/eyelang-iso-closed.txt', write, Stream, []),
+    open('/tmp/eyeprolog-iso-closed.txt', write, Stream, []),
     close(Stream),
     put_char(Stream, x).

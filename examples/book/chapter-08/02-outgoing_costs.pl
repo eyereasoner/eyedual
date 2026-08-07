@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 8.
+% From The Art of EyeProlog, Chapter 8.
 outgoing_costs(Node, Costs) :-
   findall(Cost, edge(Node, _, Cost), Costs).
 

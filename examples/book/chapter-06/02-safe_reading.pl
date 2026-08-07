@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 6.
+% From The Art of EyeProlog, Chapter 6.
 safe_reading(Sensor, Value) :-
   reading(Sensor, Value),
   (Value >= 0),

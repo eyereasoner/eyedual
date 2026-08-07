@@ -1,6 +1,6 @@
 % Burn the witch, adapted from Eyeling's examples/witch.n3.
 %
-% This is the classic N3/Semantic Web rule chain in eyelang form: a duck
+% This is the classic N3/Semantic Web rule chain in eyeprolog form: a duck
 % floats; something with the same weight as something that floats also floats;
 % things that float are made of wood; things made of wood burn; and a woman
 % who burns is a witch.

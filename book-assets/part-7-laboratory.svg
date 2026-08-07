@@ -17,7 +17,7 @@
   <rect class="screen" x="315" y="72" width="270" height="190" rx="12"/>
   <text class="code" x="340" y="108">theory.pl</text>
   <text class="code" x="340" y="143">answer(X) :-</text><text class="code" x="365" y="166">evidence(X),</text><text class="code" x="365" y="189">within_limit(X).</text>
-  <text class="code" x="340" y="225">eyelang --goal 'answer(X)' program.pl</text>
+  <text class="code" x="340" y="225">eyeprolog --goal 'answer(X)' program.pl</text>
   <path d="M415 262L450 300L485 262Z" fill="#526273"/><rect x="380" y="298" width="140" height="12" rx="6" fill="#526273"/>
 
   <rect class="paper" x="38" y="75" width="210" height="110" rx="8"/>

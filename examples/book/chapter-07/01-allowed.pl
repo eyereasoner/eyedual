@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 7.
+% From The Art of EyeProlog, Chapter 7.
 allowed(User) :-
   user(User),
   \+ blocked(User).

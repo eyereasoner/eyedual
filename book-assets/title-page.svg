@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg"
      width="1000" height="1450" viewBox="0 0 1000 1450"
      role="img" aria-labelledby="title desc">
-  <title id="title">The Art of Eyelang</title>
-  <desc id="desc">Editable SVG cover for The Art of Eyelang. All text is live text and kept within its surrounding boxes.</desc>
+  <title id="title">The Art of EyeProlog</title>
+  <desc id="desc">Editable SVG cover for The Art of EyeProlog. All text is live text and kept within its surrounding boxes.</desc>
 
   <defs>
     <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
@@ -47,7 +47,7 @@
   <g id="header">
     <text x="500" y="105" text-anchor="middle" class="title1">The Art of</text>
     <text x="500" y="238" text-anchor="middle" class="title2">
-      <tspan fill="#233a59">Eye</tspan><tspan fill="#94493f">lang</tspan>
+      <tspan fill="#233a59">Eye</tspan><tspan fill="#94493f">Prolog</tspan>
     </text>
 
     <line x1="110" y1="274" x2="445" y2="274" class="gold-stroke thin round"/>
@@ -109,7 +109,7 @@
           class="navy-stroke mid round"/>
 
     <path d="M442 488 L558 488 L572 556 L428 556 Z" fill="#f0ddb5" stroke="#233a59" stroke-width="3"/>
-    <text x="500" y="523" text-anchor="middle" class="section navy" style="font-size:14px; letter-spacing:0.5px;">EYELANG</text>
+    <text x="500" y="523" text-anchor="middle" class="section navy" style="font-size:14px; letter-spacing:0.5px;">EYEPROLOG</text>
 
     <rect x="290" y="690" width="68" height="148" rx="7" fill="#ead6a8" stroke="#233a59" stroke-width="3"/>
     <rect x="278" y="676" width="92" height="22" rx="5" fill="#d7ba7b" stroke="#233a59" stroke-width="3"/>

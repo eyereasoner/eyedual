@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 7.
+% From The Art of EyeProlog, Chapter 7.
 all_tests_pass(Suite) :-
   \+ failing_test(Suite).
 

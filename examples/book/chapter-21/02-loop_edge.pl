@@ -1,2 +1,2 @@
-% From The Art of Eyelang, Chapter 21.
+% From The Art of EyeProlog, Chapter 21.
 loop_edge(Node) :- edge(Node, Node).

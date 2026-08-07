@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
-import { compileRdfDocumentToEyelang, compileRdfToEyelang } from '../tools/rdf-to-pl.mjs';
-import { extractEyelangRdf } from '../tools/pl-to-rdf.mjs';
+import { compileRdfDocumentToEyeProlog, compileRdfToEyeProlog } from '../tools/rdf-to-pl.mjs';
+import { extractEyePrologRdf } from '../tools/pl-to-rdf.mjs';
 import { run } from '../src/index.js';
 import { TestReporter, isMainModule } from './test-style.mjs';
 
@@ -9,29 +9,29 @@ export async function runRdfTools(reporter = new TestReporter()) {
   reporter.section('RDF tools');
   reporter.test('N-Quads survives an include-source round trip', () => {
     const input = '<https://example/s> <https://example/p> "chat"@fr <https://example/g> .\n_:a <https://example/value> "42"^^<http://www.w3.org/2001/XMLSchema#integer> .\n';
-    const output = run(compileRdfToEyelang(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
-    equal(extractEyelangRdf(output), '<https://example/s> <https://example/p> "chat"@fr <https://example/g> .\n_:e646f63_61 <https://example/value> "42"^^<http://www.w3.org/2001/XMLSchema#integer> .\n');
+    const output = run(compileRdfToEyeProlog(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
+    equal(extractEyePrologRdf(output), '<https://example/s> <https://example/p> "chat"@fr <https://example/g> .\n_:e646f63_61 <https://example/value> "42"^^<http://www.w3.org/2001/XMLSchema#integer> .\n');
   });
   reporter.test('default mode emits only rule-derived quads', () => {
     const input = '<https://example/s> <https://example/parent> <https://example/o> .\n';
     const rules = 'rdf(S, iri("https://example/ancestor"), O, G) :- rdf(S, iri("https://example/parent"), O, G).';
-    const output = run(compileRdfToEyelang(input, { rules }), { goal: 'rdf(S, P, O, G)' }).stdout;
-    equal(extractEyelangRdf(output), '<https://example/s> <https://example/ancestor> <https://example/o> .\n');
+    const output = run(compileRdfToEyeProlog(input, { rules }), { goal: 'rdf(S, P, O, G)' }).stdout;
+    equal(extractEyePrologRdf(output), '<https://example/s> <https://example/ancestor> <https://example/o> .\n');
   });
   reporter.test('RDF 1.2 terms survive an include-source round trip', () => {
     const input = 'VERSION "1.2"\n<https://example/s> <https://example/says> <<( _:a <https://example/text> "مرحبا"@ar--rtl )>> .\n';
-    const output = run(compileRdfToEyelang(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
-    equal(extractEyelangRdf(output), '<https://example/s> <https://example/says> <<( _:e646f63_61 <https://example/text> "مرحبا"@ar--rtl )>> .\n');
+    const output = run(compileRdfToEyeProlog(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
+    equal(extractEyePrologRdf(output), '<https://example/s> <https://example/says> <<( _:e646f63_61 <https://example/text> "مرحبا"@ar--rtl )>> .\n');
   });
   reporter.test('nested RDF 1.2 triple terms survive a round trip', () => {
     const input = '<https://example/s> <https://example/p> <<( <https://example/a> <https://example/b> <<( _:x <https://example/c> "line\\nfeed" )>> )>> .\n';
-    const output = run(compileRdfToEyelang(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
-    equal(extractEyelangRdf(output), '<https://example/s> <https://example/p> <<( <https://example/a> <https://example/b> <<( _:e646f63_78 <https://example/c> "line\\nfeed" )>> )>> .\n');
+    const output = run(compileRdfToEyeProlog(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
+    equal(extractEyePrologRdf(output), '<https://example/s> <https://example/p> <<( <https://example/a> <https://example/b> <<( _:e646f63_78 <https://example/c> "line\\nfeed" )>> )>> .\n');
   });
   reporter.test('RDF blank-node labels accept the full Unicode production', () => {
     const input = '_:éclair <https://example/p> _:名.\n';
-    const output = run(compileRdfToEyelang(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
-    equal(extractEyelangRdf(output), '_:e646f63_c3a9636c616972 <https://example/p> _:e646f63_e5908d .\n');
+    const output = run(compileRdfToEyeProlog(input, { scope: 'doc', includeSource: true }), { goal: 'rdf(S, P, O, G)' }).stdout;
+    equal(extractEyePrologRdf(output), '_:e646f63_c3a9636c616972 <https://example/p> _:e646f63_e5908d .\n');
   });
   const generatedFixtures = [
     ['RDF 1.2 annotation example', 'rdf12-annotation', 'rdf12-annotation'],
@@ -46,7 +46,7 @@ export async function runRdfTools(reporter = new TestReporter()) {
   for (const [label, programStem, inputStem] of generatedFixtures) {
     const source = await fs.readFile(new URL(`../examples/input/${inputStem}.ttl`, import.meta.url), 'utf8');
     const rules = await fs.readFile(new URL(`../examples/input/${inputStem}-rules.pl`, import.meta.url), 'utf8');
-    const generated = await compileRdfDocumentToEyelang(source, {
+    const generated = await compileRdfDocumentToEyeProlog(source, {
       inputPath: `${inputStem}.ttl`,
       scope: `${inputStem}.ttl`,
       rules,
@@ -64,8 +64,8 @@ export async function runRdfTools(reporter = new TestReporter()) {
     ['RDFa', 'example.html', '<div prefix="ex: https://example/" about="ex:s"><a property="ex:p" href="https://example/o">o</a></div>'],
   ];
   for (const [name, inputPath, source] of documents) {
-    const program = await compileRdfDocumentToEyelang(source, { inputPath, includeSource: true, scope: inputPath, baseIRI: 'https://example/base' });
-    const output = extractEyelangRdf(run(program, { goal: 'rdf(S, P, O, G)' }).stdout);
+    const program = await compileRdfDocumentToEyeProlog(source, { inputPath, includeSource: true, scope: inputPath, baseIRI: 'https://example/base' });
+    const output = extractEyePrologRdf(run(program, { goal: 'rdf(S, P, O, G)' }).stdout);
     reporter.test(`${name} input is accepted`, () => { if (!output) throw new Error('expected at least one RDF quad'); });
   }
   reporter.sectionTotal('RDF tool');

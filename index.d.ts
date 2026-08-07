@@ -1,12 +1,12 @@
-export interface EyelangStats {
+export interface EyePrologStats {
   [key: string]: number;
 }
 
-export interface EyelangRunOptions {
+export interface EyePrologRunOptions {
   /** A host-supplied goal, expressed as Prolog text or a parsed term. */
-  goal?: string | EyelangTerm;
+  goal?: string | EyePrologTerm;
   /** Host-supplied goals, executed in order. */
-  goals?: Array<string | EyelangTerm>;
+  goals?: Array<string | EyePrologTerm>;
   proof?: boolean;
   why?: boolean;
   explain?: boolean;
@@ -23,9 +23,9 @@ export interface EyelangRunOptions {
   [key: string]: unknown;
 }
 
-export interface EyelangRunResult {
+export interface EyePrologRunResult {
   stdout: string;
-  stats: EyelangStats;
+  stats: EyePrologStats;
   haltCode: number | null;
 }
 
@@ -37,25 +37,25 @@ export class StreamManager {
   currentOutput: number;
 }
 
-export interface EyelangSourcePart {
+export interface EyePrologSourcePart {
   text?: string;
   source?: string;
   filename?: string;
   baseDir?: string;
 }
 
-export interface EyelangClause {
-  head: EyelangTerm;
-  body: EyelangTerm[];
+export interface EyePrologClause {
+  head: EyePrologTerm;
+  body: EyePrologTerm[];
   index?: number;
   filename?: string;
   clauseNumber?: number;
 }
 
-export interface EyelangPredicateGroup {
+export interface EyePrologPredicateGroup {
   name: string;
   arity: number;
-  clauses: EyelangClause[];
+  clauses: EyePrologClause[];
   argIndexes: unknown[];
   demandIndexes: Map<string, unknown>;
   rejectedDemandIndexes: Set<string>;
@@ -65,42 +65,42 @@ export interface EyelangPredicateGroup {
   negationStratum: number | null;
 }
 
-export type EyelangTerm = Term | { type: string; name: string; args?: EyelangTerm[]; arity?: number };
+export type EyePrologTerm = Term | { type: string; name: string; args?: EyePrologTerm[]; arity?: number };
 
 export class Term {
-  constructor(type: string, name?: unknown, args?: EyelangTerm[]);
+  constructor(type: string, name?: unknown, args?: EyePrologTerm[]);
   type: string;
   name: string;
-  args: EyelangTerm[];
+  args: EyePrologTerm[];
   get arity(): number;
 }
 
 export class Env {
-  constructor(bindings?: Iterable<readonly [string, EyelangTerm]> | null);
-  bindings: Map<string, EyelangTerm>;
+  constructor(bindings?: Iterable<readonly [string, EyePrologTerm]> | null);
+  bindings: Map<string, EyePrologTerm>;
   clone(): Env;
   has(name: string): boolean;
-  get(name: string): EyelangTerm | undefined;
-  bind(name: string, term: EyelangTerm): void;
+  get(name: string): EyePrologTerm | undefined;
+  bind(name: string, term: EyePrologTerm): void;
 }
 
 export class Program {
-  constructor(clauses?: EyelangClause[], options?: EyelangRunOptions);
-  clauses: EyelangClause[];
-  groups: Map<string, EyelangPredicateGroup>;
+  constructor(clauses?: EyePrologClause[], options?: EyePrologRunOptions);
+  clauses: EyePrologClause[];
+  groups: Map<string, EyePrologPredicateGroup>;
   negationDependencies: Array<{ from: string; to: string; negative: boolean }>;
   negationStratificationErrors: Array<{ from: string; to: string }>;
   stratifiedNegation: boolean;
-  static parse(source: string, options?: EyelangRunOptions): Program;
-  static parseSources(sources?: Array<string | EyelangSourcePart>, options?: EyelangRunOptions): Program;
-  makeGroup(name: string, arity: number): EyelangPredicateGroup;
-  indexClause(clause: EyelangClause): void;
-  findGroup(name: string, arity: number): EyelangPredicateGroup | null;
+  static parse(source: string, options?: EyePrologRunOptions): Program;
+  static parseSources(sources?: Array<string | EyePrologSourcePart>, options?: EyePrologRunOptions): Program;
+  makeGroup(name: string, arity: number): EyePrologPredicateGroup;
+  indexClause(clause: EyePrologClause): void;
+  findGroup(name: string, arity: number): EyePrologPredicateGroup | null;
   markRecursivePredicates(): void;
   analyzeNegationStratification(): Array<{ from: string; to: string }>;
   assertStratifiedNegation(): true;
   isStratifiedNegation(): boolean;
-  groupHasRule(group: EyelangPredicateGroup): boolean;
+  groupHasRule(group: EyePrologPredicateGroup): boolean;
   sourceFactLines(predicateKeys?: Set<string> | null): Set<string>;
 }
 
@@ -109,24 +109,24 @@ export interface BuiltinDefinition {
   arity: number;
   handler: BuiltinHandler;
   deterministic: boolean;
-  ready: ((goal: EyelangTerm, env: Env) => boolean) | null;
+  ready: ((goal: EyePrologTerm, env: Env) => boolean) | null;
   fallbackWhenNotReady: boolean;
-  shouldUse: ((context: { solver: Solver; goal: EyelangTerm; env: Env }) => boolean) | null;
-  eyeLangLibrary: boolean;
+  shouldUse: ((context: { solver: Solver; goal: EyePrologTerm; env: Env }) => boolean) | null;
+  eyePrologLibrary: boolean;
 }
 
-export type BuiltinHandler = (context: { solver: Solver; goal: EyelangTerm; env: Env }) => Iterable<Env>;
+export type BuiltinHandler = (context: { solver: Solver; goal: EyePrologTerm; env: Env }) => Iterable<Env>;
 
 export class BuiltinRegistry {
   constructor();
   defs: Map<string, BuiltinDefinition>;
-  eyeLangLibrary?: boolean;
+  eyePrologLibrary?: boolean;
   add(name: string, arity: number, handler: BuiltinHandler, options?: Partial<BuiltinDefinition>): this;
   get(name: string, arity: number): BuiltinDefinition | null;
 }
 
 export class Solver {
-  constructor(program: Program, options?: EyelangRunOptions);
+  constructor(program: Program, options?: EyePrologRunOptions);
   program: Program;
   registry: BuiltinRegistry;
   maxDepth: number;
@@ -134,10 +134,10 @@ export class Solver {
   solutionsSeen: number;
   active: unknown[];
   memo: Map<string, unknown>;
-  stats: EyelangStats;
+  stats: EyePrologStats;
   cloneForInnerGoal(solutionLimit?: number): Solver;
-  solve(goals: EyelangTerm | EyelangTerm[], env?: Env, depth?: number): Iterable<Env>;
-  activeVariant(goal: EyelangTerm, env: Env): boolean;
+  solve(goals: EyePrologTerm | EyePrologTerm[], env?: Env, depth?: number): Iterable<Env>;
+  activeVariant(goal: EyePrologTerm, env: Env): boolean;
 }
 
 export const VAR: 'var';
@@ -151,44 +151,44 @@ export function atom(name: string): Term;
 export function stringTerm(value: string): Term;
 export function numberTerm(value: string | number): Term;
 /** Construct a compound term; an empty argument list is canonicalized to atom(name). */
-export function compound(name: string, args?: EyelangTerm[]): Term;
+export function compound(name: string, args?: EyePrologTerm[]): Term;
 export function emptyList(): Term;
-export function cons(head: EyelangTerm, tail: EyelangTerm): Term;
-export function deref(term: EyelangTerm, env: Env): EyelangTerm;
-export function isScalar(term: EyelangTerm | null | undefined): boolean;
-export function isEmptyList(term: EyelangTerm | null | undefined): boolean;
-export function isCons(term: EyelangTerm | null | undefined): boolean;
-export function isConjunction(term: EyelangTerm | null | undefined): boolean;
-export function unify(left: EyelangTerm, right: EyelangTerm, env: Env): boolean;
-export function cloneTerm(term: EyelangTerm): Term;
-export function freshTerm(term: EyelangTerm, suffix: string | number): Term;
-export function copyResolved(term: EyelangTerm, env: Env): Term;
-export function termIsGround(term: EyelangTerm, env?: Env): boolean;
-export function termToString(term: EyelangTerm, env?: Env, quoteStrings?: boolean): string;
-export function lexicalValue(term: EyelangTerm, env: Env): string | null;
-export function properListItems(list: EyelangTerm, env: Env): EyelangTerm[] | null;
-export function listFromItems(items: EyelangTerm[], start?: number, end?: number, tail?: EyelangTerm): Term;
-export function flattenConjunction(goal: EyelangTerm): EyelangTerm[];
-export function termSignature(term: EyelangTerm | null | undefined): string | null;
-export function variantTerms(left: EyelangTerm, leftEnv: Env, right: EyelangTerm, rightEnv: Env, pairs?: Map<string, string>, reverse?: Map<string, string>): boolean;
-export function compareTerms(left: EyelangTerm, right: EyelangTerm): number;
+export function cons(head: EyePrologTerm, tail: EyePrologTerm): Term;
+export function deref(term: EyePrologTerm, env: Env): EyePrologTerm;
+export function isScalar(term: EyePrologTerm | null | undefined): boolean;
+export function isEmptyList(term: EyePrologTerm | null | undefined): boolean;
+export function isCons(term: EyePrologTerm | null | undefined): boolean;
+export function isConjunction(term: EyePrologTerm | null | undefined): boolean;
+export function unify(left: EyePrologTerm, right: EyePrologTerm, env: Env): boolean;
+export function cloneTerm(term: EyePrologTerm): Term;
+export function freshTerm(term: EyePrologTerm, suffix: string | number): Term;
+export function copyResolved(term: EyePrologTerm, env: Env): Term;
+export function termIsGround(term: EyePrologTerm, env?: Env): boolean;
+export function termToString(term: EyePrologTerm, env?: Env, quoteStrings?: boolean): string;
+export function lexicalValue(term: EyePrologTerm, env: Env): string | null;
+export function properListItems(list: EyePrologTerm, env: Env): EyePrologTerm[] | null;
+export function listFromItems(items: EyePrologTerm[], start?: number, end?: number, tail?: EyePrologTerm): Term;
+export function flattenConjunction(goal: EyePrologTerm): EyePrologTerm[];
+export function termSignature(term: EyePrologTerm | null | undefined): string | null;
+export function variantTerms(left: EyePrologTerm, leftEnv: Env, right: EyePrologTerm, rightEnv: Env, pairs?: Map<string, string>, reverse?: Map<string, string>): boolean;
+export function compareTerms(left: EyePrologTerm, right: EyePrologTerm): number;
 export function isDecimalInteger(text: string | null | undefined): boolean;
 export function compareIntegerText(left: string, right: string): number;
 export function parseFiniteNumber(text: string | null | undefined): number | null;
 export function numberTextFromDouble(value: number): string | null;
 export function compareNumberText(left: string, right: string): number;
 
-export function makeProgram(source: string, options?: EyelangRunOptions): Program;
-export function parseClauses(source: string, options?: EyelangRunOptions): EyelangClause[];
-export function parseProgramText(source: string, options?: EyelangRunOptions): EyelangClause[];
-export function parseGoalText(source: string): EyelangTerm;
+export function makeProgram(source: string, options?: EyePrologRunOptions): Program;
+export function parseClauses(source: string, options?: EyePrologRunOptions): EyePrologClause[];
+export function parseProgramText(source: string, options?: EyePrologRunOptions): EyePrologClause[];
+export function parseGoalText(source: string): EyePrologTerm;
 export function createDefaultRegistry(): BuiltinRegistry;
-export function createEyelangRegistry(): BuiltinRegistry;
+export function createEyePrologRegistry(): BuiltinRegistry;
 export function getDefaultRegistry(): BuiltinRegistry;
-export function getEyelangRegistry(): BuiltinRegistry;
+export function getEyePrologRegistry(): BuiltinRegistry;
 export class PrologError extends Error {
   formal: string;
-  culprit: EyelangTerm | null;
+  culprit: EyePrologTerm | null;
 }
 
 export class HaltSignal extends Error {
@@ -196,12 +196,12 @@ export class HaltSignal extends Error {
   code: number;
   constructor(code?: number);
 }
-export function run(source: string | Program, options?: EyelangRunOptions): EyelangRunResult;
-export function whyProof(program: Program, goal: EyelangTerm, options?: EyelangRunOptions): { ok: boolean; text: string };
-export function whyNoProof(goal: EyelangTerm): string;
-export function explainProof(program: Program, goal: EyelangTerm, options?: EyelangRunOptions): { ok: boolean; text: string };
+export function run(source: string | Program, options?: EyePrologRunOptions): EyePrologRunResult;
+export function whyProof(program: Program, goal: EyePrologTerm, options?: EyePrologRunOptions): { ok: boolean; text: string };
+export function whyNoProof(goal: EyePrologTerm): string;
+export function explainProof(program: Program, goal: EyePrologTerm, options?: EyePrologRunOptions): { ok: boolean; text: string };
 
-declare const eyelang: {
+declare const eyeprolog: {
   VAR: typeof VAR;
   ATOM: typeof ATOM;
   STRING: typeof STRING;
@@ -247,13 +247,13 @@ declare const eyelang: {
   parseClauses: typeof parseClauses;
   parseProgramText: typeof parseProgramText;
   createDefaultRegistry: typeof createDefaultRegistry;
-  createEyelangRegistry: typeof createEyelangRegistry;
+  createEyePrologRegistry: typeof createEyePrologRegistry;
   getDefaultRegistry: typeof getDefaultRegistry;
-  getEyelangRegistry: typeof getEyelangRegistry;
+  getEyePrologRegistry: typeof getEyePrologRegistry;
   run: typeof run;
   whyProof: typeof whyProof;
   whyNoProof: typeof whyNoProof;
   explainProof: typeof explainProof;
 };
 
-export default eyelang;
+export default eyeprolog;

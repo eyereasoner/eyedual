@@ -1,6 +1,6 @@
 % Markov Logic Network style scoring over a tiny finite domain.
 %
-% Eyelang is deterministic, so this is not a probabilistic MLN engine.  The
+% EyeProlog is deterministic, so this is not a probabilistic MLN engine.  The
 % example encodes the usual MLN MAP idea explicitly: enumerate possible worlds,
 % mark which weighted soft formulas each world satisfies, sum the weights, and
 % choose the highest-scoring world.  Weights are stored as integer tenths of a

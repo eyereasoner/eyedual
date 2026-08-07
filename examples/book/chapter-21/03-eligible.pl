@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 21 — Failure rewinds choices, not facts.
+% From The Art of EyeProlog, Chapter 21 — Failure rewinds choices, not facts.
 eligible(Person) :-
   applicant(Person),
   age(Person, Age),

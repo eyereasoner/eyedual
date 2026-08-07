@@ -1,4 +1,4 @@
-// Public Eyelang JavaScript API.
+// Public EyeProlog JavaScript API.
 export * from './src/index.js';
-import * as eyelang from './src/index.js';
-export default eyelang;
+import * as eyeprolog from './src/index.js';
+export default eyeprolog;

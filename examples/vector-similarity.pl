@@ -4,7 +4,7 @@
 % public cosineSimilarity/2 report then combines those folds as
 % dot(A,B)/(norm(A)*norm(B)) for a named vector pair.
 %
-% The example keeps vectors as ordinary Eyelang lists, so it doubles as a compact
+% The example keeps vectors as ordinary EyeProlog lists, so it doubles as a compact
 % demonstration of numeric recursion over list structure.
 
 %% goal: dotProduct(X0, X1)

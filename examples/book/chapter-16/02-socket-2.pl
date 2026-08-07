@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 16.
+% From The Art of EyeProlog, Chapter 16.
 socket(Name, Contract).
 plug(Provider, Name).
 provides(Signature).

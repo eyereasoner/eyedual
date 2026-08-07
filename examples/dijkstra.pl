@@ -1,7 +1,7 @@
 % Weighted path enumeration adapted from Eyeling dijkstra.n3.
 %
 % The Eyeling source uses collect/sort built-ins for Dijkstra's queue.  This
-% eyelang variant enumerates simple paths, keeps the bounded frontier shown in
+% eyeprolog variant enumerates simple paths, keeps the bounded frontier shown in
 % the Eyeling output for a -> f, and scopes the graph inside a quoted term so the
 % route network is not asserted as ambient edge facts.
 

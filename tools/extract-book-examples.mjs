@@ -5,7 +5,7 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const bookPath = path.join(root, 'the-art-of-eyelang.md');
+const bookPath = path.join(root, 'the-art-of-eyeprolog.md');
 const outputRoot = path.join(root, 'examples', 'book');
 const checkOnly = process.argv.includes('--check');
 const book = fs.readFileSync(bookPath, 'utf8');
@@ -14,7 +14,7 @@ const chapters = [];
 let chapter;
 let cursor = 0;
 
-for (const match of book.matchAll(/^(## \d+\. ([^\n]+)|# ([^\n]+)|```eyelang\n([\s\S]*?)```)/gm)) {
+for (const match of book.matchAll(/^(## \d+\. ([^\n]+)|# ([^\n]+)|```eyeprolog\n([\s\S]*?)```)/gm)) {
   const preceding = book.slice(cursor, match.index);
   cursor = match.index + match[0].length;
 
@@ -48,11 +48,11 @@ for (const match of book.matchAll(/^(## \d+\. ([^\n]+)|# ([^\n]+)|```eyelang\n([
 
 const files = new Map();
 const readme = [
-  '# The Art of Eyelang — inline examples',
+  '# The Art of EyeProlog — inline examples',
   '',
-  'These files are generated from the complete `eyelang` code blocks in',
-  '[The Art of Eyelang](../../the-art-of-eyelang.md). They are grouped by chapter and',
-  'retain the source text from the book. Goal fragments and non-Eyelang blocks are',
+  'These files are generated from the complete `eyeprolog` code blocks in',
+  '[The Art of EyeProlog](../../the-art-of-eyeprolog.md). They are grouped by chapter and',
+  'retain the source text from the book. Goal fragments and non-EyeProlog blocks are',
   'not extracted.',
   '',
   'Regenerate them from the repository root with:',
@@ -79,7 +79,7 @@ for (const item of chapters) {
     const heading = example.section ? ` — ${example.section}` : '';
     files.set(
       relative,
-      `% From The Art of Eyelang, Chapter ${item.number}${heading}.\n${example.source}\n`,
+      `% From The Art of EyeProlog, Chapter ${item.number}${heading}.\n${example.source}\n`,
     );
     readme.push(`- [${filename}](${relative})${heading}`);
     total += 1;

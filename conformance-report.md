@@ -1,4 +1,4 @@
-# Eyelang conformance report
+# EyeProlog conformance report
 
 This report summarizes the file-based conformance corpus under `test/conformance/`.
 

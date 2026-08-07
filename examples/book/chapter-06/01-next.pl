@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 6.
+% From The Art of EyeProlog, Chapter 6.
 next(X, Y) :- (Y is X + 1).
 area_rectangle(W, H, Area) :- (Area is W * H).
 

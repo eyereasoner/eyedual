@@ -1,4 +1,4 @@
-% Provenance-derived trust-flow thresholding in Eyelang.
+% Provenance-derived trust-flow thresholding in EyeProlog.
 %
 % Each message combines publisher trust, signature strength, and transform quality
 % into one confidence score.  Receiver-specific thresholds then classify messages

@@ -1,6 +1,6 @@
 % Reference 9.3, 9.6: lexical comparison and simple text matching.
-answer(matches, true) :- matches("eyelang", "eye").
-answer(not_matches, true) :- \+ matches("eyelang", "cat").
+answer(matches, true) :- matches("eyeprolog", "eye").
+answer(not_matches, true) :- \+ matches("eyeprolog", "cat").
 answer(lex_lt, true) :- (alpha @< beta).
 answer(lex_gt, true) :- (beta @> alpha).
 answer(numeric_le, true) :- (2 =< 2).

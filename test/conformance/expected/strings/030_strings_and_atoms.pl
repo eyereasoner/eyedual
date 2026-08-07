@@ -1,2 +1,2 @@
-answer(string_concat, "eyelang").
+answer(string_concat, "eyeprolog").
 answer(contains, true).

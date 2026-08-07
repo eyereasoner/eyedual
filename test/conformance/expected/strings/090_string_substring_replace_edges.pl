@@ -1,4 +1,4 @@
-answer(prefix, "eyelang").
+answer(prefix, "eyeprolog").
 answer(middle, "la").
 answer(suffix, "gla").
 answer(empty_at_end, "").

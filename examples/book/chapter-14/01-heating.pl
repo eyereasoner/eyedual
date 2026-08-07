@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 14.
+% From The Art of EyeProlog, Chapter 14.
 heating(Battery, Watts) :-
   current(Battery, Amps),
   resistance(Battery, Ohms),

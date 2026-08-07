@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 5.
+% From The Art of EyeProlog, Chapter 5.
 first([Head | _], Head).
 
 contains_item(X, [X | _]).

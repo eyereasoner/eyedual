@@ -1,4 +1,4 @@
-// Command-line interface for Eyelang.
+// Command-line interface for EyeProlog.
 // It loads programs from files, URLs, or stdin, then runs requested goals.
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -66,7 +66,7 @@ export async function main(argv) {
   }
 
   if (options.version) {
-    process.stdout.write(`eyelang ${await packageVersion()}\n`);
+    process.stdout.write(`eyeprolog ${await packageVersion()}\n`);
     return;
   }
 
@@ -137,7 +137,7 @@ async function runDefault(engine, program, options) {
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
   const facts = program.sourceFactLines(queriedKeys);
   const lines = new Set();
-  const registry = engine.getEyelangRegistry();
+  const registry = engine.getEyePrologRegistry();
   const explanation = options.proof ? await loadExplanation() : null;
   const solver = new engine.Solver(program, {
     registry,
@@ -175,14 +175,14 @@ function writeExplanation(explanation, program, resolved, registry) {
 }
 
 async function usage(stream) {
-  stream.write(`eyelang ${await packageVersion()}
+  stream.write(`eyeprolog ${await packageVersion()}
 
 Usage:
-  eyelang [options] [file-or-url.pl|- ...]
+  eyeprolog [options] [file-or-url.pl|- ...]
 
 Input:
-  file-or-url.pl        Read an Eyelang program from a local file or http(s) URL.
-  -                     Read an Eyelang program from standard input.
+  file-or-url.pl        Read an EyeProlog program from a local file or http(s) URL.
+  -                     Read an EyeProlog program from standard input.
 
 Options:
   -h, --help            Show this help text and exit.
@@ -212,14 +212,14 @@ function printWarnings(program) {
   const errors = program.negationStratificationErrors;
   if (errors.length === 0) return;
 
-  process.stderr.write('eyelang warning: unstratified negation\n');
+  process.stderr.write('eyeprolog warning: unstratified negation\n');
   for (const edge of errors) {
     process.stderr.write(`  ${edge.from} depends negatively on ${edge.to}\n`);
   }
 }
 
 function printStats(stats) {
-  process.stderr.write('eyelang stats:\n');
+  process.stderr.write('eyeprolog stats:\n');
   for (const [key, value] of Object.entries(stats)) {
     process.stderr.write(`  ${key}: ${value}\n`);
   }

@@ -41,16 +41,16 @@ why(
   )
 ).
 
-project_contact('<https://github.com/eyereasoner/eyelang>', '<https://data.ugent.be/id/josd>', "josderoo@gmail.com").
+project_contact('<https://github.com/eyereasoner/eyeprolog>', '<https://data.ugent.be/id/josd>', "josderoo@gmail.com").
 why(
-  project_contact('<https://github.com/eyereasoner/eyelang>', '<https://data.ugent.be/id/josd>', "josderoo@gmail.com"),
+  project_contact('<https://github.com/eyereasoner/eyeprolog>', '<https://data.ugent.be/id/josd>', "josderoo@gmail.com"),
   proof(
-    goal(project_contact('<https://github.com/eyereasoner/eyelang>', '<https://data.ugent.be/id/josd>', "josderoo@gmail.com")),
+    goal(project_contact('<https://github.com/eyereasoner/eyeprolog>', '<https://data.ugent.be/id/josd>', "josderoo@gmail.com")),
     by(rule("web-names.pl", clause(12))),
-    bindings([binding("Project", '<https://github.com/eyereasoner/eyelang>'), binding("Person", '<https://data.ugent.be/id/josd>'), binding("Email", "josderoo@gmail.com")]),
+    bindings([binding("Project", '<https://github.com/eyereasoner/eyeprolog>'), binding("Person", '<https://data.ugent.be/id/josd>'), binding("Email", "josderoo@gmail.com")]),
     uses([
       proof(
-        goal(triple('<https://github.com/eyereasoner/eyelang>', '<https://schema.org/maintainer>', '<https://data.ugent.be/id/josd>')),
+        goal(triple('<https://github.com/eyereasoner/eyeprolog>', '<https://schema.org/maintainer>', '<https://data.ugent.be/id/josd>')),
         by(fact("web-names.pl", clause(7)))
       ),
       proof(

@@ -1,5 +1,5 @@
 % Allen interval calculus adapted from Eyeling allen-interval-calculus.n3.
-% Eyeling demonstrates dateTime and duration built-ins; this eyelang version
+% Eyeling demonstrates dateTime and duration built-ins; this eyeprolog version
 % uses integer hour offsets so the interval rules remain pure Horn clauses.
 % The input interval table is a list of records, showing how tabular data can
 % stay scoped as one term instead of many unrelated global start/end facts.

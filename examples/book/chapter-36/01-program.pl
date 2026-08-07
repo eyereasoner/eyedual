@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 36.
+% From The Art of EyeProlog, Chapter 36.
 :- dynamic(task/2).
 
 prepare_queue :-

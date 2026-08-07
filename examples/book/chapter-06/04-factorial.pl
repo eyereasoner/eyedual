@@ -1,4 +1,4 @@
-% From The Art of Eyelang, Chapter 6.
+% From The Art of EyeProlog, Chapter 6.
 factorial(0, 1).
 factorial(N, F) :-
   (N > 0),

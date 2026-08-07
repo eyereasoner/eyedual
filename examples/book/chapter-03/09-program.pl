@@ -1,2 +1,2 @@
-% From The Art of Eyelang, Chapter 3 — Equality, unification, and the occurs check.
+% From The Art of EyeProlog, Chapter 3 — Equality, unification, and the occurs check.
 (X = wrapper(X)).
