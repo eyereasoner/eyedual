@@ -177,15 +177,23 @@ why(
       },
     },
     {
-      name: 'EYEPROLOG_LOCAL_TIME fixes local_time builtin',
+      name: 'seeded random/3 sequence is reproducible',
       run: () => {
-        const result = runCli(['--goal', 'local_time_answer(D)', '-'], {
-          input: 'local_time_answer(D) :- local_time(D).\n',
-          env: { EYEPROLOG_LOCAL_TIME: '2024-01-02' },
-        });
-        assertEqual(result.status, 0, 'exit status');
-        assertEqual(result.stdout, "local_time_answer('2024-01-02').\n", 'stdout');
-        assertEqual(result.stderr, '', 'stderr');
+        const result = run(
+          'seeded(A, B, C, Seeds) :- random(1, A, S1), random(S1, B, S2), random(1, C, S3), Seeds = [S1, S2, S3].\n',
+          { goal: 'seeded(A, B, C, Seeds)' },
+        );
+        assertEqual(result.stdout, 'seeded(0.00002247747035927835, 0.085032448717423201, 0.00002247747035927835, [48271, 182605794, 48271]).\n', 'stdout');
+      },
+    },
+    {
+      name: 'seeded uuid/3 sequence is reproducible',
+      run: () => {
+        const result = run(
+          'seeded_uuid(U1, U2, true) :- uuid(1, U1, S1), uuid(1, U1, _), uuid(S1, U2, _), U1 \\= U2.\n',
+          { goal: 'seeded_uuid(U1, U2, Same)' },
+        );
+        assertEqual(result.stdout, "seeded_uuid('f26d1319-3f3f-4bd9-b92f-f414794a43b5', '4be874d3-166b-4107-b0dc-9c53074b3de1', true).\n", 'stdout');
       },
     },
     {
@@ -576,7 +584,7 @@ function documentationSyncCases() {
           '[Book — *The Art of EyeProlog*](https://eyereasoner.github.io/eyeprolog/the-art-of-eyeprolog)',
           'README links to the book',
         );
-        for (const filename of ['src/iso.js', 'src/library.js', 'src/playground-worker.js']) {
+        for (const filename of ['src/iso.js', 'src/eyeprolog-library.js', 'src/playground-worker.js']) {
           assertEqual(fs.existsSync(path.join(packageRoot, filename)), true, `${filename} exists`);
           assertIncludes(book, filename, `book documents ${filename}`);
         }
@@ -1007,19 +1015,21 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not ISO core');
         assertEqual(library.eyePrologLibrary, true, 'complete registry marker');
-        assertEqual(library.defs.size, 117, 'ISO plus host registry size');
-        assertEqual(registeredNativeEyePrologLibraryNames().length, 2, 'public native EyeProlog builtin count');
-        assertEqual(eyePrologPortableLibraryIndicators.length, 48, 'portable Prolog library count');
-        assertEqual(eyePrologNativeLibraryIndicators.length, 2, 'native host library count');
-        assertEqual(eyePrologNativeLibraryIndicators.join(','), 'uuid/1,local_time/1', 'native host library stays minimal');
+        assertEqual(library.defs.size, 115, 'EyeProlog registry contains only ISO host definitions');
+        assertEqual(registeredNativeEyePrologLibraryNames().length, 0, 'public native EyeProlog builtin count');
+        assertEqual(eyePrologPortableLibraryIndicators.length, 50, 'portable Prolog library count');
+        assertEqual(eyePrologNativeLibraryIndicators.length, 0, 'native host library count');
+        assertEqual(eyePrologNativeLibraryIndicators.join(','), '', 'no EyeProlog library predicate requires host support');
         assertEqual(eyePrologLibraryIndicators.length, 50, 'complete EyeProlog library surface');
         assertEqual(library.get('between', 3), null, 'between/3 remains portable Prolog');
         assertEqual(library.get('smallest_divisor_from', 3), null, 'smallest_divisor_from/3 remains portable Prolog');
+        assertEqual(library.get('random', 3), null, 'random/3 remains portable Prolog');
+        assertEqual(library.get('local_time', 1), null, 'local_time/1 is not a host builtin');
         assertEqual(library.get('eyeprolog__string_atom', 2), null, 'private string adapter is absent');
         assertEqual(library.get('append', 3), null, 'append/3 moved to portable Prolog');
         assertEqual(library.get('maplist', 3), null, 'maplist/3 moved to portable Prolog');
         assertEqual(library.get('matches', 3), null, 'matches/3 moved to portable Prolog');
-        assertEqual(library.get('uuid', 1)?.deterministic, true, 'uuid/1 deterministic metadata');
+        assertEqual(library.get('uuid', 3), null, 'uuid/3 remains portable Prolog');
         for (const [name, arity] of [['not_member', 2], ['head', 2], ['rest', 2], ['min', 3], ['max', 3]]) {
           assertEqual(library.get(name, arity), null, `${name}/${arity} removed from library`);
         }
@@ -1037,9 +1047,11 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(betweenGenerator.cutRecursive, true, 'portable between generator has deterministic recursive control');
         assertEqual(betweenGenerator.tabled, false, 'portable between generator avoids suffix answer tables');
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'eyeprolog-library.pl')), true, 'portable Prolog source exists');
-        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'library-source.js')), true, 'portable source loader exists');
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'eyeprolog-library.js')), true, 'portable source loader exists');
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'library-source.js')), false, 'duplicate source loader is absent');
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js')), false, 'obsolete duplicate module remains absent');
         assertEqual(run(program, { goal: 'answer(X)' }).stdout, 'answer([a, b]).\n', 'autoloaded append execution');
+        assertEqual(Boolean(program.findGroup('random', 3)), true, 'random/3 is autoloaded as a clause group');
       },
     },
     {
@@ -1053,8 +1065,9 @@ portable_check(A, B, C) :- lowercase('HELLO', A), replace('banana', 'na', 'NA', 
         const goal = parseGoalText('portable_check(A, B, C)');
         const answers = [...solver.solve([goal], new Env(), 0)].map((env) => termToString(goal, env, true));
         assertEqual(answers.join('\n'), "portable_check(hello, baNANA, [x, y])", 'ISO-only portable execution');
-        assertEqual(program.findGroup('uuid', 1), null, 'uuid/1 remains outside portable file');
-        assertEqual(program.findGroup('local_time', 1), null, 'local_time/1 remains outside portable file');
+        assertEqual(Boolean(program.findGroup('uuid', 3)), true, 'uuid/3 is implemented in the portable file');
+        assertEqual(program.findGroup('uuid', 1), null, 'obsolete uuid/1 is absent');
+        assertEqual(program.findGroup('local_time', 1), null, 'local_time/1 is absent from the library');
       },
     },
     {
@@ -1699,7 +1712,7 @@ function playgroundStaticIssues() {
   if (!html.includes("new URL('./src/playground-worker.js?playground=")) issues.push('playground must cache-bust its dedicated module worker');
   if (!html.includes("new Worker(workerUrl, { type: 'module' })")) issues.push('playground must launch the dedicated module worker');
   const workerText = fs.readFileSync(path.join(packageRoot, 'src', 'playground-worker.js'), 'utf8');
-  if (!workerText.includes("from './library.js?playground=") ||
+  if (!workerText.includes("from './eyeprolog-library.js?playground=") ||
       !workerText.includes('createEyePrologRegistry') ||
       !workerText.includes('executePlaygroundRequest')) {
     issues.push('playground worker must install the EyeProlog library registry');

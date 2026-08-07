@@ -1,12 +1,12 @@
-% uuid/1 creates exactly one fresh version 4 UUID atom.
+% uuid/3 creates a version 4 UUID atom from explicit random state.
 %
-% The UUID itself varies between runs, so this example checks its type and
-% canonical shape while returning a stable, reviewable answer.
+% The same initial seed reproduces the same UUID across runs. Threading the
+% returned seed into another call produces the next UUID in the sequence.
 
 %% goal: uuid_example(Result)
 
 uuid_example(true) :-
-  uuid(UUID),
+  uuid(20260807, UUID, _),
   atom(UUID),
   atom_length(UUID, 36),
   sub_atom(UUID, 8, 1, 27, '-'),

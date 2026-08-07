@@ -4,7 +4,7 @@
 // human-readable and machine-readable.
 import { ATOM, COMPOUND, Env, Term, VAR, deref, flattenConjunction, freshTerm, termToString, unify, variantTerms } from './term.js';
 import { selectClauseCandidates } from './program.js';
-import { getEyePrologRegistry } from './library.js';
+import { getEyePrologRegistry } from './eyeprolog-library.js';
 import { Solver, nextFreshId } from './solver.js';
 
 export function whyProof(program, goal, options = {}) {

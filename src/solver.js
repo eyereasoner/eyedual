@@ -5,7 +5,7 @@ import {
   numberTerm, numberTextFromDouble, termIsGround, termToString, unify, variantTerms,
 } from './term.js';
 import { PrologError } from './iso.js';
-import { ensureEyePrologLibrary, getEyePrologRegistry } from './library.js';
+import { ensureEyePrologLibrary, getEyePrologRegistry } from './eyeprolog-library.js';
 import { selectClauseCandidates, selectClauseCandidatesForValues, selectGroundClauseCandidates } from './program.js';
 import { StreamManager } from './io.js';
 

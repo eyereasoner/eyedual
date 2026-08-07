@@ -94,7 +94,7 @@ export async function runPlayground(reporter = new TestReporter()) {
     await withStaticServer(async (baseUrl) => {
       const modules = await crawlModuleGraph(new URL('src/playground-worker.js?playground=test', baseUrl));
       assert(modules.size >= 10, `expected a substantial worker module graph, got ${modules.size}`);
-      assert([...modules].some((url) => url.includes('/src/library.js')), 'EyeProlog library missing from worker graph');
+      assert([...modules].some((url) => url.includes('/src/eyeprolog-library.js')), 'EyeProlog library missing from worker graph');
       assert([...modules].some((url) => url.includes('/src/solver.js')), 'solver missing from worker graph');
     });
   });

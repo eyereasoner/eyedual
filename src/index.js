@@ -18,7 +18,7 @@ export {
   eyePrologLibraryIndicators,
   eyePrologNativeLibraryIndicators,
   eyePrologPortableLibraryIndicators,
-} from './library.js';
+} from './eyeprolog-library.js';
 export { StreamManager } from './io.js';
 
 import { ATOM, COMPOUND, VAR, Env, copyResolved, termIsGround, termToString } from './term.js';
@@ -26,7 +26,7 @@ import { Program } from './program.js';
 import { Solver } from './solver.js';
 import { whyNoProof, whyProof } from './explain.js';
 import { HaltSignal, PrologError } from './iso.js';
-import { getEyePrologRegistry } from './library.js';
+import { getEyePrologRegistry } from './eyeprolog-library.js';
 import { parseGoalText } from './parser.js';
 
 export function run(source, options = {}) {

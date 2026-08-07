@@ -1710,10 +1710,10 @@ truncate search; it does not prove that no further answer exists.
 
 The source layout mirrors the language boundary. `src/iso.js` contains the
 isolated ISO processor predicates and registry. `src/eyeprolog-library.pl` is
-the portable EyeProlog library: 48 public predicates written as ordinary
-Prolog clauses against that ISO profile. `src/library-source.js` loads the same
-file in Node and the browser, while `src/library.js` owns autoload integration
-and the two unavoidable public host predicates, `uuid/1` and `local_time/1`.
+the portable EyeProlog library: 50 public predicates written as ordinary
+Prolog clauses against that ISO profile. Its paired
+`src/eyeprolog-library.js` module loads the Prolog file in Node and the browser
+and owns the small autoload integration layer.
 The RDF tools emit IRI and literal lexical values as ISO atoms, matching the
 portable text API without a host representation adapter.
 
@@ -5253,17 +5253,15 @@ so side effects occur in Prolog execution order.
 ### The EyeProlog library
 
 EyeProlog exposes **50 library predicate indicators** in addition to the 115
-indicators in its isolated ISO profile. Of those 50, **48 are ordinary Prolog
-clauses** in `src/eyeprolog-library.pl`; only **`uuid/1` and `local_time/1` are
-native host predicates** because ISO Prolog provides neither entropy nor a wall
-clock. The resulting normal EyeProlog language surface is therefore **165
-public predicate indicators**. Internally, the runtime registry has 117
-definitions: 115 ISO predicates and the 2 public host predicates.
+indicators in its isolated ISO profile. **All 50 are ordinary Prolog clauses**
+in `src/eyeprolog-library.pl`; none is a native host predicate. The resulting
+normal EyeProlog language surface is therefore **165 public predicate
+indicators**. Internally, the runtime registry contains only the 115 ISO
+definitions; the EyeProlog relations are autoloaded source clauses.
 
 The portable file is autoloaded once into every `Program` used with the
-EyeProlog registry. `src/library-source.js` loads it from the package in Node or
-through `fetch()` in the browser; `src/library.js` performs the autoload and
-registers the two host predicates.
+EyeProlog registry. `src/eyeprolog-library.js` loads it from the package in Node
+or through `fetch()` in the browser and performs the autoload.
 The isolated ISO-only registry remains
 available through `createDefaultRegistry()` and `getDefaultRegistry()` for
 conformance work and advanced embedders. Source clauses sharing a portable
@@ -5283,11 +5281,11 @@ standard fallback relation.
 | `join/3`, `substring/4` |
 | `countall/2`, `sumall/3` |
 | `aggregate_min/5`, `aggregate_max/5` |
-| `between/3`, `smallest_divisor_from/3` |
+| `between/3`, `smallest_divisor_from/3`, `random/3` |
 | `maplist/3` |
 | `acos/2`, `asin/2`, `atan2/3`, `tan/2` |
 | `lt/2`, `le/2`, `gt/2`, `ge/2` |
-| `uuid/1`, `local_time/1`, `difference/3` |
+| `uuid/3`, `difference/3` |
 | `matches/3` |
 | `call/3` |
 | `split/3`, `replace/4` |
@@ -5296,10 +5294,11 @@ standard fallback relation.
 
 <!-- eyeprolog-library-catalog:end -->
 
-`uuid/1` creates one fresh version 4 UUID atom. It is deterministic in
-the Prolog sense: each call has exactly one solution, although the generated atom
-is intentionally different between calls. The implementation uses the Web Crypto API where available and remains
-portable across Node and the browser playground.
+`uuid(+Seed0,-UUID,-Seed)` creates a version 4 UUID atom using `random/3`.
+Passing the returned seed to the next call produces the next UUID; restarting
+with the same integer seed reproduces the same sequence exactly. This explicit
+state replaces hidden host entropy and behaves identically in Node and the
+browser playground.
 
 On the command line, the EyeProlog library is already present:
 
@@ -5335,13 +5334,14 @@ the corresponding predicate.
 | --- | --- |
 | `tan/2`, `asin/2`, `acos/2`, `atan2/3` | Floating-point functions not supplied as evaluable functions by ISO/IEC 13211-1. |
 | `lt(+A,+B)`, `le(+A,+B)`, `gt(+A,+B)`, `ge(+A,+B)` | Compare integers exactly, finite numeric text numerically, `PnYnMnD` duration text component-wise, and other lexical values by string order. These differ from ISO arithmetic comparison and standard term order. |
-| `local_time(-Date)` | The one host relation in this group. Produces the host-local calendar date as atom `'YYYY-MM-DD'`. Tests and reproducible hosts may set `EYEPROLOG_LOCAL_TIME`. |
+| `random(+Seed0,-Value,-Seed)` | Portable Park-Miller generator with explicit state. `Value` is in `[0,1)`; pass the returned integer `Seed` to the next call. The same initial integer seed always reproduces the same sequence. |
 | `difference(+End,+Start,-Duration)` | Portable Prolog. Computes a nonnegative calendar difference between ISO date atoms/character lists and returns atom `'PnYnMnD'`. Invalid dates or an end before the start fail. |
 
 ```eyeprolog
 answer(square, S) :- (S is 12 * 12).
 answer(day_count, N) :- between(3, 5, N).
 answer(age, D) :- difference('2026-07-28', '2020-05-20', D).
+answer(random_pair, [A,B]) :- random(42, A, S), random(S, B, _).
 eyeprolog --goal 'answer(Kind, Value)' program.pl
 ```
 
@@ -5778,7 +5778,7 @@ studies.
 | [Socket Age](https://github.com/eyereasoner/eyeprolog/blob/main/examples/socket-age.pl) | Socket and plug declarations for an age-reasoning module with registry, policy, and clock providers. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/socket-age.pl) · [proof](https://github.com/eyereasoner/eyeprolog/blob/main/examples/proof/socket-age.pl) |
 | [Socket Family](https://github.com/eyereasoner/eyeprolog/blob/main/examples/socket-family.pl) | Socket and plug declarations for a family-reasoning module that expects a `parent/2` provider. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/socket-family.pl) · [proof](https://github.com/eyereasoner/eyeprolog/blob/main/examples/proof/socket-family.pl) |
 | [Socrates](https://github.com/eyereasoner/eyeprolog/blob/main/examples/socrates.pl) | A fact and one rule turn the classical syllogism into a ground derivation. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/socrates.pl) · [proof](https://github.com/eyereasoner/eyeprolog/blob/main/examples/proof/socrates.pl) |
-| [UUID](https://github.com/eyereasoner/eyeprolog/blob/main/examples/uuid.pl) | `uuid/1` creates one version 4 UUID atom; the example validates its shape while keeping the checked answer stable. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/uuid.pl) |
+| [UUID](https://github.com/eyereasoner/eyeprolog/blob/main/examples/uuid.pl) | `uuid/3` reproducibly creates one version 4 UUID atom from explicit random state; the example validates its canonical shape. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/uuid.pl) |
 | [Witch](https://github.com/eyereasoner/eyeprolog/blob/main/examples/witch.pl) | Burn the witch, adapted from Eyeling's examples/witch.n3. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/witch.pl) · [proof](https://github.com/eyereasoner/eyeprolog/blob/main/examples/proof/witch.pl) |
 
 Suggested path: Socrates → Age → Ancestor → Derived rule → Reusable built-ins.

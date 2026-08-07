@@ -14,7 +14,6 @@ const packageRoot = path.resolve(root, '..');
 const examplesDir = path.join(packageRoot, 'examples');
 const expectedDir = path.join(examplesDir, 'output');
 const expectedProofDir = path.join(examplesDir, 'proof');
-const fixedExampleDate = '2026-05-30';
 
 export const proofExamples = [
   'access-control-policy.pl',
@@ -124,25 +123,18 @@ function runProofExample(name) {
 }
 
 function runProgramExample(programFile, filename, options) {
-  const oldLocalTime = process.env.EYEPROLOG_LOCAL_TIME;
-  process.env.EYEPROLOG_LOCAL_TIME = fixedExampleDate;
+  const text = fs.readFileSync(programFile, 'utf8');
+  const expectedExit = text.match(/^%\s*expect-exit:\s*(\d+)\s*$/m);
+  const program = Program.parseSources([{ text, filename }], {
+    sourceMetadata: options.proof,
+  });
   try {
-    const text = fs.readFileSync(programFile, 'utf8');
-    const expectedExit = text.match(/^%\s*expect-exit:\s*(\d+)\s*$/m);
-    const program = Program.parseSources([{ text, filename }], {
-      sourceMetadata: options.proof,
-    });
-    try {
-      const result = run(program, { ...options, goals: goalsInProgramOrder(program, text) });
-      if (expectedExit) throw new Error(`${filename} expected exit ${expectedExit[1]}, but reasoning succeeded`);
-      return result.stdout;
-    } catch (error) {
-      if (expectedExit && error?.code === Number(expectedExit[1])) return error.stdout ?? '';
-      throw error;
-    }
-  } finally {
-    if (oldLocalTime == null) delete process.env.EYEPROLOG_LOCAL_TIME;
-    else process.env.EYEPROLOG_LOCAL_TIME = oldLocalTime;
+    const result = run(program, { ...options, goals: goalsInProgramOrder(program, text) });
+    if (expectedExit) throw new Error(`${filename} expected exit ${expectedExit[1]}, but reasoning succeeded`);
+    return result.stdout;
+  } catch (error) {
+    if (expectedExit && error?.code === Number(expectedExit[1])) return error.stdout ?? '';
+    throw error;
   }
 }
 

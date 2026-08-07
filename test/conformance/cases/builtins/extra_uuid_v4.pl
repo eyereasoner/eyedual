@@ -1,6 +1,6 @@
-% uuid/1 is deterministic and creates a canonical version 4 UUID atom.
+% uuid/3 deterministically creates a canonical version 4 UUID atom from a seed.
 answer(uuid_v4, true) :-
-  uuid(UUID),
+  uuid(1, UUID, _),
   atom(UUID),
   atom_length(UUID, 36),
   sub_atom(UUID, 8, 1, 27, '-'),

@@ -3,8 +3,8 @@
 % This file is autoloaded for the EyeProlog runtime and is intentionally
 % written against the project's ISO compatibility profile.  Text-facing
 % predicates accept ISO atoms or proper lists of one-character atoms; newly
-% produced text defaults to atoms.  Only uuid/1 and local_time/1 remain native
-% host built-ins because ISO Prolog has no entropy or wall-clock primitive.
+% produced text defaults to atoms. Every public predicate in this file uses
+% only the project's ISO Prolog profile; none requires host support.
 
 % ---------- text representation helpers ----------
 
@@ -139,6 +139,72 @@ eyeprolog__between(Low, High, Value) :-
     % out of automatic answer tabling, which would retain every range suffix.
     !,
     eyeprolog__between(Next, High, Value).
+
+% A Park-Miller generator with explicit state. Threading Seed into the next
+% call makes a sequence reproducible without mutable runtime state. Schrage's
+% method keeps every intermediate integer within the exact 32-bit range.
+random(Seed0, Value, Seed) :-
+    integer(Seed0),
+    eyeprolog__random_normalize_seed(Seed0, Normalized),
+    High is Normalized // 44488,
+    Low is Normalized mod 44488,
+    Candidate is 48271 * Low - 3399 * High,
+    eyeprolog__random_wrap(Candidate, Seed),
+    Value is (Seed - 1) / 2147483646.
+
+eyeprolog__random_normalize_seed(Seed, 1) :-
+    0 is Seed mod 2147483647,
+    !.
+eyeprolog__random_normalize_seed(Seed, Normalized) :-
+    Normalized is Seed mod 2147483647.
+
+eyeprolog__random_wrap(Candidate, Candidate) :- Candidate > 0, !.
+eyeprolog__random_wrap(Candidate, Seed) :- Seed is Candidate + 2147483647.
+
+% Seed-threaded UUID version 4 generation. The version and variant nibbles are
+% fixed by RFC 9562; all other nibbles come from random/3. Reusing Seed0
+% reproduces the same UUID, while threading Seed produces a deterministic
+% sequence of different UUIDs.
+uuid(Seed0, UUID, Seed) :-
+    eyeprolog__uuid_hex(8, Seed0, Group1, Seed1),
+    eyeprolog__uuid_hex(4, Seed1, Group2, Seed2),
+    eyeprolog__uuid_hex(3, Seed2, Group3, Seed3),
+    random(Seed3, _, Seed4),
+    VariantValue is 8 + Seed4 mod 4,
+    eyeprolog__hex_digit(VariantValue, Variant),
+    eyeprolog__uuid_hex(3, Seed4, Group4, Seed5),
+    eyeprolog__uuid_hex(12, Seed5, Group5, Seed),
+    append(Group1, ['-'|Tail1], Chars),
+    append(Group2, ['-','4'|Tail2], Tail1),
+    append(Group3, ['-',Variant|Tail3], Tail2),
+    append(Group4, ['-'|Group5], Tail3),
+    atom_chars(UUID, Chars).
+
+eyeprolog__uuid_hex(0, Seed, [], Seed).
+eyeprolog__uuid_hex(Count, Seed0, [Digit|Digits], Seed) :-
+    Count > 0,
+    random(Seed0, _, Seed1),
+    Value is Seed1 mod 16,
+    eyeprolog__hex_digit(Value, Digit),
+    NextCount is Count - 1,
+    eyeprolog__uuid_hex(NextCount, Seed1, Digits, Seed).
+
+eyeprolog__hex_digit(0, '0').
+eyeprolog__hex_digit(1, '1').
+eyeprolog__hex_digit(2, '2').
+eyeprolog__hex_digit(3, '3').
+eyeprolog__hex_digit(4, '4').
+eyeprolog__hex_digit(5, '5').
+eyeprolog__hex_digit(6, '6').
+eyeprolog__hex_digit(7, '7').
+eyeprolog__hex_digit(8, '8').
+eyeprolog__hex_digit(9, '9').
+eyeprolog__hex_digit(10, a).
+eyeprolog__hex_digit(11, b).
+eyeprolog__hex_digit(12, c).
+eyeprolog__hex_digit(13, d).
+eyeprolog__hex_digit(14, e).
+eyeprolog__hex_digit(15, f).
 
 smallest_divisor_from(N, Start, Divisor) :-
     N >= 0,

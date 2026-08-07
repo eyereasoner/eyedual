@@ -12,7 +12,7 @@ why(
         uses([
           proof(
             goal(task(check_power, urgent)),
-            by(fact("<input>", clause(275)))
+            by(fact("<input>", clause(299)))
           )
         ])
       )
