@@ -7,7 +7,7 @@ why(
     bindings([binding("Pack", bp1), binding("Margin", -18.0), binding("Maximum", 60.0), binding("Temperature", 78.0)]),
     uses([
       proof(
-        goal(limit(max_safe_temperature_c, 60.0)),
+        goal(safety_limit(max_safe_temperature_c, 60.0)),
         by(fact("spacecraft-battery-diagnosis.pl", clause(7)))
       ),
       proof(
@@ -68,7 +68,7 @@ why(
             by(fact("spacecraft-battery-diagnosis.pl", clause(1)))
           ),
           proof(
-            goal(limit(max_safe_temperature_c, 60.0)),
+            goal(safety_limit(max_safe_temperature_c, 60.0)),
             by(fact("spacecraft-battery-diagnosis.pl", clause(7)))
           ),
           proof(
@@ -87,7 +87,7 @@ why(
             by(fact("spacecraft-battery-diagnosis.pl", clause(2)))
           ),
           proof(
-            goal(limit(max_temperature_rise_c_per_min, 1.5)),
+            goal(safety_limit(max_temperature_rise_c_per_min, 1.5)),
             by(fact("spacecraft-battery-diagnosis.pl", clause(8)))
           ),
           proof(
@@ -106,7 +106,7 @@ why(
             by(fact("spacecraft-battery-diagnosis.pl", clause(5)))
           ),
           proof(
-            goal(limit(max_cell_delta_v, 0.08)),
+            goal(safety_limit(max_cell_delta_v, 0.08)),
             by(fact("spacecraft-battery-diagnosis.pl", clause(9)))
           ),
           proof(
@@ -180,7 +180,7 @@ why(
                 by(fact("spacecraft-battery-diagnosis.pl", clause(1)))
               ),
               proof(
-                goal(limit(max_safe_temperature_c, 60.0)),
+                goal(safety_limit(max_safe_temperature_c, 60.0)),
                 by(fact("spacecraft-battery-diagnosis.pl", clause(7)))
               ),
               proof(
@@ -199,7 +199,7 @@ why(
                 by(fact("spacecraft-battery-diagnosis.pl", clause(2)))
               ),
               proof(
-                goal(limit(max_temperature_rise_c_per_min, 1.5)),
+                goal(safety_limit(max_temperature_rise_c_per_min, 1.5)),
                 by(fact("spacecraft-battery-diagnosis.pl", clause(8)))
               ),
               proof(
@@ -218,7 +218,7 @@ why(
                 by(fact("spacecraft-battery-diagnosis.pl", clause(5)))
               ),
               proof(
-                goal(limit(max_cell_delta_v, 0.08)),
+                goal(safety_limit(max_cell_delta_v, 0.08)),
                 by(fact("spacecraft-battery-diagnosis.pl", clause(9)))
               ),
               proof(
@@ -281,7 +281,7 @@ why(
             by(fact("spacecraft-battery-diagnosis.pl", clause(6)))
           ),
           proof(
-            goal(limit(max_safe_temperature_c, 60.0)),
+            goal(safety_limit(max_safe_temperature_c, 60.0)),
             by(fact("spacecraft-battery-diagnosis.pl", clause(7)))
           ),
           proof(

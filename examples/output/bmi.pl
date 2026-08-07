@@ -30,3 +30,12 @@ c8(check, "OK - classification behavior is monotonic across representative BMI v
 c9(check, "OK - the healthy-weight band was reconstructed from BMI 18.5 to 24.9 at the same height.").
 result(report, bmi(22.72, "Normal")).
 healthyWeightRangeKg(report, range(58.6, 78.9)).
+checkPassed(report, c1).
+checkPassed(report, c2).
+checkPassed(report, c3).
+checkPassed(report, c4).
+checkPassed(report, c5).
+checkPassed(report, c6).
+checkPassed(report, c7).
+checkPassed(report, c8).
+checkPassed(report, c9).

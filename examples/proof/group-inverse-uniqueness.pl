@@ -12,7 +12,7 @@ why(
         bindings([binding("A", x), binding("B", i)]),
         uses([
           proof(
-            goal(op(i, x, e)),
+            goal(group_op(i, x, e)),
             by(fact("group-inverse-uniqueness.pl", clause(7)))
           )
         ])
@@ -23,7 +23,7 @@ why(
         bindings([binding("A", x), binding("B", j)]),
         uses([
           proof(
-            goal(op(x, j, e)),
+            goal(group_op(x, j, e)),
             by(fact("group-inverse-uniqueness.pl", clause(8)))
           )
         ])
@@ -54,7 +54,7 @@ why(
         bindings([binding("A", x), binding("B", j)]),
         uses([
           proof(
-            goal(op(j, x, e)),
+            goal(group_op(j, x, e)),
             by(fact("group-inverse-uniqueness.pl", clause(9)))
           )
         ])
@@ -65,7 +65,7 @@ why(
         bindings([binding("A", x), binding("B", i)]),
         uses([
           proof(
-            goal(op(x, i, e)),
+            goal(group_op(x, i, e)),
             by(fact("group-inverse-uniqueness.pl", clause(10)))
           )
         ])

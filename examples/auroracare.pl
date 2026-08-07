@@ -45,6 +45,32 @@
 %% goal: checkC10Text(X0, X1)
 
 
+:- discontiguous(policyUid/2).
+:- discontiguous(purposeAllowed/2).
+:- discontiguous(requireEnvironment/2).
+:- discontiguous(allowAnyCategory/2).
+:- discontiguous(duty/2).
+:- discontiguous(scenario/1).
+:- discontiguous(outputKey/2).
+:- discontiguous(scenario_label/2).
+:- discontiguous(scenario_description/2).
+:- discontiguous(requester/2).
+:- discontiguous(requesterRole/2).
+:- discontiguous(subject/2).
+:- discontiguous(purpose/2).
+:- discontiguous(environment/2).
+:- discontiguous(category/2).
+:- discontiguous(checkC1/2).
+:- discontiguous(checkC2/2).
+:- discontiguous(checkC3/2).
+:- discontiguous(checkC4/2).
+:- discontiguous(checkC5/2).
+:- discontiguous(checkC6/2).
+:- discontiguous(checkC7/2).
+:- discontiguous(checkC8/2).
+:- discontiguous(checkC9/2).
+:- discontiguous(checkC10Text/2).
+
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 caseName(case, "auroracare").
 question(case, "For each AuroraCare scenario, should the PDP permit or deny the requested use of health data, and why?").

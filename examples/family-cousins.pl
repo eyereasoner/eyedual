@@ -8,6 +8,8 @@
 %% goal: cousin(X0, X1)
 
 
+:- discontiguous(branch/2).
+
 % The family tree is scoped inside family_graph/2.  family_statement/3 projects
 % only the parent and seedBranch facts that the cousin rules need.
 

@@ -23,6 +23,12 @@
 %% goal: omittedAlternative(X0, X1)
 
 
+:- discontiguous(argument/1).
+:- discontiguous(implication/3).
+:- discontiguous(observed/2).
+:- discontiguous(concludes/2).
+:- discontiguous(reason/2).
+
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 argument(arg_affirming_consequent).
 implication(arg_affirming_consequent, rain, street_wet).

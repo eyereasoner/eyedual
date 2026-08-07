@@ -2,11 +2,11 @@
 % Demonstrates list literals, member/2, length/2, append/3, and [Head|Tail].
 % Each queried relation demonstrates one list operation.
 % Output declarations: host-supplied goals select the relations written to this example's golden output.
-%% goal: length(X0, X1)
+%% goal: collectionLength(X0, X1)
 
-%% goal: member(X0, X1)
+%% goal: collectionMember(X0, X1)
 
-%% goal: append(X0, X1)
+%% goal: collectionAppend(X0, X1)
 
 %% goal: head(X0, X1)
 
@@ -21,15 +21,15 @@ collection(letters, [a, b]).
 
 % The derived predicates show list length, membership, append, and pattern
 % matching with [Head|Tail] in the smallest possible setting.
-length(numbers, N) :-
+collectionLength(numbers, N) :-
   collection(numbers, List),
   length(List, N).
 
-member(numbers, X) :-
+collectionMember(numbers, X) :-
   collection(numbers, List),
   member(X, List).
 
-append(letters, Extended) :-
+collectionAppend(letters, Extended) :-
   collection(letters, List),
   append(List, [c], Extended).
 

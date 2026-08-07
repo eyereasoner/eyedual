@@ -17,9 +17,9 @@
 %% goal: cdclAnswer(X0, X1)
 
 
-clause(c1, [neg(a), pos(c)]).
-clause(c2, [neg(c)]).
-clause(c3, [pos(a), pos(b)]).
+sat_clause(c1, [neg(a), pos(c)]).
+sat_clause(c2, [neg(c)]).
+sat_clause(c3, [pos(a), pos(b)]).
 
 % Initial trail before conflict analysis.
 initial_value(a, true, decision(level1)).
@@ -38,7 +38,7 @@ call_value(final, Var, Value, Reason) :- final_value(Var, Value, Reason).
 
 % A clause is conflicting when all of its literals are false under a trail.
 conflict(Trail, Clause) :-
-  clause(Clause, Literals),
+  sat_clause(Clause, Literals),
   \+ nonfalse_literal(Trail, Literals).
 nonfalse_literal(Trail, Literals) :-
   member(Literal, Literals),
@@ -56,13 +56,13 @@ final_value(c, false, unit(c2)).
 final_value(b, true, unit(c3)).
 
 model_satisfies_clause(Trail, Clause) :-
-  clause(Clause, Literals),
+  sat_clause(Clause, Literals),
   member(Literal, Literals),
   lit_true(Literal, Trail).
 
 final_model_ok(ok) :- \+ unsatisfied_final_clause.
 unsatisfied_final_clause :-
-  clause(Name, _),
+  sat_clause(Name, _),
   \+ model_satisfies_clause(final, Name).
 
 cdclAnswer(conflict_clause, Clause) :- conflict(initial, Clause).

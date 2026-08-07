@@ -23,14 +23,14 @@ telemetry(bp1, cell_delta_v, 0.19).
 redundant_telemetry(bp1, temperature_c, 76.0).
 
 % Illustrative engineering limits and available cooling power.
-limit(max_safe_temperature_c, 60.0).
-limit(max_temperature_rise_c_per_min, 1.5).
-limit(max_cell_delta_v, 0.08).
+safety_limit(max_safe_temperature_c, 60.0).
+safety_limit(max_temperature_rise_c_per_min, 1.5).
+safety_limit(max_cell_delta_v, 0.08).
 cooling_capacity_w(bp1, 12.0).
 
 % Thermal margin is positive below the limit and negative above it.
 metric(Pack, thermal_margin_c, Margin) :-
-  limit(max_safe_temperature_c, Maximum),
+  safety_limit(max_safe_temperature_c, Maximum),
   telemetry(Pack, temperature_c, Temperature),
   (Margin is Maximum - Temperature).
 
@@ -43,17 +43,17 @@ metric(Pack, resistive_heating_w, Heating) :-
 
 over_temperature(Pack) :-
   telemetry(Pack, temperature_c, Temperature),
-  limit(max_safe_temperature_c, Maximum),
+  safety_limit(max_safe_temperature_c, Maximum),
   (Temperature > Maximum).
 
 rapid_heating(Pack) :-
   telemetry(Pack, temperature_rise_c_per_min, Rate),
-  limit(max_temperature_rise_c_per_min, Maximum),
+  safety_limit(max_temperature_rise_c_per_min, Maximum),
   (Rate > Maximum).
 
 cell_imbalance(Pack) :-
   telemetry(Pack, cell_delta_v, Delta),
-  limit(max_cell_delta_v, Maximum),
+  safety_limit(max_cell_delta_v, Maximum),
   (Delta > Maximum).
 
 heating_exceeds_cooling(Pack) :-
@@ -65,7 +65,7 @@ heating_exceeds_cooling(Pack) :-
 corroborated_over_temperature(Pack) :-
   telemetry(Pack, temperature_c, Primary),
   redundant_telemetry(Pack, temperature_c, Redundant),
-  limit(max_safe_temperature_c, Maximum),
+  safety_limit(max_safe_temperature_c, Maximum),
   (Primary > Maximum),
   (Redundant > Maximum).
 

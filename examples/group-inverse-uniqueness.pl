@@ -14,21 +14,21 @@ element(x).
 element(i).
 element(j).
 
-% leftInverse/2 and rightInverse/2 are proved from op/3.  sameInverse/3
+% leftInverse/2 and rightInverse/2 are proved from group_op/3. sameInverse/3
 % then derives uniqueness by combining both inverse directions with sameTerm/2.
-op(e, X, X) :- element(X).
-op(X, e, X) :- element(X).
-op(i, x, e).
-op(x, j, e).
-op(j, x, e).
-op(x, i, e).
+group_op(e, X, X) :- element(X).
+group_op(X, e, X) :- element(X).
+group_op(i, x, e).
+group_op(x, j, e).
+group_op(j, x, e).
+group_op(x, i, e).
 
 sameTerm(X, X) :- element(X).
 sameTerm(i, j).
 sameTerm(j, i).
 
-leftInverse(A, B) :- op(B, A, e).
-rightInverse(A, B) :- op(A, B, e).
+leftInverse(A, B) :- group_op(B, A, e).
+rightInverse(A, B) :- group_op(A, B, e).
 
 sameInverse(A, B, C) :-
   leftInverse(A, B),

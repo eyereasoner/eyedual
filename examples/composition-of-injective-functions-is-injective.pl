@@ -8,6 +8,9 @@
 %% goal: sameInputByCompositeInjectivity(X0, X1, X2)
 
 
+:- discontiguous(app/3).
+:- discontiguous(sameTerm/2).
+
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 inX(a).
 inX(b).
@@ -19,7 +22,7 @@ inZ(e).
 sameTerm(X, X) :- inX(X).
 sameTerm(X, X) :- inY(X).
 sameTerm(X, X) :- inZ(X).
-sameTerm(Y, X) :- sameTerm(X, Y).
+sameTerm(Y, X) :- Y @< X, sameTerm(X, Y).
 
 app(f, a, c).
 app(f, b, d).

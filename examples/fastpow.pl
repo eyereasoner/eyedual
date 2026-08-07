@@ -20,20 +20,20 @@
 
 % Base case and parity split for exponentiation by squaring.  Even exponents
 % square the half-power; odd exponents peel off one base factor.
-(1 is _base ** 0).
+fast_power(_Base, 0, 1).
 % Recursive even/odd clauses reduce the exponent quickly rather than counting
 % down one multiplication at a time.
-(Value is Base ** Exp) :-
+fast_power(Base, Exp, Value) :-
   (Exp > 0),
   (0 is Exp mod 2),
   (Half is Exp // 2),
-  (Halfvalue is Base ** Half),
+  fast_power(Base, Half, Halfvalue),
   (Value is Halfvalue * Halfvalue).
-(Value is Base ** Exp) :-
+fast_power(Base, Exp, Value) :-
   (Exp > 0),
   (1 is Exp mod 2),
   (Evenexp is Exp - 1),
-  (Evenvalue is Base ** Evenexp),
+  fast_power(Base, Evenexp, Evenvalue),
   (Value is Base * Evenvalue).
 
 % pow_mod/4 applies the modulus at each multiplication to keep values small.
@@ -58,7 +58,7 @@ pow_mod(Base, Exp, Mod, Value) :-
 tower(2, 4, 65536).
 tower_mod(2, 5, 1000000, 156736).
 
-pow([2, 10], Value) :- (Value is 2 ** 10).
+pow([2, 10], Value) :- fast_power(2, 10, Power), (Value is Power + 0.0).
 powSlow([2, 10], Value) :- (Value is 2 ** 10).
 powMod1e6([2, 10000], Value) :- pow_mod(2, 10000, 1000000, Value).
 powMod1e6([3, 10000], Value) :- pow_mod(3, 10000, 1000000, Value).

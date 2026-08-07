@@ -65,16 +65,10 @@ rdf_number(Subject, Predicate, Number) :-
   iri_term(Subject, SubjectIri),
   iri_term(Predicate, PredicateIri),
   rdf(iri(SubjectIri), iri(PredicateIri), literal(Text, datatype(_Datatype)), default_graph),
-  number_string(Number, Text).
+  atom_chars(Text, Chars),
+  number_chars(Number, Chars).
 
 iri_term(ex(Name), Iri) :- namespace_iri('https://example.org/', Name, Iri).
 iri_term(odrl(Name), Iri) :- namespace_iri('http://www.w3.org/ns/odrl/2/', Name, Iri).
 
-namespace_iri(Prefix, Name, Iri) :-
-  atom(Name),
-  !,
-  atom_string(Name, Local),
-  string_concat(Prefix, Local, Iri).
-namespace_iri(Prefix, Name, Iri) :-
-  string_concat(Prefix, Local, Iri),
-  atom_string(Name, Local).
+namespace_iri(Prefix, Name, Iri) :- atom_concat(Prefix, Name, Iri).

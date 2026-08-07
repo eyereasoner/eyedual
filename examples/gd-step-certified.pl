@@ -24,6 +24,9 @@
 %% goal: widthContractsAt(X0, X1)
 
 
+:- discontiguous(x_bounds/3).
+:- discontiguous(width/2).
+
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 
 % Adapted from Eyeling's gd-step-certified.n3.

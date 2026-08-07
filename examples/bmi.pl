@@ -71,6 +71,15 @@
 %% goal: checkPassed(X0, X1)
 
 
+:- discontiguous(weightKg/2).
+:- discontiguous(heightM/2).
+:- discontiguous(units/2).
+:- discontiguous(bmi/2).
+:- discontiguous(category/2).
+:- discontiguous(healthyMinKg/2).
+:- discontiguous(healthyMaxKg/2).
+:- discontiguous(heightCm/2).
+
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 unitSystem(input, metric).
 weight(input, 72.0).
@@ -260,4 +269,14 @@ heightCm(report, Height) :-
   heightCm(answer, Height).
 
 checkPassed(report, Check) :-
-  statement(check, Check, _message).
+  statement(check, Check, _Message).
+
+statement(check, c1, Message) :- c1(check, Message).
+statement(check, c2, Message) :- c2(check, Message).
+statement(check, c3, Message) :- c3(check, Message).
+statement(check, c4, Message) :- c4(check, Message).
+statement(check, c5, Message) :- c5(check, Message).
+statement(check, c6, Message) :- c6(check, Message).
+statement(check, c7, Message) :- c7(check, Message).
+statement(check, c8, Message) :- c8(check, Message).
+statement(check, c9, Message) :- c9(check, Message).

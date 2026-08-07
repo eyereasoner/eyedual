@@ -19,6 +19,8 @@
 %% goal: arc(X0, X1)
 
 
+:- discontiguous(a/2).
+
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 % fact
 

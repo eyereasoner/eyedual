@@ -11,6 +11,11 @@
 %% goal: zero_check(X0, X1, X2)
 
 
+:- discontiguous(zeta_zero/1).
+:- discontiguous(real_part/2).
+:- discontiguous(imaginary_part/2).
+:- discontiguous(source/2).
+
 % --- Sample zero catalogue -------------------------------------------------
 %
 % The three z* entries stand for catalogued non-trivial zeros of the

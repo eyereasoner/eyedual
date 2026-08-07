@@ -15,6 +15,9 @@
 
 
 
+:- discontiguous(assign/2).
+:- discontiguous(points_to/2).
+
 % Source-program statements:
 %   x = &object_a
 %   z = &object_b

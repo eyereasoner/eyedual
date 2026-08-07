@@ -81,6 +81,20 @@
 %% goal: lowestCostEligiblePackageChosen(X0, X1)
 
 
+:- discontiguous(industrialCluster/1).
+:- discontiguous(clusterName/2).
+:- discontiguous(exportOrdersIndex/2).
+:- discontiguous(energyIntensity/2).
+:- discontiguous(policyPackage/1).
+:- discontiguous(packageId/2).
+:- discontiguous(packageName/2).
+:- discontiguous(costMEUR/2).
+:- discontiguous(worker_coverage/2).
+:- discontiguous(grid_relief_mw/2).
+:- discontiguous(coversExportWeakness/2).
+:- discontiguous(coversSkillsStrain/2).
+:- discontiguous(coversGridStress/2).
+
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
 % Case metadata describes the request, audit window, and expected file writes.
 case_name(case, "flandor").

@@ -1,44 +1,88 @@
-length(numbers, 3).
+collectionLength(numbers, 3).
 why(
-  length(numbers, 3),
+  collectionLength(numbers, 3),
   proof(
-    goal(length(numbers, 3)),
-    by(library(length, 2))
+    goal(collectionLength(numbers, 3)),
+    by(rule("list-collection.pl", clause(3))),
+    bindings([binding("N", 3), binding("List", [1, 2, 3])]),
+    uses([
+      proof(
+        goal(collection(numbers, [1, 2, 3])),
+        by(fact("list-collection.pl", clause(1)))
+      ),
+      proof(
+        goal(length([1, 2, 3], 3)),
+        by(library(length, 2))
+      )
+    ])
   )
 ).
 
-member(numbers, 1).
+collectionMember(numbers, 1).
 why(
-  member(numbers, 1),
+  collectionMember(numbers, 1),
   proof(
-    goal(member(numbers, 1)),
-    by(library(member, 2))
+    goal(collectionMember(numbers, 1)),
+    by(rule("list-collection.pl", clause(4))),
+    bindings([binding("X", 1), binding("List", [1, 2, 3])]),
+    uses([
+      proof(
+        goal(collection(numbers, [1, 2, 3])),
+        by(fact("list-collection.pl", clause(1)))
+      ),
+      proof(
+        goal(member(1, [1, 2, 3])),
+        by(library(member, 2))
+      )
+    ])
   )
 ).
 
-member(numbers, 2).
+collectionMember(numbers, 2).
 why(
-  member(numbers, 2),
+  collectionMember(numbers, 2),
   proof(
-    goal(member(numbers, 2)),
-    by(library(member, 2))
+    goal(collectionMember(numbers, 2)),
+    by(rule("list-collection.pl", clause(4))),
+    bindings([binding("X", 2), binding("List", [1, 2, 3])]),
+    uses([
+      proof(
+        goal(collection(numbers, [1, 2, 3])),
+        by(fact("list-collection.pl", clause(1)))
+      ),
+      proof(
+        goal(member(2, [1, 2, 3])),
+        by(library(member, 2))
+      )
+    ])
   )
 ).
 
-member(numbers, 3).
+collectionMember(numbers, 3).
 why(
-  member(numbers, 3),
+  collectionMember(numbers, 3),
   proof(
-    goal(member(numbers, 3)),
-    by(library(member, 2))
+    goal(collectionMember(numbers, 3)),
+    by(rule("list-collection.pl", clause(4))),
+    bindings([binding("X", 3), binding("List", [1, 2, 3])]),
+    uses([
+      proof(
+        goal(collection(numbers, [1, 2, 3])),
+        by(fact("list-collection.pl", clause(1)))
+      ),
+      proof(
+        goal(member(3, [1, 2, 3])),
+        by(library(member, 2))
+      )
+    ])
   )
 ).
 
-append(letters, [a, b, c]).
+collectionAppend(letters, [a, b, c]).
 why(
-  append(letters, [a, b, c]),
+  collectionAppend(letters, [a, b, c]),
   proof(
-    goal(append(letters, [a, b, c])),
+    goal(collectionAppend(letters, [a, b, c])),
     by(rule("list-collection.pl", clause(5))),
     bindings([binding("Extended", [a, b, c]), binding("List", [a, b])]),
     uses([

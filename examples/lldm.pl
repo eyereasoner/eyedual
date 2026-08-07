@@ -18,6 +18,8 @@
 %% goal: lld_reason(X0, X1)
 
 
+:- discontiguous(val/3).
+
 % val/3 stores raw landmark coordinates, derived deltas, line coefficients,
 % projected landmarks, lengths, and alarm values in one measurement namespace.
 measurement(meas47).

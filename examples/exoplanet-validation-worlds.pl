@@ -18,6 +18,9 @@
 %% goal: reason(X0, X1)
 
 
+:- discontiguous(confirms_in_world/2).
+:- discontiguous(rejects_in_world/2).
+
 % candidate/4 stores occurrence rate, sensitivity, and specificity.  world/2
 % names the alternative validation policies applied to the same signals.
 candidate(rare_wide_orbit, 0.001, 0.99, 0.99).
