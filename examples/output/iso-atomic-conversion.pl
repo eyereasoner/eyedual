@@ -1,6 +1,6 @@
 report(joined, eyeprolog).
 report(prefix, eye).
-report(characters, [e, y, e]).
+report(characters, "eye").
 report(codes, [65, 90]).
 report(decoded_character, 'λ').
 report(number, 42).

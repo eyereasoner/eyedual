@@ -7,4 +7,4 @@ no_solutions.
 retrieved(bob, true).
 retrieved(carol, true).
 shared_clause(pair(ok, ok)).
-shared_set_variables([a, b]).
+shared_set_variables("ab").

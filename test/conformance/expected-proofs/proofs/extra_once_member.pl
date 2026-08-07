@@ -7,11 +7,11 @@ why(
     bindings([binding("X", a)]),
     uses([
       proof(
-        goal(once(member(a, [a, b, c]))),
+        goal(once(member(a, "abc"))),
         by(builtin(once, 1)),
         uses([
           proof(
-            goal(member(a, [a, b, c])),
+            goal(member(a, "abc")),
             by(library(member, 2))
           )
         ])

@@ -1,1 +1,1 @@
-answer(functor_string_scalar, "hello", 0).
+answer(functor_char_list, '.', 2).

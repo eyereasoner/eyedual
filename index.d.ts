@@ -16,6 +16,8 @@ export interface EyePrologRunOptions {
   sourceMetadata?: boolean;
   strictNegation?: boolean;
   analyzeNegation?: boolean;
+  /** Initial ISO interpretation of double-quoted list notation. Defaults to chars. */
+  doubleQuotes?: 'chars' | 'codes' | 'atom';
   ioOptions?: {
     input?: string;
     write?: (text: string) => void;
@@ -88,6 +90,7 @@ export class Program {
   constructor(clauses?: EyePrologClause[], options?: EyePrologRunOptions);
   clauses: EyePrologClause[];
   groups: Map<string, EyePrologPredicateGroup>;
+  doubleQuotes: 'chars' | 'codes' | 'atom';
   negationDependencies: Array<{ from: string; to: string; negative: boolean }>;
   negationStratificationErrors: Array<{ from: string; to: string }>;
   stratifiedNegation: boolean;
@@ -101,7 +104,7 @@ export class Program {
   assertStratifiedNegation(): true;
   isStratifiedNegation(): boolean;
   groupHasRule(group: EyePrologPredicateGroup): boolean;
-  sourceFactLines(predicateKeys?: Set<string> | null): Set<string>;
+  sourceFactLines(predicateKeys?: Set<string> | null, options?: { doubleQuotes?: 'chars' | 'codes' | 'atom' }): Set<string>;
 }
 
 export interface BuiltinDefinition {
@@ -181,7 +184,7 @@ export function compareNumberText(left: string, right: string): number;
 export function makeProgram(source: string, options?: EyePrologRunOptions): Program;
 export function parseClauses(source: string, options?: EyePrologRunOptions): EyePrologClause[];
 export function parseProgramText(source: string, options?: EyePrologRunOptions): EyePrologClause[];
-export function parseGoalText(source: string): EyePrologTerm;
+export function parseGoalText(source: string, options?: EyePrologRunOptions): EyePrologTerm;
 export function createDefaultRegistry(): BuiltinRegistry;
 export function createEyePrologRegistry(): BuiltinRegistry;
 export function getDefaultRegistry(): BuiltinRegistry;

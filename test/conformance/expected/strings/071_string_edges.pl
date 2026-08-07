@@ -1,5 +1,5 @@
 answer(split_missing_separator, [abc]).
-answer(split_empty_separator, [a, b, c]).
+answer(split_empty_separator, "abc").
 answer(join_empty, '').
 answer(join_numbers, '1-2-3').
 answer(substring_empty, '').

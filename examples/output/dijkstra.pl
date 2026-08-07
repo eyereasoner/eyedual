@@ -1,16 +1,16 @@
-edge([b, a], 4).
-edge([c, a], 2).
-edge([c, b], 1).
-edge([d, b], 5).
-edge([d, c], 8).
-edge([e, c], 10).
-edge([e, d], 2).
-edge([f, d], 6).
-edge([f, e], 3).
-path([a, f], [[a, b, d, e, f], 14]).
-path([a, f], [[a, b, d, f], 15]).
-path([a, f], [[a, c, d, e, f], 15]).
-path([a, f], [[a, c, d, f], 16]).
-path([a, f], [[a, c, e, f], 15]).
-path([a, f], [[a, c, b, d, e, f], 13]).
-path([a, f], [[a, c, b, d, f], 14]).
+edge("ba", 4).
+edge("ca", 2).
+edge("cb", 1).
+edge("db", 5).
+edge("dc", 8).
+edge("ec", 10).
+edge("ed", 2).
+edge("fd", 6).
+edge("fe", 3).
+path("af", ["abdef", 14]).
+path("af", ["abdf", 15]).
+path("af", ["acdef", 15]).
+path("af", ["acdf", 16]).
+path("af", ["acef", 15]).
+path("af", ["acbdef", 13]).
+path("af", ["acbdf", 14]).

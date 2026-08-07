@@ -1,1 +1,1 @@
-answer(take_all, [a, b, c]).
+answer(take_all, "abc").

@@ -1,13 +1,13 @@
-answer(nested_list_binding, [c]).
+answer(nested_list_binding, "c").
 why(
-  answer(nested_list_binding, [c]),
+  answer(nested_list_binding, "c"),
   proof(
-    goal(answer(nested_list_binding, [c])),
+    goal(answer(nested_list_binding, "c")),
     by(rule("<stdin>", clause(1))),
-    bindings([binding("Tail", [c])]),
+    bindings([binding("Tail", "c")]),
     uses([
       proof(
-        goal(=([a, b, c], [a, b, c])),
+        goal(=("abc", "abc")),
         by(builtin(=, 2))
       )
     ])

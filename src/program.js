@@ -97,6 +97,7 @@ export class Program {
     this.initializations = [];
     this.prologFlagDirectives = [];
     this.charConversionDirectives = [];
+    this.doubleQuotes = options.doubleQuotes ?? 'chars';
     this._revisionState = { value: 0 };
     this.mutable = false;
     this._negationAnalysis = null;
@@ -372,19 +373,19 @@ export class Program {
   groupHasRule(group) {
     return group.clauses.some((clause) => clauseBodyLength(clause) > 0);
   }
-  sourceFactLines(predicateKeys = null) {
+  sourceFactLines(predicateKeys = null, options = {}) {
     const lines = new Set();
     const env = new Env();
     for (const clause of this.clauses) {
       if (isCompactBinaryClause(clause)) {
         if (clause.bodyName != null) continue;
         if (predicateKeys && !predicateKeys.has(`${clause.headName}/2`)) continue;
-        lines.add(`${termToString(clause.head, env, true)}.\n`);
+        lines.add(`${termToString(clause.head, env, true, options)}.\n`);
         continue;
       }
       if (clause.body.length !== 0 || (clause.head.type !== ATOM && clause.head.type !== COMPOUND)) continue;
       if (predicateKeys && !predicateKeys.has(`${clause.head.name}/${clause.head.arity}`)) continue;
-      lines.add(`${termToString(clause.head, env, true)}.\n`);
+      lines.add(`${termToString(clause.head, env, true, options)}.\n`);
     }
     return lines;
   }
@@ -530,9 +531,10 @@ function buildProgramFromSources(sources, options) {
 function loadSourcesIntoBuilder(builder, sources, options, fast) {
   const ensured = new Set();
   const operatorState = createParserOperatorState();
+  const parserFlagState = { doubleQuotes: options.doubleQuotes ?? 'chars' };
   const prepared = sources.map((source) => ({
     source,
-    options: { ...sourceOptionsFor(source, options), operatorState },
+    options: { ...sourceOptionsFor(source, options), operatorState, parserFlagState },
   }));
   for (const item of prepared) {
     const filename = sourcePath(item.options);
@@ -545,6 +547,7 @@ function loadSourcesIntoBuilder(builder, sources, options, fast) {
         : item.source?.text ?? item.source?.source ?? '';
       if (!loadSourceIntoBuilder(builder, text, item.options, ensured, fast)) return false;
     }
+    builder.program.doubleQuotes = parserFlagState.doubleQuotes;
     return true;
   } catch (error) {
     if (error === FAST_PARSE_ABORT) return false;
@@ -600,7 +603,7 @@ function loadSourceIntoBuilder(builder, source, options, ensured, fast) {
       ));
       if (batch.length >= PROGRAM_BUILD_BATCH_SIZE) flush();
     };
-    const parsed = tryParseClausesFastInto(source, accept, acceptBinary);
+    const parsed = tryParseClausesFastInto(source, accept, acceptBinary, options);
     if (parsed) flush();
     return parsed;
   }

@@ -920,6 +920,7 @@ function readTermFromStream(stream, solver) {
       const clauses = parseClauses(convertedTermText(candidate.text, solver), {
         sourceMetadata: false,
         operatorState,
+        doubleQuotes: solver.prologFlags.get('double_quotes')?.value?.name ?? 'chars',
       });
       if (clauses.length !== 1 || clauses[0].body.length) throw new Error('bad term');
       stream.position = candidate.end;

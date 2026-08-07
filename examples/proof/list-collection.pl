@@ -78,20 +78,20 @@ why(
   )
 ).
 
-collectionAppend(letters, [a, b, c]).
+collectionAppend(letters, "abc").
 why(
-  collectionAppend(letters, [a, b, c]),
+  collectionAppend(letters, "abc"),
   proof(
-    goal(collectionAppend(letters, [a, b, c])),
+    goal(collectionAppend(letters, "abc")),
     by(rule("list-collection.pl", clause(5))),
-    bindings([binding("Extended", [a, b, c]), binding("List", [a, b])]),
+    bindings([binding("Extended", "abc"), binding("List", "ab")]),
     uses([
       proof(
-        goal(collection(letters, [a, b])),
+        goal(collection(letters, "ab")),
         by(fact("list-collection.pl", clause(2)))
       ),
       proof(
-        goal(append([a, b], [c], [a, b, c])),
+        goal(append("ab", "c", "abc")),
         by(library(append, 3))
       )
     ])
@@ -104,26 +104,26 @@ why(
   proof(
     goal(head(letters, a)),
     by(rule("list-collection.pl", clause(6))),
-    bindings([binding("Head", a), binding("_tail", [b])]),
+    bindings([binding("Head", a), binding("_tail", "b")]),
     uses([
       proof(
-        goal(collection(letters, [a, b])),
+        goal(collection(letters, "ab")),
         by(fact("list-collection.pl", clause(2)))
       )
     ])
   )
 ).
 
-tail(letters, [b]).
+tail(letters, "b").
 why(
-  tail(letters, [b]),
+  tail(letters, "b"),
   proof(
-    goal(tail(letters, [b])),
+    goal(tail(letters, "b")),
     by(rule("list-collection.pl", clause(7))),
-    bindings([binding("Tail", [b]), binding("_head", a)]),
+    bindings([binding("Tail", "b"), binding("_head", a)]),
     uses([
       proof(
-        goal(collection(letters, [a, b])),
+        goal(collection(letters, "ab")),
         by(fact("list-collection.pl", clause(2)))
       )
     ])

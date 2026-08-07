@@ -1,6 +1,6 @@
 // Tokenizer and recursive-descent parser for the EyeProlog source language.
 // It preserves the compact Prolog-like syntax while producing Term objects for the solver.
-import { atom, compound, cons, emptyList, numberTerm, stringTerm, variable } from './term.js';
+import { atom, compound, cons, emptyList, numberTerm, variable } from './term.js';
 
 const TOK = {
   EOF: 'eof', ATOM: 'atom', VAR: 'var', STRING: 'string', NUMBER: 'number',
@@ -143,6 +143,12 @@ class Parser {
     this.line = 1;
     this.anonymous = 0;
     this.sourceMetadata = options.sourceMetadata !== false;
+    this.parserFlagState = options.parserFlagState ?? {
+      doubleQuotes: options.doubleQuotes ?? 'chars',
+    };
+    if (!['chars', 'codes', 'atom'].includes(this.parserFlagState.doubleQuotes)) {
+      throw new Error(`invalid double_quotes parser flag: ${this.parserFlagState.doubleQuotes}`);
+    }
     const operatorState = options.operatorState ?? createParserOperatorState(
       options.operatorDefinitions ?? [],
       options.includeDefaultOperators !== false,
@@ -173,6 +179,14 @@ class Parser {
     if (names == null) throw new Error(`parse line ${line}: operator name must be an atom or list of atoms`);
     for (const name of names) this.defineOperator(priority, specifierTerm.name, name);
     return true;
+  }
+  applyParserFlagDirective(directive) {
+    if (directive.type !== 'compound' || directive.name !== 'set_prolog_flag' || directive.arity !== 2) return;
+    const [flag, value] = directive.args;
+    if (flag.type === 'atom' && flag.name === 'double_quotes' &&
+        value.type === 'atom' && ['chars', 'codes', 'atom'].includes(value.name)) {
+      this.parserFlagState.doubleQuotes = value.name;
+    }
   }
   peek(offset = 0) {
     return this.source[this.pos + offset] ?? '';
@@ -494,7 +508,31 @@ class Parser {
     if (this.token.type === TOK.STRING) {
       const value = this.token.text;
       this.advance();
-      return stringTerm(value);
+      if (this.parserFlagState.doubleQuotes === 'atom') {
+        if (this.token.type === TOK.LPAREN) {
+          this.advance();
+          const args = [];
+          if (this.token.type === TOK.RPAREN) {
+            throw new Error(`parse line ${this.token.line}: zero-arity compound syntax is not supported; use atom ${JSON.stringify(value)} for arity zero data`);
+          }
+          while (true) {
+            args.push(this.parseTerm(0, false));
+            if (this.token.type !== TOK.COMMA) break;
+            this.advance();
+          }
+          this.expect(TOK.RPAREN, ')');
+          this.advance();
+          return compound(value, args);
+        }
+        return atom(value);
+      }
+      const items = Array.from(value, (character) =>
+        this.parserFlagState.doubleQuotes === 'chars'
+          ? atom(character)
+          : numberTerm(character.codePointAt(0)));
+      let list = emptyList();
+      for (let i = items.length - 1; i >= 0; i--) list = cons(items[i], list);
+      return list;
     }
     if (this.token.type === TOK.NUMBER) {
       const value = this.token.text;
@@ -544,6 +582,7 @@ class Parser {
           throw new Error(`parse line ${line}: bad term`);
         }
         this.expect(TOK.DOT, '.');
+        this.applyParserFlagDirective(directive);
         this.advance();
         const clause = { head: compound(':-', [directive]), body: [] };
         clauseNumber++;
@@ -588,11 +627,17 @@ function listAtomNames(term) {
 
 
 export function parseClauses(source, options = {}) {
+  const ownsParserFlagState = options.parserFlagState == null;
+  const initialDoubleQuotes = options.doubleQuotes ?? 'chars';
+  const parserOptions = ownsParserFlagState
+    ? { ...options, parserFlagState: { doubleQuotes: initialDoubleQuotes } }
+    : options;
   if (options.sourceMetadata === false) {
-    const clauses = parseClausesFastNoSource(source);
+    const clauses = parseClausesFastNoSource(source, null, null, parserOptions);
     if (clauses) return clauses;
+    if (ownsParserFlagState) parserOptions.parserFlagState.doubleQuotes = initialDoubleQuotes;
   }
-  return new Parser(source, options).parseProgram();
+  return new Parser(source, parserOptions).parseProgram();
 }
 
 // Streaming parser entry points used by ProgramBuilder.  The ordinary public
@@ -602,8 +647,8 @@ export function parseClausesInto(source, options = {}, emit) {
   new Parser(source, options).parseProgram(emit);
 }
 
-export function tryParseClausesFastInto(source, emit, emitBinary = null) {
-  return parseClausesFastNoSource(source, emit, emitBinary) !== null;
+export function tryParseClausesFastInto(source, emit, emitBinary = null, options = {}) {
+  return parseClausesFastNoSource(source, emit, emitBinary, options) !== null;
 }
 
 function isSimpleName(text) {
@@ -624,7 +669,7 @@ const SIMPLE_VARIABLE = /^(?:_|[A-Z_][A-Za-z0-9_]*)$/;
 const SIMPLE_ATOM = /^[a-z][A-Za-z0-9_]*$/;
 const GRAPHIC_ATOM = /^[#$&*+\-\/<=>@^~\\]+$/;
 
-function parseClausesFastNoSource(source, emit = null, emitBinary = null) {
+function parseClausesFastNoSource(source, emit = null, emitBinary = null, options = {}) {
   source = String(source ?? '');
   const numberCache = new Map();
   const stringCache = new Map();
@@ -896,7 +941,7 @@ function parseClausesFastNoSource(source, emit = null, emitBinary = null) {
       return true;
     }
     try {
-      const parsed = new Parser(text, { sourceMetadata: false }).parseProgram();
+      const parsed = new Parser(text, { ...options, sourceMetadata: false }).parseProgram();
       for (const clause of parsed) accept(clause);
       return true;
     } catch (_) {
@@ -938,12 +983,12 @@ function parseClausesFastNoSource(source, emit = null, emitBinary = null) {
   return clauses ?? true;
 }
 
-export function parseProgramText(source) {
-  return parseClauses(source);
+export function parseProgramText(source, options = {}) {
+  return parseClauses(source, options);
 }
 
-export function parseGoalText(text) {
-  const clauses = parseClauses(`zz_goal((${text})).`);
+export function parseGoalText(text, options = {}) {
+  const clauses = parseClauses(`zz_goal((${text})).`, options);
   const head = clauses[0]?.head;
   if (clauses.length !== 1 || head?.type !== 'compound' ||
       head.name !== 'zz_goal' || head.arity !== 1 || clauses[0].body.length !== 0) {

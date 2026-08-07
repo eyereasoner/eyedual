@@ -1,1 +1,1 @@
-answer(eq_list_tail_binding, [c, d]).
+answer(eq_list_tail_binding, "cd").

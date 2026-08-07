@@ -44,16 +44,16 @@ why(
   )
 ).
 
-tail(nativeList, [b, c]).
+tail(nativeList, "bc").
 why(
-  tail(nativeList, [b, c]),
+  tail(nativeList, "bc"),
   proof(
-    goal(tail(nativeList, [b, c])),
+    goal(tail(nativeList, "bc")),
     by(rule("aliases-and-namespaces.pl", clause(4))),
-    bindings([binding("Tail", [b, c]), binding("_head", a)]),
+    bindings([binding("Tail", "bc"), binding("_head", a)]),
     uses([
       proof(
-        goal(=([a, b, c], [a, b, c])),
+        goal(=("abc", "abc")),
         by(builtin(=, 2))
       )
     ])

@@ -142,7 +142,7 @@ why(
     bindings([binding("X", a)]),
     uses([
       proof(
-        goal(member(a, [a])),
+        goal(member(a, "a")),
         by(library(member, 2))
       )
     ])
@@ -491,18 +491,22 @@ why(
         const univPath = path.join(tmp, `read-univ-${++tmpCounter}.term`);
         const customPath = path.join(tmp, `read-custom-${++tmpCounter}.term`);
         const invalidPath = path.join(tmp, `read-invalid-${++tmpCounter}.term`);
+        const quotesPath = path.join(tmp, `read-quotes-${++tmpCounter}.term`);
         fs.writeFileSync(univPath, 'foo =.. [bar]/* term end */.\n');
         fs.writeFileSync(customPath, 'alice likes bob.\n');
         fs.writeFileSync(invalidPath, 'a..b.\n');
+        fs.writeFileSync(quotesPath, '"ab".\n');
         const source = [
           `read_univ(T) :- open(${sourceAtom(univPath)}, read, S, []), read(S, T), close(S).`,
           `read_custom(T) :- op(500, xfx, likes), open(${sourceAtom(customPath)}, read, S, []), read(S, T), close(S).`,
           `read_invalid(ok) :- open(${sourceAtom(invalidPath)}, read, S, []), catch(read(S, _), error(syntax_error(read_term), _), true), close(S).`,
+          `read_codes(ok) :- set_prolog_flag(double_quotes, codes), open(${sourceAtom(quotesPath)}, read, S, []), read(S, [97, 98]), close(S).`,
           '',
         ].join('\n');
         assertEqual(run(source, { goal: 'read_univ(T)' }).stdout, "read_univ('=..'(foo, [bar])).\n", 'univ term');
         assertEqual(run(source, { goal: 'read_custom(T)' }).stdout, 'read_custom(likes(alice, bob)).\n', 'custom operator term');
         assertEqual(run(source, { goal: 'read_invalid(ok)' }).stdout, 'read_invalid(ok).\n', 'invalid dotted term');
+        assertEqual(run(source, { goal: 'read_codes(ok)' }).stdout, 'read_codes(ok).\n', 'double_quotes read flag');
       },
     },
     {
@@ -779,7 +783,7 @@ function apiCases() {
           '  assertz(edge(b, c)),',
           '  findall(Y, path(a, Y), After).',
         ].join('\n'));
-        assertEqual(result.stdout, 'test([b], [b, c]).\n', 'stdout');
+        assertEqual(result.stdout, 'test("b", "bc").\n', 'stdout');
       },
     },
     {
@@ -959,7 +963,7 @@ open(X) :- candidate(X), \\+ closed(X).
       name: 'run loads the EyeProlog library by default',
       run: () => {
         const result = run('answer(X) :- append([a], [b], X).', { goal: 'answer(X)' });
-        assertEqual(result.stdout, 'answer([a, b]).\n', 'stdout');
+        assertEqual(result.stdout, 'answer("ab").\n', 'stdout');
       },
     },
     {
@@ -969,7 +973,7 @@ open(X) :- candidate(X), \\+ closed(X).
         const solver = new Solver(program);
         const goal = parseGoalText('answer(X)');
         const answers = [...solver.solve([goal], new Env(), 0)].map((env) => termToString(goal, env, true));
-        assertEqual(answers.join('\n'), 'answer([a, b])', 'answers');
+        assertEqual(answers.join('\n'), 'answer("ab")', 'answers');
       },
     },
     {
@@ -1051,7 +1055,7 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'eyeprolog-common-library.pl')), true, 'pure-Prolog common library exists');
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'library-source.js')), false, 'duplicate source loader is absent');
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js')), false, 'obsolete duplicate module remains absent');
-        assertEqual(run(program, { goal: 'answer(X)' }).stdout, 'answer([a, b]).\n', 'autoloaded append execution');
+        assertEqual(run(program, { goal: 'answer(X)' }).stdout, 'answer("ab").\n', 'autoloaded append execution');
         assertEqual(Boolean(program.findGroup('random', 3)), true, 'random/3 is autoloaded as a clause group');
       },
     },
@@ -1067,7 +1071,7 @@ portable_check(A, B, C) :- lowercase('HELLO', A), replace('banana', 'na', 'NA', 
         const solver = new Solver(program, { registry: createDefaultRegistry() });
         const goal = parseGoalText('portable_check(A, B, C)');
         const answers = [...solver.solve([goal], new Env(), 0)].map((env) => termToString(goal, env, true));
-        assertEqual(answers.join('\n'), "portable_check(hello, baNANA, [x, y])", 'ISO-only portable execution');
+        assertEqual(answers.join('\n'), 'portable_check(hello, baNANA, "xy")', 'ISO-only portable execution');
         assertEqual(Boolean(program.findGroup('uuid', 3)), true, 'uuid/3 is implemented in the portable file');
         assertEqual(program.findGroup('uuid', 1), null, 'obsolete uuid/1 is absent');
         assertEqual(program.findGroup('local_time', 1), null, 'local_time/1 is absent from the library');
@@ -1085,9 +1089,9 @@ portable_check(A, B, C) :- lowercase('HELLO', A), replace('banana', 'na', 'NA', 
           '',
         ].join('\n'));
         assertEqual(result.stdout, [
-          'answer([], [a, b], 5, 9007199254740993).',
-          'answer([a], [b], 5, 9007199254740993).',
-          'answer([a, b], [], 5, 9007199254740993).',
+          'answer([], "ab", 5, 9007199254740993).',
+          'answer("a", "b", 5, 9007199254740993).',
+          'answer("ab", [], 5, 9007199254740993).',
           '',
         ].join('\n'), 'EyeProlog library behavior');
       },
@@ -1197,14 +1201,68 @@ function whiteBoxCases() {
       name: 'parser preserves list syntax readback',
       run: () => {
         const goal = parseGoalText('member(X, [a, b])');
-        assertEqual(termToString(goal, new Env(), true), 'member(X, [a, b])', 'goal');
+        assertEqual(termToString(goal, new Env(), true), 'member(X, "ab")', 'goal');
+      },
+    },
+    {
+      name: 'double-quoted lists honor every ISO double_quotes value',
+      run: () => {
+        const chars = parseGoalText('p("aλ")').args[0];
+        const charItems = properListItems(chars, new Env());
+        assertEqual(charItems.map((item) => `${item.type}:${item.name}`).join('|'), 'atom:a|atom:λ', 'chars');
+
+        const codes = parseGoalText('p("aλ")', { doubleQuotes: 'codes' }).args[0];
+        const codeItems = properListItems(codes, new Env());
+        assertEqual(codeItems.map((item) => `${item.type}:${item.name}`).join('|'), 'number:97|number:955', 'codes');
+
+        const quotedAtom = parseGoalText('p("aλ")', { doubleQuotes: 'atom' }).args[0];
+        assertEqual(`${quotedAtom.type}:${quotedAtom.name}`, 'atom:aλ', 'atom');
+      },
+    },
+    {
+      name: 'double_quotes directives affect subsequent source text',
+      run: () => {
+        const clauses = parseProgramText([
+          'chars("a").',
+          ':- set_prolog_flag(double_quotes, codes).',
+          'codes("a").',
+          ':- set_prolog_flag(double_quotes, atom).',
+          'quoted_atom("a").',
+          '',
+        ].join('\n'), { sourceMetadata: false });
+        const facts = clauses.filter((clause) => clause.head.name !== ':-');
+        assertEqual(termToString(facts[0].head), 'chars("a")', 'chars fact');
+        assertEqual(termToString(facts[1].head, new Env(), true, { doubleQuotes: 'codes' }), 'codes("a")', 'codes fact');
+        assertEqual(termToString(facts[2].head), 'quoted_atom(a)', 'atom fact');
+      },
+    },
+    {
+      name: 'double_quotes parser state flows across source files',
+      run: () => {
+        const program = Program.parseSources([
+          ':- set_prolog_flag(double_quotes, codes).',
+          'value("A").',
+        ], { sourceMetadata: false });
+        const value = program.findGroup('value', 1).clauses[0].head.args[0];
+        assertEqual(properListItems(value, new Env())[0].name, '65', 'code in second source');
+        assertEqual(program.doubleQuotes, 'codes', 'final parser flag');
+      },
+    },
+    {
+      name: 'parser double_quotes option flows into solver flags',
+      run: () => {
+        const result = run('answer(atom) :- atom("text").', {
+          goal: 'answer(X)',
+          doubleQuotes: 'atom',
+        });
+        assertEqual(result.stdout, 'answer(atom).\n', 'atom-mode execution');
       },
     },
     {
       name: 'parser accepts ISO-style uppercase variables',
       run: () => {
         const goal = parseGoalText('member(X, [a, b])');
-        assertEqual(termToString(goal, new Env(), true), 'member(X, [a, b])', 'goal');
+        assertEqual(termToString(goal, new Env(), true), 'member(X, "ab")', 'goal');
       },
     },
     {

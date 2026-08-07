@@ -3,7 +3,7 @@
 
 answer(functor_atom, pair(Name, Arity)) :- functor(alpha, Name, Arity).
 answer(functor_number, pair(Name, Arity)) :- functor(42, Name, Arity).
-answer(functor_string, pair(Name, Arity)) :- functor("hi", Name, Arity).
+answer(functor_char_list, pair(Name, Arity)) :- functor("hi", Name, Arity).
 answer(arg_nested, X) :- arg(1, path(edge(a, b), c), X).
 answer(compose_nested, X) :- (X =.. [outer | [inner(a), [b, c]]]).
 answer(compose_atom_empty_args, X) :- (X =.. [z | []]).

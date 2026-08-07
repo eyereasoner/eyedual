@@ -7,7 +7,7 @@ why(
     bindings([binding("X", b)]),
     uses([
       proof(
-        goal(member(b, [a, b])),
+        goal(member(b, "ab")),
         by(library(member, 2))
       ),
       proof(

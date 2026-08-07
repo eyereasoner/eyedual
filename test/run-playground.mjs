@@ -33,7 +33,7 @@ export async function runPlayground(reporter = new TestReporter()) {
       options: { goal: 'answer(X)' },
     }, deterministicClock());
     assertEqual(result.ok, true, 'worker result status');
-    assertEqual(result.stdout, 'answer([a, b]).\n', 'append/3 output');
+    assertEqual(result.stdout, 'answer("ab").\n', 'append/3 output');
     assertEqual(result.elapsedMs, 1, 'elapsed time');
   });
 
@@ -46,7 +46,7 @@ export async function runPlayground(reporter = new TestReporter()) {
       source: 'answer(X) :- member(X, [red, green]).\n',
       options: { goal: 'answer(X)' },
     });
-    assertEqual(first.stdout, 'answer([c, b, a]).\n', 'first worker output');
+    assertEqual(first.stdout, 'answer("cba").\n', 'first worker output');
     assertEqual(second.stdout, 'answer(red).\nanswer(green).\n', 'second worker output');
   });
 

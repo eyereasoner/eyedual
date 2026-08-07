@@ -1,1 +1,1 @@
-answer([b, c]).
+answer("bc").

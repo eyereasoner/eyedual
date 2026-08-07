@@ -447,7 +447,8 @@ grandparents, then only the grandparents of `diego`.
 Prolog programs accepted by EyeProlog are built from terms:
 
 - atom constants: `ada`, `accepted`, `'atom with spaces'`;
-- strings: `"sensor too hot"`;
+- double-quoted character lists: `"sensor too hot"` (the default shorthand for
+  `[s,e,n,s,o,r,' ',t,o,o,' ',h,o,t]`);
 - numbers: `42`, `-7`, `3.14159`, `1.2e3`;
 - variables: `X`, `Person`, `_temporary`;
 - compound terms: `point(3, 4)`, `reading(temp, 91)`;
@@ -504,8 +505,9 @@ route(a, d, path([a, b, d], cost(9))).
 As a fact head, `measurement(...)` is an atomic formula. Nested terms are data.
 The same surface form serves both roles; context decides which.
 
-`ready` is an atom constant and `"ready"` is a string. Keep symbolic vocabulary
-as atoms and human text as strings. Quoted atoms remain atoms:
+`ready` is an atom constant and `"ready"` is, by default, a proper list of
+one-character atoms. Keep symbolic vocabulary as atoms and use character lists
+when text must be inspected relationally. Quoted atoms remain atoms:
 
 ```eyeprolog
 label(sensor_1, "Cabin temperature").
@@ -632,7 +634,7 @@ book rather than appearing only as historical attribution.
 The declarative reading needs a precise answer to a deceptively simple
 question: what can a term denote? EyeProlog uses **Herbrand semantics**. Its
 universe contains exactly the ground terms that can be constructed from the
-program's atom constants, strings, numbers, list constructors, and compound
+program's atom constants, numbers, list constructors, and compound
 functors. There are no unnamed elements hiding behind the notation. A ground
 term denotes itself.
 
@@ -1179,10 +1181,9 @@ normalized(Input, Words) :-
 
 Conversions include `number_string/2`, `atom_string/2`, and `term_string/2`.
 Pattern operations include `contains/2`, `matches/2`, and named-capture
-`matches/3`. Turn text into structured terms early; keep central rules
-relational. Double-quoted EyeProlog strings remain available as a distinct term
-type for data models such as RDF, but they are not the portable library text
-API.
+`matches/3`. Turn text into structured terms early and keep central rules
+relational. Double-quoted source notation follows the ISO `double_quotes` flag;
+it does not create a separate Prolog string type.
 
 Parenthesized comma terms can serve as context data:
 
@@ -4868,9 +4869,9 @@ Atomic conversion predicates expose reversible representations:
 - `char_code/2` converts one character; and
 - `number_chars/2` and `number_codes/2` parse or render ISO numbers.
 
-These are atom relations, not the EyeProlog library's string convenience
-predicates. Quoted atoms such as `'λ'` remain atoms; double-quoted values remain
-EyeProlog strings.
+These are atom relations, distinct from the EyeProlog library predicates whose
+historical names contain `string`. Quoted atoms such as `'λ'` remain atoms;
+with the default flag, `"λ"` denotes the character list `['λ']`.
 
 [`iso-reflective-terms.pl`](https://github.com/eyereasoner/eyeprolog/blob/main/examples/iso-reflective-terms.pl)
 walks through shape, rebuilding, fresh copying, variables, and order.
@@ -5043,23 +5044,23 @@ conforming processor.
 Prolog source accepted by EyeProlog is UTF-8. `%` starts a line comment and
 `/* ... */` delimits a block comment. Plain atoms begin with a
 lowercase ASCII letter. Variables begin with uppercase or underscore. The bare
-`_` is fresh each time. Single quotes delimit quoted atoms; double quotes
-delimit strings. Integers, decimals, scientific notation, binary/octal/
+`_` is fresh each time. Single quotes delimit quoted atoms; double quotes use
+ISO double-quoted-list notation. Integers, decimals, scientific notation, binary/octal/
 hexadecimal integers, and character-code constants are accepted.
 
 Unquoted names deliberately use ASCII spelling. Unicode belongs inside quoted
-atoms and strings:
+atoms and double-quoted lists:
 
 ```eyeprolog
 city('München').
 message("café").
 ```
 
-Inside a quoted atom, a single quote is doubled: `'don''t'`. Strings support
+Inside a quoted atom, a single quote is doubled: `'don''t'`. Double-quoted lists support
 the common escapes `\n`, `\t`, `\"`, and `\\`. Whitespace is insignificant
 between tokens, and a `%` comment continues to the end of its line. Doubling
 the active delimiter is also accepted inside either quoted form, so `""`
-inside a string denotes one literal double quote.
+inside double-quoted notation denotes one literal double quote character.
 
 Graphic atoms may contain `#$&*+-/<=>@^~\;`. Colon names and unquoted
 angle-bracket IRIs are not syntax; quote names containing such punctuation.
@@ -5074,11 +5075,12 @@ clause              ::= head "."
                       | head ":-" goal-list "."
 head                ::= term
 goal-list           ::= term { "," term }
-term                ::= variable | atom-constant | string | number
+term                ::= variable | atom-constant | double-quoted-list | number
                       | compound | list | curly-term | parenthesized-term
 compound            ::= atom-constant "(" term { "," term } ")"
 list                ::= "[" "]"
                       | "[" term { "," term } [ "|" term ] "]"
+double-quoted-list  ::= '"' { quoted-character } '"'
 curly-term          ::= "{}" | "{" term "}"
 parenthesized-term  ::= "(" term [ "," term { "," term } ] ")"
 variable            ::= "_"
@@ -5221,19 +5223,257 @@ contains 115 name/arity entries across 94 names.
 `false/0` and `fail/0` both fail as goals. `false/0` is a protected static
 procedure and cannot be defined by source clauses or declared dynamic.
 
+### Reading the built-in reference
+
+The call patterns below use `+` for an argument that must be sufficiently
+instantiated, `-` for a result normally produced by the call, and `?` for an
+argument that may be supplied or returned. These are principal operational
+modes, not a separate mode system enforced by the parser. A call described as
+*semidet* succeeds at most once; a *nondet* call may yield further answers on
+backtracking. Unless stated otherwise, checking a result that does not unify
+simply fails.
+
+Built-in dispatch is authoritative and built-in procedures cannot be modified
+through the dynamic database predicates. Source clauses with the same indicator
+do not replace a built-in implementation. `clause/2` and `op/3` are the two
+dispatch exceptions: when a program defines a source predicate with that same
+indicator, EyeProlog uses the source clauses. `false/0` is stricter still and is
+rejected as a source-clause head. Portable programs should avoid every such
+collision because other Prolog systems commonly reject it while loading.
+
+### Control, search, and exceptions
+
+| Predicate and principal call | Behavior |
+| --- | --- |
+| `true` | Succeeds once without binding variables. |
+| `fail`, `false` | Always fail. `false/0` is provided as a compatibility alias and is also forbidden as a source-clause head. |
+| `!` | Commits to choices made since entry into the current predicate invocation. It does not erase alternatives belonging to an enclosing caller. |
+| `call(+Goal)` | Calls an atom or compound goal. An unbound argument raises *instantiation_error*; another non-callable term raises *type_error(callable)*. |
+| `\+(+Goal)` | Negation as finite failure. It succeeds once when `Goal` has no solution and never exports bindings made while testing `Goal`. Bind variables needed by the test first. |
+| `once(+Goal)` | Returns only the first solution of `Goal`, or fails when there is none. |
+| `repeat` | Produces an unbounded sequence of successes; normally paired with a test, cut, exception, or `halt/0`. |
+| `Left ; Right` | Enumerates `Left`, then `Right`, restoring the incoming environment between branches. |
+| `If -> Then` | Commits to the first solution of `If` and runs `Then`; it does not provide an else branch by itself. |
+| `(If -> Then ; Else)` | Runs `Then` from the first solution of `If`, otherwise runs `Else`. Alternatives of `If` are discarded. |
+| `catch(+Goal,?Catcher,+Recovery)` | Runs `Goal`; on a matching thrown ball or `PrologError`, unifies it with `Catcher` and calls `Recovery`. Runtime errors are exposed as *error(Formal,eyeprolog)*. |
+| `throw(+Ball)` | Throws a copied nonvariable term. An unbound ball raises `instantiation_error`. |
+| `halt`, `halt(+Status)` | Stops the processor with status `0` or the supplied integer. The JavaScript API reports the status without terminating its host process. |
+
+`;/2` recognizes an `->/2` term on its left and implements the ISO
+if-then-else commitment described above. Cuts and committed conditions are
+operational controls; use ordinary relations when all alternatives should
+remain observable.
+
+### Unification, type tests, and term order
+
+| Predicate and principal call | Behavior |
+| --- | --- |
+| `?Left = ?Right` | Unifies two terms and returns the resulting bindings. EyeProlog rejects direct and indirect cyclic bindings. |
+| `unify_with_occurs_check(?Left,?Right)` | Performs occurs-check-safe unification. Because ordinary EyeProlog unification is already cycle-safe, it has the same successful bindings as `=/2`. |
+| `?Left \= ?Right` | Succeeds only when the terms cannot unify at call time. It is a test, not a delayed disequality constraint. |
+| `?Left == ?Right`, `?Left \== ?Right` | Test term identity or non-identity without binding variables. Two distinct unbound variables are not identical. |
+| `var(?Term)`, `nonvar(?Term)` | Test whether the dereferenced term is or is not an unbound variable. |
+| `atom(?Term)`, `integer(?Term)`, `float(?Term)`, `number(?Term)` | Test the corresponding scalar category. Integer values retain arbitrary precision; finite noninteger numeric values are floats. |
+| `atomic(?Term)`, `compound(?Term)`, `callable(?Term)`, `ground(?Term)` | Test for an ISO atomic term, a compound, a callable atom/compound, or a term containing no unbound variables. A default double-quoted value is a list and is therefore compound unless it is empty. |
+| `compare(?Order,+Left,+Right)` | Unifies `Order` with `<`, `=`, or `>` according to profile term order. A supplied order must be one of those atoms. |
+| `Left @< Right`, `Left @=< Right`, `Left @> Right`, `Left @>= Right` | Compare terms without arithmetic evaluation or bindings. These calls are semidet. |
+
+For ISO terms, the profile term order is variables, numbers, atoms, then compounds;
+compound terms compare by arity, functor, and arguments. Within the numeric
+category, floats precede integers; floats compare by finite numeric value and
+integers compare exactly. This is intentionally documented as EyeProlog's
+profile order rather than claimed as the complete ISO term order. Host-created
+RDF lexical strings are an internal extension ranked between atoms and
+compounds; double-quoted Prolog source never creates that extension.
+
+### Term construction and inspection
+
+| Predicate and principal call | Behavior |
+| --- | --- |
+| `functor(+Term,?Name,?Arity)` | Decomposes a term. Scalars have arity zero. |
+| `functor(-Term,+Name,+Arity)` | Constructs a scalar when `Arity` is zero or a compound with fresh arguments otherwise. Arity must be a nonnegative representable integer and a positive-arity name must be an atom. |
+| `arg(+Index,+Term,?Argument)` | Selects the one-based argument of a compound. Index zero or an index beyond the arity fails; a negative index is a domain error. |
+| `?Term =.. ?List` | Converts a term to `[Functor\|Arguments]` or constructs a term from a nonempty proper list. A one-item list constructs its atomic item. |
+| `copy_term(+Term,-Copy)` | Copies the dereferenced term while replacing every distinct unbound variable with a fresh variable and preserving variable sharing. |
+| `term_variables(+Term,?Variables)` | Returns distinct variables in first-occurrence traversal order. A supplied result may be a proper or partial list. |
+
+Construction calls raise `instantiation_error` when neither side supplies the
+required shape. `=../2` distinguishes an incomplete list
+(`instantiation_error`) from an improper list (`type_error(list)`).
+
+### Solution collection
+
+| Predicate and principal call | Behavior |
+| --- | --- |
+| `findall(+Template,+Goal,?Bag)` | Collects a fresh copy of `Template` for every solution of `Goal`, preserving solution order. It succeeds with `[]` when there are no solutions and treats all free variables existentially. |
+| `bagof(+Template,+Goal,?Bag)` | Groups answers by free variables not present in `Template`. It yields one nonempty bag per witness group and fails when no group exists. Prefix variables with `^` in `Goal` to quantify them existentially. |
+| `setof(+Template,+Goal,?Set)` | Has the grouping behavior of `bagof/3`, then sorts each group by profile term order and removes identical duplicates. |
+
+Each collector runs its goal in an isolated inner search while sharing the
+current logical program and stream state. Collected terms are copied, so local
+variables do not escape accidentally. The bag argument must be a proper or
+partial list.
+
+### Dynamic database and procedure information
+
+| Predicate and principal call | Behavior |
+| --- | --- |
+| `clause(+Head,?Body)` | Enumerates fresh copies of source clauses matching the callable `Head`; facts have body `true`. Access to built-ins raises *permission_error(access,private_procedure)*. |
+| `asserta(+Clause)`, `assertz(+Clause)` | Insert a copied fact or rule at the beginning or end of a predicate declared *dynamic/1*. Static and built-in procedures cannot be modified. |
+| `retract(+Clause)` | Removes matching dynamic clauses one at a time on backtracking. A call sees the logical update view captured when it began. A fact pattern matches facts only. |
+| `abolish(+Name/+Arity)` | Removes a dynamic procedure and its clauses. The indicator must contain an atom and a nonnegative representable integer. |
+| `current_predicate(?Name/?Arity)` | Enumerates predicate groups present in the loaded program, including empty dynamic groups. It does not enumerate registry-only built-ins. |
+
+Declare mutable predicates explicitly, including empty ones:
+
+```text
+:- dynamic(cache/2).
+
+remember(Key, Value) :- retract(cache(Key, _)), !, assertz(cache(Key, Value)).
+remember(Key, Value) :- assertz(cache(Key, Value)).
+```
+
+Assertions and retractions invalidate affected reasoning tables. Mutating a
+predicate that was not declared dynamic raises a permission error rather than
+silently changing a static program.
+
+### Operators, character conversion, and flags
+
+| Predicate and principal call | Behavior |
+| --- | --- |
+| `op(+Priority,+Specifier,+NameOrNames)` | Defines or removes operators in the current program. Priority is `0..1200`; specifiers are `fx`, `fy`, `xf`, `yf`, `xfx`, `xfy`, or `yfx`; names may be one atom or a proper list. Priority zero removes the definition. `,` and `\|` cannot be modified. |
+| `current_op(?Priority,?Specifier,?Name)` | Enumerates active operator definitions and filters supplied arguments. |
+| `char_conversion(+Input,+Output)` | Installs a one-character atom conversion for subsequent term input. Mapping a character to itself removes its custom mapping. |
+| `current_char_conversion(?Input,?Output)` | Enumerates installed nonidentity conversions. |
+| `current_prolog_flag(?Flag,?Value)` | Enumerates flags or retrieves one named flag. An unknown bound flag raises *domain_error(prolog_flag)*. |
+| `set_prolog_flag(+Flag,+Value)` | Changes a supported mutable flag after validating its allowed atom value. Read-only flags raise a permission error. |
+
+| Flag | Default in normal EyeProlog | Allowed values | Mutable |
+| --- | --- | --- | --- |
+| `bounded` | `false` | `false` | no |
+| `integer_rounding_function` | `toward_zero` | `toward_zero` | no |
+| `char_conversion` | `on` | `on`, `off` | yes |
+| `debug` | `off` | `on`, `off` | yes |
+| `max_arity` | `unbounded` | `unbounded` | no |
+| `unknown` | `fail` | `error`, `fail`, `warning` | yes |
+| `double_quotes` | `chars` | `chars`, `codes`, `atom` | yes |
+
+The isolated ISO-only registry defaults `unknown` to `error`; the normal
+autoloaded EyeProlog environment defaults it to `fail`. Operator and flag
+directives are processed per program rather than changing global JavaScript
+state. The `double_quotes` setting affects subsequent source text, included
+files, command-line and API goal text, and terms read by `read_term/*`:
+
+```text
+% Default: a list of one-character atoms.
+chars("ab").                 % chars([a,b])
+
+:- set_prolog_flag(double_quotes, codes).
+codes("ab").                 % codes([97,98])
+
+:- set_prolog_flag(double_quotes, atom).
+quoted_atom("ab").           % quoted_atom(ab)
+```
+
+### Atomic-term operations and conversions
+
+| Predicate and principal call | Behavior |
+| --- | --- |
+| `atom_length(+Atom,?Length)` | Counts Unicode code points, not UTF-16 code units. A supplied length must be a nonnegative integer. |
+| `atom_concat(?Prefix,?Suffix,?Whole)` | Concatenates two atoms, removes a supplied prefix or suffix, or enumerates every split when only `Whole` is bound. At least `Whole`, or both parts, must determine the operation. |
+| `sub_atom(+Atom,?Before,?Length,?After,?SubAtom)` | Enumerates substrings and their Unicode-code-point offsets. Supplied counts must be nonnegative integers. |
+| `atom_chars(?Atom,?Chars)`, `atom_codes(?Atom,?Codes)` | Convert between an atom and a proper list of one-character atoms or Unicode scalar codes. At least one side must be instantiated. |
+| `char_code(?Character,?Code)` | Converts one character atom and one Unicode scalar code. Surrogates and values outside `0..0x10ffff` raise a representation error. |
+| `number_chars(?Number,?Chars)`, `number_codes(?Number,?Codes)` | Convert finite numbers to canonical text or parse a proper character/code list. At least one side must be instantiated; malformed numeric input raises *syntax_error(number)*. |
+
+Conversions accept partial output lists when the atomic input is known, but
+constructing an atom or number requires a complete proper list with no unbound
+elements. Numeric parsing accepts leading ISO layout characters, an optional
+sign, decimal fractions, and decimal exponents; it rejects trailing material
+and non-finite values.
+
+### Streams and unit I/O
+
+Stream arguments accept an alias atom or the opaque handle returned by
+`open/3` or `open/4`. Omitting a stream argument selects the current standard
+input or output.
+
+| Predicate and principal call | Behavior |
+| --- | --- |
+| `open(+Source,+Mode,-Stream)`, `open(+Source,+Mode,-Stream,+Options)` | Opens an atom path in `read`, `write`, or `append` mode. Options are *type(text or binary)*, *alias(Atom)*, *reposition(true or false)*, and *eof_action(error, eof_code, or reset)*. |
+| `close(+Stream)`, `close(+Stream,+Options)` | Closes a nonstandard stream. The only close option is *force(true or false)*; standard streams remain available. |
+| `current_input(?Stream)`, `current_output(?Stream)` | Return or test the current input or output handle. |
+| `set_input(+Stream)`, `set_output(+Stream)` | Select an existing stream with the required direction. |
+| `flush_output`, `flush_output(+Stream)` | Completes successfully for the current output or validates and flushes the selected output stream. EyeProlog writes synchronously. |
+| `stream_property(?Stream,?Property)` | Enumerates streams and their properties: *mode/1*, *type/1*, *reposition/1*, *eof_action/1*, *position/1*, *input*, *output*, *end_of_stream/1*, and optional *alias/1* and *file_name/1*. |
+| `set_stream_position(+Stream,+Position)` | Repositions a stream opened with *reposition(true)*. `Position` is a nonnegative integer or *position(Integer)* within the stream content. |
+| `at_end_of_stream`, `at_end_of_stream(+Stream)` | Succeeds when the current or selected input position is at or beyond its content. |
+| `get_char(?Character)`, `get_char(+Stream,?Character)` | Reads one text character; end of input is `end_of_file`. |
+| `peek_char(?Character)`, `peek_char(+Stream,?Character)` | Observes the next text character without advancing. |
+| `get_code(?Code)`, `get_code(+Stream,?Code)` | Reads a Unicode code point; end of input is `-1`. |
+| `peek_code(?Code)`, `peek_code(+Stream,?Code)` | Observes the next Unicode code point without advancing. |
+| `get_byte(?Byte)`, `get_byte(+Stream,?Byte)` | Reads one unit from a binary stream; end of input is `-1`. |
+| `peek_byte(?Byte)`, `peek_byte(+Stream,?Byte)` | Observes the next binary unit without advancing. |
+| `put_char(+Character)`, `put_char(+Stream,+Character)` | Writes one character atom to a text stream. |
+| `put_code(+Code)`, `put_code(+Stream,+Code)` | Writes one Unicode scalar code to a text stream. |
+| `put_byte(+Byte)`, `put_byte(+Stream,+Byte)` | Writes an integer in `0..255` to a binary stream. |
+| `nl`, `nl(+Stream)` | Writes a newline to a text stream. |
+
+Text operations on binary streams and byte operations on text streams raise
+permission errors. After EOF, `eof_action(error)` rejects another consuming
+read, `eof_code` continues returning the EOF value, and `reset` resumes from
+the beginning. A peek does not mark the stream as past-end.
+
+### Term input and output
+
+| Predicate and principal call | Behavior |
+| --- | --- |
+| `read(?Term)`, `read(+Stream,?Term)` | Reads one full-stop-terminated Prolog term from a text stream. Returns `end_of_file` when no term remains. |
+| `read_term(?Term,+Options)`, `read_term(+Stream,?Term,+Options)` | Reads a term and supports *variables(List)*, *variable_names(Pairs)*, and *singletons(Pairs)*. Unknown options raise *domain_error(read_option)*. |
+| `write(+Term)`, `write(+Stream,+Term)` | Writes readable operator notation without quoting atoms merely because quoting would be required for reparsing. Number variables are enabled. |
+| `writeq(+Term)`, `writeq(+Stream,+Term)` | Like `write`, but quotes atoms when required for unambiguous input syntax. |
+| `write_canonical(+Term)`, `write_canonical(+Stream,+Term)` | Writes quoted canonical functor notation while ignoring operators and without interpreting *$VAR/1*. |
+| `write_term(+Term,+Options)`, `write_term(+Stream,+Term,+Options)` | Writes with *quoted(true or false)*, *ignore_ops(true or false)*, *numbervars(true or false)*, and *variable_names([Name=Variable,...])*. |
+
+Term input uses the program's current operator table and applies installed
+character conversions outside quoted text when the `char_conversion` flag is
+`on`. `variable_names/1` and `singletons/1` omit anonymous variables. Output
+predicates do not append a period or newline; call `write/1`, then `write('.')`
+and `nl/0` when emitting a complete source term manually.
+
 ### Arithmetic expressions
 
-`Result is Expression` evaluates an ISO arithmetic expression and unifies the
-numeric result with `Result`. Supported expressions include integer and
-floating-point literals, unary `+` and `-`, `+`, `-`, `*`, `/`, `//`, `div`,
-`mod`, `rem`, bit operations, exponentiation, `abs`, rounding functions,
-`sin`, `cos`, `atan`, `exp`, `log`, and `sqrt`.
+| Predicate and principal call | Behavior |
+| --- | --- |
+| `is(?Result,+Expression)` | Evaluates `Expression` once and unifies its numeric value with `Result`. It is evaluation plus unification, not mutable assignment. |
+| `Left =:= Right`, `Left =\= Right` | Evaluate both sides and test numeric equality or inequality. Integer/float representation differences do not by themselves make values unequal. |
+| `Left < Right`, `Left =< Right`, `Left > Right`, `Left >= Right` | Evaluate both sides and perform the indicated numeric comparison. |
+
+Every variable in an arithmetic expression must already be bound to a number
+or evaluable expression. Integers use arbitrary-precision arithmetic while an
+operation remains in the integer domain; operations requiring floating point
+convert their operands to finite JavaScript numbers.
+
+| Expression family | Supported forms and result rules |
+| --- | --- |
+| Literals and constants | Integer and finite floating-point literals; `pi` and `e` produce floating-point constants. |
+| Unary arithmetic | Unary `+`, unary `-`, and integer bitwise complement `\`. |
+| Basic binary arithmetic | `+`, `-`, and `*` preserve integers when both operands are integers. `/` produces a float and rejects a zero divisor. |
+| Exponentiation | `Base ^ Exponent` remains an integer for nonnegative integer operands; otherwise `^` and `**` use floating-point exponentiation. |
+| Integer division | `//` and `div` require integers, reject zero divisors, and round toward zero as reported by `integer_rounding_function`. |
+| Integer remainder | `rem` is the truncating remainder; `mod` normalizes the result with the divisor's sign. Both require integers and a nonzero divisor. |
+| Bit operations | Integer `\/\`, `\\/`, `<<`, and `>>`, plus unary `\`. |
+| Numeric normalization | `abs`, `sign`, and `float`. Integer `abs` and `sign` preserve integer results; `float` produces a float. |
+| Rounding | `truncate`, `round`, `ceiling`, and `floor` produce integers. |
+| Float decomposition | `float_integer_part` and `float_fractional_part` require a float and return floats. |
+| Transcendental functions | `sin`, `cos`, `atan`, `exp`, `log`, and `sqrt` produce finite floats. |
 
 Arithmetic comparisons evaluate both operands. Standard term-order predicates
 (`@<`, `@=<`, `@>`, `@>=`) compare terms without arithmetic evaluation.
-EyeProlog's documented profile order is not the complete ISO term order: strings
-are a distinct scalar category, and numeric terms share one exact numeric
-ordering category.
+EyeProlog's documented profile order distinguishes floats from integers rather
+than applying arithmetic equality across representations. Double-quoted text
+does not introduce another ISO term-order category: it becomes the list or atom
+selected by `double_quotes` before comparison.
 
 ### Errors
 
@@ -5242,6 +5482,22 @@ instantiation raises `instantiation_error`; wrong argument categories raise
 `type_error`; invalid values raise `domain_error`; and arithmetic faults raise
 `evaluation_error`. JavaScript embedders receive these as `PrologError`
 instances whose message contains the corresponding Prolog error term.
+
+| Error class | Typical cause |
+| --- | --- |
+| *instantiation_error* | A required callable, stream, number, list, option value, or construction input is still unbound. |
+| *type_error(Expected,Culprit)* | A bound value has the wrong term category, such as a noninteger index or non-callable goal. |
+| *domain_error(Domain,Culprit)* | The type is correct but the value is outside the supported domain, such as a bad stream option or operator priority. |
+| *representation_error(Flag)* | A value cannot be represented by the profile, such as an invalid Unicode scalar code. |
+| *evaluation_error(zero_divisor)* | Integer or floating-point division was attempted with a zero divisor. |
+| *evaluation_error(undefined)* | Floating-point evaluation produced a non-finite or undefined result. |
+| *permission_error(Operation,Permission,Culprit)* | A static procedure was modified, a stream was used in the wrong mode, or a protected resource was accessed. |
+| *existence_error(Object,Culprit)* | A stream, source sink, or required procedure does not exist. |
+| *syntax_error(number)*, *syntax_error(read_term)* | Lexical number conversion or streamed term parsing failed. |
+
+`catch/3` converts a `PrologError` into a catchable
+`error(Formal,eyeprolog)` term. A user ball from `throw/1` is delivered as-is.
+An unmatched ball or error continues outward.
 
 Streams belong to one solver run and are shared by nested calls, exceptions,
 and solution collectors. `user_input` and `user_output` are always present.
@@ -5405,12 +5661,14 @@ eyeprolog --goal 'answer(Kind, Value)' program.pl
 #### Portable text, lexical values, and pattern matching
 
 The portable text API uses **ISO atoms or proper lists of one-character atoms**.
-A generated text result defaults to an atom. This is intentionally different
-from EyeProlog's double-quoted `string` term extension: strings remain available
-as data values, but portable library text is represented with ISO terms. The RDF
-tools emit lexical forms as atoms while preserving RDF distinctions in the
-surrounding `iri/1`, `literal/2`, datatype, language, and direction terms. The
-48-predicate portable file itself has no STRING or JavaScript dependency.
+A generated text result defaults to an atom. Double-quoted source text uses the
+ISO representation selected by `double_quotes`; with the default `chars`, it is
+already a proper character list accepted by this API. The RDF tools emit lexical
+forms as atoms while preserving RDF distinctions in the surrounding `iri/1`,
+`literal/2`, datatype, language, and direction terms. Their private host adapter
+may encounter an internal RDF string value, but that value is converted at the
+boundary and is never produced by double-quoted Prolog syntax. The 48-predicate
+portable file itself has no STRING or JavaScript dependency.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |
@@ -6136,7 +6394,7 @@ proof terms, warnings, answer formatting, embedding, and external data
 adapters.
 
 The executable corpus under `test/conformance/` tests the JavaScript
-implementation. Positive programs and exact output cover arithmetic, strings,
+implementation. Positive programs and exact output cover arithmetic, text relations,
 lists, terms, atoms, variables, negation, queries, rules, and
 syntax. Separate corpora cover expected errors, warnings, and proofs:
 
@@ -6146,7 +6404,7 @@ node test/run-conformance-report.mjs
 ```
 
 The complete suite must pass before release. The file-based conformance corpus
-contains 685 cases, including 279 focused ISO
+contains 686 cases, including 280 focused ISO
 cases derived from the success, failure, mode, and error behavior in
 ISO/IEC 13211-1 clauses 7 and 8. Separate exact-output suites check 204 normal
 examples, 71 proof examples, and extracted book displays. The seven-case
@@ -6190,15 +6448,15 @@ additional compatibility conveniences.
 
 This breadth is not a formal certification of every processor requirement.
 The executable examples are EyeProlog-profile programs using host-supplied goals,
-strings, explicit integrity relations, automatic tabling, and the EyeProlog library.
+character lists, explicit integrity relations, automatic tabling, and the EyeProlog library.
 The remaining qualifications are:
 
 - zero-arity compound syntax such as `ready()` is represented by the atom
   `ready`;
 - modules and DCG notation are outside this Part 1 profile;
 - variables cannot occupy functor or predicate position;
-- double-quoted text is a distinct EyeProlog string scalar rather than switching
-  representation with the `double_quotes` flag;
+- double-quoted text follows `double_quotes` exactly; the default `chars` value
+  matches Trealla and Scryer and may be changed to `codes` or `atom`;
 - `write_term/2-3` implements `quoted/1`, `ignore_ops/1`, `numbervars/1`,
   and `variable_names/1`; other write options and some option/error precedence
   combinations remain outside the profile;
@@ -6567,8 +6825,9 @@ replaces those variables consistently throughout a term or clause.
 **Tabling.** Evaluation that shares recursive calls and accumulates their
 answers toward a fixed point.
 
-**Term.** An atom constant, string, number, variable, compound term, list, or
-parenthesized comma term.
+**Term.** An atom constant, number, variable, compound term, list, or
+parenthesized comma term. Double-quoted notation denotes a list or atom as
+selected by the ISO `double_quotes` flag.
 
 **Termination measure.** A value in a well-founded order that strictly
 decreases along every recursive branch in a stated mode.

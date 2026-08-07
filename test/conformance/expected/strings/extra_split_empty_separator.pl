@@ -1,1 +1,1 @@
-answer(split_empty_separator, [a, b]).
+answer(split_empty_separator, "ab").

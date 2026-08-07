@@ -1,1 +1,1 @@
-answer(le_equal_string).
+answer(le_equal_char_list).

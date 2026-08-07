@@ -1,3 +1,3 @@
 answer(first, a).
-answer(tail, [b, c]).
+answer(tail, "bc").
 answer(last, c).

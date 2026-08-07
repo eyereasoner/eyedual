@@ -27,11 +27,19 @@ export class Solver {
     this.prologFlags = options.prologFlags ?? defaultPrologFlags(this.registry?.eyePrologLibrary ? 'fail' : 'error');
     this.charConversions = options.charConversions ?? new Map();
     if (!options.prologFlags) {
+      if (['chars', 'codes', 'atom'].includes(program.doubleQuotes)) {
+        this.prologFlags.get('double_quotes').value = compound(program.doubleQuotes, []);
+      }
       for (const [flag, value] of program.prologFlagDirectives ?? []) {
+        if (flag.type === 'var' || value.type === 'var') throw new PrologError('instantiation_error');
+        if (flag.type !== 'atom') throw new PrologError('type_error(atom)', flag);
         const definition = this.prologFlags.get(flag.name);
-        if (flag.type === 'atom' && value.type === 'atom' && definition?.changeable && definition.allowed.includes(value.name)) {
-          definition.value = value;
+        if (!definition) throw new PrologError('domain_error(prolog_flag)', flag);
+        if (value.type !== 'atom' || !definition.allowed.includes(value.name)) {
+          throw new PrologError('domain_error(flag_value)', compound('+', [flag, value]));
         }
+        if (!definition.changeable) throw new PrologError('permission_error(modify, flag)', flag);
+        definition.value = value;
       }
     }
     if (!options.charConversions) {
@@ -383,7 +391,7 @@ function defaultPrologFlags(unknown = 'error') {
     ['debug', { value: compound('off', []), allowed: ['on', 'off'], changeable: true }],
     ['max_arity', { value: compound('unbounded', []), allowed: ['unbounded'], changeable: false }],
     ['unknown', { value: compound(unknown, []), allowed: ['error', 'fail', 'warning'], changeable: true }],
-    ['double_quotes', { value: compound('atom', []), allowed: ['chars', 'codes', 'atom'], changeable: true }],
+    ['double_quotes', { value: compound('chars', []), allowed: ['chars', 'codes', 'atom'], changeable: true }],
   ]);
 }
 

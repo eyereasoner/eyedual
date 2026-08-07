@@ -1,2 +1,2 @@
-answer(rest, [b, a]).
-answer(rest, [a, b]).
+answer(rest, "ba").
+answer(rest, "ab").

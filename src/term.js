@@ -314,37 +314,68 @@ function writeString(value, quoteStrings) {
   let out = '"';
   for (const ch of value) {
     if (ch === '"' || ch === '\\') out += `\\${ch}`;
+    else if (ch === '\x07') out += '\\a';
+    else if (ch === '\b') out += '\\b';
+    else if (ch === '\r') out += '\\r';
+    else if (ch === '\f') out += '\\f';
+    else if (ch === '\t') out += '\\t';
     else if (ch === '\n') out += '\\n';
+    else if (ch === '\v') out += '\\v';
     else out += ch;
   }
   return out + '"';
 }
 
-function writeList(term, env) {
+function quotedListText(term, env, doubleQuotes) {
+  if (doubleQuotes !== 'chars' && doubleQuotes !== 'codes') return null;
+  const characters = [];
+  let cursor = term;
+  while (true) {
+    cursor = deref(cursor, env);
+    if (isEmptyList(cursor)) return characters.length === 0 ? null : characters.join('');
+    if (!isCons(cursor)) return null;
+    const item = deref(cursor.args[0], env);
+    if (doubleQuotes === 'chars') {
+      if (item.type !== ATOM || Array.from(item.name).length !== 1) return null;
+      characters.push(item.name);
+    } else {
+      if (item.type !== NUMBER || !/^\d+$/.test(item.name)) return null;
+      const code = BigInt(item.name);
+      if (code < 0n || code > 0x10ffffn || (code >= 0xd800n && code <= 0xdfffn)) return null;
+      characters.push(String.fromCodePoint(Number(code)));
+    }
+    cursor = cursor.args[1];
+  }
+}
+
+function writeList(term, env, options) {
+  const quotedText = quotedListText(term, env, options.doubleQuotes);
+  if (quotedText != null) return writeString(quotedText, true);
   const parts = [];
   let cursor = term;
   while (true) {
     cursor = deref(cursor, env);
     if (isEmptyList(cursor)) return `[${parts.join(', ')}]`;
     if (!isCons(cursor)) {
-      if (parts.length) return `[${parts.join(', ')} | ${termToString(cursor, env, true)}]`;
-      return `[${termToString(cursor, env, true)}]`;
+      if (parts.length) return `[${parts.join(', ')} | ${termToString(cursor, env, true, options)}]`;
+      return `[${termToString(cursor, env, true, options)}]`;
     }
-    parts.push(termToString(cursor.args[0], env, true));
+    parts.push(termToString(cursor.args[0], env, true, options));
     cursor = cursor.args[1];
   }
 }
 
-export function termToString(term, env = new Env(), quoteStrings = true) {
+export function termToString(term, env = new Env(), quoteStrings = true, options = {}) {
+  options = { doubleQuotes: options.doubleQuotes ?? 'chars' };
   const resolved = deref(term, env);
   if (resolved.type === VAR) return writeVariable(resolved.name);
-  if (isCons(resolved)) return writeList(resolved, env);
+  if (isCons(resolved)) return writeList(resolved, env, options);
   if (resolved.type === STRING) return writeString(resolved.name, quoteStrings);
   if (resolved.type === ATOM) return writeAtom(resolved.name);
   if (resolved.type === NUMBER) return resolved.name;
   if (resolved.type === COMPOUND && resolved.arity === 0) return writeAtom(resolved.name);
   if (resolved.type === COMPOUND && resolved.name === '{}' && resolved.arity === 1) {
-    return `{${termToString(resolved.args[0], env, true)}}`;
+    return `{${termToString(resolved.args[0], env, true, options)}}`;
   }
   if (isConjunction(resolved)) {
     const parts = [];
@@ -352,16 +383,16 @@ export function termToString(term, env = new Env(), quoteStrings = true) {
     while (true) {
       cursor = deref(cursor, env);
       if (isConjunction(cursor)) {
-        parts.push(termToString(cursor.args[0], env, true));
+        parts.push(termToString(cursor.args[0], env, true, options));
         cursor = cursor.args[1];
       } else {
-        parts.push(termToString(cursor, env, true));
+        parts.push(termToString(cursor, env, true, options));
         break;
       }
     }
     return `(${parts.join(', ')})`;
   }
-  return `${writeAtom(resolved.name)}(${resolved.args.map((arg) => termToString(arg, env, true)).join(', ')})`;
+  return `${writeAtom(resolved.name)}(${resolved.args.map((arg) => termToString(arg, env, true, options)).join(', ')})`;
 }
 
 export function lexicalValue(term, env) {

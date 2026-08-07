@@ -52,7 +52,13 @@ function writeString(value) {
   let out = '"';
   for (const ch of value) {
     if (ch === '"' || ch === '\\') out += `\\${ch}`;
+    else if (ch === '\x07') out += '\\a';
+    else if (ch === '\b') out += '\\b';
+    else if (ch === '\r') out += '\\r';
+    else if (ch === '\f') out += '\\f';
+    else if (ch === '\t') out += '\\t';
     else if (ch === '\n') out += '\\n';
+    else if (ch === '\v') out += '\\v';
     else out += ch;
   }
   return out + '"';

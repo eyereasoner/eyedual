@@ -1,1 +1,1 @@
-atom_chars_results([], ['[', ']'], [a, n, t], sop).
+atom_chars_results([], "[]", "ant", sop).

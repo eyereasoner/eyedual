@@ -47,9 +47,12 @@ export function run(source, options = {}) {
     },
   });
   program = solver.program;
-  const goals = normalizeGoals(options);
+  const goals = normalizeGoals(options, solver);
+  const writeOptions = {
+    doubleQuotes: solver.prologFlags.get('double_quotes')?.value?.name ?? 'chars',
+  };
   const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
-  const facts = program.sourceFactLines(queriedKeys);
+  const facts = program.sourceFactLines(queriedKeys, writeOptions);
   const seen = new Set();
   let haltCode = null;
   try {
@@ -59,7 +62,10 @@ export function run(source, options = {}) {
       for (const env of solver.solve([goal], new Env(), 0)) {
         const resolved = copyResolved(goal, env);
         if (!termIsGround(resolved)) continue;
-        const line = `${termToString(resolved, new Env(), true)}.\n`;
+        const currentWriteOptions = {
+          doubleQuotes: solver.prologFlags.get('double_quotes')?.value?.name ?? 'chars',
+        };
+        const line = `${termToString(resolved, new Env(), true, currentWriteOptions)}.\n`;
         if (facts.has(line) || seen.has(line)) continue;
         seen.add(line);
         output.push(line);
@@ -73,10 +79,14 @@ export function run(source, options = {}) {
   return { stdout: output.join(''), stats: solver.stats, haltCode };
 }
 
-function normalizeGoals(options) {
+function normalizeGoals(options, solver) {
   const requested = options.goals ?? (options.goal == null ? [] : [options.goal]);
   return requested.map((requestedGoal) => {
-    const goal = typeof requestedGoal === 'string' ? parseGoalText(requestedGoal) : requestedGoal;
+    const goal = typeof requestedGoal === 'string'
+      ? parseGoalText(requestedGoal, {
+          doubleQuotes: solver.prologFlags.get('double_quotes')?.value?.name ?? 'chars',
+        })
+      : requestedGoal;
     if (goal.type === VAR) throw new PrologError('instantiation_error');
     if (goal.type !== ATOM && goal.type !== COMPOUND) throw new PrologError('type_error(callable)', goal);
     return goal;

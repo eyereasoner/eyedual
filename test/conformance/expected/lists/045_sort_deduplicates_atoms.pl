@@ -1,1 +1,1 @@
-answer(sorted, [a, b, c]).
+answer(sorted, "abc").

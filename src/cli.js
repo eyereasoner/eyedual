@@ -128,22 +128,27 @@ async function loadExplanation() {
 }
 
 async function runDefault(engine, program, options) {
-  const goals = options.goals.map((text) => {
-    const goal = engine.parseGoalText(text);
-    if (goal.type === 'var') throw new engine.PrologError('instantiation_error');
-    if (goal.type !== 'atom' && goal.type !== 'compound') throw new engine.PrologError('type_error(callable)', goal);
-    return goal;
-  });
-  const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
-  const facts = program.sourceFactLines(queriedKeys);
-  const lines = new Set();
   const registry = engine.getEyePrologRegistry();
-  const explanation = options.proof ? await loadExplanation() : null;
   const solver = new engine.Solver(program, {
     registry,
     ioOptions: { write: (text) => process.stdout.write(String(text)) },
   });
   program = solver.program;
+  const goals = options.goals.map((text) => {
+    const goal = engine.parseGoalText(text, {
+      doubleQuotes: solver.prologFlags.get('double_quotes')?.value?.name ?? 'chars',
+    });
+    if (goal.type === 'var') throw new engine.PrologError('instantiation_error');
+    if (goal.type !== 'atom' && goal.type !== 'compound') throw new engine.PrologError('type_error(callable)', goal);
+    return goal;
+  });
+  const queriedKeys = new Set(goals.map((goal) => `${goal.name}/${goal.arity}`));
+  const writeOptions = {
+    doubleQuotes: solver.prologFlags.get('double_quotes')?.value?.name ?? 'chars',
+  };
+  const facts = program.sourceFactLines(queriedKeys, writeOptions);
+  const lines = new Set();
+  const explanation = options.proof ? await loadExplanation() : null;
   try {
     solver.runInitializations();
     for (const goal of goals) {
@@ -151,7 +156,10 @@ async function runDefault(engine, program, options) {
       for (const env of solver.solve([goal], new engine.Env(), 0)) {
         if (!engine.termIsGround(goal, env)) continue;
 
-        const line = `${engine.termToString(goal, env, true)}.\n`;
+        const currentWriteOptions = {
+          doubleQuotes: solver.prologFlags.get('double_quotes')?.value?.name ?? 'chars',
+        };
+        const line = `${engine.termToString(goal, env, true, currentWriteOptions)}.\n`;
         if (facts.has(line) || lines.has(line)) continue;
 
         lines.add(line);

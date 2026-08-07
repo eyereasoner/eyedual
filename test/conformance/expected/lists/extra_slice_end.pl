@@ -1,1 +1,1 @@
-answer(slice_end, [c, d]).
+answer(slice_end, "cd").

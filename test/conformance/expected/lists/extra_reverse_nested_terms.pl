@@ -1,1 +1,1 @@
-answer(reverse_nested_terms, ['<urn:example:d>', [b, c], box(a)]).
+answer(reverse_nested_terms, ['<urn:example:d>', "bc", box(a)]).

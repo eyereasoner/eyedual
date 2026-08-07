@@ -1,3 +1,3 @@
 %% goal: answer(X0)
 
-answer(le_equal_string) :- ("abc" @=< "abc").
+answer(le_equal_char_list) :- ("abc" @=< "abc").

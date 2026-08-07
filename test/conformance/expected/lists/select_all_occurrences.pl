@@ -1,3 +1,3 @@
-answer(a, [b, a]).
-answer(b, [a, a]).
-answer(a, [a, b]).
+answer(a, "ba").
+answer(b, "aa").
+answer(a, "ab").

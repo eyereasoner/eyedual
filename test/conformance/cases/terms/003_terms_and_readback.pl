@@ -5,7 +5,7 @@ raw_value(atom, pat).
 raw_value(quoted_atom, 'atom with spaces').
 raw_value(quoted_quote, 'needs''quote').
 raw_value(empty_atom, '').
-raw_value(string, "line\nquote: \"ok\"").
+raw_value(char_list, "line\nquote: \"ok\"").
 raw_value(integer, -42).
 raw_value(decimal, 0.25).
 raw_value(scientific, 1.25e-3).

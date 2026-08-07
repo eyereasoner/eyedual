@@ -1,1 +1,1 @@
-answer(bag, [b, a, b]).
+answer(bag, "bab").

@@ -71,7 +71,7 @@ why(
     bindings([binding("Text", 'edge(a, [b, c])')]),
     uses([
       proof(
-        goal(term_string(edge(a, [b, c]), 'edge(a, [b, c])')),
+        goal(term_string(edge(a, "bc"), 'edge(a, [b, c])')),
         by(library(term_string, 2))
       )
     ])

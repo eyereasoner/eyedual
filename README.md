@@ -28,6 +28,8 @@ eyeprolog --goal 'type(socrates, mortal)' examples/socrates.pl
 ```
 
 Programs may declare their default queries with `%% goal:` comments.
+Double-quoted text follows the ISO `double_quotes` flag and defaults to a
+proper list of one-character atoms (`chars`), matching Trealla and Scryer.
 
 ## Portable library
 

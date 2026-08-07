@@ -1,2 +1,2 @@
-answer(prefix, [a, b]).
-answer(suffix, [b, c]).
+answer(prefix, "ab").
+answer(suffix, "bc").

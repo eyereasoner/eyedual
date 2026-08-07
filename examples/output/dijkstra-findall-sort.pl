@@ -1,2 +1,2 @@
-shortestPath(dijkstra_findall_sort, [a, c, b, d, e, f]).
+shortestPath(dijkstra_findall_sort, "acbdef").
 cost(dijkstra_findall_sort, 13).
