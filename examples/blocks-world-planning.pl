@@ -48,7 +48,7 @@ move(State, move(Block, From, To), Newstate) :-
   (Block \= To),
   (From \= To),
   select(on(Block, From), State, Rest),
-  sort([on(Block, To)|Rest], Newstate).
+  sort_unique([on(Block, To)|Rest], Newstate).
 
 plan(State, Goal, 0, _visited, [], State) :-
   (State = Goal).
@@ -63,8 +63,8 @@ plan(State, Goal, Depth, Visited, [Move|Moves], Final) :-
 five_move_plan(Moves, Final) :-
   initial(Start),
   goal(Goal),
-  sort(Start, Sortedstart),
-  sort(Goal, Sortedgoal),
+  sort_unique(Start, Sortedstart),
+  sort_unique(Goal, Sortedgoal),
   plan(Sortedstart, Sortedgoal, 5, [Sortedstart], Moves, Final).
 
 status(blocks_world, planned) :-

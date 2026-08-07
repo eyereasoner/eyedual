@@ -655,6 +655,7 @@
             "aggregate_max",
             "aggregate_min",
             "append",
+            "apply",
             "arg",
             "asin",
             "atan2",
@@ -707,7 +708,7 @@
             "sin",
             "slice",
             "smallest_divisor_from",
-            "sort",
+            "sort_unique",
             "split",
             "sqrt",
             "string_concat",
@@ -744,6 +745,7 @@
     let backgroundSource = '';
     let backgroundName = '';
     let activeWorker = null;
+    let activeWorkerStartupTimer = null;
     let renderToken = 0;
     let syntaxErrorLine = null;
     let sourceReference = { kind: 'custom' };
@@ -957,9 +959,29 @@
       runButton.disabled = true;
       stopButton.disabled = false;
 
-      const workerUrl = new URL('./src/playground-worker.js?playground=20260803d', location.href);
+      const workerUrl = new URL('./src/playground-worker.js?playground=20260807b', location.href);
       activeWorker = new Worker(workerUrl, { type: 'module' });
-      activeWorker.onmessage = (event) => finishRun(event.data);
+      const worker = activeWorker;
+      const request = {
+        source: combinedSource(),
+        options: { goals: selectedGoals(), proof: proof.checked, stats: stats.checked },
+      };
+      activeWorkerStartupTimer = setTimeout(() => {
+        if (activeWorker !== worker) return;
+        finishRun({
+          ok: false,
+          error: 'The reasoning worker did not finish loading. Reload the page to refresh cached EyeProlog assets.',
+        });
+      }, 10000);
+      activeWorker.onmessage = (event) => {
+        if (event.data?.type === 'ready') {
+          clearTimeout(activeWorkerStartupTimer);
+          activeWorkerStartupTimer = null;
+          worker.postMessage(request);
+          return;
+        }
+        finishRun(event.data);
+      };
       activeWorker.onerror = (event) => {
         const location = event.filename
           ? ` (${event.filename}${event.lineno ? `:${event.lineno}${event.colno ? `:${event.colno}` : ''}` : ''})`
@@ -973,10 +995,6 @@
       activeWorker.onmessageerror = () => finishRun({
         ok: false,
         error: 'The reasoning worker returned an unreadable message.',
-      });
-      activeWorker.postMessage({
-        source: combinedSource(),
-        options: { goals: selectedGoals(), proof: proof.checked, stats: stats.checked },
       });
     }
 
@@ -1072,6 +1090,8 @@
     }
 
     function cleanupWorker() {
+      if (activeWorkerStartupTimer != null) clearTimeout(activeWorkerStartupTimer);
+      activeWorkerStartupTimer = null;
       if (activeWorker) activeWorker.terminate();
       activeWorker = null;
     }

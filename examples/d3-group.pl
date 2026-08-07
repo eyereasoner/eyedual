@@ -1,4 +1,4 @@
-% Eyelet-inspired D3 group example using findall/3 and sort/2.
+% Eyelet-inspired D3 group example using findall/3 and sort_unique/2.
 % The six facts are the symmetries of an equilateral triangle, with compose/3 as
 % the Cayley table and inverse/2 as the inverse relation.  Candidate subsets are
 % generated as subsequences, then filtered for subgroup closure.
@@ -72,7 +72,7 @@ subsequence([_head | Tail], Rest) :-
 
 all_symmetries(Symmetries) :-
   findall(X, symmetry(X), Raw),
-  sort(Raw, Symmetries).
+  sort_unique(Raw, Symmetries).
 
 % A valid subgroup is closed under both composition and inverse.
 closed_under_composition(Group) :-
@@ -90,7 +90,7 @@ valid_group(Group) :-
 
 all_subgroups(Groups) :-
   findall(G, valid_group(G), Raw),
-  sort(Raw, Groups).
+  sort_unique(Raw, Groups).
 
 subgroups(d3_group, Groups) :-
   all_subgroups(Groups).

@@ -1,7 +1,7 @@
-% Eyelet-inspired combinations example using findall/3 and sort/2.
+% Eyelet-inspired combinations example using findall/3 and sort_unique/2.
 %
 % combination/3 generates the same subset in several selection orders.  findall/3
-% collects those candidates, and sort/2 canonicalizes the list so each unordered
+% collects those candidates, and sort_unique/2 canonicalizes the list so each unordered
 % 3-combination of five items is reported once.
 %% goal: combinations(X0, X1)
 
@@ -24,12 +24,12 @@ combination(I, Items, Combination) :-
   select(Item, Items, Remaining),
   (J is I - 1),
   combination(J, Remaining, Partial),
-  sort([Item | Partial], Combination).
+  sort_unique([Item | Partial], Combination).
 
 % findall collects all generation orders; sort canonicalizes and deduplicates.
 unique_combinations(K, Items, Unique) :-
   findall(C, combination(K, Items, C), All),
-  sort(All, Unique).
+  sort_unique(All, Unique).
 
 combinations(combinations_5_choose_3, Unique) :-
   unique_combinations(3, [1, 2, 3, 4, 5], Unique).

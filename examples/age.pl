@@ -27,4 +27,4 @@ ageAbove(S, A) :-
 
 % Test mirroring the Eyeling example.
 holds_result(test, true) :-
-  ageAbove(S, 'P80Y').
+  ageAbove(_, 'P80Y').

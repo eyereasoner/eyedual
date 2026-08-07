@@ -89,7 +89,7 @@ eval_matrix(Matrix, FreqSorted) :-
     setof(E, member(E, Entries), Set),
     maplist(count_var(Entries), Set, Multiplicities),
     zip(Multiplicities, Set, Frequencies),
-    sort(Frequencies, FreqSorted),
+    sort_unique(Frequencies, FreqSorted),
     maplist(snd, FreqSorted, VarsSorted),
     length(VarsSorted, NVars),
     from_to(1, NVars, VarsSorted).
@@ -237,4 +237,3 @@ lists_reform([[A|B]|C], [A|D], [B|E]) :-
 
 % query
 %% goal: enigma1225(8, _)
-

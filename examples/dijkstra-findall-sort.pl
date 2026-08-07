@@ -1,7 +1,7 @@
-% Eyelet-inspired Dijkstra example using findall/3 and sort/2.
+% Eyelet-inspired Dijkstra example using findall/3 and sort_unique/2.
 % The priority queue is represented as sorted list entries [Cost, Node | Path].
 % Each expansion collects unvisited neighbors with findall/3, appends them to
-% the frontier, and uses sort/2 so the cheapest frontier entry is processed next.
+% the frontier, and uses sort_unique/2 so the cheapest frontier entry is processed next.
 
 %% goal: shortestPath(X0, X1)
 
@@ -34,7 +34,7 @@ dijkstra_queue([[Cost, Node | Path] | Queue], Goal, Visited, Resultpath, Resultc
     (edge(Node, Neighbor, Weight), \+ member(Neighbor, Visited), (Newcost is Cost + Weight)),
     Neighbors),
   append(Queue, Neighbors, Newqueue),
-  sort(Newqueue, Sortedqueue),
+  sort_unique(Newqueue, Sortedqueue),
   dijkstra_queue(Sortedqueue, Goal, [Node | Visited], Resultpath, Resultcost).
 
 shortestPath(dijkstra_findall_sort, Path) :-

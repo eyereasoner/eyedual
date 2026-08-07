@@ -907,7 +907,7 @@ reverse_go([X | Xs], Acc, Reversed) :-
 
 No mutation occurs; every call receives a new term. EyeProlog also includes
 `member/2`, `append/3`, `select/3`, `nth0/3`, `reverse/2`, `length/2`,
-`sort/2`, slicing helpers, and numeric summaries. Improper lists such as
+`sort_unique/2`, slicing helpers, and numeric summaries. Improper lists such as
 `[a | Tail]` are valid terms, but operations requiring a proper finite list
 fail unless the tail is `[]`.
 
@@ -1109,7 +1109,7 @@ Choose a collector from the question, not from convenience:
 Counting solutions is not necessarily counting distinct domain objects: two
 proofs may resolve the visible value in the same way. When identity matters,
 collect the identifying template and deliberately canonicalize it with
-`sort/2`; when derivation multiplicity matters, retain the duplicates. Making
+`sort_unique/2`; when derivation multiplicity matters, retain the duplicates. Making
 that decision explicit prevents a database-style summary from silently
 changing the question.
 
@@ -1709,11 +1709,12 @@ truncate search; it does not prove that no further answer exists.
 ### Implementation boundary
 
 The source layout mirrors the language boundary. `src/iso.js` contains the
-isolated ISO processor predicates and registry. `src/eyeprolog-library.pl` is
-the portable EyeProlog library: 50 public predicates written as ordinary
-Prolog clauses against that ISO profile. Its paired
-`src/eyeprolog-library.js` module loads the Prolog file in Node and the browser
-and owns the small autoload integration layer.
+isolated ISO processor predicates and registry. `src/eyeprolog-library.pl`
+contains collision-free, self-contained portable extensions.
+`src/eyeprolog-common-library.pl` supplies common list and aggregation
+predicates that Trealla, Scryer, and many other systems already provide. The
+paired `src/eyeprolog-autoload.js` module autoloads both pure-Prolog files in
+Node and the browser.
 The RDF tools emit IRI and literal lexical values as ISO atoms, matching the
 portable text API without a host representation adapter.
 
@@ -5254,14 +5255,17 @@ so side effects occur in Prolog execution order.
 
 EyeProlog exposes **50 library predicate indicators** in addition to the 115
 indicators in its isolated ISO profile. **All 50 are ordinary Prolog clauses**
-in `src/eyeprolog-library.pl`; none is a native host predicate. The resulting
+across `src/eyeprolog-library.pl` and `src/eyeprolog-common-library.pl`; none
+is a native host predicate. The resulting
 normal EyeProlog language surface is therefore **165 public predicate
 indicators**. Internally, the runtime registry contains only the 115 ISO
 definitions; the EyeProlog relations are autoloaded source clauses.
 
-The portable file is autoloaded once into every `Program` used with the
-EyeProlog registry. `src/eyeprolog-library.js` loads it from the package in Node
-or through `fetch()` in the browser and performs the autoload.
+The two Prolog files are autoloaded once into every `Program` used with the
+EyeProlog registry. `src/eyeprolog-autoload.js` loads them from the package in
+Node or through `fetch()` in the browser and performs the autoload. External
+Prolog systems load only `src/eyeprolog-library.pl`; this avoids redefining
+their protected or preloaded list predicates.
 The isolated ISO-only registry remains
 available through `createDefaultRegistry()` and `getDefaultRegistry()` for
 conformance work and advanced embedders. Source clauses sharing a portable
@@ -5276,18 +5280,18 @@ standard fallback relation.
 | `nth0/3`, `nth1/3`, `set_nth0/4`, `take/3`, `drop/3`, `slice/4` |
 | `reverse/2`, `length/2`, `sum_list/2` |
 | `min_list/2`, `max_list/2` |
-| `list_to_set/2`, `sort/2` |
+| `list_to_set/2`, `sort_unique/2` |
 | `string_concat/3`, `contains/2`, `matches/2` |
 | `join/3`, `substring/4` |
 | `countall/2`, `sumall/3` |
 | `aggregate_min/5`, `aggregate_max/5` |
 | `between/3`, `smallest_divisor_from/3`, `random/3` |
+| `apply/3` |
 | `maplist/3` |
 | `acos/2`, `asin/2`, `atan2/3`, `tan/2` |
 | `lt/2`, `le/2`, `gt/2`, `ge/2` |
 | `uuid/3`, `difference/3` |
 | `matches/3` |
-| `call/3` |
 | `split/3`, `replace/4` |
 | `lowercase/2`, `uppercase/2`, `trim/2` |
 | `number_string/2`, `atom_string/2`, `term_string/2` |
@@ -5374,7 +5378,8 @@ zero-based, nonnegative safe integers.
 | `\+ member(+Item,+List)` | Succeeds only when `Item` does not unify with any member. Use it after binding the item and list. |
 | `nth0(?Index,+List,?Item)` | Checks a bound zero-based index or enumerates indexes and their items. |
 | `nth1(?Index,+List,?Item)` | Checks a bound one-based index or enumerates one-based indexes and items. |
-| `maplist(+Closure,+List1,?List2)` | Applies a two-argument closure pairwise; `call/3` supplies the closure arguments and supports partially applied compound closures. |
+| `apply(+Closure,+A,+B)` | Extends a closure with two arguments using ISO `=../2`, then invokes it through ISO `call/1`. |
+| `maplist(+Closure,+List1,?List2)` | Applies a two-argument closure pairwise through `apply/3`; partially applied compound closures are supported. |
 | `[Head|Tail] = List` | Decomposes a nonempty list directly with ISO unification; no library wrapper is needed. |
 | `set_nth0(+Index,+List,+Item,-NewList)` | Replaces one existing position without mutating the input list. |
 | `last(+List,?Last)` | Returns the final element of a nonempty proper list. |
@@ -5385,7 +5390,7 @@ zero-based, nonnegative safe integers.
 | `sum_list(+List,-Sum)` | Sums numeric elements with ISO `is/2`. The empty sum is `0`; invalid arithmetic raises the corresponding ISO error. |
 | `min_list(+List,-Min)`, `max_list(+List,-Max)` | Select by EyeProlog term order, not numeric coercion. Empty lists fail. |
 | `list_to_set(+List,-Set)` | Removes later structural duplicates while preserving first-occurrence order. |
-| `sort(+List,-Set)` | Sorts by standard term order and removes structural duplicates. |
+| `sort_unique(+List,-Set)` | Sorts by standard term order and removes structural duplicates without colliding with engines that protect `sort/2`. |
 
 ```eyeprolog
 answer(split, pair(Prefix, Suffix)) :-
@@ -5739,7 +5744,7 @@ mode at a time.
 
 | Program | Standard facility | Checked answer |
 | --- | --- | --- |
-| [Combinatorics Findall Sort](https://github.com/eyereasoner/eyeprolog/blob/main/examples/combinatorics-findall-sort.pl) | Eyelet-inspired combinations example using findall/3 and sort/2. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/combinatorics-findall-sort.pl) |
+| [Combinatorics Findall Sort](https://github.com/eyereasoner/eyeprolog/blob/main/examples/combinatorics-findall-sort.pl) | Eyelet-inspired combinations example using findall/3 and `sort_unique/2`. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/combinatorics-findall-sort.pl) |
 | [Floating Point](https://github.com/eyereasoner/eyeprolog/blob/main/examples/floating-point.pl) | Floating-point arithmetic and comparisons. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/floating-point.pl) · [proof](https://github.com/eyereasoner/eyeprolog/blob/main/examples/proof/floating-point.pl) |
 | [Atomic conversion](https://github.com/eyereasoner/eyeprolog/blob/main/examples/iso-atomic-conversion.pl) | Atom splitting, character atoms, Unicode codes, and numeric parsing. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/iso-atomic-conversion.pl) |
 | [Control and errors](https://github.com/eyereasoner/eyeprolog/blob/main/examples/iso-control-and-errors.pl) | `call/1`, `once/1`, cut, if-then-else, `throw/1`, and `catch/3`. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/iso-control-and-errors.pl) |
@@ -5817,7 +5822,7 @@ finite search space, and which constraint removes which branches?
 
 | Program | Search design | Checked answer |
 | --- | --- | --- |
-| [Dijkstra Findall Sort](https://github.com/eyereasoner/eyeprolog/blob/main/examples/dijkstra-findall-sort.pl) | Eyelet-inspired Dijkstra example using findall/3 and sort/2. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/dijkstra-findall-sort.pl) |
+| [Dijkstra Findall Sort](https://github.com/eyereasoner/eyeprolog/blob/main/examples/dijkstra-findall-sort.pl) | Eyelet-inspired Dijkstra example using findall/3 and `sort_unique/2`. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/dijkstra-findall-sort.pl) |
 | [Dijkstra](https://github.com/eyereasoner/eyeprolog/blob/main/examples/dijkstra.pl) | Weighted path enumeration adapted from Eyeling dijkstra.n3. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/dijkstra.pl) |
 | [DONALD + GERALD = ROBERT](https://github.com/eyereasoner/eyeprolog/blob/main/examples/donald-gerald-robert.pl) | All ten decimal digits are assigned to ten distinct letters. Right-to-left carry propagation cuts a naive 10! search space to one solution. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/donald-gerald-robert.pl) |
 | [Enigma1225](https://github.com/eyereasoner/eyeprolog/blob/main/examples/enigma1225.pl) | New Scientist Enigma 1225, retaining the best board in one pass with `aggregate_max/5`. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/enigma1225.pl) |

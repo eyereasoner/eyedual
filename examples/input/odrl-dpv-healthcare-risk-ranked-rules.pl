@@ -15,7 +15,7 @@ healthcare_risk_report(Ranked) :-
     ),
     Unsorted
   ),
-  sort(Unsorted, Sorted),
+  sort_unique(Unsorted, Sorted),
   ranked_values(Sorted, 1, Ranked).
 
 risk_report(Risk, Score, Level, Clause, Mitigation) :-

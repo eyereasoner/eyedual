@@ -22,6 +22,8 @@ export async function runPlayground(reporter = new TestReporter()) {
     const html = fs.readFileSync(path.join(packageRoot, 'playground.html'), 'utf8');
     assertIncludes(html, "new URL('./src/playground-worker.js?playground=", 'playground worker URL');
     assertIncludes(html, "new Worker(workerUrl, { type: 'module' })", 'module worker construction');
+    assertIncludes(html, "event.data?.type === 'ready'", 'worker readiness handshake');
+    assertIncludes(html, 'did not finish loading', 'worker startup timeout');
     assertNotIncludes(html, 'URL.createObjectURL(new Blob([workerCode]', 'inline blob worker');
   });
 
@@ -80,6 +82,8 @@ export async function runPlayground(reporter = new TestReporter()) {
         ['playground.html', 'text/html'],
         ['src/playground-worker.js', 'text/javascript'],
         ['src/index.js', 'text/javascript'],
+        ['src/eyeprolog-library.pl', 'text/plain'],
+        ['src/eyeprolog-common-library.pl', 'text/plain'],
         ['examples/socrates.pl', 'text/plain'],
       ];
       for (const [relative, contentType] of expected) {
@@ -94,7 +98,7 @@ export async function runPlayground(reporter = new TestReporter()) {
     await withStaticServer(async (baseUrl) => {
       const modules = await crawlModuleGraph(new URL('src/playground-worker.js?playground=test', baseUrl));
       assert(modules.size >= 10, `expected a substantial worker module graph, got ${modules.size}`);
-      assert([...modules].some((url) => url.includes('/src/eyeprolog-library.js')), 'EyeProlog library missing from worker graph');
+      assert([...modules].some((url) => url.includes('/src/eyeprolog-autoload.js')), 'EyeProlog autoloader missing from worker graph');
       assert([...modules].some((url) => url.includes('/src/solver.js')), 'solver missing from worker graph');
     });
   });

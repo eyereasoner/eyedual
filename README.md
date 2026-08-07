@@ -32,9 +32,11 @@ Programs may declare their default queries with `%% goal:` comments.
 ## Portable library
 
 EyeProlog adds 50 public library predicates to its 115-predicate ISO profile.
-**All 50 are ordinary Prolog clauses** in `src/eyeprolog-library.pl` and are
-autoloaded in Node and the browser. None requires host support. Portable text
-predicates use ISO atoms or character lists; the
+**All 50 are ordinary Prolog clauses** across `src/eyeprolog-library.pl` and
+`src/eyeprolog-common-library.pl`; both are autoloaded in Node and the
+browser. None requires host support. Other Prolog systems should load only
+`eyeprolog-library.pl`, which avoids redefining their common list predicates.
+Portable text predicates use ISO atoms or character lists; the
 RDF tools emit lexical values as ISO atoms as well.
 
 ## RDF 1.2

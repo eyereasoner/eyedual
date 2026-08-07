@@ -6,6 +6,5 @@ answer(set_nth0, X) :- set_nth0(1, [a, b, c], x, X).
 answer(reverse, X) :- reverse([a, b, c], X).
 answer(length, N) :- length([a, b, c], N).
 answer(findall, X) :- findall(N, between(1, 3, N), X).
-answer(sort, X) :- sort([b, a, b], X).
+answer(sort, X) :- sort_unique([b, a, b], X).
 %% goal: answer(X0, X1)
-

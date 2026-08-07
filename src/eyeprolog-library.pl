@@ -37,16 +37,17 @@ eyeprolog__atomic_chars(Value, Chars) :-
 
 % ---------- core/meta ----------
 
-call(Closure, A, B) :-
+eyeprolog__append([], Ys, Ys).
+eyeprolog__append([X|Xs], Ys, [X|Zs]) :- eyeprolog__append(Xs, Ys, Zs).
+
+eyeprolog__member(X, [X|_]).
+eyeprolog__member(X, [_|Xs]) :- eyeprolog__member(X, Xs).
+
+apply(Closure, A, B) :-
     Closure =.. Parts,
-    append(Parts, [A, B], CallParts),
+    eyeprolog__append(Parts, [A, B], CallParts),
     Goal =.. CallParts,
     call(Goal).
-
-maplist(_, [], []).
-maplist(Closure, [A|As], [B|Bs]) :-
-    call(Closure, A, B),
-    maplist(Closure, As, Bs).
 
 % ---------- arithmetic helpers ----------
 
@@ -86,7 +87,7 @@ eyeprolog__duration_field([C|Cs], [C|Ds], Unit, Rest) :-
     char_code(C, Code), Code >= 48, Code =< 57,
     eyeprolog__duration_field(Cs, Ds, Unit, Rest).
 eyeprolog__duration_field([Unit|Rest], [], Unit, Rest) :-
-    member(Unit, ['Y', 'M', 'D']).
+    eyeprolog__member(Unit, ['Y', 'M', 'D']).
 
 eyeprolog__duration_assign('Y', N, 0, M, D, N, M, D).
 eyeprolog__duration_assign('M', N, Y, 0, D, Y, N, D).
@@ -174,10 +175,10 @@ uuid(Seed0, UUID, Seed) :-
     eyeprolog__hex_digit(VariantValue, Variant),
     eyeprolog__uuid_hex(3, Seed4, Group4, Seed5),
     eyeprolog__uuid_hex(12, Seed5, Group5, Seed),
-    append(Group1, ['-'|Tail1], Chars),
-    append(Group2, ['-','4'|Tail2], Tail1),
-    append(Group3, ['-',Variant|Tail3], Tail2),
-    append(Group4, ['-'|Group5], Tail3),
+    eyeprolog__append(Group1, ['-'|Tail1], Chars),
+    eyeprolog__append(Group2, ['-','4'|Tail2], Tail1),
+    eyeprolog__append(Group3, ['-',Variant|Tail3], Tail2),
+    eyeprolog__append(Group4, ['-'|Group5], Tail3),
     atom_chars(UUID, Chars).
 
 eyeprolog__uuid_hex(0, Seed, [], Seed).
@@ -215,7 +216,7 @@ smallest_divisor_from(N, Start, Divisor) :-
 % in the exact range covered by bases 2,3,5,7,11,13,17. Above that range the
 % implementation falls back to exact trial division, preserving semantics for
 % arbitrary-size integers.
-eyeprolog__smallest_divisor_fast(N, Start, N) :-
+eyeprolog__smallest_divisor_fast(N, _, N) :-
     N >= 2,
     N < 341550071728321,
     eyeprolog__mr_prime(N),
@@ -327,8 +328,8 @@ eyeprolog__previous_month(Y, 1, PY, 12) :- PY is Y - 1.
 
 eyeprolog__days_in_month(Y, 2, 29) :- eyeprolog__leap_year(Y).
 eyeprolog__days_in_month(Y, 2, 28) :- \+ eyeprolog__leap_year(Y).
-eyeprolog__days_in_month(_, M, 30) :- member(M, [4,6,9,11]).
-eyeprolog__days_in_month(_, M, 31) :- member(M, [1,3,5,7,8,10,12]).
+eyeprolog__days_in_month(_, M, 30) :- eyeprolog__member(M, [4,6,9,11]).
+eyeprolog__days_in_month(_, M, 31) :- eyeprolog__member(M, [1,3,5,7,8,10,12]).
 
 eyeprolog__leap_year(Y) :- 0 is Y mod 400.
 eyeprolog__leap_year(Y) :- Y mod 100 =\= 0, 0 is Y mod 4.
@@ -340,15 +341,15 @@ eyeprolog__format_duration(Y, M, D, Duration) :-
     eyeprolog__duration_part(Y, 'Y', YC),
     eyeprolog__duration_part(M, 'M', MC),
     eyeprolog__duration_part(D, 'D', DC),
-    append(['P'|YC], MC, A),
-    append(A, DC, Chars),
+    eyeprolog__append(['P'|YC], MC, A),
+    eyeprolog__append(A, DC, Chars),
     eyeprolog__text_chars(Duration, Chars).
 
 eyeprolog__duration_part(0, _, []).
 eyeprolog__duration_part(N, Unit, Chars) :-
     N =\= 0,
     number_chars(N, Digits),
-    append(Digits, [Unit], Chars).
+    eyeprolog__append(Digits, [Unit], Chars).
 
 % ---------- portable named-capture matcher ----------
 %
@@ -383,8 +384,8 @@ eyeprolog__regex_parse(Chars0, Start, End, Tokens) :-
 eyeprolog__strip_start_anchor(['^'|Cs], yes, Cs).
 eyeprolog__strip_start_anchor(Cs, no, Cs).
 
-eyeprolog__strip_end_anchor(Cs0, yes, Cs) :- append(Cs, ['$'], Cs0).
-eyeprolog__strip_end_anchor(Cs, no, Cs) :- \+ append(_, ['$'], Cs).
+eyeprolog__strip_end_anchor(Cs0, yes, Cs) :- eyeprolog__append(Cs, ['$'], Cs0).
+eyeprolog__strip_end_anchor(Cs, no, Cs) :- \+ eyeprolog__append(_, ['$'], Cs).
 
 eyeprolog__regex_tokens_parse([], []).
 eyeprolog__regex_tokens_parse(['('|Cs], [capture(Name, Kind, Optional)|Tokens]) :-
@@ -425,12 +426,12 @@ eyeprolog__capture_kind(['['|Body], class_exact(Class, Count)) :-
     Class \= [].
 eyeprolog__capture_kind(Body, literal(Body)) :-
     Body \= [],
-    \+ member('(', Body),
-    \+ member(')', Body),
-    \+ member('[', Body),
-    \+ member(']', Body),
-    \+ member('+', Body),
-    \+ member('*', Body).
+    \+ eyeprolog__member('(', Body),
+    \+ eyeprolog__member(')', Body),
+    \+ eyeprolog__member('[', Body),
+    \+ eyeprolog__member(']', Body),
+    \+ eyeprolog__member('+', Body),
+    \+ eyeprolog__member('*', Body).
 
 eyeprolog__has_capture([capture(_,_,_)|_]).
 eyeprolog__has_capture([_|Ts]) :- eyeprolog__has_capture(Ts).
@@ -449,7 +450,7 @@ eyeprolog__regex_tokens([capture(Name,Kind,yes)|Ts], Chars, Rest, [capture(Name,
 eyeprolog__regex_tokens([capture(_,_,yes)|Ts], Chars, Rest, Captures) :-
     eyeprolog__regex_tokens(Ts, Chars, Rest, Captures).
 
-eyeprolog__capture_match(literal(Literal), Chars, Rest, Literal) :- append(Literal, Rest, Chars).
+eyeprolog__capture_match(literal(Literal), Chars, Rest, Literal) :- eyeprolog__append(Literal, Rest, Chars).
 eyeprolog__capture_match(word_plus, Chars, Rest, Value) :- eyeprolog__take_class_plus(word, Chars, Value, Rest).
 eyeprolog__capture_match(nonspace_plus, Chars, Rest, Value) :- eyeprolog__take_class_plus(nonspace, Chars, Value, Rest).
 eyeprolog__capture_match(class_plus(Class), Chars, Rest, Value) :- eyeprolog__take_class_plus(class(Class), Chars, Value, Rest).
@@ -494,33 +495,30 @@ eyeprolog__captures_context([capture(Name,Value)|Rest], (Term,Context)) :-
 
 % ---------- text/list processing ----------
 
-append([], Ys, Ys).
-append([X|Xs], Ys, [X|Zs]) :- append(Xs, Ys, Zs).
-
 string_concat(A, B, Whole) :-
     nonvar(A), nonvar(B),
     !,
     eyeprolog__text_chars(A, AC),
     eyeprolog__text_chars(B, BC),
-    append(AC, BC, WC),
+    eyeprolog__append(AC, BC, WC),
     eyeprolog__text_chars(Whole, WC).
 string_concat(A, B, Whole) :-
     nonvar(Whole),
     eyeprolog__text_chars(Whole, WC),
-    append(AC, BC, WC),
+    eyeprolog__append(AC, BC, WC),
     eyeprolog__text_chars(A, AC),
     eyeprolog__text_chars(B, BC).
 
 contains(Text, Needle) :-
     eyeprolog__text_chars(Text, TextChars),
     eyeprolog__text_chars(Needle, NeedleChars),
-    append(_, Tail, TextChars),
-    append(NeedleChars, _, Tail),
+    eyeprolog__append(_, Tail, TextChars),
+    eyeprolog__append(NeedleChars, _, Tail),
     !.
 
 matches(Text, Pattern) :-
     split(Pattern, '|', Alternatives),
-    member(Needle, Alternatives),
+    eyeprolog__member(Needle, Alternatives),
     contains(Text, Needle),
     !.
 
@@ -533,8 +531,8 @@ split(Text, Separator, Parts) :-
 eyeprolog__split_chars(Chars, [], Parts) :- eyeprolog__split_each_char(Chars, Parts).
 eyeprolog__split_chars(Chars, Separator, [Prefix|Parts]) :-
     Separator \= [],
-    append(Prefix, Tail, Chars),
-    append(Separator, Rest, Tail),
+    eyeprolog__append(Prefix, Tail, Chars),
+    eyeprolog__append(Separator, Rest, Tail),
     !,
     eyeprolog__split_chars(Rest, Separator, Parts).
 eyeprolog__split_chars(Chars, Separator, [Chars]) :- Separator \= [].
@@ -586,9 +584,9 @@ eyeprolog__upper_code(Code, Code) :- (Code < 97 ; Code > 122).
 trim(Text, Trimmed) :-
     eyeprolog__text_chars(Text, Chars),
     eyeprolog__drop_space(Chars, Left),
-    reverse(Left, Reversed),
+    eyeprolog__reverse(Left, [], Reversed),
     eyeprolog__drop_space(Reversed, RightReversed),
-    reverse(RightReversed, TrimmedChars),
+    eyeprolog__reverse(RightReversed, [], TrimmedChars),
     eyeprolog__text_chars(Trimmed, TrimmedChars).
 
 eyeprolog__drop_space([C|Cs], Out) :-
@@ -632,15 +630,15 @@ eyeprolog__term_chars(Term, Chars) :- atom(Term), atom_chars(Term, Chars).
 eyeprolog__term_chars([], ['[',']']).
 eyeprolog__term_chars([H|T], Chars) :-
     eyeprolog__list_term_chars([H|T], Body),
-    append(['['|Body], [']'], Chars).
+    eyeprolog__append(['['|Body], [']'], Chars).
 eyeprolog__term_chars(Term, Chars) :-
     compound(Term),
     Term \= [_|_],
     Term =.. [Name|Args],
     atom_chars(Name, NameChars),
     eyeprolog__term_args_chars(Args, ArgsChars),
-    append(NameChars, ['('|ArgsChars], A),
-    append(A, [')'], Chars).
+    eyeprolog__append(NameChars, ['('|ArgsChars], A),
+    eyeprolog__append(A, [')'], Chars).
 
 eyeprolog__list_term_chars([H], Chars) :-
     eyeprolog__term_chars(H, Chars).
@@ -648,19 +646,19 @@ eyeprolog__list_term_chars([H|T], Chars) :-
     T = [_|_],
     eyeprolog__term_chars(H, HC),
     eyeprolog__list_term_chars(T, TC),
-    append(HC, [',',' '|TC], Chars).
+    eyeprolog__append(HC, [',',' '|TC], Chars).
 eyeprolog__list_term_chars([H|T], Chars) :-
     T \= [], T \= [_|_],
     eyeprolog__term_chars(H, HC),
     eyeprolog__term_chars(T, TC),
-    append(HC, [' ','|',' '|TC], Chars).
+    eyeprolog__append(HC, [' ','|',' '|TC], Chars).
 
 eyeprolog__term_args_chars([A], Chars) :- eyeprolog__term_chars(A, Chars).
 eyeprolog__term_args_chars([A|As], Chars) :-
     As \= [],
     eyeprolog__term_chars(A, AC),
     eyeprolog__term_args_chars(As, Rest),
-    append(AC, [',',' '|Rest], Chars).
+    eyeprolog__append(AC, [',',' '|Rest], Chars).
 
 join([], _, Out) :- eyeprolog__text_chars(Out, []).
 join([Item|Items], Separator, Out) :-
@@ -672,8 +670,8 @@ join([Item|Items], Separator, Out) :-
 eyeprolog__join_chars([], _, Chars, Chars).
 eyeprolog__join_chars([Item|Items], Separator, Prefix, Out) :-
     eyeprolog__atomic_chars(Item, ItemChars),
-    append(Prefix, Separator, A),
-    append(A, ItemChars, B),
+    eyeprolog__append(Prefix, Separator, A),
+    eyeprolog__append(A, ItemChars, B),
     eyeprolog__join_chars(Items, Separator, B, Out).
 
 substring(Text, Start, Count, Out) :-
@@ -684,21 +682,6 @@ substring(Text, Start, Count, Out) :-
     eyeprolog__text_chars(Out, Slice).
 
 % ---------- list relations ----------
-
-member(X, [X|_]).
-member(X, [_|Xs]) :- member(X, Xs).
-
-select(X, [X|Xs], Xs).
-select(X, [Y|Ys], [Y|Zs]) :- select(X, Ys, Zs).
-
-last([X], X).
-last([_|Xs], X) :- last(Xs, X).
-
-nth0(0, [X|_], X).
-nth0(N, [_|Xs], X) :- var(N), nth0(N0, Xs, X), N is N0 + 1.
-nth0(N, [_|Xs], X) :- nonvar(N), N > 0, N1 is N - 1, nth0(N1, Xs, X).
-
-nth1(N, List, X) :- nth0(N0, List, X), N is N0 + 1.
 
 set_nth0(0, [_|Xs], X, [X|Xs]).
 set_nth0(N, [Y|Ys], X, [Y|Zs]) :- N > 0, N1 is N - 1, set_nth0(N1, Ys, X, Zs).
@@ -711,33 +694,25 @@ drop(N, [_|Xs], Ys) :- N > 0, N1 is N - 1, drop(N1, Xs, Ys).
 
 slice(Start, Count, List, Slice) :- drop(Start, List, Tail), take(Count, Tail, Slice).
 
-reverse(List, Reversed) :- eyeprolog__reverse(List, [], Reversed).
 eyeprolog__reverse([], Acc, Acc).
 eyeprolog__reverse([X|Xs], Acc, Out) :- eyeprolog__reverse(Xs, [X|Acc], Out).
-
-length(List, Length) :- nonvar(List), eyeprolog__length_count(List, 0, Length).
-length(List, Length) :- var(List), integer(Length), Length >= 0, eyeprolog__length_make(Length, List).
 
 eyeprolog__length_count([], N, N).
 eyeprolog__length_count([_|Xs], N0, N) :- N1 is N0 + 1, eyeprolog__length_count(Xs, N1, N).
 eyeprolog__length_make(0, []).
 eyeprolog__length_make(N, [_|Xs]) :- N > 0, N1 is N - 1, eyeprolog__length_make(N1, Xs).
 
-sum_list(List, Sum) :- eyeprolog__sum_list(List, 0, Sum).
 eyeprolog__sum_list([], Sum, Sum).
 eyeprolog__sum_list([X|Xs], Acc, Sum) :- Next is Acc + X, eyeprolog__sum_list(Xs, Next, Sum).
 
-min_list([X|Xs], Min) :- eyeprolog__min_list(Xs, X, Min).
 eyeprolog__min_list([], Min, Min).
 eyeprolog__min_list([X|Xs], Current, Min) :- X @< Current, eyeprolog__min_list(Xs, X, Min).
 eyeprolog__min_list([X|Xs], Current, Min) :- X @>= Current, eyeprolog__min_list(Xs, Current, Min).
 
-max_list([X|Xs], Max) :- eyeprolog__max_list(Xs, X, Max).
 eyeprolog__max_list([], Max, Max).
 eyeprolog__max_list([X|Xs], Current, Max) :- X @> Current, eyeprolog__max_list(Xs, X, Max).
 eyeprolog__max_list([X|Xs], Current, Max) :- X @=< Current, eyeprolog__max_list(Xs, Current, Max).
 
-list_to_set(List, Set) :- eyeprolog__list_to_set(List, [], Set).
 eyeprolog__list_to_set([], _, []).
 eyeprolog__list_to_set([X|Xs], Seen, Set) :-
     eyeprolog__identical_member(X, Seen),
@@ -749,7 +724,7 @@ eyeprolog__list_to_set([X|Xs], Seen, [X|Set]) :-
 eyeprolog__identical_member(X, [Y|_]) :- X == Y.
 eyeprolog__identical_member(X, [_|Ys]) :- eyeprolog__identical_member(X, Ys).
 
-sort(List, Sorted) :- eyeprolog__sort(List, [], Sorted).
+sort_unique(List, Sorted) :- eyeprolog__sort(List, [], Sorted).
 eyeprolog__sort([], Sorted, Sorted).
 eyeprolog__sort([X|Xs], Acc, Sorted) :-
     eyeprolog__insert_sorted(X, Acc, Next),
@@ -762,11 +737,9 @@ eyeprolog__insert_sorted(X, [Y|Ys], [Y|Zs]) :- X @> Y, eyeprolog__insert_sorted(
 
 % ---------- aggregation ----------
 
-countall(Goal, Count) :- findall(1, Goal, Ones), length(Ones, Count).
-
 sumall(Expression, Goal, Sum) :-
     findall(Value, (Goal, Value is Expression), Values),
-    sum_list(Values, Sum).
+    eyeprolog__sum_list(Values, 0, Sum).
 
 aggregate_min(Key, Value, Goal, BestKey, BestValue) :-
     findall(pair(Key, Value), Goal, Pairs),
@@ -775,7 +748,7 @@ aggregate_min(Key, Value, Goal, BestKey, BestValue) :-
 eyeprolog__aggregate_min([pair(K,V)|Pairs], BestKey, BestValue) :-
     eyeprolog__aggregate_min_rest(Pairs, K, V, BestKey, BestValue).
 eyeprolog__aggregate_min_rest([], K, V, K, V).
-eyeprolog__aggregate_min_rest([pair(K,V)|Pairs], CK, CV, BK, BV) :-
+eyeprolog__aggregate_min_rest([pair(K,V)|Pairs], CK, _, BK, BV) :-
     K @< CK,
     eyeprolog__aggregate_min_rest(Pairs, K, V, BK, BV).
 eyeprolog__aggregate_min_rest([pair(K,_)|Pairs], CK, CV, BK, BV) :-
@@ -789,7 +762,7 @@ aggregate_max(Key, Value, Goal, BestKey, BestValue) :-
 eyeprolog__aggregate_max([pair(K,V)|Pairs], BestKey, BestValue) :-
     eyeprolog__aggregate_max_rest(Pairs, K, V, BestKey, BestValue).
 eyeprolog__aggregate_max_rest([], K, V, K, V).
-eyeprolog__aggregate_max_rest([pair(K,V)|Pairs], CK, CV, BK, BV) :-
+eyeprolog__aggregate_max_rest([pair(K,V)|Pairs], CK, _, BK, BV) :-
     K @> CK,
     eyeprolog__aggregate_max_rest(Pairs, K, V, BK, BV).
 eyeprolog__aggregate_max_rest([pair(K,_)|Pairs], CK, CV, BK, BV) :-

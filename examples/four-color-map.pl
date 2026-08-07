@@ -102,13 +102,13 @@ border_count(36).
 
 all_countries_coloured(map_eu) :-
   findall(Country, valid_assignment(Country), Countries),
-  sort(Countries, Uniquecountries),
+  sort_unique(Countries, Uniquecountries),
   length(Uniquecountries, Count),
   country_count(Count).
 
 all_borders_checked(map_eu) :-
   findall([A, B], border_colours_differ(A, B), Borders),
-  sort(Borders, Uniqueborders),
+  sort_unique(Borders, Uniqueborders),
   length(Uniqueborders, Count),
   border_count(Count).
 

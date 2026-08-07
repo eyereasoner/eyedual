@@ -36,7 +36,7 @@ why(
   proof(
     goal(holds_result(test, true)),
     by(rule("age.pl", clause(5))),
-    bindings([binding("S", patH)]),
+    bindings([binding("__anon0", patH)]),
     uses([
       proof(
         goal(ageAbove(patH, 'P80Y')),

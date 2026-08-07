@@ -46,7 +46,7 @@ best_choice(Grid, Row, Column, Candidates) :-
     ),
     Choices
   ),
-  sort(Choices, [choice(_Count, Row, Column, Candidates)|_]).
+  sort_unique(Choices, [choice(_Count, Row, Column, Candidates)|_]).
 
 empty_cell(Grid, Row, Column) :-
   between(0, 8, Row),

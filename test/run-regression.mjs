@@ -584,7 +584,7 @@ function documentationSyncCases() {
           '[Book — *The Art of EyeProlog*](https://eyereasoner.github.io/eyeprolog/the-art-of-eyeprolog)',
           'README links to the book',
         );
-        for (const filename of ['src/iso.js', 'src/eyeprolog-library.js', 'src/playground-worker.js']) {
+        for (const filename of ['src/iso.js', 'src/eyeprolog-autoload.js', 'src/playground-worker.js']) {
           assertEqual(fs.existsSync(path.join(packageRoot, filename)), true, `${filename} exists`);
           assertIncludes(book, filename, `book documents ${filename}`);
         }
@@ -1047,7 +1047,8 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(betweenGenerator.cutRecursive, true, 'portable between generator has deterministic recursive control');
         assertEqual(betweenGenerator.tabled, false, 'portable between generator avoids suffix answer tables');
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'eyeprolog-library.pl')), true, 'portable Prolog source exists');
-        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'eyeprolog-library.js')), true, 'portable source loader exists');
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'eyeprolog-autoload.js')), true, 'portable source autoloader exists');
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'eyeprolog-common-library.pl')), true, 'pure-Prolog common library exists');
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'library-source.js')), false, 'duplicate source loader is absent');
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js')), false, 'obsolete duplicate module remains absent');
         assertEqual(run(program, { goal: 'answer(X)' }).stdout, 'answer([a, b]).\n', 'autoloaded append execution');
@@ -1058,7 +1059,9 @@ open(X) :- candidate(X), \\+ closed(X).
       name: 'portable library executes against the ISO-only registry',
       run: () => {
         const portableSource = fs.readFileSync(path.join(packageRoot, 'src', 'eyeprolog-library.pl'), 'utf8');
+        const commonSource = fs.readFileSync(path.join(packageRoot, 'src', 'eyeprolog-common-library.pl'), 'utf8');
         const program = Program.parse(`${portableSource}
+${commonSource}
 portable_check(A, B, C) :- lowercase('HELLO', A), replace('banana', 'na', 'NA', B), append([x], [y], C).
 `);
         const solver = new Solver(program, { registry: createDefaultRegistry() });
@@ -1712,7 +1715,7 @@ function playgroundStaticIssues() {
   if (!html.includes("new URL('./src/playground-worker.js?playground=")) issues.push('playground must cache-bust its dedicated module worker');
   if (!html.includes("new Worker(workerUrl, { type: 'module' })")) issues.push('playground must launch the dedicated module worker');
   const workerText = fs.readFileSync(path.join(packageRoot, 'src', 'playground-worker.js'), 'utf8');
-  if (!workerText.includes("from './eyeprolog-library.js?playground=") ||
+if (!workerText.includes("from './index.js?playground=") ||
       !workerText.includes('createEyePrologRegistry') ||
       !workerText.includes('executePlaygroundRequest')) {
     issues.push('playground worker must install the EyeProlog library registry');

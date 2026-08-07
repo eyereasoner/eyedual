@@ -75,7 +75,7 @@ check(4, 'Canonical Tie-Breaking (Lexicographical First)', Status) :-
         find_combination(Size, Primes, C),
         covers_all(C, Minterms)
     ), Alternatives),
-    sort(Alternatives, [Best|_]),
+    sort_unique(Alternatives, [Best|_]),
     equality_status(Cover, Best, Status).
 
 check(5, 'Consistency (Solution is subset of Primes)', Status) :-
@@ -166,9 +166,9 @@ compute_primes(Primes) :-
     findall(B, (minterm(M), int_to_bits(M, B)), Mts),
     findall(B, (dont_care(D), int_to_bits(D, B)), Dcs),
     append(Mts, Dcs, All),
-    sort(All, Init),
+    sort_unique(All, Init),
     generate_loop(Init, [], RawPrimes),
-    sort(RawPrimes, Primes).
+    sort_unique(RawPrimes, Primes).
 
 generate_loop(Group, Acc, Final) :-
     findall(Nx-[P1,P2], (
@@ -176,8 +176,8 @@ generate_loop(Group, Acc, Final) :-
     ), Pairs),
     findall(N, member(N-_, Pairs), NextRaw),
     findall(P, (member(_-Pars, Pairs), member(P, Pars)), UsedRaw),
-    sort(NextRaw, NextGen),
-    sort(UsedRaw, Used),
+    sort_unique(NextRaw, NextGen),
+    sort_unique(UsedRaw, Used),
     findall(P, (member(P, Group), \+ member(P, Used)), New),
     append(Acc, New, AccUpd),
     (NextGen = [] -> Final = AccUpd ; generate_loop(NextGen, AccUpd, Final)).
@@ -187,13 +187,13 @@ solve_minimal_cover(Primes, MinimalCover) :-
     % 1. Essentials
     findall(M-Ps, (member(M, Minterms), findall(P, (member(P, Primes), covers_int(P, M)), Ps)), Chart),
     findall(P, member(_-[P], Chart), EssRaw),
-    sort(EssRaw, Essentials),
+    sort_unique(EssRaw, Essentials),
     % 2. Remaining
     remaining_minterms(Minterms, Essentials, RemMts),
     subtract_list(Primes, Essentials, NonEss),
     (RemMts = [] -> BestRest = [] ; find_smallest_subset(NonEss, RemMts, BestRest)),
     append(Essentials, BestRest, Total),
-    sort(Total, MinimalCover).
+    sort_unique(Total, MinimalCover).
 
 remaining_minterms([], _, []).
 remaining_minterms([M|Ms], Essentials, Rest) :-

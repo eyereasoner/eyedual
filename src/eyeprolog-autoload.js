@@ -1,4 +1,4 @@
-// Load and autoload the pure-Prolog EyeProlog library in Node and the browser.
+// Autoload the pure-Prolog EyeProlog library in Node and the browser.
 import { createDefaultRegistry } from './iso.js';
 import { parseClauses } from './parser.js';
 import { fs, isNode } from './platform.js';
@@ -8,7 +8,7 @@ export const eyePrologNativeLibraryIndicators = Object.freeze([]);
 export const eyePrologPortableLibraryIndicators = Object.freeze([
   'uuid/3',
   'difference/3',
-  'call/3',
+  'apply/3',
   'maplist/3',
   'tan/2',
   'asin/2',
@@ -51,7 +51,7 @@ export const eyePrologPortableLibraryIndicators = Object.freeze([
   'min_list/2',
   'max_list/2',
   'list_to_set/2',
-  'sort/2',
+  'sort_unique/2',
   'countall/2',
   'sumall/3',
   'aggregate_min/5',
@@ -64,18 +64,33 @@ export const eyePrologLibraryIndicators = Object.freeze([
 ]);
 
 const autoloadedPrograms = new WeakSet();
-const libraryUrl = new URL('./eyeprolog-library.pl', import.meta.url);
-const librarySource = await loadLibrarySource(libraryUrl);
-const portableClauseTemplates = parseClauses(librarySource, {
-  filename: 'src/eyeprolog-library.pl',
+const libraryFiles = [
+  'eyeprolog-library.pl',
+  'eyeprolog-common-library.pl',
+];
+const libraryCacheKey = isNode
+  ? null
+  : (new URL(import.meta.url).searchParams.get('playground') ?? '20260807b');
+const librarySources = await Promise.all(libraryFiles.map(async (filename) => ({
+  filename,
+  source: await loadLibrarySource(libraryFileUrl(filename)),
+})));
+const portableClauseTemplates = librarySources.flatMap(({ filename, source }) => parseClauses(source, {
+  filename: `src/${filename}`,
   sourceMetadata: true,
-});
+}));
 
 async function loadLibrarySource(url) {
   if (isNode) return fs.readFileSync(url, 'utf8');
   const response = await fetch(url);
   if (!response.ok) throw new Error(`could not load EyeProlog library: ${response.status}`);
   return response.text();
+}
+
+function libraryFileUrl(filename) {
+  const url = new URL(`./${filename}`, import.meta.url);
+  if (!isNode && libraryCacheKey) url.searchParams.set('playground', libraryCacheKey);
+  return url;
 }
 
 export function ensureEyePrologLibrary(program) {

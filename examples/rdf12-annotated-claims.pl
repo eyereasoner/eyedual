@@ -41,7 +41,7 @@ ranked_claims(Claims) :-
     ),
     Unsorted
   ),
-  sort(Unsorted, Sorted),
+  sort_unique(Unsorted, Sorted),
   pair_values(Sorted, Claims).
 
 annotated_status_claim(Status, Source, Score) :-

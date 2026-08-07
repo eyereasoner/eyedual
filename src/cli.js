@@ -115,7 +115,7 @@ async function loadEngine() {
       import('./program.js'),
       import('./solver.js'),
       import('./iso.js'),
-      import('./eyeprolog-library.js'),
+      import('./eyeprolog-autoload.js'),
     ]);
     engineModule = { ...term, ...parser, ...program, ...solver, ...iso, ...library };
   }
