@@ -2,14 +2,14 @@
   <title id="title">An integrity check on an engineering control panel</title>
   <desc id="desc">Conflicting lower and upper limits produce an invalid-state result for the host to handle before operation.</desc>
   <style>
-    .wall{fill:#e9f1ee}.panel{fill:#536b78;stroke:#243447;stroke-width:4}.screen{fill:#fffdf7;stroke:#243447;stroke-width:2}
-    .text{fill:#243447;font:17px ui-monospace,monospace}.light{fill:#8b3a3a;stroke:#713535;stroke-width:3}.safe{fill:#2f6f55}
-    .wire{fill:none;stroke:#8b3a3a;stroke-width:5}.lever{fill:#d7e9e2;stroke:#243447;stroke-width:3}
+    .wall{fill:#EAF8FA}.panel{fill:#2C657A;stroke:#17324D;stroke-width:4}.screen{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
+    .text{fill:#17324D;font:17px ui-monospace,monospace}.light{fill:#A96800;stroke:#855400;stroke-width:3}.safe{fill:#008EAA}
+    .wire{fill:none;stroke:#A96800;stroke-width:5}.lever{fill:#D6F3F7;stroke:#17324D;stroke-width:3}
   </style>
   <rect width="900" height="380" class="wall"/><rect class="panel" x="55" y="40" width="790" height="300" rx="15"/>
   <rect class="screen" x="95" y="80" width="230" height="120" rx="7"/><text class="text" x="210" y="110" text-anchor="middle">LOWER LIMIT</text><text class="text" x="210" y="165" text-anchor="middle" font-size="30">80</text>
   <rect class="screen" x="575" y="80" width="230" height="120" rx="7"/><text class="text" x="690" y="110" text-anchor="middle">UPPER LIMIT</text><text class="text" x="690" y="165" text-anchor="middle" font-size="30">60</text>
-  <path class="wire" d="M325 140 H390 M510 140 H575"/><circle class="light" cx="450" cy="140" r="48"/><text x="450" y="132" text-anchor="middle" fill="#fffdf7" font-family="Georgia,serif" font-weight="bold" font-size="18">INVALID</text><text x="450" y="157" text-anchor="middle" fill="#fffdf7" font-family="ui-monospace,monospace" font-size="14">FOUND</text>
-  <rect class="screen" x="300" y="230" width="300" height="65" rx="8"/><text class="text" x="450" y="256" text-anchor="middle">invalid_limits(Low, High).</text><text x="450" y="280" text-anchor="middle" fill="#8b3a3a" font-family="ui-monospace,monospace" font-size="16">reported to the host</text>
+  <path class="wire" d="M325 140 H390 M510 140 H575"/><circle class="light" cx="450" cy="140" r="48"/><text x="450" y="132" text-anchor="middle" fill="#FFFDF8" font-family="Georgia,serif" font-weight="bold" font-size="18">INVALID</text><text x="450" y="157" text-anchor="middle" fill="#FFFDF8" font-family="ui-monospace,monospace" font-size="14">FOUND</text>
+  <rect class="screen" x="300" y="230" width="300" height="65" rx="8"/><text class="text" x="450" y="256" text-anchor="middle">invalid_limits(Low, High).</text><text x="450" y="280" text-anchor="middle" fill="#A96800" font-family="ui-monospace,monospace" font-size="16">reported to the host</text>
   <circle cx="140" cy="265" r="16" class="safe"/><circle cx="760" cy="265" r="16" class="light"/>
 </svg>

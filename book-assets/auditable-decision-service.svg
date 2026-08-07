@@ -2,9 +2,9 @@
   <title id="title">An auditable decision service keeps evidence, policy, decision, and proof connected</title>
   <desc id="desc">Versioned evidence and policy flow through integrity checks and reasoning to a permit decision. A proof bundle points back to every source and theory version, while an explicit integrity query exposes invalid inputs.</desc>
   <defs><style>
-    .bg{fill:#f4efe3}.paper{fill:#fffdf7;stroke:#243447;stroke-width:2}.green{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}.blue{fill:#dcebf0;stroke:#526273;stroke-width:2}.rose{fill:#f1dfdf;stroke:#8b3a3a;stroke-width:2}.dark{fill:#536b78;stroke:#243447;stroke-width:3}
-    .title{fill:#8b3a3a;font:bold 24px Georgia,serif}.label{fill:#243447;font:bold 16px Georgia,serif}.code{fill:#172334;font:13px ui-monospace,monospace}.light{fill:#fffdf7;font:14px ui-monospace,monospace}.prose{fill:#435166;font:14px Georgia,serif}.line{fill:none;stroke:#526273;stroke-width:3}
-  </style><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526273"/></marker></defs>
+    .bg{fill:#FFF9E8}.paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}.rose{fill:#FFF0D6;stroke:#A96800;stroke-width:2}.dark{fill:#2C657A;stroke:#17324D;stroke-width:3}
+    .title{fill:#A96800;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 16px Georgia,serif}.code{fill:#102A3A;font:13px ui-monospace,monospace}.light{fill:#FFFDF8;font:14px ui-monospace,monospace}.prose{fill:#405E70;font:14px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:3}
+  </style><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#537487"/></marker></defs>
   <rect class="bg" width="900" height="460"/><text class="title" x="450" y="38" text-anchor="middle">THE AUDIT TRAIL IS PART OF THE DECISION</text>
   <rect class="paper" x="30" y="90" width="195" height="105" rx="10"/><text class="label" x="127" y="120" text-anchor="middle">SOURCE FACTS</text><text class="code" x="127" y="151" text-anchor="middle">person · badge</text><text class="code" x="127" y="176" text-anchor="middle">source_version(v7)</text>
   <rect class="blue" x="30" y="245" width="195" height="105" rx="10"/><text class="label" x="127" y="275" text-anchor="middle">POLICY</text><text class="code" x="127" y="306" text-anchor="middle">standing · limits</text><text class="code" x="127" y="331" text-anchor="middle">theory_version(t3)</text>

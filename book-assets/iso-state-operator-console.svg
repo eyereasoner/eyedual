@@ -3,14 +3,14 @@
   <desc id="desc">Initialization feeds an ordered dynamic task queue while an operator declaration changes readable notation that still decomposes to an ordinary reports term.</desc>
   <defs>
     <style>
-      .bg{fill:#e9f1ee}.panel{fill:#fffdf7;stroke:#243447;stroke-width:2}.slot{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}
-      .first{fill:#f3dddd;stroke:#8b3a3a;stroke-width:2}.last{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}.blue{fill:#dcebf0;stroke:#526273;stroke-width:2}
-      .title{fill:#8b3a3a;font:bold 23px Georgia,serif}.label{fill:#243447;font:bold 16px Georgia,serif}
-      .code{fill:#172334;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}.prose{fill:#435166;font:15px Georgia,serif}
-      .line{fill:none;stroke:#526273;stroke-width:2.5}.redline{fill:none;stroke:#8b3a3a;stroke-width:2.5}
+      .bg{fill:#EAF8FA}.panel{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.slot{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}
+      .first{fill:#FFEBC7;stroke:#A96800;stroke-width:2}.last{fill:#FFF4BF;stroke:#C88900;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
+      .title{fill:#A96800;font:bold 23px Georgia,serif}.label{fill:#17324D;font:bold 16px Georgia,serif}
+      .code{fill:#102A3A;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}.prose{fill:#405E70;font:15px Georgia,serif}
+      .line{fill:none;stroke:#537487;stroke-width:2.5}.redline{fill:none;stroke:#A96800;stroke-width:2.5}
     </style>
-    <marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#526273"/></marker>
-    <marker id="r" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#8b3a3a"/></marker>
+    <marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#537487"/></marker>
+    <marker id="r" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#A96800"/></marker>
   </defs>
   <rect width="900" height="410" class="bg"/><text class="title" x="450" y="34" text-anchor="middle">SOLVER-LOCAL STATE AND READABLE SYNTAX</text>
 

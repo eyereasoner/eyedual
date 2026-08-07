@@ -2,9 +2,9 @@
   <title id="title">Interchangeable knowledge providers connecting through a socket</title>
   <desc id="desc">A file, database, and AI extractor offer parent facts through one declared predicate contract to the same ancestor rules.</desc>
   <style>
-    .bg{fill:#eee5d3}.provider{fill:#fffdf7;stroke:#243447;stroke-width:2}.socket{fill:#dcefe8;stroke:#2f6f55;stroke-width:4}
-    .engine{fill:#536b78;stroke:#243447;stroke-width:3}.text{fill:#243447;font:16px ui-monospace,monospace}.small{fill:#435166;font:13px ui-monospace,monospace}.claim-text{fill:#713535;font:11px ui-monospace,monospace}.light{fill:#fffdf7;font:16px ui-monospace,monospace}
-    .cable{fill:none;stroke:#8b3a3a;stroke-width:4;stroke-linecap:round}.claim{fill:#fffdf7;stroke:#8b3a3a;stroke-width:2}.pin{fill:#243447}
+    .bg{fill:#FFF3D8}.provider{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.socket{fill:#DDF7FB;stroke:#008EAA;stroke-width:4}
+    .engine{fill:#2C657A;stroke:#17324D;stroke-width:3}.text{fill:#17324D;font:16px ui-monospace,monospace}.small{fill:#405E70;font:13px ui-monospace,monospace}.claim-text{fill:#855400;font:11px ui-monospace,monospace}.light{fill:#FFFDF8;font:16px ui-monospace,monospace}
+    .cable{fill:none;stroke:#A96800;stroke-width:4;stroke-linecap:round}.claim{fill:#FFFDF8;stroke:#A96800;stroke-width:2}.pin{fill:#17324D}
   </style>
   <rect width="900" height="380" class="bg"/>
   <rect class="provider" x="35" y="40" width="190" height="80" rx="8"/><text class="text" x="130" y="73" text-anchor="middle">family.pl</text><text class="text" x="130" y="99" text-anchor="middle">facts</text>

@@ -3,18 +3,18 @@
   <desc id="desc">A rule in the center points left to its logical meaning and right to its operational reading.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+      <path d="M0,0 L0,6 L9,3 z" fill="#405E70"/>
     </marker>
     <style>
-      .paper{fill:#fffdf7;stroke:#243447;stroke-width:2}
-      .ink{fill:#172334;font:18px Georgia,serif}
-      .small{fill:#435166;font:15px Georgia,serif}
-      .label{fill:#8b3a3a;font:bold 18px Georgia,serif}
-      .code{fill:#172334;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}
-      .line{stroke:#4b5563;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
+      .ink{fill:#102A3A;font:18px Georgia,serif}
+      .small{fill:#405E70;font:15px Georgia,serif}
+      .label{fill:#A96800;font:bold 18px Georgia,serif}
+      .code{fill:#102A3A;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .line{stroke:#405E70;stroke-width:2;fill:none;marker-end:url(#arrow)}
     </style>
   </defs>
-  <rect width="900" height="430" fill="#f4efe3"/>
+  <rect width="900" height="430" fill="#FFF9E8"/>
   <rect class="paper" x="318" y="120" width="264" height="180" rx="8"/>
   <text class="label" x="450" y="155" text-anchor="middle">PROGRAM</text>
   <text class="code" x="338" y="200">path(X,Y) :-</text>
@@ -24,10 +24,10 @@
   <rect class="paper" x="35" y="55" width="235" height="305" rx="8"/>
   <text class="label" x="152" y="92" text-anchor="middle">LOGIC</text>
   <text class="ink" x="58" y="130">What is true?</text>
-  <path d="M65 172 C95 142,125 202,155 172 S215 202,245 172" fill="none" stroke="#2f6f78" stroke-width="4"/>
-  <circle cx="65" cy="172" r="7" fill="#2f6f78"/>
-  <circle cx="155" cy="172" r="7" fill="#2f6f78"/>
-  <circle cx="245" cy="172" r="7" fill="#2f6f78"/>
+  <path d="M65 172 C95 142,125 202,155 172 S215 202,245 172" fill="none" stroke="#087F98" stroke-width="4"/>
+  <circle cx="65" cy="172" r="7" fill="#087F98"/>
+  <circle cx="155" cy="172" r="7" fill="#087F98"/>
+  <circle cx="245" cy="172" r="7" fill="#087F98"/>
   <text class="small" x="58" y="225">An edge followed by a</text>
   <text class="small" x="58" y="248">path is itself a path.</text>
   <text class="small" x="58" y="292">Ground consequences form</text>
@@ -36,10 +36,10 @@
   <rect class="paper" x="630" y="55" width="235" height="305" rx="8"/>
   <text class="label" x="747" y="92" text-anchor="middle">CONTROL</text>
   <text class="ink" x="653" y="130">How is it found?</text>
-  <circle cx="680" cy="170" r="8" fill="#8b3a3a"/>
-  <circle cx="735" cy="215" r="8" fill="#8b3a3a"/>
-  <circle cx="790" cy="260" r="8" fill="#8b3a3a"/>
-  <path d="M686 176 L728 209 M741 221 L783 254" stroke="#8b3a3a" stroke-width="3"/>
+  <circle cx="680" cy="170" r="8" fill="#A96800"/>
+  <circle cx="735" cy="215" r="8" fill="#A96800"/>
+  <circle cx="790" cy="260" r="8" fill="#A96800"/>
+  <path d="M686 176 L728 209 M741 221 L783 254" stroke="#A96800" stroke-width="3"/>
   <text class="small" x="653" y="300">Choose an edge first;</text>
   <text class="small" x="653" y="323">then solve a smaller or</text>
   <text class="small" x="653" y="346">reused path question.</text>

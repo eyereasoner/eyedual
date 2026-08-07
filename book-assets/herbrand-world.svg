@@ -3,20 +3,20 @@
   <desc id="desc">Ground terms form the Herbrand universe; ground atomic formulas form the Herbrand base; the formulas justified by facts and rules form the least model.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L9,3 z" fill="#526273"/>
+      <path d="M0,0 L0,6 L9,3 z" fill="#537487"/>
     </marker>
     <style>
-      .box{fill:#fffdf7;stroke:#243447;stroke-width:2}
-      .model{fill:#e7f3ee;stroke:#2f6f55;stroke-width:3}
-      .title{fill:#8b3a3a;font:bold 19px Georgia,serif}
-      .box-title{fill:#8b3a3a;font:bold 17px Georgia,serif}
-      .box-sub{fill:#435166;font:15px Georgia,serif}
-      .text{fill:#172334;font:18px ui-monospace,SFMono-Regular,Consolas,monospace}
-      .prose{fill:#435166;font:17px Georgia,serif}
-      .line{stroke:#526273;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .box{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
+      .model{fill:#E8FAFC;stroke:#008EAA;stroke-width:3}
+      .title{fill:#A96800;font:bold 19px Georgia,serif}
+      .box-title{fill:#A96800;font:bold 17px Georgia,serif}
+      .box-sub{fill:#405E70;font:15px Georgia,serif}
+      .text{fill:#102A3A;font:18px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .prose{fill:#405E70;font:17px Georgia,serif}
+      .line{stroke:#537487;stroke-width:2;fill:none;marker-end:url(#arrow)}
     </style>
   </defs>
-  <rect width="900" height="500" fill="#f4efe3"/>
+  <rect width="900" height="500" fill="#FFF9E8"/>
   <rect class="box" x="35" y="65" width="240" height="360" rx="10"/>
   <text class="box-title" x="155" y="100" text-anchor="middle">HERBRAND UNIVERSE</text>
   <text class="box-sub" x="155" y="125" text-anchor="middle">all constructible</text>

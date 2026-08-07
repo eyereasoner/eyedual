@@ -3,24 +3,24 @@
   <desc id="desc">A programmer at a workbench connects an ISO Prolog manual to control, term, state, operator, and stream instruments.</desc>
   <defs>
     <style>
-      .wall{fill:#e9f1ee}.floor{fill:#eee5d3}.bench{fill:#a97852;stroke:#76553c;stroke-width:3}
-      .paper{fill:#fffdf7;stroke:#243447;stroke-width:2}.screen{fill:#172334;stroke:#243447;stroke-width:3}
-      .green{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}.gold{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}
-      .red{fill:#f3dddd;stroke:#8b3a3a;stroke-width:2}.blue{fill:#dcebf0;stroke:#526273;stroke-width:2}
-      .ink{fill:#243447;font:16px Georgia,serif}.label{fill:#243447;font:bold 15px Georgia,serif}
-      .code{fill:#dcefe8;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
-      .screen-code{fill:#dcefe8;font:12px ui-monospace,SFMono-Regular,Consolas,monospace}
-      .small-label{fill:#243447;font:bold 14px Georgia,serif}.small-ink{fill:#243447;font:14px Georgia,serif}
-      .line{fill:none;stroke:#526273;stroke-width:2.5;stroke-linecap:round}.wire{fill:none;stroke:#8b3a3a;stroke-width:3}
+      .wall{fill:#EAF8FA}.floor{fill:#FFF3D8}.bench{fill:#D69C18;stroke:#8B6500;stroke-width:3}
+      .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.screen{fill:#102A3A;stroke:#17324D;stroke-width:3}
+      .green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#C88900;stroke-width:2}
+      .red{fill:#FFEBC7;stroke:#A96800;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
+      .ink{fill:#17324D;font:16px Georgia,serif}.label{fill:#17324D;font:bold 15px Georgia,serif}
+      .code{fill:#DDF7FB;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .screen-code{fill:#DDF7FB;font:12px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .small-label{fill:#17324D;font:bold 14px Georgia,serif}.small-ink{fill:#17324D;font:14px Georgia,serif}
+      .line{fill:none;stroke:#537487;stroke-width:2.5;stroke-linecap:round}.wire{fill:none;stroke:#A96800;stroke-width:3}
     </style>
-    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#8b3a3a"/></marker>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#A96800"/></marker>
   </defs>
   <rect width="900" height="300" class="wall"/><rect y="300" width="900" height="140" class="floor"/>
   <rect class="bench" x="55" y="270" width="790" height="42" rx="5"/><rect class="bench" x="100" y="310" width="24" height="110"/><rect class="bench" x="776" y="310" width="24" height="110"/>
 
   <g transform="translate(82 68)">
     <path class="paper" d="M0 20Q60 0 120 20V170Q60 150 0 170Z"/><path class="paper" d="M120 20Q180 0 240 20V170Q180 150 120 170Z"/>
-    <line x1="120" y1="20" x2="120" y2="170" stroke="#243447" stroke-width="2"/>
+    <line x1="120" y1="20" x2="120" y2="170" stroke="#17324D" stroke-width="2"/>
     <text class="label" x="120" y="48" text-anchor="middle">ISO PROLOG</text>
     <text class="ink" x="120" y="76" text-anchor="middle">control · terms</text><text class="ink" x="120" y="100" text-anchor="middle">state · operators</text><text class="ink" x="120" y="124" text-anchor="middle">streams · errors</text>
   </g>
@@ -32,7 +32,7 @@
     <text class="screen-code" x="24" y="102">assertz(task(verify)).</text>
     <text class="screen-code" x="24" y="134">read_term(Stream, Term, Options).</text>
     <text class="screen-code" x="24" y="166">Result = standard_practice.</text>
-    <path d="M105 185L90 215H210L195 185Z" fill="#526273" stroke="#243447" stroke-width="2"/>
+    <path d="M105 185L90 215H210L195 185Z" fill="#537487" stroke="#17324D" stroke-width="2"/>
   </g>
 
   <g transform="translate(690 62)">
@@ -45,8 +45,8 @@
   <path class="wire" marker-end="url(#arrow)" d="M665 150C675 150 678 150 686 150"/>
 
   <g transform="translate(270 325)">
-    <circle cx="0" cy="-28" r="18" fill="#fffdf7" stroke="#243447" stroke-width="2"/>
-    <path d="M-28 0Q0-25 28 0L22 72H-22Z" fill="#d7e9e2" stroke="#243447" stroke-width="2"/>
+    <circle cx="0" cy="-28" r="18" fill="#FFFDF8" stroke="#17324D" stroke-width="2"/>
+    <path d="M-28 0Q0-25 28 0L22 72H-22Z" fill="#D6F3F7" stroke="#17324D" stroke-width="2"/>
     <path class="line" d="M-12 72L-15 105M12 72L15 105M-22 15L-70-10M22 15L72-8"/>
   </g>
   <rect class="blue" x="350" y="337" width="400" height="66" rx="10"/>

@@ -3,13 +3,13 @@
   <desc id="desc">A central relation connects a search tree, a syntax tree, a transformed program, and an auditable decision, with meaning held steady at the center.</desc>
   <defs>
     <style>
-      .bg{fill:#f1eadc}.panel{fill:#fffdf7;stroke:#243447;stroke-width:2}.hub{fill:#dcefe8;stroke:#2f6f55;stroke-width:3}
-      .ink{fill:none;stroke:#526273;stroke-width:2.5;stroke-linecap:round}.green{stroke:#2f6f55}.red{stroke:#8b3a3a}.gold{stroke:#9a5b18}
-      .node{fill:#fffdf7;stroke:#243447;stroke-width:2}.ok{fill:#e7f3ee;stroke:#2f6f55;stroke-width:2}
-      .title{fill:#713535;font:bold 24px Georgia,serif}.label{fill:#243447;font:17px Georgia,serif}
-      .code{fill:#243447;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .bg{fill:#FFF5DF}.panel{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.hub{fill:#DDF7FB;stroke:#008EAA;stroke-width:3}
+      .ink{fill:none;stroke:#537487;stroke-width:2.5;stroke-linecap:round}.green{stroke:#008EAA}.red{stroke:#A96800}.gold{stroke:#C88900}
+      .node{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.ok{fill:#E8FAFC;stroke:#008EAA;stroke-width:2}
+      .title{fill:#855400;font:bold 24px Georgia,serif}.label{fill:#17324D;font:17px Georgia,serif}
+      .code{fill:#17324D;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
     </style>
-    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526273"/></marker>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#537487"/></marker>
   </defs>
   <rect width="900" height="460" class="bg"/>
   <text class="title" x="450" y="35" text-anchor="middle">KEEP THE RELATION VISIBLE</text>

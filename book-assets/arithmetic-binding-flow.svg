@@ -2,9 +2,9 @@
   <title id="title">Binding values before arithmetic</title>
   <desc id="desc">A finite generator binds N, arithmetic computes its square, and a comparison filters the result; reversing the first two steps leaves arithmetic without an input.</desc>
   <defs><style>
-    .bg{fill:#f4efe3}.box{fill:#fffdf7;stroke:#243447;stroke-width:2}.green{fill:#dcefe8;stroke:#2f6f55;stroke-width:2}.gold{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}.rose{fill:#f1dfdf;stroke:#8b3a3a;stroke-width:2}
-    .title{fill:#8b3a3a;font:bold 24px Georgia,serif}.label{fill:#243447;font:bold 17px Georgia,serif}.code{fill:#172334;font:15px ui-monospace,monospace}.prose{fill:#435166;font:15px Georgia,serif}.line{fill:none;stroke:#526273;stroke-width:3}
-  </style><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526273"/></marker></defs>
+    .bg{fill:#FFF9E8}.box{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#C88900;stroke-width:2}.rose{fill:#FFF0D6;stroke:#A96800;stroke-width:2}
+    .title{fill:#A96800;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 17px Georgia,serif}.code{fill:#102A3A;font:15px ui-monospace,monospace}.prose{fill:#405E70;font:15px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:3}
+  </style><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#537487"/></marker></defs>
   <rect class="bg" width="900" height="420"/><text class="title" x="450" y="38" text-anchor="middle">ARITHMETIC RUNS ON BOUND VALUES</text>
   <rect class="green" x="45" y="95" width="220" height="150" rx="12"/><text class="label" x="155" y="128" text-anchor="middle">1 · GENERATE</text><text class="code" x="155" y="166" text-anchor="middle">between(1,10,N)</text><text class="prose" x="155" y="202" text-anchor="middle">binds N to one finite</text><text class="prose" x="155" y="225" text-anchor="middle">candidate at a time</text>
   <rect class="gold" x="340" y="95" width="220" height="150" rx="12"/><text class="label" x="450" y="128" text-anchor="middle">2 · COMPUTE</text><text class="code" x="450" y="166" text-anchor="middle">S is N * N</text><text class="prose" x="450" y="202" text-anchor="middle">reads bound N</text><text class="prose" x="450" y="225" text-anchor="middle">and binds S</text>

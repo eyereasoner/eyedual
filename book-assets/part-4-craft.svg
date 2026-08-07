@@ -2,24 +2,24 @@
   <title id="title">A logic programmer's workbench</title>
   <desc id="desc">A programmer moves between domain notes, clause cards, a graph sketch, and tested EyeProlog code at a warm workbench.</desc>
   <style>
-    .wall{fill:#eee5d3}.desk{fill:#a97852}.paper{fill:#fffdf7;stroke:#243447;stroke-width:2}
-    .screen{fill:#243447;stroke:#172334;stroke-width:5}.code{fill:#dcefe8;font:16px ui-monospace,monospace}
-    .ink{fill:none;stroke:#243447;stroke-width:2.5;stroke-linecap:round}.red{stroke:#8b3a3a}.green{stroke:#2f6f55}
-    .note{fill:#e8c980;stroke:#9a5b18;stroke-width:1.5}.cup{fill:#d7e9e2;stroke:#243447;stroke-width:2}
+    .wall{fill:#FFF3D8}.desk{fill:#D69C18}.paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
+    .screen{fill:#17324D;stroke:#102A3A;stroke-width:5}.code{fill:#DDF7FB;font:16px ui-monospace,monospace}
+    .ink{fill:none;stroke:#17324D;stroke-width:2.5;stroke-linecap:round}.red{stroke:#A96800}.green{stroke:#008EAA}
+    .note{fill:#F6D978;stroke:#C88900;stroke-width:1.5}.cup{fill:#D6F3F7;stroke:#17324D;stroke-width:2}
   </style>
   <rect width="900" height="420" class="wall"/><rect y="290" width="900" height="130" class="desk"/>
-  <rect class="paper" x="45" y="45" width="220" height="190" rx="4"/><text x="155" y="76" text-anchor="middle" fill="#713535" font-family="Georgia,serif" font-size="18">DOMAIN SKETCH</text>
-  <circle cx="90" cy="125" r="17" fill="#fffdf7" stroke="#243447" stroke-width="2"/><circle cx="195" cy="115" r="17" fill="#fffdf7" stroke="#243447" stroke-width="2"/><circle cx="145" cy="190" r="17" fill="#fffdf7" stroke="#243447" stroke-width="2"/>
-  <path class="ink green" d="M107 124 L177 116 M102 139 L135 177 M185 131 L156 177"/><text x="144" y="150" fill="#435166" font-family="ui-monospace,monospace" font-size="14">relations</text>
-  <rect class="note" x="280" y="58" width="130" height="74" transform="rotate(-5 345 95)"/><text x="345" y="91" text-anchor="middle" fill="#713535" font-family="ui-monospace,monospace" font-size="15">What does one</text><text x="345" y="111" text-anchor="middle" fill="#713535" font-family="ui-monospace,monospace" font-size="15">fact mean?</text>
-  <rect class="note" x="285" y="152" width="145" height="78" transform="rotate(4 357 191)"/><text x="357" y="187" text-anchor="middle" fill="#713535" font-family="ui-monospace,monospace" font-size="15">Which argument</text><text x="357" y="207" text-anchor="middle" fill="#713535" font-family="ui-monospace,monospace" font-size="15">gets smaller?</text>
+  <rect class="paper" x="45" y="45" width="220" height="190" rx="4"/><text x="155" y="76" text-anchor="middle" fill="#855400" font-family="Georgia,serif" font-size="18">DOMAIN SKETCH</text>
+  <circle cx="90" cy="125" r="17" fill="#FFFDF8" stroke="#17324D" stroke-width="2"/><circle cx="195" cy="115" r="17" fill="#FFFDF8" stroke="#17324D" stroke-width="2"/><circle cx="145" cy="190" r="17" fill="#FFFDF8" stroke="#17324D" stroke-width="2"/>
+  <path class="ink green" d="M107 124 L177 116 M102 139 L135 177 M185 131 L156 177"/><text x="144" y="150" fill="#405E70" font-family="ui-monospace,monospace" font-size="14">relations</text>
+  <rect class="note" x="280" y="58" width="130" height="74" transform="rotate(-5 345 95)"/><text x="345" y="91" text-anchor="middle" fill="#855400" font-family="ui-monospace,monospace" font-size="15">What does one</text><text x="345" y="111" text-anchor="middle" fill="#855400" font-family="ui-monospace,monospace" font-size="15">fact mean?</text>
+  <rect class="note" x="285" y="152" width="145" height="78" transform="rotate(4 357 191)"/><text x="357" y="187" text-anchor="middle" fill="#855400" font-family="ui-monospace,monospace" font-size="15">Which argument</text><text x="357" y="207" text-anchor="middle" fill="#855400" font-family="ui-monospace,monospace" font-size="15">gets smaller?</text>
   <rect class="screen" x="470" y="35" width="360" height="235" rx="10"/>
   <text class="code" x="495" y="75">path(X, Y) :- edge(X, Y).</text>
   <text class="code" x="495" y="110">path(X, Z) :-</text><text class="code" x="520" y="135">edge(X, Y),</text><text class="code" x="520" y="160">path(Y, Z).</text>
   <text class="code" x="495" y="205">eyeprolog --goal 'path(a, X)' program.pl</text>
-  <text x="495" y="240" fill="#8fc9a9" font-family="ui-monospace,monospace" font-size="16">✓ answers and proofs agree</text>
-  <path d="M625 270 L675 305 H580Z" fill="#536b78"/>
-  <rect x="545" y="304" width="165" height="12" rx="6" fill="#536b78"/>
-  <g transform="translate(115 285)"><ellipse class="cup" cx="0" cy="45" rx="45" ry="12"/><path class="cup" d="M-45 0 H45 L35 45 H-35Z"/><path class="ink" d="M45 10 Q78 12 65 36 Q58 46 38 38"/><path d="M-15-8 Q-25-35-8-48 M10-8 Q22-32 8-48" fill="none" stroke="#fffdf7" stroke-width="3" opacity=".8"/></g>
+  <text x="495" y="240" fill="#8ADDE5" font-family="ui-monospace,monospace" font-size="16">✓ answers and proofs agree</text>
+  <path d="M625 270 L675 305 H580Z" fill="#2C657A"/>
+  <rect x="545" y="304" width="165" height="12" rx="6" fill="#2C657A"/>
+  <g transform="translate(115 285)"><ellipse class="cup" cx="0" cy="45" rx="45" ry="12"/><path class="cup" d="M-45 0 H45 L35 45 H-35Z"/><path class="ink" d="M45 10 Q78 12 65 36 Q58 46 38 38"/><path d="M-15-8 Q-25-35-8-48 M10-8 Q22-32 8-48" fill="none" stroke="#FFFDF8" stroke-width="3" opacity=".8"/></g>
   <rect class="paper" x="230" y="305" width="230" height="90" transform="rotate(-3 345 350)"/><path class="ink red" d="M250 332 L350 328"/><path class="ink green" d="M250 355 L420 347 M250 376 L385 370"/>
 </svg>

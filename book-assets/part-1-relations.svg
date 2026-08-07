@@ -2,24 +2,24 @@
   <title id="title">Relations in an ordinary town</title>
   <desc id="desc">People, homes, a school, and a bicycle are connected by labeled facts in a small town scene.</desc>
   <style>
-    .sky{fill:#e9f1ee}.ground{fill:#eee5d3}.road{fill:#c9c1b2}
-    .building{fill:#fffdf7;stroke:#243447;stroke-width:2}.roof{fill:#a55246;stroke:#243447;stroke-width:2}
-    .tree{fill:#6c927d;stroke:#2f6f55;stroke-width:2}.trunk{stroke:#76553c;stroke-width:8}
-    .person{fill:#fffdf7;stroke:#243447;stroke-width:2}.shirt{fill:#d7e9e2;stroke:#243447;stroke-width:2}
-    .relation{fill:none;stroke:#8b3a3a;stroke-width:2.5;stroke-dasharray:7 5}
-    .label{fill:#fffdf7;stroke:#8b3a3a;stroke-width:1.5}.text{fill:#713535;font:14px ui-monospace,monospace}
-    .detail{fill:none;stroke:#243447;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-    .bike-frame{fill:none;stroke:#2f6f55;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
-    .bike-part{fill:none;stroke:#243447;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .sky{fill:#EAF8FA}.ground{fill:#FFF3D8}.road{fill:#D9D1C1}
+    .building{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.roof{fill:#C47D00;stroke:#17324D;stroke-width:2}
+    .tree{fill:#55BFD0;stroke:#008EAA;stroke-width:2}.trunk{stroke:#8B6500;stroke-width:8}
+    .person{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.shirt{fill:#D6F3F7;stroke:#17324D;stroke-width:2}
+    .relation{fill:none;stroke:#A96800;stroke-width:2.5;stroke-dasharray:7 5}
+    .label{fill:#FFFDF8;stroke:#A96800;stroke-width:1.5}.text{fill:#855400;font:14px ui-monospace,monospace}
+    .detail{fill:none;stroke:#17324D;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .bike-frame{fill:none;stroke:#008EAA;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+    .bike-part{fill:none;stroke:#17324D;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
   </style>
   <rect width="900" height="265" class="sky"/><rect y="265" width="900" height="155" class="ground"/>
   <path class="road" d="M0 355 C220 305 390 385 565 335 S770 300 900 325 L900 420 L0 420Z"/>
   <rect class="building" x="65" y="155" width="190" height="140"/><polygon class="roof" points="45,160 160,75 275,160"/>
-  <rect x="93" y="202" width="45" height="93" fill="#c89062" stroke="#243447" stroke-width="2"/>
-  <rect x="178" y="195" width="47" height="48" fill="#bcd6df" stroke="#243447" stroke-width="2"/>
+  <rect x="93" y="202" width="45" height="93" fill="#E5B23B" stroke="#17324D" stroke-width="2"/>
+  <rect x="178" y="195" width="47" height="48" fill="#B8DDE8" stroke="#17324D" stroke-width="2"/>
   <rect class="building" x="650" y="120" width="180" height="155"/><polygon class="roof" points="625,125 740,48 855,125"/>
-  <rect x="716" y="194" width="50" height="81" fill="#c89062" stroke="#243447" stroke-width="2"/>
-  <text x="740" y="163" text-anchor="middle" fill="#243447" font-family="Georgia,serif" font-size="18">SCHOOL</text>
+  <rect x="716" y="194" width="50" height="81" fill="#E5B23B" stroke="#17324D" stroke-width="2"/>
+  <text x="740" y="163" text-anchor="middle" fill="#17324D" font-family="Georgia,serif" font-size="18">SCHOOL</text>
   <line class="trunk" x1="570" y1="165" x2="570" y2="282"/><circle class="tree" cx="570" cy="125" r="55"/>
   <g transform="translate(340 230)"><circle class="person" cx="0" cy="-42" r="19"/><path class="shirt" d="M-30 -15 Q0-35 30-15 L24 48 H-24Z"/><path class="detail" d="M-12 48 L-15 85 M12 48 L16 85"/></g>
   <g transform="translate(455 245) scale(.82)"><circle class="person" cx="0" cy="-42" r="19"/><path class="shirt" d="M-30 -15 Q0-35 30-15 L24 48 H-24Z"/><path class="detail" d="M-12 48 L-15 85 M12 48 L16 85"/></g>
@@ -28,7 +28,7 @@
     <circle class="bike-part" cx="38" cy="24" r="25"/>
     <!-- A recognizable diamond frame: rear hub, crank, seat tube, and head tube. -->
     <path class="bike-frame" d="M-34 24L-9-10L8 24L-34 24L-9-10L27-8L38 24L8 24Z"/>
-    <circle cx="8" cy="24" r="5" fill="#fffdf7" stroke="#243447" stroke-width="2"/>
+    <circle cx="8" cy="24" r="5" fill="#FFFDF8" stroke="#17324D" stroke-width="2"/>
     <path class="bike-part" d="M-15-13H-2M-9-10L-13-25M-20-25H-6M27-8L23-24L34-29M30-29H40"/>
     <path class="bike-part" d="M8 24L18 34M8 24L-1 15"/>
   </g>

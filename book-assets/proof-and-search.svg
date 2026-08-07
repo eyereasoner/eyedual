@@ -3,17 +3,17 @@
   <desc id="desc">The proof tree contains the successful derivation, while the search tree additionally contains failed alternatives and repeated work.</desc>
   <defs>
     <style>
-      .paper{fill:#fffdf7;stroke:#243447;stroke-width:2}
-      .goal{fill:#e7f3ee;stroke:#2f6f55;stroke-width:2}
-      .fail{fill:#f8e3e3;stroke:#8b3a3a;stroke-width:2}
-      .repeat{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}
-      .title{fill:#8b3a3a;font:bold 23px Georgia,serif}
-      .text{fill:#172334;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
-      .prose{fill:#435166;font:17px Georgia,serif}
-      .line{stroke:#526273;stroke-width:2}
+      .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
+      .goal{fill:#E8FAFC;stroke:#008EAA;stroke-width:2}
+      .fail{fill:#FFF1D8;stroke:#A96800;stroke-width:2}
+      .repeat{fill:#FFF4BF;stroke:#C88900;stroke-width:2}
+      .title{fill:#A96800;font:bold 23px Georgia,serif}
+      .text{fill:#102A3A;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .prose{fill:#405E70;font:17px Georgia,serif}
+      .line{stroke:#537487;stroke-width:2}
     </style>
   </defs>
-  <rect width="900" height="500" fill="#f4efe3"/>
+  <rect width="900" height="500" fill="#FFF9E8"/>
   <rect class="paper" x="25" y="40" width="390" height="410" rx="10"/>
   <text class="title" x="220" y="78" text-anchor="middle">PROOF TREE</text>
   <text class="prose" x="220" y="103" text-anchor="middle">only the successful support for one answer</text>

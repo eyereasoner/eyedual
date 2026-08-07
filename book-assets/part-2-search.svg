@@ -2,18 +2,18 @@
   <title id="title">Searching for a route through the hills</title>
   <desc id="desc">A traveler studies several mountain paths; dead ends and a loop are marked while one green route reaches a cabin.</desc>
   <style>
-    .sky{fill:#e9f1ee}.hill1{fill:#b7cbbd}.hill2{fill:#819f8c}.snow{fill:#fffdf7}
-    .path{fill:none;stroke:#76553c;stroke-width:7;stroke-linecap:round;stroke-dasharray:9 7}
-    .chosen{fill:none;stroke:#2f6f55;stroke-width:9;stroke-linecap:round}
-    .dead{stroke:#8b3a3a;stroke-width:5}.sign{fill:#fffdf7;stroke:#243447;stroke-width:2}
-    .ink{fill:none;stroke:#243447;stroke-width:3;stroke-linecap:round}.coat{fill:#a55246;stroke:#243447;stroke-width:2}
+    .sky{fill:#EAF8FA}.hill1{fill:#BDEBF0}.hill2{fill:#6BCBD7}.snow{fill:#FFFDF8}
+    .path{fill:none;stroke:#8B6500;stroke-width:7;stroke-linecap:round;stroke-dasharray:9 7}
+    .chosen{fill:none;stroke:#008EAA;stroke-width:9;stroke-linecap:round}
+    .dead{stroke:#A96800;stroke-width:5}.sign{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
+    .ink{fill:none;stroke:#17324D;stroke-width:3;stroke-linecap:round}.coat{fill:#C47D00;stroke:#17324D;stroke-width:2}
   </style>
   <rect width="900" height="420" class="sky"/>
-  <circle cx="735" cy="85" r="43" fill="#e8c980"/>
+  <circle cx="735" cy="85" r="43" fill="#F6D978"/>
   <polygon class="hill2" points="0,330 165,95 345,330"/><polygon class="snow" points="117,163 165,95 220,172 183,158 160,180 140,155"/>
   <polygon class="hill1" points="160,350 410,70 680,350"/><polygon class="snow" points="345,143 410,70 482,151 438,135 408,165 382,137"/>
   <polygon class="hill2" points="520,345 700,125 900,345"/><polygon class="snow" points="654,181 700,125 750,185 720,176 700,198 680,175"/>
-  <path d="M0 320 Q220 275 420 330 T900 305 V420 H0Z" fill="#dcd2bf"/>
+  <path d="M0 320 Q220 275 420 330 T900 305 V420 H0Z" fill="#E8DFCC"/>
   <path class="path" d="M95 360 C180 290 240 310 290 230 S395 170 480 235"/>
   <path class="path" d="M290 230 C345 265 335 325 395 342"/>
   <path class="path" d="M480 235 C565 175 590 100 660 145"/>
@@ -22,6 +22,6 @@
   <line class="dead" x1="380" y1="327" x2="410" y2="357"/><line class="dead" x1="410" y1="327" x2="380" y2="357"/>
   <line class="dead" x1="647" y1="132" x2="675" y2="158"/><line class="dead" x1="675" y1="132" x2="647" y2="158"/>
   <g transform="translate(75 315)"><circle cx="0" cy="-35" r="14" class="sign"/><path class="coat" d="M-22-13 Q0-28 22-13 L18 37 H-18Z"/><path class="ink" d="M-8 37 L-12 66 M8 37 L13 66 M18-2 L35 10"/></g>
-  <g transform="translate(760 205)"><rect class="sign" x="0" y="28" width="92" height="62"/><polygon points="-12,30 46,-10 104,30" fill="#a55246" stroke="#243447" stroke-width="2"/><rect x="37" y="58" width="22" height="32" fill="#c89062" stroke="#243447" stroke-width="2"/><path d="M72 0 Q65-25 76-43" class="ink"/></g>
+  <g transform="translate(760 205)"><rect class="sign" x="0" y="28" width="92" height="62"/><polygon points="-12,30 46,-10 104,30" fill="#C47D00" stroke="#17324D" stroke-width="2"/><rect x="37" y="58" width="22" height="32" fill="#E5B23B" stroke="#17324D" stroke-width="2"/><path d="M72 0 Q65-25 76-43" class="ink"/></g>
   <g transform="translate(220 292)"><path class="ink" d="M0 38 V0"/><path class="sign" d="M0 3 L62 3 L52-17 L0-17Z"/><path class="sign" d="M0 28 L-55 28 L-45 8 L0 8Z"/></g>
 </svg>

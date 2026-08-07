@@ -3,8 +3,8 @@
   <desc id="desc">Five connected stages group laboratories one and two as relational foundations, three and four as finite search, five through seven as mathematical and symbolic methods, eight through eleven as domain reasoning, and twelve as an integrated release-quality service.</desc>
   <defs>
     <style>
-      .bg{fill:#f4efe3}.stage{stroke:#526273;stroke-width:2}.s1{fill:#dcefe8}.s2{fill:#c7dfe2}.s3{fill:#fff0d9}.s4{fill:#ead7d7}.s5{fill:#243447;stroke:#172334;stroke-width:3}
-      .line{fill:none;stroke:#526273;stroke-width:4;stroke-linecap:round}.arrow{fill:#526273}.title{fill:#713535;font:bold 24px Georgia,serif}.number{fill:#713535;font:bold 20px Georgia,serif}.label{fill:#172334;font:bold 17px Georgia,serif}.small{fill:#435166;font:15px Georgia,serif}.white{fill:#fffdf7}.thread{fill:#435166;font:italic 16px Georgia,serif}
+      .bg{fill:#FFF9E8}.stage{stroke:#537487;stroke-width:2}.s1{fill:#DDF7FB}.s2{fill:#BFEAF1}.s3{fill:#FFF4BF}.s4{fill:#FFE7BF}.s5{fill:#17324D;stroke:#102A3A;stroke-width:3}
+      .line{fill:none;stroke:#537487;stroke-width:4;stroke-linecap:round}.arrow{fill:#537487}.title{fill:#855400;font:bold 24px Georgia,serif}.number{fill:#855400;font:bold 20px Georgia,serif}.label{fill:#102A3A;font:bold 17px Georgia,serif}.small{fill:#405E70;font:15px Georgia,serif}.white{fill:#FFFDF8}.thread{fill:#405E70;font:italic 16px Georgia,serif}
     </style>
   </defs>
   <rect width="900" height="470" class="bg"/>

@@ -3,19 +3,19 @@
   <desc id="desc">The terms reading(Sensor,91) and reading(temp,Value) align, yielding Sensor equals temp and Value equals 91.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+      <path d="M0,0 L0,6 L9,3 z" fill="#405E70"/>
     </marker>
     <style>
-      .node{fill:#fffdf7;stroke:#243447;stroke-width:2}
-      .var{fill:#fff0d9;stroke:#9a5b18;stroke-width:2}
-      .value{fill:#e7f3ee;stroke:#2f6f55;stroke-width:2}
-      .text{fill:#172334;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}
-      .title{fill:#8b3a3a;font:bold 22px Georgia,serif}
-      .line{stroke:#526273;stroke-width:2}
-      .bind{stroke:#9a5b18;stroke-width:2.5;stroke-dasharray:7 6;fill:none;marker-end:url(#arrow)}
+      .node{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
+      .var{fill:#FFF4BF;stroke:#C88900;stroke-width:2}
+      .value{fill:#E8FAFC;stroke:#008EAA;stroke-width:2}
+      .text{fill:#102A3A;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}
+      .title{fill:#A96800;font:bold 22px Georgia,serif}
+      .line{stroke:#537487;stroke-width:2}
+      .bind{stroke:#C88900;stroke-width:2.5;stroke-dasharray:7 6;fill:none;marker-end:url(#arrow)}
     </style>
   </defs>
-  <rect width="900" height="500" fill="#f4efe3"/>
+  <rect width="900" height="500" fill="#FFF9E8"/>
   <text class="title" x="235" y="42" text-anchor="middle">first term</text>
   <text class="title" x="665" y="42" text-anchor="middle">second term</text>
 
