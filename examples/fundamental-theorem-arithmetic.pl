@@ -37,19 +37,9 @@ divides(A, B) :-
   (B > 0),
   (0 is B mod A).
 
-smallest_divisor_from(N, D, D) :-
-  divides(D, N).
-
-smallest_divisor_from(N, D, N) :-
-  (D2 is D * D),
-  (D2 > N).
-
-smallest_divisor_from(N, D, S) :-
-  \+ divides(D, N),
-  (D2 is D * D),
-  (D2 =< N),
-  (D1 is D + 1),
-  smallest_divisor_from(N, D1, S).
+% smallest_divisor_from/3 is supplied by eyeprolog-library.pl. Its
+% implementation is plain Prolog and avoids repeating a long trial scan for
+% values that are prime.
 
 trial_prime(2).
 trial_prime(3).
