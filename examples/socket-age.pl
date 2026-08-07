@@ -27,9 +27,9 @@ plug(test_patients, patient_registry).
 plug(test_policy, policy_source).
 plug(test_clock, clock_source).
 
-birthDay(patH, "1944-08-21").
-duration(check, "P80Y").
-today("2026-05-30").
+birthDay(patH, '1944-08-21').
+duration(check, 'P80Y').
+today('2026-05-30').
 
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 ageAbove(S, A) :-

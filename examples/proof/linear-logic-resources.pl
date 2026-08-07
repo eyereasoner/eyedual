@@ -35,7 +35,7 @@ why(
                 uses([
                   proof(
                     goal(select(wheat, [wheat, yeast, heat], [yeast, heat])),
-                    by(builtin(select, 3))
+                    by(library(select, 3))
                   ),
                   proof(
                     goal(consume_all([], [yeast, heat], [yeast, heat])),
@@ -46,7 +46,7 @@ why(
               ),
               proof(
                 goal(append([flour], [yeast, heat], [flour, yeast, heat])),
-                by(builtin(append, 3))
+                by(library(append, 3))
               )
             ])
           ),
@@ -79,7 +79,7 @@ why(
                     uses([
                       proof(
                         goal(select(flour, [flour, yeast, heat], [yeast, heat])),
-                        by(builtin(select, 3))
+                        by(library(select, 3))
                       ),
                       proof(
                         goal(consume_all([yeast], [yeast, heat], [heat])),
@@ -88,7 +88,7 @@ why(
                         uses([
                           proof(
                             goal(select(yeast, [yeast, heat], [heat])),
-                            by(builtin(select, 3))
+                            by(library(select, 3))
                           ),
                           proof(
                             goal(consume_all([], [heat], [heat])),
@@ -101,7 +101,7 @@ why(
                   ),
                   proof(
                     goal(append([dough], [heat], [dough, heat])),
-                    by(builtin(append, 3))
+                    by(library(append, 3))
                   )
                 ])
               ),
@@ -134,7 +134,7 @@ why(
                         uses([
                           proof(
                             goal(select(dough, [dough, heat], [heat])),
-                            by(builtin(select, 3))
+                            by(library(select, 3))
                           ),
                           proof(
                             goal(consume_all([heat], [heat], [])),
@@ -143,7 +143,7 @@ why(
                             uses([
                               proof(
                                 goal(select(heat, [heat], [])),
-                                by(builtin(select, 3))
+                                by(library(select, 3))
                               ),
                               proof(
                                 goal(consume_all([], [], [])),
@@ -156,7 +156,7 @@ why(
                       ),
                       proof(
                         goal(append([bread], [], [bread])),
-                        by(builtin(append, 3))
+                        by(library(append, 3))
                       )
                     ])
                   ),

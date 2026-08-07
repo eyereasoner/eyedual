@@ -1,1 +1,1 @@
-answer(join_empty_list, "").
+answer(join_empty_list, '').

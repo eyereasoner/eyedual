@@ -186,6 +186,10 @@ export function createDefaultRegistry(): BuiltinRegistry;
 export function createEyePrologRegistry(): BuiltinRegistry;
 export function getDefaultRegistry(): BuiltinRegistry;
 export function getEyePrologRegistry(): BuiltinRegistry;
+export function ensureEyePrologLibrary(program: Program): Program;
+export const eyePrologLibraryIndicators: readonly string[];
+export const eyePrologNativeLibraryIndicators: readonly string[];
+export const eyePrologPortableLibraryIndicators: readonly string[];
 export class PrologError extends Error {
   formal: string;
   culprit: EyePrologTerm | null;
@@ -250,6 +254,10 @@ declare const eyeprolog: {
   createEyePrologRegistry: typeof createEyePrologRegistry;
   getDefaultRegistry: typeof getDefaultRegistry;
   getEyePrologRegistry: typeof getEyePrologRegistry;
+  ensureEyePrologLibrary: typeof ensureEyePrologLibrary;
+  eyePrologLibraryIndicators: typeof eyePrologLibraryIndicators;
+  eyePrologNativeLibraryIndicators: typeof eyePrologNativeLibraryIndicators;
+  eyePrologPortableLibraryIndicators: typeof eyePrologPortableLibraryIndicators;
   run: typeof run;
   whyProof: typeof whyProof;
   whyNoProof: typeof whyNoProof;

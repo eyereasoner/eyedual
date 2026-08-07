@@ -1,1 +1,1 @@
-bridge_status_report(report(decision(avoid_bridge), evidence(trusted_source(transport_authority), score(9310)), ranked_claims([claim(closed, transport_authority, score(9310)), claim(open, anonymous_post, score(700))]))).
+bridge_status_report(report(decision(verify_manually), evidence(trusted_source(no_trusted_source), score(0)), ranked_claims([]))).

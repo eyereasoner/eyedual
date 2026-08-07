@@ -18,6 +18,9 @@ import {
   BuiltinRegistry,
   createDefaultRegistry,
   getEyePrologRegistry,
+  eyePrologLibraryIndicators,
+  eyePrologNativeLibraryIndicators,
+  eyePrologPortableLibraryIndicators,
   atom,
   compound,
   listFromItems,
@@ -116,7 +119,7 @@ why(
     uses([
       proof(
         goal(between(536, 536, 536)),
-        by(builtin(between, 3))
+        by(library(between, 3))
       )
     ])
   )
@@ -140,7 +143,7 @@ why(
     uses([
       proof(
         goal(member(a, [a])),
-        by(builtin(member, 2))
+        by(library(member, 2))
       )
     ])
   )
@@ -181,7 +184,7 @@ why(
           env: { EYEPROLOG_LOCAL_TIME: '2024-01-02' },
         });
         assertEqual(result.status, 0, 'exit status');
-        assertEqual(result.stdout, 'local_time_answer("2024-01-02").\n', 'stdout');
+        assertEqual(result.stdout, "local_time_answer('2024-01-02').\n", 'stdout');
         assertEqual(result.stderr, '', 'stderr');
       },
     },
@@ -1004,11 +1007,16 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not ISO core');
         assertEqual(library.eyePrologLibrary, true, 'complete registry marker');
-        assertEqual(library.defs.size, 165, 'complete registry size');
-        assertEqual(registeredEyePrologLibraryNames().length, 50, 'EyeProlog library size');
-        assertEqual(library.get('append', 3)?.eyePrologLibrary, true, 'append/3 metadata');
-        assertEqual(library.get('maplist', 3)?.eyePrologLibrary, true, 'maplist/3 metadata');
-        assertEqual(library.get('matches', 3)?.eyePrologLibrary, true, 'matches/3 metadata');
+        assertEqual(library.defs.size, 119, 'ISO plus host/internal registry size');
+        assertEqual(registeredNativeEyePrologLibraryNames().length, 2, 'public native EyeProlog builtin count');
+        assertEqual(eyePrologPortableLibraryIndicators.length, 48, 'portable Prolog library count');
+        assertEqual(eyePrologNativeLibraryIndicators.length, 2, 'native host library count');
+        assertEqual(eyePrologNativeLibraryIndicators.join(','), 'uuid/1,local_time/1', 'native host library stays minimal');
+        assertEqual(eyePrologLibraryIndicators.length, 50, 'complete EyeProlog library surface');
+        assertEqual(library.get('between', 3), null, 'between/3 remains portable Prolog');
+        assertEqual(library.get('append', 3), null, 'append/3 moved to portable Prolog');
+        assertEqual(library.get('maplist', 3), null, 'maplist/3 moved to portable Prolog');
+        assertEqual(library.get('matches', 3), null, 'matches/3 moved to portable Prolog');
         assertEqual(library.get('uuid', 1)?.deterministic, true, 'uuid/1 deterministic metadata');
         for (const [name, arity] of [['not_member', 2], ['head', 2], ['rest', 2], ['min', 3], ['max', 3]]) {
           assertEqual(library.get(name, arity), null, `${name}/${arity} removed from library`);
@@ -1016,14 +1024,35 @@ open(X) :- candidate(X), \\+ closed(X).
       },
     },
     {
-      name: 'EyeProlog library does not inject program clauses',
+      name: 'EyeProlog portable library autoloads Prolog clauses',
       run: () => {
         const program = Program.parse('answer(X) :- append([a], [b], X).');
         const solver = new Solver(program);
         assertEqual(solver.program, program, 'solver keeps original program object');
-        assertEqual(program.findGroup('append', 3), null, 'append/3 is not injected as a clause group');
-        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js')), false, 'portable module removed');
-        assertEqual(run(program, { goal: 'answer(X)' }).stdout, 'answer([a, b]).\n', 'native append execution');
+        assertEqual(Boolean(program.findGroup('append', 3)), true, 'append/3 is autoloaded as a clause group');
+        assertEqual(program.findGroup('append', 3).clauses.every((clause) => clause.eyePrologLibraryPortable === true), true, 'append clauses are marked portable library clauses');
+        const betweenGenerator = program.findGroup('eyeprolog__between', 3);
+        assertEqual(betweenGenerator.linearNumeric, true, 'portable between generator uses finite linear recursion');
+        assertEqual(betweenGenerator.tabled, false, 'portable between generator avoids suffix answer tables');
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'eyeprolog-library.pl')), true, 'portable Prolog source exists');
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'library-source.js')), true, 'portable source loader exists');
+        assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'portable-library.js')), false, 'obsolete duplicate module remains absent');
+        assertEqual(run(program, { goal: 'answer(X)' }).stdout, 'answer([a, b]).\n', 'autoloaded append execution');
+      },
+    },
+    {
+      name: 'portable library executes against the ISO-only registry',
+      run: () => {
+        const portableSource = fs.readFileSync(path.join(packageRoot, 'src', 'eyeprolog-library.pl'), 'utf8');
+        const program = Program.parse(`${portableSource}
+portable_check(A, B, C) :- lowercase('HELLO', A), replace('banana', 'na', 'NA', B), append([x], [y], C).
+`);
+        const solver = new Solver(program, { registry: createDefaultRegistry() });
+        const goal = parseGoalText('portable_check(A, B, C)');
+        const answers = [...solver.solve([goal], new Env(), 0)].map((env) => termToString(goal, env, true));
+        assertEqual(answers.join('\n'), "portable_check(hello, baNANA, [x, y])", 'ISO-only portable execution');
+        assertEqual(program.findGroup('uuid', 1), null, 'uuid/1 remains outside portable file');
+        assertEqual(program.findGroup('local_time', 1), null, 'local_time/1 remains outside portable file');
       },
     },
     {
@@ -1048,10 +1077,8 @@ open(X) :- candidate(X), \\+ closed(X).
     {
       name: 'EyeProlog library preserves strict modes and ISO arithmetic errors',
       run: () => {
-        assertEqual(run('answer(X) :- substring("abc", "1", 1, X).', { goal: 'answer(X)' }).stdout, '', 'substring index type');
-        let nth1Error = null;
-        try { run('answer(N) :- nth1(N, [a, b], _).', { goal: 'answer(N)' }); } catch (error) { nth1Error = error; }
-        assertIncludes(nth1Error?.message ?? '', 'instantiation_error', 'nth1 variable index error');
+        assertEqual(run("answer(X) :- substring('abc', '1', 1, X).", { goal: 'answer(X)' }).stdout, '', 'substring index type');
+        assertEqual(run('answer(N) :- nth1(N, [a, b], _).', { goal: 'answer(N)' }).stdout, 'answer(1).\nanswer(2).\n', 'nth1 relational enumeration');
         let sumError = null;
         try { run('answer(S) :- sum_list([1, foo], S).', { goal: 'answer(S)' }); } catch (error) { sumError = error; }
         assertIncludes(sumError?.message ?? '', 'type_error(evaluable)', 'sum_list arithmetic error');
@@ -1733,11 +1760,11 @@ function registeredBuiltinNames() {
 }
 
 function registeredEyePrologLibraryNames() {
-  const defaults = createDefaultRegistry().defs;
-  return [...getEyePrologRegistry().defs.entries()]
-    .filter(([name]) => !defaults.has(name))
-    .map(([name]) => name)
-    .sort();
+  return [...eyePrologLibraryIndicators].sort();
+}
+
+function registeredNativeEyePrologLibraryNames() {
+  return [...eyePrologNativeLibraryIndicators].sort();
 }
 
 function registeredBuiltinSummary() {

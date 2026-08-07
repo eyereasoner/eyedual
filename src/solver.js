@@ -5,7 +5,7 @@ import {
   numberTerm, numberTextFromDouble, termIsGround, termToString, unify, variantTerms,
 } from './term.js';
 import { PrologError } from './iso.js';
-import { getEyePrologRegistry } from './library.js';
+import { ensureEyePrologLibrary, getEyePrologRegistry } from './library.js';
 import { selectClauseCandidates, selectClauseCandidatesForValues, selectGroundClauseCandidates } from './program.js';
 import { StreamManager } from './io.js';
 
@@ -18,7 +18,7 @@ export function nextFreshId() {
 export class Solver {
   constructor(program, options = {}) {
     this.registry = options.registry ?? getEyePrologRegistry();
-    this.program = program;
+    this.program = this.registry?.eyePrologLibrary ? ensureEyePrologLibrary(program) : program;
     this.mutableProgram = program.mutable === true;
     this.programRevision = this.program.revision ?? 0;
     this.maxDepth = options.maxDepth ?? 100000;

@@ -62,17 +62,17 @@ why(
   )
 ).
 
-report(rendered, "edge(a, [b, c])").
+report(rendered, 'edge(a, [b, c])').
 why(
-  report(rendered, "edge(a, [b, c])"),
+  report(rendered, 'edge(a, [b, c])'),
   proof(
-    goal(report(rendered, "edge(a, [b, c])")),
+    goal(report(rendered, 'edge(a, [b, c])')),
     by(rule("term-tools.pl", clause(7))),
-    bindings([binding("Text", "edge(a, [b, c])")]),
+    bindings([binding("Text", 'edge(a, [b, c])')]),
     uses([
       proof(
-        goal(term_string(edge(a, [b, c]), "edge(a, [b, c])")),
-        by(builtin(term_string, 2))
+        goal(term_string(edge(a, [b, c]), 'edge(a, [b, c])')),
+        by(library(term_string, 2))
       )
     ])
   )

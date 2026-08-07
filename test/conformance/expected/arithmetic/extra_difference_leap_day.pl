@@ -1,1 +1,1 @@
-answer(difference_leap_day, "P2D").
+answer(difference_leap_day, 'P2D').

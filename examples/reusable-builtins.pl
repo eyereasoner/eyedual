@@ -6,8 +6,8 @@
 %% goal: report(X0, X1)
 
 
-name_raw("  Ada Lovelace  ").
-tag_csv("logic,math,logic,programming").
+name_raw('  Ada Lovelace  ').
+tag_csv('logic,math,logic,programming').
 scores([8, 13, 21]).
 
 report(normalized_name, Name) :-
@@ -17,14 +17,14 @@ report(normalized_name, Name) :-
 
 report(unique_tags, Tags) :-
   tag_csv(Csv),
-  split(Csv, ",", Parts),
+  split(Csv, ',', Parts),
   list_to_set(Parts, Tags).
 
 report(tag_label, Label) :-
   tag_csv(Csv),
-  split(Csv, ",", Parts),
+  split(Csv, ',', Parts),
   list_to_set(Parts, Tags),
-  join(Tags, " / ", Label).
+  join(Tags, ' / ', Label).
 
 report(score_summary, summary(Total, Peak, Roottotal)) :-
   scores(Scores),

@@ -8,7 +8,7 @@ why(
     uses([
       proof(
         goal(member(b, [a, b])),
-        by(builtin(member, 2))
+        by(library(member, 2))
       ),
       proof(
         goal(=(b, b)),

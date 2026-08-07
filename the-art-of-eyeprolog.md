@@ -248,7 +248,7 @@ Chapters 6–10
 - [6. Arithmetic and finite generation](#6-arithmetic-and-finite-generation)
 - [7. Failure, negation, and quantification](#7-failure-negation-and-quantification)
 - [8. Collecting and choosing answers](#8-collecting-and-choosing-answers)
-- [9. Structured data, strings, and contexts](#9-structured-data-strings-and-contexts)
+- [9. Structured data, text, and contexts](#9-structured-data-text-and-contexts)
 - [10. From puzzles to models](#10-from-puzzles-to-models)
 
 ### Part III — Trustworthy reasoning
@@ -1148,7 +1148,7 @@ sentinel route with an artificial cost.
 `findall/3`, `countall/2`, `sumall/3`, and `aggregate_min/5`. Then identify the
 finite generator that bounds each aggregate in a program of your own.
 
-## 9. Structured data, strings, and contexts
+## 9. Structured data, text, and contexts
 
 Term predicates decompose or construct general terms:
 
@@ -1166,19 +1166,23 @@ arg(Index, Term, Value).
 `arg/3` uses one-based indexes. Prefer direct pattern matching when the shape
 is known; use inspection for generic transformations.
 
-Text is best normalized at the model boundary:
+Text is best normalized at the model boundary. The portable EyeProlog library
+uses ISO-friendly atoms or proper lists of one-character atoms for its text
+arguments; newly produced text is an atom:
 
 ```eyeprolog
 normalized(Input, Words) :-
   trim(Input, Trimmed),
   lowercase(Trimmed, Lower),
-  split(Lower, " ", Words).
+  split(Lower, ' ', Words).
 ```
 
 Conversions include `number_string/2`, `atom_string/2`, and `term_string/2`.
-Pattern operations include `contains/2`, `matches/2`, `not_matches/2`, and
-named-capture `matches/3`. Turn text into structured terms early; keep central
-rules relational.
+Pattern operations include `contains/2`, `matches/2`, and named-capture
+`matches/3`. Turn text into structured terms early; keep central rules
+relational. Double-quoted EyeProlog strings remain available as a distinct term
+type for data models such as RDF, but they are not the portable library text
+API.
 
 Parenthesized comma terms can serve as context data:
 
@@ -1704,17 +1708,23 @@ truncate search; it does not prove that no further answer exists.
 
 ### Implementation boundary
 
-The source layout mirrors the public registry boundary. `src/iso.js` contains
-the isolated ISO processor predicates and registry. `src/library.js` contains
-the complete EyeProlog library predicates as native JavaScript
-builtins described in Chapter 39. No bundled Prolog source is parsed or
-overlaid at startup. Normal CLI, JavaScript, solver, and proof execution uses
-that composed registry. The browser entry `src/playground-worker.js` constructs
-the same registry explicitly before calling `run()`, which keeps library
-availability independent of CLI flags and stale worker state. Advanced
-embedders and conformance tests can still select the ISO-only registry
-explicitly. All paths share the parser, term representation, solver, streams,
-and proof machinery.
+The source layout mirrors the language boundary. `src/iso.js` contains the
+isolated ISO processor predicates and registry. `src/eyeprolog-library.pl` is
+the portable EyeProlog library: 48 public predicates written as ordinary
+Prolog clauses against that ISO profile. `src/library-source.js` loads the same
+file in Node and the browser, while `src/library.js` owns autoload integration
+and the two unavoidable public host predicates, `uuid/1` and `local_time/1`.
+A private `eyeprolog__string_atom/2` adapter is reserved for RDF boundaries
+where EyeProlog's double-quoted STRING data must cross into the atom-based text
+API; it is not part of the public library.
+
+Normal CLI, JavaScript, `Solver`, proof replay, and the browser playground use
+the EyeProlog registry; `src/playground-worker.js` reaches the same integration
+path, so a solver autoloads the portable clauses once per `Program`. Source
+clauses with the same name/arity stay first in clause order, and the autoloaded
+library clauses remain available as relational fallback clauses. Advanced embedders and conformance tests
+can still select the ISO-only registry explicitly. All paths share the parser,
+term representation, solver, streams, and proof machinery.
 
 ### Extending the built-in registry
 
@@ -4460,11 +4470,11 @@ domain rule.
 rules depend only on the normalized layer.
 
 ```eyeprolog
-source_role(person_7, "Doctor").
+source_role(person_7, 'Doctor').
 
 canonical_role(Person, clinician) :-
   source_role(Person, Text),
-  lowercase(Text, "doctor").
+  lowercase(Text, doctor).
 ```
 
 **Consequence:** adapters change independently from policy; proofs still trace
@@ -5243,19 +5253,26 @@ so side effects occur in Prolog execution order.
 
 ### The EyeProlog library
 
-The runtime registry combines the supported ISO Prolog profile with the EyeProlog library, implemented entirely in JavaScript. It is
-loaded automatically by the CLI, `run()`, `Solver`, proof replay, and the browser
-playground. Ordinary programs therefore use the same built-ins throughout.
-All of these relations live in `src/library.js`; there is no second portable
-source module and no runtime Prolog-library parse or program overlay.
-`src/playground-worker.js` constructs the same registry directly. The isolated
-ISO-only registry remains available through `createDefaultRegistry()` and
-`getDefaultRegistry()` for conformance work and advanced embedders.
+EyeProlog exposes **50 library predicate indicators** in addition to the 115
+indicators in its isolated ISO profile. Of those 50, **48 are ordinary Prolog
+clauses** in `src/eyeprolog-library.pl`; only **`uuid/1` and `local_time/1` are
+native host predicates** because ISO Prolog provides neither entropy nor a wall
+clock. The resulting normal EyeProlog language surface is therefore **165
+public predicate indicators**. Internally, the runtime registry currently has
+119 definitions: 115 ISO predicates, the 2 public host predicates, one private
+RDF STRING/atom boundary adapter, and one optional performance accelerator for
+`smallest_divisor_from/3`. The accelerator does not change semantics: the full
+portable Prolog implementation remains in `src/eyeprolog-library.pl`.
 
-The complete registry contains **165 predicate indicators**: 115 in the isolated
-ISO profile and 50 EyeProlog library indicators implemented in `src/library.js`. Every
-EyeProlog library definition is tagged with `eyePrologLibrary: true`, so tests and
-embedders can audit the boundary directly.
+The portable file is autoloaded once into every `Program` used with the
+EyeProlog registry. `src/library-source.js` loads it from the package in Node or
+through `fetch()` in the browser; `src/library.js` performs the autoload and
+registers the two host predicates plus the private RDF representation adapter.
+The isolated ISO-only registry remains
+available through `createDefaultRegistry()` and `getDefaultRegistry()` for
+conformance work and advanced embedders. Source clauses sharing a portable
+library name/arity are tried first; the autoloaded clauses then provide the
+standard fallback relation.
 
 <!-- eyeprolog-library-catalog:start -->
 
@@ -5316,19 +5333,19 @@ the errors section above. They do not invent open-ended domains. Bind arithmetic
 text, proper lists, indexes, dates, and aggregate generators before calling
 the corresponding predicate.
 
-#### Native numeric, comparison, and date predicates
+#### Portable numeric, comparison, and date relations
 
 | Predicates and principal modes | Behavior |
 | --- | --- |
 | `tan/2`, `asin/2`, `acos/2`, `atan2/3` | Floating-point functions not supplied as evaluable functions by ISO/IEC 13211-1. |
 | `lt(+A,+B)`, `le(+A,+B)`, `gt(+A,+B)`, `ge(+A,+B)` | Compare integers exactly, finite numeric text numerically, `PnYnMnD` duration text component-wise, and other lexical values by string order. These differ from ISO arithmetic comparison and standard term order. |
-| `local_time(-Date)` | Produces the host-local calendar date as `"YYYY-MM-DD"`. Tests and reproducible hosts may set `EYEPROLOG_LOCAL_TIME`. |
-| `difference(+End,+Start,-Duration)` | Computes a nonnegative calendar difference between ISO date prefixes and returns `"PnYnMnD"`. Invalid dates or an end before the start fail. |
+| `local_time(-Date)` | The one host relation in this group. Produces the host-local calendar date as atom `'YYYY-MM-DD'`. Tests and reproducible hosts may set `EYEPROLOG_LOCAL_TIME`. |
+| `difference(+End,+Start,-Duration)` | Portable Prolog. Computes a nonnegative calendar difference between ISO date atoms/character lists and returns atom `'PnYnMnD'`. Invalid dates or an end before the start fail. |
 
 ```eyeprolog
 answer(square, S) :- (S is 12 * 12).
 answer(day_count, N) :- between(3, 5, N).
-answer(age, D) :- difference("2026-07-28", "2020-05-20", D).
+answer(age, D) :- difference('2026-07-28', '2020-05-20', D).
 eyeprolog --goal 'answer(Kind, Value)' program.pl
 ```
 
@@ -5340,16 +5357,15 @@ modulo, powers, sine, cosine, exponential, logarithm, and the ISO rounding
 functions.
 
 The bundled EyeProlog library layer defines `between/3` and
-`smallest_divisor_from/3`. They are available in the default runtime, but remain
-part of the EyeProlog library and retain measured native accelerators. Choose the
-smaller or larger of two arithmetic values directly with ISO control, for example
+`smallest_divisor_from/3` as ordinary Prolog clauses. They are available in the
+default runtime and remain part of the EyeProlog library. Choose the smaller or
+larger of two arithmetic values directly with ISO control, for example
 `(A =< B -> Min = A ; Min = B)` or `(A >= B -> Max = A ; Max = B)`.
 
 #### List relations
 
-These relations are JavaScript implementations provided by the EyeProlog library.
-Their relational modes and error behavior are regression-checked against
-equivalent clause definitions. Every list-consuming relation below expects a
+These relations are the actual Prolog implementations autoloaded from
+`src/eyeprolog-library.pl`. Every list-consuming relation below expects a
 proper list unless explicitly stated otherwise. Indexes and counts are
 zero-based, nonnegative safe integers.
 
@@ -5361,7 +5377,7 @@ zero-based, nonnegative safe integers.
 | `select(?Item,+List,-Rest)` | Removes one occurrence at a time and preserves the order of all other elements. Duplicate occurrences may produce duplicate answers. |
 | `\+ member(+Item,+List)` | Succeeds only when `Item` does not unify with any member. Use it after binding the item and list. |
 | `nth0(?Index,+List,?Item)` | Checks a bound zero-based index or enumerates indexes and their items. |
-| `nth1(+Index,+List,?Item)` | Checks a bound one-based index. |
+| `nth1(?Index,+List,?Item)` | Checks a bound one-based index or enumerates one-based indexes and items. |
 | `maplist(+Closure,+List1,?List2)` | Applies a two-argument closure pairwise; `call/3` supplies the closure arguments and supports partially applied compound closures. |
 | `[Head|Tail] = List` | Decomposes a nonempty list directly with ISO unification; no library wrapper is needed. |
 | `set_nth0(+Index,+List,+Item,-NewList)` | Replaces one existing position without mutating the input list. |
@@ -5385,46 +5401,53 @@ answer(second, Item) :-
 eyeprolog --goal 'answer(Kind, Value)' program.pl
 ```
 
-#### Native strings, lexical values, and regular expressions
+#### Portable text, lexical values, and pattern matching
 
-A **lexical value** is the textual spelling of a ground atom, string, or
-number. Most string predicates accept any of those inputs but produce EyeProlog
-string terms unless their name says otherwise.
+The portable text API uses **ISO atoms or proper lists of one-character atoms**.
+A generated text result defaults to an atom. This is intentionally different
+from EyeProlog's double-quoted `string` term extension: strings remain useful as
+data values (notably RDF lexical forms), but portable library text is represented
+with ISO terms. RDF adapters cross that representation boundary explicitly via
+the private runtime helper; the 48-predicate portable file itself has no STRING
+or JavaScript dependency.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |
-| `string_concat(?Left,?Right,?Text)` | Concatenates or splits text. At least two arguments must determine the operation; generated parts are strings. |
+| `string_concat(?Left,?Right,?Text)` | Concatenates or splits atom/character-list text. At least two arguments must determine the operation; generated text is an atom. |
 | `contains(+Text,+Needle)` | Tests literal containment. |
 | `matches(+Text,+Pattern)` | Tests `|`-separated literal alternatives. |
-| `matches(+Text,+Regex,-Context)` | Runs a JavaScript regular expression and returns named captures as comma-context data such as `(year("2026"), month("07"))`. It fails for an invalid expression, no match, or a match with no named captures. |
-| `split(+Text,+Separator,-Parts)` | Literal split into a proper list of strings. |
-| `join(+Parts,+Separator,-Text)` | Joins scalar lexical values. The empty list produces `""`. |
-| `substring(+Text,+Start,+Count,-Part)` | Extracts Unicode characters using zero-based integer indexes. |
+| `matches(+Text,+Pattern,-Context)` | Portable named-capture matcher. Supports literals, `^`/`$`, named groups `(?<name>...)`, optional named groups, `\w+`, `[A-Za-z]+`, `[0-9]+`, and literal group bodies. Captures are atoms in comma-context data such as `(year('2026'), month('07'))`. |
+| `split(+Text,+Separator,-Parts)` | Literal split into a proper list of atoms. |
+| `join(+Parts,+Separator,-Text)` | Joins atom/number/character-list lexical values. The empty list produces the empty atom `''`. |
+| `substring(+Text,+Start,+Count,-Part)` | Extracts characters using zero-based nonnegative integer indexes. |
 | `replace(+Text,+Search,+Replacement,-Result)` | Replaces every literal occurrence. An empty search leaves the text unchanged. |
-| `lowercase(+Text,-Lower)`, `uppercase(+Text,-Upper)`, `trim(+Text,-Trimmed)` | Apply JavaScript Unicode case conversion or surrounding-whitespace trimming. |
-| `number_string(?Number,?Text)` | Converts a number to a string or parses numeric string/atom text. At least one conversion direction must be ready. |
-| `atom_string(?Atom,?Text)` | Converts an atom to a string or a ground string, atom, or number to an atom. |
-| `term_string(+Term,-Text)` | Renders a nonvariable term using EyeProlog readback syntax. It does not parse text back into a term. |
+| `lowercase(+Text,-Lower)`, `uppercase(+Text,-Upper)` | Portable ASCII case mapping. Non-ASCII characters are preserved unchanged rather than delegated to host Unicode case conversion. |
+| `trim(+Text,-Trimmed)` | Removes the ISO-portable ASCII whitespace set at both ends. |
+| `number_string(?Number,?Text)` | Historical predicate name retained for compatibility; converts a number to atom/character-list text or parses such text. |
+| `atom_string(?Atom,?Text)` | Historical predicate name retained for compatibility; relates an atom to atom/character-list text. |
+| `term_string(+Term,-Text)` | Renders a nonvariable term into atom/character-list text using the portable library serializer. It does not parse text back into a term. |
 
-`contains/2` and `matches/2` retain measured native accelerators for bound
-lexical inputs. Calls outside that mode fall through to the native builtins,
-so user-defined relational clauses with the same indicators remain visible.
+The named-capture matcher deliberately implements a small, auditable Prolog
+subset rather than JavaScript regular-expression semantics. Use a host predicate
+when an application genuinely requires a full host regex engine.
 
 ```eyeprolog
 answer(words, Words) :-
-  trim("  Logic Made Visible  ", Clean),
+  trim('  Logic Made Visible  ', Clean),
   lowercase(Clean, Lower),
-  split(Lower, " ", Words).
+  split(Lower, ' ', Words).
 
 answer(captures, Context) :-
-  matches("2026-07", "^(?<year>[0-9]{4})-(?<month>[0-9]{2})$", Context).
+  matches('Ada Lovelace',
+          '^(?<first>[A-Za-z]+) (?<last>[A-Za-z]+)$',
+          Context).
 
 eyeprolog --goal 'answer(Kind, Value)' program.pl
 ```
 
-#### Native aggregation and bounded control
+#### Portable aggregation and bounded control
 
-These native relations follow the documented collection, arithmetic,
+These Prolog relations follow the documented collection, arithmetic,
 term-order, and scoping contracts. The caller is responsible for making that
 search finite. Bind outer variables before the nested goal when they are
 intended to restrict its domain.

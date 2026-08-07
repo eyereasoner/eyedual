@@ -166,7 +166,7 @@ scopeEvent(macroInsight, "budget-prep-window").
 region(macroInsight, "Flanders").
 createdAt(macroInsight, "2026-04-08T07:00:00+00:00").
 expiresAt(macroInsight, "2026-04-08T19:00:00+00:00").
-serializedLowercase(macroInsight, "createdat expiresat insight metric regional_retooling_priority region flanders scopedevice economic-resilience-board scopeevent budget-prep-window suggestionpolicy lowest_cost_package_covering_all_active_needs threshold 3").
+serializedLowercase(macroInsight, 'createdat expiresat insight metric regional_retooling_priority region flanders scopedevice economic-resilience-board scopeevent budget-prep-window suggestionpolicy lowest_cost_package_covering_all_active_needs threshold 3').
 
 envelopeInsight(envelope, macroInsight).
 envelopePolicy(envelope, policy).
@@ -224,7 +224,7 @@ hmac_matches(check) :-
 
 minimization_strips_sensitive_terms(check) :-
   serializedLowercase(macroInsight, Text),
-  \+ matches(Text, "salary|payroll|invoice|medical|firmname").
+  \+ matches(Text, 'salary|payroll|invoice|medical|firmname').
 
 scope_complete(check) :-
   scopeDevice(macroInsight, _device),

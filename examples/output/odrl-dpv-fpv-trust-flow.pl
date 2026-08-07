@@ -1,1 +1,1 @@
-trust_flow_report([decision(flow_care, permit, confidence(0.92), status(executable_flow)), decision(flow_clinic, review, confidence(0.63), risk(trustworthiness_risk)), decision(flow_ads, deny, status(blocked_flow), risk(unwanted_disclosure))]).
+trust_flow_report([decision(flow_care, permit, confidence(0.92000000000000004), status(executable_flow)), decision(flow_clinic, review, confidence(0.63), risk(trustworthiness_risk)), decision(flow_ads, deny, status(blocked_flow), risk(unwanted_disclosure))]).

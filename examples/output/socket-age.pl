@@ -1,1 +1,1 @@
-ageAbove(patH, "P80Y").
+ageAbove(patH, 'P80Y').

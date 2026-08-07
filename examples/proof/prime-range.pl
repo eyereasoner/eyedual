@@ -24,7 +24,7 @@ why(
     uses([
       proof(
         goal(countall(prime(P), 10)),
-        by(builtin(countall, 2))
+        by(library(countall, 2))
       )
     ])
   )
@@ -45,7 +45,7 @@ why(
         uses([
           proof(
             goal(countall(coprime(271, _k), 270)),
-            by(builtin(countall, 2))
+            by(library(countall, 2))
           )
         ])
       )

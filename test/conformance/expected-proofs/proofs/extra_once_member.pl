@@ -12,7 +12,7 @@ why(
         uses([
           proof(
             goal(member(a, [a, b, c])),
-            by(builtin(member, 2))
+            by(library(member, 2))
           )
         ])
       )

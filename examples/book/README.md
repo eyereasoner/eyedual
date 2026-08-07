@@ -62,7 +62,7 @@ npm run generate
 - [02-outgoing_costs.pl](chapter-08/02-outgoing_costs.pl)
 - [03-best_route.pl](chapter-08/03-best_route.pl)
 
-## Chapter 9: Structured data, strings, and contexts
+## Chapter 9: Structured data, text, and contexts
 
 - [01-functor.pl](chapter-09/01-functor.pl)
 - [02-normalized.pl](chapter-09/02-normalized.pl)

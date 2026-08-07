@@ -1,2 +1,2 @@
-answer(lower, "helloworld").
-answer(upper, "HELLOWORLD").
+answer(lower, helloworld).
+answer(upper, 'HELLOWORLD').

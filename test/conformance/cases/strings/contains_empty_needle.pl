@@ -1,3 +1,3 @@
 %% goal: answer(X0)
 
-answer(ok) :- contains("abc", "").
+answer(ok) :- contains('abc', '').

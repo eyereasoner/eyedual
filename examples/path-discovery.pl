@@ -8,7 +8,7 @@
 
 
 % Program structure: facts set up the scenario, and rules derive the queried conclusions.
-route_request("Ostend-Bruges International Airport", "Václav Havel Airport Prague", 2).
+route_request('Ostend-Bruges International Airport', 'Václav Havel Airport Prague', 2).
 
 % Derivation rules: each rule below contributes one logical step toward the displayed results.
 airroute(Fromlabel, Tolabel, Maxstopovers, Routetext) :-
@@ -37,7707 +37,7707 @@ route_text([Node|Rest], Text) :-
   (Rest \= []),
   airport(Node, Label),
   route_text(Rest, Tail),
-  string_concat(Label, " -> ", Prefix),
+  string_concat(Label, ' -> ', Prefix),
   string_concat(Prefix, Tail, Text).
 
-airport(res_airport_1, "Goroka Airport").
-airport(res_airport_10, "Thule Air Base").
-airport(res_airport_100, "Ottawa Macdonald-Cartier International Airport").
-airport(res_airport_1001, "Joshua Mqabuko Nkomo International Airport").
-airport(res_airport_1004, "Victoria Falls International Airport").
-airport(res_airport_1005, "Robert Gabriel Mugabe International Airport").
-airport(res_airport_1013, "Chileka International Airport").
-airport(res_airport_1016, "Lilongwe International Airport").
-airport(res_airport_10160, "Erenhot Saiwusu International Airport").
-airport(res_airport_1018, "Moshoeshoe I International Airport").
-airport(res_airport_1020, "Ndjili International Airport").
-airport(res_airport_1026, "Mbandaka Airport").
-airport(res_airport_1028, "Gemena Airport").
-airport(res_airport_1031, "Bangoka International Airport").
-airport(res_airport_1032, "Matari Airport").
-airport(res_airport_1033, "Bunia Airport").
-airport(res_airport_1035, "Bukavu Kavumu Airport").
-airport(res_airport_1036, "Goma International Airport").
-airport(res_airport_1037, "Kindu Airport").
-airport(res_airport_1038, "Lubumbashi International Airport").
-airport(res_airport_1040, "Kalemie Airport").
-airport(res_airport_1042, "Kananga Airport").
-airport(res_airport_1043, "Mbuji Mayi Airport").
-airport(res_airport_1044, "Modibo Keita International Airport").
-airport(res_airport_105, "Pickle Lake Airport").
-airport(res_airport_1050, "Banjul International Airport").
-airport(res_airport_1051, "Fuerteventura Airport").
-airport(res_airport_1052, "Hierro Airport").
-airport(res_airport_1053, "La Palma Airport").
-airport(res_airport_1054, "Gran Canaria Airport").
-airport(res_airport_1055, "Lanzarote Airport").
-airport(res_airport_1056, "Tenerife South Airport").
-airport(res_airport_1057, "Tenerife Norte Airport").
-airport(res_airport_1058, "Melilla Airport").
-airport(res_airport_1059, "Lungi International Airport").
-airport(res_airport_106, "Port Menier Airport").
-airport(res_airport_1062, "Spriggs Payne Airport").
-airport(res_airport_1063, "Roberts International Airport").
-airport(res_airport_1064, "Al Massira Airport").
-airport(res_airport_1065, "Tan Tan Airport").
-airport(res_airport_1066, "Saïss Airport").
-airport(res_airport_1070, "Angads Airport").
-airport(res_airport_1072, "Rabat-Salé Airport").
-airport(res_airport_1074, "Mohammed V International Airport").
-airport(res_airport_1075, "Menara Airport").
-airport(res_airport_1077, "Ouarzazate Airport").
-airport(res_airport_1078, "Cherif Al Idrissi Airport").
-airport(res_airport_1079, "Saniat R'mel Airport").
-airport(res_airport_10792, "Jumandy Airport").
-airport(res_airport_108, "Prince Rupert Airport").
-airport(res_airport_1080, "Ibn Batouta Airport").
-airport(res_airport_1081, "Ziguinchor Airport").
-airport(res_airport_1082, "Cap Skirring Airport").
-airport(res_airport_1084, "Léopold Sédar Senghor International Airport").
-airport(res_airport_109, "Fort Chipewyan Airport").
-airport(res_airport_1094, "Nouakchott–Oumtounsy International Airport").
-airport(res_airport_10940, "Zhangjiakou Ningyuan Airport").
-airport(res_airport_10941, "Arxan Yi'ershi Airport").
-airport(res_airport_1097, "Nouadhibou International Airport").
-airport(res_airport_11, "Akureyri Airport").
-airport(res_airport_1102, "Amílcar Cabral International Airport").
-airport(res_airport_1103, "Rabil Airport").
-airport(res_airport_1104, "Maio Airport").
-airport(res_airport_1105, "Preguiça Airport").
-airport(res_airport_11051, "Hamad International Airport").
-airport(res_airport_1106, "São Pedro Airport").
-airport(res_airport_1107, "Addis Ababa Bole International Airport").
-airport(res_airport_1109, "Arba Minch Airport").
-airport(res_airport_111, "Quebec Jean Lesage International Airport").
-airport(res_airport_1110, "Axum Airport").
-airport(res_airport_1111, "Bahir Dar Airport").
-airport(res_airport_1112, "Aba Tenna Dejazmach Yilma International Airport").
-airport(res_airport_1113, "Gambella Airport").
-airport(res_airport_1114, "Gonder Airport").
-airport(res_airport_1116, "Jimma Airport").
-airport(res_airport_1117, "Lalibella Airport").
-airport(res_airport_1118, "Mekele Airport").
-airport(res_airport_1119, "Asosa Airport").
-airport(res_airport_112, "Red Deer Regional Airport").
-airport(res_airport_1120, "Bujumbura International Airport").
-airport(res_airport_1121, "Egal International Airport").
-airport(res_airport_1122, "Berbera Airport").
-airport(res_airport_11229, "Beni Airport").
-airport(res_airport_11230, "Boende Airport").
-airport(res_airport_11257, "Dharavandhoo Airport").
-airport(res_airport_11258, "Saumlaki/Olilit Airport").
-airport(res_airport_1127, "Abu Simbel Airport").
-airport(res_airport_1128, "Cairo International Airport").
-airport(res_airport_11290, "Kongolo Airport").
-airport(res_airport_113, "Windsor Airport").
-airport(res_airport_1130, "Hurghada International Airport").
-airport(res_airport_1132, "Luxor International Airport").
-airport(res_airport_1136, "Aswan International Airport").
-airport(res_airport_1138, "Eldoret International Airport").
-airport(res_airport_1140, "Kisumu Airport").
-airport(res_airport_1141, "Kitale Airport").
-airport(res_airport_1143, "Lodwar Airport").
-airport(res_airport_11436, "Tarko-Sale Airport").
-airport(res_airport_1144, "Manda Airstrip").
-airport(res_airport_1145, "Mombasa Moi International Airport").
-airport(res_airport_1147, "Nairobi Wilson Airport").
-airport(res_airport_11473, "Jinchuan Airport").
-airport(res_airport_1149, "Wajir Airport").
-airport(res_airport_11498, "Alashankou Bole (Bortala) airport").
-airport(res_airport_115, "Kenora Airport").
-airport(res_airport_1152, "Ghat Airport").
-airport(res_airport_1153, "Kufra Airport").
-airport(res_airport_1154, "Benina International Airport").
-airport(res_airport_1157, "Tripoli International Airport").
-airport(res_airport_116, "Lethbridge County Airport").
-airport(res_airport_1162, "Ghadames East Airport").
-airport(res_airport_1165, "Kigali International Airport").
-airport(res_airport_1166, "Kamembe Airport").
-airport(res_airport_1169, "El Fasher Airport").
-airport(res_airport_117, "Greater Moncton International Airport").
-airport(res_airport_1173, "Juba International Airport").
-airport(res_airport_1175, "Khartoum International Airport").
-airport(res_airport_1176, "Arusha Airport").
-airport(res_airport_1177, "Julius Nyerere International Airport").
-airport(res_airport_1180, "Kilimanjaro International Airport").
-airport(res_airport_1182, "Mtwara Airport").
-airport(res_airport_1183, "Mwanza Airport").
-airport(res_airport_1186, "Abeid Amani Karume International Airport").
-airport(res_airport_1187, "Entebbe International Airport").
-airport(res_airport_119, "Comox Airport").
-airport(res_airport_1190, "Tirana International Airport Mother Teresa").
-airport(res_airport_1191, "Burgas Airport").
-airport(res_airport_11922, "Iwakuni Marine Corps Air Station").
-airport(res_airport_1193, "Plovdiv International Airport").
-airport(res_airport_1194, "Sofia Airport").
-airport(res_airport_1196, "Varna Airport").
-airport(res_airport_1197, "Larnaca International Airport").
-airport(res_airport_1198, "Paphos International Airport").
-airport(res_airport_12, "Egilsstaðir Airport").
-airport(res_airport_120, "Regina International Airport").
-airport(res_airport_1200, "Dubrovnik Airport").
-airport(res_airport_1202, "Osijek Airport").
-airport(res_airport_1203, "Pula Airport").
-airport(res_airport_1205, "Rijeka Airport").
-airport(res_airport_1206, "Split Airport").
-airport(res_airport_1208, "Zagreb Airport").
-airport(res_airport_1209, "Zadar Airport").
-airport(res_airport_121, "Thunder Bay Airport").
-airport(res_airport_1212, "Alicante International Airport").
-airport(res_airport_1213, "Almería International Airport").
-airport(res_airport_1214, "Asturias Airport").
-airport(res_airport_1216, "Bilbao Airport").
-airport(res_airport_1218, "Barcelona International Airport").
-airport(res_airport_1219, "Badajoz Airport").
-airport(res_airport_122, "Grande Prairie Airport").
-airport(res_airport_1220, "A Coruña Airport").
-airport(res_airport_1222, "Girona Airport").
-airport(res_airport_1223, "Federico Garcia Lorca Airport").
-airport(res_airport_1225, "Ibiza Airport").
-airport(res_airport_1226, "Jerez Airport").
-airport(res_airport_1227, "San Javier Airport").
-airport(res_airport_1229, "Adolfo Suárez Madrid–Barajas Airport").
-airport(res_airport_1230, "Málaga Airport").
-airport(res_airport_1231, "Menorca Airport").
-airport(res_airport_1234, "Pamplona Airport").
-airport(res_airport_1236, "Reus Air Base").
-airport(res_airport_1238, "Salamanca Airport").
-airport(res_airport_1242, "San Sebastian Airport").
-airport(res_airport_1243, "Santiago de Compostela Airport").
-airport(res_airport_1246, "Valencia Airport").
-airport(res_airport_1247, "Valladolid Airport").
-airport(res_airport_125, "Gander International Airport").
-airport(res_airport_1250, "Vigo Airport").
-airport(res_airport_1251, "Santander Airport").
-airport(res_airport_1252, "Zaragoza Air Base").
-airport(res_airport_1253, "Sevilla Airport").
-airport(res_airport_126, "Sydney / J.A. Douglas McCurdy Airport").
-airport(res_airport_1262, "Agen-La Garenne Airport").
-airport(res_airport_1264, "Bordeaux-Mérignac Airport").
-airport(res_airport_1265, "Bergerac-Roumanière Airport").
-airport(res_airport_1268, "Poitiers-Biard Airport").
-airport(res_airport_127, "Quesnel Airport").
-airport(res_airport_1270, "Limoges Airport").
-airport(res_airport_1273, "Toulouse-Blagnac Airport").
-airport(res_airport_1274, "Pau Pyrénées Airport").
-airport(res_airport_1276, "Tarbes-Lourdes-Pyrénées Airport").
-airport(res_airport_1277, "Angoulême-Brie-Champniers Airport").
-airport(res_airport_1278, "Brive Souillac Airport").
-airport(res_airport_1279, "Périgueux-Bassillac Airport").
-airport(res_airport_128, "Resolute Bay Airport").
-airport(res_airport_1280, "Biarritz-Anglet-Bayonne Airport").
-airport(res_airport_1285, "Castres-Mazamet Airport").
-airport(res_airport_1289, "Rodez-Marcillac Airport").
-airport(res_airport_1309, "Dole-Tavaux Airport").
-airport(res_airport_1313, "Le Puy-Loudes Airport").
-airport(res_airport_132, "Rankin Inlet Airport").
-airport(res_airport_1320, "Metz-Nancy-Lorraine Airport").
-airport(res_airport_1321, "Bastia-Poretta Airport").
-airport(res_airport_1322, "Calvi-Sainte-Catherine Airport").
-airport(res_airport_1323, "Figari Sud-Corse Airport").
-airport(res_airport_1324, "Ajaccio-Napoléon Bonaparte Airport").
-airport(res_airport_133, "Sudbury Airport").
-airport(res_airport_1330, "Clermont-Ferrand Auvergne Airport").
-airport(res_airport_1335, "Lyon Saint-Exupéry Airport").
-airport(res_airport_1344, "Aurillac Airport").
-airport(res_airport_135, "Saint John Airport").
-airport(res_airport_1350, "Saint-Étienne-Bouthéon Airport").
-airport(res_airport_1352, "Carcassonne Airport").
-airport(res_airport_1353, "Marseille Provence Airport").
-airport(res_airport_1354, "Nice-Côte d'Azur Airport").
-airport(res_airport_1356, "Perpignan-Rivesaltes (Llabanère) Airport").
-airport(res_airport_1359, "Montpellier-Méditerranée Airport").
-airport(res_airport_136, "Fort Smith Airport").
-airport(res_airport_1360, "Béziers-Vias Airport").
-airport(res_airport_1361, "Avignon-Caumont Airport").
-airport(res_airport_1367, "Paris Beauvais Tillé Airport").
-airport(res_airport_1371, "Le Havre Octeville Airport").
-airport(res_airport_1374, "Châlons-Vatry Airport").
-airport(res_airport_1376, "Tours-Val-de-Loire Airport").
-airport(res_airport_1382, "Charles de Gaulle International Airport").
-airport(res_airport_1386, "Paris-Orly Airport").
-airport(res_airport_139, "Sachs Harbour (David Nasogaluak Jr. Saaryuaq) Airport").
-airport(res_airport_1399, "Lille-Lesquin Airport").
-airport(res_airport_140, "Cape Dorset Airport").
-airport(res_airport_1403, "Brest Bretagne Airport").
-airport(res_airport_1405, "Dinard-Pleurtuit-Saint-Malo Airport").
-airport(res_airport_1408, "Deauville-Saint-Gatien Airport").
-airport(res_airport_1409, "Lorient South Brittany (Bretagne Sud) Airport").
-airport(res_airport_141, "Thompson Airport").
-airport(res_airport_1412, "Caen-Carpiquet Airport").
-airport(res_airport_1415, "Rennes-Saint-Jacques Airport").
-airport(res_airport_1416, "Lannion-Côte de Granit Airport").
-airport(res_airport_1417, "Quimper-Cornouaille Airport").
-airport(res_airport_1418, "Nantes Atlantique Airport").
-airport(res_airport_1423, "EuroAirport Basel-Mulhouse-Freiburg Airport").
-airport(res_airport_1425, "Dijon-Bourgogne Airport").
-airport(res_airport_143, "Timmins/Victor M. Power").
-airport(res_airport_1435, "Strasbourg Airport").
-airport(res_airport_1438, "Toulon-Hyères Airport").
-airport(res_airport_1439, "Nîmes-Arles-Camargue Airport").
-airport(res_airport_144, "Billy Bishop Toronto City Centre Airport").
-airport(res_airport_1441, "St Pierre Airport").
-airport(res_airport_1446, "Dimokritos Airport").
-airport(res_airport_1448, "Nea Anchialos Airport").
-airport(res_airport_145, "Tuktoyaktuk Airport").
-airport(res_airport_1450, "Chios Island National Airport").
-airport(res_airport_1451, "Ioannina Airport").
-airport(res_airport_1452, "Heraklion International Nikos Kazantzakis Airport").
-airport(res_airport_1453, "Kastoria National Airport").
-airport(res_airport_1454, "Kithira Airport").
-airport(res_airport_1455, "Kefallinia Airport").
-airport(res_airport_1456, "Kalamata Airport").
-airport(res_airport_1458, "Kos Airport").
-airport(res_airport_1459, "Karpathos Airport").
-airport(res_airport_146, "Montreal / Pierre Elliott Trudeau International Airport").
-airport(res_airport_1460, "Ioannis Kapodistrias International Airport").
-airport(res_airport_1461, "Kasos Airport").
-airport(res_airport_1462, "Alexander the Great International Airport").
-airport(res_airport_1463, "Filippos Airport").
-airport(res_airport_1464, "Leros Airport").
-airport(res_airport_1465, "Limnos Airport").
-airport(res_airport_1468, "Mikonos Airport").
-airport(res_airport_1469, "Mytilene International Airport").
-airport(res_airport_147, "Repulse Bay Airport").
-airport(res_airport_1470, "Aktion National Airport").
-airport(res_airport_1472, "Diagoras Airport").
-airport(res_airport_1473, "Araxos Airport").
-airport(res_airport_1474, "Chania International Airport").
-airport(res_airport_1475, "Skiathos Island National Airport").
-airport(res_airport_1476, "Samos Airport").
-airport(res_airport_1479, "Santorini Airport").
-airport(res_airport_148, "Hall Beach Airport").
-airport(res_airport_1480, "Sitia Airport").
-airport(res_airport_1482, "Skiros Airport").
-airport(res_airport_1486, "Thessaloniki Macedonia International Airport").
-airport(res_airport_1488, "Zakynthos International Airport \\\"Dionysios Solomos\\\"").
-airport(res_airport_1489, "Budapest Liszt Ferenc International Airport").
-airport(res_airport_149, "Rouyn Noranda Airport").
-airport(res_airport_1490, "Debrecen International Airport").
-airport(res_airport_15, "Ísafjörður Airport").
-airport(res_airport_1501, "Bari Karol Wojtyła Airport").
-airport(res_airport_1505, "Pescara International Airport").
-airport(res_airport_1506, "Brindisi – Salento Airport").
-airport(res_airport_1508, "Lamezia Terme Airport").
-airport(res_airport_1509, "Catania-Fontanarossa Airport").
-airport(res_airport_1510, "Lampedusa Airport").
-airport(res_airport_1511, "Pantelleria Airport").
-airport(res_airport_1512, "Falcone–Borsellino Airport").
-airport(res_airport_1514, "Reggio Calabria Airport").
-airport(res_airport_1515, "Vincenzo Florio Airport Trapani-Birgi").
-airport(res_airport_1517, "Alghero-Fertilia Airport").
-airport(res_airport_1519, "Cagliari Elmas Airport").
-airport(res_airport_152, "Qikiqtarjuaq Airport").
-airport(res_airport_1520, "Olbia Costa Smeralda Airport").
-airport(res_airport_1524, "Malpensa International Airport").
-airport(res_airport_1525, "Il Caravaggio International Airport").
-airport(res_airport_1526, "Turin Airport").
-airport(res_airport_1528, "Genoa Cristoforo Colombo Airport").
-airport(res_airport_1529, "Milano Linate Airport").
-airport(res_airport_153, "Val-d'Or Airport").
-airport(res_airport_1531, "Parma Airport").
-airport(res_airport_1534, "Cuneo International Airport").
-airport(res_airport_1536, "Bolzano Airport").
-airport(res_airport_1538, "Bologna Guglielmo Marconi Airport").
-airport(res_airport_1539, "Treviso-Sant'Angelo Airport").
-airport(res_airport_154, "Kuujjuaq Airport").
-airport(res_airport_1545, "Trieste–Friuli Venezia Giulia Airport").
-airport(res_airport_1546, "Federico Fellini International Airport").
-airport(res_airport_155, "Norman Wells Airport").
-airport(res_airport_1550, "Verona Villafranca Airport").
-airport(res_airport_1551, "Venice Marco Polo Airport").
-airport(res_airport_1553, "Ciampino–G. B. Pastine International Airport").
-airport(res_airport_1555, "Leonardo da Vinci–Fiumicino Airport").
-airport(res_airport_1558, "Marina Di Campo Airport").
-airport(res_airport_156, "Vancouver International Airport").
-airport(res_airport_1561, "Naples International Airport").
-airport(res_airport_1562, "Pisa International Airport").
-airport(res_airport_1563, "Peretola Airport").
-airport(res_airport_1567, "Perugia San Francesco d'Assisi – Umbria International Airport").
-airport(res_airport_1569, "Ljubljana Jože Pučnik Airport").
-airport(res_airport_1579, "Karlovy Vary International Airport").
-airport(res_airport_1582, "Ostrava Leos Janáček Airport").
-airport(res_airport_1584, "Pardubice Airport").
-airport(res_airport_1587, "Václav Havel Airport Prague").
-airport(res_airport_1588, "Brno-Tuřany Airport").
-airport(res_airport_1590, "Ben Gurion International Airport").
-airport(res_airport_1594, "Eilat Airport").
-airport(res_airport_1596, "Haifa International Airport").
-airport(res_airport_16, "Keflavik International Airport").
-airport(res_airport_160, "Winnipeg / James Armstrong Richardson International Airport").
-airport(res_airport_1602, "Ovda International Airport").
-airport(res_airport_1605, "Sde Dov Airport").
-airport(res_airport_1606, "Malta International Airport").
-airport(res_airport_1609, "Graz Airport").
-airport(res_airport_161, "Wabush Airport").
-airport(res_airport_1610, "Innsbruck Airport").
-airport(res_airport_1611, "Linz Hörsching Airport").
-airport(res_airport_1612, "Salzburg Airport").
-airport(res_airport_1613, "Vienna International Airport").
-airport(res_airport_1617, "Santa Maria Airport").
-airport(res_airport_162, "Williams Lake Airport").
-airport(res_airport_1625, "Flores Airport").
-airport(res_airport_1626, "Faro Airport").
-airport(res_airport_1627, "Graciosa Airport").
-airport(res_airport_1628, "Horta Airport").
-airport(res_airport_1629, "Lajes Airport").
-airport(res_airport_1633, "João Paulo II Airport").
-airport(res_airport_1634, "Pico Airport").
-airport(res_airport_1636, "Francisco de Sá Carneiro Airport").
-airport(res_airport_1637, "Porto Santo Airport").
-airport(res_airport_1638, "Humberto Delgado Airport (Lisbon Portela Airport)").
-airport(res_airport_1639, "São Jorge Airport").
-airport(res_airport_164, "Cranbrook/Canadian Rockies International Airport").
-airport(res_airport_1645, "Mostar International Airport").
-airport(res_airport_1646, "Sarajevo International Airport").
-airport(res_airport_1647, "Arad International Airport").
-airport(res_airport_1649, "Tautii Magheraus Airport").
-airport(res_airport_1651, "Mihail Kogălniceanu International Airport").
-airport(res_airport_1652, "Cluj-Napoca International Airport").
-airport(res_airport_1654, "Craiova Airport").
-airport(res_airport_1655, "Iaşi Airport").
-airport(res_airport_1656, "Oradea International Airport").
-airport(res_airport_1657, "Henri Coandă International Airport").
-airport(res_airport_1658, "Sibiu International Airport").
-airport(res_airport_1659, "Satu Mare Airport").
-airport(res_airport_166, "Saskatoon John G. Diefenbaker International Airport").
-airport(res_airport_1662, "Transilvania Târgu Mureş International Airport").
-airport(res_airport_1663, "Timişoara Traian Vuia Airport").
-airport(res_airport_1665, "Geneva Cointrin International Airport").
-airport(res_airport_167, "Medicine Hat Airport").
-airport(res_airport_1675, "Lugano Airport").
-airport(res_airport_1676, "Bern Belp Airport").
-airport(res_airport_1678, "Zürich Airport").
-airport(res_airport_1679, "St Gallen Altenrhein Airport").
-airport(res_airport_168, "Fort St John Airport").
-airport(res_airport_1682, "Esenboğa International Airport").
-airport(res_airport_1685, "Adana Airport").
-airport(res_airport_1688, "Antalya International Airport").
-airport(res_airport_1689, "Gaziantep International Airport").
-airport(res_airport_169, "Sioux Lookout Airport").
-airport(res_airport_1691, "Konya Airport").
-airport(res_airport_1692, "Malatya Tulga Airport").
-airport(res_airport_1693, "Amasya Merzifon Airport").
-airport(res_airport_1694, "Sivas Nuri Demirağ Airport").
-airport(res_airport_1696, "Kayseri Erkilet Airport").
-airport(res_airport_1699, "Çardak Airport").
-airport(res_airport_170, "Pangnirtung Airport").
-airport(res_airport_1701, "Atatürk International Airport").
-airport(res_airport_1706, "Adnan Menderes International Airport").
-airport(res_airport_1715, "Dalaman International Airport").
-airport(res_airport_172, "Prince George Airport").
-airport(res_airport_1721, "Elazığ Airport").
-airport(res_airport_1722, "Diyarbakir Airport").
-airport(res_airport_1723, "Erzincan Airport").
-airport(res_airport_1724, "Erzurum International Airport").
-airport(res_airport_1726, "Trabzon International Airport").
-airport(res_airport_1728, "Van Ferit Melen Airport").
-airport(res_airport_1729, "Batman Airport").
-airport(res_airport_173, "Northwest Regional Airport Terrace-Kitimat").
-airport(res_airport_1735, "Chişinău International Airport").
-airport(res_airport_1737, "Skopje Alexander the Great Airport").
-airport(res_airport_1738, "Gibraltar Airport").
-airport(res_airport_1739, "Belgrade Nikola Tesla Airport").
-airport(res_airport_174, "London Airport").
-airport(res_airport_1741, "Podgorica Airport").
-airport(res_airport_1742, "Priština International Airport").
-airport(res_airport_1743, "Tivat Airport").
-airport(res_airport_1745, "M. R. Štefánik Airport").
-airport(res_airport_1746, "Košice Airport").
-airport(res_airport_175, "Abbotsford Airport").
-airport(res_airport_1754, "Providenciales Airport").
-airport(res_airport_1755, "South Caicos Airport").
-airport(res_airport_1759, "Casa De Campo International Airport").
-airport(res_airport_176, "Whitehorse / Erik Nielsen International Airport").
-airport(res_airport_1760, "Punta Cana International Airport").
-airport(res_airport_1761, "Gregorio Luperon International Airport").
-airport(res_airport_1762, "Las Américas International Airport").
-airport(res_airport_1764, "Cibao International Airport").
-airport(res_airport_1767, "La Aurora Airport").
-airport(res_airport_177, "North Bay Jack Garland Airport").
-airport(res_airport_1771, "Goloson International Airport").
-airport(res_airport_1772, "Ramón Villeda Morales International Airport").
-airport(res_airport_1773, "La Laguna Airport").
-airport(res_airport_1774, "Juan Manuel Galvez International Airport").
-airport(res_airport_1776, "Toncontín International Airport").
-airport(res_airport_1779, "Norman Manley International Airport").
-airport(res_airport_178, "Calgary International Airport").
-airport(res_airport_1780, "Sangster International Airport").
-airport(res_airport_1783, "General Juan N Alvarez International Airport").
-airport(res_airport_1785, "Jesús Terán Paredo International Airport").
-airport(res_airport_1786, "Bahías de Huatulco International Airport").
-airport(res_airport_1789, "Ciudad del Carmen International Airport").
-airport(res_airport_179, "Smithers Airport").
-airport(res_airport_1792, "Bachigualato Federal International Airport").
-airport(res_airport_1793, "Chetumal International Airport").
-airport(res_airport_1794, "Ciudad Obregón International Airport").
-airport(res_airport_1795, "Ingeniero Alberto Acuña Ongay International Airport").
-airport(res_airport_1796, "Abraham González International Airport").
-airport(res_airport_1797, "General Roberto Fierro Villalobos International Airport").
-airport(res_airport_1798, "General Pedro Jose Mendez International Airport").
-airport(res_airport_18, "Reykjavik Airport").
-airport(res_airport_180, "Fort Nelson Airport").
-airport(res_airport_1800, "Cozumel International Airport").
-airport(res_airport_1801, "General Guadalupe Victoria International Airport").
-airport(res_airport_1802, "Amado Nervo National Airport").
-airport(res_airport_1804, "Don Miguel Hidalgo Y Costilla International Airport").
-airport(res_airport_1807, "General Ignacio P. Garcia International Airport").
-airport(res_airport_1808, "Licenciado Miguel de la Madrid Airport").
-airport(res_airport_181, "Penticton Airport").
-airport(res_airport_1810, "Plan De Guadalupe International Airport").
-airport(res_airport_1813, "Lázaro Cárdenas Airport").
-airport(res_airport_1814, "Valle del Fuerte International Airport").
-airport(res_airport_1815, "Del Bajío International Airport").
-airport(res_airport_1816, "Manuel Márquez de León International Airport").
-airport(res_airport_1817, "Loreto International Airport").
-airport(res_airport_1818, "General Servando Canales International Airport").
-airport(res_airport_1819, "Licenciado Manuel Crescencio Rejon Int Airport").
-airport(res_airport_182, "Charlottetown Airport").
-airport(res_airport_1820, "General Rodolfo Sánchez Taboada International Airport").
-airport(res_airport_1821, "General Francisco J. Mujica International Airport").
-airport(res_airport_1822, "Minatitlán/Coatzacoalcos National Airport").
-airport(res_airport_1824, "Licenciado Benito Juarez International Airport").
-airport(res_airport_1825, "General Mariano Escobedo International Airport").
-airport(res_airport_1826, "General Rafael Buelna International Airport").
-airport(res_airport_1828, "Quetzalcóatl International Airport").
-airport(res_airport_1829, "Xoxocotlán International Airport").
-airport(res_airport_183, "Taloyoak Airport").
-airport(res_airport_1830, "El Tajín National Airport").
-airport(res_airport_1831, "Hermanos Serdán International Airport").
-airport(res_airport_1834, "Piedras Negras International Airport").
-airport(res_airport_1835, "Licenciado y General Ignacio Lopez Rayon Airport").
-airport(res_airport_1836, "Licenciado Gustavo Díaz Ordaz International Airport").
-airport(res_airport_1837, "Puerto Escondido International Airport").
-airport(res_airport_1838, "Querétaro Intercontinental Airport").
-airport(res_airport_1839, "General Lucio Blanco International Airport").
-airport(res_airport_184, "Victoria International Airport").
-airport(res_airport_1840, "Los Cabos International Airport").
-airport(res_airport_1842, "Ponciano Arriaga International Airport").
-airport(res_airport_1845, "Francisco Sarabia International Airport").
-airport(res_airport_1846, "Angel Albino Corzo International Airport").
-airport(res_airport_1847, "General Abelardo L. Rodríguez International Airport").
-airport(res_airport_1848, "General Francisco Javier Mina International Airport").
-airport(res_airport_1850, "Licenciado Adolfo Lopez Mateos International Airport").
-airport(res_airport_1851, "Tapachula International Airport").
-airport(res_airport_1852, "Cancún International Airport").
-airport(res_airport_1853, "Carlos Rovirosa Pérez International Airport").
-airport(res_airport_1854, "General Heriberto Jara International Airport").
-airport(res_airport_1855, "General Leobardo C. Ruiz International Airport").
-airport(res_airport_1856, "Ixtapa Zihuatanejo International Airport").
-airport(res_airport_1858, "Playa De Oro International Airport").
-airport(res_airport_1863, "Augusto C. Sandino (Managua) International Airport").
-airport(res_airport_1865, "Bocas Del Toro International Airport").
-airport(res_airport_1866, "Cap Manuel Niño International Airport").
-airport(res_airport_1867, "Enrique Malek International Airport").
-airport(res_airport_1869, "Marcos A. Gelabert International Airport").
-airport(res_airport_187, "Churchill Airport").
-airport(res_airport_1871, "Tocumen International Airport").
-airport(res_airport_1879, "Golfito Airport").
-airport(res_airport_188, "Goose Bay Airport").
-airport(res_airport_1881, "Daniel Oduber Quiros International Airport").
-airport(res_airport_1884, "Nosara Airport").
-airport(res_airport_1885, "Juan Santamaria International Airport").
-airport(res_airport_1887, "Palmar Sur Airport").
-airport(res_airport_1889, "Quepos Managua Airport").
-airport(res_airport_189, "St. John's International Airport").
-airport(res_airport_1892, "Monseñor Óscar Arnulfo Romero International Airport").
-airport(res_airport_1895, "Cap Haitien International Airport").
-airport(res_airport_1897, "Toussaint Louverture International Airport").
-airport(res_airport_190, "Kapuskasing Airport").
-airport(res_airport_1901, "Jardines Del Rey Airport").
-airport(res_airport_1903, "Vilo Acuña International Airport").
-airport(res_airport_1904, "Ignacio Agramonte International Airport").
-airport(res_airport_1905, "Antonio Maceo International Airport").
-airport(res_airport_1908, "Mariana Grajales Airport").
-airport(res_airport_1909, "José Martí International Airport").
-airport(res_airport_1910, "Frank Pais International Airport").
-airport(res_airport_1918, "Abel Santamaria Airport").
-airport(res_airport_192, "Mont Joli Airport").
-airport(res_airport_1923, "Juan Gualberto Gomez International Airport").
-airport(res_airport_1925, "Gerrard Smith International Airport").
-airport(res_airport_1926, "Owen Roberts International Airport").
-airport(res_airport_193, "Lester B. Pearson International Airport").
-airport(res_airport_1930, "Leonard M Thompson International Airport").
-airport(res_airport_1932, "Spring Point Airport").
-airport(res_airport_1934, "Treasure Cay Airport").
-airport(res_airport_1937, "South Bimini Airport").
-airport(res_airport_1941, "Exuma International Airport").
-airport(res_airport_1943, "North Eleuthera Airport").
-airport(res_airport_1944, "Governor's Harbour Airport").
-airport(res_airport_1946, "Rock Sound Airport").
-airport(res_airport_1948, "Grand Bahama International Airport").
-airport(res_airport_1949, "Inagua Airport").
-airport(res_airport_1950, "Deadman's Cay Airport").
-airport(res_airport_1951, "Stella Maris Airport").
-airport(res_airport_1952, "Mayaguana Airport").
-airport(res_airport_1953, "Lynden Pindling International Airport").
-airport(res_airport_1956, "San Salvador Airport").
-airport(res_airport_1957, "Philip S. W. Goldson International Airport").
-airport(res_airport_1958, "Aitutaki Airport").
-airport(res_airport_1959, "Rarotonga International Airport").
-airport(res_airport_196, "Yellowknife Airport").
-airport(res_airport_1960, "Nadi International Airport").
-airport(res_airport_1961, "Nausori International Airport").
-airport(res_airport_1963, "Fua'amotu International Airport").
-airport(res_airport_1965, "Bonriki International Airport").
-airport(res_airport_1968, "Hihifo Airport").
-airport(res_airport_1969, "Faleolo International Airport").
-airport(res_airport_1970, "Pago Pago International Airport").
-airport(res_airport_1971, "Rurutu Airport").
-airport(res_airport_1972, "Tubuai Airport").
-airport(res_airport_1975, "Tikehau Airport").
-airport(res_airport_1977, "Fakarava Airport").
-airport(res_airport_1978, "Manihi Airport").
-airport(res_airport_1979, "Totegegie Airport").
-airport(res_airport_198, "Sandspit Airport").
-airport(res_airport_1980, "Kaukura Airport").
-airport(res_airport_1981, "Makemo Airport").
-airport(res_airport_1983, "Takapoto Airport").
-airport(res_airport_1984, "Arutua Airport").
-airport(res_airport_1985, "Mataiva Airport").
-airport(res_airport_1986, "Takaroa Airport").
-airport(res_airport_1987, "Nuku Hiva Airport").
-airport(res_airport_1989, "Bora Bora Airport").
-airport(res_airport_199, "Chris Hadfield Airport").
-airport(res_airport_1990, "Rangiroa Airport").
-airport(res_airport_1991, "Huahine-Fare Airport").
-airport(res_airport_1992, "Moorea Airport").
-airport(res_airport_1993, "Hao Airport").
-airport(res_airport_1994, "Maupiti Airport").
-airport(res_airport_1995, "Raiatea Airport").
-airport(res_airport_1997, "Bauerfield International Airport").
-airport(res_airport_1998, "Koné Airport").
-airport(res_airport_1999, "Koumac Airport").
-airport(res_airport_2, "Madang Airport").
-airport(res_airport_200, "Port Hardy Airport").
-airport(res_airport_2000, "Lifou Airport").
-airport(res_airport_2001, "Nouméa Magenta Airport").
-airport(res_airport_2002, "Maré Airport").
-airport(res_airport_2003, "Touho Airport").
-airport(res_airport_2004, "Ouvéa Airport").
-airport(res_airport_2005, "La Tontouta International Airport").
-airport(res_airport_2006, "Auckland International Airport").
-airport(res_airport_2007, "Taupo Airport").
-airport(res_airport_2009, "Christchurch International Airport").
-airport(res_airport_2011, "Dunedin Airport").
-airport(res_airport_2012, "Gisborne Airport").
-airport(res_airport_2014, "Hokitika Airfield").
-airport(res_airport_2015, "Hamilton International Airport").
-airport(res_airport_2017, "Kerikeri Airport").
-airport(res_airport_2018, "Kaitaia Airport").
-airport(res_airport_202, "Sept-Îles Airport").
-airport(res_airport_2023, "New Plymouth Airport").
-airport(res_airport_2024, "Nelson Airport").
-airport(res_airport_2025, "Invercargill Airport").
-airport(res_airport_2028, "Palmerston North Airport").
-airport(res_airport_2029, "Paraparaumu Airport").
-airport(res_airport_2030, "Queenstown International Airport").
-airport(res_airport_2031, "Rotorua Regional Airport").
-airport(res_airport_2034, "Tauranga Airport").
-airport(res_airport_2035, "Timaru Airport").
-airport(res_airport_2037, "Woodbourne Airport").
-airport(res_airport_2041, "Whakatane Airport").
-airport(res_airport_2042, "Wellington International Airport").
-airport(res_airport_2045, "Whangarei Airport").
-airport(res_airport_2046, "Westport Airport").
-airport(res_airport_2047, "Wanganui Airport").
-airport(res_airport_2048, "Herat Airport").
-airport(res_airport_2050, "Hamid Karzai International Airport").
-airport(res_airport_2051, "Kandahar Airport").
-airport(res_airport_2053, "Mazar I Sharif Airport").
-airport(res_airport_2057, "Bahrain International Airport").
-airport(res_airport_2059, "Abha Regional Airport").
-airport(res_airport_206, "Fort Mcpherson Airport").
-airport(res_airport_2060, "Al Ahsa Airport").
-airport(res_airport_2061, "Al Baha Airport").
-airport(res_airport_2062, "Bisha Airport").
-airport(res_airport_2064, "King Fahd International Airport").
-airport(res_airport_2066, "Jizan Regional Airport").
-airport(res_airport_2067, "Gassim Airport").
-airport(res_airport_2068, "Gurayat Domestic Airport").
-airport(res_airport_2069, "Ha'il Airport").
-airport(res_airport_2072, "King Abdulaziz International Airport").
-airport(res_airport_2074, "Prince Mohammad Bin Abdulaziz Airport").
-airport(res_airport_2075, "Nejran Airport").
-airport(res_airport_2076, "Al Qaisumah/Hafr Al Batin Airport").
-airport(res_airport_2081, "Rafha Domestic Airport").
-airport(res_airport_2082, "King Khaled International Airport").
-airport(res_airport_2084, "Arar Domestic Airport").
-airport(res_airport_2086, "Sharurah Airport").
-airport(res_airport_2089, "Tabuk Airport").
-airport(res_airport_209, "Soummam Airport").
-airport(res_airport_2090, "Ta’if Regional Airport").
-airport(res_airport_2093, "Turaif Domestic Airport").
-airport(res_airport_2095, "Al Wajh Domestic Airport").
-airport(res_airport_2096, "Prince Abdulmohsin Bin Abdulaziz Airport").
-airport(res_airport_2097, "Abadan Airport").
-airport(res_airport_21, "Sault Ste Marie Airport").
-airport(res_airport_210, "Houari Boumediene Airport").
-airport(res_airport_2103, "Mahshahr Airport").
-airport(res_airport_2104, "Ahwaz Airport").
-airport(res_airport_2106, "Bushehr Airport").
-airport(res_airport_2109, "Kish International Airport").
-airport(res_airport_211, "Djanet Inedbirene Airport").
-airport(res_airport_2110, "Bandar Lengeh Airport").
-airport(res_airport_2114, "Shahid Ashrafi Esfahani Airport").
-airport(res_airport_2117, "Sanandaj Airport").
-airport(res_airport_2121, "Esfahan Shahid Beheshti International Airport").
-airport(res_airport_2123, "Sardar-e-Jangal Airport").
-airport(res_airport_2131, "Mehrabad International Airport").
-airport(res_airport_2134, "Bandar Abbas International Airport").
-airport(res_airport_2136, "Kerman Airport").
-airport(res_airport_2142, "Birjand Airport").
-airport(res_airport_2151, "Ramsar Airport").
-airport(res_airport_2157, "Shiraz Shahid Dastghaib International Airport").
-airport(res_airport_216, "Aguenar – Hadj Bey Akhamok Airport").
-airport(res_airport_2162, "Tabriz International Airport").
-airport(res_airport_2164, "Shahid Sadooghi Airport").
-airport(res_airport_2165, "Zabol Airport").
-airport(res_airport_2166, "Konarak Airport").
-airport(res_airport_2167, "Zahedan International Airport").
-airport(res_airport_2170, "Queen Alia International Airport").
-airport(res_airport_2172, "Aqaba King Hussein International Airport").
-airport(res_airport_2176, "Kuwait International Airport").
-airport(res_airport_2177, "Beirut Rafic Hariri International Airport").
-airport(res_airport_2179, "Abu Dhabi International Airport").
-airport(res_airport_2180, "Bateen Airport").
-airport(res_airport_2188, "Dubai International Airport").
-airport(res_airport_2189, "Fujairah International Airport").
-airport(res_airport_2191, "Sharjah International Airport").
-airport(res_airport_2192, "Khasab Air Base").
-airport(res_airport_2194, "Muscat International Airport").
-airport(res_airport_2195, "Salalah Airport").
-airport(res_airport_220, "Rabah Bitat Airport").
-airport(res_airport_2202, "Faisalabad International Airport").
-airport(res_airport_2203, "Gwadar International Airport").
-airport(res_airport_2204, "Gilgit Airport").
-airport(res_airport_2206, "Jinnah International Airport").
-airport(res_airport_2207, "Alama Iqbal International Airport").
-airport(res_airport_221, "Mohamed Boudiaf International Airport").
-airport(res_airport_2212, "Moenjodaro Airport").
-airport(res_airport_2214, "Multan International Airport").
-airport(res_airport_2217, "Panjgur Airport").
-airport(res_airport_2219, "Peshawar International Airport").
-airport(res_airport_222, "Cheikh Larbi Tébessi Airport").
-airport(res_airport_2221, "Quetta International Airport").
-airport(res_airport_2222, "Shaikh Zaid Airport").
-airport(res_airport_2223, "Benazir Bhutto International Airport").
-airport(res_airport_2227, "Sukkur Airport").
-airport(res_airport_2233, "Zhob Airport").
-airport(res_airport_2234, "Basrah International Airport").
-airport(res_airport_224, "Hassi R'Mel Airport").
-airport(res_airport_2243, "Rota International Airport").
-airport(res_airport_2244, "Saipan International Airport").
-airport(res_airport_2246, "Antonio B. Won Pat International Airport").
-airport(res_airport_2249, "Marshall Islands International Airport").
-airport(res_airport_225, "Bou Chekif Airport").
-airport(res_airport_2251, "Bucholz Army Air Field").
-airport(res_airport_2252, "Cassidy International Airport").
-airport(res_airport_2254, "Chuuk International Airport").
-airport(res_airport_2255, "Pohnpei International Airport").
-airport(res_airport_2256, "Babelthuap Airport").
-airport(res_airport_2257, "Kosrae International Airport").
-airport(res_airport_2258, "Yap International Airport").
-airport(res_airport_2259, "Kinmen Airport").
-airport(res_airport_2262, "Taitung Airport").
-airport(res_airport_2264, "Kaohsiung International Airport").
-airport(res_airport_2268, "Taichung Ching Chuang Kang Airport").
-airport(res_airport_2270, "Tainan Airport").
-airport(res_airport_2272, "Makung Airport").
-airport(res_airport_2275, "Taipei Songshan Airport").
-airport(res_airport_2276, "Taiwan Taoyuan International Airport").
-airport(res_airport_2278, "Hualien Airport").
-airport(res_airport_2279, "Narita International Airport").
-airport(res_airport_2280, "Matsumoto Airport").
-airport(res_airport_2281, "Hyakuri Airport").
-airport(res_airport_2284, "Nanki Shirahama Airport").
-airport(res_airport_2286, "Tokachi-Obihiro Airport").
-airport(res_airport_2287, "New Chitose Airport").
-airport(res_airport_2288, "Hakodate Airport").
-airport(res_airport_2290, "Memanbetsu Airport").
-airport(res_airport_2291, "Nakashibetsu Airport").
-airport(res_airport_2294, "Wakkanai Airport").
-airport(res_airport_2295, "Iki Airport").
-airport(res_airport_2296, "Yamaguchi Ube Airport").
-airport(res_airport_2297, "Tsushima Airport").
-airport(res_airport_2298, "Monbetsu Airport").
-airport(res_airport_2299, "Asahikawa Airport").
-airport(res_airport_230, "Zenata – Messali El Hadj Airport").
-airport(res_airport_2304, "Fukue Airport").
-airport(res_airport_2305, "Fukuoka Airport").
-airport(res_airport_2307, "Kagoshima Airport").
-airport(res_airport_2308, "Miyazaki Airport").
-airport(res_airport_231, "Es Senia Airport").
-airport(res_airport_2310, "Oita Airport").
-airport(res_airport_2311, "Kitakyūshū Airport").
-airport(res_airport_2312, "Kumamoto Airport").
-airport(res_airport_2313, "Nagasaki Airport").
-airport(res_airport_2316, "Amami Airport").
-airport(res_airport_2322, "Komatsu Airport").
-airport(res_airport_2324, "Toyama Airport").
-airport(res_airport_2326, "Hiroshima Airport").
-airport(res_airport_2327, "Okayama Airport").
-airport(res_airport_2328, "Izumo Airport").
-airport(res_airport_233, "Ghriss Airport").
-airport(res_airport_2330, "Miho Yonago Airport").
-airport(res_airport_2332, "Kōchi Ryōma Airport").
-airport(res_airport_2333, "Matsuyama Airport").
-airport(res_airport_2334, "Osaka International Airport").
-airport(res_airport_2335, "Tottori Airport").
-airport(res_airport_2336, "Tokushima Airport/JMSDF Air Base").
-airport(res_airport_2337, "Takamatsu Airport").
-airport(res_airport_234, "Touat Cheikh Sidi Mohamed Belkebir Airport").
-airport(res_airport_2340, "Aomori Airport").
-airport(res_airport_2341, "Yamagata Airport").
-airport(res_airport_2344, "Hanamaki Airport").
-airport(res_airport_2345, "Akita Airport").
-airport(res_airport_2346, "Misawa Air Base").
-airport(res_airport_2347, "Sendai Airport").
-airport(res_airport_235, "Biskra Airport").
-airport(res_airport_2352, "Hachijojima Airport").
-airport(res_airport_2356, "Oshima Airport").
-airport(res_airport_2359, "Tokyo Haneda International Airport").
-airport(res_airport_236, "El Golea Airport").
-airport(res_airport_2361, "Gwangju Airport").
-airport(res_airport_2365, "Yeosu Airport").
-airport(res_airport_237, "Noumérat - Moufdi Zakaria Airport").
-airport(res_airport_2370, "Jeju International Airport").
-airport(res_airport_2372, "Gimhae International Airport").
-airport(res_airport_2374, "Ulsan Airport").
-airport(res_airport_2378, "Gimpo International Airport").
-airport(res_airport_238, "Oued Irara Airport").
-airport(res_airport_2380, "Pohang Airport (G-815/K-3)").
-airport(res_airport_2381, "Daegu Airport").
-airport(res_airport_2384, "Naha Airport").
-airport(res_airport_2387, "New Ishigaki Airport").
-airport(res_airport_2388, "Kumejima Airport").
-airport(res_airport_239, "In Salah Airport").
-airport(res_airport_2390, "Miyako Airport").
-airport(res_airport_2397, "Ninoy Aquino International Airport").
-airport(res_airport_2399, "Awang Airport").
-airport(res_airport_24, "St. Anthony Airport").
-airport(res_airport_240, "Touggourt Sidi Madhi Airport").
-airport(res_airport_2400, "Cagayan De Oro Airport").
-airport(res_airport_2401, "Pagadian Airport").
-airport(res_airport_2402, "General Santos International Airport").
-airport(res_airport_2404, "Zamboanga International Airport").
-airport(res_airport_2409, "San Jose Airport").
-airport(res_airport_2422, "Daniel Z. Romualdez Airport").
-airport(res_airport_2423, "Bacolod-Silay Airport").
-airport(res_airport_2425, "Sibulan Airport").
-airport(res_airport_2426, "Godofredo P. Ramos Airport").
-airport(res_airport_2429, "Iloilo International Airport").
-airport(res_airport_243, "Ain el Beida Airport").
-airport(res_airport_2430, "Kalibo International Airport").
-airport(res_airport_2433, "Puerto Princesa Airport").
-airport(res_airport_2439, "General Urquiza Airport").
-airport(res_airport_244, "In Aménas Airport").
-airport(res_airport_2440, "Islas Malvinas Airport").
-airport(res_airport_2441, "Sauce Viejo Airport").
-airport(res_airport_2442, "Jorge Newbery Airpark").
-airport(res_airport_2443, "Ingeniero Ambrosio Taravella Airport").
-airport(res_airport_245, "Cadjehoun Airport").
-airport(res_airport_2452, "El Plumerillo Airport").
-airport(res_airport_2454, "Suboficial Ay Santiago Germano Airport").
-airport(res_airport_2455, "Catamarca Airport").
-airport(res_airport_2456, "Vicecomodoro Angel D. La Paz Aragonés Airport").
-airport(res_airport_2458, "Capitan V A Almonacid Airport").
-airport(res_airport_246, "Ouagadougou Airport").
-airport(res_airport_2460, "Teniente Benjamin Matienzo Airport").
-airport(res_airport_2461, "Domingo Faustino Sarmiento Airport").
-airport(res_airport_2467, "Brigadier Mayor D Cesar Raul Ojeda Airport").
-airport(res_airport_2469, "Resistencia International Airport").
-airport(res_airport_247, "Bobo Dioulasso Airport").
-airport(res_airport_2470, "Formosa Airport").
-airport(res_airport_2471, "Cataratas Del Iguazú International Airport").
-airport(res_airport_2474, "Libertador Gral D Jose De San Martin Airport").
-airport(res_airport_2476, "Martin Miguel De Guemes International Airport").
-airport(res_airport_2477, "Gobernador Horacio Guzman International Airport").
-airport(res_airport_248, "Kotoka International Airport").
-airport(res_airport_2487, "General E. Mosconi Airport").
-airport(res_airport_2488, "Brigadier Antonio Parodi Airport").
-airport(res_airport_249, "Tamale Airport").
-airport(res_airport_2490, "Almirante Marco Andres Zar Airport").
-airport(res_airport_2491, "Gobernador Castello Airport").
-airport(res_airport_2492, "El Tehuelche Airport").
-airport(res_airport_2495, "Hermes Quijada International Airport").
-airport(res_airport_2496, "Piloto Civil N. Fernández Airport").
-airport(res_airport_2497, "Malvinas Argentinas Airport").
-airport(res_airport_2501, "Comandante Espora Airport").
-airport(res_airport_2508, "Ástor Piazzola International Airport").
-airport(res_airport_2509, "Presidente Peron Airport").
-airport(res_airport_251, "Sunyani Airport").
-airport(res_airport_2512, "Santa Rosa Airport").
-airport(res_airport_2513, "San Carlos De Bariloche Airport").
-airport(res_airport_2517, "Aviador C. Campos Airport").
-airport(res_airport_2518, "Conceição do Araguaia Airport").
-airport(res_airport_252, "Takoradi Airport").
-airport(res_airport_2521, "Araraquara Airport").
-airport(res_airport_2522, "Santa Maria Airport").
-airport(res_airport_2524, "Piloto Osvaldo Marques Dias Airport").
-airport(res_airport_2525, "Araçatuba Airport").
-airport(res_airport_2526, "Val de Cans/Júlio Cezar Ribeiro International Airport").
-airport(res_airport_2528, "Pampulha - Carlos Drummond de Andrade Airport").
-airport(res_airport_253, "Port Bouet Airport").
-airport(res_airport_2531, "Presidente Juscelino Kubistschek International Airport").
-airport(res_airport_2533, "Atlas Brasil Cantanhede Airport").
-airport(res_airport_2535, "Cascavel Airport").
-airport(res_airport_2537, "Tancredo Neves International Airport").
-airport(res_airport_2538, "Campo Grande Airport").
-airport(res_airport_2539, "Serafin Enoss Bertaso Airport").
-airport(res_airport_2541, "Diomício Freitas Airport").
-airport(res_airport_2543, "Bartolomeu Lisandro Airport").
-airport(res_airport_2544, "Corumbá International Airport").
-airport(res_airport_2545, "Afonso Pena Airport").
-airport(res_airport_2547, "Hugo Cantergiani Regional Airport").
-airport(res_airport_2548, "Marechal Rondon Airport").
-airport(res_airport_2549, "Cruzeiro do Sul Airport").
-airport(res_airport_2550, "Presidente Prudente Airport").
-airport(res_airport_2551, "Eduardo Gomes International Airport").
-airport(res_airport_2554, "Cataratas International Airport").
-airport(res_airport_2555, "Hercílio Luz International Airport").
-airport(res_airport_2556, "Fernando de Noronha Airport").
-airport(res_airport_2559, "Pinto Martins International Airport").
-airport(res_airport_2560, "Rio Galeão – Tom Jobim International Airport").
-airport(res_airport_2562, "Santa Genoveva Airport").
-airport(res_airport_2564, "Guarulhos - Governador André Franco Montoro International Airport").
-airport(res_airport_2566, "Altamira Airport").
-airport(res_airport_2568, "Itaituba Airport").
-airport(res_airport_2569, "Bahia - Jorge Amado Airport").
-airport(res_airport_2570, "Usiminas Airport").
-airport(res_airport_2572, "Prefeito Renato Moreira Airport").
-airport(res_airport_2575, "Presidente Castro Pinto International Airport").
-airport(res_airport_2576, "Lauro Carneiro de Loyola Airport").
-airport(res_airport_2577, "Presidente João Suassuna Airport").
-airport(res_airport_2578, "Viracopos International Airport").
-airport(res_airport_2581, "Governador José Richa Airport").
-airport(res_airport_2582, "Bom Jesus da Lapa Airport").
-airport(res_airport_2584, "João Correa da Rocha Airport").
-airport(res_airport_2586, "Regional de Maringá - Sílvio Nane Junior Airport").
-airport(res_airport_2587, "Mário Ribeiro Airport").
-airport(res_airport_2590, "Zumbi dos Palmares Airport").
-airport(res_airport_2591, "Alberto Alcolumbre Airport").
-airport(res_airport_2595, "Ministro Victor Konder International Airport").
-airport(res_airport_2596, "Santo Ângelo Airport").
-airport(res_airport_2597, "Governador Aluízio Alves International Airport").
-airport(res_airport_2599, "Salgado Filho Airport").
-airport(res_airport_260, "Nnamdi Azikiwe International Airport").
-airport(res_airport_2602, "Lauro Kurtz Airport").
-airport(res_airport_2603, "João Simões Lopes Neto International Airport").
-airport(res_airport_2604, "Senador Nilo Coelho Airport").
-airport(res_airport_2607, "Governador Jorge Teixeira de Oliveira Airport").
-airport(res_airport_2609, "Plácido de Castro Airport").
-airport(res_airport_2610, "Guararapes - Gilberto Freyre International Airport").
-airport(res_airport_2612, "Santos Dumont Airport").
-airport(res_airport_2613, "Leite Lopes Airport").
-airport(res_airport_2615, "Professor Urbano Ernesto Stumpf Airport").
-airport(res_airport_2616, "Marechal Cunha Machado International Airport").
-airport(res_airport_2618, "Congonhas Airport").
-airport(res_airport_2619, "Prof. Eribelto Manoel Reino State Airport").
-airport(res_airport_262, "Benin Airport").
-airport(res_airport_2621, "Deputado Luiz Eduardo Magalhães International Airport").
-airport(res_airport_2622, "Trombetas Airport").
-airport(res_airport_2623, "Senador Petrônio Portela Airport").
-airport(res_airport_2624, "Tefé Airport").
-airport(res_airport_2628, "Tabatinga Airport").
-airport(res_airport_2629, "Tucuruí Airport").
-airport(res_airport_263, "Margaret Ekpo International Airport").
-airport(res_airport_2630, "São Gabriel da Cachoeira Airport").
-airport(res_airport_2631, "Paulo Afonso Airport").
-airport(res_airport_2632, "Rubem Berta Airport").
-airport(res_airport_2633, "Ten. Cel. Aviador César Bombonato Airport").
-airport(res_airport_2635, "Mário de Almeida Franco Airport").
-airport(res_airport_2637, "Brigadeiro Camarão Airport").
-airport(res_airport_2638, "Eurico de Aguiar Salles Airport").
-airport(res_airport_264, "Akanu Ibiam International Airport").
-airport(res_airport_2641, "Chacalluta Airport").
-airport(res_airport_2642, "Balmaceda Airport").
-airport(res_airport_2645, "El Loa Airport").
-airport(res_airport_2647, "Pdte. Carlos Ibañez del Campo Airport").
-airport(res_airport_2649, "Diego Aracena Airport").
-airport(res_airport_2650, "Comodoro Arturo Merino Benítez International Airport").
-airport(res_airport_2651, "Andrés Sabella Gálvez International Airport").
-airport(res_airport_2656, "Carriel Sur Airport").
-airport(res_airport_2657, "Mataveri Airport").
-airport(res_airport_2658, "Cañal Bajo Carlos - Hott Siebert Airport").
-airport(res_airport_266, "Ibadan Airport").
-airport(res_airport_2662, "La Florida Airport").
-airport(res_airport_2664, "Maquehue Airport").
-airport(res_airport_2665, "El Tepual Airport").
-airport(res_airport_2667, "Pichoy Airport").
-airport(res_airport_267, "Ilorin International Airport").
-airport(res_airport_2670, "Francisco De Orellana Airport").
-airport(res_airport_2671, "Mariscal Lamar Airport").
-airport(res_airport_2672, "Seymour Airport").
-airport(res_airport_2673, "José Joaquín de Olmedo International Airport").
-airport(res_airport_2678, "Cotopaxi International Airport").
-airport(res_airport_268, "Yakubu Gowon Airport").
-airport(res_airport_2680, "Coronel E Carvajal Airport").
-airport(res_airport_2683, "Eloy Alfaro International Airport").
-airport(res_airport_2688, "Mariscal Sucre International Airport").
-airport(res_airport_269, "Kaduna Airport").
-airport(res_airport_2690, "Santa Rosa International Airport").
-airport(res_airport_2697, "Teniente Coronel Luis a Mantilla Airport").
-airport(res_airport_2699, "Silvio Pettirossi International Airport").
-airport(res_airport_27, "Baie Comeau Airport").
-airport(res_airport_270, "Mallam Aminu International Airport").
-airport(res_airport_2705, "El Eden Airport").
-airport(res_airport_2706, "Tres De Mayo Airport").
-airport(res_airport_2708, "Palonegro Airport").
-airport(res_airport_2709, "El Dorado International Airport").
-airport(res_airport_2710, "Ernesto Cortissoz International Airport").
-airport(res_airport_2711, "José Celestino Mutis Airport").
-airport(res_airport_2712, "Gerardo Tobar López Airport").
-airport(res_airport_2713, "Camilo Daza International Airport").
-airport(res_airport_2714, "Rafael Nuñez International Airport").
-airport(res_airport_2715, "Alfonso Bonilla Aragon International Airport").
-airport(res_airport_2716, "La Florida Airport").
-airport(res_airport_2717, "Las Brujas Airport").
-airport(res_airport_2718, "Yariguíes Airport").
-airport(res_airport_2719, "Gustavo Artunduaga Paredes Airport").
-airport(res_airport_2722, "Juan Casiano Airport").
-airport(res_airport_2724, "Perales Airport").
-airport(res_airport_2725, "San Luis Airport").
-airport(res_airport_2726, "Antonio Roldan Betancourt Airport").
-airport(res_airport_2728, "Alfredo Vásquez Cobo International Airport").
-airport(res_airport_2729, "Enrique Olaya Herrera Airport").
-airport(res_airport_273, "Murtala Muhammed International Airport").
-airport(res_airport_2731, "Los Garzones Airport").
-airport(res_airport_2732, "Fabio Alberto Leon Bentley Airport").
-airport(res_airport_2733, "La Nubia Airport").
-airport(res_airport_2734, "Benito Salas Airport").
-airport(res_airport_2738, "German Olano Airport").
-airport(res_airport_2739, "Matecaña International Airport").
-airport(res_airport_2741, "Guillermo León Valencia Airport").
-airport(res_airport_2742, "Antonio Narino Airport").
-airport(res_airport_2743, "El Embrujo Airport").
-airport(res_airport_2745, "Jose Maria Córdova International Airport").
-airport(res_airport_2746, "Almirante Padilla Airport").
-airport(res_airport_2747, "Jorge E. Gonzalez Torres Airport").
-airport(res_airport_2748, "Simón Bolívar International Airport").
-airport(res_airport_2749, "Gustavo Rojas Pinilla International Airport").
-airport(res_airport_275, "Port Harcourt International Airport").
-airport(res_airport_2750, "Eduardo Falla Solano Airport").
-airport(res_airport_2751, "Gustavo Vargas Airport").
-airport(res_airport_2752, "Santiago Perez Airport").
-airport(res_airport_2753, "El Caraño Airport").
-airport(res_airport_2755, "Alfonso López Pumarejo Airport").
-airport(res_airport_2756, "Vanguardia Airport").
-airport(res_airport_2759, "Jorge Wilsterman International Airport").
-airport(res_airport_276, "Sadiq Abubakar III International Airport").
-airport(res_airport_2761, "Capitán Aníbal Arab Airport").
-airport(res_airport_2762, "El Alto International Airport").
-airport(res_airport_2764, "Capitan Nicolas Rojas Airport").
-airport(res_airport_2767, "Juana Azurduy De Padilla Airport").
-airport(res_airport_2768, "Capitan Oriel Lea Plaza Airport").
-airport(res_airport_2769, "Teniente Av. Jorge Henrich Arauz Airport").
-airport(res_airport_277, "Yola Airport").
-airport(res_airport_2771, "Viru Viru International Airport").
-airport(res_airport_2772, "Yacuiba Airport").
-airport(res_airport_2773, "Johan Adolf Pengel International Airport").
-airport(res_airport_2774, "Cayenne-Rochambeau Airport").
-airport(res_airport_2781, "Cap FAP David Abenzur Rengifo International Airport").
-airport(res_airport_2785, "Capitan FAP Jose A Quinones Gonzales International Airport").
-airport(res_airport_2786, "Coronel FAP Alfredo Mendivil Duarte Airport").
-airport(res_airport_2787, "Andahuaylas Airport").
-airport(res_airport_2788, "Comandante FAP German Arias Graziani Airport").
-airport(res_airport_2789, "Jorge Chávez International Airport").
-airport(res_airport_2792, "Inca Manco Capac International Airport").
-airport(res_airport_2796, "Capitan FAP Pedro Canga Rodriguez Airport").
-airport(res_airport_28, "CFB Bagotville").
-airport(res_airport_280, "Diori Hamani International Airport").
-airport(res_airport_2801, "Coronel FAP Francisco Secada Vignetta International Airport").
-airport(res_airport_2802, "Rodríguez Ballón International Airport").
-airport(res_airport_2804, "Capitan FAP Carlos Martinez De Pinillos International Airport").
-airport(res_airport_2806, "Cadete FAP Guillermo Del Castillo Paredes Airport").
-airport(res_airport_2807, "Coronel FAP Carlos Ciriani Santa Rosa International Airport").
-airport(res_airport_2808, "Padre Aldamiz International Airport").
-airport(res_airport_2809, "Capitán FAP Guillermo Concha Iberico International Airport").
-airport(res_airport_2812, "Alejandro Velasco Astete International Airport").
-airport(res_airport_2816, "Carrasco International /General C L Berisso Airport").
-airport(res_airport_2821, "General José Antonio Anzoategui International Airport").
-airport(res_airport_2822, "Barinas Airport").
-airport(res_airport_2824, "Barquisimeto International Airport").
-airport(res_airport_2830, "Canaima Airport").
-airport(res_airport_2833, "José Leonardo Chirinos Airport").
-airport(res_airport_2835, "Cumaná (Antonio José de Sucre) Airport").
-airport(res_airport_2844, "Josefa Camejo International Airport").
-airport(res_airport_2846, "La Fria Airport").
-airport(res_airport_2848, "La Chinita International Airport").
-airport(res_airport_2849, "Alberto Carnevalli Airport").
-airport(res_airport_2850, "Del Caribe Santiago Mariño International Airport").
-airport(res_airport_2851, "Simón Bolívar International Airport").
-airport(res_airport_2852, "Maturín Airport").
-airport(res_airport_2853, "Cacique Aramare Airport").
-airport(res_airport_2854, "General Bartolome Salom International Airport").
-airport(res_airport_2856, "General Manuel Carlos Piar International Airport").
-airport(res_airport_2858, "San Antonio Del Tachira Airport").
-airport(res_airport_286, "Monastir Habib Bourguiba International Airport").
-airport(res_airport_2860, "Santa Elena de Uairen Airport").
-airport(res_airport_2861, "Mayor Buenaventura Vivas International Airport").
-airport(res_airport_2864, "San Tomé Airport").
-airport(res_airport_2868, "Arturo Michelena International Airport").
-airport(res_airport_287, "Tunis Carthage International Airport").
-airport(res_airport_2870, "Dr. Antonio Nicolás Briceño Airport").
-airport(res_airport_2874, "V.C. Bird International Airport").
-airport(res_airport_2875, "Sir Grantley Adams International Airport").
-airport(res_airport_2877, "Douglas-Charles Airport").
-airport(res_airport_2878, "Martinique Aimé Césaire International Airport").
-airport(res_airport_2879, "L'Espérance Airport").
-airport(res_airport_2881, "Pointe-à-Pitre Le Raizet").
-airport(res_airport_2882, "Point Salines International Airport").
-airport(res_airport_2883, "Cyril E. King Airport").
-airport(res_airport_2884, "Henry E Rohlsen Airport").
-airport(res_airport_2885, "Rafael Hernandez Airport").
-airport(res_airport_2888, "Eugenio Maria De Hostos Airport").
-airport(res_airport_2889, "Mercedita Airport").
-airport(res_airport_2890, "Luis Munoz Marin International Airport").
-airport(res_airport_2891, "Robert L. Bradshaw International Airport").
-airport(res_airport_2893, "George F. L. Charles Airport").
-airport(res_airport_2894, "Hewanorra International Airport").
-airport(res_airport_2895, "Queen Beatrix International Airport").
-airport(res_airport_2896, "Flamingo International Airport").
-airport(res_airport_2897, "Hato International Airport").
-airport(res_airport_2898, "F. D. Roosevelt Airport").
-airport(res_airport_2899, "Princess Juliana International Airport").
-airport(res_airport_29, "Baker Lake Airport").
-airport(res_airport_290, "Gafsa Ksar International Airport").
-airport(res_airport_2900, "Clayton J Lloyd International Airport").
-airport(res_airport_2901, "Tobago-Crown Point Airport").
-airport(res_airport_2902, "Piarco International Airport").
-airport(res_airport_2903, "Terrance B. Lettsome International Airport").
-airport(res_airport_2907, "Argyle International Airport").
-airport(res_airport_2908, "Almaty Airport").
-airport(res_airport_291, "Gabès Matmata International Airport").
-airport(res_airport_2910, "Astana International Airport").
-airport(res_airport_2911, "Taraz Airport").
-airport(res_airport_2912, "Manas International Airport").
-airport(res_airport_2913, "Osh Airport").
-airport(res_airport_2914, "Shymkent Airport").
-airport(res_airport_2916, "Uralsk Airport").
-airport(res_airport_2917, "Pavlodar Airport").
-airport(res_airport_2918, "Semipalatinsk Airport").
-airport(res_airport_2920, "Aktobe Airport").
-airport(res_airport_2922, "Heydar Aliyev International Airport").
-airport(res_airport_2923, "Yakutsk Airport").
-airport(res_airport_2925, "Mirny Airport").
-airport(res_airport_2926, "Ignatyevo Airport").
-airport(res_airport_2927, "Khabarovsk-Novy Airport").
-airport(res_airport_293, "Djerba Zarzis International Airport").
-airport(res_airport_2930, "Sokol Airport").
-airport(res_airport_2931, "Pevek Airport").
-airport(res_airport_2932, "Yelizovo Airport").
-airport(res_airport_2933, "Yuzhno-Sakhalinsk Airport").
-airport(res_airport_2934, "Vladivostok International Airport").
-airport(res_airport_2935, "Chita-Kadala Airport").
-airport(res_airport_2936, "Bratsk Airport").
-airport(res_airport_2937, "Irkutsk Airport").
-airport(res_airport_2938, "Ulan-Ude Airport (Mukhino)").
-airport(res_airport_2939, "Boryspil International Airport").
-airport(res_airport_2940, "Donetsk International Airport").
-airport(res_airport_2941, "Dnipropetrovsk International Airport").
-airport(res_airport_2942, "Simferopol International Airport").
-airport(res_airport_2944, "Kiev Zhuliany International Airport").
-airport(res_airport_2945, "Lviv International Airport").
-airport(res_airport_2947, "Odessa International Airport").
-airport(res_airport_2948, "Pulkovo Airport").
-airport(res_airport_2949, "Murmansk Airport").
-airport(res_airport_295, "Sfax Thyna International Airport").
-airport(res_airport_2952, "Khrabrovo Airport").
-airport(res_airport_2954, "Minsk National Airport").
-airport(res_airport_2955, "Abakan Airport").
-airport(res_airport_2956, "Barnaul Airport").
-airport(res_airport_2957, "Kemerovo Airport").
-airport(res_airport_2958, "Omsk Central Airport").
-airport(res_airport_296, "Tozeur Nefta International Airport").
-airport(res_airport_2960, "Krasnodar Pashkovsky International Airport").
-airport(res_airport_2961, "Uytash Airport").
-airport(res_airport_2962, "Mineralnyye Vody Airport").
-airport(res_airport_2963, "Stavropol Shpakovskoye Airport").
-airport(res_airport_2964, "Platov International Airport").
-airport(res_airport_2965, "Sochi International Airport").
-airport(res_airport_2966, "Astrakhan Airport").
-airport(res_airport_2967, "Volgograd International Airport").
-airport(res_airport_2968, "Chelyabinsk Balandino Airport").
-airport(res_airport_2969, "Magnitogorsk International Airport").
-airport(res_airport_2972, "Nizhnevartovsk Airport").
-airport(res_airport_2973, "Bolshoye Savino Airport").
-airport(res_airport_2974, "Surgut Airport").
-airport(res_airport_2975, "Koltsovo Airport").
-airport(res_airport_2976, "Ashgabat International Airport").
-airport(res_airport_2979, "Dushanbe Airport").
-airport(res_airport_298, "Lomé-Tokoin Airport").
-airport(res_airport_2980, "Bukhara Airport").
-airport(res_airport_2981, "Samarkand Airport").
-airport(res_airport_2983, "Tashkent International Airport").
-airport(res_airport_2985, "Sheremetyevo International Airport").
-airport(res_airport_2987, "Voronezh International Airport").
-airport(res_airport_2988, "Vnukovo International Airport").
-airport(res_airport_2989, "Syktyvkar Airport").
-airport(res_airport_299, "Antwerp International Airport (Deurne)").
-airport(res_airport_2990, "Kazan International Airport").
-airport(res_airport_2991, "Orenburg Central Airport").
-airport(res_airport_2992, "Ufa International Airport").
-airport(res_airport_2993, "Kurumoch International Airport").
-airport(res_airport_2994, "Sardar Vallabhbhai Patel International Airport").
-airport(res_airport_2996, "Aurangabad Airport").
-airport(res_airport_2997, "Chhatrapati Shivaji International Airport").
-airport(res_airport_2999, "Bhuj Airport").
-airport(res_airport_3, "Mount Hagen Kagamuga Airport").
-airport(res_airport_30, "Campbell River Airport").
-airport(res_airport_3000, "Belgaum Airport").
-airport(res_airport_3001, "Vadodara Airport").
-airport(res_airport_3002, "Raja Bhoj International Airport").
-airport(res_airport_3003, "Bhavnagar Airport").
-airport(res_airport_3007, "Dabolim Airport").
-airport(res_airport_3008, "Devi Ahilyabai Holkar Airport").
-airport(res_airport_3009, "Jabalpur Airport").
-airport(res_airport_3010, "Jamnagar Airport").
-airport(res_airport_3012, "Khajuraho Airport").
-airport(res_airport_3015, "Dr. Babasaheb Ambedkar International Airport").
-airport(res_airport_3017, "Pune Airport").
-airport(res_airport_3018, "Porbandar Airport").
-airport(res_airport_3019, "Rajkot Airport").
-airport(res_airport_302, "Brussels Airport").
-airport(res_airport_3020, "Raipur Airport").
-airport(res_airport_3022, "Surat Airport").
-airport(res_airport_3023, "Maharana Pratap Airport").
-airport(res_airport_3024, "Bandaranaike International Colombo Airport").
-airport(res_airport_3030, "China Bay Airport").
-airport(res_airport_3034, "Phnom Penh International Airport").
-airport(res_airport_3035, "Siem Reap International Airport").
-airport(res_airport_3038, "Agartala Airport").
-airport(res_airport_3039, "Lengpui Airport").
-airport(res_airport_304, "Brussels South Charleroi Airport").
-airport(res_airport_3040, "Bagdogra Airport").
-airport(res_airport_3042, "Biju Patnaik Airport").
-airport(res_airport_3043, "Netaji Subhash Chandra Bose International Airport").
-airport(res_airport_3050, "Imphal Airport").
-airport(res_airport_3055, "Silchar Airport").
-airport(res_airport_3057, "Dibrugarh Airport").
-airport(res_airport_3061, "Lok Nayak Jayaprakash Airport").
-airport(res_airport_3063, "Birsa Munda Airport").
-airport(res_airport_3066, "Vishakhapatnam Airport").
-airport(res_airport_3068, "Cox's Bazar Airport").
-airport(res_airport_3069, "Shah Amanat International Airport").
-airport(res_airport_3071, "Jessore Airport").
-airport(res_airport_3072, "Shah Mokhdum Airport").
-airport(res_airport_3073, "Saidpur Airport").
-airport(res_airport_3074, "Osmany International Airport").
-airport(res_airport_3076, "Hazrat Shahjalal International Airport").
-airport(res_airport_3077, "Hong Kong International Airport").
-airport(res_airport_3079, "Agra Airport").
-airport(res_airport_3080, "Allahabad Airport").
-airport(res_airport_3081, "Sri Guru Ram Dass Jee International Airport").
-airport(res_airport_3084, "Lal Bahadur Shastri Airport").
-airport(res_airport_3085, "Kullu Manali Airport").
-airport(res_airport_3089, "Chandigarh Airport").
-airport(res_airport_309, "Liège Airport").
-airport(res_airport_3092, "Dehradun Airport").
-airport(res_airport_3093, "Indira Gandhi International Airport").
-airport(res_airport_3094, "Gwalior Airport").
-airport(res_airport_3097, "Jodhpur Airport").
-airport(res_airport_3098, "Jaipur International Airport").
-airport(res_airport_31, "Brandon Municipal Airport").
-airport(res_airport_310, "Ostend-Bruges International Airport").
-airport(res_airport_3100, "Jammu Airport").
-airport(res_airport_3101, "Kanpur Civil Airport").
-airport(res_airport_3103, "Ludhiana Airport").
-airport(res_airport_3104, "Leh Kushok Bakula Rimpochee Airport").
-airport(res_airport_3105, "Chaudhary Charan Singh International Airport").
-airport(res_airport_3112, "Sheikh ul Alam Airport").
-airport(res_airport_3115, "Luang Phabang International Airport").
-airport(res_airport_3116, "Pakse International Airport").
-airport(res_airport_3118, "Savannakhet Airport").
-airport(res_airport_3120, "Wattay International Airport").
-airport(res_airport_3121, "Macau International Airport").
-airport(res_airport_3122, "Gautam Buddha Airport").
-airport(res_airport_3125, "Tribhuvan International Airport").
-airport(res_airport_3127, "Pokhara Airport").
-airport(res_airport_3129, "Biratnagar Airport").
-airport(res_airport_3130, "Agatti Airport").
-airport(res_airport_3131, "Kempegowda International Airport").
-airport(res_airport_3134, "Vijayawada Airport").
-airport(res_airport_3135, "Coimbatore International Airport").
-airport(res_airport_3136, "Cochin International Airport").
-airport(res_airport_3137, "Calicut International Airport").
-airport(res_airport_3142, "Madurai Airport").
-airport(res_airport_3143, "Mangalore International Airport").
-airport(res_airport_3144, "Chennai International Airport").
-airport(res_airport_3146, "Vir Savarkar International Airport").
-airport(res_airport_3148, "Rajahmundry Airport").
-airport(res_airport_3151, "Tirupati Airport").
-airport(res_airport_3152, "Tiruchirapally Civil Airport Airport").
-airport(res_airport_3153, "Trivandrum International Airport").
-airport(res_airport_3155, "Paro Airport").
-airport(res_airport_3156, "Malé International Airport").
-airport(res_airport_3157, "Don Mueang International Airport").
-airport(res_airport_3161, "U-Tapao International Airport").
-airport(res_airport_3163, "Lampang Airport").
-airport(res_airport_3164, "Phrae Airport").
-airport(res_airport_3170, "Phitsanulok Airport").
-airport(res_airport_3173, "Narathiwat Airport").
-airport(res_airport_3174, "Krabi Airport").
-airport(res_airport_3177, "Samui Airport").
-airport(res_airport_3179, "Phuket International Airport").
-airport(res_airport_3180, "Ranong Airport").
-airport(res_airport_3181, "Hat Yai International Airport").
-airport(res_airport_3182, "Trang Airport").
-airport(res_airport_3183, "Udon Thani Airport").
-airport(res_airport_3184, "Sakon Nakhon Airport").
-airport(res_airport_3186, "Loei Airport").
-airport(res_airport_3196, "Da Nang International Airport").
-airport(res_airport_3199, "Noi Bai International Airport").
-airport(res_airport_32, "Cambridge Bay Airport").
-airport(res_airport_3201, "Phu Bai Airport").
-airport(res_airport_3204, "Phu Quoc International Airport").
-airport(res_airport_3205, "Tan Son Nhat International Airport").
-airport(res_airport_3209, "Bagan Airport").
-airport(res_airport_3213, "Heho Airport").
-airport(res_airport_3215, "Kengtung Airport").
-airport(res_airport_3217, "Kyaukpyu Airport").
-airport(res_airport_3222, "Mandalay International Airport").
-airport(res_airport_3223, "Myeik Airport").
-airport(res_airport_3224, "Myitkyina Airport").
-airport(res_airport_3232, "Putao Airport").
-airport(res_airport_3235, "Sittwe Airport").
-airport(res_airport_3236, "Thandwe Airport").
-airport(res_airport_3237, "Tachileik Airport").
-airport(res_airport_3239, "Yangon International Airport").
-airport(res_airport_3240, "Hasanuddin International Airport").
-airport(res_airport_3241, "Frans Kaisiepo Airport").
-airport(res_airport_3242, "Nabire Airport").
-airport(res_airport_3243, "Moses Kilangin Airport").
-airport(res_airport_3244, "Sentani International Airport").
-airport(res_airport_3245, "Wamena Airport").
-airport(res_airport_3246, "Mopah Airport").
-airport(res_airport_3247, "Jalaluddin Airport").
-airport(res_airport_3249, "Mutiara Airport").
-airport(res_airport_3250, "Sam Ratulangi Airport").
-airport(res_airport_3251, "Kasiguncu Airport").
-airport(res_airport_3253, "Sultan Khairun Babullah Airport").
-airport(res_airport_3254, "Syukuran Aminuddin Amir Airport").
-airport(res_airport_3256, "Pattimura Airport, Ambon").
-airport(res_airport_3257, "Fakfak Airport").
-airport(res_airport_3258, "Kaimana Airport").
-airport(res_airport_3259, "Babo Airport").
-airport(res_airport_3260, "Rendani Airport").
-airport(res_airport_3261, "Dominique Edward Osok Airport").
-airport(res_airport_3262, "Bintulu Airport").
-airport(res_airport_3263, "Kuching International Airport").
-airport(res_airport_3264, "Limbang Airport").
-airport(res_airport_3265, "Marudi Airport").
-airport(res_airport_3266, "Miri Airport").
-airport(res_airport_3267, "Sibu Airport").
-airport(res_airport_3268, "Lahad Datu Airport").
-airport(res_airport_3269, "Kota Kinabalu International Airport").
-airport(res_airport_3270, "Labuan Airport").
-airport(res_airport_3271, "Tawau Airport").
-airport(res_airport_3272, "Brunei International Airport").
-airport(res_airport_3273, "Sultan Syarif Kasim Ii (Simpang Tiga) Airport").
-airport(res_airport_3275, "Soekarno-Hatta International Airport").
-airport(res_airport_3282, "Ketapang(Rahadi Usman) Airport").
-airport(res_airport_3284, "Supadio Airport").
-airport(res_airport_3287, "Sultan Thaha Airport").
-airport(res_airport_3288, "Fatmawati Soekarno Airport").
-airport(res_airport_3289, "Sultan Mahmud Badaruddin II Airport").
-airport(res_airport_3294, "Sultan Iskandar Muda International Airport").
-airport(res_airport_3296, "Sultan Abdul Halim Airport").
-airport(res_airport_3298, "Sultan Ismail Petra Airport").
-airport(res_airport_3299, "Kuantan Airport").
-airport(res_airport_33, "Nanaimo Airport").
-airport(res_airport_3300, "Kerteh Airport").
-airport(res_airport_3302, "Sultan Azlan Shah Airport").
-airport(res_airport_3303, "Senai International Airport").
-airport(res_airport_3304, "Kuala Lumpur International Airport").
-airport(res_airport_3305, "Langkawi International Airport").
-airport(res_airport_3307, "Sultan Mahmud Airport").
-airport(res_airport_3308, "Penang International Airport").
-airport(res_airport_3310, "Presidente Nicolau Lobato International Airport").
-airport(res_airport_3316, "Singapore Changi Airport").
-airport(res_airport_3318, "Northern Peninsula Airport").
-airport(res_airport_3319, "Alice Springs Airport").
-airport(res_airport_3320, "Brisbane International Airport").
-airport(res_airport_3321, "Gold Coast Airport").
-airport(res_airport_3322, "Cairns International Airport").
-airport(res_airport_3323, "Charleville Airport").
-airport(res_airport_3324, "Mount Isa Airport").
-airport(res_airport_3325, "Sunshine Coast Airport").
-airport(res_airport_3326, "Mackay Airport").
-airport(res_airport_3328, "Proserpine Whitsunday Coast Airport").
-airport(res_airport_3329, "Rockhampton Airport").
-airport(res_airport_3330, "Townsville Airport").
-airport(res_airport_3331, "Weipa Airport").
-airport(res_airport_3332, "Avalon Airport").
-airport(res_airport_3333, "Albury Airport").
-airport(res_airport_3334, "Melbourne Essendon Airport").
-airport(res_airport_3336, "Hobart International Airport").
-airport(res_airport_3337, "Launceston Airport").
-airport(res_airport_3339, "Melbourne International Airport").
-airport(res_airport_3341, "Adelaide International Airport").
-airport(res_airport_3345, "Karratha Airport").
-airport(res_airport_3346, "Kalgoorlie Boulder Airport").
-airport(res_airport_3347, "Kununurra Airport").
-airport(res_airport_3348, "Learmonth Airport").
-airport(res_airport_3349, "Port Hedland International Airport").
-airport(res_airport_3351, "Perth International Airport").
-airport(res_airport_3353, "Christmas Island Airport").
-airport(res_airport_3355, "Canberra International Airport").
-airport(res_airport_3356, "Coffs Harbour Airport").
-airport(res_airport_3358, "Dubbo City Regional Airport").
-airport(res_airport_3359, "Norfolk Island International Airport").
-airport(res_airport_3361, "Sydney Kingsford Smith International Airport").
-airport(res_airport_3362, "Tamworth Airport").
-airport(res_airport_3363, "Wagga Wagga City Airport").
-airport(res_airport_3364, "Beijing Capital International Airport").
-airport(res_airport_3366, "Dongshan Airport").
-airport(res_airport_3368, "Tianjin Binhai International Airport").
-airport(res_airport_3369, "Taiyuan Wusu Airport").
-airport(res_airport_337, "Berlin-Schönefeld Airport").
-airport(res_airport_3370, "Guangzhou Baiyun International Airport").
-airport(res_airport_3371, "Changsha Huanghua International Airport").
-airport(res_airport_3372, "Guilin Liangjiang International Airport").
-airport(res_airport_3373, "Nanning Wuxu Airport").
-airport(res_airport_3374, "Shenzhen Bao'an International Airport").
-airport(res_airport_3375, "Zhengzhou Xinzheng International Airport").
-airport(res_airport_3376, "Wuhan Tianhe International Airport").
-airport(res_airport_3377, "Pyongyang Sunan International Airport").
-airport(res_airport_3378, "Lanzhou Zhongchuan Airport").
-airport(res_airport_3379, "Xi'an Xianyang International Airport").
-airport(res_airport_338, "Dresden Airport").
-airport(res_airport_3380, "Chinggis Khaan International Airport").
-airport(res_airport_3381, "Xishuangbanna Gasa Airport").
-airport(res_airport_3382, "Kunming Changshui International Airport").
-airport(res_airport_3383, "Xiamen Gaoqi International Airport").
-airport(res_airport_3384, "Nanchang Changbei International Airport").
-airport(res_airport_3385, "Fuzhou Changle International Airport").
-airport(res_airport_3386, "Hangzhou Xiaoshan International Airport").
-airport(res_airport_3387, "Ningbo Lishe International Airport").
-airport(res_airport_3388, "Nanjing Lukou Airport").
-airport(res_airport_3389, "Hefei Luogang International Airport").
-airport(res_airport_339, "Erfurt Airport").
-airport(res_airport_3390, "Liuting Airport").
-airport(res_airport_3391, "Shanghai Hongqiao International Airport").
-airport(res_airport_3392, "Yantai Laishan Airport").
-airport(res_airport_3393, "Chongqing Jiangbei International Airport").
-airport(res_airport_3394, "Longdongbao Airport").
-airport(res_airport_3395, "Chengdu Shuangliu International Airport").
-airport(res_airport_3396, "Xichang Qingshan Airport").
-airport(res_airport_3397, "Kashgar Airport").
-airport(res_airport_3398, "Hotan Airport").
-airport(res_airport_3399, "Ürümqi Diwopu International Airport").
-airport(res_airport_34, "Castlegar/West Kootenay Regional Airport").
-airport(res_airport_340, "Frankfurt am Main Airport").
-airport(res_airport_3400, "Taiping Airport").
-airport(res_airport_3402, "Mudanjiang Hailang International Airport").
-airport(res_airport_3404, "Zhoushuizi Airport").
-airport(res_airport_3406, "Shanghai Pudong International Airport").
-airport(res_airport_3408, "Sultan Abdul Aziz Shah International Airport").
-airport(res_airport_3409, "Noto Airport").
-airport(res_airport_341, "Münster Osnabrück Airport").
-airport(res_airport_3410, "Borg El Arab International Airport").
-airport(res_airport_3411, "Barter Island LRRS Airport").
-airport(res_airport_3413, "Cape Lisburne LRRS Airport").
-airport(res_airport_3414, "Point Lay LRRS Airport").
-airport(res_airport_3415, "Hilo International Airport").
-airport(res_airport_3417, "Bettles Airport").
-airport(res_airport_342, "Hamburg Airport").
-airport(res_airport_3420, "Fort Yukon Airport").
-airport(res_airport_3423, "Tatalina LRRS Airport").
-airport(res_airport_3426, "St Paul Island Airport").
-airport(res_airport_3428, "St George Airport").
-airport(res_airport_3429, "Iliamna Airport").
-airport(res_airport_3430, "Platinum Airport").
-airport(res_airport_3437, "Fort Smith Regional Airport").
-airport(res_airport_344, "Cologne Bonn Airport").
-airport(res_airport_3442, "Grand Forks International Airport").
-airport(res_airport_3445, "Hana Airport").
-airport(res_airport_3446, "Ernest A. Love Field").
-airport(res_airport_3447, "Trenton Mercer Airport").
-airport(res_airport_3448, "General Edward Lawrence Logan International Airport").
-airport(res_airport_345, "Düsseldorf Airport").
-airport(res_airport_3453, "Metropolitan Oakland International Airport").
-airport(res_airport_3454, "Eppley Airfield").
-airport(res_airport_3456, "Kahului Airport").
-airport(res_airport_3457, "Wichita Eisenhower National Airport").
-airport(res_airport_3458, "Kansas City International Airport").
-airport(res_airport_3459, "Dane County Regional Truax Field").
-airport(res_airport_346, "Munich Airport").
-airport(res_airport_3460, "Dillingham Airport").
-airport(res_airport_3461, "Boone County Airport").
-airport(res_airport_3462, "Phoenix Sky Harbor International Airport").
-airport(res_airport_3463, "Bangor International Airport").
-airport(res_airport_3465, "East Texas Regional Airport").
-airport(res_airport_3467, "Spokane International Airport").
-airport(res_airport_3469, "San Francisco International Airport").
-airport(res_airport_347, "Nuremberg Airport").
-airport(res_airport_3472, "Gainesville Regional Airport").
-airport(res_airport_3473, "Memphis International Airport").
-airport(res_airport_348, "Leipzig/Halle Airport").
-airport(res_airport_3484, "Los Angeles International Airport").
-airport(res_airport_3486, "Cleveland Hopkins International Airport").
-airport(res_airport_3488, "Cincinnati Northern Kentucky International Airport").
-airport(res_airport_349, "Saarbrücken Airport").
-airport(res_airport_3491, "Huron Regional Airport").
-airport(res_airport_3492, "Juneau International Airport").
-airport(res_airport_3493, "Lafayette Regional Airport").
-airport(res_airport_3494, "Newark Liberty International Airport").
-airport(res_airport_3495, "Boise Air Terminal/Gowen Field").
-airport(res_airport_3497, "Garden City Regional Airport").
-airport(res_airport_3498, "Minot International Airport").
-airport(res_airport_350, "Stuttgart Airport").
-airport(res_airport_3502, "Dallas Love Field").
-airport(res_airport_3504, "Helena Regional Airport").
-airport(res_airport_351, "Berlin-Tegel Airport").
-airport(res_airport_3513, "Lake Charles Regional Airport").
-airport(res_airport_3514, "Ellison Onizuka Kona International At Keahole Airport").
-airport(res_airport_3515, "Myrtle Beach International Airport").
-airport(res_airport_3517, "Nantucket Memorial Airport").
-airport(res_airport_352, "Hannover Airport").
-airport(res_airport_3520, "Ronald Reagan Washington National Airport").
-airport(res_airport_3524, "Atlantic City International Airport").
-airport(res_airport_3527, "Pueblo Memorial Airport").
-airport(res_airport_3528, "Northern Maine Regional Airport at Presque Isle").
-airport(res_airport_353, "Bremen Airport").
-airport(res_airport_3531, "Kodiak Airport").
-airport(res_airport_3533, "Fort Lauderdale Hollywood International Airport").
-airport(res_airport_3535, "Falls International Airport").
-airport(res_airport_3536, "Salt Lake City International Airport").
-airport(res_airport_3542, "Harrisburg International Airport").
-airport(res_airport_3543, "Lincoln Airport").
-airport(res_airport_3544, "Capital City Airport").
-airport(res_airport_3545, "Waimea Kohala Airport").
-airport(res_airport_3546, "Massena International Richards Field").
-airport(res_airport_355, "Frankfurt-Hahn Airport").
-airport(res_airport_3550, "George Bush Intercontinental Houston Airport").
-airport(res_airport_3558, "Meadows Field").
-airport(res_airport_3559, "El Paso International Airport").
-airport(res_airport_356, "Mannheim-City Airport").
-airport(res_airport_3560, "Valley International Airport").
-airport(res_airport_3561, "Columbia Metropolitan Airport").
-airport(res_airport_3564, "Pensacola Regional Airport").
-airport(res_airport_3566, "William P Hobby Airport").
-airport(res_airport_3570, "Pittsburgh International Airport").
-airport(res_airport_3571, "Wiley Post Will Rogers Memorial Airport").
-airport(res_airport_3576, "Miami International Airport").
-airport(res_airport_3577, "Seattle Tacoma International Airport").
-airport(res_airport_3578, "Lovell Field").
-airport(res_airport_3580, "Jackson-Medgar Wiley Evers International Airport").
-airport(res_airport_3582, "Long Beach /Daugherty Field/ Airport").
-airport(res_airport_3584, "Williamsport Regional Airport").
-airport(res_airport_3585, "Indianapolis International Airport").
-airport(res_airport_3589, "Westchester County Airport").
-airport(res_airport_3591, "Jonesboro Municipal Airport").
-airport(res_airport_3596, "Yuma MCAS/Yuma International Airport").
-airport(res_airport_3597, "Cavern City Air Terminal").
-airport(res_airport_3598, "Duluth International Airport").
-airport(res_airport_3599, "Bethel Airport").
-airport(res_airport_36, "Charlo Airport").
-airport(res_airport_3602, "Lihue Airport").
-airport(res_airport_3604, "Havre City County Airport").
-airport(res_airport_3608, "Richmond International Airport").
-airport(res_airport_3609, "Shreveport Regional Airport").
-airport(res_airport_3610, "Merle K (Mudhole) Smith Airport").
-airport(res_airport_3611, "Norfolk International Airport").
-airport(res_airport_3612, "Southeast Texas Regional Airport").
-airport(res_airport_3613, "Savannah Hilton Head International Airport").
-airport(res_airport_3615, "Nome Airport").
-airport(res_airport_3617, "St Petersburg Clearwater International Airport").
-airport(res_airport_362, "Hamburg-Finkenwerder Airport").
-airport(res_airport_3620, "Deadhorse Airport").
-airport(res_airport_3621, "San Antonio International Airport").
-airport(res_airport_3622, "Greater Rochester International Airport").
-airport(res_airport_3624, "Teterboro Airport").
-airport(res_airport_3626, "Raleigh Durham International Airport").
-airport(res_airport_3627, "James M Cox Dayton International Airport").
-airport(res_airport_3628, "Kenai Municipal Airport").
-airport(res_airport_3630, "Niagara Falls International Airport").
-airport(res_airport_3633, "Newport News Williamsburg International Airport").
-airport(res_airport_3636, "Tucson International Airport").
-airport(res_airport_364, "Lübeck Blankensee Airport").
-airport(res_airport_3641, "Theodore Francis Green State Airport").
-airport(res_airport_3642, "Salisbury Ocean City Wicomico Regional Airport").
-airport(res_airport_3644, "Bob Hope Airport").
-airport(res_airport_3645, "Detroit Metropolitan Wayne County Airport").
-airport(res_airport_3646, "Tampa International Airport").
-airport(res_airport_3650, "Range Regional Airport").
-airport(res_airport_3652, "Midland International Airport").
-airport(res_airport_3653, "Austin Straubel International Airport").
-airport(res_airport_3658, "Augusta Regional At Bush Field").
-airport(res_airport_3659, "Sloulin Field International Airport").
-airport(res_airport_3660, "Bill & Hillary Clinton National Airport/Adams Field").
-airport(res_airport_3661, "Stewart International Airport").
-airport(res_airport_3664, "Homer Airport").
-airport(res_airport_3665, "Waynesville-St. Robert Regional Forney field").
-airport(res_airport_3670, "Dallas Fort Worth International Airport").
-airport(res_airport_3671, "Melbourne International Airport").
-airport(res_airport_3673, "Austin Bergstrom International Airport").
-airport(res_airport_3674, "Rickenbacker International Airport").
-airport(res_airport_3675, "Sawyer International Airport").
-airport(res_airport_3676, "McGhee Tyson Airport").
-airport(res_airport_3678, "St Louis Lambert International Airport").
-airport(res_airport_3680, "Sheppard Air Force Base-Wichita Falls Municipal Airport").
-airport(res_airport_3681, "Cincinnati Municipal Airport Lunken Field").
-airport(res_airport_3682, "Hartsfield Jackson Atlanta International Airport").
-airport(res_airport_3685, "Gerald R. Ford International Airport").
-airport(res_airport_3687, "Fresno Yosemite International Airport").
-airport(res_airport_3689, "Imperial County Airport").
-airport(res_airport_3690, "Nashville International Airport").
-airport(res_airport_3691, "Laredo International Airport").
-airport(res_airport_3693, "Ralph Wien Memorial Airport").
-airport(res_airport_3694, "Altoona Blair County Airport").
-airport(res_airport_3696, "South Arkansas Regional At Goodwin Field").
-airport(res_airport_3697, "La Guardia Airport").
-airport(res_airport_3698, "Tallahassee Regional Airport").
-airport(res_airport_37, "Kugluktuk Airport").
-airport(res_airport_3700, "Waco Regional Airport").
-airport(res_airport_3701, "Augusta State Airport").
-airport(res_airport_3704, "McKellar-Sipes Regional Airport").
-airport(res_airport_3705, "Molokai Airport").
-airport(res_airport_3708, "San Angelo Regional Mathis Field").
-airport(res_airport_371, "Paderborn Lippstadt Airport").
-airport(res_airport_3710, "Chico Municipal Airport").
-airport(res_airport_3711, "Burlington International Airport").
-airport(res_airport_3712, "Jacksonville International Airport").
-airport(res_airport_3713, "Durango La Plata County Airport").
-airport(res_airport_3714, "Washington Dulles International Airport").
-airport(res_airport_3715, "Easterwood Field").
-airport(res_airport_3717, "General Mitchell International Airport").
-airport(res_airport_3718, "Abilene Regional Airport").
-airport(res_airport_3719, "Columbia Regional Airport").
-airport(res_airport_3720, "Portland International Airport").
-airport(res_airport_3722, "Palm Beach International Airport").
-airport(res_airport_3724, "Ogdensburg International Airport").
-airport(res_airport_3726, "Boeing Field King County International Airport").
-airport(res_airport_3728, "Daniel K Inouye International Airport").
-airport(res_airport_3729, "Des Moines International Airport").
-airport(res_airport_373, "Dortmund Airport").
-airport(res_airport_3730, "Coastal Carolina Regional Airport").
-airport(res_airport_3731, "San Diego International Airport").
-airport(res_airport_3732, "Monroe Regional Airport").
-airport(res_airport_3734, "Ontario International Airport").
-airport(res_airport_3736, "Roswell International Air Center Airport").
-airport(res_airport_3738, "Brownsville South Padre Island International Airport").
-airport(res_airport_3739, "Dothan Regional Airport").
-airport(res_airport_374, "Augsburg Airport").
-airport(res_airport_3743, "Four Corners Regional Airport").
-airport(res_airport_3744, "Corpus Christi International Airport").
-airport(res_airport_3745, "Syracuse Hancock International Airport").
-airport(res_airport_3747, "Chicago Midway International Airport").
-airport(res_airport_3748, "Norman Y. Mineta San Jose International Airport").
-airport(res_airport_3749, "Lea County Regional Airport").
-airport(res_airport_3751, "Denver International Airport").
-airport(res_airport_3752, "Philadelphia International Airport").
-airport(res_airport_3753, "Sioux Gateway Col. Bud Day Field").
-airport(res_airport_3754, "Middle Georgia Regional Airport").
-airport(res_airport_3759, "John Glenn Columbus International Airport").
-airport(res_airport_3764, "Edward G. Pitka Sr Airport").
-airport(res_airport_3770, "Texarkana Regional Webb Field").
-airport(res_airport_3771, "Plattsburgh International Airport").
-airport(res_airport_3774, "Ted Stevens Anchorage International Airport").
-airport(res_airport_3775, "Robert Gray  Army Air Field Airport").
-airport(res_airport_3777, "Bellingham International Airport").
-airport(res_airport_3782, "Mobile Regional Airport").
-airport(res_airport_3784, "Santa Fe Municipal Airport").
-airport(res_airport_3790, "Scott AFB/Midamerica Airport").
-airport(res_airport_3793, "Southwest Florida International Airport").
-airport(res_airport_3794, "King Salmon Airport").
-airport(res_airport_3796, "Kapalua Airport").
-airport(res_airport_3797, "John F Kennedy International Airport").
-airport(res_airport_3804, "Cheyenne Regional Jerry Olson Field").
-airport(res_airport_3805, "Stockton Metropolitan Airport").
-airport(res_airport_3806, "Charleston Air Force Base-International Airport").
-airport(res_airport_3807, "Reno Tahoe International Airport").
-airport(res_airport_3808, "Ketchikan International Airport").
-airport(res_airport_3811, "Birmingham-Shuttlesworth International Airport").
-airport(res_airport_3816, "Modesto City Co-Harry Sham Field").
-airport(res_airport_3817, "Sacramento International Airport").
-airport(res_airport_3819, "City of Colorado Springs Municipal Airport").
-airport(res_airport_382, "Friedrichshafen Airport").
-airport(res_airport_3820, "Buffalo Niagara International Airport").
-airport(res_airport_3824, "Cedar City Regional Airport").
-airport(res_airport_3825, "Bradley International Airport").
-airport(res_airport_3826, "Mc Allen Miller International Airport").
-airport(res_airport_3829, "Lubbock Preston Smith International Airport").
-airport(res_airport_3830, "Chicago O'Hare International Airport").
-airport(res_airport_3832, "Fairbanks International Airport").
-airport(res_airport_3838, "Watertown International Airport").
-airport(res_airport_3839, "Palm Springs International Airport").
-airport(res_airport_3840, "Rick Husband Amarillo International Airport").
-airport(res_airport_3843, "Topeka Regional Airport - Forbes Field").
-airport(res_airport_3845, "Wilmington International Airport").
-airport(res_airport_3846, "Baton Rouge Metropolitan Airport").
-airport(res_airport_3848, "Tyler Pounds Regional Airport").
-airport(res_airport_3849, "Baltimore/Washington International Thurgood Marshall Airport").
-airport(res_airport_3851, "Lanai Airport").
-airport(res_airport_3852, "Alexandria International Airport").
-airport(res_airport_3854, "Cold Bay Airport").
-airport(res_airport_3855, "Tulsa International Airport").
-airport(res_airport_3856, "Sitka Rocky Gutierrez Airport").
-airport(res_airport_3857, "Long Island Mac Arthur Airport").
-airport(res_airport_3858, "Minneapolis-St Paul International/Wold-Chamberlain Airport").
-airport(res_airport_3859, "New Castle Airport").
-airport(res_airport_3860, "Unalaska Airport").
-airport(res_airport_3861, "Louis Armstrong New Orleans International Airport").
-airport(res_airport_3862, "Portland International Jetport Airport").
-airport(res_airport_3863, "Will Rogers World Airport").
-airport(res_airport_3864, "Albany International Airport").
-airport(res_airport_3865, "Valdez Pioneer Field").
-airport(res_airport_3867, "John Wayne Airport-Orange County Airport").
-airport(res_airport_3872, "Casper-Natrona County International Airport").
-airport(res_airport_3873, "Destin-Ft Walton Beach Airport").
-airport(res_airport_3875, "Key West International Airport").
-airport(res_airport_3876, "Charlotte Douglas International Airport").
-airport(res_airport_3877, "McCarran International Airport").
-airport(res_airport_3878, "Orlando International Airport").
-airport(res_airport_3879, "Florence Regional Airport").
-airport(res_airport_3880, "Great Falls International Airport").
-airport(res_airport_3881, "Youngstown Warren Regional Airport").
-airport(res_airport_3885, "Suvarnabhumi Airport").
-airport(res_airport_3886, "Naha Airport").
-airport(res_airport_3890, "Wolter Monginsidi Airport").
-airport(res_airport_3894, "Abdul Rachman Saleh Airport").
-airport(res_airport_3896, "Husein Sastranegara International Airport").
-airport(res_airport_3898, "Adi Sutjipto International Airport").
-airport(res_airport_3901, "Achmad Yani Airport").
-airport(res_airport_3903, "Hang Nadim International Airport").
-airport(res_airport_3904, "Buluh Tumbang (H A S Hanandjoeddin) Airport").
-airport(res_airport_3905, "Pangkal Pinang (Depati Amir) Airport").
-airport(res_airport_3906, "Raja Haji Fisabilillah International Airport").
-airport(res_airport_3908, "Syamsudin Noor Airport").
-airport(res_airport_3910, "Iskandar Airport").
-airport(res_airport_3911, "Tjilik Riwut Airport").
-airport(res_airport_3913, "Maumere(Wai Oti) Airport").
-airport(res_airport_3914, "Ende (H Hasan Aroeboesman) Airport").
-airport(res_airport_3916, "El Tari Airport").
-airport(res_airport_3917, "Komodo Airport").
-airport(res_airport_3919, "Sultan Aji Muhamad Sulaiman Airport").
-airport(res_airport_3920, "Juwata Airport").
-airport(res_airport_3924, "Muhammad Salahuddin Airport").
-airport(res_airport_3927, "Umbu Mehang Kunda Airport").
-airport(res_airport_3928, "Juanda International Airport").
-airport(res_airport_3929, "Adi Sumarmo Wiryokusumo Airport").
-airport(res_airport_393, "Zweibrücken Airport").
-airport(res_airport_3930, "Incheon International Airport").
-airport(res_airport_3931, "Chiang Mai International Airport").
-airport(res_airport_3932, "Chiang Rai International Airport").
-airport(res_airport_3933, "Nakhon Si Thammarat Airport").
-airport(res_airport_3936, "Nakhon Phanom Airport").
-airport(res_airport_3937, "Ubon Ratchathani Airport").
-airport(res_airport_3938, "Khon Kaen Airport").
-airport(res_airport_3939, "Sukhothai Airport").
-airport(res_airport_3940, "Ngurah Rai (Bali) International Airport").
-airport(res_airport_3941, "Eleftherios Venizelos International Airport").
-airport(res_airport_3942, "Chubu Centrair International Airport").
-airport(res_airport_3943, "Kobe Airport").
-airport(res_airport_3944, "Pullman Moscow Regional Airport").
-airport(res_airport_3945, "Lewiston Nez Perce County Airport").
-airport(res_airport_3946, "Elmira Corning Regional Airport").
-airport(res_airport_3947, "Ithaca Tompkins Regional Airport").
-airport(res_airport_3948, "Monterey Peninsula Airport").
-airport(res_airport_3949, "Santa Barbara Municipal Airport").
-airport(res_airport_3950, "Daytona Beach International Airport").
-airport(res_airport_3953, "Riga International Airport").
-airport(res_airport_3956, "Kaunas International Airport").
-airport(res_airport_3958, "Palanga International Airport").
-airport(res_airport_3959, "Vilnius International Airport").
-airport(res_airport_3964, "Zvartnots International Airport").
-airport(res_airport_3965, "Gyumri Shirak Airport").
-airport(res_airport_3967, "Asmara International Airport").
-airport(res_airport_3968, "Massawa International Airport").
-airport(res_airport_3971, "Batumi International Airport").
-airport(res_airport_3972, "Kopitnari Airport").
-airport(res_airport_3973, "Tbilisi International Airport").
-airport(res_airport_3974, "Mukalla International Airport").
-airport(res_airport_3975, "Ta'izz International Airport").
-airport(res_airport_3976, "Hodeidah International Airport").
-airport(res_airport_3977, "Aden International Airport").
-airport(res_airport_3978, "Ataq Airport").
-airport(res_airport_3979, "Al Ghaidah International Airport").
-airport(res_airport_3980, "Sana'a International Airport").
-airport(res_airport_3984, "Socotra International Airport").
-airport(res_airport_3986, "Memmingen Allgau Airport").
-airport(res_airport_3987, "Nevşehir Kapadokya Airport").
-airport(res_airport_3988, "Ministro Pistarini International Airport").
-airport(res_airport_3989, "Erbil International Airport").
-airport(res_airport_3990, "Emerald Airport").
-airport(res_airport_3992, "Kansai International Airport").
-airport(res_airport_3994, "Tagbilaran Airport").
-airport(res_airport_3995, "Ilulissat Airport").
-airport(res_airport_3997, "Aasiaat Airport").
-airport(res_airport_3998, "Palma De Mallorca Airport").
-airport(res_airport_3999, "Darwin International Airport").
-airport(res_airport_4, "Nadzab Airport").
-airport(res_airport_40, "Clyde River Airport").
-airport(res_airport_400, "Kassel-Calden Airport").
-airport(res_airport_4000, "Surat Thani Airport").
-airport(res_airport_4006, "Tweed New Haven Airport").
-airport(res_airport_4007, "Asheville Regional Airport").
-airport(res_airport_4008, "Piedmont Triad International Airport").
-airport(res_airport_4009, "Joe Foss Field Airport").
-airport(res_airport_4010, "Ayers Rock Connellan Airport").
-airport(res_airport_4011, "Manchester-Boston Regional Airport").
-airport(res_airport_4012, "Naples Municipal Airport").
-airport(res_airport_4013, "LTS Pulau Redang Airport").
-airport(res_airport_4014, "Louisville International Standiford Field").
-airport(res_airport_4015, "Charlottesville Albemarle Airport").
-airport(res_airport_4016, "Roanoke–Blacksburg Regional Airport").
-airport(res_airport_4017, "Blue Grass Airport").
-airport(res_airport_4018, "Evansville Regional Airport").
-airport(res_airport_4019, "Albuquerque International Sunport").
-airport(res_airport_4020, "Gallatin Field").
-airport(res_airport_4021, "Billings Logan International Airport").
-airport(res_airport_4022, "Bert Mooney Airport").
-airport(res_airport_4023, "Cherry Capital Airport").
-airport(res_airport_4024, "Mundo Maya International Airport").
-airport(res_airport_4025, "Hancock County-Bar Harbor Airport").
-airport(res_airport_4026, "Knox County Regional Airport").
-airport(res_airport_4027, "Jackson Hole Airport").
-airport(res_airport_4028, "Chicago Rockford International Airport").
-airport(res_airport_4029, "Domodedovo International Airport").
-airport(res_airport_4030, "Sanya Phoenix International Airport").
-airport(res_airport_4033, "Lijiang Airport").
-airport(res_airport_4034, "Greenville Spartanburg International Airport").
-airport(res_airport_4037, "Central Illinois Regional Airport at Bloomington-Normal").
-airport(res_airport_4038, "Gulfport Biloxi International Airport").
-airport(res_airport_4039, "Kalamazoo Battle Creek International Airport").
-airport(res_airport_4040, "Toledo Express Airport").
-airport(res_airport_4041, "Fort Wayne International Airport").
-airport(res_airport_4042, "Decatur Airport").
-airport(res_airport_4043, "The Eastern Iowa Airport").
-airport(res_airport_4044, "La Crosse Municipal Airport").
-airport(res_airport_4045, "Central Wisconsin Airport").
-airport(res_airport_4046, "General Wayne A. Downing Peoria International Airport").
-airport(res_airport_4047, "Appleton International Airport").
-airport(res_airport_4048, "Rochester International Airport").
-airport(res_airport_4049, "University of Illinois Willard Airport").
-airport(res_airport_4050, "Manhattan Regional Airport").
-airport(res_airport_4051, "Kingscote Airport").
-airport(res_airport_4052, "Hervey Bay Airport").
-airport(res_airport_4054, "Dali Airport").
-airport(res_airport_4056, "Mulu Airport").
-airport(res_airport_4057, "Sharm El Sheikh International Airport").
-airport(res_airport_4058, "Venango Regional Airport").
-airport(res_airport_4059, "Jomo Kenyatta International Airport").
-airport(res_airport_4061, "El Calafate Airport").
-airport(res_airport_4062, "Armidale Airport").
-airport(res_airport_4063, "Grand Junction Regional Airport").
-airport(res_airport_4064, "St George Municipal Airport").
-airport(res_airport_4067, "Sarasota Bradenton International Airport").
-airport(res_airport_4069, "L.F. Wade International International Airport").
-airport(res_airport_4072, "Quad City International Airport").
-airport(res_airport_4074, "Honiara International Airport").
-airport(res_airport_4075, "Faa'a International Airport").
-airport(res_airport_4076, "Nauru International Airport").
-airport(res_airport_4077, "Funafuti International Airport").
-airport(res_airport_4078, "Tolmachevo Airport").
-airport(res_airport_4081, "Xieng Khouang Airport").
-airport(res_airport_4083, "Bismarck Municipal Airport").
-airport(res_airport_4085, "Yinchuan Airport").
-airport(res_airport_4086, "Mae Hong Son Airport").
-airport(res_airport_4087, "Rapid City Regional Airport").
-airport(res_airport_4088, "Mc Clellan-Palomar Airport").
-airport(res_airport_4089, "Bishop International Airport").
-airport(res_airport_4090, "Francisco Bangoy International Airport").
-airport(res_airport_4091, "Madeira Airport").
-airport(res_airport_4092, "Maestro Wilson Fonseca Airport").
-airport(res_airport_4093, "Sihanoukville International Airport").
-airport(res_airport_4095, "Hawke's Bay Airport").
-airport(res_airport_4097, "Lhasa Gonggar Airport").
-airport(res_airport_4098, "Redding Municipal Airport").
-airport(res_airport_4099, "Mahlon Sweet Field").
-airport(res_airport_41, "Coral Harbour Airport").
-airport(res_airport_410, "Westerland Sylt Airport").
-airport(res_airport_4100, "Idaho Falls Regional Airport").
-airport(res_airport_4101, "Rogue Valley International Medford Airport").
-airport(res_airport_4103, "Roberts Field").
-airport(res_airport_4105, "Hosea Kutako International Airport").
-airport(res_airport_4106, "Victoria Harbour Seaplane Base").
-airport(res_airport_4108, "Yaoqiang Airport").
-airport(res_airport_4109, "Changzhou Benniu Airport").
-airport(res_airport_4110, "Yibin Caiba Airport").
-airport(res_airport_4111, "Roshchino International Airport").
-airport(res_airport_4112, "Akron Canton Regional Airport").
-airport(res_airport_4113, "Huntsville International Carl T Jones Field").
-airport(res_airport_4114, "Mid Ohio Valley Regional Airport").
-airport(res_airport_4115, "Montgomery Regional (Dannelly Field) Airport").
-airport(res_airport_4116, "Tri-Cities Regional TN/VA Airport").
-airport(res_airport_4117, "Barkley Regional Airport").
-airport(res_airport_4119, "Djibouti-Ambouli Airport").
-airport(res_airport_4120, "Haikou Meilan International Airport").
-airport(res_airport_4124, "Page Municipal Airport").
-airport(res_airport_4125, "Utila Airport").
-airport(res_airport_4127, "Glacier Park International Airport").
-airport(res_airport_4128, "MBS International Airport").
-airport(res_airport_4129, "Greater Binghamton/Edwin A Link field").
-airport(res_airport_413, "Kuressaare Airport").
-airport(res_airport_4130, "Baghdad International Airport").
-airport(res_airport_4131, "Nan Airport").
-airport(res_airport_4132, "Roi Et Airport").
-airport(res_airport_4133, "Buri Ram Airport").
-airport(res_airport_4135, "Trat Airport").
-airport(res_airport_4140, "Diosdado Macapagal International Airport").
-airport(res_airport_4141, "Sandakan Airport").
-airport(res_airport_4142, "Luang Namtha Airport").
-airport(res_airport_4143, "Oudomsay Airport").
-airport(res_airport_4144, "Taoxian Airport").
-airport(res_airport_4145, "Dongying Shengli Airport").
-airport(res_airport_4147, "Petersburg James A Johnson Airport").
-airport(res_airport_4148, "Luoyang Airport").
-airport(res_airport_4149, "Xuzhou Guanyin Airport").
-airport(res_airport_415, "Lennart Meri Tallinn Airport").
-airport(res_airport_4153, "Lien Khuong Airport").
-airport(res_airport_4154, "Dong Hoi Airport").
-airport(res_airport_4155, "Rach Gia Airport").
-airport(res_airport_4156, "Cà Mau Airport").
-airport(res_airport_4157, "Chu Lai International Airport").
-airport(res_airport_4158, "Dong Tac Airport").
-airport(res_airport_4159, "Mae Hong Son Airport").
-airport(res_airport_416, "Tartu Airport").
-airport(res_airport_4160, "Bol Airport").
-airport(res_airport_4161, "Yaoundé Nsimalen International Airport").
-airport(res_airport_4162, "Conakry International Airport").
-airport(res_airport_4166, "Karlsruhe Baden-Baden Airport").
-airport(res_airport_4167, "Orlando Sanford International Airport").
-airport(res_airport_4169, "John Murtha Johnstown Cambria County Airport").
-airport(res_airport_4183, "Tumling Tar Airport").
-airport(res_airport_4188, "Dhangarhi Airport").
-airport(res_airport_4189, "Muan International Airport").
-airport(res_airport_4190, "Astypalaia Airport").
-airport(res_airport_4191, "Ikaria Airport").
-airport(res_airport_4192, "Kalymnos Airport").
-airport(res_airport_4193, "Milos Airport").
-airport(res_airport_4194, "Naxos Airport").
-airport(res_airport_4195, "Paros National Airport").
-airport(res_airport_4196, "Kastelorizo Airport").
-airport(res_airport_4197, "Marsa Alam International Airport").
-airport(res_airport_4198, "Weeze Airport").
-airport(res_airport_4199, "Francisco B. Reyes Airport").
-airport(res_airport_4200, "Bancasi Airport").
-airport(res_airport_4201, "Dipolog Airport").
-airport(res_airport_4202, "Laoag International Airport").
-airport(res_airport_4203, "Legazpi City International Airport").
-airport(res_airport_4204, "Labo Airport").
-airport(res_airport_4206, "Mactan Cebu International Airport").
-airport(res_airport_4209, "Porto Seguro Airport").
-airport(res_airport_421, "Helsinki Vantaa Airport").
-airport(res_airport_4214, "Brigadeiro Lysias Rodrigues Airport").
-airport(res_airport_4215, "Nelson Ribeiro Guimarães Airport").
-airport(res_airport_4216, "Missoula International Airport").
-airport(res_airport_4217, "Blackall Airport").
-airport(res_airport_4218, "Bundaberg Airport").
-airport(res_airport_4219, "Grand Canyon National Park Airport").
-airport(res_airport_4235, "Kaadedhdhoo Airport").
-airport(res_airport_4237, "Déline Airport").
-airport(res_airport_4238, "Tulita Airport").
-airport(res_airport_4239, "Fort Good Hope Airport").
-airport(res_airport_4242, "Tanna Airport").
-airport(res_airport_4244, "Paulatuk (Nora Aliqatchialuk Ruben) Airport").
-airport(res_airport_4247, "El Trompillo Airport").
-airport(res_airport_4249, "Juancho E. Yrausquin Airport").
-airport(res_airport_4250, "Eagle County Regional Airport").
-airport(res_airport_4252, "Stokmarknes Skagen Airport").
-airport(res_airport_4255, "Columbus Metropolitan Airport").
-airport(res_airport_4256, "Lawton Fort Sill Regional Airport").
-airport(res_airport_4261, "Flagstaff Pulliam Airport").
-airport(res_airport_4263, "Joslin Field Magic Valley Regional Airport").
-airport(res_airport_4265, "Martha's Vineyard Airport").
-airport(res_airport_4271, "St Cloud Regional Airport").
-airport(res_airport_4273, "Golden Triangle Regional Airport").
-airport(res_airport_4274, "Nizhny Novgorod Strigino International Airport").
-airport(res_airport_4276, "Erie International Tom Ridge Field").
-airport(res_airport_4278, "Barnstable Municipal Boardman Polando Field").
-airport(res_airport_4279, "San Pedro Airport").
-airport(res_airport_428, "Ivalo Airport").
-airport(res_airport_4284, "Morgantown Municipal Walter L. Bill Hart Field").
-airport(res_airport_4285, "Yeager Airport").
-airport(res_airport_4286, "Wilkes Barre Scranton International Airport").
-airport(res_airport_4287, "Bemidji Regional Airport").
-airport(res_airport_429, "Joensuu Airport").
-airport(res_airport_4291, "Ballina Byron Gateway Airport").
-airport(res_airport_4292, "Hector International Airport").
-airport(res_airport_4296, "Gillette Campbell County Airport").
-airport(res_airport_4297, "Bogashevo Airport").
-airport(res_airport_430, "Jyvaskyla Airport").
-airport(res_airport_4300, "Chumphon Airport").
-airport(res_airport_4301, "Jiuzhai Huanglong Airport").
-airport(res_airport_4302, "Jieyang Chaoshan International Airport").
-airport(res_airport_4304, "Cheddi Jagan International Airport").
-airport(res_airport_4305, "Guarani International Airport").
-airport(res_airport_4306, "Eugene F. Correira International Airport").
-airport(res_airport_4308, "Dunhuang Airport").
-airport(res_airport_4309, "Ancona Falconara Airport").
-airport(res_airport_4312, "Chamonate Airport").
-airport(res_airport_4314, "Edward Bodden Airfield").
-airport(res_airport_4315, "Milas Bodrum International Airport").
-airport(res_airport_4317, "Sabiha Gökçen International Airport").
-airport(res_airport_4318, "University Park Airport").
-airport(res_airport_4319, "Broome International Airport").
-airport(res_airport_432, "Kemi-Tornio Airport").
-airport(res_airport_4320, "Newcastle Airport").
-airport(res_airport_4322, "Klagenfurt Airport").
-airport(res_airport_4325, "Hammerfest Airport").
-airport(res_airport_4326, "Valan Airport").
-airport(res_airport_4327, "Mehamn Airport").
-airport(res_airport_4328, "Vadsø Airport").
-airport(res_airport_433, "Kajaani Airport").
-airport(res_airport_4330, "Imam Khomeini International Airport").
-airport(res_airport_4331, "Mashhad International Airport").
-airport(res_airport_4335, "Key Field").
-airport(res_airport_4336, "Abraham Lincoln Capital Airport").
-airport(res_airport_4338, "Cortez Municipal Airport").
-airport(res_airport_4339, "Yampa Valley Airport").
-airport(res_airport_4341, "Liberal Mid-America Regional Airport").
-airport(res_airport_4344, "Yellowstone Regional Airport").
-airport(res_airport_4345, "Ørsta-Volda Airport, Hovden").
-airport(res_airport_4347, "St. Mary's Airport").
-airport(res_airport_4348, "Springfield Branson National Airport").
-airport(res_airport_4349, "Narvik Framnes Airport").
-airport(res_airport_435, "Kokkola-Pietarsaari Airport").
-airport(res_airport_4350, "Berlevåg Airport").
-airport(res_airport_4352, "Norilsk-Alykel Airport").
-airport(res_airport_4353, "Anapa Vityazevo Airport").
-airport(res_airport_4354, "Joplin Regional Airport").
-airport(res_airport_4355, "Lehigh Valley International Airport").
-airport(res_airport_4356, "Northwest Arkansas Regional Airport").
-airport(res_airport_4357, "Atyrau Airport").
-airport(res_airport_4358, "Kzyl-Orda Southwest Airport").
-airport(res_airport_4359, "South Bend Regional Airport").
-airport(res_airport_4362, "Talagi Airport").
-airport(res_airport_4363, "Saratov Central Airport").
-airport(res_airport_4364, "Novy Urengoy Airport").
-airport(res_airport_4365, "Noyabrsk Airport").
-airport(res_airport_4367, "Aktau Airport").
-airport(res_airport_4368, "Ukhta Airport").
-airport(res_airport_4369, "Usinsk Airport").
-airport(res_airport_437, "Kuusamo Airport").
-airport(res_airport_4371, "Naryan Mar Airport").
-airport(res_airport_4373, "Kogalym International Airport").
-airport(res_airport_4374, "Yemelyanovo Airport").
-airport(res_airport_4375, "Sary-Arka Airport").
-airport(res_airport_4377, "Uray Airport").
-airport(res_airport_438, "Kittilä Airport").
-airport(res_airport_4380, "Longjia Airport").
-airport(res_airport_4381, "Niigata Airport").
-airport(res_airport_4384, "California Redwood Coast-Humboldt County Airport").
-airport(res_airport_4386, "Albert J Ellis Airport").
-airport(res_airport_4388, "Dubuque Regional Airport").
-airport(res_airport_439, "Kuopio Airport").
-airport(res_airport_441, "Lappeenranta Airport").
-airport(res_airport_442, "Mariehamn Airport").
-airport(res_airport_446, "Oulu Airport").
-airport(res_airport_448, "Pori Airport").
-airport(res_airport_45, "Deer Lake Airport").
-airport(res_airport_453, "Rovaniemi Airport").
-airport(res_airport_455, "Savonlinna Airport").
-airport(res_airport_458, "Tampere-Pirkkala Airport").
-airport(res_airport_460, "Turku Airport").
-airport(res_airport_462, "Vaasa Airport").
-airport(res_airport_465, "Belfast International Airport").
-airport(res_airport_467, "George Best Belfast City Airport").
-airport(res_airport_468, "City of Derry Airport").
-airport(res_airport_469, "Birmingham International Airport").
-airport(res_airport_472, "Gloucestershire Airport").
-airport(res_airport_478, "Manchester Airport").
-airport(res_airport_48, "Dawson Creek Airport").
-airport(res_airport_481, "Newquay Cornwall Airport").
-airport(res_airport_488, "Cardiff International Airport").
-airport(res_airport_49, "Edmonton International Airport").
-airport(res_airport_490, "Bristol Airport").
-airport(res_airport_491, "Liverpool John Lennon Airport").
-airport(res_airport_492, "London Luton Airport").
-airport(res_airport_494, "Bournemouth Airport").
-airport(res_airport_495, "Southampton Airport").
-airport(res_airport_497, "Alderney Airport").
-airport(res_airport_498, "Guernsey Airport").
-airport(res_airport_499, "Jersey Airport").
-airport(res_airport_5, "Port Moresby Jacksons International Airport").
-airport(res_airport_50, "Arviat Airport").
-airport(res_airport_502, "London Gatwick Airport").
-airport(res_airport_503, "London City Airport").
-airport(res_airport_507, "London Heathrow Airport").
-airport(res_airport_508, "Southend Airport").
-airport(res_airport_514, "Blackpool International Airport").
-airport(res_airport_515, "Humberside Airport").
-airport(res_airport_517, "Leeds Bradford Airport").
-airport(res_airport_519, "Hawarden Airport").
-airport(res_airport_520, "Isle of Man Airport").
-airport(res_airport_521, "Newcastle Airport").
-airport(res_airport_522, "Durham Tees Valley Airport").
-airport(res_airport_523, "East Midlands Airport").
-airport(res_airport_529, "Kirkwall Airport").
-airport(res_airport_530, "Sumburgh Airport").
-airport(res_airport_531, "Wick Airport").
-airport(res_airport_532, "Aberdeen Dyce Airport").
-airport(res_airport_533, "Inverness Airport").
-airport(res_airport_534, "Glasgow International Airport").
-airport(res_airport_535, "Edinburgh Airport").
-airport(res_airport_536, "Islay Airport").
-airport(res_airport_537, "Glasgow Prestwick Airport").
-airport(res_airport_538, "Benbecula Airport").
-airport(res_airport_54, "Inuvik Mike Zubko Airport").
-airport(res_airport_540, "Dundee Airport").
-airport(res_airport_5404, "Uru Harbour Airport").
-airport(res_airport_5407, "Fera/Maringe Airport").
-airport(res_airport_5409, "Ngorangora Airport").
-airport(res_airport_541, "Stornoway Airport").
-airport(res_airport_5410, "Santa Cruz/Graciosa Bay/Luova Airport").
-airport(res_airport_5411, "Munda Airport").
-airport(res_airport_5412, "Nusatupe Airport").
-airport(res_airport_5414, "Rennell/Tingoa Airport").
-airport(res_airport_5415, "Marau Airport").
-airport(res_airport_5416, "Suavanao Airport").
-airport(res_airport_5417, "Kaghau Airport").
-airport(res_airport_5418, "Ramata Airport").
-airport(res_airport_5419, "Buka Airport").
-airport(res_airport_542, "Tiree Airport").
-airport(res_airport_5420, "Chimbu Airport").
-airport(res_airport_5421, "Daru Airport").
-airport(res_airport_5422, "Gurney Airport").
-airport(res_airport_5423, "Girua Airport").
-airport(res_airport_5424, "Kimbe Airport").
-airport(res_airport_5425, "Kiunga Airport").
-airport(res_airport_5428, "Kavieng Airport").
-airport(res_airport_5429, "Mendi Airport").
-airport(res_airport_5430, "Momote Airport").
-airport(res_airport_5431, "Moro Airport").
-airport(res_airport_5432, "Misima Island Airport").
-airport(res_airport_5433, "Tari Airport").
-airport(res_airport_5434, "Tabubil Airport").
-airport(res_airport_5435, "Tokua Airport").
-airport(res_airport_5436, "Vanimo Airport").
-airport(res_airport_5437, "Wapenamanda Airport").
-airport(res_airport_5438, "Alluitsup Paa Heliport").
-airport(res_airport_5439, "Neerlerit Inaat Airport").
-airport(res_airport_5440, "Paamiut Heliport").
-airport(res_airport_5442, "Qaqortoq Heliport").
-airport(res_airport_5443, "Maniitsoq Airport").
-airport(res_airport_5444, "Nanortalik Heliport").
-airport(res_airport_5445, "Narsaq Heliport").
-airport(res_airport_5446, "Qaanaaq Airport").
-airport(res_airport_5447, "Sisimiut Airport").
-airport(res_airport_5448, "Upernavik Airport").
-airport(res_airport_5449, "Qaarsut Airport").
-airport(res_airport_5457, "Anahim Lake Airport").
-airport(res_airport_5461, "Rigolet Airport").
-airport(res_airport_5463, "Whatì Airport").
-airport(res_airport_5464, "Summer Beaver Airport").
-airport(res_airport_5465, "Wapekeka Airport").
-airport(res_airport_5466, "Wunnumin Lake Airport").
-airport(res_airport_5467, "North Spirit Lake Airport").
-airport(res_airport_5468, "Bearskin Lake Airport").
-airport(res_airport_5469, "Kingfisher Lake Airport").
-airport(res_airport_547, "Norwich International Airport").
-airport(res_airport_5470, "Ogoki Post Airport").
-airport(res_airport_5471, "Poplar Hill Airport").
-airport(res_airport_5472, "Chisasibi Airport").
-airport(res_airport_5473, "Tête-à-la-Baleine Airport").
-airport(res_airport_5474, "La Tabatière Airport").
-airport(res_airport_5478, "Cat Lake Airport").
-airport(res_airport_5479, "Fort Frances Municipal Airport").
-airport(res_airport_548, "London Stansted Airport").
-airport(res_airport_5480, "Kasabonika Airport").
-airport(res_airport_5481, "Kangirsuk Airport").
-airport(res_airport_5482, "Attawapiskat Airport").
-airport(res_airport_5485, "Lourdes de Blanc Sablon Airport").
-airport(res_airport_5487, "Chesterfield Inlet Airport").
-airport(res_airport_5488, "Nain Airport").
-airport(res_airport_5489, "Fort Severn Airport").
-airport(res_airport_5490, "Fort Albany Airport").
-airport(res_airport_5491, "Fort Hope Airport").
-airport(res_airport_5492, "Makkovik Airport").
-airport(res_airport_5495, "Igloolik Airport").
-airport(res_airport_5496, "Kuujjuarapik Airport").
-airport(res_airport_5497, "Gillam Airport").
-airport(res_airport_5498, "Grise Fiord Airport").
-airport(res_airport_5499, "Quaqtaq Airport").
-airport(res_airport_55, "Iqaluit Airport").
-airport(res_airport_5500, "Vancouver Harbour Water Aerodrome").
-airport(res_airport_5501, "Nemiscau Airport").
-airport(res_airport_5502, "Hopedale Airport").
-airport(res_airport_5503, "Chevery Airport").
-airport(res_airport_5504, "Ivujivik Airport").
-airport(res_airport_5506, "Akulivik Airport").
-airport(res_airport_5507, "Waskaganish Airport").
-airport(res_airport_5508, "Aupaluk Airport").
-airport(res_airport_5509, "Kimmirut Airport").
-airport(res_airport_5510, "Lansdowne House Airport").
-airport(res_airport_5511, "St Georges Airport").
-airport(res_airport_5512, "Kangiqsualujjuaq (Georges River) Airport").
-airport(res_airport_5514, "Chapais Airport").
-airport(res_airport_5515, "Umiujaq Airport").
-airport(res_airport_5516, "Wemindji Airport").
-airport(res_airport_552, "Exeter International Airport").
-airport(res_airport_5520, "Inukjuak Airport").
-airport(res_airport_5521, "Pikangikum Airport").
-airport(res_airport_5522, "Peawanuck Airport").
-airport(res_airport_5523, "Powell River Airport").
-airport(res_airport_5524, "The Pas Airport").
-airport(res_airport_5526, "Rae Lakes Airport").
-airport(res_airport_5527, "Red Lake Airport").
-airport(res_airport_5529, "Sanikiluaq Airport").
-airport(res_airport_5531, "Big Trout Lake Airport").
-airport(res_airport_5532, "Deer Lake Airport").
-airport(res_airport_5533, "Webequie Airport").
-airport(res_airport_5534, "Whale Cove Airport").
-airport(res_airport_5535, "Salluit Airport").
-airport(res_airport_5538, "Bathurst Airport").
-airport(res_airport_5539, "Eastmain River Airport").
-airport(res_airport_5543, "Kashechewan Airport").
-airport(res_airport_5544, "Muskrat Dam Airport").
-airport(res_airport_5545, "Masset Airport").
-airport(res_airport_5546, "Sachigo Lake Airport").
-airport(res_airport_5547, "Round Lake (Weagamow Lake) Airport").
-airport(res_airport_5548, "Sandy Lake Airport").
-airport(res_airport_5550, "Churchill Falls Airport").
-airport(res_airport_5552, "Batna Airport").
-airport(res_airport_5553, "Béchar Boudghene Ben Ali Lotfi Airport").
-airport(res_airport_5554, "Bordj Badji Mokhtar Airport").
-airport(res_airport_5555, "Guemar Airport").
-airport(res_airport_5556, "Kumasi Airport").
-airport(res_airport_5557, "Heringsdorf Airport").
-airport(res_airport_5562, "Robin Hood Doncaster Sheffield Airport").
-airport(res_airport_5563, "Campbeltown Airport").
-airport(res_airport_5564, "Eday Airport").
-airport(res_airport_5566, "North Ronaldsay Airport").
-airport(res_airport_5567, "Papa Westray Airport").
-airport(res_airport_5568, "Stronsay Airport").
-airport(res_airport_5569, "Sanday Airport").
-airport(res_airport_5571, "Westray Airport").
-airport(res_airport_5572, "Land's End Airport").
-airport(res_airport_5574, "Anglesey Airport").
-airport(res_airport_5575, "Barra Airport").
-airport(res_airport_5577, "Donegal Airport").
-airport(res_airport_5580, "Leknes Airport").
-airport(res_airport_5581, "Namsos Høknesøra Airport").
-airport(res_airport_5582, "Mo i Rana Airport, Røssvoll").
-airport(res_airport_5583, "Rørvik Airport, Ryum").
-airport(res_airport_5584, "Røst Airport").
-airport(res_airport_5585, "Sandane Airport (Anda)").
-airport(res_airport_5586, "Sogndal Airport").
-airport(res_airport_5587, "Svolvær Helle Airport").
-airport(res_airport_5588, "Sørkjosen Airport").
-airport(res_airport_5589, "Vardø Airport, Svartnes").
-airport(res_airport_5591, "Bydgoszcz Ignacy Jan Paderewski Airport").
-airport(res_airport_5593, "Åre Östersund Airport").
-airport(res_airport_5594, "Hagfors Airport").
-airport(res_airport_5595, "Karlstad Airport").
-airport(res_airport_5596, "Torsby Airport").
-airport(res_airport_5597, "Ängelholm-Helsingborg Airport").
-airport(res_airport_5599, "Hemavan Airport").
-airport(res_airport_56, "Fredericton Airport").
-airport(res_airport_5604, "Kruger Mpumalanga International Airport").
-airport(res_airport_5612, "Chipata Airport").
-airport(res_airport_5613, "Los Alamitos Army Air Field").
-airport(res_airport_5630, "Catumbela Airport").
-airport(res_airport_5632, "Ngjiva Pereira Airport").
-airport(res_airport_5633, "Namibe Airport").
-airport(res_airport_5637, "Chimoio Airport").
-airport(res_airport_5641, "Luderitz Airport").
-airport(res_airport_5642, "Ondangwa Airport").
-airport(res_airport_5643, "Oranjemund Airport").
-airport(res_airport_5645, "Eros Airport").
-airport(res_airport_5652, "Tshikapa Airport").
-airport(res_airport_5653, "Lodja Airport").
-airport(res_airport_5659, "La Gomera Airport").
-airport(res_airport_5665, "Osvaldo Vieira International Airport").
-airport(res_airport_5670, "Dakhla Airport").
-airport(res_airport_5671, "Mogador Airport").
-airport(res_airport_5672, "Hassan I Airport").
-airport(res_airport_5673, "Nador International Airport").
-airport(res_airport_5674, "Praia International Airport").
-airport(res_airport_5675, "São Filipe Airport").
-airport(res_airport_5680, "Gode Airport").
-airport(res_airport_5686, "Bosaso Airport").
-airport(res_airport_5687, "Aden Adde International Airport").
-airport(res_airport_5688, "Galcaio Airport").
-airport(res_airport_5691, "Assiut International Airport").
-airport(res_airport_5692, "Amboseli Airport").
-airport(res_airport_5693, "Lokichoggio Airport").
-airport(res_airport_5694, "Malindi Airport").
-airport(res_airport_5695, "Nanyuki Airport").
-airport(res_airport_5696, "Gardabya Airport").
-airport(res_airport_5697, "Gamal Abdel Nasser Airport").
-airport(res_airport_5699, "La Abraq Airport").
-airport(res_airport_5701, "Nyala Airport").
-airport(res_airport_5702, "Port Sudan New International Airport").
-airport(res_airport_5703, "Bukoba Airport").
-airport(res_airport_5709, "Arua Airport").
-airport(res_airport_5711, "Diu Airport").
-airport(res_airport_5714, "Aberdeen Regional Airport").
-airport(res_airport_5715, "Southwest Georgia Regional Airport").
-airport(res_airport_5716, "Athens Ben Epps Airport").
-airport(res_airport_5718, "Waterloo Regional Airport").
-airport(res_airport_5719, "Walla Walla Regional Airport").
-airport(res_airport_5720, "Alpena County Regional Airport").
-airport(res_airport_5721, "Watertown Regional Airport").
-airport(res_airport_5722, "Bradford Regional Airport").
-airport(res_airport_5723, "Western Neb. Rgnl/William B. Heilig Airport").
-airport(res_airport_5724, "Raleigh County Memorial Airport").
-airport(res_airport_5725, "Brunswick Golden Isles Airport").
-airport(res_airport_5726, "Southeast Iowa Regional Airport").
-airport(res_airport_5727, "Jack Mc Namara Field Airport").
-airport(res_airport_5728, "Cape Girardeau Regional Airport").
-airport(res_airport_5729, "Chippewa County International Airport").
-airport(res_airport_5730, "North Central West Virginia Airport").
-airport(res_airport_5731, "William R Fairchild International Airport").
-airport(res_airport_5732, "Houghton County Memorial Airport").
-airport(res_airport_5733, "Dodge City Regional Airport").
-airport(res_airport_5734, "DuBois Regional Airport").
-airport(res_airport_5735, "Chippewa Valley Regional Airport").
-airport(res_airport_5736, "Elko Regional Airport").
-airport(res_airport_5737, "New Bedford Regional Airport").
-airport(res_airport_5738, "Fayetteville Regional Grannis Field").
-airport(res_airport_5739, "Wokal Field Glasgow International Airport").
-airport(res_airport_5740, "Central Nebraska Regional Airport").
-airport(res_airport_5741, "Memorial Field").
-airport(res_airport_5742, "Tri-State/Milton J. Ferguson Field").
-airport(res_airport_5744, "Kirksville Regional Airport").
-airport(res_airport_5746, "Laramie Regional Airport").
-airport(res_airport_5747, "Arnold Palmer Regional Airport").
-airport(res_airport_5748, "North Platte Regional Airport Lee Bird Field").
-airport(res_airport_5749, "Lebanon Municipal Airport").
-airport(res_airport_5750, "Crater Lake-Klamath Regional Airport").
-airport(res_airport_5751, "Lancaster Airport").
-airport(res_airport_5753, "Lynchburg Regional Preston Glenn Field").
-airport(res_airport_5754, "Muskegon County Airport").
-airport(res_airport_5756, "Northwest Alabama Regional Airport").
-airport(res_airport_5757, "Southwest Oregon Regional Airport").
-airport(res_airport_5758, "Owensboro Daviess County Airport").
-airport(res_airport_5759, "Hattiesburg Laurel Regional Airport").
-airport(res_airport_5760, "Pocatello Regional Airport").
-airport(res_airport_5761, "Pierre Regional Airport").
-airport(res_airport_5762, "Pellston Regional Airport of Emmet County Airport").
-airport(res_airport_5763, "Portsmouth International at Pease Airport").
-airport(res_airport_5765, "Rhinelander Oneida County Airport").
-airport(res_airport_5766, "Southwest Wyoming Regional Airport").
-airport(res_airport_5767, "Rutland - Southern Vermont Regional Airport").
-airport(res_airport_5768, "San Luis County Regional Airport").
-airport(res_airport_5769, "Sheridan County Airport").
-airport(res_airport_5770, "Adirondack Regional Airport").
-airport(res_airport_5771, "Salina Municipal Airport").
-airport(res_airport_5772, "Santa Maria Pub/Capt G Allan Hancock Field").
-airport(res_airport_5773, "Tupelo Regional Airport").
-airport(res_airport_5774, "Quincy Regional Baldwin Field").
-airport(res_airport_5775, "Victoria Regional Airport").
-airport(res_airport_5776, "Valdosta Regional Airport").
-airport(res_airport_5777, "Worland Municipal Airport").
-airport(res_airport_5779, "Yakima Air Terminal McAllister Field").
-airport(res_airport_5780, "Ercan International Airport").
-airport(res_airport_5781, "Logroño-Agoncillo Airport").
-airport(res_airport_5787, "Syros Airport").
-airport(res_airport_579, "Mount Pleasant Airport").
-airport(res_airport_5793, "Corvo Airport").
-airport(res_airport_5794, "Banja Luka International Airport").
-airport(res_airport_5796, "Kars Airport").
-airport(res_airport_5798, "Kahramanmaraş Airport").
-airport(res_airport_5799, "Ağrı Airport").
-airport(res_airport_58, "Flin Flon Airport").
-airport(res_airport_580, "Amsterdam Airport Schiphol").
-airport(res_airport_5800, "Adıyaman Airport").
-airport(res_airport_5801, "Süleyman Demirel International Airport").
-airport(res_airport_5802, "Balıkesir Körfez Airport").
-airport(res_airport_5807, "JAGS McCartney International Airport").
-airport(res_airport_5809, "Salt Cay Airport").
-airport(res_airport_5810, "Samaná El Catey International Airport").
-airport(res_airport_5811, "La Isabela International Airport").
-airport(res_airport_582, "Maastricht Aachen Airport").
-airport(res_airport_5832, "Puerto Lempira Airport").
-airport(res_airport_5837, "El Lencero Airport").
-airport(res_airport_5840, "Jaqué Airport").
-airport(res_airport_5842, "Aerotortuguero Airport").
-airport(res_airport_5844, "Cabo Velas Airport").
-airport(res_airport_5847, "Puerto Jimenez Airport").
-airport(res_airport_5848, "Tobias Bolanos International Airport").
-airport(res_airport_585, "Eindhoven Airport").
-airport(res_airport_5857, "Arthur's Town Airport").
-airport(res_airport_5859, "Colonel Hill Airport").
-airport(res_airport_586, "Eelde Airport").
-airport(res_airport_5861, "Enua Airport").
-airport(res_airport_5862, "Mangaia Island Airport").
-airport(res_airport_5864, "Mauke Airport").
-airport(res_airport_5865, "Mitiaro Island Airport").
-airport(res_airport_5867, "Cicia Airport").
-airport(res_airport_5869, "Vunisea Airport").
-airport(res_airport_5873, "Lakeba Island Airport").
-airport(res_airport_5874, "Labasa Airport").
-airport(res_airport_5875, "Matei Airport").
-airport(res_airport_5877, "Rotuma Airport").
-airport(res_airport_5878, "Savusavu Airport").
-airport(res_airport_5883, "Vanua Balavu Airport").
-airport(res_airport_5884, "Niue International Airport").
-airport(res_airport_5885, "Pointe Vele Airport").
-airport(res_airport_5889, "Ahe Airport").
-airport(res_airport_5890, "Hiva Oa-Atuona Airport").
-airport(res_airport_5891, "Ua Pou Airport").
-airport(res_airport_5892, "Ua Huka Airport").
-airport(res_airport_5893, "Mota Lava Airport").
-airport(res_airport_5894, "Sola Airport").
-airport(res_airport_5895, "Torres Airstrip").
-airport(res_airport_5896, "Siwo Airport").
-airport(res_airport_5897, "Craig Cove Airport").
-airport(res_airport_5898, "Longana Airport").
-airport(res_airport_5899, "Sara Airport").
-airport(res_airport_5900, "Tavie Airport").
-airport(res_airport_5901, "Lamap Airport").
-airport(res_airport_5902, "Lamen Bay Airport").
-airport(res_airport_5903, "Maewo-Naone Airport").
-airport(res_airport_5904, "Lonorore Airport").
-airport(res_airport_5905, "Norsup Airport").
-airport(res_airport_5906, "Gaua Island Airport").
-airport(res_airport_5908, "Santo Pekoa International Airport").
-airport(res_airport_5909, "Tongoa Airport").
-airport(res_airport_591, "Rotterdam The Hague Airport").
-airport(res_airport_5910, "Uléi Airport").
-airport(res_airport_5911, "Valesdir Airport").
-airport(res_airport_5912, "Southwest Bay Airport").
-airport(res_airport_5914, "Aneityum Airport").
-airport(res_airport_5915, "Aniwa Airport").
-airport(res_airport_5916, "Dillon's Bay Airport").
-airport(res_airport_5917, "Futuna Airport").
-airport(res_airport_5918, "Ipota Airport").
-airport(res_airport_5919, "Tiga Airport").
-airport(res_airport_5920, "Île Art - Waala Airport").
-airport(res_airport_5921, "Île des Pins Airport").
-airport(res_airport_5924, "Dawadmi Domestic Airport").
-airport(res_airport_5925, "Al-Jawf Domestic Airport").
-airport(res_airport_5927, "Khoram Abad Airport").
-airport(res_airport_5928, "Bam Airport").
-airport(res_airport_5930, "Bojnord Airport").
-airport(res_airport_5931, "Sabzevar National Airport").
-airport(res_airport_5932, "Noshahr Airport").
-airport(res_airport_5933, "Dasht-e Naz Airport").
-airport(res_airport_5934, "Lar Airport").
-airport(res_airport_5935, "Ardabil Airport").
-airport(res_airport_5936, "Urmia Airport").
-airport(res_airport_5937, "Al Ain International Airport").
-airport(res_airport_5939, "Bahawalpur Airport").
-airport(res_airport_5940, "Chitral Airport").
-airport(res_airport_5941, "Dalbandin Airport").
-airport(res_airport_5942, "Dera Ghazi Khan Airport").
-airport(res_airport_5943, "Dera Ismael Khan Airport").
-airport(res_airport_5949, "Skardu Airport").
-airport(res_airport_5951, "Turbat International Airport").
-airport(res_airport_5952, "Sulaymaniyah International Airport").
-airport(res_airport_5954, "Sayun International Airport").
-airport(res_airport_5959, "Adak Airport").
-airport(res_airport_596, "Cork Airport").
-airport(res_airport_5960, "Gustavus Airport").
-airport(res_airport_5961, "Skagway Airport").
-airport(res_airport_5962, "Holy Cross Airport").
-airport(res_airport_5963, "Haines Airport").
-airport(res_airport_5964, "Kalskag Airport").
-airport(res_airport_5965, "McGrath Airport").
-airport(res_airport_5966, "Mountain Village Airport").
-airport(res_airport_5967, "Aniak Airport").
-airport(res_airport_5968, "Chevak Airport").
-airport(res_airport_5969, "Wrangell Airport").
-airport(res_airport_599, "Dublin Airport").
-airport(res_airport_5994, "Kushiro Airport").
-airport(res_airport_5996, "Saga Airport").
-airport(res_airport_5997, "Nagoya Airport").
-airport(res_airport_5998, "Iwami Airport").
-airport(res_airport_5999, "Fukushima Airport").
-airport(res_airport_6, "Wewak International Airport").
-airport(res_airport_60, "Fort Simpson Airport").
-airport(res_airport_600, "Ireland West Knock Airport").
-airport(res_airport_6000, "Odate Noshiro Airport").
-airport(res_airport_6001, "Shonai Airport").
-airport(res_airport_6003, "Kunsan Air Base").
-airport(res_airport_6005, "Wonju/Hoengseong Air Base (K-38/K-46)").
-airport(res_airport_6006, "Yangyang International Airport").
-airport(res_airport_6007, "Sacheon Air Base/Airport").
-airport(res_airport_6008, "Cheongju International Airport/Cheongju Air Base (K-59/G-513)").
-airport(res_airport_601, "Kerry Airport").
-airport(res_airport_6012, "Camiguin Airport").
-airport(res_airport_6013, "Jolo Airport").
-airport(res_airport_6016, "Surigao Airport").
-airport(res_airport_6018, "Naga Airport").
-airport(res_airport_6019, "Basco Airport").
-airport(res_airport_6021, "Tuguegarao Airport").
-airport(res_airport_6022, "Virac Airport").
-airport(res_airport_6023, "Calbayog Airport").
-airport(res_airport_6024, "Catarman National Airport").
-airport(res_airport_6025, "Moises R. Espinosa Airport").
-airport(res_airport_6026, "Roxas Airport").
-airport(res_airport_603, "Shannon Airport").
-airport(res_airport_6034, "Orlando Bezerra de Menezes Airport").
-airport(res_airport_6036, "Coronel Horácio de Mattos Airport").
-airport(res_airport_6037, "Macaé Airport").
-airport(res_airport_6038, "Frank Miloye Milenkowichi–Marília State Airport").
-airport(res_airport_6039, "Vitória da Conquista Airport").
-airport(res_airport_6040, "Santa Maria Airport").
-airport(res_airport_6045, "San Cristóbal Airport").
-airport(res_airport_6046, "Camilo Ponce Enriquez Airport").
-airport(res_airport_6047, "General Rivadeneira Airport").
-airport(res_airport_605, "Waterford Airport").
-airport(res_airport_6051, "Caucaya Airport").
-airport(res_airport_6052, "La Pedrera Airport").
-airport(res_airport_6053, "Reyes Murillo Airport").
-airport(res_airport_6054, "Obando Airport").
-airport(res_airport_6055, "El Yopal Airport").
-airport(res_airport_6056, "Capitán de Av. Emilio Beltrán Airport").
-airport(res_airport_6058, "Capitán Av. Selin Zeitun Lopez Airport").
-airport(res_airport_6066, "Mayor General FAP Armando Revoredo Iglesias Airport").
-airport(res_airport_6067, "Alferez Fap David Figueroa Fernandini Airport").
-airport(res_airport_6069, "Santa Rosa Airport").
-airport(res_airport_607, "Aarhus Airport").
-airport(res_airport_6072, "Juan Pablo Pérez Alfonso Airport").
-airport(res_airport_6073, "Ji-Paraná Airport").
-airport(res_airport_6079, "Vance W. Amory International Airport").
-airport(res_airport_608, "Billund Airport").
-airport(res_airport_6080, "Virgin Gorda Airport").
-airport(res_airport_6083, "Kokshetau Airport").
-airport(res_airport_6084, "Petropavlosk South Airport").
-airport(res_airport_6085, "Zhezkazgan Airport").
-airport(res_airport_6086, "Ust-Kamennogorsk Airport").
-airport(res_airport_6088, "Kostanay West Airport").
-airport(res_airport_6089, "Ganja Airport").
-airport(res_airport_609, "Copenhagen Kastrup Airport").
-airport(res_airport_6090, "Nakhchivan Airport").
-airport(res_airport_6092, "Polyarny Airport").
-airport(res_airport_6093, "Chokurdakh Airport").
-airport(res_airport_6094, "Cherskiy Airport").
-airport(res_airport_6095, "Tiksi Airport").
-airport(res_airport_6098, "Ugolny Airport").
-airport(res_airport_61, "Kingston Norman Rogers Airport").
-airport(res_airport_610, "Esbjerg Airport").
-airport(res_airport_6103, "Zaporizhzhia International Airport").
-airport(res_airport_6105, "Kharkiv International Airport").
-airport(res_airport_6106, "Ivano-Frankivsk International Airport").
-airport(res_airport_6109, "Uzhhorod International Airport").
-airport(res_airport_6110, "Solovki Airport").
-airport(res_airport_6111, "Cherepovets Airport").
-airport(res_airport_6114, "Petrozavodsk Airport").
-airport(res_airport_6118, "Kyzyl Airport").
-airport(res_airport_6119, "Spichenkovo Airport").
-airport(res_airport_612, "Karup Airport").
-airport(res_airport_6121, "Igarka Airport").
-airport(res_airport_6122, "Khankala Air Base").
-airport(res_airport_6124, "Beslan Airport").
-airport(res_airport_6125, "Elista Airport").
-airport(res_airport_6130, "Mid Delta Regional Airport").
-airport(res_airport_6133, "Tri Cities Airport").
-airport(res_airport_6134, "Akutan Seaplane Base").
-airport(res_airport_6136, "Lopez Island Airport").
-airport(res_airport_6137, "Salekhard Airport").
-airport(res_airport_6138, "Khanty Mansiysk Airport").
-airport(res_airport_6139, "Nyagan Airport").
-airport(res_airport_6140, "Sovetskiy Airport").
-airport(res_airport_6141, "Izhevsk Airport").
-airport(res_airport_6142, "Pobedilovo Airport").
-airport(res_airport_6143, "Nadym Airport").
-airport(res_airport_6146, "Kurgan Airport").
-airport(res_airport_6147, "Khudzhand Airport").
-airport(res_airport_6148, "Andizhan Airport").
-airport(res_airport_6149, "Fergana International Airport").
-airport(res_airport_6150, "Namangan Airport").
-airport(res_airport_6151, "Nukus Airport").
-airport(res_airport_6152, "Urgench Airport").
-airport(res_airport_6153, "Karshi Khanabad Airport").
-airport(res_airport_6154, "Termez Airport").
-airport(res_airport_6156, "Belgorod International Airport").
-airport(res_airport_6157, "Kursk East Airport").
-airport(res_airport_6159, "Vorkuta Airport").
-airport(res_airport_6160, "Bugulma Airport").
-airport(res_airport_6162, "Cheboksary Airport").
-airport(res_airport_6164, "Orsk Airport").
-airport(res_airport_6165, "Penza Airport").
-airport(res_airport_6166, "Saransk Airport").
-airport(res_airport_6168, "Hubli Airport").
-airport(res_airport_6169, "Koggala Airport").
-airport(res_airport_6172, "Shillong Airport").
-airport(res_airport_6173, "Lokpriya Gopinath Bordoloi International Airport").
-airport(res_airport_6174, "Dimapur Airport").
-airport(res_airport_6176, "Barisal Airport").
-airport(res_airport_6179, "Bharatpur Airport").
-airport(res_airport_618, "Bornholm Airport").
-airport(res_airport_6180, "Bhadrapur Airport").
-airport(res_airport_6182, "Nepalgunj Airport").
-airport(res_airport_6183, "Gan International Airport").
-airport(res_airport_6184, "Hanimaadhoo Airport").
-airport(res_airport_6185, "Kadhdhoo Airport").
-airport(res_airport_6186, "Mae Sot Airport").
-airport(res_airport_6187, "Buon Ma Thuot Airport").
-airport(res_airport_6188, "Cat Bi International Airport").
-airport(res_airport_6189, "Cam Ranh Airport").
-airport(res_airport_619, "Sønderborg Airport").
-airport(res_airport_6190, "Co Ong Airport").
-airport(res_airport_6191, "Can Tho International Airport").
-airport(res_airport_6192, "Dien Bien Phu Airport").
-airport(res_airport_6193, "Phu Cat Airport").
-airport(res_airport_6194, "Pleiku Airport").
-airport(res_airport_6195, "Vinh Airport").
-airport(res_airport_6197, "Dawei Airport").
-airport(res_airport_6198, "Kawthoung Airport").
-airport(res_airport_62, "La Grande Rivière Airport").
-airport(res_airport_6204, "Tambolaka Airport").
-airport(res_airport_6209, "Kalimarau Airport").
-airport(res_airport_6212, "Dumatumbun Airport").
-airport(res_airport_6215, "Long Lellang Airport").
-airport(res_airport_6216, "Long Seridan Airport").
-airport(res_airport_6217, "Mukah Airport").
-airport(res_airport_6218, "Bakalalan Airport").
-airport(res_airport_6219, "Lawas Airport").
-airport(res_airport_6220, "Bario Airport").
-airport(res_airport_6222, "Kudat Airport").
-airport(res_airport_6223, "Radin Inten II (Branti) Airport").
-airport(res_airport_6225, "Ranai Airport").
-airport(res_airport_6235, "Albany Airport").
-airport(res_airport_6237, "Aurukun Airport").
-airport(res_airport_6238, "Barcaldine Airport").
-airport(res_airport_6240, "Birdsville Airport").
-airport(res_airport_6241, "Broken Hill Airport").
-airport(res_airport_6242, "Hamilton Island Airport").
-airport(res_airport_6243, "Bedourie Airport").
-airport(res_airport_6245, "Burketown Airport").
-airport(res_airport_6248, "Boulia Airport").
-airport(res_airport_6249, "Bathurst Airport").
-airport(res_airport_625, "Vagar Airport").
-airport(res_airport_6253, "Coober Pedy Airport").
-airport(res_airport_6255, "Cloncurry Airport").
-airport(res_airport_6256, "Ceduna Airport").
-airport(res_airport_6258, "Cunnamulla Airport").
-airport(res_airport_6260, "Coen Airport").
-airport(res_airport_6262, "Doomadgee Airport").
-airport(res_airport_6264, "Devonport Airport").
-airport(res_airport_6265, "Elcho Island Airport").
-airport(res_airport_6266, "Esperance Airport").
-airport(res_airport_6267, "Flinders Island Airport").
-airport(res_airport_6268, "Geraldton Airport").
-airport(res_airport_6269, "Gladstone Airport").
-airport(res_airport_6270, "Groote Eylandt Airport").
-airport(res_airport_6271, "Griffith Airport").
-airport(res_airport_6272, "Horn Island Airport").
-airport(res_airport_6276, "Julia Creek Airport").
-airport(res_airport_6278, "King Island Airport").
-airport(res_airport_628, "Aalborg Airport").
-airport(res_airport_6281, "Kowanyama Airport").
-airport(res_airport_6285, "Lord Howe Island Airport").
-airport(res_airport_6286, "Lockhart River Airport").
-airport(res_airport_6287, "Lismore Airport").
-airport(res_airport_6289, "Longreach Airport").
-airport(res_airport_629, "Luxembourg-Findel International Airport").
-airport(res_airport_6294, "Merimbula Airport").
-airport(res_airport_6295, "Milingimbi Airport").
-airport(res_airport_6296, "Maningrida Airport").
-airport(res_airport_6297, "McArthur River Mine Airport").
-airport(res_airport_6298, "Mildura Airport").
-airport(res_airport_63, "Gaspé (Michel-Pouliot) Airport").
-airport(res_airport_630, "Ålesund Airport").
-airport(res_airport_6300, "Moree Airport").
-airport(res_airport_6301, "Moranbah Airport").
-airport(res_airport_6302, "Moruya Airport").
-airport(res_airport_6303, "Mount Gambier Airport").
-airport(res_airport_6304, "Mornington Island Airport").
-airport(res_airport_6307, "Narrandera Airport").
-airport(res_airport_6309, "Normanton Airport").
-airport(res_airport_631, "Andøya Airport").
-airport(res_airport_6310, "Newman Airport").
-airport(res_airport_6311, "Olympic Dam Airport").
-airport(res_airport_6312, "Port Augusta Airport").
-airport(res_airport_6314, "Paraburdoo Airport").
-airport(res_airport_6315, "Cocos (Keeling) Islands Airport").
-airport(res_airport_6316, "Gove Airport").
-airport(res_airport_6317, "Parkes Airport").
-airport(res_airport_6318, "Port Lincoln Airport").
-airport(res_airport_6319, "Pormpuraaw Airport").
-airport(res_airport_632, "Alta Airport").
-airport(res_airport_6320, "Port Macquarie Airport").
-airport(res_airport_6321, "Portland Airport").
-airport(res_airport_6322, "Quilpie Airport").
-airport(res_airport_6324, "Roma Airport").
-airport(res_airport_6325, "St George Airport").
-airport(res_airport_6329, "Thargomindah Airport").
-airport(res_airport_6333, "Windorah Airport").
-airport(res_airport_6334, "Whyalla Airport").
-airport(res_airport_6337, "Winton Airport").
-airport(res_airport_6338, "Wynyard Airport").
-airport(res_airport_634, "Brønnøysund Airport").
-airport(res_airport_6341, "Beijing Nanyuan Airport").
-airport(res_airport_6342, "Chifeng Airport").
-airport(res_airport_6343, "Changzhi Airport").
-airport(res_airport_6344, "Datong Airport").
-airport(res_airport_6345, "Baita International Airport").
-airport(res_airport_6346, "Baotou Airport").
-airport(res_airport_6347, "Shijiazhuang Daguocun International Airport").
-airport(res_airport_6348, "Tongliao Airport").
-airport(res_airport_6349, "Ulanhot Airport").
-airport(res_airport_635, "Bodø Airport").
-airport(res_airport_6350, "Xilinhot Airport").
-airport(res_airport_6351, "Beihai Airport").
-airport(res_airport_6352, "Changde Airport").
-airport(res_airport_6353, "Dayong Airport").
-airport(res_airport_6354, "Meixian Airport").
-airport(res_airport_6355, "Zhuhai Jinwan Airport").
-airport(res_airport_6356, "Liuzhou Bailian Airport").
-airport(res_airport_6357, "Zhanjiang Airport").
-airport(res_airport_6358, "Enshi Airport").
-airport(res_airport_6359, "Nanyang Jiangying Airport").
-airport(res_airport_636, "Bergen Airport Flesland").
-airport(res_airport_6360, "Xiangyang Liuji Airport").
-airport(res_airport_6361, "Yichang Sanxia Airport").
-airport(res_airport_6363, "Golmud Airport").
-airport(res_airport_6365, "Qingyang Airport").
-airport(res_airport_6366, "Xining Caojiabu Airport").
-airport(res_airport_6367, "Yan'an Ershilipu Airport").
-airport(res_airport_6368, "Yulin Yuyang Airport").
-airport(res_airport_637, "Båtsfjord Airport").
-airport(res_airport_6370, "Altai Airport").
-airport(res_airport_6371, "Bayankhongor Airport").
-airport(res_airport_6372, "Dalanzadgad Airport").
-airport(res_airport_6373, "Khovd Airport").
-airport(res_airport_6374, "Mörön Airport").
-airport(res_airport_6375, "Diqing Airport").
-airport(res_airport_6376, "Mangshi Airport").
-airport(res_airport_6377, "Pu'er Simao Airport").
-airport(res_airport_6378, "Zhaotong Airport").
-airport(res_airport_6379, "Ganzhou Airport").
-airport(res_airport_638, "Kristiansand Airport").
-airport(res_airport_6380, "Jingdezhen Airport").
-airport(res_airport_6381, "Jiujiang Lushan Airport").
-airport(res_airport_6382, "Quzhou Airport").
-airport(res_airport_6383, "Lianyungang Airport").
-airport(res_airport_6384, "Huangyan Luqiao Airport").
-airport(res_airport_6385, "Shubuling Airport").
-airport(res_airport_6386, "Quanzhou Jinjiang International Airport").
-airport(res_airport_6387, "Tunxi International Airport").
-airport(res_airport_6388, "Weifang Airport").
-airport(res_airport_6390, "Sunan Shuofang International Airport").
-airport(res_airport_6391, "Nanping Wuyishan Airport").
-airport(res_airport_6392, "Wenzhou Longwan International Airport").
-airport(res_airport_6393, "Yancheng Airport").
-airport(res_airport_6394, "Yiwu Airport").
-airport(res_airport_6395, "Zhoushan Airport").
-airport(res_airport_6396, "Qamdo Bangda Airport").
-airport(res_airport_6397, "Dachuan Airport").
-airport(res_airport_6398, "Guangyuan Airport").
-airport(res_airport_6399, "Luzhou Airport").
-airport(res_airport_640, "Bardufoss Airport").
-airport(res_airport_6400, "Mianyang Airport").
-airport(res_airport_6401, "Nanchong Airport").
-airport(res_airport_6402, "Nyingchi Airport").
-airport(res_airport_6403, "Wanxian Airport").
-airport(res_airport_6404, "Aksu Airport").
-airport(res_airport_6406, "Kuqa Airport").
-airport(res_airport_6407, "Korla Airport").
-airport(res_airport_6408, "Karamay Airport").
-airport(res_airport_6409, "Yining Airport").
-airport(res_airport_641, "Harstad/Narvik Airport, Evenes").
-airport(res_airport_6410, "Heihe Airport").
-airport(res_airport_6411, "Jiamusi Airport").
-airport(res_airport_6412, "Jinzhou Airport").
-airport(res_airport_6413, "Qiqihar Sanjiazi Airport").
-airport(res_airport_6414, "Yanji Chaoyangchuan Airport").
-airport(res_airport_642, "Leirin Airport").
-airport(res_airport_6426, "Worcester Regional Airport").
-airport(res_airport_6427, "Anqing Tianzhushan Airport").
-airport(res_airport_6429, "Shanhaiguan Airport").
-airport(res_airport_643, "Florø Airport").
-airport(res_airport_6430, "Yuncheng Guangong Airport").
-airport(res_airport_6432, "Jiayuguan Airport").
-airport(res_airport_6433, "Dandong Airport").
-airport(res_airport_6434, "Ordos Ejin Horo Airport").
-airport(res_airport_6435, "Bao'anying Airport").
-airport(res_airport_644, "Oslo Lufthavn").
-airport(res_airport_645, "Haugesund Airport").
-airport(res_airport_6456, "Provincetown Municipal Airport").
-airport(res_airport_646, "Hasvik Airport").
-airport(res_airport_6460, "Gustaf III Airport").
-airport(res_airport_6466, "Donskoye Airport").
-airport(res_airport_647, "Kristiansund Airport (Kvernberget)").
-airport(res_airport_6477, "Erechim Airport").
-airport(res_airport_6485, "Navoi Airport").
-airport(res_airport_649, "Kirkenes Airport (Høybuktmoen)").
-airport(res_airport_6492, "Ain Arnat Airport").
-airport(res_airport_6493, "La Rochelle-Île de Ré Airport").
-airport(res_airport_65, "Îles-de-la-Madeleine Airport").
-airport(res_airport_6505, "Phoenix-Mesa-Gateway Airport").
-airport(res_airport_651, "Molde Airport").
-airport(res_airport_652, "Mosjøen Airport (Kjærstad)").
-airport(res_airport_653, "Banak Airport").
-airport(res_airport_655, "Ørland Airport").
-airport(res_airport_656, "Røros Airport").
-airport(res_airport_657, "Moss Airport, Rygge").
-airport(res_airport_658, "Svalbard Airport, Longyear").
-airport(res_airport_659, "Skien Airport").
-airport(res_airport_660, "Stord Airport").
-airport(res_airport_662, "Sandnessjøen Airport (Stokka)").
-airport(res_airport_663, "Tromsø Airport,").
-airport(res_airport_664, "Sandefjord Airport, Torp").
-airport(res_airport_665, "Trondheim Airport Værnes").
-airport(res_airport_666, "Stavanger Airport Sola").
-airport(res_airport_668, "Gdańsk Lech Wałęsa Airport").
-airport(res_airport_669, "Kraków John Paul II International Airport").
-airport(res_airport_67, "Dryden Regional Airport").
-airport(res_airport_671, "Katowice International Airport").
-airport(res_airport_6712, "Anaktuvuk Pass Airport").
-airport(res_airport_6713, "Anvik Airport").
-airport(res_airport_6714, "Atqasuk Edward Burnell Sr Memorial Airport").
-airport(res_airport_6715, "Gambell Airport").
-airport(res_airport_6716, "Hooper Bay Airport").
-airport(res_airport_6717, "Kaltag Airport").
-airport(res_airport_6718, "St Mary's Airport").
-airport(res_airport_6719, "Kivalina Airport").
-airport(res_airport_6720, "Mekoryuk Airport").
-airport(res_airport_6722, "Ruby Airport").
-airport(res_airport_6723, "Shishmaref Airport").
-airport(res_airport_6724, "Savoonga Airport").
-airport(res_airport_6725, "Noatak Airport").
-airport(res_airport_6727, "Puvirnituq Airport").
-airport(res_airport_6728, "Tasiujaq Airport").
-airport(res_airport_6729, "Arctic Village Airport").
-airport(res_airport_6730, "Sam Mbakwe International Airport").
-airport(res_airport_6731, "Arenal Airport").
-airport(res_airport_6732, "Tambor Airport").
-airport(res_airport_6733, "Cauayan Airport").
-airport(res_airport_6734, "Kirovsk-Apatity Airport").
-airport(res_airport_6735, "Coronel Altino Machado de Oliveira Airport").
-airport(res_airport_6737, "Pajala Airport").
-airport(res_airport_6738, "Bella Coola Airport").
-airport(res_airport_6739, "Hagerstown Regional Richard A Henson Field").
-airport(res_airport_674, "Poznań-Ławica Airport").
-airport(res_airport_6740, "Araracuara Airport").
-airport(res_airport_6741, "Gorakhpur Airport").
-airport(res_airport_6742, "Sand Point Airport").
-airport(res_airport_6743, "Hami Airport").
-airport(res_airport_6744, "Wuzhou Changzhoudao Airport").
-airport(res_airport_6747, "Gorgan Airport").
-airport(res_airport_6748, "Ilam Airport").
-airport(res_airport_6749, "Parsabade Moghan Airport").
-airport(res_airport_675, "Rzeszów-Jasionka Airport").
-airport(res_airport_6752, "Tacheng Airport").
-airport(res_airport_6753, "Mardin Airport").
-airport(res_airport_6755, "Deering Airport").
-airport(res_airport_6756, "Leon Airport").
-airport(res_airport_6757, "Burgos Airport").
-airport(res_airport_6758, "Sege Airport").
-airport(res_airport_676, "Szczecin-Goleniów \\\"Solidarność\\\" Airport").
-airport(res_airport_6760, "Kangra Airport").
-airport(res_airport_6763, "Igiugig Airport").
-airport(res_airport_6765, "King Cove Airport").
-airport(res_airport_6766, "Port Heiden Airport").
-airport(res_airport_6767, "Togiak Airport").
-airport(res_airport_6768, "Geneina Airport").
-airport(res_airport_6769, "Long Akah Airport").
-airport(res_airport_6771, "Walaha Airport").
-airport(res_airport_6772, "Chaoyang Airport").
-airport(res_airport_6773, "Buffalo Spring").
-airport(res_airport_6775, "Bonaventure Airport").
-airport(res_airport_6776, "Sialkot Airport").
-airport(res_airport_6777, "Capitan Corbeta CA Curbelo International Airport").
-airport(res_airport_6778, "Walvis Bay Airport").
-airport(res_airport_6779, "Katima Mulilo Airport").
-airport(res_airport_6780, "Anadolu Airport").
-airport(res_airport_6781, "Çanakkale Airport").
-airport(res_airport_6782, "Muş Airport").
-airport(res_airport_6783, "Sinop Airport").
-airport(res_airport_6784, "Tekirdağ Çorlu Airport").
-airport(res_airport_6788, "Vieques Airport").
-airport(res_airport_6789, "St Augustin Airport").
-airport(res_airport_679, "Warsaw Chopin Airport").
-airport(res_airport_6790, "Hamadan Airport").
-airport(res_airport_6792, "Grafton Airport").
-airport(res_airport_6793, "Orange Airport").
-airport(res_airport_6794, "Taree Airport").
-airport(res_airport_6795, "Choibalsan Airport").
-airport(res_airport_68, "Ulukhaktok Holman Airport").
-airport(res_airport_680, "Copernicus Wrocław Airport").
-airport(res_airport_6800, "Delta County Airport").
-airport(res_airport_6803, "Yakutat Airport").
-airport(res_airport_6814, "Benjamin Rivera Noriega Airport").
-airport(res_airport_6825, "Williamson County Regional Airport").
-airport(res_airport_6837, "Ford Airport").
-airport(res_airport_6839, "Allakaket Airport").
-airport(res_airport_685, "Ronneby Airport").
-airport(res_airport_687, "Gothenburg-Landvetter Airport").
-airport(res_airport_688, "Jönköping Airport").
-airport(res_airport_6880, "Montrose Regional Airport").
-airport(res_airport_6881, "Riverton Regional Airport").
-airport(res_airport_6883, "Eastern Oregon Regional At Pendleton Airport").
-airport(res_airport_69, "Gjoa Haven Airport").
-airport(res_airport_691, "Gothenburg City Airport").
-airport(res_airport_6916, "Pangborn Memorial Airport").
-airport(res_airport_6924, "Ust-Kut Airport").
-airport(res_airport_6926, "Rimatara Airport").
-airport(res_airport_693, "Trollhättan-Vänersborg Airport").
-airport(res_airport_6933, "Gelendzhik Airport").
-airport(res_airport_6940, "Tunoshna Airport").
-airport(res_airport_6943, "Gu-Lian Airport").
-airport(res_airport_6944, "Jining Qufu Airport").
-airport(res_airport_6945, "Drake Bay Airport").
-airport(res_airport_6946, "Altay Air Base").
-airport(res_airport_6949, "Naypyidaw Airport").
-airport(res_airport_6954, "Manzhouli Xijiao Airport").
-airport(res_airport_6955, "Wuhai Airport").
-airport(res_airport_6957, "Brainerd Lakes Regional Airport").
-airport(res_airport_6958, "Greenbrier Valley Airport").
-airport(res_airport_6959, "Pitt Greenville Airport").
-airport(res_airport_6960, "Chefornak Airport").
-airport(res_airport_6962, "Branson Airport").
-airport(res_airport_6963, "Tongren Fenghuang Airport").
-airport(res_airport_6969, "Begishevo Airport").
-airport(res_airport_6972, "Warri Airport").
-airport(res_airport_6974, "Siargao Airport").
-airport(res_airport_698, "Mora Airport").
-airport(res_airport_6989, "Northeast Florida Regional Airport").
-airport(res_airport_699, "Stockholm Skavsta Airport").
-airport(res_airport_6992, "Charles M. Schulz Sonoma County Airport").
-airport(res_airport_7, "Narsarsuaq Airport").
-airport(res_airport_70, "John C. Munro Hamilton International Airport").
-airport(res_airport_7001, "Aspen-Pitkin Co/Sardy Field").
-airport(res_airport_7003, "Ulyanovsk Baratayevka Airport").
-airport(res_airport_7018, "Thief River Falls Regional Airport").
-airport(res_airport_703, "Kristianstad Airport").
-airport(res_airport_7051, "Gunnison Crested Butte Regional Airport").
-airport(res_airport_7054, "Manistee Co Blacker Airport").
-airport(res_airport_7056, "Charlotte County Airport").
-airport(res_airport_7059, "Chautauqua County-Jamestown Airport").
-airport(res_airport_7062, "Shenandoah Valley Regional Airport").
-airport(res_airport_7064, "Dickinson Theodore Roosevelt Regional Airport").
-airport(res_airport_7065, "Sidney - Richland Regional Airport").
-airport(res_airport_7066, "Chadron Municipal Airport").
-airport(res_airport_7067, "Alliance Municipal Airport").
-airport(res_airport_7068, "Mc Cook Ben Nelson Regional Airport").
-airport(res_airport_707, "Kalmar Airport").
-airport(res_airport_7070, "Dawson Community Airport").
-airport(res_airport_7071, "L M Clayton Airport").
-airport(res_airport_7073, "San Luis Valley Regional Bergman Field").
-airport(res_airport_7074, "Canyonlands Field").
-airport(res_airport_7076, "Vernal Regional Airport").
-airport(res_airport_7078, "Show Low Regional Airport").
-airport(res_airport_708, "Malmö Sturup Airport").
-airport(res_airport_7081, "Mammoth Yosemite Airport").
-airport(res_airport_7082, "Friday Harbor Airport").
-airport(res_airport_7083, "Orcas Island Airport").
-airport(res_airport_7087, "Emmonak Airport").
-airport(res_airport_7088, "Unalakleet Airport").
-airport(res_airport_709, "Halmstad Airport").
-airport(res_airport_7090, "Shageluk Airport").
-airport(res_airport_7091, "Chuathbaluk Airport").
-airport(res_airport_7092, "Nuiqsut Airport").
-airport(res_airport_7093, "Eek Airport").
-airport(res_airport_7094, "Kasigluk Airport").
-airport(res_airport_7095, "Kwethluk Airport").
-airport(res_airport_7096, "Kwigillingok Airport").
-airport(res_airport_7097, "Marshall Don Hunter Sr Airport").
-airport(res_airport_7098, "Russian Mission Airport").
-airport(res_airport_71, "Montréal / Saint-Hubert Airport").
-airport(res_airport_7105, "Chalkyitsik Airport").
-airport(res_airport_7107, "Hughes Airport").
-airport(res_airport_7108, "Huslia Airport").
-airport(res_airport_711, "Växjö Kronoberg Airport").
-airport(res_airport_7111, "Nulato Airport").
-airport(res_airport_7114, "Venetie Airport").
-airport(res_airport_7115, "Beaver Airport").
-airport(res_airport_7116, "Central Airport").
-airport(res_airport_7117, "Shungnak Airport").
-airport(res_airport_7121, "Visalia Municipal Airport").
-airport(res_airport_7122, "Merced Regional Macready Field").
-airport(res_airport_7128, "Toowoomba Airport").
-airport(res_airport_7135, "Angoon Seaplane Base").
-airport(res_airport_7136, "Elfin Cove Seaplane Base").
-airport(res_airport_714, "Sveg Airport").
-airport(res_airport_7142, "Hoonah Airport").
-airport(res_airport_7146, "Metlakatla Seaplane Base").
-airport(res_airport_7148, "Hydaburg Seaplane Base").
-airport(res_airport_715, "Gällivare Airport").
-airport(res_airport_7154, "Egegik Airport").
-airport(res_airport_7157, "Perryville Airport").
-airport(res_airport_7158, "Pilot Point Airport").
-airport(res_airport_7159, "South Naknek Nr 2 Airport").
-airport(res_airport_7160, "Akhiok Airport").
-airport(res_airport_7161, "Karluk Airport").
-airport(res_airport_7162, "Larsen Bay Airport").
-airport(res_airport_7177, "Ambler Airport").
-airport(res_airport_7178, "Buckland Airport").
-airport(res_airport_7179, "Bob Baker Memorial Airport").
-airport(res_airport_718, "Kramfors Sollefteå Airport").
-airport(res_airport_7180, "Kobuk Airport").
-airport(res_airport_7181, "Robert (Bob) Curtis Memorial Airport").
-airport(res_airport_7182, "Selawik Airport").
-airport(res_airport_7183, "Brevig Mission Airport").
-airport(res_airport_7184, "Elim Airport").
-airport(res_airport_7185, "Golovin Airport").
-airport(res_airport_7186, "Teller Airport").
-airport(res_airport_7187, "Wales Airport").
-airport(res_airport_7188, "White Mountain Airport").
-airport(res_airport_719, "Lycksele Airport").
-airport(res_airport_7190, "Koyuk Alfred Adams Airport").
-airport(res_airport_7191, "St Michael Airport").
-airport(res_airport_7192, "Shaktoolik Airport").
-airport(res_airport_7194, "Tin City Long Range Radar Station Airport").
-airport(res_airport_7195, "Atka Airport").
-airport(res_airport_7196, "Nikolski Air Station").
-airport(res_airport_7199, "Alakanuk Airport").
-airport(res_airport_72, "Hay River / Merlyn Carter Airport").
-airport(res_airport_7201, "Kipnuk Airport").
-airport(res_airport_7202, "False Pass Airport").
-airport(res_airport_7203, "Nelson Lagoon Airport").
-airport(res_airport_7205, "Klawock Airport").
-airport(res_airport_7206, "Quinhagak Airport").
-airport(res_airport_7207, "Kotlik Airport").
-airport(res_airport_7208, "Koyukuk Airport").
-airport(res_airport_7209, "Scammon Bay Airport").
-airport(res_airport_721, "Sundsvall-Härnösand Airport").
-airport(res_airport_7213, "Kongiganak Airport").
-airport(res_airport_7214, "Nikolai Airport").
-airport(res_airport_7217, "Akiak Airport").
-airport(res_airport_722, "Örnsköldsvik Airport").
-airport(res_airport_7220, "Wainwright Airport").
-airport(res_airport_7235, "Tok Junction Airport").
-airport(res_airport_7236, "Circle City /New/ Airport").
-airport(res_airport_724, "Kiruna Airport").
-airport(res_airport_7240, "Sleetmute Airport").
-airport(res_airport_7242, "Healy River Airport").
-airport(res_airport_7246, "Manley Hot Springs Airport").
-airport(res_airport_7252, "Postville Airport").
-airport(res_airport_7253, "Kangiqsujuaq (Wakeham Bay) Airport").
-airport(res_airport_7255, "Havre St Pierre Airport").
-airport(res_airport_726, "Skellefteå Airport").
-airport(res_airport_7266, "Rainbow Lake Airport").
-airport(res_airport_7275, "Denny Island Airport").
-airport(res_airport_7277, "Wekweètì Airport").
-airport(res_airport_728, "Umeå Airport").
-airport(res_airport_729, "Vilhelmina Airport").
-airport(res_airport_73, "Halifax / Stanfield International Airport").
-airport(res_airport_730, "Arvidsjaur Airport").
-airport(res_airport_7309, "Charlotte Amalie Harbor Seaplane Base").
-airport(res_airport_731, "Örebro Airport").
-airport(res_airport_7313, "Uyuni Airport").
-airport(res_airport_7317, "Rurenabaque Airport").
-airport(res_airport_733, "Stockholm Västerås Airport").
-airport(res_airport_734, "Luleå Airport").
-airport(res_airport_7355, "Los Colonizadores Airport").
-airport(res_airport_7359, "Villa Garzón Airport").
-airport(res_airport_7364, "Cabo Frio Airport").
-airport(res_airport_7367, "Presidente João Batista Figueiredo Airport").
-airport(res_airport_7368, "Gurupi Airport").
-airport(res_airport_7369, "Santana do Araguaia Airport").
-airport(res_airport_737, "Stockholm-Arlanda Airport").
-airport(res_airport_7370, "Breves Airport").
-airport(res_airport_7372, "Parintins Airport").
-airport(res_airport_7373, "Barreiras Airport").
-airport(res_airport_7374, "Santa Terezinha Airport").
-airport(res_airport_7375, "Minaçu Airport").
-airport(res_airport_7376, "Araguaína Airport").
-airport(res_airport_738, "Stockholm-Bromma Airport").
-airport(res_airport_7380, "Dourados Airport").
-airport(res_airport_7382, "Maestro Marinho Franco Airport").
-airport(res_airport_7383, "Tancredo Thomas de Faria Airport").
-airport(res_airport_7384, "Santa Terezinha Airport").
-airport(res_airport_739, "Borlange Airport").
-airport(res_airport_7394, "General Leite de Castro Airport").
-airport(res_airport_7395, "Romeu Zema Airport").
-airport(res_airport_7398, "Coari Airport").
-airport(res_airport_7399, "Barcelos Airport").
-airport(res_airport_7407, "Guanambi Airport").
-airport(res_airport_7417, "Wilwal International Airport").
-airport(res_airport_742, "Linköping City Airport").
-airport(res_airport_7424, "Mara Serena Lodge Airstrip").
-airport(res_airport_743, "Norrköping Airport").
-airport(res_airport_7447, "Enfidha - Hammamet International Airport").
-airport(res_airport_7450, "Bugungu Airport").
-airport(res_airport_7453, "Hatay Airport").
-airport(res_airport_7456, "Raivavae Airport").
-airport(res_airport_7457, "Foshan Shadi Airport").
-airport(res_airport_7459, "Lleida-Alguaire Airport").
-airport(res_airport_746, "Visby Airport").
-airport(res_airport_7470, "Ulgii Mongolei Airport").
-airport(res_airport_7490, "Al Najaf International Airport").
-airport(res_airport_75, "Pond Inlet Airport").
-airport(res_airport_7503, "Fuyang Xiguan Airport").
-airport(res_airport_7504, "Longyan Guanzhishan Airport").
-airport(res_airport_7505, "Baoshan Yunduan Airport").
-airport(res_airport_7506, "Xingyi Airport").
-airport(res_airport_7508, "Liping Airport").
-airport(res_airport_7519, "Zhijiang Airport").
-airport(res_airport_7527, "Lintsang Airfield").
-airport(res_airport_7532, "Carajás Airport").
-airport(res_airport_7546, "Persian Gulf International Airport").
-airport(res_airport_7547, "Yasouj Airport").
-airport(res_airport_7558, "Ulaangom Airport").
-airport(res_airport_7563, "Kulob Airport").
-airport(res_airport_7577, "Ravensthorpe Airport").
-airport(res_airport_7579, "Provo Municipal Airport").
-airport(res_airport_7584, "Los Alamos Airport").
-airport(res_airport_7616, "Ulawa Airport").
-airport(res_airport_7617, "Choiseul Bay Airport").
-airport(res_airport_7618, "Santa Ana Airport").
-airport(res_airport_7634, "Rundu Airport").
-airport(res_airport_7642, "Tasiilaq Heliport").
-airport(res_airport_7657, "Morristown Municipal Airport").
-airport(res_airport_7669, "Northwest Florida Beaches International Airport").
-airport(res_airport_77, "Stephenville Airport").
-airport(res_airport_772, "Rostock-Laage Airport").
-airport(res_airport_7774, "Mysore Airport").
-airport(res_airport_78, "Kamloops Airport").
-airport(res_airport_7821, "Zonguldak Airport").
-airport(res_airport_7862, "Tengchong Tuofeng Airport").
-airport(res_airport_7863, "Belbek Airport").
-airport(res_airport_7894, "Yushu Batang Airport").
-airport(res_airport_7898, "Lianshui Airport").
-airport(res_airport_79, "Waterloo Airport").
-airport(res_airport_7932, "Ngari Gunsa Airport").
-airport(res_airport_794, "Bram Fischer International Airport").
-airport(res_airport_7962, "Puerto Obaldia Airport").
-airport(res_airport_797, "Cape Town International Airport").
-airport(res_airport_7976, "Ukunda Airstrip").
-airport(res_airport_7987, "Mackenzie Airport").
-airport(res_airport_799, "King Shaka International Airport").
-airport(res_airport_8, "Godthaab / Nuuk Airport").
-airport(res_airport_80, "Schefferville Airport").
-airport(res_airport_800, "Ben Schoeman Airport").
-airport(res_airport_804, "George Airport").
-airport(res_airport_8043, "Zhongwei Shapotou Airport").
-airport(res_airport_8076, "Al Maktoum International Airport").
-airport(res_airport_8082, "Baise Youjiang Airport").
-airport(res_airport_811, "Hoedspruit Air Force Base Airport").
-airport(res_airport_813, "OR Tambo International Airport").
-airport(res_airport_815, "Kimberley Airport").
-airport(res_airport_8180, "Zona da Mata Regional Airport").
-airport(res_airport_8199, "Nightmute Airport").
-airport(res_airport_820, "Lanseria Airport").
-airport(res_airport_8200, "Toksook Bay Airport").
-airport(res_airport_8208, "Ittoqqortoormiit Heliport").
-airport(res_airport_8209, "Vinnytsia/Gavyryshivka Airport").
-airport(res_airport_8217, "Kegaska Airport").
-airport(res_airport_8223, "Trail Airport").
-airport(res_airport_8225, "Old Arctic Bay Airport").
-airport(res_airport_8227, "Birchwood Airport").
-airport(res_airport_8235, "Sohag International Airport").
-airport(res_airport_8237, "Patos de Minas Airport").
-airport(res_airport_8238, "Bauru - Arealva Airport").
-airport(res_airport_8239, "Ourilândia do Norte Airport").
-airport(res_airport_8240, "Redenção Airport").
-airport(res_airport_8241, "São Félix do Xingu Airport").
-airport(res_airport_8242, "Bonito Airport").
-airport(res_airport_8243, "São Félix do Araguaia Airport").
-airport(res_airport_8244, "Caçador Airport").
-airport(res_airport_8247, "Eirunepé Airport").
-airport(res_airport_8256, "Senadora Eunice Micheles Airport").
-airport(res_airport_8258, "Tapuruquara Airport").
-airport(res_airport_8259, "Oriximiná Airport").
-airport(res_airport_8266, "Gazipaşa Airport").
-airport(res_airport_827, "Margate Airport").
-airport(res_airport_8314, "Hilton Head Airport").
-airport(res_airport_8355, "Keewaywin Airport").
-airport(res_airport_838, "Port Elizabeth Airport").
-airport(res_airport_8381, "Majeed Bin Abdulaziz Airport").
-airport(res_airport_840, "Hendrik Van Eck Airport").
-airport(res_airport_8401, "Lombok International Airport").
-airport(res_airport_8407, "Handan Airport").
-airport(res_airport_8414, "Modlin Airport").
-airport(res_airport_8417, "Jixi Xingkaihu Airport").
-airport(res_airport_8428, "Beloyarskiy Airport").
-airport(res_airport_843, "Pietermaritzburg Airport").
-airport(res_airport_845, "Polokwane International Airport").
-airport(res_airport_849, "Richards Bay Airport").
-airport(res_airport_85, "Lloydminster Airport").
-airport(res_airport_8628, "Uummannaq Heliport").
-airport(res_airport_8630, "Bayannur Tianjitai Airport").
-airport(res_airport_865, "Pierre Van Ryneveld Airport").
-airport(res_airport_866, "K. D. Matanzima Airport").
-airport(res_airport_87, "Kelowna International Airport").
-airport(res_airport_8740, "Gorno-Altaysk Airport").
-airport(res_airport_877, "Francistown Airport").
-airport(res_airport_8774, "Lankaran International Airport").
-airport(res_airport_8775, "Gabala International Airport").
-airport(res_airport_8781, "Qianjiang Wulingshan Airport").
-airport(res_airport_8782, "Cooma Hospital Helipad").
-airport(res_airport_879, "Kasane Airport").
-airport(res_airport_880, "Maun Airport").
-airport(res_airport_8807, "Tabing Airport").
-airport(res_airport_881, "Sir Seretse Khama International Airport").
-airport(res_airport_8826, "Changbaishan Airport").
-airport(res_airport_883, "Maya-Maya Airport").
-airport(res_airport_8832, "Lublin Airport").
-airport(res_airport_8845, "Lingling Airport").
-airport(res_airport_886, "Pointe Noire Airport").
-airport(res_airport_887, "Matsapha Airport").
-airport(res_airport_8876, "Yangzhou Taizhou Airport").
-airport(res_airport_888, "Bangui M'Poko International Airport").
-airport(res_airport_8892, "Kooddoo Airport").
-airport(res_airport_890, "Bata Airport").
-airport(res_airport_891, "Malabo Airport").
-airport(res_airport_8914, "Termas de Río Hondo international Airport").
-airport(res_airport_8921, "Kangding Airport").
-airport(res_airport_8924, "Velikiy Ustyug Airport").
-airport(res_airport_893, "Sir Seewoosagur Ramgoolam International Airport").
-airport(res_airport_894, "Sir Charles Gaetan Duval Airport").
-airport(res_airport_8944, "Bodaybo Airport").
-airport(res_airport_8949, "Mattala Rajapaksa International Airport").
-airport(res_airport_8961, "Sir Bani Yas Airport").
-airport(res_airport_897, "Douala International Airport").
-airport(res_airport_8979, "Jiagedaqi Airport").
-airport(res_airport_898, "Salak Airport").
-airport(res_airport_9, "Kangerlussuaq Airport").
-airport(res_airport_90, "Fort McMurray Airport").
-airport(res_airport_900, "N'Gaoundéré Airport").
-airport(res_airport_901, "Garoua International Airport").
-airport(res_airport_9025, "Bijie Feixiong Airport").
-airport(res_airport_9026, "Lensk Airport").
-airport(res_airport_9043, "Iğdır Airport").
-airport(res_airport_9044, "Şanlıurfa GAP Airport").
-airport(res_airport_9045, "Zafer Airport").
-airport(res_airport_906, "Livingstone Airport").
-airport(res_airport_907, "Kenneth Kaunda International Airport Lusaka").
-airport(res_airport_908, "Mfuwe Airport").
-airport(res_airport_9090, "Busselton Regional Airport").
-airport(res_airport_91, "Moosonee Airport").
-airport(res_airport_910, "Simon Mwansa Kapwepwe International Airport").
-airport(res_airport_9107, "Yichun Mingyueshan Airport").
-airport(res_airport_912, "Prince Said Ibrahim International Airport").
-airport(res_airport_915, "Dzaoudzi Pamandzi International Airport").
-airport(res_airport_916, "Roland Garros Airport").
-airport(res_airport_917, "Pierrefonds Airport").
-airport(res_airport_918, "Ivato Airport").
-airport(res_airport_920, "Sainte Marie Airport").
-airport(res_airport_921, "Toamasina Airport").
-airport(res_airport_922, "Morondava Airport").
-airport(res_airport_9229, "Sigiriya Air Force Base").
-airport(res_airport_923, "Arrachart Airport").
-airport(res_airport_924, "Mananara Nord Airport").
-airport(res_airport_927, "Antsirabato Airport").
-airport(res_airport_9272, "Bingöl Çeltiksuyu Airport").
-airport(res_airport_9273, "Kastamonu Airport").
-airport(res_airport_929, "Amborovy Airport").
-airport(res_airport_930, "Fascene Airport").
-airport(res_airport_9310, "Daocheng Yading Airport").
-airport(res_airport_9311, "Gannan Xiahe Airport").
-airport(res_airport_932, "Maroantsetra Airport").
-airport(res_airport_9327, "Comiso Airport").
-airport(res_airport_933, "Sambava Airport").
-airport(res_airport_937, "Tôlanaro Airport").
-airport(res_airport_9386, "Xinyuan Nalati Airport").
-airport(res_airport_94, "Natashquan Airport").
-airport(res_airport_943, "Toliara Airport").
-airport(res_airport_944, "Mbanza Congo Airport").
-airport(res_airport_946, "Cabinda Airport").
-airport(res_airport_948, "Nova Lisboa Airport").
-airport(res_airport_949, "Kuito Airport").
-airport(res_airport_951, "Quatro de Fevereiro Airport").
-airport(res_airport_952, "Malanje Airport").
-airport(res_airport_953, "Menongue Airport").
-airport(res_airport_9543, "Ogden Hinckley Airport").
-airport(res_airport_957, "Saurimo Airport").
-airport(res_airport_958, "Soyo Airport").
-airport(res_airport_959, "Lubango Airport").
-airport(res_airport_960, "Luena Airport").
-airport(res_airport_967, "Port Gentil Airport").
-airport(res_airport_970, "Libreville Leon M'ba International Airport").
-airport(res_airport_973, "São Tomé International Airport").
-airport(res_airport_9739, "Napakiak Airport").
-airport(res_airport_974, "Beira Airport").
-airport(res_airport_9744, "Napaskiak Airport").
-airport(res_airport_976, "Inhambane Airport").
-airport(res_airport_9768, "Tingo Maria Airport").
-airport(res_airport_977, "Lichinga Airport").
-airport(res_airport_9771, "Cacoal Airport").
-airport(res_airport_9774, "Mocopulli Airport").
-airport(res_airport_979, "Maputo Airport").
-airport(res_airport_9824, "Tazadit Airport").
-airport(res_airport_9826, "Akwa Ibom International Airport").
-airport(res_airport_9828, "Kasama Airport").
-airport(res_airport_9829, "Mbeya Airport").
-airport(res_airport_984, "Nampula Airport").
-airport(res_airport_9843, "Jiuhuashan Airport").
-airport(res_airport_9844, "Anshan Air Base").
-airport(res_airport_9845, "Saertu Airport").
-airport(res_airport_9846, "Zunyi Xinzhou Airport").
-airport(res_airport_9848, "Lindu Airport").
-airport(res_airport_9849, "Anshun Huangguoshu Airport").
-airport(res_airport_985, "Pemba Airport").
-airport(res_airport_986, "Quelimane Airport").
-airport(res_airport_988, "Chingozi Airport").
-airport(res_airport_9887, "Betoambari Airport").
-airport(res_airport_9888, "Kao Airport").
-airport(res_airport_9889, "Melangguane Airport").
-airport(res_airport_9898, "Oksibil Airport").
-airport(res_airport_99, "High Level Airport").
-airport(res_airport_990, "Vilankulo Airport").
-airport(res_airport_9904, "Richmond Airport").
-airport(res_airport_9905, "RAAF Base Curtin").
-airport(res_airport_994, "Seychelles International Airport").
-airport(res_airport_995, "Praslin Airport").
-airport(res_airport_999, "N'Djamena International Airport").
-airport(res_airport_1000, "Faya Largeau Airport").
-airport(res_airport_10017, "San Gabriel Valley Airport").
-airport(res_airport_1002, "Charles Prince Airport").
-airport(res_airport_1003, "Buffalo Range Airport").
-airport(res_airport_10057, "Farah Airport").
-airport(res_airport_1006, "Kariba International Airport").
-airport(res_airport_10061, "Pasighat Airport").
-airport(res_airport_10062, "Kee Field").
-airport(res_airport_10069, "Kramatorsk Airport").
-airport(res_airport_1007, "Mutoko Airport").
-airport(res_airport_1008, "Mutare Airport").
-airport(res_airport_10080, "Kautokeino Air Base").
-airport(res_airport_10089, "Lille/Marcq-en-Baroeul Airport").
-airport(res_airport_1009, "Masvingo International Airport").
-airport(res_airport_10096, "Kawass Airport").
-airport(res_airport_101, "Prince Albert Glass Field").
-airport(res_airport_1010, "Zvishavane Airport").
-airport(res_airport_10102, "Stinson Municipal Airport").
-airport(res_airport_10103, "Sallisaw Municipal Airport").
-airport(res_airport_10104, "Jasper County Airport-Bell Field").
-airport(res_airport_10105, "El Dorado Springs Memorial Airport").
-airport(res_airport_10106, "Marfa Municipal Airport").
-airport(res_airport_10107, "Alpine Casparis Municipal Airport").
-airport(res_airport_1011, "Thornhill Air Base").
-airport(res_airport_10110, "Bubaque Airport").
-airport(res_airport_10114, "Chichen Itza International Airport").
-airport(res_airport_10116, "Bunbury Airport").
-airport(res_airport_10117, "Cable Airport").
-airport(res_airport_1012, "Hwange National Park Airport").
-airport(res_airport_10121, "Mount Sterling Montgomery County Airport").
-airport(res_airport_10122, "Elkhart Municipal Airport").
-airport(res_airport_10123, "Nappanee Municipal Airport").
-airport(res_airport_10128, "Jim Hamilton L.B. Owens Airport").
-airport(res_airport_10129, "Grove Municipal Airport").
-airport(res_airport_10130, "Mc Pherson Airport").
-airport(res_airport_10131, "Donaldson Field Airport").
-airport(res_airport_10132, "Perry Houston County Airport").
-airport(res_airport_10133, "Hartsville Regional Airport").
-airport(res_airport_10134, "Horace Williams Airport").
-airport(res_airport_10135, "San Cristobal de las Casas Airport").
-airport(res_airport_10137, "Dunnville Airport").
-airport(res_airport_10138, "Brunswick County Airport").
-airport(res_airport_10139, "Chesterfield County Airport").
-airport(res_airport_1014, "Karonga Airport").
-airport(res_airport_10140, "Atherton Airport").
-airport(res_airport_10141, "Bagdarin Airport").
-airport(res_airport_10142, "Scarlett Martinez International Airport").
-airport(res_airport_10144, "Henderson Oxford Airport").
-airport(res_airport_10145, "Leesburg International Airport").
-airport(res_airport_10148, "Semyazino Airport").
-airport(res_airport_10149, "Witberg Tswalu Airport").
-airport(res_airport_1015, "Kasungu Airport").
-airport(res_airport_10151, "Mana Pools Airport").
-airport(res_airport_10154, "Pouso Alegre Airport").
-airport(res_airport_10155, "Brigadeiro Cabral Airport").
-airport(res_airport_10156, "Yeysk Airport").
-airport(res_airport_10157, "Berdyansk Airport").
-airport(res_airport_10158, "Blimbingsari Airport").
-airport(res_airport_10161, "Shobdon Aerodrome").
-airport(res_airport_10162, "Chino Airport").
-airport(res_airport_10163, "Kamigoto Airport").
-airport(res_airport_10164, "Ojika Airport").
-airport(res_airport_10165, "Chofu Airport").
-airport(res_airport_10166, "Hateruma Airport").
-airport(res_airport_10169, "Madison County Airport").
-airport(res_airport_1017, "Mzuzu Airport").
-airport(res_airport_10171, "Las Brujas Airport").
-airport(res_airport_10173, "Digby (General Hospital) Heliport").
-airport(res_airport_10178, "Thun Airport").
-airport(res_airport_10184, "Lavrentiya Airport").
-airport(res_airport_10185, "Paso Robles Municipal Airport").
-airport(res_airport_10186, "N 104 Helipad").
-airport(res_airport_1019, "Mejametalana Airbase").
-airport(res_airport_102, "Peace River Airport").
-airport(res_airport_10209, "Beijing Daxing International Airport").
-airport(res_airport_1021, "Ndolo Airport").
-airport(res_airport_1022, "Muanda Airport").
-airport(res_airport_1023, "Kitona Base Airport").
-airport(res_airport_1024, "Bandundu Airport").
-airport(res_airport_1025, "Kikwit Airport").
-airport(res_airport_1027, "Gbadolite Airport").
-airport(res_airport_1029, "Kotakoli Airport").
-airport(res_airport_10295, "Kymi Airport").
-airport(res_airport_103, "Southport Airport").
-airport(res_airport_1030, "Lisala Airport").
-airport(res_airport_1034, "Buta Zega Airport").
-airport(res_airport_10360, "Half Moon Bay Airport").
-airport(res_airport_10363, "Hechi Jinchengjiang Airport").
-airport(res_airport_10370, "Kadina Airport").
-airport(res_airport_10371, "General WM J Fox Airfield").
-airport(res_airport_10378, "Coondewanna Airport").
-airport(res_airport_1039, "Kolwezi Airport").
-airport(res_airport_104, "Pitt Meadows Airport").
-airport(res_airport_1041, "Kamina Base Airport").
-airport(res_airport_1045, "Gao Airport").
-airport(res_airport_1046, "Kayes Dag Dag Airport").
-airport(res_airport_1047, "Mopti Airport").
-airport(res_airport_1048, "Timbuktu Airport").
-airport(res_airport_1049, "Tessalit Airport").
-airport(res_airport_10544, "Guarapari Airport").
-airport(res_airport_10545, "Ubatuba Airport").
-airport(res_airport_1060, "Cufar Airport").
-airport(res_airport_10611, "Ali Air Base").
-airport(res_airport_10617, "Ota Air Base").
-airport(res_airport_10618, "Borroloola Airport").
-airport(res_airport_1067, "Ifrane Airport").
-airport(res_airport_1068, "Moulay Ali Cherif Airport").
-airport(res_airport_1069, "Bassatine Airport").
-airport(res_airport_107, "Peterborough Airport").
-airport(res_airport_1071, "Ben Slimane Airport").
-airport(res_airport_10723, "Elsenthal Grafe Airport").
-airport(res_airport_10744, "Newtownards Airport").
-airport(res_airport_10745, "Lashenden (Headcorn) Airfield").
-airport(res_airport_10746, "Panshanger Aerodrome").
-airport(res_airport_10747, "Thurrock Airfield").
-airport(res_airport_10748, "Stapleford Aerodrome").
-airport(res_airport_10750, "HAL Airport").
-airport(res_airport_10751, "Chichester/Goodwood Airport").
-airport(res_airport_10752, "Omarama Glider Airport").
-airport(res_airport_10753, "Haast Aerodrome").
-airport(res_airport_1076, "Kenitra Airport").
-airport(res_airport_10776, "Meschede-Schüren Airport").
-airport(res_airport_10794, "Morro da Urca Heliport").
-airport(res_airport_10800, "Dongji Aiport").
-airport(res_airport_10802, "Skúvoy Heliport").
-airport(res_airport_10803, "Stóra Dímun Heliport").
-airport(res_airport_10804, "Frooba Heliport").
-airport(res_airport_1083, "Kaolack Airport").
-airport(res_airport_10831, "Person County Airport").
-airport(res_airport_1085, "Saint Louis Airport").
-airport(res_airport_1086, "Bakel Airport").
-airport(res_airport_1087, "Kédougou Airport").
-airport(res_airport_1088, "Tambacounda Airport").
-airport(res_airport_1089, "Aioun el Atrouss Airport").
-airport(res_airport_1090, "Tidjikja Airport").
-airport(res_airport_1091, "Kiffa Airport").
-airport(res_airport_1092, "Néma Airport").
-airport(res_airport_1093, "Kaédi Airport").
-airport(res_airport_10934, "Zulu Inyala Airport").
-airport(res_airport_10937, "Liupanshui Yuezhao Airport").
-airport(res_airport_10938, "Kaili Airport").
-airport(res_airport_10939, "Shennongjia Hongping Airport").
-airport(res_airport_10942, "Hengyang Nanyue Airport").
-airport(res_airport_10943, "Hongyuan Airport").
-airport(res_airport_10949, "Wonsan Kalma International Airport").
-airport(res_airport_1095, "Sélibaby Airport").
-airport(res_airport_10951, "Mestia Queen Tamar Airport").
-airport(res_airport_10952, "Magas Airport").
-airport(res_airport_1096, "Atar International Airport").
-airport(res_airport_1098, "Bir Moghrein Airport").
-airport(res_airport_1099, "Fria Airport").
-airport(res_airport_110, "Muskoka Airport").
-airport(res_airport_1100, "Faranah Airport").
-airport(res_airport_11004, "Talladega Municipal Airport").
-airport(res_airport_11005, "Greenville Downtown Airport").
-airport(res_airport_11008, "Mankato Regional Airport").
-airport(res_airport_11009, "Captain Auguste George Airport").
-airport(res_airport_1101, "Tata Airport").
-airport(res_airport_11010, "Troy Municipal Airport at N Kenneth Campbell Field").
-airport(res_airport_11011, "Merkel Field Sylacauga Municipal Airport").
-airport(res_airport_11012, "Enterprise Municipal Airport").
-airport(res_airport_11017, "Ryan Field").
-airport(res_airport_11018, "Efogi Airport").
-airport(res_airport_11019, "Kagi Airport").
-airport(res_airport_11020, "Nadunumu Airport").
-airport(res_airport_11021, "Bodinumu Airport").
-airport(res_airport_11022, "Thomas C Russell Field").
-airport(res_airport_11030, "Port Keats Airport").
-airport(res_airport_11031, "Garden Point Airport").
-airport(res_airport_11032, "Stade Airport").
-airport(res_airport_11035, "Meriden Markham Municipal Airport").
-airport(res_airport_11038, "Flinders Island Airport").
-airport(res_airport_11048, "Luzern-Beromunster Airport").
-airport(res_airport_11049, "La Grand'combe Airport").
-airport(res_airport_11053, "Fort Mackay / Horizon Airport").
-airport(res_airport_11054, "Canmore Municipal Heliport").
-airport(res_airport_11055, "Krasnokamensk Airport").
-airport(res_airport_11067, "Ridgely Airpark").
-airport(res_airport_11068, "New Castle Henry Co. Municipal Airport").
-airport(res_airport_11069, "Scott City Municipal Airport").
-airport(res_airport_11070, "Brewster Field").
-airport(res_airport_11071, "Pratt Regional Airport").
-airport(res_airport_11072, "Yubileyniy Airfield").
-airport(res_airport_11073, "Wahoo Municipal Airport").
-airport(res_airport_11074, "Jim Kelly Field").
-airport(res_airport_11075, "Sublette Municipal Airport").
-airport(res_airport_11076, "Council Bluffs Municipal Airport").
-airport(res_airport_11077, "Kokomo Municipal Airport").
-airport(res_airport_11078, "Neodesha Municipal Airport").
-airport(res_airport_11079, "King Ranch Airport").
-airport(res_airport_1108, "Lideta Army Airport").
-airport(res_airport_11080, "Elkhart Morton County Airport").
-airport(res_airport_11081, "Front Range Airport").
-airport(res_airport_11082, "Galesburg Municipal Airport").
-airport(res_airport_11084, "Guymon Municipal Airport").
-airport(res_airport_11086, "Meade Municipal Airport").
-airport(res_airport_11087, "Turkey Mountain Estates Airport").
-airport(res_airport_11088, "Ulysses Airport").
-airport(res_airport_11089, "Flagler Aerial Spraying Inc Airport").
-airport(res_airport_11090, "Independence Municipal Airport").
-airport(res_airport_11091, "Augusta Municipal Airport").
-airport(res_airport_11092, "Larned Pawnee County Airport").
-airport(res_airport_11093, "Lampasas Airport").
-airport(res_airport_11094, "Bay City Municipal Airport").
-airport(res_airport_11095, "Cox Field").
-airport(res_airport_11096, "Coffeyville Municipal Airport").
-airport(res_airport_11097, "The Farm Airport").
-airport(res_airport_11098, "Greeley–Weld County Airport").
-airport(res_airport_11099, "General Dewitt Spain Airport").
-airport(res_airport_11100, "Oryol Yuzhny Airport").
-airport(res_airport_11101, "Fremont Municipal Airport").
-airport(res_airport_11102, "La Grande/Union County Airport").
-airport(res_airport_11103, "Olsztyn-Mazury Airport").
-airport(res_airport_11110, "Pocono Mountains Municipal Airport").
-airport(res_airport_11111, "Quakertown Airport").
-airport(res_airport_11127, "Banff Airport").
-airport(res_airport_11129, "Nordborg Flyveplads").
-airport(res_airport_11131, "Banning Municipal Airport").
-airport(res_airport_11132, "Gießen-Lützellinden Airport").
-airport(res_airport_11133, "Tököl Airport").
-airport(res_airport_11134, "Karl Stefan Memorial Airport").
-airport(res_airport_11139, "Kotido Airport").
-airport(res_airport_11140, "Kajjansi Airfield").
-airport(res_airport_11141, "Arlington Municipal Airport").
-airport(res_airport_11142, "Paracatu Airport").
-airport(res_airport_11143, "Das Bandeirinhas Airport").
-airport(res_airport_11144, "Janaúba Airport").
-airport(res_airport_11145, "Juscelino Kubitscheck Airport").
-airport(res_airport_11146, "Cristiano Ferreira Varella Airport").
-airport(res_airport_11153, "Peter O Knight Airport").
-airport(res_airport_11170, "Lure Malbouhans Air Base").
-airport(res_airport_11175, "Parati Airport").
-airport(res_airport_11176, "Umberto Modiano Airport").
-airport(res_airport_11177, "Angra dos Reis Airport").
-airport(res_airport_11178, "Itaperuna Airport").
-airport(res_airport_11179, "Maricá Airport").
-airport(res_airport_11180, "Resende Airport").
-airport(res_airport_11181, "Saquarema Airport").
-airport(res_airport_11182, "Drumheller Municipal Airport").
-airport(res_airport_11193, "Mwene-Ditu Airport").
-airport(res_airport_11194, "Tunta Airport").
-airport(res_airport_11195, "Ikela Airport").
-airport(res_airport_11198, "Aripuanã Airport").
-airport(res_airport_11199, "Juruena Airport").
-airport(res_airport_11200, "Juína Airport").
-airport(res_airport_11201, "Vila Rica Airport").
-airport(res_airport_11202, "Inácio Luís do Nascimento Airport").
-airport(res_airport_11203, "Cáceres Airport").
-airport(res_airport_11204, "Posto Leonardo Vilas Boas Airport").
-airport(res_airport_11205, "Tangará da Serra Airport").
-airport(res_airport_11206, "Canarana Airport").
-airport(res_airport_11207, "Vila Bela da Santíssima Trindade Airport").
-airport(res_airport_11208, "Bumbar Airport").
-airport(res_airport_11209, "Sobral Airport").
-airport(res_airport_11210, "Arapiraca Airport").
-airport(res_airport_11211, "Cangapara Airport").
-airport(res_airport_11212, "Picos Airport").
-airport(res_airport_1123, "Kisimayu Airport").
-airport(res_airport_11243, "Montauk Airport").
-airport(res_airport_11255, "Porter County Municipal Airport").
-airport(res_airport_1126, "El Nouzha Airport").
-airport(res_airport_11268, "Cerro Largo International Airport").
-airport(res_airport_11269, "Tydeo Larre Borges Airport").
-airport(res_airport_11270, "Artigas International Airport").
-airport(res_airport_11272, "Murray Bridge Airport").
-airport(res_airport_11273, "Horsham Airport").
-airport(res_airport_11274, "Swan Hill Airport").
-airport(res_airport_11277, "Turtle Island Seaplane Base").
-airport(res_airport_11288, "Dewadaru - Kemujan Island").
-airport(res_airport_1129, "Cairo West Airport").
-airport(res_airport_11291, "Attopeu Airport").
-airport(res_airport_11292, "Kahemba Airport").
-airport(res_airport_11293, "Francisco de Miranda Airport").
-airport(res_airport_11295, "São Miguel do Oeste Airport").
-airport(res_airport_11299, "Mason County Airport").
-airport(res_airport_1131, "El Gora Airport").
-airport(res_airport_11312, "Reid-Hillview Airport of Santa Clara County").
-airport(res_airport_11328, "Sohar Airport").
-airport(res_airport_1133, "Mersa Matruh Airport").
-airport(res_airport_11331, "Kadanwari Airport").
-airport(res_airport_11332, "Sawan Airport").
-airport(res_airport_1134, "Port Said Airport").
-airport(res_airport_1135, "St Catherine International Airport").
-airport(res_airport_11352, "Thamkharka Airport").
-airport(res_airport_11353, "Thimarafushi Airport").
-airport(res_airport_11354, "Ifuru Airport").
-airport(res_airport_11355, "Kaintiba Airport").
-airport(res_airport_11356, "Ordu Giresun Airport").
-airport(res_airport_11357, "Hakkari Yüksekova Airport").
-airport(res_airport_1137, "El Tor Airport").
-airport(res_airport_11386, "Jelenia Góra Glider Airport").
-airport(res_airport_11389, "Bathpalathang Airport").
-airport(res_airport_1139, "Kakamega Airport").
-airport(res_airport_114, "Watson Lake Airport").
-airport(res_airport_11401, "Sultan Bantilan Airport").
-airport(res_airport_11406, "Vuktyl Airport").
-airport(res_airport_11407, "Berezniki Airport").
-airport(res_airport_11431, "San Sebastián Airport").
-airport(res_airport_11433, "Tolwin Observatory Airport").
-airport(res_airport_11438, "Camarillo Airport").
-airport(res_airport_11452, "Leopoldsburg Airfield").
-airport(res_airport_1146, "Naivasha Airport").
-airport(res_airport_11479, "Omtepe Airport").
-airport(res_airport_1148, "Moi Air Base").
-airport(res_airport_11499, "Fuyun Koktokay Airport").
-airport(res_airport_1150, "Bu Attifel Airport").
-airport(res_airport_1151, "Warehouse 59e Airport").
-airport(res_airport_11524, "Achinsk Airport").
-airport(res_airport_11545, "Linfen Qiaoli Airport").
-airport(res_airport_1156, "Sabha Airport").
-airport(res_airport_1158, "Marsa Brega Airport").
-airport(res_airport_11583, "Hinton/Jasper-Hinton Airport").
-airport(res_airport_1159, "Ras Lanuf Oil Airport").
-airport(res_airport_1160, "Hon Airport").
-airport(res_airport_1161, "Dahra Airport").
-airport(res_airport_1163, "Zella 74 Airport").
-airport(res_airport_11638, "Watsonville Municipal Airport").
-airport(res_airport_1164, "Gisenyi Airport").
-airport(res_airport_11644, "Gelephu Airport").
-airport(res_airport_11648, "Hollister Municipal Airport").
-airport(res_airport_11649, "Williamsburg Jamestown Airport").
-airport(res_airport_11658, "Dulkaninna Airport").
-airport(res_airport_1167, "Dongola Airport").
-airport(res_airport_11673, "William Creek Airport").
-airport(res_airport_1168, "Damazin Airport").
-airport(res_airport_11684, "Kenora Seaplane Base").
-airport(res_airport_11685, "Rumbula Air Base").
-airport(res_airport_1170, "Kassala Airport").
-airport(res_airport_11700, "Siquijor Airport").
-airport(res_airport_11702, "Opapimiskan Lake Airport").
-airport(res_airport_1171, "Kadugli Airport").
-airport(res_airport_11713, "Rizhao Shanzihe Airport").
-airport(res_airport_11714, "Shaxian Airport").
-airport(res_airport_11717, "Taroom Airport").
-airport(res_airport_11718, "Gelnhausen Airport").
-airport(res_airport_11719, "Ærø Airport").
-airport(res_airport_1172, "El Obeid Airport").
-airport(res_airport_11720, "Lauterbach Airport").
-airport(res_airport_11721, "Aschaffenburg Airport").
-airport(res_airport_11722, "Squamish Airport").
-airport(res_airport_11735, "Reichelsheim Airport").
-airport(res_airport_11737, "Marburg-Schönstadt Airport").
-airport(res_airport_11738, "Lauenbrück Airport").
-airport(res_airport_11739, "Hüttenbusch Airport").
-airport(res_airport_1174, "Malakal Airport").
-airport(res_airport_11740, "Vrsar Crljenka Airport").
-airport(res_airport_11742, "Union County Airport").
-airport(res_airport_11743, "La Grande-4 Airport").
-airport(res_airport_11744, "Alert Bay Airport").
-airport(res_airport_11745, "Liverpool South Shore Regional Airport").
-airport(res_airport_11747, "Nipawin Airport").
-airport(res_airport_11748, "Centralia / James T. Field Memorial Aerodrome").
-airport(res_airport_11749, "Blue River Airport").
-airport(res_airport_11750, "Chetwynd Airport").
-airport(res_airport_11751, "Ross River Airport").
-airport(res_airport_11752, "Dolbeau St Felicien Airport").
-airport(res_airport_11753, "Amos/Magny Airport").
-airport(res_airport_11754, "Goderich Airport").
-airport(res_airport_11755, "Hope Airport").
-airport(res_airport_11756, "Haines Junction Airport").
-airport(res_airport_11757, "Digby / Annapolis Regional Airport").
-airport(res_airport_11758, "Fort Liard Airport").
-airport(res_airport_11759, "Key Lake Airport").
-airport(res_airport_11760, "Leaf Rapids Airport").
-airport(res_airport_11761, "Matane Airport").
-airport(res_airport_11762, "Charlevoix Airport").
-airport(res_airport_11763, "Nejanilini Lake Airport").
-airport(res_airport_11764, "Owen Sound / Billy Bishop Regional Airport").
-airport(res_airport_11765, "Port Hawkesbury Airport").
-airport(res_airport_11766, "St Thomas Municipal Airport").
-airport(res_airport_11767, "Ottawa / Rockcliffe Airport").
-airport(res_airport_11768, "Ottawa / Carp Airport").
-airport(res_airport_11769, "Smiths Falls-Montague (Russ Beach) Airport").
-airport(res_airport_11770, "St Leonard Airport").
-airport(res_airport_11771, "Virden/R.J. (Bob) Andrew Field Regional Aerodrome").
-airport(res_airport_11772, "Vernon Airport").
-airport(res_airport_11773, "Beaver Creek Airport").
-airport(res_airport_11774, "Shuswap Regional Airport").
-airport(res_airport_11775, "Kelsey Airport").
-airport(res_airport_11776, "Pukatawagan Airport").
-airport(res_airport_11777, "Grand Forks Airport").
-airport(res_airport_11778, "Jenpeg Airport").
-airport(res_airport_11779, "Thicket Portage Airport").
-airport(res_airport_1178, "Dodoma Airport").
-airport(res_airport_11780, "Pikwitonei Airport").
-airport(res_airport_11781, "Poplar River Airport").
-airport(res_airport_11782, "Pincher Creek Airport").
-airport(res_airport_11783, "Stewart Airport").
-airport(res_airport_11784, "Ignace Municipal Airport").
-airport(res_airport_11785, "Neubrandenburg Airport").
-airport(res_airport_11786, "Airport Bamberg-Breitenau").
-airport(res_airport_11787, "Zerbst Airport").
-airport(res_airport_11788, "RAF Spadeadam").
-airport(res_airport_11789, "RAF Kinloss").
-airport(res_airport_1179, "Iringa Airport").
-airport(res_airport_11790, "Biała Podlaska Airfield").
-airport(res_airport_11791, "Cewice Air Base").
-airport(res_airport_11792, "Deblin Military Air Base").
-airport(res_airport_11793, "Leczyca Military Air Base").
-airport(res_airport_11794, "Minsk Mazowiecki Military Air Base").
-airport(res_airport_11795, "Powidz Military Air Base").
-airport(res_airport_11796, "Tomaszow Mazowiecki Military Air Base").
-airport(res_airport_11797, "Björkvik Air Base").
-airport(res_airport_11798, "Ljungbyhed Airport").
-airport(res_airport_11799, "Daugavpils Intrenational Airport").
-airport(res_airport_11800, "Jēkabpils Air Base").
-airport(res_airport_11801, "Jūrmala Airport").
-airport(res_airport_11802, "Kėdainiai Air Base").
-airport(res_airport_11803, "Lime Acres Finsch Mine Airport").
-airport(res_airport_11804, "Sua Pan Airport").
-airport(res_airport_11805, "Lusaka City Airport").
-airport(res_airport_11806, "Sumbe Airport").
-airport(res_airport_11807, "Mangochi Airport").
-airport(res_airport_11808, "Arandis Airport").
-airport(res_airport_11809, "Mariental Airport").
-airport(res_airport_1181, "Lake Manyara Airport").
-airport(res_airport_11810, "Almaza Air Force Base").
-airport(res_airport_11811, "Beni Suef Air Base").
-airport(res_airport_11812, "Jiyanklis Air Base").
-airport(res_airport_11813, "Merowe New Airport").
-airport(res_airport_11814, "St Louis Regional Airport").
-airport(res_airport_11815, "Chandler Field").
-airport(res_airport_11816, "Columbus Municipal Airport").
-airport(res_airport_11817, "Curtis Field").
-airport(res_airport_11818, "Eastern Sierra Regional Airport").
-airport(res_airport_11819, "Baker City Municipal Airport").
-airport(res_airport_11820, "Miley Memorial Field").
-airport(res_airport_11821, "Ozark Regional Airport").
-airport(res_airport_11822, "W K Kellogg Airport").
-airport(res_airport_11823, "Burley Municipal Airport").
-airport(res_airport_11824, "Northeast Iowa Regional Airport").
-airport(res_airport_11825, "Chanute Martin Johnson Airport").
-airport(res_airport_11826, "Jacksonville Executive at Craig Airport").
-airport(res_airport_11827, "Crossville Memorial Whitson Field").
-airport(res_airport_11828, "Davison Army Air Field").
-airport(res_airport_11829, "Barstow Daggett Airport").
-airport(res_airport_11830, "Deming Municipal Airport").
-airport(res_airport_11831, "Desert Rock Airport").
-airport(res_airport_11832, "Needles Airport").
-airport(res_airport_11833, "Duke Field").
-airport(res_airport_11834, "Murray Field").
-airport(res_airport_11835, "San Marcos Regional Airport").
-airport(res_airport_11836, "Sawyer County Airport").
-airport(res_airport_11837, "Kimble County Airport").
-airport(res_airport_11838, "Monticello Municipal Ellis Field").
-airport(res_airport_11839, "Derby Field").
-airport(res_airport_1184, "Pemba Airport").
-airport(res_airport_11840, "Mobridge Municipal Airport").
-airport(res_airport_11841, "Mc Comb/Pike County Airport/John E Lewis Field").
-airport(res_airport_11842, "Southern Illinois Airport").
-airport(res_airport_11843, "Mc Entire Joint National Guard Base").
-airport(res_airport_11844, "Brunswick Executive Airport").
-airport(res_airport_11845, "Naval Station Mayport (Admiral David L. Mcdonald Field)").
-airport(res_airport_11846, "Orangeburg Municipal Airport").
-airport(res_airport_11847, "Columbus Municipal Airport").
-airport(res_airport_11848, "Ottumwa Regional Airport").
-airport(res_airport_11849, "Cairns AAF (Fort Rucker) Air Field").
-airport(res_airport_1185, "Tanga Airport").
-airport(res_airport_11850, "Ralph Wenz Field").
-airport(res_airport_11851, "Dutchess County Airport").
-airport(res_airport_11852, "New Richmond Regional Airport").
-airport(res_airport_11853, "Russell Municipal Airport").
-airport(res_airport_11854, "Redwood Falls Municipal Airport").
-airport(res_airport_11855, "Salinas Municipal Airport").
-airport(res_airport_11856, "Sonora Municipal Airport").
-airport(res_airport_11857, "Saline County Regional Airport").
-airport(res_airport_11858, "Tonopah Airport").
-airport(res_airport_11859, "Aurora State Airport").
-airport(res_airport_11860, "Ukiah Municipal Airport").
-airport(res_airport_11861, "University Oxford Airport").
-airport(res_airport_11862, "Huntsville Regional Airport").
-airport(res_airport_11863, "Miller Field").
-airport(res_airport_11864, "Winnemucca Municipal Airport").
-airport(res_airport_11865, "West Woodward Airport").
-airport(res_airport_11866, "Cape Canaveral AFS Skid Strip").
-airport(res_airport_11867, "Homey (Area 51) Airport").
-airport(res_airport_11868, "Zanesville Municipal Airport").
-airport(res_airport_11869, "Gjadër Air Base").
-airport(res_airport_11870, "Kukës Airport").
-airport(res_airport_11871, "Kuçovë Air Base").
-airport(res_airport_11872, "Vlorë Air Base").
-airport(res_airport_11873, "Haskovo Malevo Airport").
-airport(res_airport_11874, "Gabrovnitsa Air Base").
-airport(res_airport_11875, "Graf Ignatievo Air Base").
-airport(res_airport_11876, "Dolna Mitropoliya Air Base").
-airport(res_airport_11877, "Balchik Air Base").
-airport(res_airport_11878, "Cuatro Vientos Airport").
-airport(res_airport_11879, "Castellón-Costa Azahar Airport").
-airport(res_airport_11880, "Teruel Airport").
-airport(res_airport_11881, "Blois-Le Breuil Airport").
-airport(res_airport_11882, "Trento-Mattarello Airport").
-airport(res_airport_11883, "Alessandria Airport").
-airport(res_airport_11884, "Biella-Cerrione Airport").
-airport(res_airport_11885, "Vercelli Airport").
-airport(res_airport_11886, "Casale Monferrato Airport").
-airport(res_airport_11887, "Varese-Venegono Airport").
-airport(res_airport_11888, "Novi Ligure Airport").
-airport(res_airport_11889, "Sarzana-Luni Air Base").
-airport(res_airport_1189, "Soroti Airport").
-airport(res_airport_11890, "Câmpia Turzii Air Base").
-airport(res_airport_11891, "Mărculeşti International Airport").
-airport(res_airport_11892, "Cahul International Airport").
-airport(res_airport_11893, "Tiraspol Airport").
-airport(res_airport_11894, "Batajnica Air Base").
-airport(res_airport_11895, "Rubelsanto Airport").
-airport(res_airport_11896, "Coronel Enrique Soto Cano Air Base").
-airport(res_airport_11897, "Upala Airport").
-airport(res_airport_11898, "San Nicolas De Bari Airport").
-airport(res_airport_11899, "San Julian Air Base").
-airport(res_airport_11900, "King Salman Abdulaziz Airport").
-airport(res_airport_11901, "King Khaled Air Base").
-airport(res_airport_11902, "Riyadh Air Base").
-airport(res_airport_11903, "Jam Airport").
-airport(res_airport_11904, "Hamadan Air Base").
-airport(res_airport_11905, "Payam International Airport").
-airport(res_airport_11906, "Ahmed Al Jaber Air Base").
-airport(res_airport_11907, "Rayak Air Base").
-airport(res_airport_11908, "Mirpur Khas Air Base").
-airport(res_airport_11909, "Minhas Air Base").
-airport(res_airport_11910, "Rafiqui Air Base").
-airport(res_airport_11911, "Faisal Air Base").
-airport(res_airport_11912, "Mushaf Air Base").
-airport(res_airport_11913, "Qayyarah West Airport").
-airport(res_airport_11914, "Al Sahra Army Air Field").
-airport(res_airport_11915, "Tall Afar Army Air Field").
-airport(res_airport_11916, "Al Taji Army Air Field").
-airport(res_airport_11917, "Ubaydah Bin Al Jarrah Airport").
-airport(res_airport_11918, "Nenana Municipal Airport").
-airport(res_airport_11919, "Wasilla Airport").
-airport(res_airport_1192, "Gorna Oryahovitsa Airport").
-airport(res_airport_11920, "Gangshan Air Force Base").
-airport(res_airport_11921, "Asahikawa Airfield").
-airport(res_airport_11923, "Utsunomiya Airport").
-airport(res_airport_11924, "Jungwon Air Base/Chungju Airport").
-airport(res_airport_11925, "Ie Jima Airport").
-airport(res_airport_11926, "Allah Valley Airport").
-airport(res_airport_11927, "Bislig Airport").
-airport(res_airport_11928, "Mati National Airport").
-airport(res_airport_11929, "Presidente Néstor Kirchner Regionsl Airport").
-airport(res_airport_11930, "Chafei Amsei Airport").
-airport(res_airport_11931, "Base de Aviação de Taubaté Airport").
-airport(res_airport_11932, "Barriles Airport").
-airport(res_airport_11933, "Schroeder's field").
-airport(res_airport_11934, "Chañaral Airport").
-airport(res_airport_11935, "Panguilemo Airport").
-airport(res_airport_11936, "Victoria Airport").
-airport(res_airport_11937, "Las Breas Airport").
-airport(res_airport_11938, "Gomez Nino Apiay Air Base").
-airport(res_airport_11939, "Coveñas Airport").
-airport(res_airport_11940, "German Olano Air Base").
-airport(res_airport_11941, "Paz De Ariporo Airport").
-airport(res_airport_11942, "Tunja Airport").
-airport(res_airport_11943, "Tres Esquinas Air Base").
-airport(res_airport_11944, "Marandúa Air Base").
-airport(res_airport_11945, "Juan Simons Vela Airport").
-airport(res_airport_11946, "Shumba Airport").
-airport(res_airport_11947, "Metropolitano Airport").
-airport(res_airport_11948, "Issyk-Kul International Airport").
-airport(res_airport_11949, "Kant Air Base").
-airport(res_airport_1195, "Stara Zagora Airport").
-airport(res_airport_11950, "Ayaguz Airport").
-airport(res_airport_11951, "Chelkar Airport").
-airport(res_airport_11952, "Kyzyl-Syr Airport").
-airport(res_airport_11953, "Vilyuisk Airport").
-airport(res_airport_11954, "Belaya Gora Airport").
-airport(res_airport_11955, "Dzhermuk Airport").
-airport(res_airport_11956, "Kamenny Ruchey Naval Air Base").
-airport(res_airport_11957, "Maygatka Airport.").
-airport(res_airport_11958, "Omsukchan Airport").
-airport(res_airport_11959, "Chaybukha Airport").
-airport(res_airport_11960, "Keperveem Airport").
-airport(res_airport_11961, "Magadan-13 Airport").
-airport(res_airport_11962, "Nikolayevsk-na-Amure Airport").
-airport(res_airport_11963, "Palana Airport").
-airport(res_airport_11964, "Zheleznogorsk Airport").
-airport(res_airport_11965, "Gvardeyskoe Air Base").
-airport(res_airport_11966, "Saki Air Base").
-airport(res_airport_11967, "Dzhankoy Airport").
-airport(res_airport_11968, "Ozerne Air Base").
-airport(res_airport_11969, "Severomorsk-1 Naval Air Base").
-airport(res_airport_11970, "Pushkin Airport").
-airport(res_airport_11971, "Siversky Air Base").
-airport(res_airport_11972, "Staraya Russa Air Base").
-airport(res_airport_11973, "Peski Airport").
-airport(res_airport_11974, "Baranavichi Air Base").
-airport(res_airport_11975, "Babruisk Air Base").
-airport(res_airport_11976, "Severo-Eniseysk Airport").
-airport(res_airport_11977, "Sharypovo Airport").
-airport(res_airport_11978, "Omsk Severny Airport").
-airport(res_airport_11979, "Nagurskoye").
-airport(res_airport_11980, "Svetlogorsk Airport").
-airport(res_airport_11981, "Valek Airport").
-airport(res_airport_11982, "Khanskaya Air Base").
-airport(res_airport_11983, "Dudinka Airport").
-airport(res_airport_11984, "Volgodonsk Airport").
-airport(res_airport_11985, "Tashkent East Airport").
-airport(res_airport_11986, "Myachkovo Airport").
-airport(res_airport_11987, "Tretyakovo Airport").
-airport(res_airport_11988, "Yermolino Airport").
-airport(res_airport_11989, "Inta Airport").
-airport(res_airport_1199, "RAF Akrotiri").
-airport(res_airport_11990, "Izhma Airport").
-airport(res_airport_11991, "Borisoglebskoye Airport").
-airport(res_airport_11992, "Zhigansk Airport").
-airport(res_airport_11993, "Maksimovka Airport").
-airport(res_airport_11994, "Buguruslan Severny Airport").
-airport(res_airport_11995, "Bezymyanka Airfield").
-airport(res_airport_11996, "Ratnagiri Airport").
-airport(res_airport_11997, "Hingurakgoda Air Force Base").
-airport(res_airport_11998, "Kazi Nazrul Islam Airport").
-airport(res_airport_11999, "Ambala Air Force Station").
-airport(res_airport_12000, "Sirsa Air Force Station").
-airport(res_airport_12001, "Udhampur Air Force Station").
-airport(res_airport_12002, "Sri Sathya Sai Airport").
-airport(res_airport_12003, "Meiktila Air Base").
-airport(res_airport_12004, "Changi Air Base (East)").
-airport(res_airport_12005, "Soltsy-2 Air Base").
-airport(res_airport_12006, "Severomorsk-3 Naval Air Base").
-airport(res_airport_12007, "Fedotovo Naval Air Base").
-airport(res_airport_12008, "Lebyazhye Air Base").
-airport(res_airport_12009, "Smolensk North Airport").
-airport(res_airport_1201, "Osijek-Čepin Airfield").
-airport(res_airport_12010, "Rtishchevo Air Base").
-airport(res_airport_12011, "Alpha Airport").
-airport(res_airport_12012, "Ararat Airport").
-airport(res_airport_12013, "Benalla Airport").
-airport(res_airport_12014, "Balranald Airport").
-airport(res_airport_12015, "Brewarrina Airport").
-airport(res_airport_12016, "Cleve Airport").
-airport(res_airport_12017, "Corowa Airport").
-airport(res_airport_12018, "Corryong Airport").
-airport(res_airport_12019, "Cootamundra Airport").
-airport(res_airport_12020, "Dirranbandi Airport").
-airport(res_airport_12021, "Deniliquin Airport").
-airport(res_airport_12022, "Dysart Airport").
-airport(res_airport_12023, "Echuca Airport").
-airport(res_airport_12024, "Forbes Airport").
-airport(res_airport_12025, "Gunnedah Airport").
-airport(res_airport_12026, "Hay Airport").
-airport(res_airport_12027, "Hopetoun Airport").
-airport(res_airport_12028, "Kerang Airport").
-airport(res_airport_12029, "Kempsey Airport").
-airport(res_airport_12030, "Kingaroy Airport").
-airport(res_airport_12031, "Latrobe Valley Airport").
-airport(res_airport_12032, "Mareeba Airport").
-airport(res_airport_12033, "Ngukurr Airport").
-airport(res_airport_12034, "Narromine Airport").
-airport(res_airport_12035, "Port Pirie Airport").
-airport(res_airport_12036, "Smithton Airport").
-airport(res_airport_12037, "Snake Bay Airport").
-airport(res_airport_12038, "Stawell Airport").
-airport(res_airport_12039, "Tibooburra Airport").
-airport(res_airport_1204, "Grobnicko Polje Airport").
-airport(res_airport_12040, "Tumut Airport").
-airport(res_airport_12041, "Wangaratta Airport").
-airport(res_airport_12042, "Warracknabeal Airport").
-airport(res_airport_12043, "Warren Airport").
-airport(res_airport_12044, "West Sale Airport").
-airport(res_airport_12045, "West Wyalong Airport").
-airport(res_airport_12046, "Young Airport").
-airport(res_airport_12047, "Guangzhou MR Air Base").
-airport(res_airport_12048, "Shiyan Wudangshan Airport").
-airport(res_airport_12049, "Sunchon Air Base").
-airport(res_airport_12050, "Huatugou Airport").
-airport(res_airport_12051, "Baruun Urt Airport").
-airport(res_airport_12052, "Bengbu Airport").
-airport(res_airport_12053, "Rugao Air Base").
-airport(res_airport_12054, "Wuhu Air Base").
-airport(res_airport_12055, "Shanshan Airport").
-airport(res_airport_12056, "Yingkou Lanqi Airport").
-airport(res_airport_12057, "Shenyang Dongta Airport").
-airport(res_airport_12058, "Bogorodskoye Airport").
-airport(res_airport_12059, "Itapiranga Airport").
-airport(res_airport_12069, "Aguas Calientes Airport").
-airport(res_airport_1207, "Varaždin Airport").
-airport(res_airport_12087, "Rajiv Gandhi International Airport").
-airport(res_airport_12090, "Vancouver International Seaplane Base").
-airport(res_airport_12096, "Bressaucourt Airport").
-airport(res_airport_1210, "Udbina Air Base").
-airport(res_airport_12104, "Parakou Airport").
-airport(res_airport_12106, "Kandi Airport").
-airport(res_airport_12109, "Sokodé Airport").
-airport(res_airport_1211, "Albacete-Los Llanos Airport").
-airport(res_airport_12110, "Sansanné-Mango Airport").
-airport(res_airport_12133, "Arnbruck Airport").
-airport(res_airport_1215, "Córdoba Airport").
-airport(res_airport_12163, "Jacarepaguá - Roberto Marinho Airport").
-airport(res_airport_12165, "Hacaritama Airport").
-airport(res_airport_12172, "Hermannsburg Airport").
-airport(res_airport_12182, "Mount Davies Airport").
-airport(res_airport_12183, "Areyonga Airport").
-airport(res_airport_12185, "Tracy Municipal Airport").
-airport(res_airport_1221, "Armilla Air Base").
-airport(res_airport_12217, "Mount Allan Airport").
-airport(res_airport_12218, "Everard Park Airport").
-airport(res_airport_12219, "Warrabri Airport").
-airport(res_airport_1224, "Getafe Air Base").
-airport(res_airport_123, "Yorkton Municipal Airport").
-airport(res_airport_12310, "Krefeld-Egelsberg Airport").
-airport(res_airport_12311, "Baidoa Airport").
-airport(res_airport_1232, "Moron Air Base").
-airport(res_airport_1233, "Ocaña Airport").
-airport(res_airport_12340, "Ampilatwatja Airport").
-airport(res_airport_1235, "Alcantarilla Air Base").
-airport(res_airport_12360, "Kings Creek Airport").
-airport(res_airport_12361, "Harts Range Airport").
-airport(res_airport_1237, "Rota Naval Station Airport").
-airport(res_airport_1239, "Son Bonet Airport").
-airport(res_airport_12391, "Elliott Airport").
-airport(res_airport_12392, "Papunya Airport").
-airport(res_airport_124, "North Battleford Airport").
-airport(res_airport_1241, "San Luis Airport").
-airport(res_airport_1244, "Pirineus - la Seu d'Urgel Airport").
-airport(res_airport_12444, "Fregon Airport").
-airport(res_airport_12445, "Mount Liebig Airport").
-airport(res_airport_1245, "Torrejón Airport").
-airport(res_airport_12469, "Bolton Field").
-airport(res_airport_12470, "Baltrum Airport").
-airport(res_airport_1249, "Vitoria/Foronda Airport").
-airport(res_airport_12528, "Skagit Regional Airport").
-airport(res_airport_1254, "Calais-Dunkerque Airport").
-airport(res_airport_1255, "Péronne-Saint-Quentin Airport").
-airport(res_airport_1256, "Nangis-Les Loges Airport").
-airport(res_airport_1257, "Bagnoles-de-l'Orne-Couterne Airport").
-airport(res_airport_1258, "Albert-Bray Airport").
-airport(res_airport_1259, "Le Touquet-Côte d'Opale Airport").
-airport(res_airport_1260, "Valenciennes-Denain Airport").
-airport(res_airport_1261, "Amiens-Glisy Airport").
-airport(res_airport_12618, "Goondiwindi Airport").
-airport(res_airport_12619, "Liman Airfield").
-airport(res_airport_1263, "Cazaux (BA 120) Air Base").
-airport(res_airport_12640, "Lognes Emerainville Airport").
-airport(res_airport_1266, "Toulouse-Francazal (BA 101) Air Base").
-airport(res_airport_1267, "Cognac-Châteaubernard (BA 709) Air Base").
-airport(res_airport_12672, "Marion County Brown Field").
-airport(res_airport_12673, "Evergreen Regional Airport/Middleton Field").
-airport(res_airport_12675, "Pryor Field Regional Airport").
-airport(res_airport_12676, "Glasgow Municipal Airport").
-airport(res_airport_1269, "Montluçon-Guéret Airport").
-airport(res_airport_1271, "Mont-de-Marsan (BA 118) Air Base").
-airport(res_airport_1272, "Niort-Souché Airport").
-airport(res_airport_1275, "Muret-Lherm Airport").
-airport(res_airport_12796, "Danielson Airport").
-airport(res_airport_1281, "Cahors-Lalbenque Airport").
-airport(res_airport_1282, "Saint-Girons-Antichan Airport").
-airport(res_airport_1283, "Arcachon-La Teste-de-Buch Airport").
-airport(res_airport_1284, "Albi-Le Séquestre Airport").
-airport(res_airport_12844, "Docker River Airport").
-airport(res_airport_12856, "Clearfield Lawrence Airport").
-airport(res_airport_1286, "Toulouse-Lasbordes Airport").
-airport(res_airport_1287, "Millau-Larzac Airfield").
-airport(res_airport_12873, "Jasper County Airport").
-airport(res_airport_1288, "Graulhet-Montdragon Airport").
-airport(res_airport_129, "Rivière-du-Loup Airport").
-airport(res_airport_1290, "Ussel-Thalamy Airport").
-airport(res_airport_1291, "Villeneuve-sur-Lot Airport").
-airport(res_airport_12918, "Ti Tree Airport").
-airport(res_airport_12919, "Sabetta International Airport").
-airport(res_airport_1292, "Royan-Médis Airport").
-airport(res_airport_12921, "Alxa Left Banner Bayanhot Airport").
-airport(res_airport_1293, "Mimizan Airport").
-airport(res_airport_12931, "El Fuentero Airport").
-airport(res_airport_1294, "Aire-sur-l'Adour Airport").
-airport(res_airport_12941, "Sturgate Airfield").
-airport(res_airport_12945, "Simberi Airport").
-airport(res_airport_12946, "Bulolo Airport").
-airport(res_airport_12948, "Kintore Airport").
-airport(res_airport_1295, "Montauban Airport").
-airport(res_airport_12950, "Statesboro Bulloch County Airport").
-airport(res_airport_12951, "Utopia Airport").
-airport(res_airport_12957, "Nyrripi Airport").
-airport(res_airport_12958, "Amata Airport").
-airport(res_airport_1296, "Auch-Lamothe Airport").
-airport(res_airport_12961, "Glacier Country Heliport").
-airport(res_airport_1297, "Libourne-Artigues-de-Lussac Airport").
-airport(res_airport_12979, "Erldunda Airport").
-airport(res_airport_1298, "Pamiers-Les Pujols Airport").
-airport(res_airport_12980, "Helisul I Heliport").
-airport(res_airport_12984, "Finke Airport").
-airport(res_airport_12987, "Humberto Ghizzo Bortoluzzi Regional Airport").
-airport(res_airport_1299, "Marmande-Virazeil Airport").
-airport(res_airport_13, "Hornafjörður Airport").
-airport(res_airport_130, "Roberval Airport").
-airport(res_airport_1300, "Rochefort-Saint-Agnant (BA 721) Airport").
-airport(res_airport_13004, "Nypari Airport").
-airport(res_airport_13006, "Ihtiman Airfield").
-airport(res_airport_13009, "Vogtareuth Airport").
-airport(res_airport_1301, "Pontivy Airport").
-airport(res_airport_13011, "[Duplicate] Illertissen via EDMI - ED-0425 location moved out-of-the way").
-airport(res_airport_13016, "New Smyrna Beach Municipal Airport").
-airport(res_airport_13018, "Las Vegas Helicopters Heliport").
-airport(res_airport_13019, "Delta Camp Airport").
-airport(res_airport_1302, "Aubigny-sur-Nère Airport").
-airport(res_airport_13020, "Hwange (Town) Airport").
-airport(res_airport_13022, "Harbour (Public) Heliport").
-airport(res_airport_13023, "Victoria Harbour (Camel Point) Heliport").
-airport(res_airport_1303, "Guiscriff Scaer Airport").
-airport(res_airport_13032, "Shushenskoye Airport").
-airport(res_airport_1305, "Ancenis Airport").
-airport(res_airport_1306, "Brienne-le-Château Airport").
-airport(res_airport_13066, "Stockerau Airport").
-airport(res_airport_13069, "Klaipėda Airport").
-airport(res_airport_1307, "Colmar-Houssen Airport").
-airport(res_airport_13072, "Iowa County Airport").
-airport(res_airport_13074, "West Bend Municipal Airport").
-airport(res_airport_13075, "Gaylord Regional Airport").
-airport(res_airport_13077, "Anderson Municipal Darlington Field").
-airport(res_airport_13078, "Cenej Airport").
-airport(res_airport_13079, "Grundarfjörður Airport").
-airport(res_airport_1308, "Beaune-Challanges Airport").
-airport(res_airport_13080, "Prairie Du Chien Municipal Airport").
-airport(res_airport_13097, "Cascade Heliport").
-airport(res_airport_13098, "Air Orlando Heliport").
-airport(res_airport_131, "Rocky Mountain House Airport").
-airport(res_airport_1310, "Joigny Airport").
-airport(res_airport_13106, "Tórshavn/Bodanes Heliport").
-airport(res_airport_1311, "Verdun-Le Rozelier Airfield").
-airport(res_airport_13112, "Otjiwarongo Airport").
-airport(res_airport_13114, "RAF Mona").
-airport(res_airport_1312, "Aubenas-Ardèche Méridional Airport").
-airport(res_airport_13120, "Rerik-Zweedorf Airport").
-airport(res_airport_13121, "Fazenda Vaticano Airport").
-airport(res_airport_13123, "Stanly County Airport").
-airport(res_airport_13124, "Davidson County Airport").
-airport(res_airport_13126, "Windwood Fly-In Resort Airport").
-airport(res_airport_13127, "Lathan Strip").
-airport(res_airport_13130, "Double Eagle II Airport").
-airport(res_airport_13131, "Socorro Municipal Airport").
-airport(res_airport_13135, "Bentonville Municipal-Louise M Thaden Field").
-airport(res_airport_13137, "Blue Ridge Airport").
-airport(res_airport_13138, "Mount Airy Surry County Airport").
-airport(res_airport_13139, "Taos Regional Airport").
-airport(res_airport_1314, "Saint-Flour-Coltines Airport").
-airport(res_airport_13142, "Raton Municipal-Crews Field").
-airport(res_airport_13144, "Rusk County Airport").
-airport(res_airport_1315, "Bourg-Ceyzériat Airport").
-airport(res_airport_13154, "Perry Lefors Field").
-airport(res_airport_13155, "William R. Pogue Municipal Airport").
-airport(res_airport_13156, "Marion County Regional Airport").
-airport(res_airport_13158, "Hutchinson County Airport").
-airport(res_airport_1316, "Villefranche-Tarare Airport").
-airport(res_airport_1317, "Moulins-Montbeugny Airport").
-airport(res_airport_13176, "Budaörs Airfield").
-airport(res_airport_13177, "Jakabszállás Airport").
-airport(res_airport_1318, "Saint-Affrique-Belmont Airport").
-airport(res_airport_13180, "St. Helena Airport").
-airport(res_airport_13183, "Bonn-Hangelar Airport").
-airport(res_airport_13188, "Nogliki Airport").
-airport(res_airport_13189, "Santa Ynez Airport").
-airport(res_airport_1319, "Cassagnes-Bégonhès Airport").
-airport(res_airport_13192, "Delingha Airport").
-airport(res_airport_13193, "Qionghai Bo'ao Airport").
-airport(res_airport_13199, "Northeim Airport").
-airport(res_airport_13209, "Reggio Emilia Airport").
-airport(res_airport_13210, "Bowen Airport").
-airport(res_airport_13211, "Ulanqab Jining Airport").
-airport(res_airport_13212, "Odienne Airport").
-airport(res_airport_13214, "Siguiri Airport").
-airport(res_airport_13215, "Nzérékoré Airport").
-airport(res_airport_13227, "Boolgeeda").
-airport(res_airport_13229, "Shaoyang Wugang Airport").
-airport(res_airport_13230, "9 de Maio - Teixeira de Freitas Airport").
-airport(res_airport_13233, "Spartanburg Downtown Memorial Airport").
-airport(res_airport_13243, "Bajawa Soa Airport").
-airport(res_airport_13248, "Torgau-Beilrode Airport").
-airport(res_airport_13249, "Annobón Airport").
-airport(res_airport_1325, "Propriano Airport").
-airport(res_airport_13257, "Renk Airport").
-airport(res_airport_1326, "Solenzara (BA 126) Air Base").
-airport(res_airport_13260, "Oyo Ollombo Airport").
-airport(res_airport_13263, "Port Hardy Seaplane Base").
-airport(res_airport_13265, "Tri-City Airport").
-airport(res_airport_13266, "Boun Neau Airport").
-airport(res_airport_13267, "Waycross Ware County Airport").
-airport(res_airport_13268, "Blaise Diagne International Airport").
-airport(res_airport_13269, "Mid-State Regional Airport").
-airport(res_airport_1327, "Corte Airport").
-airport(res_airport_13271, "Greater Portsmouth Regional Airport").
-airport(res_airport_1328, "Auxerre-Branches Airport").
-airport(res_airport_1329, "Chambéry-Savoie Airport").
-airport(res_airport_13306, "Coonawarra Airport").
-airport(res_airport_13307, "Naracoorte Airport").
-airport(res_airport_13309, "Camilla Mitchell County Airport").
-airport(res_airport_1331, "Bourges Airport").
-airport(res_airport_13311, "Clarenville Airport").
-airport(res_airport_13315, "Ponta Grossa Airport - Comandante Antonio Amilton Beraldo").
-airport(res_airport_1332, "Chambéry-Challes-les-Eaux Airport").
-airport(res_airport_1333, "Chalon-Champforgeuil Airport").
-airport(res_airport_13334, "Palenque International Airport").
-airport(res_airport_13335, "Caloundra Airport").
-airport(res_airport_13336, "Clarks Point Airport").
-airport(res_airport_13339, "Ospika Airport").
-airport(res_airport_1334, "Annemasse Airport").
-airport(res_airport_13341, "Charlottetown Airport").
-airport(res_airport_13342, "Doris Lake").
-airport(res_airport_13344, "Costa Esmeralda Airport").
-airport(res_airport_13346, "Monte Cristi Airport").
-airport(res_airport_13347, "El Papalon Airport").
-airport(res_airport_13354, "Sandpoint Airport").
-airport(res_airport_13355, "Attu Heliport").
-airport(res_airport_13356, "Kangaatsiaq Heliport").
-airport(res_airport_13357, "Kitsissuarsuit Heliport").
-airport(res_airport_13358, "Niaqornaarsuk Heliport").
-airport(res_airport_13359, "Ilimanaq Heliport").
-airport(res_airport_1336, "Mâcon-Charnay Airport").
-airport(res_airport_13360, "Qeqertaq Heliport").
-airport(res_airport_13361, "Saqqaq Heliport").
-airport(res_airport_13363, "Savissivik Heliport").
-airport(res_airport_13364, "Siorapaluk Heliport").
-airport(res_airport_13365, "Aappilattoq (Qaasuitsup) Heliport").
-airport(res_airport_13366, "Innarsuit Heliport").
-airport(res_airport_13367, "Kangersuatsiaq Heliport").
-airport(res_airport_13368, "Kullorsuaq Heliport").
-airport(res_airport_13369, "Nuussuaq Heliport").
-airport(res_airport_1337, "Saint-Yan Airport").
-airport(res_airport_13370, "Tasiusaq (Qaasuitsup) Heliport").
-airport(res_airport_13371, "Upernavik Kujalleq Heliport").
-airport(res_airport_13372, "Aappilattoq (Kujalleq) Heliport").
-airport(res_airport_13373, "Tasiusaq (Kujalleq) Heliport").
-airport(res_airport_13374, "Narsaq Kujalleq Heliport").
-airport(res_airport_13375, "Ikamiut Heliport").
-airport(res_airport_13377, "Ammassivik Heliport").
-airport(res_airport_13378, "Eqalugaarsuit Heliport").
-airport(res_airport_13379, "Qassimiut Heliport").
-airport(res_airport_1338, "Roanne-Renaison Airport").
-airport(res_airport_13380, "Tiniteqilaaq Heliport").
-airport(res_airport_13381, "Isortoq Heliport").
-airport(res_airport_13382, "Kuummiut Heliport").
-airport(res_airport_13383, "Sermiligaaq Heliport").
-airport(res_airport_13384, "Ikerassaarsuk Heliport").
-airport(res_airport_13385, "Illorsuit Heliport").
-airport(res_airport_13386, "Nuugaatsiaq Heliport").
-airport(res_airport_13387, "Saattut Heliport").
-airport(res_airport_13388, "Ikerasak Heliport").
-airport(res_airport_13389, "Niaqornat Heliport").
-airport(res_airport_1339, "Annecy-Haute-Savoie-Mont Blanc Airport").
-airport(res_airport_13390, "Ukkusissat Heliport").
-airport(res_airport_13397, "Olhos D`água Airport").
-airport(res_airport_13398, "Novo Progresso Airport").
-airport(res_airport_13399, "Adolino Bedin Regional Airport").
-airport(res_airport_134, "Sherbrooke Airport").
-airport(res_airport_1340, "Grenoble-Isère Airport").
-airport(res_airport_13400, "Serra da Capivara Airport").
-airport(res_airport_13401, "Encarnación Airport").
-airport(res_airport_13402, "Amatopo Airstrip").
-airport(res_airport_13403, "Poeketi Airstrip").
-airport(res_airport_13404, "Godo Holo Airstrip").
-airport(res_airport_13405, "Anholt Airport").
-airport(res_airport_1341, "Montluçon-Domérat Airport").
-airport(res_airport_13411, "St Pierre d'Oléron Airfield").
-airport(res_airport_13412, "Semur En Auxois Airfield").
-airport(res_airport_13415, "Urzhar Airport").
-airport(res_airport_13416, "Pyramiden Heliport").
-airport(res_airport_1342, "Valence-Chabeuil Airport").
-airport(res_airport_13421, "Lipki Air Base").
-airport(res_airport_13422, "Zermatt  Heliport").
-airport(res_airport_13423, "Nikolskoye Airport").
-airport(res_airport_13424, "Tilichiki Airport").
-airport(res_airport_13425, "Nyurba Airport").
-airport(res_airport_13426, "Sakkyryr Airport").
-airport(res_airport_13427, "Ust-Kuyga Airport").
-airport(res_airport_13428, "Verkhnevilyuisk Airport").
-airport(res_airport_13429, "Mendeleyevo Airport").
-airport(res_airport_1343, "Vichy-Charmeil Airport").
-airport(res_airport_13430, "Yamburg Airport").
-airport(res_airport_13431, "Shakhtyorsk Airport").
-airport(res_airport_13432, "Talakan Airport").
-airport(res_airport_13433, "Mama Airport").
-airport(res_airport_13435, "Aarhus Seaplne Terminal").
-airport(res_airport_13436, "Oakland Troy Airport").
-airport(res_airport_13437, "Stratford Municipal Airport").
-airport(res_airport_13438, "Edmundston Airport").
-airport(res_airport_13439, "Red Dog Airport").
-airport(res_airport_13447, "Impfondo Airport").
-airport(res_airport_13448, "El Bayadh Airport").
-airport(res_airport_1345, "Châteauroux-Déols \\\"Marcel Dassault\\\" Airport").
-airport(res_airport_13451, "Alzintan Airport").
-airport(res_airport_13452, "Monkey Bay Airport").
-airport(res_airport_13453, "Suwałki Airport").
-airport(res_airport_13454, "Srr Ahmadu Bello International Airport").
-airport(res_airport_13455, "Sir Abubakar Tafawa Balewa International Airport").
-airport(res_airport_13456, "Gombe Lawanti International Airport").
-airport(res_airport_13457, "Dutse International Airport").
-airport(res_airport_13458, "Jalingo Airport").
-airport(res_airport_1346, "Lyon-Bron Airport").
-airport(res_airport_13460, "Kolda North Airport").
-airport(res_airport_13463, "King Mswati III International Airport").
-airport(res_airport_13465, "Kilwa Masoko Airport").
-airport(res_airport_13466, "West Kilimanjaro Airport").
-airport(res_airport_13467, "Moshi Airport").
-airport(res_airport_13468, "Mansa Airport").
-airport(res_airport_13469, "Ghazni Airport").
-airport(res_airport_1347, "Aix-en-Provence (BA 114) Airport").
-airport(res_airport_13470, "Baicheng Chang'an Airport").
-airport(res_airport_13471, "Longnan Chengzhou Airport").
-airport(res_airport_13472, "Shangrao Sanqingshan Airport").
-airport(res_airport_13473, "Songyuan Chaganhu Airport").
-airport(res_airport_13474, "Jiansanjiang Airport").
-airport(res_airport_13476, "Zunyi Maotai Airport").
-airport(res_airport_13477, "Libo Airport").
-airport(res_airport_13478, "Chengde Puning Airport").
-airport(res_airport_13479, "Wudalianchi Dedu Airport").
-airport(res_airport_1348, "Le Luc-Le Cannet Airport").
-airport(res_airport_13480, "Ejin Banner-Taolai Airport").
-airport(res_airport_13481, "Alxa Right Banner Badanjilin Airport").
-airport(res_airport_13482, "Holingol Huolinhe Airport").
-airport(res_airport_13483, "Golog Maqin Airport").
-airport(res_airport_13485, "Yeerqiang Airport").
-airport(res_airport_13487, "Tezu Airport").
-airport(res_airport_13488, "Cangyuan Washan Airport").
-airport(res_airport_13489, "Lancang Jingmai Airport").
-airport(res_airport_1349, "Cannes-Mandelieu Airport").
-airport(res_airport_13490, "Ninglang Luguhu Airport").
-airport(res_airport_13491, "Pimenta Bueno Airport").
-airport(res_airport_13492, "Ariquemes Airport").
-airport(res_airport_13493, "Fazenda Spartacus Airport").
-airport(res_airport_13494, "Xinzhou Wutaishan Airport").
-airport(res_airport_13496, "Chengjisihan Airport").
-airport(res_airport_13497, "Fazenda Mequens Airport").
-airport(res_airport_13498, "Prainha Airport").
-airport(res_airport_13499, "Mostardas Airport").
-airport(res_airport_13500, "Santo Domingo Airport").
-airport(res_airport_13502, "Adampur Airport").
-airport(res_airport_1351, "Istres Le Tubé/Istres Air Base (BA 125) Airport").
-airport(res_airport_13511, "Vijayanagar Aerodrome (JSW)").
-airport(res_airport_13513, "Shirdi Airport").
-airport(res_airport_13514, "Jeypore Airport").
-airport(res_airport_13520, "Trunojoyo Airport").
-airport(res_airport_13521, "Lasondre Airport").
-airport(res_airport_13525, "Rokot Airport").
-airport(res_airport_13529, "Pasir Pangaraan Airport").
-airport(res_airport_13530, "Sei Bati Airport").
-airport(res_airport_13532, "Departi Parbo Airport").
-airport(res_airport_13535, "Namrole Airport").
-airport(res_airport_13538, "Namlea Airport").
-airport(res_airport_13540, "Rar Gwamar Airport").
-airport(res_airport_13543, "Emalamo Sanana Airport").
-airport(res_airport_13544, "Ayawasi Airport").
-airport(res_airport_13545, "Bunyu Airport").
-airport(res_airport_13546, "Buol Airport").
-airport(res_airport_13548, "Sugimanuru Airport").
-airport(res_airport_1355, "Orange-Caritat (BA 115) Air Base").
-airport(res_airport_13550, "Jask Airport").
-airport(res_airport_13551, "Frankfort Dow Memorial Field").
-airport(res_airport_13552, "Cheboygan County Airport").
-airport(res_airport_13553, "Kozushima Airport").
-airport(res_airport_13561, "Kazarman Airport").
-airport(res_airport_13562, "Kerben Airport").
-airport(res_airport_13564, "Naryn Airport").
-airport(res_airport_13566, "Sayaboury Airport").
-airport(res_airport_1357, "Le Castellet Airport").
-airport(res_airport_13572, "Baglung Airport").
-airport(res_airport_13573, "Rajbiraj Airport").
-airport(res_airport_13575, "Duqm International Airport").
-airport(res_airport_1358, "Alès-Deaux Airport").
-airport(res_airport_13580, "Palanan Community Airport").
-airport(res_airport_13581, "Itbayat Airport").
-airport(res_airport_13583, "Catbalogan Airport").
-airport(res_airport_13584, "Maasin Airport").
-airport(res_airport_13592, "Bantayan Airport").
-airport(res_airport_13593, "Biliran Airport").
-airport(res_airport_13595, "Fazenda Várzea Funda Airport").
-airport(res_airport_13597, "Primavera do Leste Airport").
-airport(res_airport_13598, "Croker Island Airport").
-airport(res_airport_13599, "The Granites Airport").
-airport(res_airport_13600, "Barimunya Airport").
-airport(res_airport_13601, "Laucala Island Airport").
-airport(res_airport_13602, "Yasawa Island Airport").
-airport(res_airport_13606, "North Shore Aerodrome").
-airport(res_airport_13607, "John C Tune Airport").
-airport(res_airport_13608, "Okiwi Station Airport").
-airport(res_airport_13609, "Waiheke Reeve Airport").
-airport(res_airport_13610, "Karamea Airport").
-airport(res_airport_1362, "Salon-de-Provence (BA 701) Air Base").
-airport(res_airport_13621, "Jastarnia Airport").
-airport(res_airport_13622, "Nop Goliat Airport").
-airport(res_airport_13623, "Napuka Island Airport").
-airport(res_airport_13624, "Faaite Airport").
-airport(res_airport_13625, "Nukutavake Airport").
-airport(res_airport_13626, "Vahitahi Airport").
-airport(res_airport_13627, "Hikueru Atoll Airport").
-airport(res_airport_13628, "Raroia Airport").
-airport(res_airport_13629, "Kauehi Airport").
-airport(res_airport_1363, "Lézignan-Corbières Airfield").
-airport(res_airport_13630, "Tatakoto Airport").
-airport(res_airport_13631, "Sasereme Airport").
-airport(res_airport_13632, "Tanah Merah Airport").
-airport(res_airport_13635, "Denali Airport").
-airport(res_airport_13636, "Comte. Rolim Adolfo Amaro–Jundiaí State Airport").
-airport(res_airport_1364, "Mende-Brenoux Airfield").
-airport(res_airport_13642, "Potomac Airpark").
-airport(res_airport_13643, "Helisul IV Heliport").
-airport(res_airport_13647, "Brits Airport").
-airport(res_airport_13648, "West Melton Aerodrome").
-airport(res_airport_13649, "Rangiora Airfield").
-airport(res_airport_1365, "Carpentras Airport").
-airport(res_airport_1366, "Avord (BA 702) Air Base").
-airport(res_airport_13668, "Fazenda Jatobasso Airport").
-airport(res_airport_13669, "FIC Heliport").
-airport(res_airport_13671, "Noonkanbah Airport").
-airport(res_airport_13677, "Algeciras Heliport").
-airport(res_airport_1368, "Châteaudun (BA 279) Air Base").
-airport(res_airport_13681, "Chepelevka Airport").
-airport(res_airport_13683, "Fazenda São Nicolau Airport").
-airport(res_airport_13684, "Kisoro Airport").
-airport(res_airport_13687, "Kasese Airport").
-airport(res_airport_1369, "Saumur-Saint-Florent Airport").
-airport(res_airport_13694, "Stennis International Airport").
-airport(res_airport_13695, "Sunchales Aeroclub Airport").
-airport(res_airport_13696, "Istanbul Airport").
-airport(res_airport_137, "Nanisivik Airport").
-airport(res_airport_1370, "Évreux-Fauville (BA 105) Air Base").
-airport(res_airport_13707, "Seldovia Airport").
-airport(res_airport_13711, "Lutselk'e Airport").
-airport(res_airport_13712, "Engeløy Airport").
-airport(res_airport_13713, "Dwangwa Airport").
-airport(res_airport_13714, "Paloich Airport, Heliport").
-airport(res_airport_13715, "Julian Carroll Airport").
-airport(res_airport_13716, "Beaufort MCAS - Merritt Field").
-airport(res_airport_13717, "Camp Pendleton MCAS (Munn Field) Airport").
-airport(res_airport_13718, "Aerodromo de Castelo Branco").
-airport(res_airport_13719, "Ponte de Sor Airport").
-airport(res_airport_1372, "Abbeville").
-airport(res_airport_13720, "Vilar de Luz Airfield").
-airport(res_airport_13721, "Hard Bargain Airport").
-airport(res_airport_13722, "Kenebetsu JASDF Airfield").
-airport(res_airport_13723, "Augusto Severo Airport").
-airport(res_airport_13724, "Kishangarh Airport").
-airport(res_airport_13725, "Kannur International Airport").
-airport(res_airport_13726, "Beijing Xijiao Airport").
-airport(res_airport_1373, "Orléans-Bricy (BA 123) Air Base").
-airport(res_airport_13735, "Flores Airport").
-airport(res_airport_1375, "Rouen Airport").
-airport(res_airport_13752, "Umuwa Airport").
-airport(res_airport_13754, "La Araucanía Airport").
-airport(res_airport_13756, "Arathusa Safari Lodge Airport").
-airport(res_airport_13757, "Vidalia Regional Airport").
-airport(res_airport_13758, "Granbury Regional Airport").
-airport(res_airport_13759, "Oswego County Airport").
-airport(res_airport_13760, "New Islamabad International Airport").
-airport(res_airport_13762, "Vumbura Airport").
-airport(res_airport_13763, "Farm Whitwater East Landing Strip").
-airport(res_airport_13765, "Muwaffaq Salti Air Base").
-airport(res_airport_1377, "Cholet Le Pontreau Airport").
-airport(res_airport_13771, "Kirkjubæjarklaustur Airport").
-airport(res_airport_13772, "Fazenda Uiapuru Airport").
-airport(res_airport_13773, "Whitehorse Seaplane Base").
-airport(res_airport_13777, "Pertominsk Airport").
-airport(res_airport_1378, "Laval-Entrammes Airport").
-airport(res_airport_1379, "Orléans-Saint-Denis-de-l'Hôtel Airport").
-airport(res_airport_13792, "Mount Weld Airport").
-airport(res_airport_13793, "Kidston Airport").
-airport(res_airport_138, "Summerside Airport").
-airport(res_airport_1380, "Paris-Le Bourget Airport").
-airport(res_airport_13802, "Klaksvik Heliport").
-airport(res_airport_13803, "Mitchell Municipal Airport").
-airport(res_airport_13805, "Hunda Airport").
-airport(res_airport_13808, "Mchauru Airport").
-airport(res_airport_1381, "Creil Air Base").
-airport(res_airport_13821, "Gitega Airport").
-airport(res_airport_13829, "Región de Murcia International Airport").
-airport(res_airport_1383, "Coulommiers-Voisins Airport").
-airport(res_airport_13830, "Fazenda Kajussol Airport").
-airport(res_airport_1384, "Melun-Villaroche Air Base").
-airport(res_airport_1385, "Toussus-le-Noble Airport").
-airport(res_airport_1387, "Pontoise - Cormeilles-en-Vexin Airport").
-airport(res_airport_1388, "Villacoublay-Vélizy (BA 107) Air Base").
-airport(res_airport_13880, "Pelee Island Airport").
-airport(res_airport_13881, "Costa Marques Airport").
-airport(res_airport_1389, "Reims-Prunay Airport").
-airport(res_airport_13891, "Mangalore Airport").
-airport(res_airport_1390, "Troyes-Barberey Airport").
-airport(res_airport_1391, "Lunéville-Croismare Airport").
-airport(res_airport_1392, "Étain-Rouvres Air Base").
-airport(res_airport_1393, "Autun-Bellevue Airport").
-airport(res_airport_1394, "Nevers-Fourchambault Airport").
-airport(res_airport_1395, "Cambrai-Épinoy (BA 103) Air Base").
-airport(res_airport_1396, "Maubeuge-Élesmes Airport").
-airport(res_airport_1397, "Besançon-La Vèze Airport").
-airport(res_airport_1398, "Phalsbourg-Bourscheid Air Base").
-airport(res_airport_14, "Húsavík Airport").
-airport(res_airport_1400, "Merville-Calonne Airport").
-airport(res_airport_1401, "Charleville-Mézières Airport").
-airport(res_airport_1402, "Vesoul-Frotey Airport").
-airport(res_airport_1404, "Cherbourg-Maupertus Airport").
-airport(res_airport_1406, "La Baule-Escoublac Airport").
-airport(res_airport_1407, "Granville Airport").
-airport(res_airport_14086, "San Isidro del General Airport").
-airport(res_airport_14087, "Zabrat Airport").
-airport(res_airport_14088, "Bezmer Air Base").
-airport(res_airport_14089, "Osovtsy Air Base").
-airport(res_airport_14090, "Yuanmou Air Base").
-airport(res_airport_14091, "Changsha Datuopu Airport/AFB").
-airport(res_airport_14092, "Xingcheng Air Base").
-airport(res_airport_14093, "Lefkoniko Airport").
-airport(res_airport_14095, "Songwe Airport").
-airport(res_airport_14096, "Kalocsa/Foktő Airport").
-airport(res_airport_14097, "Bilogai-Sugapa Airport").
-airport(res_airport_14098, "Jakkur Aerodrome").
-airport(res_airport_14099, "Jalal-Abad Airport").
-airport(res_airport_1410, "La Roche-sur-Yon Airport").
-airport(res_airport_14100, "Ramon Airport").
-airport(res_airport_14101, "Rustaq Airport").
-airport(res_airport_14102, "Laguindingan Airport").
-airport(res_airport_14103, "Kostomuksha Airport").
-airport(res_airport_14104, "Privolzhskiy Air Base").
-airport(res_airport_14105, "Kubinka Air Base").
-airport(res_airport_14106, "Rogachyovo Air Base").
-airport(res_airport_14107, "Ulan-Ude East Airport").
-airport(res_airport_14108, "Krechevitsy Air Base").
-airport(res_airport_14109, "Desierto de Atacama Airport").
-airport(res_airport_1411, "Landivisiau Air Base").
-airport(res_airport_14110, "Melitopol Air Base").
-airport(res_airport_1413, "Lanvéoc-Poulmic Air Base").
-airport(res_airport_1414, "Le Mans-Arnage Airport").
-airport(res_airport_1419, "Saint-Brieuc-Armor Airport").
-airport(res_airport_142, "CFB Trenton").
-airport(res_airport_1420, "Morlaix-Ploujean Airport").
-airport(res_airport_1421, "Vannes-Meucon Airport").
-airport(res_airport_1422, "Saint-Nazaire-Montoir Airport").
-airport(res_airport_1424, "Colmar-Meyenheim Air Base").
-airport(res_airport_1426, "Metz-Frescaty (BA 128) Air Base").
-airport(res_airport_1427, "Épinal-Mirecourt Airport").
-airport(res_airport_1428, "Haguenau Airport").
-airport(res_airport_1429, "Saint-Dizier-Robinson (BA 113) Air Base").
-airport(res_airport_1430, "Montbéliard-Courcelles Airfield").
-airport(res_airport_1431, "Nancy-Essey Airport").
-airport(res_airport_1432, "Nancy-Ochey (BA 133) Air Base").
-airport(res_airport_1433, "Pontarlier Airport").
-airport(res_airport_1434, "Reims-Champagne (BA 112) Air Base").
-airport(res_airport_1436, "Luxeuil-Saint-Sauveur (BA 116) Air Base").
-airport(res_airport_1437, "Cuers-Pierrefeu Airport").
-airport(res_airport_1440, "Miquelon Airport").
-airport(res_airport_1442, "Ambérieu Air Base (BA 278)").
-airport(res_airport_1443, "Damblain Airport").
-airport(res_airport_1444, "Andravida Air Base").
-airport(res_airport_1445, "Agrinion Air Base").
-airport(res_airport_1447, "Alexandria Airport").
-airport(res_airport_1449, "Elefsis Airport").
-airport(res_airport_1457, "Amigdhaleon Airport").
-airport(res_airport_1466, "Larisa Airport").
-airport(res_airport_1467, "Megara Airport").
-airport(res_airport_1471, "Maritsa Airport").
-airport(res_airport_1478, "Sparti Airport").
-airport(res_airport_1481, "Stefanovikion Air Base").
-airport(res_airport_1483, "Tanagra Air Base").
-airport(res_airport_1484, "Kasteli Airport").
-airport(res_airport_1485, "Tripolis Airport").
-airport(res_airport_1487, "Tatoi Airport").
-airport(res_airport_1491, "Kecskemét Airport").
-airport(res_airport_1492, "Nyíregyháza Airport").
-airport(res_airport_1493, "Őcsény Airport").
-airport(res_airport_1496, "Szentkirályszabadja Airport").
-airport(res_airport_1498, "Szolnok Air Base").
-airport(res_airport_1499, "Amendola Air Base").
-airport(res_airport_150, "La Ronge Airport").
-airport(res_airport_1500, "Crotone Airport").
-airport(res_airport_1502, "Foggia \\\"Gino Lisa\\\" Airport").
-airport(res_airport_1503, "Taranto-Grottaglie \\\"Marcello Arlotta\\\" Airport").
-airport(res_airport_1504, "Lecce Galatina Air Base").
-airport(res_airport_1507, "Gioia Del Colle Air Base").
-airport(res_airport_151, "Vermilion Airport").
-airport(res_airport_1513, "Palermo-Boccadifalco Airport").
-airport(res_airport_1516, "Sigonella Navy Air Base").
-airport(res_airport_1518, "Decimomannu Air Base").
-airport(res_airport_1521, "Tortolì Airport").
-airport(res_airport_1522, "Torino-Aeritalia Airport").
-airport(res_airport_1523, "Milano-Bresso Airfield").
-airport(res_airport_1527, "Villanova D'Albenga International Airport").
-airport(res_airport_1530, "Cameri Air Base [MIL]").
-airport(res_airport_1532, "Piacenza San Damiano Air Base").
-airport(res_airport_1535, "Aviano Air Base").
-airport(res_airport_1537, "Cervia Air Base").
-airport(res_airport_1540, "Rivolto Air Base").
-airport(res_airport_1541, "Forlì Airport").
-airport(res_airport_1542, "Ghedi Air Base").
-airport(res_airport_1543, "Verona-Boscomantico Airport").
-airport(res_airport_1544, "Brescia Airport").
-airport(res_airport_1547, "Istrana Air Base").
-airport(res_airport_1548, "Vicenza Airport").
-airport(res_airport_1549, "Padova Airport").
-airport(res_airport_1552, "Siena-Ampugnano Airport").
-airport(res_airport_1554, "Pratica Di Mare Air Base").
-airport(res_airport_1556, "Guidonia Air Base").
-airport(res_airport_1559, "Latina Air Base").
-airport(res_airport_1560, "Grazzanise Air Base").
-airport(res_airport_1564, "Grosseto Air Base").
-airport(res_airport_1565, "Urbe Airport").
-airport(res_airport_1566, "Viterbo Airport").
-airport(res_airport_1568, "Cerklje Airport").
-airport(res_airport_157, "Buffalo Narrows Airport").
-airport(res_airport_1570, "Maribor Airport").
-airport(res_airport_1571, "Portoroz Airport").
-airport(res_airport_1572, "Slovenj Gradec Airport").
-airport(res_airport_1573, "České Budějovice Airport").
-airport(res_airport_1574, "Čáslav Air Base").
-airport(res_airport_1575, "Hradec Králové Airport").
-airport(res_airport_1576, "Hořovice Airport").
-airport(res_airport_1577, "Kbely Air Base").
-airport(res_airport_1578, "Kunovice Airport").
-airport(res_airport_158, "Wiarton Airport").
-airport(res_airport_1580, "Plzeň-Líně Airport").
-airport(res_airport_1581, "Mnichovo Hradiště Airport").
-airport(res_airport_1583, "Náměšť Air Base").
-airport(res_airport_1585, "Pribram Airport").
-airport(res_airport_1586, "Přerov Air Base").
-airport(res_airport_1589, "Vodochody Airport").
-airport(res_airport_159, "Petawawa Airport").
-airport(res_airport_1591, "Beersheba (Teyman) Airport").
-airport(res_airport_1592, "Tel Nof Air Base").
-airport(res_airport_1593, "Ein Shemer Airfield").
-airport(res_airport_1595, "Ein Yahav Airfield").
-airport(res_airport_1597, "Hatzor Air Base").
-airport(res_airport_1598, "Ben Ya'akov Airport").
-airport(res_airport_1599, "Megiddo Airport").
-airport(res_airport_1600, "Bar Yehuda Airfield").
-airport(res_airport_1601, "Nevatim Air Base").
-airport(res_airport_1603, "Ramat David Air Base").
-airport(res_airport_1604, "Ramon Air Base").
-airport(res_airport_1607, "Wiener Neustadt East Airport").
-airport(res_airport_1608, "Wels Airport").
-airport(res_airport_1615, "Hinterstoisser Air Base").
-airport(res_airport_1616, "Alverca Air Base").
-airport(res_airport_1618, "Bragança Airport").
-airport(res_airport_1619, "Beja Airport / Airbase").
-airport(res_airport_1620, "Braga Municipal Aerodrome").
-airport(res_airport_1621, "Aerodromo Municipal de Coimbra").
-airport(res_airport_1622, "Cascais Airport").
-airport(res_airport_1623, "Coimbra Hospital Covões Heliport").
-airport(res_airport_1624, "Évora Airport").
-airport(res_airport_163, "Wrigley Airport").
-airport(res_airport_1630, "Monte Real Air Base").
-airport(res_airport_1631, "Montijo Air Base").
-airport(res_airport_1632, "Ovar Air Base").
-airport(res_airport_1635, "Portimão Airport").
-airport(res_airport_1640, "Sintra Air Base").
-airport(res_airport_1641, "Tancos Airbase").
-airport(res_airport_1642, "Vila Real Airport").
-airport(res_airport_1643, "Aerodromo Goncalves Lobato (Viseu Airport)").
-airport(res_airport_1648, "Bacău Airport").
-airport(res_airport_165, "Edmonton City Centre (Blatchford Field) Airport").
-airport(res_airport_1650, "Băneasa International Airport").
-airport(res_airport_1653, "Caransebeş Airport").
-airport(res_airport_1660, "Suceava Stefan cel Mare Airport").
-airport(res_airport_1661, "Tulcea Airport").
-airport(res_airport_1664, "Les Eplatures Airport").
-airport(res_airport_1666, "Saanen Airport").
-airport(res_airport_1667, "Sion Airport").
-airport(res_airport_1668, "Alpnach Air Base").
-airport(res_airport_1669, "Dübendorf Air Base").
-airport(res_airport_1670, "Emmen Air Base").
-airport(res_airport_1671, "Mollis Airport").
-airport(res_airport_1672, "Meiringen Airport").
-airport(res_airport_1673, "Payerne Air Base").
-airport(res_airport_1677, "Grenchen Airport").
-airport(res_airport_1680, "Samedan Airport").
-airport(res_airport_1681, "Güvercinlik Airport").
-airport(res_airport_1683, "Etimesgut Air Base").
-airport(res_airport_1684, "Akıncı Air Base").
-airport(res_airport_1686, "İncirlik Air Base").
-airport(res_airport_1687, "Afyon Airport").
-airport(res_airport_1690, "İskenderun Airport").
-airport(res_airport_1695, "Malatya Erhaç Airport").
-airport(res_airport_1697, "Sivrihisar Airport").
-airport(res_airport_1698, "Tokat Airport").
-airport(res_airport_17, "Patreksfjörður Airport").
-airport(res_airport_1702, "Balıkesir Merkez Airport").
-airport(res_airport_1703, "Bandırma Airport").
-airport(res_airport_1705, "Eskişehir Air Base").
-airport(res_airport_1707, "Gaziemir Airport").
-airport(res_airport_1708, "Çiğli Airport").
-airport(res_airport_1709, "Isparta Airport").
-airport(res_airport_171, "Earlton (Timiskaming Regional) Airport").
-airport(res_airport_1710, "Kütahya Airport").
-airport(res_airport_1712, "Yalova Airport").
-airport(res_airport_1713, "Cengiz Topel Airport").
-airport(res_airport_1716, "Akhisar Airport").
-airport(res_airport_1718, "Imsık Airport").
-airport(res_airport_1719, "Samandıra Air Base").
-airport(res_airport_1731, "Siirt Airport").
-airport(res_airport_1732, "Kaklıç Airport").
-airport(res_airport_1733, "Selçuk Efes Airport").
-airport(res_airport_1734, "Bălți International Airport").
-airport(res_airport_1736, "Ohrid St. Paul the Apostle Airport").
-airport(res_airport_1740, "Nis Airport").
-airport(res_airport_1744, "Vršac International Airport").
-airport(res_airport_1747, "Kuchyňa Air Base").
-airport(res_airport_1748, "Piešťany Airport").
-airport(res_airport_1749, "Sliač Airport").
-airport(res_airport_1750, "Trenčín Airport").
-airport(res_airport_1751, "Poprad-Tatry Airport").
-airport(res_airport_1753, "North Caicos Airport").
-airport(res_airport_1756, "Arroyo Barril Airport").
-airport(res_airport_1757, "Maria Montez International Airport").
-airport(res_airport_1758, "Cabo Rojo Airport").
-airport(res_airport_1763, "San Isidro Air Base").
-airport(res_airport_1765, "Bananera Airport").
-airport(res_airport_1766, "Coban Airport").
-airport(res_airport_1769, "Retalhuleu Airport").
-airport(res_airport_1770, "San José Airport").
-airport(res_airport_1775, "Tela Airport").
-airport(res_airport_1777, "Trujillo Airport").
-airport(res_airport_1778, "Boscobel Aerodrome").
-airport(res_airport_1781, "Ken Jones Airport").
-airport(res_airport_1782, "Tinson Pen Airport").
-airport(res_airport_1784, "Del Norte International Airport").
-airport(res_airport_1787, "General Mariano Matamoros Airport").
-airport(res_airport_1788, "Ciudad Acuña New International Airport").
-airport(res_airport_1790, "Nuevo Casas Grandes Airport").
-airport(res_airport_1791, "Chilpancingo Airport").
-airport(res_airport_1803, "Ensenada International Airport").
-airport(res_airport_1805, "General José María Yáñez International Airport").
-airport(res_airport_1806, "Tehuacan Airport").
-airport(res_airport_1809, "Isla Mujeres Airport").
-airport(res_airport_1811, "Ixtepec Airport").
-airport(res_airport_1823, "Monclova International Airport").
-airport(res_airport_1827, "Nogales International Airport").
-airport(res_airport_1832, "Ingeniero Juan Guillermo Villasana Airport").
-airport(res_airport_1833, "Mar de Cortés International Airport").
-airport(res_airport_1841, "San Felipe International Airport").
-airport(res_airport_1843, "Tlaxcala Airport").
-airport(res_airport_1844, "Terán Air Base").
-airport(res_airport_1849, "Tamuin Airport").
-airport(res_airport_185, "Lynn Lake Airport").
-airport(res_airport_1857, "Zamora Airport").
-airport(res_airport_1859, "Zapopan Airport").
-airport(res_airport_186, "Swift Current Airport").
-airport(res_airport_1860, "Bluefields Airport").
-airport(res_airport_1861, "Los Brasiles Airport").
-airport(res_airport_1862, "Leon (Fanor Urroz) Airport").
-airport(res_airport_1864, "Puerto Cabezas Airport").
-airport(res_airport_1868, "Panama Pacific International Airport").
-airport(res_airport_1870, "Ruben Cantu Airport").
-airport(res_airport_1872, "Buenos Aires Airport").
-airport(res_airport_1874, "Coto 47 Airport").
-airport(res_airport_1875, "Chacarita Airport").
-airport(res_airport_1877, "El Carmen de Siquirres Airport").
-airport(res_airport_1878, "Finca 10 / Nuevo Palmar Sur Airport").
-airport(res_airport_1880, "Guapiles Airport").
-airport(res_airport_1882, "Los Chiles Airport").
-airport(res_airport_1883, "Limon International Airport").
-airport(res_airport_1886, "Pandora Airport").
-airport(res_airport_1890, "Santa Clara De Guapiles Airport").
-airport(res_airport_1891, "San Vito De Java Airport").
-airport(res_airport_1893, "Ilopango International Airport").
-airport(res_airport_1894, "Les Cayes Airport").
-airport(res_airport_1896, "Jacmel Airport").
-airport(res_airport_1898, "Gustavo Rizo Airport").
-airport(res_airport_1899, "Carlos Manuel de Cespedes Airport").
-airport(res_airport_19, "Siglufjörður Airport").
-airport(res_airport_1900, "Maximo Gomez Airport").
-airport(res_airport_1902, "Jaime Gonzalez Airport").
-airport(res_airport_1906, "Florida Airport").
-airport(res_airport_1907, "Leeward Point Field").
-airport(res_airport_191, "Armstrong Airport").
-airport(res_airport_1911, "La Coloma Airport").
-airport(res_airport_1912, "Orestes Acosta Airport").
-airport(res_airport_1913, "Sierra Maestra Airport").
-airport(res_airport_1914, "Rafael Cabrera Airport").
-airport(res_airport_1915, "Playa Baracoa Airport").
-airport(res_airport_1916, "Pinar Del Rio Airport").
-airport(res_airport_1917, "San Antonio De Los Banos Airport").
-airport(res_airport_1919, "Joaquín de Agüero Airport").
-airport(res_airport_1920, "Siguanea Airport").
-airport(res_airport_1921, "Sancti Spiritus Airport").
-airport(res_airport_1924, "Hermanos Ameijeiras Airport").
-airport(res_airport_1927, "Clarence A. Bain Airport").
-airport(res_airport_1928, "Andros Town Airport").
-airport(res_airport_1931, "San Andros Airport").
-airport(res_airport_1933, "Sandy Point Airport").
-airport(res_airport_1935, "Chub Cay Airport").
-airport(res_airport_1936, "Great Harbour Cay Airport").
-airport(res_airport_194, "Downsview Airport").
-airport(res_airport_1942, "George Town Airport").
-airport(res_airport_1945, "Normans Cay Airport").
-airport(res_airport_1947, "Staniel Cay Airport").
-airport(res_airport_195, "Gore Bay Manitoulin Airport").
-airport(res_airport_1954, "Duncan Town Airport").
-airport(res_airport_1955, "Rum Cay Airport").
-airport(res_airport_1964, "Vava'u International Airport").
-airport(res_airport_1966, "Tabiteuea North Airport").
-airport(res_airport_197, "Slave Lake Airport").
-airport(res_airport_1973, "Anaa Airport").
-airport(res_airport_1974, "Fangatau Airport").
-airport(res_airport_1976, "Reao Airport").
-airport(res_airport_1982, "Puka Puka Airport").
-airport(res_airport_20, "Vestmannaeyjar Airport").
-airport(res_airport_2008, "Ardmore Airport").
-airport(res_airport_201, "Whitecourt Airport").
-airport(res_airport_2010, "Chatham Islands-Tuuta Airport").
-airport(res_airport_2013, "Glentanner Airport").
-airport(res_airport_2016, "Hastings Aerodrome").
-airport(res_airport_2019, "Alexandra Airport").
-airport(res_airport_2020, "Mount Cook Airport").
-airport(res_airport_2021, "Manapouri Airport").
-airport(res_airport_2022, "Hood Airport").
-airport(res_airport_2026, "RNZAF Base Ohakea").
-airport(res_airport_2027, "Oamaru Airport").
-airport(res_airport_203, "Teslin Airport").
-airport(res_airport_2032, "Waiouru Airport").
-airport(res_airport_2033, "South Pole Station Airport").
-airport(res_airport_2036, "Pukaki Airport").
-airport(res_airport_2038, "Williams Field").
-airport(res_airport_2039, "Wanaka Airport").
-airport(res_airport_204, "CFB Greenwood").
-airport(res_airport_2040, "Wigram Airport").
-airport(res_airport_2043, "Wairoa Airport").
-airport(res_airport_2044, "RNZAF Base Auckland-Whenuapai").
-airport(res_airport_2049, "Jalalabad Airport").
-airport(res_airport_205, "Faro Airport").
-airport(res_airport_2052, "Maimana Airport").
-airport(res_airport_2054, "Shindand Airport").
-airport(res_airport_2055, "Sheberghan Airport").
-airport(res_airport_2056, "Konduz Airport").
-airport(res_airport_2058, "Sheik Isa Air Base").
-airport(res_airport_2063, "Abqaiq Airport").
-airport(res_airport_2065, "King Abdulaziz Air Base").
-airport(res_airport_207, "Blida Airport").
-airport(res_airport_2070, "Jubail Airport").
-airport(res_airport_2071, "King Faisal Naval Base").
-airport(res_airport_2073, "King Khaled Military City Airport").
-airport(res_airport_2077, "Pump Station 3 Airport").
-airport(res_airport_2078, "Pump Station 6 Airport").
-airport(res_airport_2079, "Pump Station 10 Airport").
-airport(res_airport_208, "Bou Saada Airport").
-airport(res_airport_2080, "Rabigh Airport").
-airport(res_airport_2083, "Ras Mishab Airport").
-airport(res_airport_2085, "Ras Tanura Airport").
-airport(res_airport_2088, "Sulayel Airport").
-airport(res_airport_2091, "Thumamah Airport").
-airport(res_airport_2092, "Ras Tanajib Airport").
-airport(res_airport_2098, "Dezful Airport").
-airport(res_airport_2099, "Aghajari Airport").
-airport(res_airport_2100, "Gachsaran Airport").
-airport(res_airport_2101, "Shahid Asyaee Airport").
-airport(res_airport_2102, "Omidiyeh Airport").
-airport(res_airport_2105, "Abu Musa Island Airport").
-airport(res_airport_2107, "Bastak Airport").
-airport(res_airport_2108, "Asaloyeh Airport").
-airport(res_airport_2111, "Khark Island Airport").
-airport(res_airport_2112, "Sirri Island Airport").
-airport(res_airport_2113, "Lavan Island Airport").
-airport(res_airport_2118, "Hesa Airport").
-airport(res_airport_2119, "Shahid Vatan Pour Air Base").
-airport(res_airport_212, "Boufarik Airport").
-airport(res_airport_2120, "Kashan Airport").
-airport(res_airport_2122, "Badr Air Base").
-airport(res_airport_2125, "Arak Airport").
-airport(res_airport_2126, "Ghazvin Azadi Airport").
-airport(res_airport_2127, "Kushke Nosrat Airport").
-airport(res_airport_2128, "Doshan Tappeh Air Base").
-airport(res_airport_213, "Reggane Airport").
-airport(res_airport_2130, "Ghale Morghi Airport").
-airport(res_airport_2132, "Qazvin Airport").
-airport(res_airport_2133, "Naja Airport").
-airport(res_airport_2135, "Jiroft Airport").
-airport(res_airport_2138, "Havadarya Airport").
-airport(res_airport_2139, "Dayrestan Airport").
-airport(res_airport_214, "Illizi Takhamalt Airport").
-airport(res_airport_2141, "Sirjan Airport").
-airport(res_airport_2143, "Sarakhs Airport").
-airport(res_airport_2144, "Shahroud Airport").
-airport(res_airport_2147, "Tabas Airport").
-airport(res_airport_2148, "Kalaleh Airport").
-airport(res_airport_215, "Ain Oussera Airport").
-airport(res_airport_2153, "Fasa Airport").
-airport(res_airport_2154, "Jahrom Airport").
-airport(res_airport_2156, "Lamerd Airport").
-airport(res_airport_2158, "Khoy Airport").
-airport(res_airport_2163, "Zanjan Airport").
-airport(res_airport_2168, "Iran Shahr Airport").
-airport(res_airport_2169, "Saravan Airport").
-airport(res_airport_217, "Jijel Ferhat Abbas Airport").
-airport(res_airport_2171, "Amman-Marka International Airport").
-airport(res_airport_2173, "Prince Hassan Air Base").
-airport(res_airport_2174, "Jerusalem Airport").
-airport(res_airport_2175, "King Hussein Air College").
-airport(res_airport_2178, "Rene Mouawad Air Base").
-airport(res_airport_218, "Mecheria Airport").
-airport(res_airport_2181, "Al Hamra Aux Airport").
-airport(res_airport_2182, "Jebel Dhana Airport").
-airport(res_airport_2184, "Al Dhafra Air Base").
-airport(res_airport_2185, "Arzanah Airport").
-airport(res_airport_2186, "Das Island Airport").
-airport(res_airport_2187, "Zirku Airport").
-airport(res_airport_219, "Relizane Airport").
-airport(res_airport_2190, "Ras Al Khaimah International Airport").
-airport(res_airport_2193, "Masirah Air Base").
-airport(res_airport_2196, "Thumrait Air Base").
-airport(res_airport_2197, "Bhagatanwala Airport").
-airport(res_airport_22, "Winnipeg / St. Andrews Airport").
-airport(res_airport_2205, "Shahbaz Air Base").
-airport(res_airport_2208, "Walton Airport").
-airport(res_airport_2209, "Mangla Airport").
-airport(res_airport_2210, "Muzaffarabad Airport").
-airport(res_airport_2211, "Mianwali Air Base").
-airport(res_airport_2213, "Masroor Air Base").
-airport(res_airport_2215, "Shaheed Benazirabad Airport").
-airport(res_airport_2216, "Okara Cantonment Airstrip").
-airport(res_airport_2218, "Pasni Airport").
-airport(res_airport_2220, "Qasim Airport").
-airport(res_airport_2224, "Risalpur Air Base").
-airport(res_airport_2225, "Rawalakot Airport").
-airport(res_airport_2228, "Saidu Sharif Airport").
-airport(res_airport_2229, "Sui Airport").
-airport(res_airport_2230, "Talhar Airport").
-airport(res_airport_2232, "Wana Airport").
-airport(res_airport_2235, "Aleppo International Airport").
-airport(res_airport_2236, "Damascus International Airport").
-airport(res_airport_2237, "Deir ez-Zor Air Base").
-airport(res_airport_2239, "Bassel Al-Assad International Airport").
-airport(res_airport_2240, "Palmyra Airport").
-airport(res_airport_2241, "Doha International Airport").
-airport(res_airport_2242, "Canton Island Airport").
-airport(res_airport_2245, "Andersen Air Force Base").
-airport(res_airport_2247, "Tinian International Airport").
-airport(res_airport_2250, "Dyess Army Air Field").
-airport(res_airport_2253, "Henderson Field").
-airport(res_airport_226, "Bou Sfer Airport").
-airport(res_airport_2260, "Pingtung South Airport").
-airport(res_airport_2261, "Longtan Air Base").
-airport(res_airport_2263, "Lyudao Airport").
-airport(res_airport_2265, "Chiayi Airport").
-airport(res_airport_2267, "Lanyu Airport").
-airport(res_airport_227, "Tindouf Airport").
-airport(res_airport_2271, "Hsinchu Air Base").
-airport(res_airport_2273, "Chihhang Air Base").
-airport(res_airport_2274, "Pingtung North Airport").
-airport(res_airport_2277, "Wang-an Airport").
-airport(res_airport_228, "Ech Cheliff Airport").
-airport(res_airport_2282, "Minami Torishima Airport").
-airport(res_airport_2283, "Iwo Jima Airport").
-airport(res_airport_2285, "Kohnan Airport").
-airport(res_airport_2289, "Chitose Air Base").
-airport(res_airport_229, "Tafaraoui Airport").
-airport(res_airport_2293, "Tokachi Airport").
-airport(res_airport_23, "Halifax / CFB Shearwater Heliport").
-airport(res_airport_2300, "Okushiri Airport").
-airport(res_airport_2301, "Rishiri Airport").
-airport(res_airport_2302, "Ashiya Airport").
-airport(res_airport_2303, "Yakushima Airport").
-airport(res_airport_2306, "New Tanegashima Airport").
-airport(res_airport_2309, "Nyutabaru Airport").
-airport(res_airport_2314, "Kanoya Airport").
-airport(res_airport_2315, "Tsuiki Air Field").
-airport(res_airport_2317, "Okierabu Airport").
-airport(res_airport_2318, "Tokunoshima Airport").
-airport(res_airport_2319, "Fukui Airport").
-airport(res_airport_232, "Sidi Bel Abbes Airport").
-airport(res_airport_2320, "Gifu Airport").
-airport(res_airport_2321, "Hamamatsu Airport").
-airport(res_airport_2323, "Oki Airport").
-airport(res_airport_2325, "Shizuhama Airport").
-airport(res_airport_2329, "Hofu Airport").
-airport(res_airport_2338, "Yao Airport").
-airport(res_airport_2339, "Ozuki Airport").
-airport(res_airport_2342, "Sado Airport").
-airport(res_airport_2343, "Hachinohe Airport").
-airport(res_airport_2348, "Matsushima Air Base").
-airport(res_airport_2350, "Atsugi Naval Air Facility").
-airport(res_airport_2351, "Tateyama Airport").
-airport(res_airport_2353, "Iruma Air Base").
-airport(res_airport_2354, "Kisarazu Airport").
-airport(res_airport_2355, "Shimofusa Airport").
-airport(res_airport_2358, "Kastner Army Heliport").
-airport(res_airport_2360, "Yokota Air Base").
-airport(res_airport_2364, "Jeon Ju Airport (G-703)").
-airport(res_airport_2366, "Sokcho Airport").
-airport(res_airport_2367, "Gangneung Airport (K-18)").
-airport(res_airport_2371, "Jinhae Airbase/Airport (G-813/K-10)").
-airport(res_airport_2375, "A 511 Airport").
-airport(res_airport_2376, "Seoul Air Base (K-16)").
-airport(res_airport_2377, "Osan Air Base").
-airport(res_airport_2379, "Suwon Airport").
-airport(res_airport_2383, "Yecheon Airbase").
-airport(res_airport_2385, "Ie Shima Auxiliary Air Base").
-airport(res_airport_2386, "Kadena Air Base").
-airport(res_airport_2389, "Minami-Daito Airport").
-airport(res_airport_2391, "Kitadaito Airport").
-airport(res_airport_2392, "Shimojishima Airport").
-airport(res_airport_2393, "Tarama Airport").
-airport(res_airport_2394, "Yoron Airport").
-airport(res_airport_2395, "Futenma Marine Corps Air Station").
-airport(res_airport_2396, "Yonaguni Airport").
-airport(res_airport_2405, "Loakan Airport").
-airport(res_airport_2406, "Daet Airport").
-airport(res_airport_2407, "Basa Air Base").
-airport(res_airport_2408, "Lingayen Airport").
-airport(res_airport_241, "Laghouat Airport").
-airport(res_airport_2410, "Fernando Air Base").
-airport(res_airport_2411, "Mamburao Airport").
-airport(res_airport_2414, "Vigan Airport").
-airport(res_airport_2415, "Dr.Juan C. Angara Airport").
-airport(res_airport_242, "Timimoun Airport").
-airport(res_airport_2421, "Bagabag Airport").
-airport(res_airport_2428, "Guiuan Airport").
-airport(res_airport_2435, "Evelio Javier Airport").
-airport(res_airport_2436, "Comodoro Pierrestegui Airport").
-airport(res_airport_2437, "Gualeguaychu Airport").
-airport(res_airport_2438, "Junin Airport").
-airport(res_airport_2444, "Chamical Airport").
-airport(res_airport_2445, "San Fernando Airport").
-airport(res_airport_2446, "Mariano Moreno Airport").
-airport(res_airport_2447, "La Plata Airport").
-airport(res_airport_2448, "Moron Airport").
-airport(res_airport_2449, "El Palomar Airport").
-airport(res_airport_2450, "Chos Malal Airport").
-airport(res_airport_2451, "Dr. Arturo H. Illia Airport").
-airport(res_airport_2453, "Comodoro D.R. Salomón Airport").
-airport(res_airport_2457, "Tinogasta Airport").
-airport(res_airport_2459, "Chilecito Airport").
-airport(res_airport_2462, "Area De Material Airport").
-airport(res_airport_2463, "Villa Dolores Airport").
-airport(res_airport_2464, "La Quiaca Airport").
-airport(res_airport_2465, "Marcos Juarez Airport").
-airport(res_airport_2466, "Villa Reynolds Airport").
-airport(res_airport_2468, "Corrientes Airport").
-airport(res_airport_2472, "Paso De Los Libres Airport").
-airport(res_airport_2473, "Monte Caseros Airport").
-airport(res_airport_2475, "Termal Airport").
-airport(res_airport_2478, "Orán Airport").
-airport(res_airport_2479, "Laboulaye Airport").
-airport(res_airport_2481, "El Dorado Airport").
-airport(res_airport_2482, "Goya Airport").
-airport(res_airport_2483, "Oberá Airport").
-airport(res_airport_2484, "Reconquista Airport").
-airport(res_airport_2485, "Curuzu Cuatia Airport").
-airport(res_airport_2486, "El Bolson Airport").
-airport(res_airport_2493, "Marambio Base").
-airport(res_airport_2494, "Puerto Deseado Airport").
-airport(res_airport_2498, "Capitan D Daniel Vazquez Airport").
-airport(res_airport_2499, "Perito Moreno Airport").
-airport(res_airport_25, "Tofino / Long Beach Airport").
-airport(res_airport_250, "Wa Airport").
-airport(res_airport_2500, "Santa Cruz Airport").
-airport(res_airport_2502, "Brigadier D.H.E. Ruiz Airport").
-airport(res_airport_2503, "Olavarria Airport").
-airport(res_airport_2504, "General Pico Airport").
-airport(res_airport_2505, "Tres Arroyos Airport").
-airport(res_airport_2506, "Bolivar Airport").
-airport(res_airport_2511, "Comodoro Pedro Zanni Airport").
-airport(res_airport_2514, "Héroes De Malvinas Airport").
-airport(res_airport_2515, "Villa Gesell Airport").
-airport(res_airport_2516, "Cutral-Co Airport").
-airport(res_airport_2519, "Campo Délio Jardim de Mattos Airport").
-airport(res_airport_2520, "Amapá Airport").
-airport(res_airport_2527, "Comandante Gustavo Kraemer Airport").
-airport(res_airport_2529, "Bacacheri Airport").
-airport(res_airport_2530, "Major Brigadeiro Doorgal Borges Airport").
-airport(res_airport_2532, "Bauru Airport").
-airport(res_airport_2534, "Barra do Garças Airport").
-airport(res_airport_2536, "Cachimbo Airport").
-airport(res_airport_254, "Bouaké Airport").
-airport(res_airport_2540, "Brig. Lysias Augusto Rodrigues Airport").
-airport(res_airport_2542, "Canoas Air Force Base").
-airport(res_airport_2546, "Caravelas Airport").
-airport(res_airport_255, "Daloa Airport").
-airport(res_airport_2552, "Jacareacanga Airport").
-airport(res_airport_2553, "São Pedro da Aldeia Airport").
-airport(res_airport_2558, "Furnas Airport").
-airport(res_airport_256, "Korhogo Airport").
-airport(res_airport_2561, "Guajará-Mirim Airport").
-airport(res_airport_2563, "EMBRAER - Unidade Gavião Peixoto Airport").
-airport(res_airport_2565, "Guaratinguetá Airport").
-airport(res_airport_2567, "Itacoatiara Airport").
-airport(res_airport_257, "Man Airport").
-airport(res_airport_2571, "Francisco Vilela do Amaral Airport").
-airport(res_airport_2573, "Belém/Brigadeiro Protásio de Oliveira Airport").
-airport(res_airport_2574, "Francisco de Assis Airport").
-airport(res_airport_2579, "Lages Airport").
-airport(res_airport_258, "San Pedro Airport").
-airport(res_airport_2580, "Lins Airport").
-airport(res_airport_2583, "Lagoa Santa Airport").
-airport(res_airport_2585, "Monte Dourado Airport").
-airport(res_airport_2589, "Ponta Pelada Airport").
-airport(res_airport_259, "Yamoussoukro Airport").
-airport(res_airport_2592, "Dix-Sept Rosado Airport").
-airport(res_airport_2593, "Campo de Marte Airport").
-airport(res_airport_2594, "Manicoré Airport").
-airport(res_airport_2598, "Oiapoque Airport").
-airport(res_airport_26, "Kugaaruk Airport").
-airport(res_airport_2600, "Prefeito Doutor João Silva Filho Airport").
-airport(res_airport_2601, "Poços de Caldas - Embaixador Walther Moreira Salles Airport").
-airport(res_airport_2605, "Porto Nacional Airport").
-airport(res_airport_2606, "Ponta Porã Airport").
-airport(res_airport_261, "Akure Airport").
-airport(res_airport_2614, "Santa Cruz Air Force Base").
-airport(res_airport_2620, "Base Aérea de Santos Airport").
-airport(res_airport_2625, "Tarauacá Airport").
-airport(res_airport_2626, "Telêmaco Borba Airport").
-airport(res_airport_2627, "Tiriós Airport").
-airport(res_airport_2636, "Major Brigadeiro Trompowsky Airport").
-airport(res_airport_2639, "Iauaretê Airport").
-airport(res_airport_2640, "Campo Fontenelle Airport").
-airport(res_airport_2643, "El Bosque Airport").
-airport(res_airport_2644, "Chile Chico Airport").
-airport(res_airport_2646, "Gral. Bernardo O´Higgins Airport").
-airport(res_airport_2648, "Teniente Vidal Airport").
-airport(res_airport_265, "Gusau Airport").
-airport(res_airport_2652, "Capitan Fuentes Martinez Airport Airport").
-airport(res_airport_2653, "Futaleufú Airport").
-airport(res_airport_2654, "María Dolores Airport").
-airport(res_airport_2655, "Guardiamarina Zañartu Airport").
-airport(res_airport_2659, "Vallenar Airport").
-airport(res_airport_2660, "De La Independencia Airport").
-airport(res_airport_2661, "Teniente Rodolfo Marsh Martin Base").
-airport(res_airport_2663, "Eulogio Sánchez Airport").
-airport(res_airport_2666, "Chaitén Airport").
-airport(res_airport_2668, "Chachoán Airport").
-airport(res_airport_2669, "Hacienda Clementina Airport").
-airport(res_airport_2674, "Gualaquiza Airport").
-airport(res_airport_2675, "Atahualpa Airport").
-airport(res_airport_2676, "Km 192 Airport").
-airport(res_airport_2677, "Hacienda La Julia Airport").
-airport(res_airport_2679, "Jose Maria Velasco Ibarra Airport").
-airport(res_airport_2681, "General Manuel Serrano Airport").
-airport(res_airport_2682, "El Carmen Airport").
-airport(res_airport_2684, "Maragrosa Airport").
-airport(res_airport_2685, "Amable Calle Gutierrez Airport").
-airport(res_airport_2686, "Reales Tamarindos Airport").
-airport(res_airport_2687, "Quevedo Airport").
-airport(res_airport_2689, "Chimborazo Airport").
-airport(res_airport_2691, "General Ulpiano Paez Airport").
-airport(res_airport_2692, "Santo Domingo de Los Colorados Airport").
-airport(res_airport_2694, "Taura Airport").
-airport(res_airport_2695, "Mayor Galo Torres Airport").
-airport(res_airport_2696, "Tarapoa Airport").
-airport(res_airport_2700, "Juan De Ayolas Airport").
-airport(res_airport_2701, "Teniente Col Carmelo Peralta Airport").
-airport(res_airport_2702, "Itaipú Airport").
-airport(res_airport_2703, "Dr. Luis Maria Argaña International Airport").
-airport(res_airport_2704, "Carlos Miguel Gimenez Airport").
-airport(res_airport_2707, "Las Flores Airport").
-airport(res_airport_271, "Maiduguri International Airport").
-airport(res_airport_272, "Makurdi Airport").
-airport(res_airport_2720, "Santiago Vila Airport").
-airport(res_airport_2723, "Guaymaral Airport").
-airport(res_airport_2727, "Jorge Isaac Airport").
-airport(res_airport_2730, "Baracoa Airport").
-airport(res_airport_2735, "Aguas Claras Airport").
-airport(res_airport_2736, "Otu Airport").
-airport(res_airport_2737, "Puerto Bolívar Airport").
-airport(res_airport_274, "Minna Airport").
-airport(res_airport_2740, "Pitalito Airport").
-airport(res_airport_2744, "Mariquita Airport").
-airport(res_airport_2754, "Heriberto Gíl Martínez Airport").
-airport(res_airport_2758, "Bermejo Airport").
-airport(res_airport_2760, "Chimore Airport").
-airport(res_airport_2763, "Juan Mendoza Airport").
-airport(res_airport_2765, "Capitán Av. Salvador Ogaya G. airport").
-airport(res_airport_2766, "Santa Ana Del Yacuma Airport").
-airport(res_airport_2770, "Teniente Coronel Rafael Pabón Airport").
-airport(res_airport_2775, "Saint-Georges-de-l'Oyapock Airport").
-airport(res_airport_2776, "Huancabamba Airport").
-airport(res_airport_2777, "Alferez FAP Alfredo Vladimir Sara Bauer Airport").
-airport(res_airport_2778, "Teniente General Gerardo Pérez Pinedo Airport").
-airport(res_airport_278, "Zaria Airport").
-airport(res_airport_2780, "Iberia Airport").
-airport(res_airport_2782, "Teniente FAP Jaime A De Montreuil Morales Airport").
-airport(res_airport_2783, "Puerto Esperanza Airport").
-airport(res_airport_2784, "Cesar Torke Podesta Airport").
-airport(res_airport_279, "Maradi Airport").
-airport(res_airport_2790, "Juanjui Airport").
-airport(res_airport_2791, "Francisco Carle Airport").
-airport(res_airport_2794, "Ilo Airport").
-airport(res_airport_2795, "Las Palmas Air Base").
-airport(res_airport_2797, "Moises Benzaquen Rengifo Airport").
-airport(res_airport_2799, "Collique Airport").
-airport(res_airport_2800, "Chachapoyas Airport").
-airport(res_airport_2803, "Capitán FAP Leonardo Alvariño Herr Airport").
-airport(res_airport_2805, "Capitán FAP Renán Elías Olivera International Airport").
-airport(res_airport_281, "Tahoua Airport").
-airport(res_airport_2810, "Capitan Montes Airport").
-airport(res_airport_2813, "Angel S Adami Airport").
-airport(res_airport_2814, "Santa Bernardina International Airport").
-airport(res_airport_2817, "Nueva Hesperides International Airport").
-airport(res_airport_2818, "Oswaldo Guevara Mujica Airport").
-airport(res_airport_2819, "Anaco Airport").
-airport(res_airport_282, "Mano Dayak International Airport").
-airport(res_airport_2820, "San Fernando de Atabapo Airport").
-airport(res_airport_2823, "El Libertador Airbase").
-airport(res_airport_2826, "Aeropuerto \\\"General Tomas de Heres\\\". Ciudad Bolivar").
-airport(res_airport_2827, "Caicara del Orinoco Airport").
-airport(res_airport_2828, "San Carlos Airport").
-airport(res_airport_2829, "Calabozo Airport").
-airport(res_airport_283, "Dirkou Airport").
-airport(res_airport_2831, "Carora Airport").
-airport(res_airport_2832, "General Francisco Bermúdez Airport").
-airport(res_airport_2834, "Oscar Machado Zuluaga Airport").
-airport(res_airport_2836, "Capitán Manuel Ríos Airbase").
-airport(res_airport_2837, "El Dorado Airport").
-airport(res_airport_2838, "Elorza Airport").
-airport(res_airport_2839, "Guasdalito Airport").
-airport(res_airport_284, "Diffa Airport").
-airport(res_airport_2840, "Guiria Airport").
-airport(res_airport_2841, "Guanare Airport").
-airport(res_airport_2842, "Higuerote Airport").
-airport(res_airport_2843, "Andrés Miguel Salazar Marcano Airport").
-airport(res_airport_2845, "San Juan de Los Morros Airport").
-airport(res_airport_2847, "La Orchila Airport").
-airport(res_airport_285, "Zinder Airport").
-airport(res_airport_2855, "Paramillo Airport").
-airport(res_airport_2857, "Palmarito Airport").
-airport(res_airport_2859, "Santa Bárbara de Barinas Airport").
-airport(res_airport_2862, "Sub Teniente Nestor Arias Airport").
-airport(res_airport_2863, "San Fernando De Apure Airport").
-airport(res_airport_2865, "Santa Bárbara del Zulia Airport").
-airport(res_airport_2866, "Tucupita Airport").
-airport(res_airport_2867, "Tumeremo Airport").
-airport(res_airport_2871, "Valle de La Pascua Airport").
-airport(res_airport_2872, "Linden Airport").
-airport(res_airport_2873, "Lethem Airport").
-airport(res_airport_2876, "Canefield Airport").
-airport(res_airport_288, "Sidi Ahmed Air Base").
-airport(res_airport_2886, "Diego Jimenez Torres Airport").
-airport(res_airport_2887, "Fernando Luis Ribas Dominicci Airport").
-airport(res_airport_289, "Remada Air Base").
-airport(res_airport_2905, "Canouan Airport").
-airport(res_airport_2906, "Mustique Airport").
-airport(res_airport_2909, "Balkhash Airport").
-airport(res_airport_292, "Borj El Amri Airport").
-airport(res_airport_2929, "Provideniya Bay Airport").
-airport(res_airport_294, "El Borma Airport").
-airport(res_airport_2950, "Gomel Airport").
-airport(res_airport_2951, "Vitebsk Vostochny Airport").
-airport(res_airport_2953, "Minsk 1 Airport").
-airport(res_airport_297, "Niamtougou International Airport").
-airport(res_airport_2977, "Turkmenbashi Airport").
-airport(res_airport_2978, "Turkmenabat Airport").
-airport(res_airport_2984, "Bryansk Airport").
-airport(res_airport_2986, "Migalovo Air Base").
-airport(res_airport_2995, "Akola Airport").
-airport(res_airport_2998, "Bilaspur Airport").
-airport(res_airport_300, "Beauvechain Air Base").
-airport(res_airport_3004, "Daman Airport").
-airport(res_airport_3005, "Deesa Airport").
-airport(res_airport_3006, "Guna Airport").
-airport(res_airport_301, "Kleine Brogel Air Base").
-airport(res_airport_3011, "Kandla Airport").
-airport(res_airport_3013, "Kolhapur Airport").
-airport(res_airport_3014, "Keshod Airport").
-airport(res_airport_3016, "Nashik Airport").
-airport(res_airport_3021, "Solapur Airport").
-airport(res_airport_3025, "Anuradhapura Air Force Base").
-airport(res_airport_3026, "Batticaloa Airport").
-airport(res_airport_3027, "Colombo Ratmalana Airport").
-airport(res_airport_3028, "Ampara Airport").
-airport(res_airport_3029, "Kankesanturai Airport").
-airport(res_airport_303, "Jehonville Air Base").
-airport(res_airport_3033, "Kampong Chhnang Airport").
-airport(res_airport_3036, "Stung Treng Airport").
-airport(res_airport_3037, "Along Airport").
-airport(res_airport_3041, "Bokaro Airport").
-airport(res_airport_3044, "Cooch Behar Airport").
-airport(res_airport_3045, "Dhanbad Airport").
-airport(res_airport_3048, "Gaya Airport").
-airport(res_airport_3049, "Hirakud Airport").
-airport(res_airport_305, "Chièvres Air Base").
-airport(res_airport_3051, "Jharsuguda Airport").
-airport(res_airport_3052, "Sonari Airport").
-airport(res_airport_3053, "Jorhat Airport").
-airport(res_airport_3054, "Kailashahar Airport").
-airport(res_airport_3056, "North Lakhimpur Airport").
-airport(res_airport_3058, "Muzaffarpur Airport").
-airport(res_airport_3059, "Nawapara Airport").
-airport(res_airport_306, "Koksijde Air Base").
-airport(res_airport_3060, "Panagarh Air Force Station").
-airport(res_airport_3062, "Purnea Airport").
-airport(res_airport_3064, "Rourkela Airport").
-airport(res_airport_3065, "Utkela Airport").
-airport(res_airport_3067, "Ziro Airport").
-airport(res_airport_307, "Florennes Air Base").
-airport(res_airport_3070, "Ishurdi Airport").
-airport(res_airport_3075, "Tejgaon Airport").
-airport(res_airport_3078, "Shek Kong Air Base").
-airport(res_airport_308, "Wevelgem Airport").
-airport(res_airport_3082, "Nal Airport").
-airport(res_airport_3083, "Bakshi Ka Talab Air Force Station").
-airport(res_airport_3086, "Bhatinda Air Force Station").
-airport(res_airport_3087, "Bhiwani Airport").
-airport(res_airport_3088, "Bareilly Air Force Station").
-airport(res_airport_3090, "Kanpur Airport").
-airport(res_airport_3091, "Safdarjung Airport").
-airport(res_airport_3095, "Hissar Airport").
-airport(res_airport_3096, "Jhansi Airport").
-airport(res_airport_3099, "Jaisalmer Airport").
-airport(res_airport_3102, "Kota Airport").
-airport(res_airport_3106, "Pathankot Airport").
-airport(res_airport_3107, "Patiala Airport").
-airport(res_airport_3108, "Pantnagar Airport").
-airport(res_airport_3109, "Fursatganj Airport").
-airport(res_airport_311, "Zutendaal Air Base").
-airport(res_airport_3111, "Sarsawa Air Force Station").
-airport(res_airport_3113, "Satna Airport").
-airport(res_airport_3117, "Phonesavanh Airport").
-airport(res_airport_3119, "Sam Neua Airport").
-airport(res_airport_312, "Brustem Airfield Sint Truiden").
-airport(res_airport_3124, "Janakpur Airport").
-airport(res_airport_3128, "Simara Airport").
-airport(res_airport_313, "Saint Hubert Air Base").
-airport(res_airport_3132, "Bellary Airport").
-airport(res_airport_3133, "Bidar Air Force Station").
-airport(res_airport_3138, "Kadapa Airport").
-airport(res_airport_3139, "Car Nicobar Air Force Station").
-airport(res_airport_314, "Ursel Air Base").
-airport(res_airport_3140, "Dundigul Air Force Academy").
-airport(res_airport_3141, "Begumpet Airport").
-airport(res_airport_3145, "Nagarjuna Sagar Airport").
-airport(res_airport_3147, "Pondicherry Airport").
-airport(res_airport_3149, "Salem Airport").
-airport(res_airport_315, "Weelde Air Base").
-airport(res_airport_3150, "Tanjore Air Force Base").
-airport(res_airport_3154, "Tambaram Air Force Station").
-airport(res_airport_3158, "Kamphaeng Saen Airport").
-airport(res_airport_3159, "Khok Kathiam Airport").
-airport(res_airport_316, "Zoersel (Oostmalle) Airfield").
-airport(res_airport_3162, "Watthana Nakhon Airport").
-airport(res_airport_3165, "Hua Hin Airport").
-airport(res_airport_3166, "Takhli Airport").
-airport(res_airport_3167, "Sak Long Airport").
-airport(res_airport_3169, "Nakhon Sawan Airport").
-airport(res_airport_317, "Flugplatz Bautzen").
-airport(res_airport_3171, "Khunan Phumipol Airport").
-airport(res_airport_3172, "Khoun Khan Airport").
-airport(res_airport_3175, "Songkhla Airport").
-airport(res_airport_3176, "Pattani Airport").
-airport(res_airport_3178, "Cha Eian Airport").
-airport(res_airport_318, "Altenburg-Nobitz Airport").
-airport(res_airport_3185, "Surin Airport").
-airport(res_airport_3187, "Khorat Airport").
-airport(res_airport_3188, "Rob Muang Airport").
-airport(res_airport_319, "Dessau Airfield").
-airport(res_airport_3197, "Gia Lam Air Base").
-airport(res_airport_3198, "Kep Air Base").
-airport(res_airport_320, "Eisenhüttenstadt Airfield").
-airport(res_airport_3200, "Nha Trang Air Base").
-airport(res_airport_3207, "Ann Airport").
-airport(res_airport_3208, "Anisakan Airport").
-airport(res_airport_3211, "Coco Island Airport").
-airport(res_airport_3214, "Hommalinn Airport").
-airport(res_airport_322, "Großenhain Airport").
-airport(res_airport_3220, "Lashio Airport").
-airport(res_airport_3221, "Lanywa Airport").
-airport(res_airport_3226, "Momeik Airport").
-airport(res_airport_3227, "Mong Hsat Airport").
-airport(res_airport_3228, "Nampong Air Base").
-airport(res_airport_3229, "Namsang Airport").
-airport(res_airport_323, "Merseburg Airport").
-airport(res_airport_3230, "Hpa-N Airport").
-airport(res_airport_3233, "Pyay Airport").
-airport(res_airport_3234, "Shante Air Base").
-airport(res_airport_3238, "Taungoo Airport").
-airport(res_airport_324, "Halle-Oppin Airport").
-airport(res_airport_325, "Riesa-Göhlis Airport").
-airport(res_airport_3252, "Pitu Airport").
-airport(res_airport_326, "Rechlin-Lärz Airport").
-airport(res_airport_327, "Strausberg Airport").
-airport(res_airport_3274, "Pinang Kampai Airport").
-airport(res_airport_3276, "Binaka Airport").
-airport(res_airport_3277, "Aek Godang Airport").
-airport(res_airport_3278, "Minangkabau International Airport").
-airport(res_airport_3279, "Soewondo Air Force Base").
-airport(res_airport_328, "Schönhagen Airport").
-airport(res_airport_3280, "Dr Ferdinand Lumban Tobing Airport").
-airport(res_airport_3281, "Nanga Pinoh Airport").
-airport(res_airport_329, "Barth Airport").
-airport(res_airport_3291, "Japura Airport").
-airport(res_airport_3292, "Lhok Sukon Airport").
-airport(res_airport_3295, "Kluang Airport").
-airport(res_airport_3297, "Butterworth Airport").
-airport(res_airport_330, "Jena-Schöngleina Airfield").
-airport(res_airport_3301, "Simpang Airport").
-airport(res_airport_3306, "Malacca Airport").
-airport(res_airport_3309, "Suai Airport").
-airport(res_airport_331, "Kyritz Airport").
-airport(res_airport_3311, "Cakung Airport").
-airport(res_airport_3312, "Sembawang Air Base").
-airport(res_airport_3313, "Paya Lebar Air Base").
-airport(res_airport_3314, "Tengah Air Base").
-airport(res_airport_3315, "Seletar Airport").
-airport(res_airport_3317, "Brisbane Archerfield Airport").
-airport(res_airport_332, "Magdeburg \\\"City\\\" Airport").
-airport(res_airport_333, "Rothenburg/Görlitz Airport").
-airport(res_airport_3335, "RAAF Base East Sale").
-airport(res_airport_3338, "Melbourne Moorabbin Airport").
-airport(res_airport_334, "Anklam Airfield").
-airport(res_airport_3340, "RAAF Williams, Point Cook Base").
-airport(res_airport_3343, "RAAF Base Edinburgh").
-airport(res_airport_3344, "Perth Jandakot Airport").
-airport(res_airport_335, "Cottbus-Drewitz Airport").
-airport(res_airport_3350, "Adelaide Parafield Airport").
-airport(res_airport_3352, "Woomera Airfield").
-airport(res_airport_3354, "Sydney Bankstown Airport").
-airport(res_airport_3357, "Camden Airport").
-airport(res_airport_336, "Kamenz Airport").
-airport(res_airport_3360, "RAAF Base Richmond").
-airport(res_airport_3407, "Pulau Tioman Airport").
-airport(res_airport_3412, "Wainwright Air Station").
-airport(res_airport_3416, "Orlando Executive Airport").
-airport(res_airport_3418, "Clear Airport").
-airport(res_airport_3419, "Indian Mountain LRRS Airport").
-airport(res_airport_3421, "Sparrevohn LRRS Airport").
-airport(res_airport_3422, "Bryant Army Heliport").
-airport(res_airport_3424, "Cape Romanzof LRRS Airport").
-airport(res_airport_3425, "Laurence G Hanscom Field").
-airport(res_airport_3427, "Cape Newenham LRRS Airport").
-airport(res_airport_343, "Berlin-Tempelhof International Airport").
-airport(res_airport_3431, "Big Mountain Airport").
-airport(res_airport_3432, "Oscoda Wurtsmith Airport").
-airport(res_airport_3433, "Marina Municipal Airport").
-airport(res_airport_3434, "Sacramento Mather Airport").
-airport(res_airport_3435, "Bicycle Lake Army Air Field").
-airport(res_airport_3436, "Twentynine Palms (Self) Airport").
-airport(res_airport_3438, "Merrill Field").
-airport(res_airport_3439, "Grants-Milan Municipal Airport").
-airport(res_airport_3440, "Ponca City Regional Airport").
-airport(res_airport_3441, "Hunter Army Air Field").
-airport(res_airport_3443, "Pine Bluff Regional Airport, Grider Field").
-airport(res_airport_3444, "Whiting Field Naval Air Station - North").
-airport(res_airport_3449, "Travis Air Force Base").
-airport(res_airport_3450, "Griffiss International Airport").
-airport(res_airport_3451, "Wendover Airport").
-airport(res_airport_3452, "Mobile Downtown Airport").
-airport(res_airport_3455, "Port Angeles Cgas Airport").
-airport(res_airport_3464, "Fort Lauderdale Executive Airport").
-airport(res_airport_3466, "Anderson Regional Airport").
-airport(res_airport_3468, "North Perry Airport").
-airport(res_airport_3470, "Cut Bank International Airport").
-airport(res_airport_3471, "Acadiana Regional Airport").
-airport(res_airport_3474, "Bisbee Douglas International Airport").
-airport(res_airport_3475, "Allen Army Airfield").
-airport(res_airport_3476, "TSTC Waco Airport").
-airport(res_airport_3477, "Annette Island Airport").
-airport(res_airport_3478, "Caribou Municipal Airport").
-airport(res_airport_3479, "Little Rock Air Force Base").
-airport(res_airport_3480, "Redstone Army Air Field").
-airport(res_airport_3481, "Pope Field").
-airport(res_airport_3482, "Dalhart Municipal Airport").
-airport(res_airport_3483, "DLF Airport").
-airport(res_airport_3485, "Anniston Regional Airport").
-airport(res_airport_3487, "Dover Air Force Base").
-airport(res_airport_3489, "Tipton Airport").
-airport(res_airport_3490, "China Lake Naws (Armitage Field) Airport").
-airport(res_airport_3496, "Creech Air Force Base").
-airport(res_airport_3499, "Wheeler Army Airfield").
-airport(res_airport_35, "Miramichi Airport").
-airport(res_airport_3500, "Maxwell Air Force Base").
-airport(res_airport_3501, "Robinson Army Air Field").
-airport(res_airport_3503, "Butts AAF (Fort Carson) Air Field").
-airport(res_airport_3505, "Miramar Marine Corps Air Station - Mitscher Field").
-airport(res_airport_3506, "Luke Air Force Base").
-airport(res_airport_3507, "Hurlburt Field").
-airport(res_airport_3508, "Jack Northrop Field Hawthorne Municipal Airport").
-airport(res_airport_3509, "Houlton International Airport").
-airport(res_airport_3510, "Vance Air Force Base").
-airport(res_airport_3511, "Point Mugu Naval Air Station (Naval Base Ventura Co)").
-airport(res_airport_3512, "Edwards Air Force Base").
-airport(res_airport_3516, "Lemoore Naval Air Station (Reeves Field) Airport").
-airport(res_airport_3518, "Felker Army Air Field").
-airport(res_airport_3519, "Campbell AAF (Fort Campbell) Air Field").
-airport(res_airport_3521, "Patuxent River Naval Air Station (Trapnell Field)").
-airport(res_airport_3522, "Palacios Municipal Airport").
-airport(res_airport_3523, "Arkansas International Airport").
-airport(res_airport_3525, "Tinker Air Force Base").
-airport(res_airport_3526, "Elizabeth City Regional Airport & Coast Guard Air Station").
-airport(res_airport_3530, "Gray Army Air Field").
-airport(res_airport_3532, "Upolu Airport").
-airport(res_airport_3534, "Muskogee-Davis Regional Airport").
-airport(res_airport_3537, "Childress Municipal Airport").
-airport(res_airport_3538, "Keesler Air Force Base").
-airport(res_airport_3539, "Lawson Army Air Field (Fort Benning)").
-airport(res_airport_354, "Frankfurt-Egelsbach Airport").
-airport(res_airport_3540, "Kingsville Naval Air Station").
-airport(res_airport_3541, "Marshall Army Air Field").
-airport(res_airport_3547, "Hickory Regional Airport").
-airport(res_airport_3548, "Albert Whitted Airport").
-airport(res_airport_3549, "Page Field").
-airport(res_airport_3551, "Millinocket Municipal Airport").
-airport(res_airport_3552, "Joint Base Andrews").
-airport(res_airport_3553, "Smith Reynolds Airport").
-airport(res_airport_3554, "Southern California Logistics Airport").
-airport(res_airport_3555, "Bob Sikes Airport").
-airport(res_airport_3556, "Wheeler Sack Army Air Field").
-airport(res_airport_3557, "St Clair County International Airport").
-airport(res_airport_3562, "Davis Monthan Air Force Base").
-airport(res_airport_3563, "Pensacola Naval Air Station/Forrest Sherman Field").
-airport(res_airport_3565, "Grand Forks Air Force Base").
-airport(res_airport_3567, "Buckley Air Force Base").
-airport(res_airport_3568, "Northway Airport").
-airport(res_airport_3569, "Warren \\\"Bud\\\" Woods Palmer Municipal Airport").
-airport(res_airport_357, "Allendorf/Eder Airport").
-airport(res_airport_3572, "Ellington Airport").
-airport(res_airport_3573, "Whidbey Island Naval Air Station (Ault Field)").
-airport(res_airport_3574, "Alice International Airport").
-airport(res_airport_3575, "Moody Air Force Base").
-airport(res_airport_3579, "Igor I Sikorsky Memorial Airport").
-airport(res_airport_358, "Worms Airport").
-airport(res_airport_3581, "Scholes International At Galveston Airport").
-airport(res_airport_3583, "Dillingham Airfield").
-airport(res_airport_3586, "Whiteman Air Force Base").
-airport(res_airport_3587, "Akron Fulton International Airport").
-airport(res_airport_3588, "Greenwood–Leflore Airport").
-airport(res_airport_359, "Mainz-Finthen Airport").
-airport(res_airport_3590, "Francis S Gabreski Airport").
-airport(res_airport_3592, "Tonopah Test Range Airport").
-airport(res_airport_3593, "Palm Beach County Park Airport").
-airport(res_airport_3594, "North Island Naval Air Station-Halsey Field").
-airport(res_airport_3595, "Biggs Army Air Field (Fort Bliss)").
-airport(res_airport_360, "Eisenach-Kindel Airport").
-airport(res_airport_3600, "Bowman Field").
-airport(res_airport_3601, "Sierra Vista Municipal Libby Army Air Field").
-airport(res_airport_3603, "Terre Haute Regional Airport, Hulman Field").
-airport(res_airport_3605, "Grant County International Airport").
-airport(res_airport_3606, "Edward F Knapp State Airport").
-airport(res_airport_3607, "San Nicolas Island Nolf Airport").
-airport(res_airport_361, "Siegerland Airport").
-airport(res_airport_3614, "Hill Air Force Base").
-airport(res_airport_3616, "Scappoose Industrial Airpark").
-airport(res_airport_3618, "Menominee Regional Airport").
-airport(res_airport_3619, "Conroe-North Houston Regional Airport").
-airport(res_airport_3623, "Patrick Air Force Base").
-airport(res_airport_3625, "Ellsworth Air Force Base").
-airport(res_airport_3629, "Mc Alester Regional Airport").
-airport(res_airport_363, "Kiel-Holtenau Airport").
-airport(res_airport_3631, "Coulter Field").
-airport(res_airport_3632, "Wright AAF (Fort Stewart)/Midcoast Regional Airport").
-airport(res_airport_3634, "Esler Regional Airport").
-airport(res_airport_3635, "Altus Air Force Base").
-airport(res_airport_3637, "Minot Air Force Base").
-airport(res_airport_3638, "Beale Air Force Base").
-airport(res_airport_3639, "Greater Kankakee Airport").
-airport(res_airport_3640, "Seymour Johnson Air Force Base").
-airport(res_airport_3643, "Rancho Murieta Airport").
-airport(res_airport_3647, "Pembina Municipal Airport").
-airport(res_airport_3648, "Polk Army Air Field").
-airport(res_airport_3649, "Eielson Air Force Base").
-airport(res_airport_365, "Flugplatz Dahlemer Binz").
-airport(res_airport_3651, "Angelina County Airport").
-airport(res_airport_3654, "Ardmore Municipal Airport").
-airport(res_airport_3655, "Mc Guire Air Force Base").
-airport(res_airport_3656, "Cherry Point MCAS /Cunningham Field/").
-airport(res_airport_3657, "Emanuel County Airport").
-airport(res_airport_366, "Meinerzhagen Airport").
-airport(res_airport_3662, "Baudette International Airport").
-airport(res_airport_3663, "Sacramento Executive Airport").
-airport(res_airport_3666, "Dobbins Air Reserve Base").
-airport(res_airport_3667, "Fairchild Air Force Base").
-airport(res_airport_3668, "Roscommon County - Blodgett Memorial Airport").
-airport(res_airport_3669, "Tyndall Air Force Base").
-airport(res_airport_367, "Arnsberg-Menden Airport").
-airport(res_airport_3672, "McChord Air Force Base").
-airport(res_airport_3677, "Hood Army Air Field").
-airport(res_airport_3679, "Millville Municipal Airport").
-airport(res_airport_368, "Essen Mulheim Airport").
-airport(res_airport_3683, "Castle Airport").
-airport(res_airport_3684, "Mc Clellan Airfield").
-airport(res_airport_3686, "Winkler County Airport").
-airport(res_airport_3688, "Vero Beach Regional Airport").
-airport(res_airport_369, "Bielefeld Airport").
-airport(res_airport_3692, "Elmendorf Air Force Base").
-airport(res_airport_3695, "Dyess Air Force Base").
-airport(res_airport_3699, "Dupage Airport").
-airport(res_airport_370, "Mönchengladbach Airport").
-airport(res_airport_3702, "Hillsboro Municipal Airport").
-airport(res_airport_3703, "Jacksonville Naval Air Station (Towers Field)").
-airport(res_airport_3706, "Godman Army Air Field").
-airport(res_airport_3707, "New River MCAS /H/ /Mccutcheon Fld/ Airport").
-airport(res_airport_3709, "Calexico International Airport").
-airport(res_airport_3716, "Felts Field").
-airport(res_airport_372, "Stadtlohn-Vreden Airport").
-airport(res_airport_3721, "Dade Collier Training and Transition Airport").
-airport(res_airport_3723, "Fort Worth Meacham International Airport").
-airport(res_airport_3725, "Cape Cod Coast Guard Air Station").
-airport(res_airport_3727, "Lackland Air Force Base").
-airport(res_airport_3733, "Shaw Air Force Base").
-airport(res_airport_3735, "Majors Airport").
-airport(res_airport_3737, "Coleman A. Young Municipal Airport").
-airport(res_airport_3740, "Cape May County Airport").
-airport(res_airport_3741, "Fallon Naval Air Station").
-airport(res_airport_3742, "Selfridge Air National Guard Base Airport").
-airport(res_airport_3746, "Naval Air Station Key West/Boca Chica Field").
-airport(res_airport_375, "Biberach a.d. Riß Airfield").
-airport(res_airport_3750, "Northeast Philadelphia Airport").
-airport(res_airport_3755, "Truth Or Consequences Municipal Airport").
-airport(res_airport_3756, "Palmdale Regional/USAF Plant 42 Airport").
-airport(res_airport_3757, "Randolph Air Force Base").
-airport(res_airport_3758, "El Centro NAF Airport (Vraciu Field)").
-airport(res_airport_376, "Eggenfelden Airport").
-airport(res_airport_3760, "Drake Field").
-airport(res_airport_3761, "Henry Post Army Air Field (Fort Sill)").
-airport(res_airport_3762, "Princeton Municipal Airport").
-airport(res_airport_3763, "Wright-Patterson Air Force Base").
-airport(res_airport_3765, "Chandler Municipal Airport").
-airport(res_airport_3766, "Mineral Wells Airport").
-airport(res_airport_3767, "Mc Connell Air Force Base").
-airport(res_airport_3768, "New Orleans NAS JRB/Alvin Callender Field").
-airport(res_airport_3769, "Beaufort County Airport").
-airport(res_airport_377, "Mindelheim-Mattsies Airfield").
-airport(res_airport_3772, "Phillips Army Air Field").
-airport(res_airport_3773, "Tucumcari Municipal Airport").
-airport(res_airport_3776, "Black Rock Airport").
-airport(res_airport_3778, "Millington-Memphis Airport").
-airport(res_airport_3779, "Elkins-Randolph Co-Jennings Randolph Field").
-airport(res_airport_378, "Oberpfaffenhofen Airport").
-airport(res_airport_3780, "Hartford Brainard Airport").
-airport(res_airport_3781, "North Central State Airport").
-airport(res_airport_3783, "Moffett Federal Airfield").
-airport(res_airport_3785, "Barking Sands Airport").
-airport(res_airport_3786, "Beauregard Regional Airport").
-airport(res_airport_3787, "Bradshaw Army Airfield").
-airport(res_airport_3788, "Nogales International Airport").
-airport(res_airport_3789, "Mac Dill Air Force Base").
-airport(res_airport_379, "Straubing Airport").
-airport(res_airport_3791, "Opa-locka Executive Airport").
-airport(res_airport_3792, "Del Rio International Airport").
-airport(res_airport_3795, "Muir Army Air Field (Fort Indiantown Gap) Airport").
-airport(res_airport_3798, "Homestead ARB Airport").
-airport(res_airport_3799, "Riverside Municipal Airport").
-airport(res_airport_38, "Coronation Airport").
-airport(res_airport_380, "Vilshofen Airport").
-airport(res_airport_3800, "Sherman Army Air Field").
-airport(res_airport_3801, "Wallops Flight Facility Airport").
-airport(res_airport_3802, "Holloman Air Force Base").
-airport(res_airport_3803, "Willow Grove Naval Air Station/Joint Reserve Base").
-airport(res_airport_3809, "Willow Run Airport").
-airport(res_airport_381, "Leutkirch-Unterzeil Airport").
-airport(res_airport_3810, "Vandenberg Air Force Base").
-airport(res_airport_3812, "Lakehurst Maxfield Field Airport").
-airport(res_airport_3813, "Eareckson Air Station").
-airport(res_airport_3814, "Nellis Air Force Base").
-airport(res_airport_3815, "March ARB Airport").
-airport(res_airport_3818, "Waukegan National Airport").
-airport(res_airport_3821, "Griffing Sandusky Airport").
-airport(res_airport_3822, "Snohomish County (Paine Field) Airport").
-airport(res_airport_3823, "Mountain Home Air Force Base").
-airport(res_airport_3827, "Norfolk Naval Station (Chambers Field)").
-airport(res_airport_3828, "Westover ARB/Metropolitan Airport").
-airport(res_airport_383, "Schwerin Parchim Airport").
-airport(res_airport_3831, "Boca Raton Airport").
-airport(res_airport_3833, "Quantico MCAF /Turner field").
-airport(res_airport_3834, "Cannon Air Force Base").
-airport(res_airport_3835, "Kaneohe Bay MCAS (Marion E. Carl Field) Airport").
-airport(res_airport_3836, "Offutt Air Force Base").
-airport(res_airport_3837, "Gulkana Airport").
-airport(res_airport_384, "Stendal-Borstel Airport").
-airport(res_airport_3841, "Fort Dodge Regional Airport").
-airport(res_airport_3842, "Barksdale Air Force Base").
-airport(res_airport_3844, "Cotulla-La Salle County Airport").
-airport(res_airport_3847, "Meridian Naval Air Station").
-airport(res_airport_385, "Aalen-Heidenheim/Elchingen Airport").
-airport(res_airport_3850, "Hobart Regional Airport").
-airport(res_airport_3853, "Condron Army Air Field").
-airport(res_airport_386, "Bayreuth Airport").
-airport(res_airport_3866, "Langley Air Force Base").
-airport(res_airport_3868, "Columbus Air Force Base").
-airport(res_airport_3869, "Kendall-Tamiami Executive Airport").
-airport(res_airport_387, "Burg Feuerstein Airport").
-airport(res_airport_3870, "Oceana Naval Air Station").
-airport(res_airport_3871, "Grissom Air Reserve Base").
-airport(res_airport_3874, "Craig Field").
-airport(res_airport_388, "Hof-Plauen Airport").
-airport(res_airport_3882, "Ladd AAF Airfield").
-airport(res_airport_3883, "Mc Minnville Municipal Airport").
-airport(res_airport_3884, "Robins Air Force Base").
-airport(res_airport_3887, "Andi Jemma Airport").
-airport(res_airport_3888, "Soroako Airport").
-airport(res_airport_3889, "Pongtiku Airport").
-airport(res_airport_389, "Haßfurt-Schweinfurt Airport").
-airport(res_airport_3891, "Maimun Saleh Airport").
-airport(res_airport_3892, "Cibeureum Airport").
-airport(res_airport_3893, "Iswahyudi Airport").
-airport(res_airport_3895, "Budiarto Airport").
-airport(res_airport_3897, "Penggung Airport").
-airport(res_airport_3899, "Tunggul Wulung Airport").
-airport(res_airport_39, "Chilliwack Airport").
-airport(res_airport_390, "Koblenz-Winningen Airfield").
-airport(res_airport_3900, "Pondok Cabe Air Base").
-airport(res_airport_3907, "Dabo Airport").
-airport(res_airport_3909, "Batu Licin Airport").
-airport(res_airport_391, "Trier-Föhren Airport").
-airport(res_airport_3915, "Frans Sales Lega Airport").
-airport(res_airport_392, "Speyer Airfield").
-airport(res_airport_3921, "Temindung Airport").
-airport(res_airport_3922, "Tanjung Santan Airport").
-airport(res_airport_3923, "Selaparang Airport").
-airport(res_airport_3935, "Nakhon Ratchasima Airport").
-airport(res_airport_394, "Donaueschingen-Villingen Airport").
-airport(res_airport_395, "Freiburg i. Br. Airport").
-airport(res_airport_3952, "Liepāja International Airport").
-airport(res_airport_3954, "Šiauliai International Airport").
-airport(res_airport_3955, "Barysiai Airport").
-airport(res_airport_3957, "S. Darius and S. Girėnas Airfield").
-airport(res_airport_396, "Mengen-Hohentengen Airport").
-airport(res_airport_3960, "Panevėžys Air Base").
-airport(res_airport_3962, "Erebuni Airport").
-airport(res_airport_3963, "Stepanavan Airport").
-airport(res_airport_3966, "Assab International Airport").
-airport(res_airport_3969, "Yasser Arafat International Airport").
-airport(res_airport_397, "Adolf Würth Airport").
-airport(res_airport_398, "Finsterwalde/Schacksdorf Airport").
-airport(res_airport_3982, "Beihan Airport").
-airport(res_airport_3985, "Al Badie Airport").
-airport(res_airport_399, "Braunschweig-Wolfsburg Airport").
-airport(res_airport_3991, "Athen Helenikon Airport").
-airport(res_airport_3993, "Downtown-Manhattan/Wall St Heliport").
-airport(res_airport_3996, "Qasigiannguit Heliport").
-airport(res_airport_4004, "Talkeetna Airport").
-airport(res_airport_4005, "Xewkija Heliport").
-airport(res_airport_401, "Hildesheim Airport").
-airport(res_airport_402, "Bremerhaven Airport").
-airport(res_airport_403, "Emden Airport").
-airport(res_airport_4031, "Milford Sound Airport").
-airport(res_airport_404, "Leer-Papenburg Airport").
-airport(res_airport_405, "Wilhelmshaven-Mariensiel Airport").
-airport(res_airport_406, "Borkum Airport").
-airport(res_airport_4060, "Seronera Airport").
-airport(res_airport_4065, "David Wayne Hooks Memorial Airport").
-airport(res_airport_4066, "Port O'Connor Private Heliport").
-airport(res_airport_407, "Norderney Airport").
-airport(res_airport_4071, "Van Nuys Airport").
-airport(res_airport_4073, "Panama City-Bay Co International Airport").
-airport(res_airport_408, "Flensburg-Schäferhaus Airport").
-airport(res_airport_4080, "Samsø Airport").
-airport(res_airport_4084, "Telluride Regional Airport").
-airport(res_airport_409, "Rendsburg-Schachtholm Airport").
-airport(res_airport_4094, "Ekati Airport").
-airport(res_airport_4096, "Levuka Airfield").
-airport(res_airport_4102, "Kaikoura Airport").
-airport(res_airport_4104, "Picton Aerodrome").
-airport(res_airport_4107, "Coal Harbour Seaplane Base").
-airport(res_airport_411, "Ämari Air Base").
-airport(res_airport_412, "Kärdla Airport").
-airport(res_airport_4121, "Mafia Island Airport").
-airport(res_airport_4136, "Blythe Airport").
-airport(res_airport_4137, "Al Asad Air Base").
-airport(res_airport_4138, "Al Taqaddum Air Base").
-airport(res_airport_4139, "Joint Base Balad").
-airport(res_airport_414, "Pärnu Airport").
-airport(res_airport_4146, "John A. Osborne Airport").
-airport(res_airport_4151, "Magway Airport").
-airport(res_airport_4152, "Kanti Airport").
-airport(res_airport_4165, "Aachen-Merzbrück Airport").
-airport(res_airport_417, "Enontekio Airport").
-airport(res_airport_4170, "Lukla Airport").
-airport(res_airport_4171, "Bhojpur Airport").
-airport(res_airport_4172, "Lamidanda Airport").
-airport(res_airport_4173, "Jomsom Airport").
-airport(res_airport_4174, "Manang Airport").
-airport(res_airport_4175, "Phaplu Airport").
-airport(res_airport_4177, "Rumjatar Airport").
-airport(res_airport_4178, "Tulsipur Airport").
-airport(res_airport_4179, "Rukum Chaurjahari Airport").
-airport(res_airport_418, "Eura Airport").
-airport(res_airport_4180, "Jumla Airport").
-airport(res_airport_4182, "Taplejung Airport").
-airport(res_airport_4184, "Surkhet Airport").
-airport(res_airport_4185, "Simikot Airport").
-airport(res_airport_4186, "Dolpa Airport").
-airport(res_airport_4187, "Bajhang Airport").
-airport(res_airport_419, "Halli Airport").
-airport(res_airport_42, "Dawson City Airport").
-airport(res_airport_420, "Helsinki Malmi Airport").
-airport(res_airport_4207, "Norden-Norddeich Airport").
-airport(res_airport_4208, "Juist Airport").
-airport(res_airport_4213, "Iguatu Airport").
-airport(res_airport_422, "Hameenkyro Airport").
-airport(res_airport_4220, "Sugar Land Regional Airport").
-airport(res_airport_4221, "Hayman Island Heliport").
-airport(res_airport_4222, "Centennial Airport").
-airport(res_airport_4223, "Clovis Municipal Airport").
-airport(res_airport_4224, "Fort Stockton Pecos County Airport").
-airport(res_airport_4225, "Las Vegas Municipal Airport").
-airport(res_airport_4226, "West Houston Airport").
-airport(res_airport_4227, "La Junta Municipal Airport").
-airport(res_airport_4228, "Las Cruces International Airport").
-airport(res_airport_4229, "Stephens County Airport").
-airport(res_airport_423, "Hanko Airport").
-airport(res_airport_4230, "Draughon Miller Central Texas Regional Airport").
-airport(res_airport_4231, "Ozona Municipal Airport").
-airport(res_airport_4236, "Aklavik/Freddie Carmichael Airport").
-airport(res_airport_424, "Hyvinkää Airfield").
-airport(res_airport_425, "Kiikala Airport").
-airport(res_airport_4253, "Cuyahoga County Airport").
-airport(res_airport_4254, "Mansfield Lahm Regional Airport").
-airport(res_airport_4257, "Northern Colorado Regional Airport").
-airport(res_airport_426, "Immola Airport").
-airport(res_airport_4262, "Lake Tahoe Airport").
-airport(res_airport_4268, "Concord Municipal Airport").
-airport(res_airport_427, "Kitee Airport").
-airport(res_airport_4270, "Groton New London Airport").
-airport(res_airport_4272, "Qinhuangdao Beidaihe Airport").
-airport(res_airport_4275, "Bowerman Airport").
-airport(res_airport_4280, "Sedona Airport").
-airport(res_airport_4289, "Thangool Airport").
-airport(res_airport_4290, "Fagali'i Airport").
-airport(res_airport_4293, "Charles B. Wheeler Downtown Airport").
-airport(res_airport_4295, "Ratanakiri Airport").
-airport(res_airport_4298, "El Toro Marine Corps Air Station").
-airport(res_airport_4299, "Phetchabun Airport").
-airport(res_airport_43, "Burwash Airport").
-airport(res_airport_4303, "Enghien Moisselles Airfield").
-airport(res_airport_4307, "Kaieteur International Airport").
-airport(res_airport_431, "Kauhava Airport").
-airport(res_airport_4313, "Taba International Airport").
-airport(res_airport_4316, "Tabarka 7 Novembre Airport").
-airport(res_airport_4321, "Bakki Airport").
-airport(res_airport_4333, "Ust-Ilimsk Airport").
-airport(res_airport_434, "Kauhajoki Airport").
-airport(res_airport_4340, "Gallup Municipal Airport").
-airport(res_airport_4342, "Lamar Municipal Airport").
-airport(res_airport_4343, "Renner Field-Goodland Municipal Airport").
-airport(res_airport_4351, "Oslo, Fornebu Airport").
-airport(res_airport_436, "Kemijarvi Airport").
-airport(res_airport_4360, "Bykovo Airport").
-airport(res_airport_4370, "Pechora Airport").
-airport(res_airport_4372, "Pskov Airport").
-airport(res_airport_4376, "Novosibirsk North Airport").
-airport(res_airport_4379, "Ivanovo South Airport").
-airport(res_airport_4382, "Johnston Atoll Airport").
-airport(res_airport_4383, "Smith Field").
-airport(res_airport_4387, "Tuscaloosa Regional Airport").
-airport(res_airport_4390, "Shun Tak Heliport").
-airport(res_airport_44, "Princeton Airport").
-airport(res_airport_440, "Lahti Vesivehmaa Airport").
-airport(res_airport_443, "Menkijarvi Airport").
-airport(res_airport_444, "Mikkeli Airport").
-airport(res_airport_445, "Nummela Airport").
-airport(res_airport_447, "Piikajarvi Airport").
-airport(res_airport_449, "Pudasjärvi Airport").
-airport(res_airport_450, "Pyhäsalmi Airport").
-airport(res_airport_451, "Raahe Pattijoki Airport").
-airport(res_airport_452, "Rantasalmi Airport").
-airport(res_airport_454, "Rayskala Airport").
-airport(res_airport_456, "Selanpaa Airport").
-airport(res_airport_457, "Sodankyla Airport").
-airport(res_airport_459, "Teisko Airport").
-airport(res_airport_46, "Dease Lake Airport").
-airport(res_airport_461, "Utti Air Base").
-airport(res_airport_463, "Varkaus Airport").
-airport(res_airport_464, "Ylivieska Airfield").
-airport(res_airport_466, "St Angelo Airport").
-airport(res_airport_47, "Dauphin Barker Airport").
-airport(res_airport_470, "Coventry Airport").
-airport(res_airport_471, "Leicester Airport").
-airport(res_airport_474, "Wolverhampton Halfpenny Green Airport").
-airport(res_airport_475, "Cotswold Airport").
-airport(res_airport_476, "Turweston Airport").
-airport(res_airport_477, "Wellesbourne Mountford Airport").
-airport(res_airport_479, "Manchester Woodford Airport").
-airport(res_airport_480, "Royal Marines Base Chivenor Airport").
-airport(res_airport_482, "RAF Lyneham").
-airport(res_airport_483, "MoD Boscombe Down Airport").
-airport(res_airport_484, "RNAS Culdrose").
-airport(res_airport_485, "MoD St. Athan").
-airport(res_airport_486, "RNAS Yeovilton").
-airport(res_airport_487, "Haverfordwest Airport").
-airport(res_airport_489, "Swansea Airport").
-airport(res_airport_493, "Plymouth City Airport").
-airport(res_airport_496, "Lasham Airport").
-airport(res_airport_500, "Shoreham Airport").
-airport(res_airport_501, "London Biggin Hill Airport").
-airport(res_airport_504, "Farnborough Airport").
-airport(res_airport_505, "Chalgrove Airport").
-airport(res_airport_506, "Blackbushe Airport").
-airport(res_airport_509, "Lydd Airport").
-airport(res_airport_51, "Estevan Airport").
-airport(res_airport_510, "Kent International Airport").
-airport(res_airport_511, "Brough Airport").
-airport(res_airport_512, "Carlisle Airport").
-airport(res_airport_513, "Retford Gamston Airport").
-airport(res_airport_516, "Barrow Walney Island Airport").
-airport(res_airport_518, "Warton Airport").
-airport(res_airport_52, "Edson Airport").
-airport(res_airport_524, "Llanbedr Airport").
-airport(res_airport_525, "RAF Ternhill").
-airport(res_airport_526, "RAF Shawbury").
-airport(res_airport_528, "RAF Woodvale").
-airport(res_airport_53, "Eureka Airport").
-airport(res_airport_539, "Scatsta Airport").
-airport(res_airport_5405, "Gwaunaru'u Airport").
-airport(res_airport_5406, "Ballalae Airport").
-airport(res_airport_5408, "Babanakira Airport").
-airport(res_airport_5413, "Mono Airport").
-airport(res_airport_5426, "Kikori Airport").
-airport(res_airport_5427, "Kerema Airport").
-airport(res_airport_543, "RAF Leuchars").
-airport(res_airport_544, "RAF Lossiemouth").
-airport(res_airport_5441, "Qeqertarsuaq Heliport").
-airport(res_airport_545, "Cambridge Airport").
-airport(res_airport_5450, "Grímsey Airport").
-airport(res_airport_5452, "Thorshofn Airport").
-airport(res_airport_5453, "Vopnafjörður Airport").
-airport(res_airport_5456, "Whistler/Green Lake Water Aerodrome").
-airport(res_airport_5458, "Williams Harbour Airport").
-airport(res_airport_5459, "St. Lewis (Fox Harbour) Airport").
-airport(res_airport_546, "Peterborough Business Airport").
-airport(res_airport_5460, "Port Hope Simpson Airport").
-airport(res_airport_5462, "Colville Lake Airport").
-airport(res_airport_5483, "Lac Du Bonnet Airport").
-airport(res_airport_5484, "Uranium City Airport").
-airport(res_airport_5486, "Cartwright Airport").
-airport(res_airport_549, "North Weald Airport").
-airport(res_airport_5493, "Texada Gillies Bay Airport").
-airport(res_airport_5494, "Gods Lake Narrows Airport").
-airport(res_airport_550, "Sheffield City Heliport").
-airport(res_airport_5505, "Island Lake Airport").
-airport(res_airport_551, "Cranfield Airport").
-airport(res_airport_5513, "Mary's Harbour Airport").
-airport(res_airport_5517, "Norway House Airport").
-airport(res_airport_5518, "Points North Landing Airport").
-airport(res_airport_5519, "Oxford House Airport").
-airport(res_airport_5525, "Nakina Airport").
-airport(res_airport_5528, "Stony Rapids Airport").
-airport(res_airport_553, "Bristol Filton Airport").
-airport(res_airport_5530, "St. Theresa Point Airport").
-airport(res_airport_5536, "York Landing Airport").
-airport(res_airport_5537, "Ilford Airport").
-airport(res_airport_554, "Oxford (Kidlington) Airport").
-airport(res_airport_5540, "Fond-Du-Lac Airport").
-airport(res_airport_5541, "Gods River Airport").
-airport(res_airport_5542, "Swan River Airport").
-airport(res_airport_5549, "Shamattawa Airport").
-airport(res_airport_555, "RAF Benson").
-airport(res_airport_5551, "Wollaston Lake Airport").
-airport(res_airport_5558, "Heide-Büsum Airport").
-airport(res_airport_5559, "Helgoland-Düne Airport").
-airport(res_airport_556, "RAF Lakenheath").
-airport(res_airport_5560, "Seinäjoki Airport").
-airport(res_airport_5561, "Nottingham Airport").
-airport(res_airport_5565, "Fair Isle Airport").
-airport(res_airport_557, "RAF Mildenhall").
-airport(res_airport_5570, "Lerwick / Tingwall Airport").
-airport(res_airport_5573, "Penzance Heliport").
-airport(res_airport_5578, "Weston Airport").
-airport(res_airport_5579, "Sindal Airport").
-airport(res_airport_558, "RAF Wattisham").
-airport(res_airport_559, "RAF Wyton").
-airport(res_airport_5590, "Værøy Heliport").
-airport(res_airport_5592, "Łódź Władysław Reymont Airport").
-airport(res_airport_5598, "Storuman Airport").
-airport(res_airport_560, "RAF Fairford").
-airport(res_airport_5602, "Ventspils International Airport").
-airport(res_airport_5603, "Rand Airport").
-airport(res_airport_5605, "Malamala Airport").
-airport(res_airport_5606, "Mmabatho International Airport").
-airport(res_airport_5607, "Ghanzi Airport").
-airport(res_airport_5608, "Orapa Airport").
-airport(res_airport_5609, "Shakawe Airport").
-airport(res_airport_561, "RAF Brize Norton").
-airport(res_airport_5610, "Limpopo Valley Airport").
-airport(res_airport_5611, "Ngot Nzoungou Airport").
-airport(res_airport_5614, "Iconi Airport").
-airport(res_airport_5615, "Antsalova Airport").
-airport(res_airport_5616, "Ankavandra Airport").
-airport(res_airport_5617, "Belo sur Tsiribihina Airport").
-airport(res_airport_5618, "Maintirano Airport").
-airport(res_airport_5619, "Morafenobe Airport").
-airport(res_airport_562, "RAF Odiham").
-airport(res_airport_5620, "Tambohorano Airport").
-airport(res_airport_5621, "Tsiroanomandidy Airport").
-airport(res_airport_5622, "Ambatondrazaka Airport").
-airport(res_airport_5623, "Port Bergé Airport").
-airport(res_airport_5624, "Ambanja Airport").
-airport(res_airport_5625, "Soalala Airport").
-airport(res_airport_5626, "Mampikony Airport").
-airport(res_airport_5627, "Nasa Shuttle Landing Facility Airport").
-airport(res_airport_5628, "Mandritsara Airport").
-airport(res_airport_5629, "Manja Airport").
-airport(res_airport_563, "DCAE Cosford Air Base").
-airport(res_airport_5631, "Dundo Airport").
-airport(res_airport_5634, "Koulamoutou Mabimbi Airport").
-airport(res_airport_5635, "Mouilla Ville Airport").
-airport(res_airport_5636, "Tchibanga Airport").
-airport(res_airport_5639, "Sarh Airport").
-airport(res_airport_564, "RAF Northolt").
-airport(res_airport_5640, "Club Makokola Airport").
-airport(res_airport_5644, "Swakopmund Airport").
-airport(res_airport_5646, "Boma Airport").
-airport(res_airport_5647, "Tshimpi Airport").
-airport(res_airport_5648, "Inongo Airport").
-airport(res_airport_5649, "Nioki Airport").
-airport(res_airport_565, "RAF Coningsby").
-airport(res_airport_5650, "Basango Mboliasa Airport").
-airport(res_airport_5651, "Basankusu Airport").
-airport(res_airport_5654, "Ilebo Airport").
-airport(res_airport_5657, "Outer Skerries Airport").
-airport(res_airport_566, "RAF Dishforth").
-airport(res_airport_5662, "Sherbro International Airport").
-airport(res_airport_5663, "Bo Airport").
-airport(res_airport_5664, "Kenema Airport").
-airport(res_airport_5669, "Smara Airport").
-airport(res_airport_567, "Leeming Airport").
-airport(res_airport_5676, "Baco Airport").
-airport(res_airport_5677, "Beica Airport").
-airport(res_airport_5678, "Combolcha Airport").
-airport(res_airport_5679, "Dembidollo Airport").
-airport(res_airport_568, "Leeds East Airport").
-airport(res_airport_5681, "Gore Airport").
-airport(res_airport_5682, "Kabri Dehar Airport").
-airport(res_airport_5683, "Mizan Teferi Airport").
-airport(res_airport_5684, "Tippi Airport").
-airport(res_airport_5685, "Alula Airport").
-airport(res_airport_5689, "Burao Airport").
-airport(res_airport_569, "RAF Honington").
-airport(res_airport_5690, "El Arish International Airport").
-airport(res_airport_5698, "Mitiga Airport").
-airport(res_airport_57, "Forestville Airport").
-airport(res_airport_570, "RAF Cottesmore").
-airport(res_airport_5700, "Atbara Airport").
-airport(res_airport_5704, "Kigoma Airport").
-airport(res_airport_5705, "Lindi Airport").
-airport(res_airport_5706, "Musoma Airport").
-airport(res_airport_5707, "Shinyanga Airport").
-airport(res_airport_5708, "Tabora Airport").
-airport(res_airport_571, "RAF Scampton").
-airport(res_airport_5710, "Gulu Airport").
-airport(res_airport_5717, "Alamogordo White Sands Regional Airport").
-airport(res_airport_572, "RAF Wittering").
-airport(res_airport_573, "RAF Linton-On-Ouse").
-airport(res_airport_574, "RAF Waddington").
-airport(res_airport_5743, "Kili Airport").
-airport(res_airport_5745, "Jamestown Regional Airport").
-airport(res_airport_575, "RAF Topcliffe").
-airport(res_airport_5752, "Lewistown Municipal Airport").
-airport(res_airport_5755, "Frank Wiley Field").
-airport(res_airport_576, "RAF Cranwell").
-airport(res_airport_5764, "Reading Regional Carl A Spaatz Field").
-airport(res_airport_577, "RAF Barkston Heath").
-airport(res_airport_578, "RAF Marham").
-airport(res_airport_5782, "Île d'Yeu Airport").
-airport(res_airport_5783, "Angers-Loire Airport").
-airport(res_airport_5786, "La Môle Airport").
-airport(res_airport_5788, "Pécs-Pogány Airport").
-airport(res_airport_5789, "Győr-Pér International Airport").
-airport(res_airport_5790, "Sármellék International Airport").
-airport(res_airport_5791, "Aosta Airport").
-airport(res_airport_5792, "Salerno Costa d'Amalfi Airport").
-airport(res_airport_5795, "Uşak Airport").
-airport(res_airport_5797, "Şanlıurfa Airport").
-airport(res_airport_5803, "Samsun Çarşamba Airport").
-airport(res_airport_5806, "Žilina Airport").
-airport(res_airport_5808, "Middle Caicos Airport").
-airport(res_airport_581, "Budel Airfield Kempen").
-airport(res_airport_5812, "Puerto Barrios Airport").
-airport(res_airport_5813, "Quezaltenango Airport").
-airport(res_airport_5814, "Utirik Airport").
-airport(res_airport_583, "Deelen Air Base").
-airport(res_airport_5831, "Ahuas Airport").
-airport(res_airport_5833, "Mili Island Airport").
-airport(res_airport_5834, "Captain Rogelio Castillo National Airport").
-airport(res_airport_5835, "Ciudad Constitución Airport").
-airport(res_airport_5836, "Guerrero Negro Airport").
-airport(res_airport_5838, "Alonso Valderrama Airport").
-airport(res_airport_5839, "Enrique Adolfo Jimenez Airport").
-airport(res_airport_584, "Drachten Airport").
-airport(res_airport_5841, "Captain Ramon Xatruch Airport").
-airport(res_airport_5843, "Barra del Colorado Airport").
-airport(res_airport_5845, "Islita Airport").
-airport(res_airport_5849, "(Duplicate) Playa Samara Airport").
-airport(res_airport_5850, "Jérémie Airport").
-airport(res_airport_5851, "Port-de-Paix Airport").
-airport(res_airport_5852, "Cayo Coco Airport").
-airport(res_airport_5853, "Alberto Delgado Airport").
-airport(res_airport_5856, "Congo Town Airport").
-airport(res_airport_5858, "New Bight Airport").
-airport(res_airport_5860, "Nassau Paradise Island Airport").
-airport(res_airport_5863, "Manihiki Island Airport").
-airport(res_airport_5866, "Tongareva Airport").
-airport(res_airport_5868, "Malolo Lailai Island Airport").
-airport(res_airport_587, "Gilze Rijen Air Base").
-airport(res_airport_5870, "Mana Island Airport").
-airport(res_airport_5871, "Moala Airport").
-airport(res_airport_5872, "Ngau Airport").
-airport(res_airport_5876, "Koro Island Airport").
-airport(res_airport_5879, "Kaufana Airport").
-airport(res_airport_588, "De Kooy Airport").
-airport(res_airport_5880, "Lifuka Island Airport").
-airport(res_airport_5881, "Mata'aho Airport").
-airport(res_airport_5882, "Kuini Lavenia Airport").
-airport(res_airport_5887, "Maota Airport").
-airport(res_airport_5888, "Apataki Airport").
-airport(res_airport_589, "Lelystad Airport").
-airport(res_airport_59, "Fort Resolution Airport").
-airport(res_airport_590, "Leeuwarden Air Base").
-airport(res_airport_5907, "Redcliffe Airport").
-airport(res_airport_5913, "North West Santo Airport").
-airport(res_airport_592, "Soesterberg Air Base").
-airport(res_airport_5922, "Fayzabad Airport").
-airport(res_airport_5926, "Wadi Al Dawasir Airport").
-airport(res_airport_5929, "Rafsanjan Airport").
-airport(res_airport_593, "Twente Airport").
-airport(res_airport_5938, "Bannu Airport").
-airport(res_airport_594, "Valkenburg Naval Air Base").
-airport(res_airport_5944, "Jiwani Airport").
-airport(res_airport_5945, "Hyderabad Airport").
-airport(res_airport_5946, "Khuzdar Airport").
-airport(res_airport_5947, "Ormara Airport").
-airport(res_airport_5948, "Parachinar Airport").
-airport(res_airport_595, "Woensdrecht Air Base").
-airport(res_airport_5950, "Sehwan Sharif Airport").
-airport(res_airport_5953, "Kamishly Airport").
-airport(res_airport_597, "Galway Airport").
-airport(res_airport_5982, "Balimo Airport").
-airport(res_airport_5986, "Baimuru Airport").
-airport(res_airport_5989, "Kalaupapa Airport").
-airport(res_airport_5990, "Eniwetok Airport").
-airport(res_airport_5991, "Matsu Nangan Airport").
-airport(res_airport_5992, "Hengchun Airport").
-airport(res_airport_5993, "Matsu Beigan Airport").
-airport(res_airport_5995, "Okadama Airport").
-airport(res_airport_6002, "Miyakejima Airport").
-airport(res_airport_6004, "Mokpo Heliport").
-airport(res_airport_6009, "Subic Bay International Airport").
-airport(res_airport_6010, "Cuyo Airport").
-airport(res_airport_6011, "Rajah Buayan Air Base").
-airport(res_airport_6014, "Sanga Sanga Airport").
-airport(res_airport_6017, "Tandag Airport").
-airport(res_airport_602, "Casement Air Base").
-airport(res_airport_6020, "San Fernando Airport").
-airport(res_airport_6027, "General Enrique Mosconi Airport").
-airport(res_airport_6028, "Las Heras Airport").
-airport(res_airport_6029, "Antoine de Saint Exupéry Airport").
-airport(res_airport_6030, "Lago Argentino Airport").
-airport(res_airport_6031, "Gobernador Gregores Airport").
-airport(res_airport_6032, "Santa Teresita Airport").
-airport(res_airport_6033, "Necochea Airport").
-airport(res_airport_604, "Sligo Airport").
-airport(res_airport_6041, "Toledo Airport").
-airport(res_airport_6042, "Ricardo García Posada Airport").
-airport(res_airport_6043, "Pucón Airport").
-airport(res_airport_6044, "Sorocaba Airport").
-airport(res_airport_6048, "Port Stanley Airport").
-airport(res_airport_6049, "Santa Ana Airport").
-airport(res_airport_6050, "La Jagua Airport").
-airport(res_airport_6057, "Puerto Rico Airport").
-airport(res_airport_6059, "Reyes Airport").
-airport(res_airport_6060, "Capitán Av. German Quiroga G. Airport").
-airport(res_airport_6061, "Zorg en Hoop Airport").
-airport(res_airport_6062, "Mucuri Airport").
-airport(res_airport_6065, "Caballococha Airport").
-airport(res_airport_6068, "Maria Reiche Neuman Airport").
-airport(res_airport_6070, "El Jagüel / Punta del Este Airport").
-airport(res_airport_6071, "Escuela Mariscal Sucre Airport").
-airport(res_airport_6074, "Codrington Airport").
-airport(res_airport_6075, "La Désirade Airport").
-airport(res_airport_6076, "Baillif Airport").
-airport(res_airport_6077, "St-François Airport").
-airport(res_airport_6078, "Les Bases Airport").
-airport(res_airport_6081, "J F Mitchell Airport").
-airport(res_airport_6082, "Union Island International Airport").
-airport(res_airport_6091, "Chulman Airport").
-airport(res_airport_6097, "Komsomolsk-on-Amur Airport").
-airport(res_airport_6099, "Okhotsk Airport").
-airport(res_airport_6100, "Ujae Atoll Airport").
-airport(res_airport_6101, "Mariupol International Airport").
-airport(res_airport_6102, "Luhansk International Airport").
-airport(res_airport_6104, "Kryvyi Rih International Airport").
-airport(res_airport_6107, "Chernivtsi International Airport").
-airport(res_airport_6108, "Rivne International Airport").
-airport(res_airport_611, "Grønholt Hillerød Airport").
-airport(res_airport_6112, "Amderma Airport").
-airport(res_airport_6113, "Kotlas Airport").
-airport(res_airport_6115, "Hrodna Airport").
-airport(res_airport_6116, "Mogilev Airport").
-airport(res_airport_6117, "Yeniseysk Airport").
-airport(res_airport_6120, "Khatanga Airport").
-airport(res_airport_6123, "Nalchik Airport").
-airport(res_airport_6126, "Aleknagik / New Airport").
-airport(res_airport_6128, "Mercer County Airport").
-airport(res_airport_613, "Læsø Airport").
-airport(res_airport_614, "Lolland Falster Maribo Airport").
-airport(res_airport_6144, "Raduzhny Airport").
-airport(res_airport_6145, "Nefteyugansk Airport").
-airport(res_airport_615, "Odense Airport").
-airport(res_airport_6155, "Staroselye Airport").
-airport(res_airport_6158, "Lipetsk Airport").
-airport(res_airport_616, "Kruså-Padborg Airport").
-airport(res_airport_6161, "Yoshkar-Ola Airport").
-airport(res_airport_6163, "Ulyanovsk East Airport").
-airport(res_airport_6167, "Balakovo Airport").
-airport(res_airport_617, "Copenhagen Roskilde Airport").
-airport(res_airport_6170, "Weerawila Airport").
-airport(res_airport_6171, "Battambang Airport").
-airport(res_airport_6175, "Tezpur Airport").
-airport(res_airport_6177, "Ban Huoeisay Airport").
-airport(res_airport_6181, "Meghauli Airport").
-airport(res_airport_6196, "Banmaw Airport").
-airport(res_airport_6199, "Loikaw Airport").
-airport(res_airport_6200, "Mawlamyine Airport").
-airport(res_airport_6201, "Pathein Airport").
-airport(res_airport_6202, "Pakhokku Airport").
-airport(res_airport_6203, "Sumbawa Besar Airport").
-airport(res_airport_6205, "Bokondini Airport").
-airport(res_airport_6206, "Senggeh Airport").
-airport(res_airport_6207, "Tanjung Harapan Airport").
-airport(res_airport_6208, "Datadawai Airport").
-airport(res_airport_621, "Skrydstrup Air Base").
-airport(res_airport_6210, "Warukin Airport").
-airport(res_airport_6211, "Sampit(Hasan) Airport").
-airport(res_airport_6213, "Mali Airport").
-airport(res_airport_6214, "Belaga Airport").
-airport(res_airport_622, "Skive Airport").
-airport(res_airport_6221, "Tomanggong Airport").
-airport(res_airport_6224, "Halim Perdanakusuma International Airport").
-airport(res_airport_6226, "Pangsuma Airport").
-airport(res_airport_6227, "Sintang(Susilo) Airport").
-airport(res_airport_6228, "Pendopo Airport").
-airport(res_airport_6229, "Malikus Saleh Airport").
-airport(res_airport_623, "Thisted Airport").
-airport(res_airport_6230, "Pulau Pangkor Airport").
-airport(res_airport_6232, "Long Bawan Airport").
-airport(res_airport_6233, "Nunukan Airport").
-airport(res_airport_6234, "Long Apung Airport").
-airport(res_airport_6236, "Argyle Airport").
-airport(res_airport_6239, "Badu Island Airport").
-airport(res_airport_624, "Kolding Vamdrup Airfield").
-airport(res_airport_6244, "Bourke Airport").
-airport(res_airport_6246, "Boigu Airport").
-airport(res_airport_6247, "Oakey Airport").
-airport(res_airport_6250, "Blackwater Airport").
-airport(res_airport_6251, "Carnarvon Airport").
-airport(res_airport_6252, "Cobar Airport").
-airport(res_airport_6254, "Coconut Island Airport").
-airport(res_airport_6257, "Cooktown Airport").
-airport(res_airport_6259, "Coonamble Airport").
-airport(res_airport_626, "Vesthimmerlands Flyveplads").
-airport(res_airport_6261, "Cooma Snowy Mountains Airport").
-airport(res_airport_6263, "Darnley Island Airport").
-airport(res_airport_627, "Stauning Airport").
-airport(res_airport_6273, "Hooker Creek Airport").
-airport(res_airport_6274, "Mount Hotham Airport").
-airport(res_airport_6275, "Hughenden Airport").
-airport(res_airport_6277, "Kalbarri Airport").
-airport(res_airport_6279, "Kalkgurung Airport").
-airport(res_airport_6280, "Karumba Airport").
-airport(res_airport_6282, "Kubin Airport").
-airport(res_airport_6283, "Leonora Airport").
-airport(res_airport_6284, "Lake Evella Airport").
-airport(res_airport_6288, "Lightning Ridge Airport").
-airport(res_airport_6290, "Leinster Airport").
-airport(res_airport_6291, "Laverton Airport").
-airport(res_airport_6292, "Mabuiag Island Airport").
-airport(res_airport_6293, "Meekatharra Airport").
-airport(res_airport_6299, "Mount Magnet Airport").
-airport(res_airport_6305, "Murray Island Airport").
-airport(res_airport_6306, "Maryborough Airport").
-airport(res_airport_6308, "Narrabri Airport").
-airport(res_airport_6313, "Palm Island Airport").
-airport(res_airport_6323, "Ramingining Airport").
-airport(res_airport_6326, "Shark Bay Airport").
-airport(res_airport_6327, "Saibai Island Airport").
-airport(res_airport_6328, "Strahan Airport").
-airport(res_airport_633, "Bømoen Airport").
-airport(res_airport_6330, "Tennant Creek Airport").
-airport(res_airport_6331, "Victoria River Downs Airport").
-airport(res_airport_6332, "Warraber Island Airport").
-airport(res_airport_6335, "Wiluna Airport").
-airport(res_airport_6336, "Wollongong Airport").
-airport(res_airport_6339, "Yorke Island Airport").
-airport(res_airport_6340, "Yam Island Airport").
-airport(res_airport_6362, "Ankang Wulipu Airport").
-airport(res_airport_6364, "Hanzhong Chenggu Airport").
-airport(res_airport_6369, "Arvaikheer Airport").
-airport(res_airport_6389, "Weihai Airport").
-airport(res_airport_639, "Geilo Airport Dagali").
-airport(res_airport_64, "Geraldton Greenstone Regional Airport").
-airport(res_airport_6405, "Qiemo Yudu Airport").
-airport(res_airport_6415, "Waikoloa Heliport").
-airport(res_airport_6419, "Mount Keith Airport").
-airport(res_airport_6420, "Los Roques Airport").
-airport(res_airport_6421, "Inishmore Aerodrome").
-airport(res_airport_6422, "Connemara Regional Airport").
-airport(res_airport_6423, "Rügen Airport").
-airport(res_airport_6424, "Berezovo Airport").
-airport(res_airport_6425, "Szczecin-Dąbie Airport").
-airport(res_airport_6431, "Lanzhou City Airport").
-airport(res_airport_6445, "Bremerton National Airport").
-airport(res_airport_6446, "Spencer Municipal Airport").
-airport(res_airport_6447, "Jefferson City Memorial Airport").
-airport(res_airport_6450, "Tannheim Airfield").
-airport(res_airport_6454, "Unst Airport").
-airport(res_airport_6455, "Berkley Structures Heliport").
-airport(res_airport_6458, "Anduki Airport").
-airport(res_airport_6464, "Kostroma Sokerkino Airport").
-airport(res_airport_6465, "Sukhumi Dranda Airport").
-airport(res_airport_6467, "Oban Airport").
-airport(res_airport_6478, "La Côte Airport").
-airport(res_airport_6479, "Courchevel Airport").
-airport(res_airport_648, "Kjeller Airport").
-airport(res_airport_6481, "Fullerton Municipal Airport").
-airport(res_airport_6482, "Concord-Padgett Regional Airport").
-airport(res_airport_6483, "Isle of Wight / Sandown Airport").
-airport(res_airport_6487, "Andernos Les Bains Airport").
-airport(res_airport_6489, "Bienenfarm Airport").
-airport(res_airport_6494, "Friedman Memorial Airport").
-airport(res_airport_6497, "Yverdon-les-Bains Airport").
-airport(res_airport_6499, "Bielsko Biala Airport").
-airport(res_airport_650, "Lista Airport").
-airport(res_airport_6500, "Mason City Municipal Airport").
-airport(res_airport_6506, "Saúl Airport").
-airport(res_airport_6511, "Tekapo Aerodrome").
-airport(res_airport_6519, "Niederoeblarn Airport").
-airport(res_airport_6520, "Vöslau Airport").
-airport(res_airport_6522, "Uetersen/Heist Airport").
-airport(res_airport_654, "Notodden Airport").
-airport(res_airport_66, "Hudson Bay Airport").
-airport(res_airport_667, "Babice Airport").
-airport(res_airport_670, "Muchowiec Airport").
-airport(res_airport_6726, "Ormoc Airport").
-airport(res_airport_673, "Mielec Airport").
-airport(res_airport_6736, "Port Clarence Coast Guard Station").
-airport(res_airport_6745, "Tugdan Airport").
-airport(res_airport_6746, "Sahand Airport").
-airport(res_airport_6751, "Tocache Airport").
-airport(res_airport_6754, "Sugraly Airport").
-airport(res_airport_6759, "Shahrekord Airport").
-airport(res_airport_6761, "Nanded Airport").
-airport(res_airport_6762, "Shimla Airport").
-airport(res_airport_6764, "New Stuyahok Airport").
-airport(res_airport_677, "Redzikowo Air Base").
-airport(res_airport_6774, "Brus Laguna Airport").
-airport(res_airport_678, "Swidwin Military Air Base").
-airport(res_airport_6785, "Bursa Yenişehir Airport").
-airport(res_airport_6786, "Terre-de-Haut Airport").
-airport(res_airport_6787, "Kalay Airport").
-airport(res_airport_6791, "Marinduque Airport").
-airport(res_airport_6797, "Hohenems-Dornbirn Airport").
-airport(res_airport_6798, "Weser-Wümme Airport").
-airport(res_airport_6799, "Krems Airport").
-airport(res_airport_6805, "Goulburn Airport").
-airport(res_airport_6806, "Cessnock Airport").
-airport(res_airport_6807, "Scone Airport").
-airport(res_airport_6808, "Mudgee Airport").
-airport(res_airport_6809, "Maitland Airport").
-airport(res_airport_681, "Zielona Góra-Babimost Airport").
-airport(res_airport_6816, "Raron Airport").
-airport(res_airport_6819, "Borovaya Airfield").
-airport(res_airport_682, "Malmen Air Base").
-airport(res_airport_6823, "Amlikon Glider Airport").
-airport(res_airport_6824, "Lommis Airfield").
-airport(res_airport_6826, "Burnet Municipal Kate Craddock Field").
-airport(res_airport_6829, "Oceanside Municipal Airport").
-airport(res_airport_683, "Bråvalla Air Base").
-airport(res_airport_6830, "Flugplatz Finsterwalde/Heinrichsruh").
-airport(res_airport_6832, "Kirkuk Air Base").
-airport(res_airport_6833, "Al Udeid Air Base").
-airport(res_airport_6834, "Great Barrier Aerodrome").
-airport(res_airport_6838, "Marquette Airport").
-airport(res_airport_684, "Uppsala Airport").
-airport(res_airport_6840, "Dinslaken/Schwarze Heide Airport").
-airport(res_airport_6841, "Höxter-Holzminden Airport").
-airport(res_airport_6843, "Niijima Airport").
-airport(res_airport_6844, "Michigan City Municipal Airport").
-airport(res_airport_6845, "Seward Airport").
-airport(res_airport_6849, "Grand Marais Cook County Airport").
-airport(res_airport_6853, "Wausau Downtown Airport").
-airport(res_airport_6855, "Kalundborg Airport").
-airport(res_airport_6859, "Mary Airport").
-airport(res_airport_686, "Råda Air Base").
-airport(res_airport_6860, "Bungle Bungle Airport").
-airport(res_airport_6862, "Sazená Airport").
-airport(res_airport_6866, "Spray View Airport").
-airport(res_airport_6867, "Reykjahlíð Airport").
-airport(res_airport_6868, "Sabadell Airport").
-airport(res_airport_6870, "Whitsunday Island Airport").
-airport(res_airport_6871, "Delaware County Johnson Field").
-airport(res_airport_6873, "Purdue University Airport").
-airport(res_airport_6876, "Brown County Airport").
-airport(res_airport_6877, "North Las Vegas Airport").
-airport(res_airport_6878, "Kenosha Regional Airport").
-airport(res_airport_6886, "Lympne Airport").
-airport(res_airport_6887, "Porto Cheli Airport").
-airport(res_airport_689, "Falköping Airport").
-airport(res_airport_6894, "Zell Am via Airport").
-airport(res_airport_6896, "RAAF Base Amberley").
-airport(res_airport_6897, "Tindal Airport").
-airport(res_airport_6898, "RAAF Williams, Laverton Base").
-airport(res_airport_6899, "Nowra Airport").
-airport(res_airport_690, "Lidköping-Hovby Airport").
-airport(res_airport_6905, "Lutsk Airport").
-airport(res_airport_6906, "Chernihiv Shestovitsa Airport").
-airport(res_airport_6907, "Ternopil International Airport").
-airport(res_airport_6908, "Brest Airport").
-airport(res_airport_6909, "Wittman Regional Airport").
-airport(res_airport_6910, "Harle Airport").
-airport(res_airport_6911, "Wangerooge Airport").
-airport(res_airport_6914, "RAAF Base Pearce").
-airport(res_airport_6915, "Bendigo Airport").
-airport(res_airport_6917, "Antonio Nery Juarbe Pol Airport").
-airport(res_airport_6918, "Ringi Cove Airport").
-airport(res_airport_692, "Skövde Airport").
-airport(res_airport_6922, "Kirensk Airport").
-airport(res_airport_6927, "Triengen Airport").
-airport(res_airport_6928, "Lausanne-Blécherette Airport").
-airport(res_airport_6929, "Speck-Fehraltorf Airport").
-airport(res_airport_6930, "Locarno Airport").
-airport(res_airport_6931, "Neuchatel Airport").
-airport(res_airport_6932, "Taganrog Yuzhny Airport").
-airport(res_airport_6934, "Zhukovsky International Airport").
-airport(res_airport_6935, "Irkutsk Northwest Airport").
-airport(res_airport_6936, "Khabarovsk Airport").
-airport(res_airport_6937, "Dzemgi Airport").
-airport(res_airport_6939, "Belaya Air Base").
-airport(res_airport_694, "Karlsborg Air Base").
-airport(res_airport_6947, "Tuzla International Airport").
-airport(res_airport_6948, "NAS Fort Worth JRB/Carswell Field").
-airport(res_airport_695, "Såtenäs Air Base").
-airport(res_airport_6950, "Kyaukhtu South Airport").
-airport(res_airport_6951, "Jan Mayensfield").
-airport(res_airport_6952, "Bokpyinn Airport").
-airport(res_airport_6956, "Gary Chicago International Airport").
-airport(res_airport_696, "Barkarby Airport").
-airport(res_airport_6961, "Oxnard Airport").
-airport(res_airport_6964, "Jinggangshan Airport").
-airport(res_airport_6967, "Naiu Airport").
-airport(res_airport_6968, "Schenectady County Airport").
-airport(res_airport_697, "Karlskoga Airport").
-airport(res_airport_6973, "Volkel Air Base").
-airport(res_airport_6975, "Langeoog Airport").
-airport(res_airport_6984, "Biel-Kappelen Airport").
-airport(res_airport_6985, "Nelspruit Airport").
-airport(res_airport_6986, "Cherkasy International Airport").
-airport(res_airport_6990, "Mykolaiv International Airport").
-airport(res_airport_6991, "Ramechhap Airport").
-airport(res_airport_6993, "Kissimmee Gateway Airport").
-airport(res_airport_6994, "Lake City Gateway Airport").
-airport(res_airport_6995, "Deland Municipal Sidney H Taylor Field").
-airport(res_airport_6996, "Haller Airpark").
-airport(res_airport_6997, "Palmar Airport").
-airport(res_airport_6998, "Logan-Cache Airport").
-airport(res_airport_6999, "Brigham City Regional Airport").
-airport(res_airport_700, "Arvika Airport").
-airport(res_airport_7000, "Malad City Airport").
-airport(res_airport_7009, "Kerrville Municipal Louis Schreiner Field").
-airport(res_airport_701, "Emmaboda Airfield").
-airport(res_airport_7010, "Birrfeld Airport").
-airport(res_airport_7011, "Sussex County Airport").
-airport(res_airport_7012, "Prince Rupert/Seal Cove Seaplane Base").
-airport(res_airport_7013, "Great Bend Municipal Airport").
-airport(res_airport_7014, "Hays Regional Airport").
-airport(res_airport_7015, "Spirit of St Louis Airport").
-airport(res_airport_7016, "Ely Municipal Airport").
-airport(res_airport_7017, "Grand Rapids Itasca Co-Gordon Newstrom field").
-airport(res_airport_7019, "Eagle River Union Airport").
-airport(res_airport_702, "Feringe Airport").
-airport(res_airport_7020, "Lakeland-Noble F. Lee Memorial field").
-airport(res_airport_7021, "Ankeny Regional Airport").
-airport(res_airport_7022, "Berens River Airport").
-airport(res_airport_7023, "Corpus Christi Naval Air Station/Truax Field").
-airport(res_airport_7025, "Catalina Airport").
-airport(res_airport_7026, "Mojave Airport").
-airport(res_airport_7027, "Interlaken Air Base").
-airport(res_airport_7030, "Inisheer Aerodrome").
-airport(res_airport_7033, "Strezhevoy Airport").
-airport(res_airport_7035, "Hutchinson Municipal Airport").
-airport(res_airport_7036, "Bagram Air Base").
-airport(res_airport_7037, "Prince Sultan Air Base").
-airport(res_airport_704, "Landskrona Airport").
-airport(res_airport_7042, "Rosecrans Memorial Airport").
-airport(res_airport_7046, "Pápa Air Base").
-airport(res_airport_7047, "Whiting Field Naval Air Station South Airport").
-airport(res_airport_7048, "Volk Field").
-airport(res_airport_705, "Oskarshamn Airport").
-airport(res_airport_7052, "Xi'an Xiguan Airport").
-airport(res_airport_7053, "Zamperini Field").
-airport(res_airport_7058, "Northern Aroostook Regional Airport").
-airport(res_airport_706, "Anderstorp Airport").
-airport(res_airport_7060, "La Macaza / Mont-Tremblant International Inc Airport").
-airport(res_airport_7061, "Lake Cumberland Regional Airport").
-airport(res_airport_7063, "Devils Lake Regional Airport").
-airport(res_airport_7069, "The Florida Keys Marathon Airport").
-airport(res_airport_7072, "Yellowstone Airport").
-airport(res_airport_7075, "Ely Airport Yelland Field").
-airport(res_airport_7077, "Sierra Blanca Regional Airport").
-airport(res_airport_7079, "McCall Municipal Airport").
-airport(res_airport_7080, "Lemhi County Airport").
-airport(res_airport_7085, "Astoria Regional Airport").
-airport(res_airport_7086, "Newport Municipal Airport").
-airport(res_airport_7089, "Ugnu-Kuparuk Airport").
-airport(res_airport_710, "Hagshult Air Base").
-airport(res_airport_7101, "Koliganek Airport").
-airport(res_airport_7103, "Manokotak Airport").
-airport(res_airport_7106, "Eagle Airport").
-airport(res_airport_712, "Hallviken Airport").
-airport(res_airport_7120, "Inyokern Airport").
-airport(res_airport_7123, "Laguna de Los Patos International Airport").
-airport(res_airport_7125, "Amarais Airport").
-airport(res_airport_7126, "Phoenix Goodyear Airport").
-airport(res_airport_7129, "Ballera Airport").
-airport(res_airport_713, "Hedlanda Airport").
-airport(res_airport_7130, "Gatton Campus Airport").
-airport(res_airport_7131, "Arkalyk North Airport").
-airport(res_airport_7134, "Nabern/Teck Airport").
-airport(res_airport_7140, "Funter Bay Seaplane Base").
-airport(res_airport_7143, "Kake Airport").
-airport(res_airport_716, "Hudiksvall Airport").
-airport(res_airport_717, "Jokkmokk Airport").
-airport(res_airport_7198, "Yakataga Airport").
-airport(res_airport_720, "Optand Airport").
-airport(res_airport_7204, "Port Moller Airport").
-airport(res_airport_7210, "Nondalton Airport").
-airport(res_airport_7221, "Zapala Airport").
-airport(res_airport_7222, "Rincon De Los Sauces Airport").
-airport(res_airport_7226, "Tte. Julio Gallardo Airport").
-airport(res_airport_7229, "Sierra Grande Airport").
-airport(res_airport_723, "Piteå Airport").
-airport(res_airport_7230, "Cabo F.A.A. H. R. Bordón Airport").
-airport(res_airport_7233, "Chenega Bay Airport").
-airport(res_airport_7244, "Klawock Seaplane Base").
-airport(res_airport_7245, "Minchumina Airport").
-airport(res_airport_725, "Orsa Airport").
-airport(res_airport_7251, "Natuashish Airport").
-airport(res_airport_7254, "Alma Airport").
-airport(res_airport_7256, "Rimouski Airport").
-airport(res_airport_7259, "Tadoule Lake Airport").
-airport(res_airport_7260, "Lac Brochet Airport").
-airport(res_airport_7261, "South Indian Lake Airport").
-airport(res_airport_7262, "Brochet Airport").
-airport(res_airport_7263, "Little Grand Rapids Airport").
-airport(res_airport_7264, "Cross Lake (Charlie Sinclair Memorial) Airport").
-airport(res_airport_7265, "Red Sucker Lake Airport").
-airport(res_airport_7267, "Bonnyville Airport").
-airport(res_airport_7268, "Nanaimo Harbour Water Airport").
-airport(res_airport_7269, "Ganges Seaplane Base").
-airport(res_airport_727, "Sättna Airport").
-airport(res_airport_7272, "Fort St James Airport").
-airport(res_airport_7273, "Boundary Bay Airport").
-airport(res_airport_7274, "Langley Airport").
-airport(res_airport_7278, "Camaguey-Campo Cuatro Milpas Airport").
-airport(res_airport_7280, "Cabo San Lucas International Airport").
-airport(res_airport_7291, "Corn Island").
-airport(res_airport_7292, "San Pedro Airport").
-airport(res_airport_7293, "Rosita Airport").
-airport(res_airport_7294, "Siuna").
-airport(res_airport_7295, "Waspam Airport").
-airport(res_airport_7296, "San Carlos").
-airport(res_airport_7297, "Playa Samara/Carrillo Airport").
-airport(res_airport_7301, "Constanza - Expedición 14 de Junio National Airport").
-airport(res_airport_7302, "Negril Airport").
-airport(res_airport_7307, "José Aponte de la Torre Airport").
-airport(res_airport_7311, "D. Casimiro Szlapelis Airport").
-airport(res_airport_7312, "Jose De San Martin Airport").
-airport(res_airport_7320, "Abaiang Airport").
-airport(res_airport_7323, "Afobakka Airstrip").
-airport(res_airport_7324, "Alalapadu Airstrip").
-airport(res_airport_7325, "Albina Airport").
-airport(res_airport_7326, "Lawa Anapaike Airstrip").
-airport(res_airport_7327, "Apetina Airstrip").
-airport(res_airport_7330, "Drietabbetje Airport").
-airport(res_airport_7331, "Kabalebo Airport").
-airport(res_airport_7332, "Kayser Airport").
-airport(res_airport_7333, "Kwamalasoemoetoe Airport").
-airport(res_airport_7334, "Moengo Airstrip").
-airport(res_airport_7335, "Nieuw Nickerie Airport").
-airport(res_airport_7336, "Vincent Fayks Airport").
-airport(res_airport_7337, "Sarakreek Airstrip").
-airport(res_airport_7338, "Sipaliwini Airport").
-airport(res_airport_7339, "Stoelmanseiland Airport").
-airport(res_airport_7340, "Totness Airport").
-airport(res_airport_7341, "Wageningen Airstrip").
-airport(res_airport_7343, "Codela Airport").
-airport(res_airport_7346, "Orinduik Airport").
-airport(res_airport_7347, "Annai Airport").
-airport(res_airport_7348, "Apoteri Airport").
-airport(res_airport_7349, "Imbaimadai Airport").
-airport(res_airport_735, "Vidsel Air Base").
-airport(res_airport_7350, "Kamarang Airport").
-airport(res_airport_7351, "Mabaruma Airport").
-airport(res_airport_7352, "Mahdia Airport").
-airport(res_airport_7353, "Dr Augusto Roberto Fuster International Airport").
-airport(res_airport_7354, "Alcides Fernández Airport").
-airport(res_airport_7357, "Batagay Airport").
-airport(res_airport_736, "Arboga Airport").
-airport(res_airport_7360, "El Bagre Airport").
-airport(res_airport_7361, "Juan H White Airport").
-airport(res_airport_7362, "Mandinga Airport").
-airport(res_airport_7363, "Golfo de Morrosquillo Airport").
-airport(res_airport_7371, "Soure Airport").
-airport(res_airport_7377, "Novo Aripuanã Airport").
-airport(res_airport_7378, "Fazenda Colen Airport").
-airport(res_airport_7379, "Tenente Lund Pressoto Airport").
-airport(res_airport_7381, "Lábrea Airport").
-airport(res_airport_7396, "Maués Airport").
-airport(res_airport_7397, "Borba Airport").
-airport(res_airport_74, "Atikokan Municipal Airport").
-airport(res_airport_740, "Hultsfred Airport").
-airport(res_airport_7406, "Diamantino Airport").
-airport(res_airport_7408, "Tsletsi Airport").
-airport(res_airport_7409, "Nzagi Airport").
-airport(res_airport_741, "Gävle Sandviken Airport").
-airport(res_airport_7411, "Lucapa Airport").
-airport(res_airport_7412, "Capanda Airport").
-airport(res_airport_7413, "Am Timan Airport").
-airport(res_airport_7414, "Shark El Oweinat International Airport").
-airport(res_airport_7415, "Eastern WV Regional Airport/Shepherd Field").
-airport(res_airport_7416, "Awassa Airport").
-airport(res_airport_7418, "Mekane Selam Airport").
-airport(res_airport_7419, "Debra Marcos Airport").
-airport(res_airport_7420, "Debre Tabor Airport").
-airport(res_airport_7421, "Harar Meda Airport").
-airport(res_airport_7422, "Robe Airport").
-airport(res_airport_7423, "Mayumba Airport").
-airport(res_airport_7426, "Mulika Lodge Airport").
-airport(res_airport_7427, "Rumbek Airport").
-airport(res_airport_7428, "Yei Airport").
-airport(res_airport_7429, "Cape Palmas Airport").
-airport(res_airport_7432, "Ecuvillens Airport").
-airport(res_airport_7437, "Inhaca Airport").
-airport(res_airport_7442, "Ouro Sogui Airport").
-airport(res_airport_7443, "Bird Island Airport").
-airport(res_airport_7446, "Wadi Halfa Airport").
-airport(res_airport_7448, "Kidepo Airport").
-airport(res_airport_7449, "Kitgum Airport").
-airport(res_airport_745, "Eskilstuna Airport").
-airport(res_airport_7451, "Svea Airport").
-airport(res_airport_7452, "Ny-Ålesund Airport (Hamnerabben)").
-airport(res_airport_7454, "Kihnu Airfield").
-airport(res_airport_7455, "Ruhnu Airfield").
-airport(res_airport_7458, "Huizhou Airport").
-airport(res_airport_7461, "Ouessant Airport").
-airport(res_airport_7464, "Bildudalur Airport").
-airport(res_airport_7465, "Gjögur Airport").
-airport(res_airport_7466, "Sauðárkrókur Airport").
-airport(res_airport_7467, "Selfoss Airport").
-airport(res_airport_7468, "Inishmaan Aerodrome").
-airport(res_airport_7469, "Ak Bashat Airport").
-airport(res_airport_7472, "Qurghonteppa International Airport").
-airport(res_airport_7473, "Vologda Airport").
-airport(res_airport_7474, "Severo-Evensk Airport").
-airport(res_airport_7475, "Olenyok Airport").
-airport(res_airport_7476, "Saskylakh Airport").
-airport(res_airport_748, "Kalixfors Airport").
-airport(res_airport_7480, "Leshukonskoye Airport").
-airport(res_airport_7481, "Nizhneangarsk Airport").
-airport(res_airport_7483, "Vanavara Airport").
-airport(res_airport_7484, "Aykhal Airport").
-airport(res_airport_7485, "Uktus Airport").
-airport(res_airport_7486, "Baykit Airport").
-airport(res_airport_7487, "Biysk Airport").
-airport(res_airport_7488, "Huesca/Pirineos Airport").
-airport(res_airport_7489, "Ciudad Real Central Airport").
-airport(res_airport_7492, "Colonsay Airstrip").
-airport(res_airport_7494, "Rock Hill - York County Airport").
-airport(res_airport_7495, "Allegheny County Airport").
-airport(res_airport_7496, "Cecil Airport").
-airport(res_airport_7497, "Fulton County Airport Brown Field").
-airport(res_airport_7498, "Tresco Heliport").
-airport(res_airport_7499, "Tarin Kowt Airport").
-airport(res_airport_750, "Spangdahlem Air Base").
-airport(res_airport_7500, "Zaranj Airport").
-airport(res_airport_7501, "Chakcharan Airport").
-airport(res_airport_751, "Ramstein Air Base").
-airport(res_airport_7510, "Stepanakert Air Base").
-airport(res_airport_7511, "The Ohio State University Airport - Don Scott Field").
-airport(res_airport_7513, "Addison Airport").
-airport(res_airport_7514, "Destin Executive Airport").
-airport(res_airport_7516, "Kherson International Airport").
-airport(res_airport_7517, "Ryan's Creek Aerodrome").
-airport(res_airport_7518, "Assumption Island Airport").
-airport(res_airport_7521, "Yarmouth Airport").
-airport(res_airport_7522, "Kinston Regional Jetport At Stallings Field").
-airport(res_airport_7523, "First Flight Airport").
-airport(res_airport_753, "[Duplicate] Giebelstadt Army Air Field").
-airport(res_airport_7531, "Maturacá Airport").
-airport(res_airport_7533, "Centro de Lançamento de Alcântara Airport").
-airport(res_airport_7536, "Tarempa Airport").
-airport(res_airport_7538, "Würzburg-Schenkenturm Airport").
-airport(res_airport_754, "Bückeburg Air Base").
-airport(res_airport_7542, "São Jacinto Airport").
-airport(res_airport_7544, "Hopsten Air Base").
-airport(res_airport_7548, "Mosul International Airport").
-airport(res_airport_7549, "Tajima Airport").
-airport(res_airport_755, "Celle Airport").
-airport(res_airport_7550, "Amakusa Airport").
-airport(res_airport_7551, "Kikai Airport").
-airport(res_airport_7552, "Aguni Airport").
-airport(res_airport_7556, "Donoi Airport").
-airport(res_airport_7557, "Bulgan Airport").
-airport(res_airport_7559, "Borongan Airport").
-airport(res_airport_756, "Rheine Bentlage Air Base").
-airport(res_airport_7560, "Lubang Airport").
-airport(res_airport_7564, "Chi Mei Airport").
-airport(res_airport_7565, "Daşoguz Airport").
-airport(res_airport_7566, "Barrow Island Airport").
-airport(res_airport_7569, "Derby Airport").
-airport(res_airport_757, "Fritzlar Airport").
-airport(res_airport_7570, "Walgett Airport").
-airport(res_airport_7571, "Bathurst Island Airport").
-airport(res_airport_7572, "Dunk Island Airport").
-airport(res_airport_7573, "Lizard Island Airport").
-airport(res_airport_7574, "Hamilton Airport").
-airport(res_airport_7575, "Halls Creek Airport").
-airport(res_airport_7576, "Fitzroy Crossing Airport").
-airport(res_airport_7578, "Wilkins Runway").
-airport(res_airport_758, "Laupheim Air Base").
-airport(res_airport_7580, "Steamboat Springs Bob Adams Field").
-airport(res_airport_7581, "Delta Municipal Airport").
-airport(res_airport_7582, "Richfield Municipal Airport").
-airport(res_airport_7583, "Carbon County Regional/Buck Davis Field").
-airport(res_airport_7586, "Lake Havasu City Airport").
-airport(res_airport_7587, "Winslow Lindbergh Regional Airport").
-airport(res_airport_7588, "Douglas Municipal Airport").
-airport(res_airport_7589, "Marakei Airport").
-airport(res_airport_759, "Mendig Airfield").
-airport(res_airport_7590, "Abemama Atoll Airport").
-airport(res_airport_7591, "Buariki Airport").
-airport(res_airport_7592, "Kuria Airport").
-airport(res_airport_7593, "Arorae Island Airport").
-airport(res_airport_7594, "Tamana Island Airport").
-airport(res_airport_7595, "Beru Airport").
-airport(res_airport_7596, "Nikunau Airport").
-airport(res_airport_7597, "Butaritari Atoll Airport").
-airport(res_airport_7598, "Makin Island Airport").
-airport(res_airport_7599, "Maiana Airport").
-airport(res_airport_76, "St Jean Airport").
-airport(res_airport_760, "Niederstetten Army Air Base").
-airport(res_airport_7600, "Nonouti Airport").
-airport(res_airport_7601, "Tabiteuea South Airport").
-airport(res_airport_761, "Roth Airport").
-airport(res_airport_7610, "Whitianga Airport").
-airport(res_airport_7611, "Takaka Airport").
-airport(res_airport_7615, "Afutara Aerodrome").
-airport(res_airport_7619, "Yandina Airport").
-airport(res_airport_762, "Fassberg Air Base").
-airport(res_airport_7620, "Batuna Aerodrome").
-airport(res_airport_7621, "Bartow Municipal Airport").
-airport(res_airport_7622, "Dyagilevo Air Base").
-airport(res_airport_7627, "Fitiuta Airport").
-airport(res_airport_7629, "Livermore Municipal Airport").
-airport(res_airport_763, "Grafenwohr Army Air Field").
-airport(res_airport_7630, "Mariposa Yosemite Airport").
-airport(res_airport_7633, "Grootfontein Airport").
-airport(res_airport_764, "Hanau Army Air Field").
-airport(res_airport_7646, "Jacqueline Cochran Regional Airport").
-airport(res_airport_7647, "Santa Monica Municipal Airport").
-airport(res_airport_7648, "Bermuda Dunes Airport").
-airport(res_airport_7649, "Scottsdale Airport").
-airport(res_airport_765, "Hohenfels Army Air Field").
-airport(res_airport_7650, "Olympia Regional Airport").
-airport(res_airport_7651, "Yolo County Davis Woodland Winters Airport").
-airport(res_airport_7652, "Garfield County Regional Airport").
-airport(res_airport_7653, "Shively Field").
-airport(res_airport_7654, "DeKalb Peachtree Airport").
-airport(res_airport_7655, "Monroe County Airport").
-airport(res_airport_7656, "Witham Field").
-airport(res_airport_7658, "Napa County Airport").
-airport(res_airport_7659, "Brown Field Municipal Airport").
-airport(res_airport_766, "Flugplatz Kitzingen").
-airport(res_airport_7660, "Wangen-Lachen Airport").
-airport(res_airport_7662, "Venice Municipal Airport").
-airport(res_airport_7663, "Palm Beach County Glades Airport").
-airport(res_airport_767, "Nordholz Naval Airbase").
-airport(res_airport_7670, "San Bernardino International Airport").
-airport(res_airport_7671, "Valença Airport").
-airport(res_airport_7673, "Caruaru Airport").
-airport(res_airport_7674, "Wake Island Airfield").
-airport(res_airport_7675, "Aeroclube Airport").
-airport(res_airport_768, "Diepholz Air Base").
-airport(res_airport_7683, "San Carlos Airport").
-airport(res_airport_7684, "Courtelary Airport").
-airport(res_airport_7685, "Lotnisko Korne").
-airport(res_airport_7686, "Camp Okavango Airport").
-airport(res_airport_769, "Geilenkirchen Air Base").
-airport(res_airport_7690, "Rocky Mount Wilson Regional Airport").
-airport(res_airport_7691, "Whittier Airport").
-airport(res_airport_7692, "Soldotna Airport").
-airport(res_airport_7693, "Gillespie Field").
-airport(res_airport_7694, "San Clemente Island Naval Auxiliary Landing Field").
-airport(res_airport_770, "Hohn Air Base").
-airport(res_airport_7700, "Phan Rang Airport").
-airport(res_airport_7701, "Na-San Airport").
-airport(res_airport_7702, "Truckee Tahoe Airport").
-airport(res_airport_7703, "Fréjus Airport").
-airport(res_airport_7704, "Geelong Airport").
-airport(res_airport_771, "Jever Air Base").
-airport(res_airport_7710, "Mezen Airport").
-airport(res_airport_7711, "Vaskovo Airport").
-airport(res_airport_7712, "Cobb County-Mc Collum Field").
-airport(res_airport_7714, "Brumowski  Air Base").
-airport(res_airport_7716, "Dell Flight Strip").
-airport(res_airport_7717, "Mission Field").
-airport(res_airport_7720, "Big Timber Airport").
-airport(res_airport_7721, "Tulip City Airport").
-airport(res_airport_7722, "London Heliport").
-airport(res_airport_7723, "Venice-Lido Airport").
-airport(res_airport_7724, "Tallinn Linnahall Heliport").
-airport(res_airport_7725, "Hernesaari Heliport").
-airport(res_airport_7726, "Linkenheim Airport").
-airport(res_airport_7727, "Monument Valley Airport").
-airport(res_airport_7728, "Hilversum Airfield").
-airport(res_airport_7729, "West 30th St. Heliport").
-airport(res_airport_773, "Nörvenich Air Base").
-airport(res_airport_7730, "Texel Airfield").
-airport(res_airport_7731, "La Cerdanya Airport").
-airport(res_airport_7732, "Lakeland Linder International Airport").
-airport(res_airport_7738, "Stary Oskol Airport").
-airport(res_airport_774, "Schleswig Air Base").
-airport(res_airport_775, "Wittmundhafen Airport").
-airport(res_airport_7766, "Syangboche Airport").
-airport(res_airport_7767, "Indianola Municipal Airport").
-airport(res_airport_7768, "Cheremshanka Airport").
-airport(res_airport_7769, "French Valley Airport").
-airport(res_airport_777, "Wunstorf Air Base").
-airport(res_airport_7772, "Oristano-Fenosu Airport").
-airport(res_airport_7773, "White Waltham Airfield").
-airport(res_airport_7775, "Carl R Keller Field").
-airport(res_airport_7776, "Dayton-Wright Brothers Airport").
-airport(res_airport_7777, "Richmond Municipal Airport").
-airport(res_airport_7778, "Findlay Airport").
-airport(res_airport_778, "Vilseck Army Air Field").
-airport(res_airport_7780, "Burlington Executive").
-airport(res_airport_7782, "Penneshaw Airport").
-airport(res_airport_7787, "Engels heliport").
-airport(res_airport_779, "Coleman Army Air Field").
-airport(res_airport_7792, "Emporia Municipal Airport").
-airport(res_airport_780, "Wiesbaden Army Airfield").
-airport(res_airport_7800, "Skå-Edeby Airport").
-airport(res_airport_7804, "Wycombe Air Park").
-airport(res_airport_7805, "Bembridge Airport").
-airport(res_airport_7806, "Waterville / Kings County Municipal Airport").
-airport(res_airport_7809, "Black Hills Airport-Clyde Ice Field").
-airport(res_airport_781, "Landsberg Lech Air Base").
-airport(res_airport_7810, "Westkapelle heliport").
-airport(res_airport_7811, "Redcliffe Airport").
-airport(res_airport_7812, "Oksywie Military Air Base").
-airport(res_airport_7813, "Malbork Military Air Base").
-airport(res_airport_7814, "Lask Military Air Base").
-airport(res_airport_7815, "Miroslawiec Military Air Base").
-airport(res_airport_7816, "Krzesiny Military Air Base").
-airport(res_airport_7817, "Olive Branch Airport").
-airport(res_airport_7818, "Viña del mar Airport").
-airport(res_airport_782, "Büchel Air Base").
-airport(res_airport_7820, "Brampton Airport").
-airport(res_airport_7822, "Rocky Mountain Metropolitan Airport").
-airport(res_airport_7826, "Salem Municipal Airport/McNary Field").
-airport(res_airport_7827, "Tunica Municipal Airport").
-airport(res_airport_7828, "Batken Airport").
-airport(res_airport_783, "Erding Airport").
-airport(res_airport_7830, "Kasaba Bay Airport").
-airport(res_airport_7831, "Hunt Field").
-airport(res_airport_7834, "Hoogeveen Airfield").
-airport(res_airport_7835, "Teuge Airport").
-airport(res_airport_7836, "Midden-Zeeland Airport").
-airport(res_airport_7837, "Ameland Airfield").
-airport(res_airport_7838, "Saint-Cyr-l'École Airport").
-airport(res_airport_7839, "Lawrence J Timmerman Airport").
-airport(res_airport_784, "Fürstenfeldbruck Air Base").
-airport(res_airport_7840, "Southern Wisconsin Regional Airport").
-airport(res_airport_7841, "Mantsonyane Airport").
-airport(res_airport_7846, "Arlington Municipal Airport").
-airport(res_airport_7847, "Gwinnett County Briscoe Field").
-airport(res_airport_7848, "Bowling Green Warren County Regional Airport").
-airport(res_airport_7849, "Richard Lloyd Jones Jr Airport").
-airport(res_airport_785, "Holzdorf Air Base").
-airport(res_airport_7853, "Al Minhad Air Base").
-airport(res_airport_7854, "Kirovograd Airport").
-airport(res_airport_7855, "Roitzschjora Airfield").
-airport(res_airport_7856, "El Alamein International Airport").
-airport(res_airport_7857, "Bryce Canyon Airport").
-airport(res_airport_7859, "Burlington Alamance Regional Airport").
-airport(res_airport_786, "Ingolstadt Manching Airport").
-airport(res_airport_7861, "Chkalovskiy Air Base").
-airport(res_airport_7867, "De Peel Air Base").
-airport(res_airport_7868, "Camp Bastion Airport").
-airport(res_airport_7869, "New Century Aircenter Airport").
-airport(res_airport_787, "Lechfeld Air Base").
-airport(res_airport_7870, "Easton Newnam Field").
-airport(res_airport_7871, "Stafsberg Airport").
-airport(res_airport_7872, "Ringebu Airfield Frya").
-airport(res_airport_7875, "Yuba County Airport").
-airport(res_airport_7879, "Phillip Island Airport").
-airport(res_airport_788, "Neuburg AFB").
-airport(res_airport_7880, "Halliburton Field").
-airport(res_airport_7885, "Garner Field").
-airport(res_airport_7886, "Lewis University Airport").
-airport(res_airport_7888, "Buchanan Field").
-airport(res_airport_7889, "Ocean Reef Club Airport").
-airport(res_airport_789, "Gütersloh Air Base").
-airport(res_airport_7892, "Strasbourg Neuhof Airfield").
-airport(res_airport_7893, "Nannhausen Airport").
-airport(res_airport_790, "Alexander Bay Airport").
-airport(res_airport_7902, "Toronto/Oshawa Executive Airport").
-airport(res_airport_7903, "Marl-Loemühle Airfield").
-airport(res_airport_7904, "Färila Air Base").
-airport(res_airport_7905, "Lahr Airport").
-airport(res_airport_7906, "Monywar Airport").
-airport(res_airport_7907, "Ohio University Snyder Field").
-airport(res_airport_7908, "Springfield-Beckley Municipal Airport").
-airport(res_airport_7909, "Sun Island Resort and SPA").
-airport(res_airport_791, "Aggeneys Airport").
-airport(res_airport_7910, "Fes Sefrou Airport").
-airport(res_airport_7911, "Herrera Airport").
-airport(res_airport_7912, "Cooinda Airport").
-airport(res_airport_7913, "Jabiru Airport").
-airport(res_airport_7918, "Regensburg-Oberhub Airport").
-airport(res_airport_792, "Brakpan Airport").
-airport(res_airport_7924, "Hastings Airport").
-airport(res_airport_7925, "Philip Billard Municipal Airport").
-airport(res_airport_7928, "Benson Airstrip").
-airport(res_airport_7929, "Rough River State Park Airport").
-airport(res_airport_793, "Bisho Airport").
-airport(res_airport_7930, "Smyrna Airport").
-airport(res_airport_7931, "Franklin County Airport").
-airport(res_airport_7933, "Cochstedt Airport").
-airport(res_airport_7935, "Collin County Regional At Mc Kinney Airport").
-airport(res_airport_7936, "Chicago Executive Airport").
-airport(res_airport_7938, "Southwest Washington Regional Airport").
-airport(res_airport_7939, "Benešov Airport").
-airport(res_airport_7941, "Bougouni Airport").
-airport(res_airport_7946, "Tureia Airport").
-airport(res_airport_7947, "McMurdo Station Ice Runway").
-airport(res_airport_7948, "Keekorok Airport").
-airport(res_airport_795, "Bethlehem Airport").
-airport(res_airport_796, "Hendrik Potgieter Airport").
-airport(res_airport_7963, "Kerch Airport").
-airport(res_airport_7978, "Wilmington Airpark").
-airport(res_airport_7979, "Marana Regional Airport").
-airport(res_airport_798, "Calvinia Airport").
-airport(res_airport_7980, "Casa Grande Municipal Airport").
-airport(res_airport_7981, "Mobile Airport").
-airport(res_airport_7982, "Buckeye Municipal Airport").
-airport(res_airport_7983, "Gila Bend Municipal Airport").
-airport(res_airport_7984, "McMinn County Airport").
-airport(res_airport_7985, "Sterling Municipal Airport").
-airport(res_airport_7986, "Rawlins Municipal Airport/Harvey Field").
-airport(res_airport_7990, "Essex County Airport").
-airport(res_airport_7991, "Lee C Fine Memorial Airport").
-airport(res_airport_7998, "Thomasville Regional Airport").
-airport(res_airport_7999, "Henderson Executive Airport").
-airport(res_airport_8000, "Gostomel Airport").
-airport(res_airport_8005, "Henry Tift Myers Airport").
-airport(res_airport_8006, "Landshut Airport").
-airport(res_airport_8007, "Itzehoe/Hungriger Wolf Airport").
-airport(res_airport_801, "Ermelo Airport").
-airport(res_airport_802, "Ficksburg Sentraoes Airport").
-airport(res_airport_8029, "Radom Airport").
-airport(res_airport_803, "Grand Central Airport").
-airport(res_airport_8030, "Phoenix Deer Valley Airport").
-airport(res_airport_8031, "Calgary / Springbank Airport").
-airport(res_airport_8032, "Golden Airport").
-airport(res_airport_8033, "Revelstoke Airport").
-airport(res_airport_8034, "Republic Airport").
-airport(res_airport_8035, "Allstedt Airport").
-airport(res_airport_8038, "General Freire Airport").
-airport(res_airport_8039, "Peine-Eddesse Airport").
-airport(res_airport_8042, "South Texas Regional Airport at Hondo").
-airport(res_airport_8050, "McKinley National Park Airport").
-airport(res_airport_8051, "Lake Hood Airport").
-airport(res_airport_8052, "Prospect Creek Airport").
-airport(res_airport_8053, "Khwai River Lodge Airport").
-airport(res_airport_8054, "Spremberg-Welzow Airport").
-airport(res_airport_8055, "Taichung Airport").
-airport(res_airport_806, "Graaff Reinet Airport").
-airport(res_airport_8062, "Wheeling Ohio County Airport").
-airport(res_airport_8063, "Fitzgerald Municipal Airport").
-airport(res_airport_8069, "Ye Airport").
-airport(res_airport_807, "Grahamstown Airport").
-airport(res_airport_8070, "Isla San Felix Airport").
-airport(res_airport_8075, "Shaibah Airport").
-airport(res_airport_8077, "Aransas County Airport").
-airport(res_airport_8079, "Megève Airport").
-airport(res_airport_808, "Greytown Airport").
-airport(res_airport_8080, "Méribel Altiport").
-airport(res_airport_8083, "Okaukuejo Airport").
-airport(res_airport_8084, "Mokuti Lodge Airport").
-airport(res_airport_8085, "Rotenburg (Wümme) Airport").
-airport(res_airport_8086, "Wipperfürth-Via Airport").
-airport(res_airport_8087, "Osnabrück-Atterheide Airport").
-airport(res_airport_8088, "Flugplatz Ballenstedt").
-airport(res_airport_8089, "Flugplatz Hartenholm").
-airport(res_airport_809, "Harmony Airport").
-airport(res_airport_8090, "Ganderkesee Atlas Airfield").
-airport(res_airport_8091, "Nienburg-Holzbalge Airport").
-airport(res_airport_8092, "Damme Airfield").
-airport(res_airport_8093, "Borkenberge Airport").
-airport(res_airport_8094, "Obermehler-Schlotheim Airport").
-airport(res_airport_8095, "Hodenhagen Airport").
-airport(res_airport_8096, "Grube Airport").
-airport(res_airport_8097, "Tønder Airport").
-airport(res_airport_8098, "Celle-Arloh Airport").
-airport(res_airport_8099, "Uelzen Airport").
-airport(res_airport_81, "Kindersley Airport").
-airport(res_airport_810, "Harrismith Airport").
-airport(res_airport_8100, "Hamm-Lippewiesen Airport").
-airport(res_airport_8101, "Lüsse Airport").
-airport(res_airport_8102, "Porta Westfalica Airport").
-airport(res_airport_8103, "Brilon/Hochsauerlandkreis Airfield").
-airport(res_airport_8104, "Hameln-Pyrmont Airport").
-airport(res_airport_8105, "Nordholz-Spieka Airfield").
-airport(res_airport_8106, "Köthen Airport").
-airport(res_airport_8107, "St. Michaelisdonn Airport").
-airport(res_airport_8108, "Salzgitter-Drütte Airport").
-airport(res_airport_8109, "Karlshöfen Airport").
-airport(res_airport_8110, "Oldenburg-Hatten Airfield").
-airport(res_airport_8111, "Rinteln Airport").
-airport(res_airport_8112, "Münster-Telgte Airport").
-airport(res_airport_8113, "St. Peter-Ording Airport").
-airport(res_airport_8114, "Lüchow-Rehbeck Airport").
-airport(res_airport_8115, "Klietz/Scharlibbe Airport").
-airport(res_airport_8116, "Burg Airport").
-airport(res_airport_8117, "Crisp County Cordele Airport").
-airport(res_airport_8118, "Ormond Beach Municipal Airport").
-airport(res_airport_8119, "Bad Neuenahr-Ahrweiler Airfield").
-airport(res_airport_812, "Gariep Dam Airport").
-airport(res_airport_8120, "Bad Dürkheim Airport").
-airport(res_airport_8121, "Portland Troutdale Airport").
-airport(res_airport_8122, "Portland Hillsboro Airport").
-airport(res_airport_8123, "One Police Plaza Heliport").
-airport(res_airport_8124, "Leverkusen Airport").
-airport(res_airport_8126, "Wershofen/Eifel Airfield").
-airport(res_airport_8127, "Khost Airport").
-airport(res_airport_8130, "Namtu Airport").
-airport(res_airport_8133, "Bend Municipal Airport").
-airport(res_airport_8134, "Christmas Valley Airport").
-airport(res_airport_8135, "Burns Municipal Airport").
-airport(res_airport_8136, "Prineville Airport").
-airport(res_airport_8137, "Red Bluff Municipal Airport").
-airport(res_airport_8138, "Marin County Airport - Gnoss Field").
-airport(res_airport_8139, "Lake County Airport").
-airport(res_airport_814, "P C Pelser Airport").
-airport(res_airport_8140, "Tillamook Airport").
-airport(res_airport_8141, "Ontario Municipal Airport").
-airport(res_airport_8142, "Columbia Gorge Regional the Dalles Municipal Airport").
-airport(res_airport_8143, "Montgomery County Airpark").
-airport(res_airport_8146, "Sharana Airstrip").
-airport(res_airport_8147, "Pembroke Airport").
-airport(res_airport_8148, "Tsumeb Airport").
-airport(res_airport_8149, "Suffield Heliport").
-airport(res_airport_8152, "Blumenau Airport").
-airport(res_airport_8156, "Bolshoye Gryzlovo Airfield").
-airport(res_airport_816, "Krugersdorp Airport").
-airport(res_airport_8162, "Charlevoix Municipal Airport").
-airport(res_airport_8165, "Mykines Heliport").
-airport(res_airport_817, "Kroonstad Airport").
-airport(res_airport_8177, "Cornwall Regional Airport").
-airport(res_airport_8178, "Seppe Airfield").
-airport(res_airport_8179, "St Stephan Airport").
-airport(res_airport_818, "Johan Pienaar Airport").
-airport(res_airport_8181, "IAR Gimbav Heliport").
-airport(res_airport_8182, "Flagler Executive Airport").
-airport(res_airport_8187, "Morrisville Stowe State Airport").
-airport(res_airport_8188, "Dallas Executive Airport").
-airport(res_airport_8189, "Como (Idroscalo - Water Ad) Hidroport").
-airport(res_airport_819, "Kleinsee Airport").
-airport(res_airport_8192, "Krainiy Airport").
-airport(res_airport_8194, "Westerly State Airport").
-airport(res_airport_8195, "Block Island State Airport").
-airport(res_airport_82, "Buttonville Municipal Airport").
-airport(res_airport_821, "Lichtenburg Airport").
-airport(res_airport_8215, "Decatur County Industrial Air Park").
-airport(res_airport_8216, "La Romaine Airport").
-airport(res_airport_8218, "Black Tickle Airport").
-airport(res_airport_8219, "Silver Springs Airport").
-airport(res_airport_822, "Makhado Air Force Base Airport").
-airport(res_airport_8220, "Whiteman Airport").
-airport(res_airport_8221, "Madera Municipal Airport").
-airport(res_airport_8224, "Victoria Airport").
-airport(res_airport_8228, "Grand-Santi Airport").
-airport(res_airport_8229, "Maripasoula Airport").
-airport(res_airport_823, "Langebaanweg Airport").
-airport(res_airport_8230, "Saint-Laurent-du-Maroni Airport").
-airport(res_airport_8233, "Kanas Airport").
-airport(res_airport_8234, "Capurganá Airport").
-airport(res_airport_8236, "Presidente General Don Oscar D. Gestido International Airport").
-airport(res_airport_824, "Ladysmith Airport").
-airport(res_airport_8245, "Carauari Airport").
-airport(res_airport_8246, "Urucu Airport").
-airport(res_airport_8248, "Concórdia Airport").
-airport(res_airport_8249, "Francisco Beltrão Airport").
-airport(res_airport_825, "Middelburg Airport").
-airport(res_airport_8250, "Confresa Airport").
-airport(res_airport_8252, "Apalachicola Regional Airport").
-airport(res_airport_8253, "Umuarama Airport").
-airport(res_airport_8254, "Diamantina Airport").
-airport(res_airport_8255, "Fonte Boa Airport").
-airport(res_airport_8257, "Humaitá Airport").
-airport(res_airport_8260, "Hotel Transamérica Airport").
-airport(res_airport_8265, "Telfer Airport").
-airport(res_airport_8267, "Shank Air Base").
-airport(res_airport_8273, "Douglas Municipal Airport").
-airport(res_airport_8274, "St Lucie County International Airport").
-airport(res_airport_8276, "Taunton Municipal King Field").
-airport(res_airport_8277, "Plymouth Municipal Airport").
-airport(res_airport_8278, "Quonset State Airport").
-airport(res_airport_828, "Marble Hall Airport").
-airport(res_airport_8280, "Norwood Memorial Airport").
-airport(res_airport_8281, "Westfield-Barnes Regional Airport").
-airport(res_airport_8282, "Windham Airport").
-airport(res_airport_8283, "Orange County Airport").
-airport(res_airport_8284, "Capital City Airport").
-airport(res_airport_8285, "Marshfield Municipal George Harlow Field").
-airport(res_airport_8286, "Danbury Municipal Airport").
-airport(res_airport_8287, "Boire Field").
-airport(res_airport_8288, "Lawrence Municipal Airport").
-airport(res_airport_8289, "Waterbury Oxford Airport").
-airport(res_airport_829, "Majuba Power Station Airport").
-airport(res_airport_8290, "Fitchburg Municipal Airport").
-airport(res_airport_8291, "Earl L. Small Jr. Field/Stockmar Airport").
-airport(res_airport_8292, "Cartersville Airport").
-airport(res_airport_8293, "Centre-Piedmont-Cherokee County Regional Airport").
-airport(res_airport_8294, "Richard B Russell Airport").
-airport(res_airport_8295, "Northeast Alabama Regional Airport").
-airport(res_airport_8296, "Knoxville Downtown Island Airport").
-airport(res_airport_8297, "Barrow County Airport").
-airport(res_airport_8298, "Plantation Airpark").
-airport(res_airport_8299, "Dalton Municipal Airport").
-airport(res_airport_83, "Chapleau Airport").
-airport(res_airport_8300, "West Georgia Regional O V Gray Field").
-airport(res_airport_8302, "LaGrange Callaway Airport").
-airport(res_airport_8303, "Baldwin County Regional Airport").
-airport(res_airport_8305, "Harris County Airport").
-airport(res_airport_8306, "Peachtree City Falcon Field").
-airport(res_airport_8308, "Lee Gilmer Memorial Airport").
-airport(res_airport_831, "Riverside Airport").
-airport(res_airport_8312, "Harry Clever Field").
-airport(res_airport_8313, "Darlington County Airport").
-airport(res_airport_8318, "Daniel Field").
-airport(res_airport_8319, "Foothills Regional Airport").
-airport(res_airport_832, "Morningside Farm Airport").
-airport(res_airport_8320, "Pike County-Hatcher Field").
-airport(res_airport_8321, "Mallards Landing Airport").
-airport(res_airport_8322, "Toccoa Airport - R.G. Letourneau Field").
-airport(res_airport_8323, "Compton Abbas Aerodrome").
-airport(res_airport_8328, "Suprunovka Airport").
-airport(res_airport_833, "Mkuze Airport").
-airport(res_airport_8331, "Aweil Airport").
-airport(res_airport_8332, "Wau Airport").
-airport(res_airport_8333, "Humera Airport").
-airport(res_airport_8334, "Moyale Airport").
-airport(res_airport_8335, "Zagora Airport").
-airport(res_airport_8336, "Yengema Airport").
-airport(res_airport_8337, "Gbangbatok Airport").
-airport(res_airport_834, "Newcastle Airport").
-airport(res_airport_8340, "Turukhansk Airport").
-airport(res_airport_8341, "Podkamennaya Tunguska Airport").
-airport(res_airport_8342, "Fort Worth Alliance Airport").
-airport(res_airport_8343, "East Troy Municipal Airport").
-airport(res_airport_8344, "Kolpashevo Airport").
-airport(res_airport_8347, "Ali Al Salem Air Base").
-airport(res_airport_8348, "Renmark Airport").
-airport(res_airport_8349, "Leigh Creek Airport").
-airport(res_airport_835, "Nylstroom Airfield").
-airport(res_airport_8350, "Warburton Airport").
-airport(res_airport_8351, "Cunderdin Airport").
-airport(res_airport_8352, "Rottnest Island Airport").
-airport(res_airport_8353, "Forrest Airport").
-airport(res_airport_8354, "Ballarat Airport").
-airport(res_airport_8356, "Marathon Airport").
-airport(res_airport_8357, "Hearst René Fontaine Municipal Airport").
-airport(res_airport_8358, "Hornepayne Municipal Airport").
-airport(res_airport_8359, "Kirkland Lake Airport").
-airport(res_airport_836, "Overberg Airport").
-airport(res_airport_8360, "Manitouwadge Airport").
-airport(res_airport_8361, "Wawa Airport").
-airport(res_airport_8362, "Manitoulin East Municipal Airport").
-airport(res_airport_8363, "Slate Falls Airport").
-airport(res_airport_8364, "Collingwood Airport").
-airport(res_airport_8365, "Brantford Municipal Airport").
-airport(res_airport_8366, "Lawrence Municipal Airport").
-airport(res_airport_8367, "Wellington Municipal Airport").
-airport(res_airport_837, "Oudtshoorn Airport").
-airport(res_airport_8379, "Pompano Beach Airpark").
-airport(res_airport_8380, "Mallacoota Airport").
-airport(res_airport_839, "Plettenberg Bay Airport").
-airport(res_airport_8394, "Shelby County Airport").
-airport(res_airport_8395, "Yuendumu Airport").
-airport(res_airport_8397, "Sky Ranch At Carefree Airport").
-airport(res_airport_84, "Meadow Lake Airport").
-airport(res_airport_8403, "One Hundred Mile House Airport").
-airport(res_airport_8404, "South Cariboo Region / 108 Mile Airport").
-airport(res_airport_8405, "Glasgow City Heliport").
-airport(res_airport_8406, "Yarram Airport").
-airport(res_airport_8409, "Indianapolis Metropolitan Airport").
-airport(res_airport_841, "Pietersburg Municipal Airport").
-airport(res_airport_8410, "London-Corbin Airport/Magee Field").
-airport(res_airport_8412, "Simmons Army Air Field").
-airport(res_airport_8419, "Jeongseok Airport").
-airport(res_airport_842, "Port St Johns Airport").
-airport(res_airport_8423, "Gimli Industrial Park Airport").
-airport(res_airport_8426, "Matheson Island Airport").
-airport(res_airport_8427, "Tura Mountain Airport").
-airport(res_airport_8430, "John H Batten Airport").
-airport(res_airport_8431, "Cesar Lim Rodriguez Airport").
-airport(res_airport_8432, "Gera-Leumnitz Airfield").
-airport(res_airport_8435, "Kasimovo Airfield").
-airport(res_airport_8438, "Terlet Glider Field").
-airport(res_airport_844, "Pilanesberg International Airport").
-airport(res_airport_8442, "Shigatse Air Base").
-airport(res_airport_8443, "Redlands Municipal Airport").
-airport(res_airport_8445, "Flabob Airport").
-airport(res_airport_8446, "Tacoma Narrows Airport").
-airport(res_airport_8459, "Oerlinghausen Airport").
-airport(res_airport_846, "Potchefstroom Airport").
-airport(res_airport_8460, "Jack Edwards Airport").
-airport(res_airport_8461, "General Villamil Airport").
-airport(res_airport_8462, "Balzers Heliport").
-airport(res_airport_8467, "Flugplatz Punitz").
-airport(res_airport_8468, "Khmelnytskyi Airport").
-airport(res_airport_8469, "Hiroshimanishi Airport").
-airport(res_airport_847, "Parys Airport").
-airport(res_airport_8472, "Yalata Mission Airport").
-airport(res_airport_8473, "Hazleton Municipal Airport").
-airport(res_airport_8474, "Greater Cumberland Regional Airport").
-airport(res_airport_8475, "Sugar Loaf Shores Airport").
-airport(res_airport_8476, "Wyndham Airport").
-airport(res_airport_8477, "Bob Quinn Lake Airport").
-airport(res_airport_848, "Queenstown Airport").
-airport(res_airport_8480, "Msembe Airport").
-airport(res_airport_8482, "Grabtsevo Airport").
-airport(res_airport_8493, "Tri-County Regional Airport").
-airport(res_airport_8494, "Price County Airport").
-airport(res_airport_8495, "Monroe Municipal Airport").
-airport(res_airport_8496, "Joliet Regional Airport").
-airport(res_airport_8497, "Illinois Valley Regional Airport-Walter A Duncan Field").
-airport(res_airport_8499, "Jackson County Reynolds Field").
-airport(res_airport_850, "Rustenburg Airport").
-airport(res_airport_8500, "Fuerstenwalde Airport").
-airport(res_airport_8501, "Eberswalde-Finow Airport").
-airport(res_airport_8502, "Joseph A. Hardy Connellsville Airport").
-airport(res_airport_8503, "Bedford County Airport").
-airport(res_airport_8504, "Wings Field").
-airport(res_airport_8505, "Okeechobee County Airport").
-airport(res_airport_8506, "Sebring Regional Airport").
-airport(res_airport_8507, "Avon Park Executive Airport").
-airport(res_airport_8508, "Winter Haven Regional Airport - Gilbert Field").
-airport(res_airport_8509, "Zephyrhills Municipal Airport").
-airport(res_airport_851, "Robertson Airport").
-airport(res_airport_8510, "Ocala International Airport - Jim Taylor Field").
-airport(res_airport_8511, "Jesup Wayne County Airport").
-airport(res_airport_8512, "Madison Municipal Airport").
-airport(res_airport_8513, "Newnan Coweta County Airport").
-airport(res_airport_8514, "Thomson-McDuffie County Airport").
-airport(res_airport_8515, "Aiken Regional Airport").
-airport(res_airport_8516, "Woodward Field").
-airport(res_airport_8517, "Lumberton Regional Airport").
-airport(res_airport_8519, "Moore County Airport").
-airport(res_airport_852, "Springbok Airport").
-airport(res_airport_8520, "Richmond County Airport").
-airport(res_airport_8524, "Baraboo Wisconsin Dells Airport").
-airport(res_airport_8526, "Statesville Regional Airport").
-airport(res_airport_8528, "Burlington Municipal Airport").
-airport(res_airport_853, "Secunda Airport").
-airport(res_airport_8532, "William T. Piper Memorial Airport").
-airport(res_airport_8538, "Zelienople Municipal Airport").
-airport(res_airport_854, "Saldanha /Vredenburg Airport").
-airport(res_airport_8542, "Lorain County Regional Airport").
-airport(res_airport_8544, "Burke Lakefront Airport").
-airport(res_airport_8545, "Chautauqua County-Dunkirk Airport").
-airport(res_airport_8548, "South Jersey Regional Airport").
-airport(res_airport_855, "Springs Airfield").
-airport(res_airport_8550, "Linden Airport").
-airport(res_airport_8553, "Tri State Steuben County Airport").
-airport(res_airport_8555, "Warsaw Municipal Airport").
-airport(res_airport_8556, "Van Wert County Airport").
-airport(res_airport_8559, "Brooks Field").
-airport(res_airport_856, "Swartkop Air Force Base").
-airport(res_airport_8560, "Genesee County Airport").
-airport(res_airport_8565, "Clearwater Air Park").
-airport(res_airport_857, "Sishen Airport").
-airport(res_airport_8577, "Orlampa Inc Airport").
-airport(res_airport_858, "Hendrik Swellengrebel Airport").
-airport(res_airport_859, "Skukuza Airport").
-airport(res_airport_8593, "Chicago Meigs Airport").
-airport(res_airport_86, "Alert Airport").
-airport(res_airport_860, "Tommys Field Airport").
-airport(res_airport_8601, "Pickens County Airport").
-airport(res_airport_8603, "Saarmund Airport").
-airport(res_airport_8604, "Grand Strand Airport").
-airport(res_airport_8606, "Lansing Municipal Airport").
-airport(res_airport_8608, "Ramona Airport").
-airport(res_airport_8609, "Pont Sur Yonne Airfield").
-airport(res_airport_861, "New Tempe Airport").
-airport(res_airport_8610, "St Florentin Cheu Airfield").
-airport(res_airport_8611, "Saulieu Liernais Airfield").
-airport(res_airport_8612, "Olten Airport").
-airport(res_airport_8613, "Buochs Airport").
-airport(res_airport_8614, "Ambri Airport").
-airport(res_airport_8615, "Lodrino Air Base").
-airport(res_airport_8616, "Roudnice Airport").
-airport(res_airport_8617, "Usti Nad Labem Airfield").
-airport(res_airport_8618, "Mauterndorf Airport").
-airport(res_airport_8619, "Nötsch Im Gailtal Airport").
-airport(res_airport_862, "Tutuka Power Station Airport").
-airport(res_airport_8620, "Sinsheim Airfield").
-airport(res_airport_8621, "Weinheim/Bergstraße Airport").
-airport(res_airport_8622, "Meaux Esbly Airport").
-airport(res_airport_8623, "Château-Thierry - Belleau Airfield").
-airport(res_airport_8624, "Branch County Memorial Airport").
-airport(res_airport_8625, "Wilkes Barre Wyoming Valley Airport").
-airport(res_airport_8626, "Willoughby Lost Nation Municipal Airport").
-airport(res_airport_8627, "Taoyuan Air Base").
-airport(res_airport_863, "Tzaneen Airport").
-airport(res_airport_8631, "Capital City Airport").
-airport(res_airport_8632, "Auburn Lewiston Municipal Airport").
-airport(res_airport_8633, "Inowroclaw Military Air Base").
-airport(res_airport_8634, "Pruszcz Gdanski Air Base").
-airport(res_airport_8639, "Bloyer Field").
-airport(res_airport_864, "Prince Mangosuthu Buthelezi Airport").
-airport(res_airport_8641, "Marco Island Executive Airport").
-airport(res_airport_8644, "Drummond Island Airport").
-airport(res_airport_8646, "Gladwin Zettel Memorial Airport").
-airport(res_airport_8648, "South Haven Area Regional Airport").
-airport(res_airport_8653, "Marshfield Municipal Airport").
-airport(res_airport_8654, "Alexander Field South Wood County Airport").
-airport(res_airport_8655, "Clinton Municipal Airport").
-airport(res_airport_8658, "Beverly Municipal Airport").
-airport(res_airport_8660, "Nagaur Airport").
-airport(res_airport_8661, "Ostafyevo International Airport").
-airport(res_airport_8663, "Trois-Rivières Airport").
-airport(res_airport_8664, "Poplar Bluff Municipal Airport").
-airport(res_airport_8665, "Somerset Airport").
-airport(res_airport_8666, "Eastport Municipal Airport").
-airport(res_airport_8667, "Keokuk Municipal Airport").
-airport(res_airport_8669, "Perth/Scone Airport").
-airport(res_airport_867, "Vryburg Airport").
-airport(res_airport_8670, "Caernarfon Airport").
-airport(res_airport_8671, "Grefrath-Niershorst Airport").
-airport(res_airport_868, "Virginia Airport").
-airport(res_airport_8681, "St Paul Downtown Holman Field").
-airport(res_airport_8682, "Söderhamn Airport").
-airport(res_airport_8683, "Newcastle Aerodrome").
-airport(res_airport_8684, "Saravane Airport").
-airport(res_airport_8689, "Segeletz Airport").
-airport(res_airport_869, "Vredendal Airport").
-airport(res_airport_8690, "Fuentemilanos Airport").
-airport(res_airport_8691, "Akeno Airport").
-airport(res_airport_8692, "Ust-Kamchatsk Airport").
-airport(res_airport_8693, "Oconomowoc Airport").
-airport(res_airport_8694, "Kozyrevsk Airport").
-airport(res_airport_8695, "Dikson Airport").
-airport(res_airport_8696, "Beverley Airport").
-airport(res_airport_8698, "Bantry Aerodrome").
-airport(res_airport_870, "Vereeniging Airport").
-airport(res_airport_8700, "Aliwal North Airport").
-airport(res_airport_8701, "Alkantpan Copper Airport").
-airport(res_airport_8702, "Alldays Airport").
-airport(res_airport_8703, "Bredasdorp Airport").
-airport(res_airport_8706, "Butler Co Regional Airport - Hogan Field").
-airport(res_airport_8707, "Bungoma Airport").
-airport(res_airport_8708, "Bura East Airport").
-airport(res_airport_8709, "Busia Airport").
-airport(res_airport_871, "Wonderboom Airport").
-airport(res_airport_8710, "Embu Airport").
-airport(res_airport_8711, "Garba Tula Airport").
-airport(res_airport_8712, "Garissa Airport").
-airport(res_airport_8713, "Hola Airport").
-airport(res_airport_8714, "Homa Bay Airport").
-airport(res_airport_8715, "Isiolo Airport").
-airport(res_airport_8717, "Kericho Airport").
-airport(res_airport_8718, "Kilaguni Airport").
-airport(res_airport_872, "Witbank Airport").
-airport(res_airport_8721, "Antsirabe Airport").
-airport(res_airport_8722, "Bekily Airport").
-airport(res_airport_8723, "Ust-Tsylma Airport").
-airport(res_airport_873, "Waterkloof Air Force Base").
-airport(res_airport_874, "Welkom Airport").
-airport(res_airport_8742, "Fond du Lac County Airport").
-airport(res_airport_8743, "Waupaca Municipal Airport").
-airport(res_airport_8744, "Stevens Point Municipal Airport").
-airport(res_airport_8745, "Mys Shmidta Airport").
-airport(res_airport_8746, "Moma Airport").
-airport(res_airport_8747, "Luce County Airport").
-airport(res_airport_875, "Ysterplaat Air Force Base").
-airport(res_airport_8750, "Peenemünde Airport").
-airport(res_airport_8751, "Góraszka Airport").
-airport(res_airport_8752, "Nusawiru Airport").
-airport(res_airport_8759, "Galion Municipal Airport").
-airport(res_airport_876, "Zeerust Airport").
-airport(res_airport_8761, "Tiputini Airport").
-airport(res_airport_8762, "Rio Amazonas Airport").
-airport(res_airport_8763, "Clarksville–Montgomery County Regional Airport").
-airport(res_airport_8771, "Lompoc Airport").
-airport(res_airport_8772, "Chester County G O Carlson Airport").
-airport(res_airport_8773, "Bost Airport").
-airport(res_airport_8776, "Zaqatala International Airport").
-airport(res_airport_8777, "Lake Placid Airport").
-airport(res_airport_8779, "Typliy Klyuch Airport").
-airport(res_airport_878, "Jwaneng Airport").
-airport(res_airport_8780, "Magan Airport").
-airport(res_airport_8784, "Lima Allen County Airport").
-airport(res_airport_8785, "Sondok Airport").
-airport(res_airport_8789, "Malcolm McKinnon Airport").
-airport(res_airport_8790, "Beaver County Airport").
-airport(res_airport_8792, "Georgetown County Airport").
-airport(res_airport_8793, "Hardwick Field").
-airport(res_airport_8796, "Renton Municipal Airport").
-airport(res_airport_8798, "Brackett Field").
-airport(res_airport_88, "Mayo Airport").
-airport(res_airport_8801, "Cross City Airport").
-airport(res_airport_8802, "Oconee County Regional Airport").
-airport(res_airport_8804, "Beech Factory Airport").
-airport(res_airport_8808, "Tom B. David Field").
-airport(res_airport_8809, "Habersham County Airport").
-airport(res_airport_8811, "Georgetown Municipal Airport").
-airport(res_airport_8812, "Old Rhinebeck Airport").
-airport(res_airport_8813, "Duxford Aerodrome").
-airport(res_airport_8815, "Sidney Municipal-Lloyd W Carr Field").
-airport(res_airport_8816, "Newnan Hospital Heliport").
-airport(res_airport_882, "Selebi Phikwe Airport").
-airport(res_airport_8820, "Great Keppel Is Airport").
-airport(res_airport_8821, "Roper Bar Airport").
-airport(res_airport_8822, "Mount Garnet Airport").
-airport(res_airport_8823, "Innisfail Airport").
-airport(res_airport_8824, "Kalaeloa Airport").
-airport(res_airport_8825, "Bamiyan Airport").
-airport(res_airport_8830, "Orang Airport").
-airport(res_airport_8831, "Moomba Airport").
-airport(res_airport_8833, "Iosco County Airport").
-airport(res_airport_8834, "Madison County Executive Airport-Tom Sharp Jr Field").
-airport(res_airport_8835, "Leesburg Executive Airport").
-airport(res_airport_8838, "Anoka County-Blaine (Janes Field) Airport").
-airport(res_airport_8839, "Robinson Crusoe Airport").
-airport(res_airport_884, "Owando Airport").
-airport(res_airport_8840, "Villa Airport").
-airport(res_airport_8846, "Lošinj Island Airport").
-airport(res_airport_8847, "Onslow Airport").
-airport(res_airport_8848, "Theodore Airport").
-airport(res_airport_885, "Ouesso Airport").
-airport(res_airport_8850, "Williamson Sodus Airport").
-airport(res_airport_8853, "Fairoaks Airport").
-airport(res_airport_8854, "Boulder Municipal Airport").
-airport(res_airport_8855, "Neustadt-Glewe Airport").
-airport(res_airport_8859, "Goetsenhoven Air Base").
-airport(res_airport_8860, "Tutow Airport").
-airport(res_airport_8861, "Bremgarten Airport").
-airport(res_airport_8862, "Bitburg Airport").
-airport(res_airport_8864, "Palo Alto Airport of Santa Clara County").
-airport(res_airport_8866, "Ust-Nera Airport").
-airport(res_airport_8867, "Letiště Vysoké Mýto").
-airport(res_airport_8868, "Spa (la Sauvenière) Airfield").
-airport(res_airport_8869, "Falcon Field").
-airport(res_airport_8870, "Coolidge Municipal Airport").
-airport(res_airport_8871, "Cottonwood Airport").
-airport(res_airport_8872, "Namur-Suarlée Airfield").
-airport(res_airport_8873, "Kiewit Airfield Hasselt").
-airport(res_airport_8874, "Ak-Chin Regional Airport").
-airport(res_airport_8875, "Wickenburg Municipal Airport").
-airport(res_airport_8877, "Oakland County International Airport").
-airport(res_airport_8880, "Kissidougou Airport").
-airport(res_airport_8888, "Dillant Hopkins Airport").
-airport(res_airport_8889, "Tianshui Maijishan Airport").
-airport(res_airport_889, "Berbérati Airport").
-airport(res_airport_8890, "Kawama Airport").
-airport(res_airport_8893, "Glasgow Industrial Airport").
-airport(res_airport_8894, "Rochester Airport").
-airport(res_airport_89, "Moose Jaw Air Vice Marshal C. M. McEwen Airport").
-airport(res_airport_8918, "Keetmanshoop Airport").
-airport(res_airport_892, "RAF Ascension Island").
-airport(res_airport_8925, "Iowa City Municipal Airport").
-airport(res_airport_8926, "Turpan Jiaohe Airport").
-airport(res_airport_8927, "Lorenzo Airport").
-airport(res_airport_8928, "Windom Municipal Airport").
-airport(res_airport_8931, "Longview Ranch Airport").
-airport(res_airport_8932, "Rothera Research Station").
-airport(res_airport_8933, "Sortavala Airport").
-airport(res_airport_8935, "Lee Airport").
-airport(res_airport_8943, "Cuamba Airport").
-airport(res_airport_8946, "Zhytomyr Airport").
-airport(res_airport_8948, "Paluknys Airport").
-airport(res_airport_895, "Diego Garcia Naval Support Facility").
-airport(res_airport_8950, "Pecos Municipal Airport").
-airport(res_airport_8951, "Hattiesburg Bobby L Chain Municipal Airport").
-airport(res_airport_8952, "Botucatu - Tancredo de Almeida Neves Airport").
-airport(res_airport_8953, "Base Aérea Airport").
-airport(res_airport_8954, "Mário Pereira Lopes–São Carlos Airport").
-airport(res_airport_8958, "Chan Gurney Municipal Airport").
-airport(res_airport_896, "Tiko Airport").
-airport(res_airport_8963, "Bromont (Roland Desourdy) Airport").
-airport(res_airport_8965, "Beccles Airport").
-airport(res_airport_8966, "Kratie Airport").
-airport(res_airport_8967, "Caldera Airport").
-airport(res_airport_8968, "San Pedro de Atacama Airport").
-airport(res_airport_8969, "Copacabana Airport").
-airport(res_airport_8971, "Guyuan Liupanshan Airport").
-airport(res_airport_8972, "RAF Brawdy").
-airport(res_airport_8974, "Changhai Airport").
-airport(res_airport_8975, "Redhill Aerodrome").
-airport(res_airport_8980, "Chinchilla Airport").
-airport(res_airport_8982, "Hayward Executive Airport").
-airport(res_airport_8983, "Motueka Airport").
-airport(res_airport_8984, "Shute Harbour Airport").
-airport(res_airport_8985, "Enstone Aerodrome").
-airport(res_airport_8989, "Ann Arbor Municipal Airport").
-airport(res_airport_899, "Foumban Nkounja Airport").
-airport(res_airport_8994, "Shepparton Airport").
-airport(res_airport_8995, "Temora Airport").
-airport(res_airport_8996, "Gayndah Airport").
-airport(res_airport_8998, "Wilcannia Airport").
-airport(res_airport_9001, "Ivanhoe Airport").
-airport(res_airport_9002, "Menindee Airport").
-airport(res_airport_9004, "Pooncarie Airport").
-airport(res_airport_9006, "Tilpa Airport").
-airport(res_airport_9008, "Reichenbach Air Base").
-airport(res_airport_902, "Bafoussam Airport").
-airport(res_airport_903, "Bamenda Airport").
-airport(res_airport_904, "Yaoundé Airport").
-airport(res_airport_9042, "Kavalerovo Airport").
-airport(res_airport_9048, "Velikiye Luki Airport").
-airport(res_airport_905, "Kasompe Airport").
-airport(res_airport_9053, "Yelahanka Air Force Station").
-airport(res_airport_9054, "Yeltsovka Airport").
-airport(res_airport_9062, "Kodinsk Airport").
-airport(res_airport_9065, "Lake Macquarie Airport").
-airport(res_airport_9066, "Henry County Airport").
-airport(res_airport_9068, "Brampton Island Airport").
-airport(res_airport_9071, "Alameda Naval Air Station").
-airport(res_airport_9075, "Endelave Flyveplads").
-airport(res_airport_9076, "St. Johann In Tirol Airport").
-airport(res_airport_9079, "Thalmässing-Waizenhofen Airport").
-airport(res_airport_9088, "Cochrane Airport").
-airport(res_airport_9089, "Estadual Arthur Siqueira Airport").
-airport(res_airport_909, "Mongu Airport").
-airport(res_airport_9091, "Srednekolymsk Airport").
-airport(res_airport_9093, "Comarapa Airport").
-airport(res_airport_9095, "Inverell Airport").
-airport(res_airport_9096, "Glen Innes Airport").
-airport(res_airport_9100, "Ansbach-Petersdorf Airport").
-airport(res_airport_9102, "Immokalee Regional Airport").
-airport(res_airport_9103, "Maranggo Airport").
-airport(res_airport_9104, "Rancho San Simeon Airport").
-airport(res_airport_911, "Southdowns Airport").
-airport(res_airport_9120, "Dinwiddie County Airport").
-airport(res_airport_9123, "Kasongo Airport").
-airport(res_airport_9124, "McMurdo Station Pegasus Field").
-airport(res_airport_9125, "Klatovy Airport").
-airport(res_airport_9126, "Sheboygan County Memorial Airport").
-airport(res_airport_9127, "Fortescue - Dave Forrest Aerodrome").
-airport(res_airport_9129, "Kangel Danda Airport").
-airport(res_airport_913, "Mohéli Bandar Es Eslam Airport").
-airport(res_airport_9132, "Bajura Airport").
-airport(res_airport_9134, "Chara Airport").
-airport(res_airport_9136, "Herning Airport").
-airport(res_airport_9137, "Oberschleißheim Airfield").
-airport(res_airport_9138, "Pinal Airpark").
-airport(res_airport_9139, "Glendale Municipal Airport").
-airport(res_airport_914, "Ouani Airport").
-airport(res_airport_9140, "Safford Regional Airport").
-airport(res_airport_9141, "Verden-Scharnhorst Airfield").
-airport(res_airport_9146, "Solomon Airport").
-airport(res_airport_9147, "Nittenau-Bruck Airport").
-airport(res_airport_9148, "Kerama Airport").
-airport(res_airport_9149, "Americana Airport").
-airport(res_airport_9156, "Ekibastuz Airport").
-airport(res_airport_9162, "Adamovka").
-airport(res_airport_9163, "Kvarkeno").
-airport(res_airport_9164, "Sikeston Memorial Municipal Airport").
-airport(res_airport_9175, "Tetiaroa Airport").
-airport(res_airport_9178, "Floyd Bennett Memorial Airport").
-airport(res_airport_9179, "Saratoga County Airport").
-airport(res_airport_9182, "Crystal River Airport").
-airport(res_airport_9183, "Martin State Airport").
-airport(res_airport_9184, "Lincoln Regional Karl Harder Field").
-airport(res_airport_9185, "Fostoria Metropolitan Airport").
-airport(res_airport_9186, "Eastern Slopes Regional Airport").
-airport(res_airport_9187, "Coral Creek Airport").
-airport(res_airport_9188, "Lakefront Airport").
-airport(res_airport_9189, "Coeur D'Alene - Pappy Boyington Field").
-airport(res_airport_919, "Miandrivazo Airport").
-airport(res_airport_9190, "Beaumont Municipal Airport").
-airport(res_airport_9191, "Vermilion Regional Airport").
-airport(res_airport_9193, "Coonabarabran Airport").
-airport(res_airport_9199, "Space Coast Regional Airport").
-airport(res_airport_92, "Maniwaki Airport").
-airport(res_airport_9205, "Bumi Airport").
-airport(res_airport_9207, "Warnervale Airport").
-airport(res_airport_9215, "Bouarfa Airport").
-airport(res_airport_9218, "Nyeri Airport").
-airport(res_airport_9225, "Andrau Airpark").
-airport(res_airport_9226, "Flying Cloud Airport").
-airport(res_airport_9227, "Likoma Island Airport").
-airport(res_airport_9228, "Johnson County Executive Airport").
-airport(res_airport_9232, "Neumünster Airport").
-airport(res_airport_9233, "Tak Airport").
-airport(res_airport_9236, "Barrie-Orillia (Lake Simcoe Regional Airport)").
-airport(res_airport_9237, "Huronia Airport").
-airport(res_airport_9238, "Markham Airport").
-airport(res_airport_9239, "Stanhope Municipal Airport").
-airport(res_airport_9240, "Kawartha Lakes (Lindsay) Airport").
-airport(res_airport_9241, "Niagara District Airport").
-airport(res_airport_9243, "Edenvale Aerodrome").
-airport(res_airport_9244, "Orillia Airport").
-airport(res_airport_9245, "Holland Landing Airpark").
-airport(res_airport_9247, "Parry Sound Area Municipal Airport").
-airport(res_airport_9248, "Hanover / Saugeen Municipal Airport").
-airport(res_airport_9249, "Brandywine Airport").
-airport(res_airport_925, "Andapa Airport").
-airport(res_airport_9251, "Manassas Regional Airport/Harry P. Davis Field").
-airport(res_airport_9252, "Texas Gulf Coast Regional Airport").
-airport(res_airport_9253, "Bubovice Airport").
-airport(res_airport_9255, "Rakkestad Astorp Airport").
-airport(res_airport_926, "Ambilobe Airport").
-airport(res_airport_9276, "Elstree Airfield").
-airport(res_airport_9277, "Sandtoft Airfield").
-airport(res_airport_928, "Analalava Airport").
-airport(res_airport_9290, "Torit Airport").
-airport(res_airport_93, "Montreal International (Mirabel) Airport").
-airport(res_airport_9305, "Shelby County Airport").
-airport(res_airport_9308, "Lüliang Airport").
-airport(res_airport_931, "Besalampy Airport").
-airport(res_airport_9317, "Vängsö Airport").
-airport(res_airport_934, "Vohimarina Airport").
-airport(res_airport_9348, "Enumclaw Airport").
-airport(res_airport_935, "Ambalabe Airport").
-airport(res_airport_936, "Ampampamena Airport").
-airport(res_airport_9371, "Markovo Airport").
-airport(res_airport_9372, "Seymchan Airport").
-airport(res_airport_9373, "Zyryanka Airport").
-airport(res_airport_9374, "Susuman Airport").
-airport(res_airport_9376, "Ust-Maya Airport").
-airport(res_airport_9377, "Aldan Airport").
-airport(res_airport_9378, "Olyokminsk Airport").
-airport(res_airport_9379, "Vitim Airport").
-airport(res_airport_938, "Fianarantsoa Airport").
-airport(res_airport_9380, "Pellworm Field").
-airport(res_airport_9387, "Port Alsworth Airport").
-airport(res_airport_9388, "Fontaine Airport").
-airport(res_airport_939, "Farafangana Airport").
-airport(res_airport_9390, "Fairfield County Airport").
-airport(res_airport_9391, "Obock Airport").
-airport(res_airport_9392, "Tadjoura Airport").
-airport(res_airport_9393, "Santa Cruz del Quiche Airport").
-airport(res_airport_9394, "Norðfjörður Airport").
-airport(res_airport_9395, "Bursa Airport").
-airport(res_airport_9396, "Skyhaven Airport").
-airport(res_airport_9397, "Waris Airport").
-airport(res_airport_9399, "Newton City-County Airport").
-airport(res_airport_940, "Manakara Airport").
-airport(res_airport_9400, "La Ferté Alais Airfield").
-airport(res_airport_9402, "Bairnsdale Airport").
-airport(res_airport_9403, "Taszár Air Base").
-airport(res_airport_9406, "Fort Bridger Airport").
-airport(res_airport_9407, "Prosser Airport").
-airport(res_airport_9408, "Chehalis Centralia Airport").
-airport(res_airport_9409, "Desert Aire Regional Airport").
-airport(res_airport_941, "Mananjary Airport").
-airport(res_airport_9411, "Evanston-Uinta County Airport-Burns Field").
-airport(res_airport_9412, "Sabetha Municipal Airport").
-airport(res_airport_9413, "Mt Pleasant Regional-Faison field").
-airport(res_airport_9414, "Jimmy Carter Regional Airport").
-airport(res_airport_9415, "Weedon Field").
-airport(res_airport_9416, "Saluda County Airport").
-airport(res_airport_9417, "Dare County Regional Airport").
-airport(res_airport_9418, "Auburn University Regional Airport").
-airport(res_airport_9419, "Tri Cities Airport").
-airport(res_airport_942, "Morombe Airport").
-airport(res_airport_9428, "Bessemer Airport").
-airport(res_airport_9429, "Colorado Springs East Airport").
-airport(res_airport_9447, "Crystal Airport").
-airport(res_airport_9448, "Clarke County Airport").
-airport(res_airport_945, "Benguela Airport").
-airport(res_airport_9450, "W H 'Bud' Barron Airport").
-airport(res_airport_9474, "Pukarua Airport").
-airport(res_airport_9475, "Kabale Airport").
-airport(res_airport_9481, "Guatuso Airport").
-airport(res_airport_9484, "Central Bolívar Airport").
-airport(res_airport_9488, "Corvallis Municipal Airport").
-airport(res_airport_9492, "Tuzla Romania Airport").
-airport(res_airport_95, "Ottawa / Gatineau Airport").
-airport(res_airport_950, "Lobito Airport").
-airport(res_airport_9500, "El Almendro Airport").
-airport(res_airport_9511, "San Agustin Airport").
-airport(res_airport_9521, "Samambaia Heliport").
-airport(res_airport_9528, "Fazenda Campo Verde Airport").
-airport(res_airport_9532, "Prominent Hill Airport").
-airport(res_airport_9533, "Cowra Airport").
-airport(res_airport_9542, "Coral Bay Airport").
-airport(res_airport_9544, "Lake Country Regional Airport").
-airport(res_airport_9545, "Robert S Kerr Airport").
-airport(res_airport_9546, "Colorado Plains Regional Airport").
-airport(res_airport_9547, "Sanderson Field").
-airport(res_airport_955, "Negage Airport").
-airport(res_airport_956, "Porto Amboim Airport").
-airport(res_airport_96, "Matagami Airport").
-airport(res_airport_961, "Uige Airport").
-airport(res_airport_962, "Xangongo Airport").
-airport(res_airport_963, "Oyem Airport").
-airport(res_airport_964, "Okondja Airport").
-airport(res_airport_965, "Lambarene Airport").
-airport(res_airport_966, "Bitam Airport").
-airport(res_airport_968, "Omboue Hopital Airport").
-airport(res_airport_969, "Makokou Airport").
-airport(res_airport_97, "Old Crow Airport").
-airport(res_airport_971, "M'Vengue El Hadj Omar Bongo Ondimba International Airport").
-airport(res_airport_972, "Principe Airport").
-airport(res_airport_9746, "Tok Airport").
-airport(res_airport_9749, "Bedwell Harbour Seaplane Base").
-airport(res_airport_9751, "Washabo Airport").
-airport(res_airport_9753, "Popham Airfield").
-airport(res_airport_9754, "Causey Airport").
-airport(res_airport_9759, "Abaco I Walker C Airport").
-airport(res_airport_9760, "Black Point Airstrip").
-airport(res_airport_9761, "Bartica A Airport").
-airport(res_airport_9763, "Doylestown Airport").
-airport(res_airport_9766, "Cape Town Waterfort Heliport").
-airport(res_airport_9769, "Plínio Alarcom Airport").
-airport(res_airport_9770, "Zhangye Ganzhou Airport").
-airport(res_airport_9772, "Warren Field").
-airport(res_airport_9773, "Hyde County Airport").
-airport(res_airport_9776, "Stillwater Regional Airport").
-airport(res_airport_9777, "Okmulgee Regional Airport").
-airport(res_airport_9778, "Cushing Municipal Airport").
-airport(res_airport_9779, "Clinton Sherman Airport").
-airport(res_airport_978, "Lumbo Airport").
-airport(res_airport_9780, "Strother Field").
-airport(res_airport_9781, "Wiley Post Airport").
-airport(res_airport_9782, "Shreveport Downtown Airport").
-airport(res_airport_9783, "Stephenville Clark Regional Airport").
-airport(res_airport_9784, "Perry Municipal Airport").
-airport(res_airport_9786, "Hamilton Municipal Airport").
-airport(res_airport_9787, "Ada Regional Airport").
-airport(res_airport_9788, "Mesquite Metro Airport").
-airport(res_airport_9789, "Denton Municipal Airport").
-airport(res_airport_9790, "Austin Executive Airport").
-airport(res_airport_9791, "Lago Vista Tx Rusty Allen Airport").
-airport(res_airport_9792, "Brenham Municipal Airport").
-airport(res_airport_9793, "Lakeway Airpark").
-airport(res_airport_9794, "Iraan Municipal Airport").
-airport(res_airport_9795, "Kestrel Airpark").
-airport(res_airport_9796, "Elliot Lake Municipal Airport").
-airport(res_airport_9797, "Wilkes County Airport").
-airport(res_airport_9798, "Charleston Executive Airport").
-airport(res_airport_9799, "Danville Regional Airport").
-airport(res_airport_98, "CFB Cold Lake").
-airport(res_airport_980, "Mueda Airport").
-airport(res_airport_9800, "Brookneal/Campbell County Airport").
-airport(res_airport_9805, "Yerbogachen Airport").
-airport(res_airport_9806, "Cheraw Municipal Airport/Lynch Bellinger Field").
-airport(res_airport_9808, "Wauchula Municipal Airport").
-airport(res_airport_981, "Mocímboa da Praia Airport").
-airport(res_airport_9818, "Lilydale Airport").
-airport(res_airport_9819, "Beni Mellal Airport").
-airport(res_airport_982, "Marrupa Airport").
-airport(res_airport_9820, "Şırnak Şerafettin Elçi Airport").
-airport(res_airport_9821, "Suntar Airport").
-airport(res_airport_9825, "Asaba International Airport").
-airport(res_airport_983, "Nacala Airport").
-airport(res_airport_9830, "Mpanda Airport").
-airport(res_airport_9831, "Songea Airport").
-airport(res_airport_9832, "Morogoro Airport").
-airport(res_airport_9847, "Conway Horry County Airport").
-airport(res_airport_9850, "Sikasso Airport").
-airport(res_airport_9853, "Toowoomba Wellcamp Airport").
-airport(res_airport_9854, "Tonghua Sanyuanpu Airport").
-airport(res_airport_9857, "Suzhou Guangfu Airport").
-airport(res_airport_9860, "City Airport Manchester").
-airport(res_airport_9861, "Sleap Airport").
-airport(res_airport_9862, "Tatenhill Airfield").
-airport(res_airport_9863, "Full Sutton Airfield").
-airport(res_airport_9864, "Sherburn-In-Elmet Airfield").
-airport(res_airport_9866, "Beringin Airport").
-airport(res_airport_9868, "Mulia Airport").
-airport(res_airport_987, "Songo Airport").
-airport(res_airport_9872, "Stenkol Airport").
-airport(res_airport_9873, "Wasior Airport").
-airport(res_airport_9874, "Silangit Airport").
-airport(res_airport_9875, "Lasikin Airport").
-airport(res_airport_9886, "Seunagan Airport").
-airport(res_airport_989, "Ulongwe Airport").
-airport(res_airport_9890, "Sanggata/Sangkimah Airport").
-airport(res_airport_9891, "Muara Bungo Airport").
-airport(res_airport_9892, "Selayar/Aroepala Airport").
-airport(res_airport_9897, "Illaga Airport").
-airport(res_airport_9899, "Kokonau Airport").
-airport(res_airport_9901, "Clermont Airport").
-airport(res_airport_9902, "Warrnambool Airport").
-airport(res_airport_991, "Alphonse Airport").
-airport(res_airport_992, "Desroches Airport").
-airport(res_airport_993, "Farquhar Airport").
-airport(res_airport_9935, "Kualanamu International Airport").
-airport(res_airport_9937, "Gratiot Community Airport").
-airport(res_airport_9938, "Asheboro Regional Airport").
-airport(res_airport_9939, "Seosan Air Base").
-airport(res_airport_9942, "Henderson Field").
-airport(res_airport_9943, "Emporia Greensville Regional Airport").
-airport(res_airport_996, "Coetivy Airport").
-airport(res_airport_997, "Abeche Airport").
-airport(res_airport_998, "Moundou Airport").
+airport(res_airport_1, 'Goroka Airport').
+airport(res_airport_10, 'Thule Air Base').
+airport(res_airport_100, 'Ottawa Macdonald-Cartier International Airport').
+airport(res_airport_1001, 'Joshua Mqabuko Nkomo International Airport').
+airport(res_airport_1004, 'Victoria Falls International Airport').
+airport(res_airport_1005, 'Robert Gabriel Mugabe International Airport').
+airport(res_airport_1013, 'Chileka International Airport').
+airport(res_airport_1016, 'Lilongwe International Airport').
+airport(res_airport_10160, 'Erenhot Saiwusu International Airport').
+airport(res_airport_1018, 'Moshoeshoe I International Airport').
+airport(res_airport_1020, 'Ndjili International Airport').
+airport(res_airport_1026, 'Mbandaka Airport').
+airport(res_airport_1028, 'Gemena Airport').
+airport(res_airport_1031, 'Bangoka International Airport').
+airport(res_airport_1032, 'Matari Airport').
+airport(res_airport_1033, 'Bunia Airport').
+airport(res_airport_1035, 'Bukavu Kavumu Airport').
+airport(res_airport_1036, 'Goma International Airport').
+airport(res_airport_1037, 'Kindu Airport').
+airport(res_airport_1038, 'Lubumbashi International Airport').
+airport(res_airport_1040, 'Kalemie Airport').
+airport(res_airport_1042, 'Kananga Airport').
+airport(res_airport_1043, 'Mbuji Mayi Airport').
+airport(res_airport_1044, 'Modibo Keita International Airport').
+airport(res_airport_105, 'Pickle Lake Airport').
+airport(res_airport_1050, 'Banjul International Airport').
+airport(res_airport_1051, 'Fuerteventura Airport').
+airport(res_airport_1052, 'Hierro Airport').
+airport(res_airport_1053, 'La Palma Airport').
+airport(res_airport_1054, 'Gran Canaria Airport').
+airport(res_airport_1055, 'Lanzarote Airport').
+airport(res_airport_1056, 'Tenerife South Airport').
+airport(res_airport_1057, 'Tenerife Norte Airport').
+airport(res_airport_1058, 'Melilla Airport').
+airport(res_airport_1059, 'Lungi International Airport').
+airport(res_airport_106, 'Port Menier Airport').
+airport(res_airport_1062, 'Spriggs Payne Airport').
+airport(res_airport_1063, 'Roberts International Airport').
+airport(res_airport_1064, 'Al Massira Airport').
+airport(res_airport_1065, 'Tan Tan Airport').
+airport(res_airport_1066, 'Saïss Airport').
+airport(res_airport_1070, 'Angads Airport').
+airport(res_airport_1072, 'Rabat-Salé Airport').
+airport(res_airport_1074, 'Mohammed V International Airport').
+airport(res_airport_1075, 'Menara Airport').
+airport(res_airport_1077, 'Ouarzazate Airport').
+airport(res_airport_1078, 'Cherif Al Idrissi Airport').
+airport(res_airport_1079, 'Saniat R''mel Airport').
+airport(res_airport_10792, 'Jumandy Airport').
+airport(res_airport_108, 'Prince Rupert Airport').
+airport(res_airport_1080, 'Ibn Batouta Airport').
+airport(res_airport_1081, 'Ziguinchor Airport').
+airport(res_airport_1082, 'Cap Skirring Airport').
+airport(res_airport_1084, 'Léopold Sédar Senghor International Airport').
+airport(res_airport_109, 'Fort Chipewyan Airport').
+airport(res_airport_1094, 'Nouakchott–Oumtounsy International Airport').
+airport(res_airport_10940, 'Zhangjiakou Ningyuan Airport').
+airport(res_airport_10941, 'Arxan Yi''ershi Airport').
+airport(res_airport_1097, 'Nouadhibou International Airport').
+airport(res_airport_11, 'Akureyri Airport').
+airport(res_airport_1102, 'Amílcar Cabral International Airport').
+airport(res_airport_1103, 'Rabil Airport').
+airport(res_airport_1104, 'Maio Airport').
+airport(res_airport_1105, 'Preguiça Airport').
+airport(res_airport_11051, 'Hamad International Airport').
+airport(res_airport_1106, 'São Pedro Airport').
+airport(res_airport_1107, 'Addis Ababa Bole International Airport').
+airport(res_airport_1109, 'Arba Minch Airport').
+airport(res_airport_111, 'Quebec Jean Lesage International Airport').
+airport(res_airport_1110, 'Axum Airport').
+airport(res_airport_1111, 'Bahir Dar Airport').
+airport(res_airport_1112, 'Aba Tenna Dejazmach Yilma International Airport').
+airport(res_airport_1113, 'Gambella Airport').
+airport(res_airport_1114, 'Gonder Airport').
+airport(res_airport_1116, 'Jimma Airport').
+airport(res_airport_1117, 'Lalibella Airport').
+airport(res_airport_1118, 'Mekele Airport').
+airport(res_airport_1119, 'Asosa Airport').
+airport(res_airport_112, 'Red Deer Regional Airport').
+airport(res_airport_1120, 'Bujumbura International Airport').
+airport(res_airport_1121, 'Egal International Airport').
+airport(res_airport_1122, 'Berbera Airport').
+airport(res_airport_11229, 'Beni Airport').
+airport(res_airport_11230, 'Boende Airport').
+airport(res_airport_11257, 'Dharavandhoo Airport').
+airport(res_airport_11258, 'Saumlaki/Olilit Airport').
+airport(res_airport_1127, 'Abu Simbel Airport').
+airport(res_airport_1128, 'Cairo International Airport').
+airport(res_airport_11290, 'Kongolo Airport').
+airport(res_airport_113, 'Windsor Airport').
+airport(res_airport_1130, 'Hurghada International Airport').
+airport(res_airport_1132, 'Luxor International Airport').
+airport(res_airport_1136, 'Aswan International Airport').
+airport(res_airport_1138, 'Eldoret International Airport').
+airport(res_airport_1140, 'Kisumu Airport').
+airport(res_airport_1141, 'Kitale Airport').
+airport(res_airport_1143, 'Lodwar Airport').
+airport(res_airport_11436, 'Tarko-Sale Airport').
+airport(res_airport_1144, 'Manda Airstrip').
+airport(res_airport_1145, 'Mombasa Moi International Airport').
+airport(res_airport_1147, 'Nairobi Wilson Airport').
+airport(res_airport_11473, 'Jinchuan Airport').
+airport(res_airport_1149, 'Wajir Airport').
+airport(res_airport_11498, 'Alashankou Bole (Bortala) airport').
+airport(res_airport_115, 'Kenora Airport').
+airport(res_airport_1152, 'Ghat Airport').
+airport(res_airport_1153, 'Kufra Airport').
+airport(res_airport_1154, 'Benina International Airport').
+airport(res_airport_1157, 'Tripoli International Airport').
+airport(res_airport_116, 'Lethbridge County Airport').
+airport(res_airport_1162, 'Ghadames East Airport').
+airport(res_airport_1165, 'Kigali International Airport').
+airport(res_airport_1166, 'Kamembe Airport').
+airport(res_airport_1169, 'El Fasher Airport').
+airport(res_airport_117, 'Greater Moncton International Airport').
+airport(res_airport_1173, 'Juba International Airport').
+airport(res_airport_1175, 'Khartoum International Airport').
+airport(res_airport_1176, 'Arusha Airport').
+airport(res_airport_1177, 'Julius Nyerere International Airport').
+airport(res_airport_1180, 'Kilimanjaro International Airport').
+airport(res_airport_1182, 'Mtwara Airport').
+airport(res_airport_1183, 'Mwanza Airport').
+airport(res_airport_1186, 'Abeid Amani Karume International Airport').
+airport(res_airport_1187, 'Entebbe International Airport').
+airport(res_airport_119, 'Comox Airport').
+airport(res_airport_1190, 'Tirana International Airport Mother Teresa').
+airport(res_airport_1191, 'Burgas Airport').
+airport(res_airport_11922, 'Iwakuni Marine Corps Air Station').
+airport(res_airport_1193, 'Plovdiv International Airport').
+airport(res_airport_1194, 'Sofia Airport').
+airport(res_airport_1196, 'Varna Airport').
+airport(res_airport_1197, 'Larnaca International Airport').
+airport(res_airport_1198, 'Paphos International Airport').
+airport(res_airport_12, 'Egilsstaðir Airport').
+airport(res_airport_120, 'Regina International Airport').
+airport(res_airport_1200, 'Dubrovnik Airport').
+airport(res_airport_1202, 'Osijek Airport').
+airport(res_airport_1203, 'Pula Airport').
+airport(res_airport_1205, 'Rijeka Airport').
+airport(res_airport_1206, 'Split Airport').
+airport(res_airport_1208, 'Zagreb Airport').
+airport(res_airport_1209, 'Zadar Airport').
+airport(res_airport_121, 'Thunder Bay Airport').
+airport(res_airport_1212, 'Alicante International Airport').
+airport(res_airport_1213, 'Almería International Airport').
+airport(res_airport_1214, 'Asturias Airport').
+airport(res_airport_1216, 'Bilbao Airport').
+airport(res_airport_1218, 'Barcelona International Airport').
+airport(res_airport_1219, 'Badajoz Airport').
+airport(res_airport_122, 'Grande Prairie Airport').
+airport(res_airport_1220, 'A Coruña Airport').
+airport(res_airport_1222, 'Girona Airport').
+airport(res_airport_1223, 'Federico Garcia Lorca Airport').
+airport(res_airport_1225, 'Ibiza Airport').
+airport(res_airport_1226, 'Jerez Airport').
+airport(res_airport_1227, 'San Javier Airport').
+airport(res_airport_1229, 'Adolfo Suárez Madrid–Barajas Airport').
+airport(res_airport_1230, 'Málaga Airport').
+airport(res_airport_1231, 'Menorca Airport').
+airport(res_airport_1234, 'Pamplona Airport').
+airport(res_airport_1236, 'Reus Air Base').
+airport(res_airport_1238, 'Salamanca Airport').
+airport(res_airport_1242, 'San Sebastian Airport').
+airport(res_airport_1243, 'Santiago de Compostela Airport').
+airport(res_airport_1246, 'Valencia Airport').
+airport(res_airport_1247, 'Valladolid Airport').
+airport(res_airport_125, 'Gander International Airport').
+airport(res_airport_1250, 'Vigo Airport').
+airport(res_airport_1251, 'Santander Airport').
+airport(res_airport_1252, 'Zaragoza Air Base').
+airport(res_airport_1253, 'Sevilla Airport').
+airport(res_airport_126, 'Sydney / J.A. Douglas McCurdy Airport').
+airport(res_airport_1262, 'Agen-La Garenne Airport').
+airport(res_airport_1264, 'Bordeaux-Mérignac Airport').
+airport(res_airport_1265, 'Bergerac-Roumanière Airport').
+airport(res_airport_1268, 'Poitiers-Biard Airport').
+airport(res_airport_127, 'Quesnel Airport').
+airport(res_airport_1270, 'Limoges Airport').
+airport(res_airport_1273, 'Toulouse-Blagnac Airport').
+airport(res_airport_1274, 'Pau Pyrénées Airport').
+airport(res_airport_1276, 'Tarbes-Lourdes-Pyrénées Airport').
+airport(res_airport_1277, 'Angoulême-Brie-Champniers Airport').
+airport(res_airport_1278, 'Brive Souillac Airport').
+airport(res_airport_1279, 'Périgueux-Bassillac Airport').
+airport(res_airport_128, 'Resolute Bay Airport').
+airport(res_airport_1280, 'Biarritz-Anglet-Bayonne Airport').
+airport(res_airport_1285, 'Castres-Mazamet Airport').
+airport(res_airport_1289, 'Rodez-Marcillac Airport').
+airport(res_airport_1309, 'Dole-Tavaux Airport').
+airport(res_airport_1313, 'Le Puy-Loudes Airport').
+airport(res_airport_132, 'Rankin Inlet Airport').
+airport(res_airport_1320, 'Metz-Nancy-Lorraine Airport').
+airport(res_airport_1321, 'Bastia-Poretta Airport').
+airport(res_airport_1322, 'Calvi-Sainte-Catherine Airport').
+airport(res_airport_1323, 'Figari Sud-Corse Airport').
+airport(res_airport_1324, 'Ajaccio-Napoléon Bonaparte Airport').
+airport(res_airport_133, 'Sudbury Airport').
+airport(res_airport_1330, 'Clermont-Ferrand Auvergne Airport').
+airport(res_airport_1335, 'Lyon Saint-Exupéry Airport').
+airport(res_airport_1344, 'Aurillac Airport').
+airport(res_airport_135, 'Saint John Airport').
+airport(res_airport_1350, 'Saint-Étienne-Bouthéon Airport').
+airport(res_airport_1352, 'Carcassonne Airport').
+airport(res_airport_1353, 'Marseille Provence Airport').
+airport(res_airport_1354, 'Nice-Côte d''Azur Airport').
+airport(res_airport_1356, 'Perpignan-Rivesaltes (Llabanère) Airport').
+airport(res_airport_1359, 'Montpellier-Méditerranée Airport').
+airport(res_airport_136, 'Fort Smith Airport').
+airport(res_airport_1360, 'Béziers-Vias Airport').
+airport(res_airport_1361, 'Avignon-Caumont Airport').
+airport(res_airport_1367, 'Paris Beauvais Tillé Airport').
+airport(res_airport_1371, 'Le Havre Octeville Airport').
+airport(res_airport_1374, 'Châlons-Vatry Airport').
+airport(res_airport_1376, 'Tours-Val-de-Loire Airport').
+airport(res_airport_1382, 'Charles de Gaulle International Airport').
+airport(res_airport_1386, 'Paris-Orly Airport').
+airport(res_airport_139, 'Sachs Harbour (David Nasogaluak Jr. Saaryuaq) Airport').
+airport(res_airport_1399, 'Lille-Lesquin Airport').
+airport(res_airport_140, 'Cape Dorset Airport').
+airport(res_airport_1403, 'Brest Bretagne Airport').
+airport(res_airport_1405, 'Dinard-Pleurtuit-Saint-Malo Airport').
+airport(res_airport_1408, 'Deauville-Saint-Gatien Airport').
+airport(res_airport_1409, 'Lorient South Brittany (Bretagne Sud) Airport').
+airport(res_airport_141, 'Thompson Airport').
+airport(res_airport_1412, 'Caen-Carpiquet Airport').
+airport(res_airport_1415, 'Rennes-Saint-Jacques Airport').
+airport(res_airport_1416, 'Lannion-Côte de Granit Airport').
+airport(res_airport_1417, 'Quimper-Cornouaille Airport').
+airport(res_airport_1418, 'Nantes Atlantique Airport').
+airport(res_airport_1423, 'EuroAirport Basel-Mulhouse-Freiburg Airport').
+airport(res_airport_1425, 'Dijon-Bourgogne Airport').
+airport(res_airport_143, 'Timmins/Victor M. Power').
+airport(res_airport_1435, 'Strasbourg Airport').
+airport(res_airport_1438, 'Toulon-Hyères Airport').
+airport(res_airport_1439, 'Nîmes-Arles-Camargue Airport').
+airport(res_airport_144, 'Billy Bishop Toronto City Centre Airport').
+airport(res_airport_1441, 'St Pierre Airport').
+airport(res_airport_1446, 'Dimokritos Airport').
+airport(res_airport_1448, 'Nea Anchialos Airport').
+airport(res_airport_145, 'Tuktoyaktuk Airport').
+airport(res_airport_1450, 'Chios Island National Airport').
+airport(res_airport_1451, 'Ioannina Airport').
+airport(res_airport_1452, 'Heraklion International Nikos Kazantzakis Airport').
+airport(res_airport_1453, 'Kastoria National Airport').
+airport(res_airport_1454, 'Kithira Airport').
+airport(res_airport_1455, 'Kefallinia Airport').
+airport(res_airport_1456, 'Kalamata Airport').
+airport(res_airport_1458, 'Kos Airport').
+airport(res_airport_1459, 'Karpathos Airport').
+airport(res_airport_146, 'Montreal / Pierre Elliott Trudeau International Airport').
+airport(res_airport_1460, 'Ioannis Kapodistrias International Airport').
+airport(res_airport_1461, 'Kasos Airport').
+airport(res_airport_1462, 'Alexander the Great International Airport').
+airport(res_airport_1463, 'Filippos Airport').
+airport(res_airport_1464, 'Leros Airport').
+airport(res_airport_1465, 'Limnos Airport').
+airport(res_airport_1468, 'Mikonos Airport').
+airport(res_airport_1469, 'Mytilene International Airport').
+airport(res_airport_147, 'Repulse Bay Airport').
+airport(res_airport_1470, 'Aktion National Airport').
+airport(res_airport_1472, 'Diagoras Airport').
+airport(res_airport_1473, 'Araxos Airport').
+airport(res_airport_1474, 'Chania International Airport').
+airport(res_airport_1475, 'Skiathos Island National Airport').
+airport(res_airport_1476, 'Samos Airport').
+airport(res_airport_1479, 'Santorini Airport').
+airport(res_airport_148, 'Hall Beach Airport').
+airport(res_airport_1480, 'Sitia Airport').
+airport(res_airport_1482, 'Skiros Airport').
+airport(res_airport_1486, 'Thessaloniki Macedonia International Airport').
+airport(res_airport_1488, 'Zakynthos International Airport \\"Dionysios Solomos\\"').
+airport(res_airport_1489, 'Budapest Liszt Ferenc International Airport').
+airport(res_airport_149, 'Rouyn Noranda Airport').
+airport(res_airport_1490, 'Debrecen International Airport').
+airport(res_airport_15, 'Ísafjörður Airport').
+airport(res_airport_1501, 'Bari Karol Wojtyła Airport').
+airport(res_airport_1505, 'Pescara International Airport').
+airport(res_airport_1506, 'Brindisi – Salento Airport').
+airport(res_airport_1508, 'Lamezia Terme Airport').
+airport(res_airport_1509, 'Catania-Fontanarossa Airport').
+airport(res_airport_1510, 'Lampedusa Airport').
+airport(res_airport_1511, 'Pantelleria Airport').
+airport(res_airport_1512, 'Falcone–Borsellino Airport').
+airport(res_airport_1514, 'Reggio Calabria Airport').
+airport(res_airport_1515, 'Vincenzo Florio Airport Trapani-Birgi').
+airport(res_airport_1517, 'Alghero-Fertilia Airport').
+airport(res_airport_1519, 'Cagliari Elmas Airport').
+airport(res_airport_152, 'Qikiqtarjuaq Airport').
+airport(res_airport_1520, 'Olbia Costa Smeralda Airport').
+airport(res_airport_1524, 'Malpensa International Airport').
+airport(res_airport_1525, 'Il Caravaggio International Airport').
+airport(res_airport_1526, 'Turin Airport').
+airport(res_airport_1528, 'Genoa Cristoforo Colombo Airport').
+airport(res_airport_1529, 'Milano Linate Airport').
+airport(res_airport_153, 'Val-d''Or Airport').
+airport(res_airport_1531, 'Parma Airport').
+airport(res_airport_1534, 'Cuneo International Airport').
+airport(res_airport_1536, 'Bolzano Airport').
+airport(res_airport_1538, 'Bologna Guglielmo Marconi Airport').
+airport(res_airport_1539, 'Treviso-Sant''Angelo Airport').
+airport(res_airport_154, 'Kuujjuaq Airport').
+airport(res_airport_1545, 'Trieste–Friuli Venezia Giulia Airport').
+airport(res_airport_1546, 'Federico Fellini International Airport').
+airport(res_airport_155, 'Norman Wells Airport').
+airport(res_airport_1550, 'Verona Villafranca Airport').
+airport(res_airport_1551, 'Venice Marco Polo Airport').
+airport(res_airport_1553, 'Ciampino–G. B. Pastine International Airport').
+airport(res_airport_1555, 'Leonardo da Vinci–Fiumicino Airport').
+airport(res_airport_1558, 'Marina Di Campo Airport').
+airport(res_airport_156, 'Vancouver International Airport').
+airport(res_airport_1561, 'Naples International Airport').
+airport(res_airport_1562, 'Pisa International Airport').
+airport(res_airport_1563, 'Peretola Airport').
+airport(res_airport_1567, 'Perugia San Francesco d''Assisi – Umbria International Airport').
+airport(res_airport_1569, 'Ljubljana Jože Pučnik Airport').
+airport(res_airport_1579, 'Karlovy Vary International Airport').
+airport(res_airport_1582, 'Ostrava Leos Janáček Airport').
+airport(res_airport_1584, 'Pardubice Airport').
+airport(res_airport_1587, 'Václav Havel Airport Prague').
+airport(res_airport_1588, 'Brno-Tuřany Airport').
+airport(res_airport_1590, 'Ben Gurion International Airport').
+airport(res_airport_1594, 'Eilat Airport').
+airport(res_airport_1596, 'Haifa International Airport').
+airport(res_airport_16, 'Keflavik International Airport').
+airport(res_airport_160, 'Winnipeg / James Armstrong Richardson International Airport').
+airport(res_airport_1602, 'Ovda International Airport').
+airport(res_airport_1605, 'Sde Dov Airport').
+airport(res_airport_1606, 'Malta International Airport').
+airport(res_airport_1609, 'Graz Airport').
+airport(res_airport_161, 'Wabush Airport').
+airport(res_airport_1610, 'Innsbruck Airport').
+airport(res_airport_1611, 'Linz Hörsching Airport').
+airport(res_airport_1612, 'Salzburg Airport').
+airport(res_airport_1613, 'Vienna International Airport').
+airport(res_airport_1617, 'Santa Maria Airport').
+airport(res_airport_162, 'Williams Lake Airport').
+airport(res_airport_1625, 'Flores Airport').
+airport(res_airport_1626, 'Faro Airport').
+airport(res_airport_1627, 'Graciosa Airport').
+airport(res_airport_1628, 'Horta Airport').
+airport(res_airport_1629, 'Lajes Airport').
+airport(res_airport_1633, 'João Paulo II Airport').
+airport(res_airport_1634, 'Pico Airport').
+airport(res_airport_1636, 'Francisco de Sá Carneiro Airport').
+airport(res_airport_1637, 'Porto Santo Airport').
+airport(res_airport_1638, 'Humberto Delgado Airport (Lisbon Portela Airport)').
+airport(res_airport_1639, 'São Jorge Airport').
+airport(res_airport_164, 'Cranbrook/Canadian Rockies International Airport').
+airport(res_airport_1645, 'Mostar International Airport').
+airport(res_airport_1646, 'Sarajevo International Airport').
+airport(res_airport_1647, 'Arad International Airport').
+airport(res_airport_1649, 'Tautii Magheraus Airport').
+airport(res_airport_1651, 'Mihail Kogălniceanu International Airport').
+airport(res_airport_1652, 'Cluj-Napoca International Airport').
+airport(res_airport_1654, 'Craiova Airport').
+airport(res_airport_1655, 'Iaşi Airport').
+airport(res_airport_1656, 'Oradea International Airport').
+airport(res_airport_1657, 'Henri Coandă International Airport').
+airport(res_airport_1658, 'Sibiu International Airport').
+airport(res_airport_1659, 'Satu Mare Airport').
+airport(res_airport_166, 'Saskatoon John G. Diefenbaker International Airport').
+airport(res_airport_1662, 'Transilvania Târgu Mureş International Airport').
+airport(res_airport_1663, 'Timişoara Traian Vuia Airport').
+airport(res_airport_1665, 'Geneva Cointrin International Airport').
+airport(res_airport_167, 'Medicine Hat Airport').
+airport(res_airport_1675, 'Lugano Airport').
+airport(res_airport_1676, 'Bern Belp Airport').
+airport(res_airport_1678, 'Zürich Airport').
+airport(res_airport_1679, 'St Gallen Altenrhein Airport').
+airport(res_airport_168, 'Fort St John Airport').
+airport(res_airport_1682, 'Esenboğa International Airport').
+airport(res_airport_1685, 'Adana Airport').
+airport(res_airport_1688, 'Antalya International Airport').
+airport(res_airport_1689, 'Gaziantep International Airport').
+airport(res_airport_169, 'Sioux Lookout Airport').
+airport(res_airport_1691, 'Konya Airport').
+airport(res_airport_1692, 'Malatya Tulga Airport').
+airport(res_airport_1693, 'Amasya Merzifon Airport').
+airport(res_airport_1694, 'Sivas Nuri Demirağ Airport').
+airport(res_airport_1696, 'Kayseri Erkilet Airport').
+airport(res_airport_1699, 'Çardak Airport').
+airport(res_airport_170, 'Pangnirtung Airport').
+airport(res_airport_1701, 'Atatürk International Airport').
+airport(res_airport_1706, 'Adnan Menderes International Airport').
+airport(res_airport_1715, 'Dalaman International Airport').
+airport(res_airport_172, 'Prince George Airport').
+airport(res_airport_1721, 'Elazığ Airport').
+airport(res_airport_1722, 'Diyarbakir Airport').
+airport(res_airport_1723, 'Erzincan Airport').
+airport(res_airport_1724, 'Erzurum International Airport').
+airport(res_airport_1726, 'Trabzon International Airport').
+airport(res_airport_1728, 'Van Ferit Melen Airport').
+airport(res_airport_1729, 'Batman Airport').
+airport(res_airport_173, 'Northwest Regional Airport Terrace-Kitimat').
+airport(res_airport_1735, 'Chişinău International Airport').
+airport(res_airport_1737, 'Skopje Alexander the Great Airport').
+airport(res_airport_1738, 'Gibraltar Airport').
+airport(res_airport_1739, 'Belgrade Nikola Tesla Airport').
+airport(res_airport_174, 'London Airport').
+airport(res_airport_1741, 'Podgorica Airport').
+airport(res_airport_1742, 'Priština International Airport').
+airport(res_airport_1743, 'Tivat Airport').
+airport(res_airport_1745, 'M. R. Štefánik Airport').
+airport(res_airport_1746, 'Košice Airport').
+airport(res_airport_175, 'Abbotsford Airport').
+airport(res_airport_1754, 'Providenciales Airport').
+airport(res_airport_1755, 'South Caicos Airport').
+airport(res_airport_1759, 'Casa De Campo International Airport').
+airport(res_airport_176, 'Whitehorse / Erik Nielsen International Airport').
+airport(res_airport_1760, 'Punta Cana International Airport').
+airport(res_airport_1761, 'Gregorio Luperon International Airport').
+airport(res_airport_1762, 'Las Américas International Airport').
+airport(res_airport_1764, 'Cibao International Airport').
+airport(res_airport_1767, 'La Aurora Airport').
+airport(res_airport_177, 'North Bay Jack Garland Airport').
+airport(res_airport_1771, 'Goloson International Airport').
+airport(res_airport_1772, 'Ramón Villeda Morales International Airport').
+airport(res_airport_1773, 'La Laguna Airport').
+airport(res_airport_1774, 'Juan Manuel Galvez International Airport').
+airport(res_airport_1776, 'Toncontín International Airport').
+airport(res_airport_1779, 'Norman Manley International Airport').
+airport(res_airport_178, 'Calgary International Airport').
+airport(res_airport_1780, 'Sangster International Airport').
+airport(res_airport_1783, 'General Juan N Alvarez International Airport').
+airport(res_airport_1785, 'Jesús Terán Paredo International Airport').
+airport(res_airport_1786, 'Bahías de Huatulco International Airport').
+airport(res_airport_1789, 'Ciudad del Carmen International Airport').
+airport(res_airport_179, 'Smithers Airport').
+airport(res_airport_1792, 'Bachigualato Federal International Airport').
+airport(res_airport_1793, 'Chetumal International Airport').
+airport(res_airport_1794, 'Ciudad Obregón International Airport').
+airport(res_airport_1795, 'Ingeniero Alberto Acuña Ongay International Airport').
+airport(res_airport_1796, 'Abraham González International Airport').
+airport(res_airport_1797, 'General Roberto Fierro Villalobos International Airport').
+airport(res_airport_1798, 'General Pedro Jose Mendez International Airport').
+airport(res_airport_18, 'Reykjavik Airport').
+airport(res_airport_180, 'Fort Nelson Airport').
+airport(res_airport_1800, 'Cozumel International Airport').
+airport(res_airport_1801, 'General Guadalupe Victoria International Airport').
+airport(res_airport_1802, 'Amado Nervo National Airport').
+airport(res_airport_1804, 'Don Miguel Hidalgo Y Costilla International Airport').
+airport(res_airport_1807, 'General Ignacio P. Garcia International Airport').
+airport(res_airport_1808, 'Licenciado Miguel de la Madrid Airport').
+airport(res_airport_181, 'Penticton Airport').
+airport(res_airport_1810, 'Plan De Guadalupe International Airport').
+airport(res_airport_1813, 'Lázaro Cárdenas Airport').
+airport(res_airport_1814, 'Valle del Fuerte International Airport').
+airport(res_airport_1815, 'Del Bajío International Airport').
+airport(res_airport_1816, 'Manuel Márquez de León International Airport').
+airport(res_airport_1817, 'Loreto International Airport').
+airport(res_airport_1818, 'General Servando Canales International Airport').
+airport(res_airport_1819, 'Licenciado Manuel Crescencio Rejon Int Airport').
+airport(res_airport_182, 'Charlottetown Airport').
+airport(res_airport_1820, 'General Rodolfo Sánchez Taboada International Airport').
+airport(res_airport_1821, 'General Francisco J. Mujica International Airport').
+airport(res_airport_1822, 'Minatitlán/Coatzacoalcos National Airport').
+airport(res_airport_1824, 'Licenciado Benito Juarez International Airport').
+airport(res_airport_1825, 'General Mariano Escobedo International Airport').
+airport(res_airport_1826, 'General Rafael Buelna International Airport').
+airport(res_airport_1828, 'Quetzalcóatl International Airport').
+airport(res_airport_1829, 'Xoxocotlán International Airport').
+airport(res_airport_183, 'Taloyoak Airport').
+airport(res_airport_1830, 'El Tajín National Airport').
+airport(res_airport_1831, 'Hermanos Serdán International Airport').
+airport(res_airport_1834, 'Piedras Negras International Airport').
+airport(res_airport_1835, 'Licenciado y General Ignacio Lopez Rayon Airport').
+airport(res_airport_1836, 'Licenciado Gustavo Díaz Ordaz International Airport').
+airport(res_airport_1837, 'Puerto Escondido International Airport').
+airport(res_airport_1838, 'Querétaro Intercontinental Airport').
+airport(res_airport_1839, 'General Lucio Blanco International Airport').
+airport(res_airport_184, 'Victoria International Airport').
+airport(res_airport_1840, 'Los Cabos International Airport').
+airport(res_airport_1842, 'Ponciano Arriaga International Airport').
+airport(res_airport_1845, 'Francisco Sarabia International Airport').
+airport(res_airport_1846, 'Angel Albino Corzo International Airport').
+airport(res_airport_1847, 'General Abelardo L. Rodríguez International Airport').
+airport(res_airport_1848, 'General Francisco Javier Mina International Airport').
+airport(res_airport_1850, 'Licenciado Adolfo Lopez Mateos International Airport').
+airport(res_airport_1851, 'Tapachula International Airport').
+airport(res_airport_1852, 'Cancún International Airport').
+airport(res_airport_1853, 'Carlos Rovirosa Pérez International Airport').
+airport(res_airport_1854, 'General Heriberto Jara International Airport').
+airport(res_airport_1855, 'General Leobardo C. Ruiz International Airport').
+airport(res_airport_1856, 'Ixtapa Zihuatanejo International Airport').
+airport(res_airport_1858, 'Playa De Oro International Airport').
+airport(res_airport_1863, 'Augusto C. Sandino (Managua) International Airport').
+airport(res_airport_1865, 'Bocas Del Toro International Airport').
+airport(res_airport_1866, 'Cap Manuel Niño International Airport').
+airport(res_airport_1867, 'Enrique Malek International Airport').
+airport(res_airport_1869, 'Marcos A. Gelabert International Airport').
+airport(res_airport_187, 'Churchill Airport').
+airport(res_airport_1871, 'Tocumen International Airport').
+airport(res_airport_1879, 'Golfito Airport').
+airport(res_airport_188, 'Goose Bay Airport').
+airport(res_airport_1881, 'Daniel Oduber Quiros International Airport').
+airport(res_airport_1884, 'Nosara Airport').
+airport(res_airport_1885, 'Juan Santamaria International Airport').
+airport(res_airport_1887, 'Palmar Sur Airport').
+airport(res_airport_1889, 'Quepos Managua Airport').
+airport(res_airport_189, 'St. John''s International Airport').
+airport(res_airport_1892, 'Monseñor Óscar Arnulfo Romero International Airport').
+airport(res_airport_1895, 'Cap Haitien International Airport').
+airport(res_airport_1897, 'Toussaint Louverture International Airport').
+airport(res_airport_190, 'Kapuskasing Airport').
+airport(res_airport_1901, 'Jardines Del Rey Airport').
+airport(res_airport_1903, 'Vilo Acuña International Airport').
+airport(res_airport_1904, 'Ignacio Agramonte International Airport').
+airport(res_airport_1905, 'Antonio Maceo International Airport').
+airport(res_airport_1908, 'Mariana Grajales Airport').
+airport(res_airport_1909, 'José Martí International Airport').
+airport(res_airport_1910, 'Frank Pais International Airport').
+airport(res_airport_1918, 'Abel Santamaria Airport').
+airport(res_airport_192, 'Mont Joli Airport').
+airport(res_airport_1923, 'Juan Gualberto Gomez International Airport').
+airport(res_airport_1925, 'Gerrard Smith International Airport').
+airport(res_airport_1926, 'Owen Roberts International Airport').
+airport(res_airport_193, 'Lester B. Pearson International Airport').
+airport(res_airport_1930, 'Leonard M Thompson International Airport').
+airport(res_airport_1932, 'Spring Point Airport').
+airport(res_airport_1934, 'Treasure Cay Airport').
+airport(res_airport_1937, 'South Bimini Airport').
+airport(res_airport_1941, 'Exuma International Airport').
+airport(res_airport_1943, 'North Eleuthera Airport').
+airport(res_airport_1944, 'Governor''s Harbour Airport').
+airport(res_airport_1946, 'Rock Sound Airport').
+airport(res_airport_1948, 'Grand Bahama International Airport').
+airport(res_airport_1949, 'Inagua Airport').
+airport(res_airport_1950, 'Deadman''s Cay Airport').
+airport(res_airport_1951, 'Stella Maris Airport').
+airport(res_airport_1952, 'Mayaguana Airport').
+airport(res_airport_1953, 'Lynden Pindling International Airport').
+airport(res_airport_1956, 'San Salvador Airport').
+airport(res_airport_1957, 'Philip S. W. Goldson International Airport').
+airport(res_airport_1958, 'Aitutaki Airport').
+airport(res_airport_1959, 'Rarotonga International Airport').
+airport(res_airport_196, 'Yellowknife Airport').
+airport(res_airport_1960, 'Nadi International Airport').
+airport(res_airport_1961, 'Nausori International Airport').
+airport(res_airport_1963, 'Fua''amotu International Airport').
+airport(res_airport_1965, 'Bonriki International Airport').
+airport(res_airport_1968, 'Hihifo Airport').
+airport(res_airport_1969, 'Faleolo International Airport').
+airport(res_airport_1970, 'Pago Pago International Airport').
+airport(res_airport_1971, 'Rurutu Airport').
+airport(res_airport_1972, 'Tubuai Airport').
+airport(res_airport_1975, 'Tikehau Airport').
+airport(res_airport_1977, 'Fakarava Airport').
+airport(res_airport_1978, 'Manihi Airport').
+airport(res_airport_1979, 'Totegegie Airport').
+airport(res_airport_198, 'Sandspit Airport').
+airport(res_airport_1980, 'Kaukura Airport').
+airport(res_airport_1981, 'Makemo Airport').
+airport(res_airport_1983, 'Takapoto Airport').
+airport(res_airport_1984, 'Arutua Airport').
+airport(res_airport_1985, 'Mataiva Airport').
+airport(res_airport_1986, 'Takaroa Airport').
+airport(res_airport_1987, 'Nuku Hiva Airport').
+airport(res_airport_1989, 'Bora Bora Airport').
+airport(res_airport_199, 'Chris Hadfield Airport').
+airport(res_airport_1990, 'Rangiroa Airport').
+airport(res_airport_1991, 'Huahine-Fare Airport').
+airport(res_airport_1992, 'Moorea Airport').
+airport(res_airport_1993, 'Hao Airport').
+airport(res_airport_1994, 'Maupiti Airport').
+airport(res_airport_1995, 'Raiatea Airport').
+airport(res_airport_1997, 'Bauerfield International Airport').
+airport(res_airport_1998, 'Koné Airport').
+airport(res_airport_1999, 'Koumac Airport').
+airport(res_airport_2, 'Madang Airport').
+airport(res_airport_200, 'Port Hardy Airport').
+airport(res_airport_2000, 'Lifou Airport').
+airport(res_airport_2001, 'Nouméa Magenta Airport').
+airport(res_airport_2002, 'Maré Airport').
+airport(res_airport_2003, 'Touho Airport').
+airport(res_airport_2004, 'Ouvéa Airport').
+airport(res_airport_2005, 'La Tontouta International Airport').
+airport(res_airport_2006, 'Auckland International Airport').
+airport(res_airport_2007, 'Taupo Airport').
+airport(res_airport_2009, 'Christchurch International Airport').
+airport(res_airport_2011, 'Dunedin Airport').
+airport(res_airport_2012, 'Gisborne Airport').
+airport(res_airport_2014, 'Hokitika Airfield').
+airport(res_airport_2015, 'Hamilton International Airport').
+airport(res_airport_2017, 'Kerikeri Airport').
+airport(res_airport_2018, 'Kaitaia Airport').
+airport(res_airport_202, 'Sept-Îles Airport').
+airport(res_airport_2023, 'New Plymouth Airport').
+airport(res_airport_2024, 'Nelson Airport').
+airport(res_airport_2025, 'Invercargill Airport').
+airport(res_airport_2028, 'Palmerston North Airport').
+airport(res_airport_2029, 'Paraparaumu Airport').
+airport(res_airport_2030, 'Queenstown International Airport').
+airport(res_airport_2031, 'Rotorua Regional Airport').
+airport(res_airport_2034, 'Tauranga Airport').
+airport(res_airport_2035, 'Timaru Airport').
+airport(res_airport_2037, 'Woodbourne Airport').
+airport(res_airport_2041, 'Whakatane Airport').
+airport(res_airport_2042, 'Wellington International Airport').
+airport(res_airport_2045, 'Whangarei Airport').
+airport(res_airport_2046, 'Westport Airport').
+airport(res_airport_2047, 'Wanganui Airport').
+airport(res_airport_2048, 'Herat Airport').
+airport(res_airport_2050, 'Hamid Karzai International Airport').
+airport(res_airport_2051, 'Kandahar Airport').
+airport(res_airport_2053, 'Mazar I Sharif Airport').
+airport(res_airport_2057, 'Bahrain International Airport').
+airport(res_airport_2059, 'Abha Regional Airport').
+airport(res_airport_206, 'Fort Mcpherson Airport').
+airport(res_airport_2060, 'Al Ahsa Airport').
+airport(res_airport_2061, 'Al Baha Airport').
+airport(res_airport_2062, 'Bisha Airport').
+airport(res_airport_2064, 'King Fahd International Airport').
+airport(res_airport_2066, 'Jizan Regional Airport').
+airport(res_airport_2067, 'Gassim Airport').
+airport(res_airport_2068, 'Gurayat Domestic Airport').
+airport(res_airport_2069, 'Ha''il Airport').
+airport(res_airport_2072, 'King Abdulaziz International Airport').
+airport(res_airport_2074, 'Prince Mohammad Bin Abdulaziz Airport').
+airport(res_airport_2075, 'Nejran Airport').
+airport(res_airport_2076, 'Al Qaisumah/Hafr Al Batin Airport').
+airport(res_airport_2081, 'Rafha Domestic Airport').
+airport(res_airport_2082, 'King Khaled International Airport').
+airport(res_airport_2084, 'Arar Domestic Airport').
+airport(res_airport_2086, 'Sharurah Airport').
+airport(res_airport_2089, 'Tabuk Airport').
+airport(res_airport_209, 'Soummam Airport').
+airport(res_airport_2090, 'Ta’if Regional Airport').
+airport(res_airport_2093, 'Turaif Domestic Airport').
+airport(res_airport_2095, 'Al Wajh Domestic Airport').
+airport(res_airport_2096, 'Prince Abdulmohsin Bin Abdulaziz Airport').
+airport(res_airport_2097, 'Abadan Airport').
+airport(res_airport_21, 'Sault Ste Marie Airport').
+airport(res_airport_210, 'Houari Boumediene Airport').
+airport(res_airport_2103, 'Mahshahr Airport').
+airport(res_airport_2104, 'Ahwaz Airport').
+airport(res_airport_2106, 'Bushehr Airport').
+airport(res_airport_2109, 'Kish International Airport').
+airport(res_airport_211, 'Djanet Inedbirene Airport').
+airport(res_airport_2110, 'Bandar Lengeh Airport').
+airport(res_airport_2114, 'Shahid Ashrafi Esfahani Airport').
+airport(res_airport_2117, 'Sanandaj Airport').
+airport(res_airport_2121, 'Esfahan Shahid Beheshti International Airport').
+airport(res_airport_2123, 'Sardar-e-Jangal Airport').
+airport(res_airport_2131, 'Mehrabad International Airport').
+airport(res_airport_2134, 'Bandar Abbas International Airport').
+airport(res_airport_2136, 'Kerman Airport').
+airport(res_airport_2142, 'Birjand Airport').
+airport(res_airport_2151, 'Ramsar Airport').
+airport(res_airport_2157, 'Shiraz Shahid Dastghaib International Airport').
+airport(res_airport_216, 'Aguenar – Hadj Bey Akhamok Airport').
+airport(res_airport_2162, 'Tabriz International Airport').
+airport(res_airport_2164, 'Shahid Sadooghi Airport').
+airport(res_airport_2165, 'Zabol Airport').
+airport(res_airport_2166, 'Konarak Airport').
+airport(res_airport_2167, 'Zahedan International Airport').
+airport(res_airport_2170, 'Queen Alia International Airport').
+airport(res_airport_2172, 'Aqaba King Hussein International Airport').
+airport(res_airport_2176, 'Kuwait International Airport').
+airport(res_airport_2177, 'Beirut Rafic Hariri International Airport').
+airport(res_airport_2179, 'Abu Dhabi International Airport').
+airport(res_airport_2180, 'Bateen Airport').
+airport(res_airport_2188, 'Dubai International Airport').
+airport(res_airport_2189, 'Fujairah International Airport').
+airport(res_airport_2191, 'Sharjah International Airport').
+airport(res_airport_2192, 'Khasab Air Base').
+airport(res_airport_2194, 'Muscat International Airport').
+airport(res_airport_2195, 'Salalah Airport').
+airport(res_airport_220, 'Rabah Bitat Airport').
+airport(res_airport_2202, 'Faisalabad International Airport').
+airport(res_airport_2203, 'Gwadar International Airport').
+airport(res_airport_2204, 'Gilgit Airport').
+airport(res_airport_2206, 'Jinnah International Airport').
+airport(res_airport_2207, 'Alama Iqbal International Airport').
+airport(res_airport_221, 'Mohamed Boudiaf International Airport').
+airport(res_airport_2212, 'Moenjodaro Airport').
+airport(res_airport_2214, 'Multan International Airport').
+airport(res_airport_2217, 'Panjgur Airport').
+airport(res_airport_2219, 'Peshawar International Airport').
+airport(res_airport_222, 'Cheikh Larbi Tébessi Airport').
+airport(res_airport_2221, 'Quetta International Airport').
+airport(res_airport_2222, 'Shaikh Zaid Airport').
+airport(res_airport_2223, 'Benazir Bhutto International Airport').
+airport(res_airport_2227, 'Sukkur Airport').
+airport(res_airport_2233, 'Zhob Airport').
+airport(res_airport_2234, 'Basrah International Airport').
+airport(res_airport_224, 'Hassi R''Mel Airport').
+airport(res_airport_2243, 'Rota International Airport').
+airport(res_airport_2244, 'Saipan International Airport').
+airport(res_airport_2246, 'Antonio B. Won Pat International Airport').
+airport(res_airport_2249, 'Marshall Islands International Airport').
+airport(res_airport_225, 'Bou Chekif Airport').
+airport(res_airport_2251, 'Bucholz Army Air Field').
+airport(res_airport_2252, 'Cassidy International Airport').
+airport(res_airport_2254, 'Chuuk International Airport').
+airport(res_airport_2255, 'Pohnpei International Airport').
+airport(res_airport_2256, 'Babelthuap Airport').
+airport(res_airport_2257, 'Kosrae International Airport').
+airport(res_airport_2258, 'Yap International Airport').
+airport(res_airport_2259, 'Kinmen Airport').
+airport(res_airport_2262, 'Taitung Airport').
+airport(res_airport_2264, 'Kaohsiung International Airport').
+airport(res_airport_2268, 'Taichung Ching Chuang Kang Airport').
+airport(res_airport_2270, 'Tainan Airport').
+airport(res_airport_2272, 'Makung Airport').
+airport(res_airport_2275, 'Taipei Songshan Airport').
+airport(res_airport_2276, 'Taiwan Taoyuan International Airport').
+airport(res_airport_2278, 'Hualien Airport').
+airport(res_airport_2279, 'Narita International Airport').
+airport(res_airport_2280, 'Matsumoto Airport').
+airport(res_airport_2281, 'Hyakuri Airport').
+airport(res_airport_2284, 'Nanki Shirahama Airport').
+airport(res_airport_2286, 'Tokachi-Obihiro Airport').
+airport(res_airport_2287, 'New Chitose Airport').
+airport(res_airport_2288, 'Hakodate Airport').
+airport(res_airport_2290, 'Memanbetsu Airport').
+airport(res_airport_2291, 'Nakashibetsu Airport').
+airport(res_airport_2294, 'Wakkanai Airport').
+airport(res_airport_2295, 'Iki Airport').
+airport(res_airport_2296, 'Yamaguchi Ube Airport').
+airport(res_airport_2297, 'Tsushima Airport').
+airport(res_airport_2298, 'Monbetsu Airport').
+airport(res_airport_2299, 'Asahikawa Airport').
+airport(res_airport_230, 'Zenata – Messali El Hadj Airport').
+airport(res_airport_2304, 'Fukue Airport').
+airport(res_airport_2305, 'Fukuoka Airport').
+airport(res_airport_2307, 'Kagoshima Airport').
+airport(res_airport_2308, 'Miyazaki Airport').
+airport(res_airport_231, 'Es Senia Airport').
+airport(res_airport_2310, 'Oita Airport').
+airport(res_airport_2311, 'Kitakyūshū Airport').
+airport(res_airport_2312, 'Kumamoto Airport').
+airport(res_airport_2313, 'Nagasaki Airport').
+airport(res_airport_2316, 'Amami Airport').
+airport(res_airport_2322, 'Komatsu Airport').
+airport(res_airport_2324, 'Toyama Airport').
+airport(res_airport_2326, 'Hiroshima Airport').
+airport(res_airport_2327, 'Okayama Airport').
+airport(res_airport_2328, 'Izumo Airport').
+airport(res_airport_233, 'Ghriss Airport').
+airport(res_airport_2330, 'Miho Yonago Airport').
+airport(res_airport_2332, 'Kōchi Ryōma Airport').
+airport(res_airport_2333, 'Matsuyama Airport').
+airport(res_airport_2334, 'Osaka International Airport').
+airport(res_airport_2335, 'Tottori Airport').
+airport(res_airport_2336, 'Tokushima Airport/JMSDF Air Base').
+airport(res_airport_2337, 'Takamatsu Airport').
+airport(res_airport_234, 'Touat Cheikh Sidi Mohamed Belkebir Airport').
+airport(res_airport_2340, 'Aomori Airport').
+airport(res_airport_2341, 'Yamagata Airport').
+airport(res_airport_2344, 'Hanamaki Airport').
+airport(res_airport_2345, 'Akita Airport').
+airport(res_airport_2346, 'Misawa Air Base').
+airport(res_airport_2347, 'Sendai Airport').
+airport(res_airport_235, 'Biskra Airport').
+airport(res_airport_2352, 'Hachijojima Airport').
+airport(res_airport_2356, 'Oshima Airport').
+airport(res_airport_2359, 'Tokyo Haneda International Airport').
+airport(res_airport_236, 'El Golea Airport').
+airport(res_airport_2361, 'Gwangju Airport').
+airport(res_airport_2365, 'Yeosu Airport').
+airport(res_airport_237, 'Noumérat - Moufdi Zakaria Airport').
+airport(res_airport_2370, 'Jeju International Airport').
+airport(res_airport_2372, 'Gimhae International Airport').
+airport(res_airport_2374, 'Ulsan Airport').
+airport(res_airport_2378, 'Gimpo International Airport').
+airport(res_airport_238, 'Oued Irara Airport').
+airport(res_airport_2380, 'Pohang Airport (G-815/K-3)').
+airport(res_airport_2381, 'Daegu Airport').
+airport(res_airport_2384, 'Naha Airport').
+airport(res_airport_2387, 'New Ishigaki Airport').
+airport(res_airport_2388, 'Kumejima Airport').
+airport(res_airport_239, 'In Salah Airport').
+airport(res_airport_2390, 'Miyako Airport').
+airport(res_airport_2397, 'Ninoy Aquino International Airport').
+airport(res_airport_2399, 'Awang Airport').
+airport(res_airport_24, 'St. Anthony Airport').
+airport(res_airport_240, 'Touggourt Sidi Madhi Airport').
+airport(res_airport_2400, 'Cagayan De Oro Airport').
+airport(res_airport_2401, 'Pagadian Airport').
+airport(res_airport_2402, 'General Santos International Airport').
+airport(res_airport_2404, 'Zamboanga International Airport').
+airport(res_airport_2409, 'San Jose Airport').
+airport(res_airport_2422, 'Daniel Z. Romualdez Airport').
+airport(res_airport_2423, 'Bacolod-Silay Airport').
+airport(res_airport_2425, 'Sibulan Airport').
+airport(res_airport_2426, 'Godofredo P. Ramos Airport').
+airport(res_airport_2429, 'Iloilo International Airport').
+airport(res_airport_243, 'Ain el Beida Airport').
+airport(res_airport_2430, 'Kalibo International Airport').
+airport(res_airport_2433, 'Puerto Princesa Airport').
+airport(res_airport_2439, 'General Urquiza Airport').
+airport(res_airport_244, 'In Aménas Airport').
+airport(res_airport_2440, 'Islas Malvinas Airport').
+airport(res_airport_2441, 'Sauce Viejo Airport').
+airport(res_airport_2442, 'Jorge Newbery Airpark').
+airport(res_airport_2443, 'Ingeniero Ambrosio Taravella Airport').
+airport(res_airport_245, 'Cadjehoun Airport').
+airport(res_airport_2452, 'El Plumerillo Airport').
+airport(res_airport_2454, 'Suboficial Ay Santiago Germano Airport').
+airport(res_airport_2455, 'Catamarca Airport').
+airport(res_airport_2456, 'Vicecomodoro Angel D. La Paz Aragonés Airport').
+airport(res_airport_2458, 'Capitan V A Almonacid Airport').
+airport(res_airport_246, 'Ouagadougou Airport').
+airport(res_airport_2460, 'Teniente Benjamin Matienzo Airport').
+airport(res_airport_2461, 'Domingo Faustino Sarmiento Airport').
+airport(res_airport_2467, 'Brigadier Mayor D Cesar Raul Ojeda Airport').
+airport(res_airport_2469, 'Resistencia International Airport').
+airport(res_airport_247, 'Bobo Dioulasso Airport').
+airport(res_airport_2470, 'Formosa Airport').
+airport(res_airport_2471, 'Cataratas Del Iguazú International Airport').
+airport(res_airport_2474, 'Libertador Gral D Jose De San Martin Airport').
+airport(res_airport_2476, 'Martin Miguel De Guemes International Airport').
+airport(res_airport_2477, 'Gobernador Horacio Guzman International Airport').
+airport(res_airport_248, 'Kotoka International Airport').
+airport(res_airport_2487, 'General E. Mosconi Airport').
+airport(res_airport_2488, 'Brigadier Antonio Parodi Airport').
+airport(res_airport_249, 'Tamale Airport').
+airport(res_airport_2490, 'Almirante Marco Andres Zar Airport').
+airport(res_airport_2491, 'Gobernador Castello Airport').
+airport(res_airport_2492, 'El Tehuelche Airport').
+airport(res_airport_2495, 'Hermes Quijada International Airport').
+airport(res_airport_2496, 'Piloto Civil N. Fernández Airport').
+airport(res_airport_2497, 'Malvinas Argentinas Airport').
+airport(res_airport_2501, 'Comandante Espora Airport').
+airport(res_airport_2508, 'Ástor Piazzola International Airport').
+airport(res_airport_2509, 'Presidente Peron Airport').
+airport(res_airport_251, 'Sunyani Airport').
+airport(res_airport_2512, 'Santa Rosa Airport').
+airport(res_airport_2513, 'San Carlos De Bariloche Airport').
+airport(res_airport_2517, 'Aviador C. Campos Airport').
+airport(res_airport_2518, 'Conceição do Araguaia Airport').
+airport(res_airport_252, 'Takoradi Airport').
+airport(res_airport_2521, 'Araraquara Airport').
+airport(res_airport_2522, 'Santa Maria Airport').
+airport(res_airport_2524, 'Piloto Osvaldo Marques Dias Airport').
+airport(res_airport_2525, 'Araçatuba Airport').
+airport(res_airport_2526, 'Val de Cans/Júlio Cezar Ribeiro International Airport').
+airport(res_airport_2528, 'Pampulha - Carlos Drummond de Andrade Airport').
+airport(res_airport_253, 'Port Bouet Airport').
+airport(res_airport_2531, 'Presidente Juscelino Kubistschek International Airport').
+airport(res_airport_2533, 'Atlas Brasil Cantanhede Airport').
+airport(res_airport_2535, 'Cascavel Airport').
+airport(res_airport_2537, 'Tancredo Neves International Airport').
+airport(res_airport_2538, 'Campo Grande Airport').
+airport(res_airport_2539, 'Serafin Enoss Bertaso Airport').
+airport(res_airport_2541, 'Diomício Freitas Airport').
+airport(res_airport_2543, 'Bartolomeu Lisandro Airport').
+airport(res_airport_2544, 'Corumbá International Airport').
+airport(res_airport_2545, 'Afonso Pena Airport').
+airport(res_airport_2547, 'Hugo Cantergiani Regional Airport').
+airport(res_airport_2548, 'Marechal Rondon Airport').
+airport(res_airport_2549, 'Cruzeiro do Sul Airport').
+airport(res_airport_2550, 'Presidente Prudente Airport').
+airport(res_airport_2551, 'Eduardo Gomes International Airport').
+airport(res_airport_2554, 'Cataratas International Airport').
+airport(res_airport_2555, 'Hercílio Luz International Airport').
+airport(res_airport_2556, 'Fernando de Noronha Airport').
+airport(res_airport_2559, 'Pinto Martins International Airport').
+airport(res_airport_2560, 'Rio Galeão – Tom Jobim International Airport').
+airport(res_airport_2562, 'Santa Genoveva Airport').
+airport(res_airport_2564, 'Guarulhos - Governador André Franco Montoro International Airport').
+airport(res_airport_2566, 'Altamira Airport').
+airport(res_airport_2568, 'Itaituba Airport').
+airport(res_airport_2569, 'Bahia - Jorge Amado Airport').
+airport(res_airport_2570, 'Usiminas Airport').
+airport(res_airport_2572, 'Prefeito Renato Moreira Airport').
+airport(res_airport_2575, 'Presidente Castro Pinto International Airport').
+airport(res_airport_2576, 'Lauro Carneiro de Loyola Airport').
+airport(res_airport_2577, 'Presidente João Suassuna Airport').
+airport(res_airport_2578, 'Viracopos International Airport').
+airport(res_airport_2581, 'Governador José Richa Airport').
+airport(res_airport_2582, 'Bom Jesus da Lapa Airport').
+airport(res_airport_2584, 'João Correa da Rocha Airport').
+airport(res_airport_2586, 'Regional de Maringá - Sílvio Nane Junior Airport').
+airport(res_airport_2587, 'Mário Ribeiro Airport').
+airport(res_airport_2590, 'Zumbi dos Palmares Airport').
+airport(res_airport_2591, 'Alberto Alcolumbre Airport').
+airport(res_airport_2595, 'Ministro Victor Konder International Airport').
+airport(res_airport_2596, 'Santo Ângelo Airport').
+airport(res_airport_2597, 'Governador Aluízio Alves International Airport').
+airport(res_airport_2599, 'Salgado Filho Airport').
+airport(res_airport_260, 'Nnamdi Azikiwe International Airport').
+airport(res_airport_2602, 'Lauro Kurtz Airport').
+airport(res_airport_2603, 'João Simões Lopes Neto International Airport').
+airport(res_airport_2604, 'Senador Nilo Coelho Airport').
+airport(res_airport_2607, 'Governador Jorge Teixeira de Oliveira Airport').
+airport(res_airport_2609, 'Plácido de Castro Airport').
+airport(res_airport_2610, 'Guararapes - Gilberto Freyre International Airport').
+airport(res_airport_2612, 'Santos Dumont Airport').
+airport(res_airport_2613, 'Leite Lopes Airport').
+airport(res_airport_2615, 'Professor Urbano Ernesto Stumpf Airport').
+airport(res_airport_2616, 'Marechal Cunha Machado International Airport').
+airport(res_airport_2618, 'Congonhas Airport').
+airport(res_airport_2619, 'Prof. Eribelto Manoel Reino State Airport').
+airport(res_airport_262, 'Benin Airport').
+airport(res_airport_2621, 'Deputado Luiz Eduardo Magalhães International Airport').
+airport(res_airport_2622, 'Trombetas Airport').
+airport(res_airport_2623, 'Senador Petrônio Portela Airport').
+airport(res_airport_2624, 'Tefé Airport').
+airport(res_airport_2628, 'Tabatinga Airport').
+airport(res_airport_2629, 'Tucuruí Airport').
+airport(res_airport_263, 'Margaret Ekpo International Airport').
+airport(res_airport_2630, 'São Gabriel da Cachoeira Airport').
+airport(res_airport_2631, 'Paulo Afonso Airport').
+airport(res_airport_2632, 'Rubem Berta Airport').
+airport(res_airport_2633, 'Ten. Cel. Aviador César Bombonato Airport').
+airport(res_airport_2635, 'Mário de Almeida Franco Airport').
+airport(res_airport_2637, 'Brigadeiro Camarão Airport').
+airport(res_airport_2638, 'Eurico de Aguiar Salles Airport').
+airport(res_airport_264, 'Akanu Ibiam International Airport').
+airport(res_airport_2641, 'Chacalluta Airport').
+airport(res_airport_2642, 'Balmaceda Airport').
+airport(res_airport_2645, 'El Loa Airport').
+airport(res_airport_2647, 'Pdte. Carlos Ibañez del Campo Airport').
+airport(res_airport_2649, 'Diego Aracena Airport').
+airport(res_airport_2650, 'Comodoro Arturo Merino Benítez International Airport').
+airport(res_airport_2651, 'Andrés Sabella Gálvez International Airport').
+airport(res_airport_2656, 'Carriel Sur Airport').
+airport(res_airport_2657, 'Mataveri Airport').
+airport(res_airport_2658, 'Cañal Bajo Carlos - Hott Siebert Airport').
+airport(res_airport_266, 'Ibadan Airport').
+airport(res_airport_2662, 'La Florida Airport').
+airport(res_airport_2664, 'Maquehue Airport').
+airport(res_airport_2665, 'El Tepual Airport').
+airport(res_airport_2667, 'Pichoy Airport').
+airport(res_airport_267, 'Ilorin International Airport').
+airport(res_airport_2670, 'Francisco De Orellana Airport').
+airport(res_airport_2671, 'Mariscal Lamar Airport').
+airport(res_airport_2672, 'Seymour Airport').
+airport(res_airport_2673, 'José Joaquín de Olmedo International Airport').
+airport(res_airport_2678, 'Cotopaxi International Airport').
+airport(res_airport_268, 'Yakubu Gowon Airport').
+airport(res_airport_2680, 'Coronel E Carvajal Airport').
+airport(res_airport_2683, 'Eloy Alfaro International Airport').
+airport(res_airport_2688, 'Mariscal Sucre International Airport').
+airport(res_airport_269, 'Kaduna Airport').
+airport(res_airport_2690, 'Santa Rosa International Airport').
+airport(res_airport_2697, 'Teniente Coronel Luis a Mantilla Airport').
+airport(res_airport_2699, 'Silvio Pettirossi International Airport').
+airport(res_airport_27, 'Baie Comeau Airport').
+airport(res_airport_270, 'Mallam Aminu International Airport').
+airport(res_airport_2705, 'El Eden Airport').
+airport(res_airport_2706, 'Tres De Mayo Airport').
+airport(res_airport_2708, 'Palonegro Airport').
+airport(res_airport_2709, 'El Dorado International Airport').
+airport(res_airport_2710, 'Ernesto Cortissoz International Airport').
+airport(res_airport_2711, 'José Celestino Mutis Airport').
+airport(res_airport_2712, 'Gerardo Tobar López Airport').
+airport(res_airport_2713, 'Camilo Daza International Airport').
+airport(res_airport_2714, 'Rafael Nuñez International Airport').
+airport(res_airport_2715, 'Alfonso Bonilla Aragon International Airport').
+airport(res_airport_2716, 'La Florida Airport').
+airport(res_airport_2717, 'Las Brujas Airport').
+airport(res_airport_2718, 'Yariguíes Airport').
+airport(res_airport_2719, 'Gustavo Artunduaga Paredes Airport').
+airport(res_airport_2722, 'Juan Casiano Airport').
+airport(res_airport_2724, 'Perales Airport').
+airport(res_airport_2725, 'San Luis Airport').
+airport(res_airport_2726, 'Antonio Roldan Betancourt Airport').
+airport(res_airport_2728, 'Alfredo Vásquez Cobo International Airport').
+airport(res_airport_2729, 'Enrique Olaya Herrera Airport').
+airport(res_airport_273, 'Murtala Muhammed International Airport').
+airport(res_airport_2731, 'Los Garzones Airport').
+airport(res_airport_2732, 'Fabio Alberto Leon Bentley Airport').
+airport(res_airport_2733, 'La Nubia Airport').
+airport(res_airport_2734, 'Benito Salas Airport').
+airport(res_airport_2738, 'German Olano Airport').
+airport(res_airport_2739, 'Matecaña International Airport').
+airport(res_airport_2741, 'Guillermo León Valencia Airport').
+airport(res_airport_2742, 'Antonio Narino Airport').
+airport(res_airport_2743, 'El Embrujo Airport').
+airport(res_airport_2745, 'Jose Maria Córdova International Airport').
+airport(res_airport_2746, 'Almirante Padilla Airport').
+airport(res_airport_2747, 'Jorge E. Gonzalez Torres Airport').
+airport(res_airport_2748, 'Simón Bolívar International Airport').
+airport(res_airport_2749, 'Gustavo Rojas Pinilla International Airport').
+airport(res_airport_275, 'Port Harcourt International Airport').
+airport(res_airport_2750, 'Eduardo Falla Solano Airport').
+airport(res_airport_2751, 'Gustavo Vargas Airport').
+airport(res_airport_2752, 'Santiago Perez Airport').
+airport(res_airport_2753, 'El Caraño Airport').
+airport(res_airport_2755, 'Alfonso López Pumarejo Airport').
+airport(res_airport_2756, 'Vanguardia Airport').
+airport(res_airport_2759, 'Jorge Wilsterman International Airport').
+airport(res_airport_276, 'Sadiq Abubakar III International Airport').
+airport(res_airport_2761, 'Capitán Aníbal Arab Airport').
+airport(res_airport_2762, 'El Alto International Airport').
+airport(res_airport_2764, 'Capitan Nicolas Rojas Airport').
+airport(res_airport_2767, 'Juana Azurduy De Padilla Airport').
+airport(res_airport_2768, 'Capitan Oriel Lea Plaza Airport').
+airport(res_airport_2769, 'Teniente Av. Jorge Henrich Arauz Airport').
+airport(res_airport_277, 'Yola Airport').
+airport(res_airport_2771, 'Viru Viru International Airport').
+airport(res_airport_2772, 'Yacuiba Airport').
+airport(res_airport_2773, 'Johan Adolf Pengel International Airport').
+airport(res_airport_2774, 'Cayenne-Rochambeau Airport').
+airport(res_airport_2781, 'Cap FAP David Abenzur Rengifo International Airport').
+airport(res_airport_2785, 'Capitan FAP Jose A Quinones Gonzales International Airport').
+airport(res_airport_2786, 'Coronel FAP Alfredo Mendivil Duarte Airport').
+airport(res_airport_2787, 'Andahuaylas Airport').
+airport(res_airport_2788, 'Comandante FAP German Arias Graziani Airport').
+airport(res_airport_2789, 'Jorge Chávez International Airport').
+airport(res_airport_2792, 'Inca Manco Capac International Airport').
+airport(res_airport_2796, 'Capitan FAP Pedro Canga Rodriguez Airport').
+airport(res_airport_28, 'CFB Bagotville').
+airport(res_airport_280, 'Diori Hamani International Airport').
+airport(res_airport_2801, 'Coronel FAP Francisco Secada Vignetta International Airport').
+airport(res_airport_2802, 'Rodríguez Ballón International Airport').
+airport(res_airport_2804, 'Capitan FAP Carlos Martinez De Pinillos International Airport').
+airport(res_airport_2806, 'Cadete FAP Guillermo Del Castillo Paredes Airport').
+airport(res_airport_2807, 'Coronel FAP Carlos Ciriani Santa Rosa International Airport').
+airport(res_airport_2808, 'Padre Aldamiz International Airport').
+airport(res_airport_2809, 'Capitán FAP Guillermo Concha Iberico International Airport').
+airport(res_airport_2812, 'Alejandro Velasco Astete International Airport').
+airport(res_airport_2816, 'Carrasco International /General C L Berisso Airport').
+airport(res_airport_2821, 'General José Antonio Anzoategui International Airport').
+airport(res_airport_2822, 'Barinas Airport').
+airport(res_airport_2824, 'Barquisimeto International Airport').
+airport(res_airport_2830, 'Canaima Airport').
+airport(res_airport_2833, 'José Leonardo Chirinos Airport').
+airport(res_airport_2835, 'Cumaná (Antonio José de Sucre) Airport').
+airport(res_airport_2844, 'Josefa Camejo International Airport').
+airport(res_airport_2846, 'La Fria Airport').
+airport(res_airport_2848, 'La Chinita International Airport').
+airport(res_airport_2849, 'Alberto Carnevalli Airport').
+airport(res_airport_2850, 'Del Caribe Santiago Mariño International Airport').
+airport(res_airport_2851, 'Simón Bolívar International Airport').
+airport(res_airport_2852, 'Maturín Airport').
+airport(res_airport_2853, 'Cacique Aramare Airport').
+airport(res_airport_2854, 'General Bartolome Salom International Airport').
+airport(res_airport_2856, 'General Manuel Carlos Piar International Airport').
+airport(res_airport_2858, 'San Antonio Del Tachira Airport').
+airport(res_airport_286, 'Monastir Habib Bourguiba International Airport').
+airport(res_airport_2860, 'Santa Elena de Uairen Airport').
+airport(res_airport_2861, 'Mayor Buenaventura Vivas International Airport').
+airport(res_airport_2864, 'San Tomé Airport').
+airport(res_airport_2868, 'Arturo Michelena International Airport').
+airport(res_airport_287, 'Tunis Carthage International Airport').
+airport(res_airport_2870, 'Dr. Antonio Nicolás Briceño Airport').
+airport(res_airport_2874, 'V.C. Bird International Airport').
+airport(res_airport_2875, 'Sir Grantley Adams International Airport').
+airport(res_airport_2877, 'Douglas-Charles Airport').
+airport(res_airport_2878, 'Martinique Aimé Césaire International Airport').
+airport(res_airport_2879, 'L''Espérance Airport').
+airport(res_airport_2881, 'Pointe-à-Pitre Le Raizet').
+airport(res_airport_2882, 'Point Salines International Airport').
+airport(res_airport_2883, 'Cyril E. King Airport').
+airport(res_airport_2884, 'Henry E Rohlsen Airport').
+airport(res_airport_2885, 'Rafael Hernandez Airport').
+airport(res_airport_2888, 'Eugenio Maria De Hostos Airport').
+airport(res_airport_2889, 'Mercedita Airport').
+airport(res_airport_2890, 'Luis Munoz Marin International Airport').
+airport(res_airport_2891, 'Robert L. Bradshaw International Airport').
+airport(res_airport_2893, 'George F. L. Charles Airport').
+airport(res_airport_2894, 'Hewanorra International Airport').
+airport(res_airport_2895, 'Queen Beatrix International Airport').
+airport(res_airport_2896, 'Flamingo International Airport').
+airport(res_airport_2897, 'Hato International Airport').
+airport(res_airport_2898, 'F. D. Roosevelt Airport').
+airport(res_airport_2899, 'Princess Juliana International Airport').
+airport(res_airport_29, 'Baker Lake Airport').
+airport(res_airport_290, 'Gafsa Ksar International Airport').
+airport(res_airport_2900, 'Clayton J Lloyd International Airport').
+airport(res_airport_2901, 'Tobago-Crown Point Airport').
+airport(res_airport_2902, 'Piarco International Airport').
+airport(res_airport_2903, 'Terrance B. Lettsome International Airport').
+airport(res_airport_2907, 'Argyle International Airport').
+airport(res_airport_2908, 'Almaty Airport').
+airport(res_airport_291, 'Gabès Matmata International Airport').
+airport(res_airport_2910, 'Astana International Airport').
+airport(res_airport_2911, 'Taraz Airport').
+airport(res_airport_2912, 'Manas International Airport').
+airport(res_airport_2913, 'Osh Airport').
+airport(res_airport_2914, 'Shymkent Airport').
+airport(res_airport_2916, 'Uralsk Airport').
+airport(res_airport_2917, 'Pavlodar Airport').
+airport(res_airport_2918, 'Semipalatinsk Airport').
+airport(res_airport_2920, 'Aktobe Airport').
+airport(res_airport_2922, 'Heydar Aliyev International Airport').
+airport(res_airport_2923, 'Yakutsk Airport').
+airport(res_airport_2925, 'Mirny Airport').
+airport(res_airport_2926, 'Ignatyevo Airport').
+airport(res_airport_2927, 'Khabarovsk-Novy Airport').
+airport(res_airport_293, 'Djerba Zarzis International Airport').
+airport(res_airport_2930, 'Sokol Airport').
+airport(res_airport_2931, 'Pevek Airport').
+airport(res_airport_2932, 'Yelizovo Airport').
+airport(res_airport_2933, 'Yuzhno-Sakhalinsk Airport').
+airport(res_airport_2934, 'Vladivostok International Airport').
+airport(res_airport_2935, 'Chita-Kadala Airport').
+airport(res_airport_2936, 'Bratsk Airport').
+airport(res_airport_2937, 'Irkutsk Airport').
+airport(res_airport_2938, 'Ulan-Ude Airport (Mukhino)').
+airport(res_airport_2939, 'Boryspil International Airport').
+airport(res_airport_2940, 'Donetsk International Airport').
+airport(res_airport_2941, 'Dnipropetrovsk International Airport').
+airport(res_airport_2942, 'Simferopol International Airport').
+airport(res_airport_2944, 'Kiev Zhuliany International Airport').
+airport(res_airport_2945, 'Lviv International Airport').
+airport(res_airport_2947, 'Odessa International Airport').
+airport(res_airport_2948, 'Pulkovo Airport').
+airport(res_airport_2949, 'Murmansk Airport').
+airport(res_airport_295, 'Sfax Thyna International Airport').
+airport(res_airport_2952, 'Khrabrovo Airport').
+airport(res_airport_2954, 'Minsk National Airport').
+airport(res_airport_2955, 'Abakan Airport').
+airport(res_airport_2956, 'Barnaul Airport').
+airport(res_airport_2957, 'Kemerovo Airport').
+airport(res_airport_2958, 'Omsk Central Airport').
+airport(res_airport_296, 'Tozeur Nefta International Airport').
+airport(res_airport_2960, 'Krasnodar Pashkovsky International Airport').
+airport(res_airport_2961, 'Uytash Airport').
+airport(res_airport_2962, 'Mineralnyye Vody Airport').
+airport(res_airport_2963, 'Stavropol Shpakovskoye Airport').
+airport(res_airport_2964, 'Platov International Airport').
+airport(res_airport_2965, 'Sochi International Airport').
+airport(res_airport_2966, 'Astrakhan Airport').
+airport(res_airport_2967, 'Volgograd International Airport').
+airport(res_airport_2968, 'Chelyabinsk Balandino Airport').
+airport(res_airport_2969, 'Magnitogorsk International Airport').
+airport(res_airport_2972, 'Nizhnevartovsk Airport').
+airport(res_airport_2973, 'Bolshoye Savino Airport').
+airport(res_airport_2974, 'Surgut Airport').
+airport(res_airport_2975, 'Koltsovo Airport').
+airport(res_airport_2976, 'Ashgabat International Airport').
+airport(res_airport_2979, 'Dushanbe Airport').
+airport(res_airport_298, 'Lomé-Tokoin Airport').
+airport(res_airport_2980, 'Bukhara Airport').
+airport(res_airport_2981, 'Samarkand Airport').
+airport(res_airport_2983, 'Tashkent International Airport').
+airport(res_airport_2985, 'Sheremetyevo International Airport').
+airport(res_airport_2987, 'Voronezh International Airport').
+airport(res_airport_2988, 'Vnukovo International Airport').
+airport(res_airport_2989, 'Syktyvkar Airport').
+airport(res_airport_299, 'Antwerp International Airport (Deurne)').
+airport(res_airport_2990, 'Kazan International Airport').
+airport(res_airport_2991, 'Orenburg Central Airport').
+airport(res_airport_2992, 'Ufa International Airport').
+airport(res_airport_2993, 'Kurumoch International Airport').
+airport(res_airport_2994, 'Sardar Vallabhbhai Patel International Airport').
+airport(res_airport_2996, 'Aurangabad Airport').
+airport(res_airport_2997, 'Chhatrapati Shivaji International Airport').
+airport(res_airport_2999, 'Bhuj Airport').
+airport(res_airport_3, 'Mount Hagen Kagamuga Airport').
+airport(res_airport_30, 'Campbell River Airport').
+airport(res_airport_3000, 'Belgaum Airport').
+airport(res_airport_3001, 'Vadodara Airport').
+airport(res_airport_3002, 'Raja Bhoj International Airport').
+airport(res_airport_3003, 'Bhavnagar Airport').
+airport(res_airport_3007, 'Dabolim Airport').
+airport(res_airport_3008, 'Devi Ahilyabai Holkar Airport').
+airport(res_airport_3009, 'Jabalpur Airport').
+airport(res_airport_3010, 'Jamnagar Airport').
+airport(res_airport_3012, 'Khajuraho Airport').
+airport(res_airport_3015, 'Dr. Babasaheb Ambedkar International Airport').
+airport(res_airport_3017, 'Pune Airport').
+airport(res_airport_3018, 'Porbandar Airport').
+airport(res_airport_3019, 'Rajkot Airport').
+airport(res_airport_302, 'Brussels Airport').
+airport(res_airport_3020, 'Raipur Airport').
+airport(res_airport_3022, 'Surat Airport').
+airport(res_airport_3023, 'Maharana Pratap Airport').
+airport(res_airport_3024, 'Bandaranaike International Colombo Airport').
+airport(res_airport_3030, 'China Bay Airport').
+airport(res_airport_3034, 'Phnom Penh International Airport').
+airport(res_airport_3035, 'Siem Reap International Airport').
+airport(res_airport_3038, 'Agartala Airport').
+airport(res_airport_3039, 'Lengpui Airport').
+airport(res_airport_304, 'Brussels South Charleroi Airport').
+airport(res_airport_3040, 'Bagdogra Airport').
+airport(res_airport_3042, 'Biju Patnaik Airport').
+airport(res_airport_3043, 'Netaji Subhash Chandra Bose International Airport').
+airport(res_airport_3050, 'Imphal Airport').
+airport(res_airport_3055, 'Silchar Airport').
+airport(res_airport_3057, 'Dibrugarh Airport').
+airport(res_airport_3061, 'Lok Nayak Jayaprakash Airport').
+airport(res_airport_3063, 'Birsa Munda Airport').
+airport(res_airport_3066, 'Vishakhapatnam Airport').
+airport(res_airport_3068, 'Cox''s Bazar Airport').
+airport(res_airport_3069, 'Shah Amanat International Airport').
+airport(res_airport_3071, 'Jessore Airport').
+airport(res_airport_3072, 'Shah Mokhdum Airport').
+airport(res_airport_3073, 'Saidpur Airport').
+airport(res_airport_3074, 'Osmany International Airport').
+airport(res_airport_3076, 'Hazrat Shahjalal International Airport').
+airport(res_airport_3077, 'Hong Kong International Airport').
+airport(res_airport_3079, 'Agra Airport').
+airport(res_airport_3080, 'Allahabad Airport').
+airport(res_airport_3081, 'Sri Guru Ram Dass Jee International Airport').
+airport(res_airport_3084, 'Lal Bahadur Shastri Airport').
+airport(res_airport_3085, 'Kullu Manali Airport').
+airport(res_airport_3089, 'Chandigarh Airport').
+airport(res_airport_309, 'Liège Airport').
+airport(res_airport_3092, 'Dehradun Airport').
+airport(res_airport_3093, 'Indira Gandhi International Airport').
+airport(res_airport_3094, 'Gwalior Airport').
+airport(res_airport_3097, 'Jodhpur Airport').
+airport(res_airport_3098, 'Jaipur International Airport').
+airport(res_airport_31, 'Brandon Municipal Airport').
+airport(res_airport_310, 'Ostend-Bruges International Airport').
+airport(res_airport_3100, 'Jammu Airport').
+airport(res_airport_3101, 'Kanpur Civil Airport').
+airport(res_airport_3103, 'Ludhiana Airport').
+airport(res_airport_3104, 'Leh Kushok Bakula Rimpochee Airport').
+airport(res_airport_3105, 'Chaudhary Charan Singh International Airport').
+airport(res_airport_3112, 'Sheikh ul Alam Airport').
+airport(res_airport_3115, 'Luang Phabang International Airport').
+airport(res_airport_3116, 'Pakse International Airport').
+airport(res_airport_3118, 'Savannakhet Airport').
+airport(res_airport_3120, 'Wattay International Airport').
+airport(res_airport_3121, 'Macau International Airport').
+airport(res_airport_3122, 'Gautam Buddha Airport').
+airport(res_airport_3125, 'Tribhuvan International Airport').
+airport(res_airport_3127, 'Pokhara Airport').
+airport(res_airport_3129, 'Biratnagar Airport').
+airport(res_airport_3130, 'Agatti Airport').
+airport(res_airport_3131, 'Kempegowda International Airport').
+airport(res_airport_3134, 'Vijayawada Airport').
+airport(res_airport_3135, 'Coimbatore International Airport').
+airport(res_airport_3136, 'Cochin International Airport').
+airport(res_airport_3137, 'Calicut International Airport').
+airport(res_airport_3142, 'Madurai Airport').
+airport(res_airport_3143, 'Mangalore International Airport').
+airport(res_airport_3144, 'Chennai International Airport').
+airport(res_airport_3146, 'Vir Savarkar International Airport').
+airport(res_airport_3148, 'Rajahmundry Airport').
+airport(res_airport_3151, 'Tirupati Airport').
+airport(res_airport_3152, 'Tiruchirapally Civil Airport Airport').
+airport(res_airport_3153, 'Trivandrum International Airport').
+airport(res_airport_3155, 'Paro Airport').
+airport(res_airport_3156, 'Malé International Airport').
+airport(res_airport_3157, 'Don Mueang International Airport').
+airport(res_airport_3161, 'U-Tapao International Airport').
+airport(res_airport_3163, 'Lampang Airport').
+airport(res_airport_3164, 'Phrae Airport').
+airport(res_airport_3170, 'Phitsanulok Airport').
+airport(res_airport_3173, 'Narathiwat Airport').
+airport(res_airport_3174, 'Krabi Airport').
+airport(res_airport_3177, 'Samui Airport').
+airport(res_airport_3179, 'Phuket International Airport').
+airport(res_airport_3180, 'Ranong Airport').
+airport(res_airport_3181, 'Hat Yai International Airport').
+airport(res_airport_3182, 'Trang Airport').
+airport(res_airport_3183, 'Udon Thani Airport').
+airport(res_airport_3184, 'Sakon Nakhon Airport').
+airport(res_airport_3186, 'Loei Airport').
+airport(res_airport_3196, 'Da Nang International Airport').
+airport(res_airport_3199, 'Noi Bai International Airport').
+airport(res_airport_32, 'Cambridge Bay Airport').
+airport(res_airport_3201, 'Phu Bai Airport').
+airport(res_airport_3204, 'Phu Quoc International Airport').
+airport(res_airport_3205, 'Tan Son Nhat International Airport').
+airport(res_airport_3209, 'Bagan Airport').
+airport(res_airport_3213, 'Heho Airport').
+airport(res_airport_3215, 'Kengtung Airport').
+airport(res_airport_3217, 'Kyaukpyu Airport').
+airport(res_airport_3222, 'Mandalay International Airport').
+airport(res_airport_3223, 'Myeik Airport').
+airport(res_airport_3224, 'Myitkyina Airport').
+airport(res_airport_3232, 'Putao Airport').
+airport(res_airport_3235, 'Sittwe Airport').
+airport(res_airport_3236, 'Thandwe Airport').
+airport(res_airport_3237, 'Tachileik Airport').
+airport(res_airport_3239, 'Yangon International Airport').
+airport(res_airport_3240, 'Hasanuddin International Airport').
+airport(res_airport_3241, 'Frans Kaisiepo Airport').
+airport(res_airport_3242, 'Nabire Airport').
+airport(res_airport_3243, 'Moses Kilangin Airport').
+airport(res_airport_3244, 'Sentani International Airport').
+airport(res_airport_3245, 'Wamena Airport').
+airport(res_airport_3246, 'Mopah Airport').
+airport(res_airport_3247, 'Jalaluddin Airport').
+airport(res_airport_3249, 'Mutiara Airport').
+airport(res_airport_3250, 'Sam Ratulangi Airport').
+airport(res_airport_3251, 'Kasiguncu Airport').
+airport(res_airport_3253, 'Sultan Khairun Babullah Airport').
+airport(res_airport_3254, 'Syukuran Aminuddin Amir Airport').
+airport(res_airport_3256, 'Pattimura Airport, Ambon').
+airport(res_airport_3257, 'Fakfak Airport').
+airport(res_airport_3258, 'Kaimana Airport').
+airport(res_airport_3259, 'Babo Airport').
+airport(res_airport_3260, 'Rendani Airport').
+airport(res_airport_3261, 'Dominique Edward Osok Airport').
+airport(res_airport_3262, 'Bintulu Airport').
+airport(res_airport_3263, 'Kuching International Airport').
+airport(res_airport_3264, 'Limbang Airport').
+airport(res_airport_3265, 'Marudi Airport').
+airport(res_airport_3266, 'Miri Airport').
+airport(res_airport_3267, 'Sibu Airport').
+airport(res_airport_3268, 'Lahad Datu Airport').
+airport(res_airport_3269, 'Kota Kinabalu International Airport').
+airport(res_airport_3270, 'Labuan Airport').
+airport(res_airport_3271, 'Tawau Airport').
+airport(res_airport_3272, 'Brunei International Airport').
+airport(res_airport_3273, 'Sultan Syarif Kasim Ii (Simpang Tiga) Airport').
+airport(res_airport_3275, 'Soekarno-Hatta International Airport').
+airport(res_airport_3282, 'Ketapang(Rahadi Usman) Airport').
+airport(res_airport_3284, 'Supadio Airport').
+airport(res_airport_3287, 'Sultan Thaha Airport').
+airport(res_airport_3288, 'Fatmawati Soekarno Airport').
+airport(res_airport_3289, 'Sultan Mahmud Badaruddin II Airport').
+airport(res_airport_3294, 'Sultan Iskandar Muda International Airport').
+airport(res_airport_3296, 'Sultan Abdul Halim Airport').
+airport(res_airport_3298, 'Sultan Ismail Petra Airport').
+airport(res_airport_3299, 'Kuantan Airport').
+airport(res_airport_33, 'Nanaimo Airport').
+airport(res_airport_3300, 'Kerteh Airport').
+airport(res_airport_3302, 'Sultan Azlan Shah Airport').
+airport(res_airport_3303, 'Senai International Airport').
+airport(res_airport_3304, 'Kuala Lumpur International Airport').
+airport(res_airport_3305, 'Langkawi International Airport').
+airport(res_airport_3307, 'Sultan Mahmud Airport').
+airport(res_airport_3308, 'Penang International Airport').
+airport(res_airport_3310, 'Presidente Nicolau Lobato International Airport').
+airport(res_airport_3316, 'Singapore Changi Airport').
+airport(res_airport_3318, 'Northern Peninsula Airport').
+airport(res_airport_3319, 'Alice Springs Airport').
+airport(res_airport_3320, 'Brisbane International Airport').
+airport(res_airport_3321, 'Gold Coast Airport').
+airport(res_airport_3322, 'Cairns International Airport').
+airport(res_airport_3323, 'Charleville Airport').
+airport(res_airport_3324, 'Mount Isa Airport').
+airport(res_airport_3325, 'Sunshine Coast Airport').
+airport(res_airport_3326, 'Mackay Airport').
+airport(res_airport_3328, 'Proserpine Whitsunday Coast Airport').
+airport(res_airport_3329, 'Rockhampton Airport').
+airport(res_airport_3330, 'Townsville Airport').
+airport(res_airport_3331, 'Weipa Airport').
+airport(res_airport_3332, 'Avalon Airport').
+airport(res_airport_3333, 'Albury Airport').
+airport(res_airport_3334, 'Melbourne Essendon Airport').
+airport(res_airport_3336, 'Hobart International Airport').
+airport(res_airport_3337, 'Launceston Airport').
+airport(res_airport_3339, 'Melbourne International Airport').
+airport(res_airport_3341, 'Adelaide International Airport').
+airport(res_airport_3345, 'Karratha Airport').
+airport(res_airport_3346, 'Kalgoorlie Boulder Airport').
+airport(res_airport_3347, 'Kununurra Airport').
+airport(res_airport_3348, 'Learmonth Airport').
+airport(res_airport_3349, 'Port Hedland International Airport').
+airport(res_airport_3351, 'Perth International Airport').
+airport(res_airport_3353, 'Christmas Island Airport').
+airport(res_airport_3355, 'Canberra International Airport').
+airport(res_airport_3356, 'Coffs Harbour Airport').
+airport(res_airport_3358, 'Dubbo City Regional Airport').
+airport(res_airport_3359, 'Norfolk Island International Airport').
+airport(res_airport_3361, 'Sydney Kingsford Smith International Airport').
+airport(res_airport_3362, 'Tamworth Airport').
+airport(res_airport_3363, 'Wagga Wagga City Airport').
+airport(res_airport_3364, 'Beijing Capital International Airport').
+airport(res_airport_3366, 'Dongshan Airport').
+airport(res_airport_3368, 'Tianjin Binhai International Airport').
+airport(res_airport_3369, 'Taiyuan Wusu Airport').
+airport(res_airport_337, 'Berlin-Schönefeld Airport').
+airport(res_airport_3370, 'Guangzhou Baiyun International Airport').
+airport(res_airport_3371, 'Changsha Huanghua International Airport').
+airport(res_airport_3372, 'Guilin Liangjiang International Airport').
+airport(res_airport_3373, 'Nanning Wuxu Airport').
+airport(res_airport_3374, 'Shenzhen Bao''an International Airport').
+airport(res_airport_3375, 'Zhengzhou Xinzheng International Airport').
+airport(res_airport_3376, 'Wuhan Tianhe International Airport').
+airport(res_airport_3377, 'Pyongyang Sunan International Airport').
+airport(res_airport_3378, 'Lanzhou Zhongchuan Airport').
+airport(res_airport_3379, 'Xi''an Xianyang International Airport').
+airport(res_airport_338, 'Dresden Airport').
+airport(res_airport_3380, 'Chinggis Khaan International Airport').
+airport(res_airport_3381, 'Xishuangbanna Gasa Airport').
+airport(res_airport_3382, 'Kunming Changshui International Airport').
+airport(res_airport_3383, 'Xiamen Gaoqi International Airport').
+airport(res_airport_3384, 'Nanchang Changbei International Airport').
+airport(res_airport_3385, 'Fuzhou Changle International Airport').
+airport(res_airport_3386, 'Hangzhou Xiaoshan International Airport').
+airport(res_airport_3387, 'Ningbo Lishe International Airport').
+airport(res_airport_3388, 'Nanjing Lukou Airport').
+airport(res_airport_3389, 'Hefei Luogang International Airport').
+airport(res_airport_339, 'Erfurt Airport').
+airport(res_airport_3390, 'Liuting Airport').
+airport(res_airport_3391, 'Shanghai Hongqiao International Airport').
+airport(res_airport_3392, 'Yantai Laishan Airport').
+airport(res_airport_3393, 'Chongqing Jiangbei International Airport').
+airport(res_airport_3394, 'Longdongbao Airport').
+airport(res_airport_3395, 'Chengdu Shuangliu International Airport').
+airport(res_airport_3396, 'Xichang Qingshan Airport').
+airport(res_airport_3397, 'Kashgar Airport').
+airport(res_airport_3398, 'Hotan Airport').
+airport(res_airport_3399, 'Ürümqi Diwopu International Airport').
+airport(res_airport_34, 'Castlegar/West Kootenay Regional Airport').
+airport(res_airport_340, 'Frankfurt am Main Airport').
+airport(res_airport_3400, 'Taiping Airport').
+airport(res_airport_3402, 'Mudanjiang Hailang International Airport').
+airport(res_airport_3404, 'Zhoushuizi Airport').
+airport(res_airport_3406, 'Shanghai Pudong International Airport').
+airport(res_airport_3408, 'Sultan Abdul Aziz Shah International Airport').
+airport(res_airport_3409, 'Noto Airport').
+airport(res_airport_341, 'Münster Osnabrück Airport').
+airport(res_airport_3410, 'Borg El Arab International Airport').
+airport(res_airport_3411, 'Barter Island LRRS Airport').
+airport(res_airport_3413, 'Cape Lisburne LRRS Airport').
+airport(res_airport_3414, 'Point Lay LRRS Airport').
+airport(res_airport_3415, 'Hilo International Airport').
+airport(res_airport_3417, 'Bettles Airport').
+airport(res_airport_342, 'Hamburg Airport').
+airport(res_airport_3420, 'Fort Yukon Airport').
+airport(res_airport_3423, 'Tatalina LRRS Airport').
+airport(res_airport_3426, 'St Paul Island Airport').
+airport(res_airport_3428, 'St George Airport').
+airport(res_airport_3429, 'Iliamna Airport').
+airport(res_airport_3430, 'Platinum Airport').
+airport(res_airport_3437, 'Fort Smith Regional Airport').
+airport(res_airport_344, 'Cologne Bonn Airport').
+airport(res_airport_3442, 'Grand Forks International Airport').
+airport(res_airport_3445, 'Hana Airport').
+airport(res_airport_3446, 'Ernest A. Love Field').
+airport(res_airport_3447, 'Trenton Mercer Airport').
+airport(res_airport_3448, 'General Edward Lawrence Logan International Airport').
+airport(res_airport_345, 'Düsseldorf Airport').
+airport(res_airport_3453, 'Metropolitan Oakland International Airport').
+airport(res_airport_3454, 'Eppley Airfield').
+airport(res_airport_3456, 'Kahului Airport').
+airport(res_airport_3457, 'Wichita Eisenhower National Airport').
+airport(res_airport_3458, 'Kansas City International Airport').
+airport(res_airport_3459, 'Dane County Regional Truax Field').
+airport(res_airport_346, 'Munich Airport').
+airport(res_airport_3460, 'Dillingham Airport').
+airport(res_airport_3461, 'Boone County Airport').
+airport(res_airport_3462, 'Phoenix Sky Harbor International Airport').
+airport(res_airport_3463, 'Bangor International Airport').
+airport(res_airport_3465, 'East Texas Regional Airport').
+airport(res_airport_3467, 'Spokane International Airport').
+airport(res_airport_3469, 'San Francisco International Airport').
+airport(res_airport_347, 'Nuremberg Airport').
+airport(res_airport_3472, 'Gainesville Regional Airport').
+airport(res_airport_3473, 'Memphis International Airport').
+airport(res_airport_348, 'Leipzig/Halle Airport').
+airport(res_airport_3484, 'Los Angeles International Airport').
+airport(res_airport_3486, 'Cleveland Hopkins International Airport').
+airport(res_airport_3488, 'Cincinnati Northern Kentucky International Airport').
+airport(res_airport_349, 'Saarbrücken Airport').
+airport(res_airport_3491, 'Huron Regional Airport').
+airport(res_airport_3492, 'Juneau International Airport').
+airport(res_airport_3493, 'Lafayette Regional Airport').
+airport(res_airport_3494, 'Newark Liberty International Airport').
+airport(res_airport_3495, 'Boise Air Terminal/Gowen Field').
+airport(res_airport_3497, 'Garden City Regional Airport').
+airport(res_airport_3498, 'Minot International Airport').
+airport(res_airport_350, 'Stuttgart Airport').
+airport(res_airport_3502, 'Dallas Love Field').
+airport(res_airport_3504, 'Helena Regional Airport').
+airport(res_airport_351, 'Berlin-Tegel Airport').
+airport(res_airport_3513, 'Lake Charles Regional Airport').
+airport(res_airport_3514, 'Ellison Onizuka Kona International At Keahole Airport').
+airport(res_airport_3515, 'Myrtle Beach International Airport').
+airport(res_airport_3517, 'Nantucket Memorial Airport').
+airport(res_airport_352, 'Hannover Airport').
+airport(res_airport_3520, 'Ronald Reagan Washington National Airport').
+airport(res_airport_3524, 'Atlantic City International Airport').
+airport(res_airport_3527, 'Pueblo Memorial Airport').
+airport(res_airport_3528, 'Northern Maine Regional Airport at Presque Isle').
+airport(res_airport_353, 'Bremen Airport').
+airport(res_airport_3531, 'Kodiak Airport').
+airport(res_airport_3533, 'Fort Lauderdale Hollywood International Airport').
+airport(res_airport_3535, 'Falls International Airport').
+airport(res_airport_3536, 'Salt Lake City International Airport').
+airport(res_airport_3542, 'Harrisburg International Airport').
+airport(res_airport_3543, 'Lincoln Airport').
+airport(res_airport_3544, 'Capital City Airport').
+airport(res_airport_3545, 'Waimea Kohala Airport').
+airport(res_airport_3546, 'Massena International Richards Field').
+airport(res_airport_355, 'Frankfurt-Hahn Airport').
+airport(res_airport_3550, 'George Bush Intercontinental Houston Airport').
+airport(res_airport_3558, 'Meadows Field').
+airport(res_airport_3559, 'El Paso International Airport').
+airport(res_airport_356, 'Mannheim-City Airport').
+airport(res_airport_3560, 'Valley International Airport').
+airport(res_airport_3561, 'Columbia Metropolitan Airport').
+airport(res_airport_3564, 'Pensacola Regional Airport').
+airport(res_airport_3566, 'William P Hobby Airport').
+airport(res_airport_3570, 'Pittsburgh International Airport').
+airport(res_airport_3571, 'Wiley Post Will Rogers Memorial Airport').
+airport(res_airport_3576, 'Miami International Airport').
+airport(res_airport_3577, 'Seattle Tacoma International Airport').
+airport(res_airport_3578, 'Lovell Field').
+airport(res_airport_3580, 'Jackson-Medgar Wiley Evers International Airport').
+airport(res_airport_3582, 'Long Beach /Daugherty Field/ Airport').
+airport(res_airport_3584, 'Williamsport Regional Airport').
+airport(res_airport_3585, 'Indianapolis International Airport').
+airport(res_airport_3589, 'Westchester County Airport').
+airport(res_airport_3591, 'Jonesboro Municipal Airport').
+airport(res_airport_3596, 'Yuma MCAS/Yuma International Airport').
+airport(res_airport_3597, 'Cavern City Air Terminal').
+airport(res_airport_3598, 'Duluth International Airport').
+airport(res_airport_3599, 'Bethel Airport').
+airport(res_airport_36, 'Charlo Airport').
+airport(res_airport_3602, 'Lihue Airport').
+airport(res_airport_3604, 'Havre City County Airport').
+airport(res_airport_3608, 'Richmond International Airport').
+airport(res_airport_3609, 'Shreveport Regional Airport').
+airport(res_airport_3610, 'Merle K (Mudhole) Smith Airport').
+airport(res_airport_3611, 'Norfolk International Airport').
+airport(res_airport_3612, 'Southeast Texas Regional Airport').
+airport(res_airport_3613, 'Savannah Hilton Head International Airport').
+airport(res_airport_3615, 'Nome Airport').
+airport(res_airport_3617, 'St Petersburg Clearwater International Airport').
+airport(res_airport_362, 'Hamburg-Finkenwerder Airport').
+airport(res_airport_3620, 'Deadhorse Airport').
+airport(res_airport_3621, 'San Antonio International Airport').
+airport(res_airport_3622, 'Greater Rochester International Airport').
+airport(res_airport_3624, 'Teterboro Airport').
+airport(res_airport_3626, 'Raleigh Durham International Airport').
+airport(res_airport_3627, 'James M Cox Dayton International Airport').
+airport(res_airport_3628, 'Kenai Municipal Airport').
+airport(res_airport_3630, 'Niagara Falls International Airport').
+airport(res_airport_3633, 'Newport News Williamsburg International Airport').
+airport(res_airport_3636, 'Tucson International Airport').
+airport(res_airport_364, 'Lübeck Blankensee Airport').
+airport(res_airport_3641, 'Theodore Francis Green State Airport').
+airport(res_airport_3642, 'Salisbury Ocean City Wicomico Regional Airport').
+airport(res_airport_3644, 'Bob Hope Airport').
+airport(res_airport_3645, 'Detroit Metropolitan Wayne County Airport').
+airport(res_airport_3646, 'Tampa International Airport').
+airport(res_airport_3650, 'Range Regional Airport').
+airport(res_airport_3652, 'Midland International Airport').
+airport(res_airport_3653, 'Austin Straubel International Airport').
+airport(res_airport_3658, 'Augusta Regional At Bush Field').
+airport(res_airport_3659, 'Sloulin Field International Airport').
+airport(res_airport_3660, 'Bill & Hillary Clinton National Airport/Adams Field').
+airport(res_airport_3661, 'Stewart International Airport').
+airport(res_airport_3664, 'Homer Airport').
+airport(res_airport_3665, 'Waynesville-St. Robert Regional Forney field').
+airport(res_airport_3670, 'Dallas Fort Worth International Airport').
+airport(res_airport_3671, 'Melbourne International Airport').
+airport(res_airport_3673, 'Austin Bergstrom International Airport').
+airport(res_airport_3674, 'Rickenbacker International Airport').
+airport(res_airport_3675, 'Sawyer International Airport').
+airport(res_airport_3676, 'McGhee Tyson Airport').
+airport(res_airport_3678, 'St Louis Lambert International Airport').
+airport(res_airport_3680, 'Sheppard Air Force Base-Wichita Falls Municipal Airport').
+airport(res_airport_3681, 'Cincinnati Municipal Airport Lunken Field').
+airport(res_airport_3682, 'Hartsfield Jackson Atlanta International Airport').
+airport(res_airport_3685, 'Gerald R. Ford International Airport').
+airport(res_airport_3687, 'Fresno Yosemite International Airport').
+airport(res_airport_3689, 'Imperial County Airport').
+airport(res_airport_3690, 'Nashville International Airport').
+airport(res_airport_3691, 'Laredo International Airport').
+airport(res_airport_3693, 'Ralph Wien Memorial Airport').
+airport(res_airport_3694, 'Altoona Blair County Airport').
+airport(res_airport_3696, 'South Arkansas Regional At Goodwin Field').
+airport(res_airport_3697, 'La Guardia Airport').
+airport(res_airport_3698, 'Tallahassee Regional Airport').
+airport(res_airport_37, 'Kugluktuk Airport').
+airport(res_airport_3700, 'Waco Regional Airport').
+airport(res_airport_3701, 'Augusta State Airport').
+airport(res_airport_3704, 'McKellar-Sipes Regional Airport').
+airport(res_airport_3705, 'Molokai Airport').
+airport(res_airport_3708, 'San Angelo Regional Mathis Field').
+airport(res_airport_371, 'Paderborn Lippstadt Airport').
+airport(res_airport_3710, 'Chico Municipal Airport').
+airport(res_airport_3711, 'Burlington International Airport').
+airport(res_airport_3712, 'Jacksonville International Airport').
+airport(res_airport_3713, 'Durango La Plata County Airport').
+airport(res_airport_3714, 'Washington Dulles International Airport').
+airport(res_airport_3715, 'Easterwood Field').
+airport(res_airport_3717, 'General Mitchell International Airport').
+airport(res_airport_3718, 'Abilene Regional Airport').
+airport(res_airport_3719, 'Columbia Regional Airport').
+airport(res_airport_3720, 'Portland International Airport').
+airport(res_airport_3722, 'Palm Beach International Airport').
+airport(res_airport_3724, 'Ogdensburg International Airport').
+airport(res_airport_3726, 'Boeing Field King County International Airport').
+airport(res_airport_3728, 'Daniel K Inouye International Airport').
+airport(res_airport_3729, 'Des Moines International Airport').
+airport(res_airport_373, 'Dortmund Airport').
+airport(res_airport_3730, 'Coastal Carolina Regional Airport').
+airport(res_airport_3731, 'San Diego International Airport').
+airport(res_airport_3732, 'Monroe Regional Airport').
+airport(res_airport_3734, 'Ontario International Airport').
+airport(res_airport_3736, 'Roswell International Air Center Airport').
+airport(res_airport_3738, 'Brownsville South Padre Island International Airport').
+airport(res_airport_3739, 'Dothan Regional Airport').
+airport(res_airport_374, 'Augsburg Airport').
+airport(res_airport_3743, 'Four Corners Regional Airport').
+airport(res_airport_3744, 'Corpus Christi International Airport').
+airport(res_airport_3745, 'Syracuse Hancock International Airport').
+airport(res_airport_3747, 'Chicago Midway International Airport').
+airport(res_airport_3748, 'Norman Y. Mineta San Jose International Airport').
+airport(res_airport_3749, 'Lea County Regional Airport').
+airport(res_airport_3751, 'Denver International Airport').
+airport(res_airport_3752, 'Philadelphia International Airport').
+airport(res_airport_3753, 'Sioux Gateway Col. Bud Day Field').
+airport(res_airport_3754, 'Middle Georgia Regional Airport').
+airport(res_airport_3759, 'John Glenn Columbus International Airport').
+airport(res_airport_3764, 'Edward G. Pitka Sr Airport').
+airport(res_airport_3770, 'Texarkana Regional Webb Field').
+airport(res_airport_3771, 'Plattsburgh International Airport').
+airport(res_airport_3774, 'Ted Stevens Anchorage International Airport').
+airport(res_airport_3775, 'Robert Gray  Army Air Field Airport').
+airport(res_airport_3777, 'Bellingham International Airport').
+airport(res_airport_3782, 'Mobile Regional Airport').
+airport(res_airport_3784, 'Santa Fe Municipal Airport').
+airport(res_airport_3790, 'Scott AFB/Midamerica Airport').
+airport(res_airport_3793, 'Southwest Florida International Airport').
+airport(res_airport_3794, 'King Salmon Airport').
+airport(res_airport_3796, 'Kapalua Airport').
+airport(res_airport_3797, 'John F Kennedy International Airport').
+airport(res_airport_3804, 'Cheyenne Regional Jerry Olson Field').
+airport(res_airport_3805, 'Stockton Metropolitan Airport').
+airport(res_airport_3806, 'Charleston Air Force Base-International Airport').
+airport(res_airport_3807, 'Reno Tahoe International Airport').
+airport(res_airport_3808, 'Ketchikan International Airport').
+airport(res_airport_3811, 'Birmingham-Shuttlesworth International Airport').
+airport(res_airport_3816, 'Modesto City Co-Harry Sham Field').
+airport(res_airport_3817, 'Sacramento International Airport').
+airport(res_airport_3819, 'City of Colorado Springs Municipal Airport').
+airport(res_airport_382, 'Friedrichshafen Airport').
+airport(res_airport_3820, 'Buffalo Niagara International Airport').
+airport(res_airport_3824, 'Cedar City Regional Airport').
+airport(res_airport_3825, 'Bradley International Airport').
+airport(res_airport_3826, 'Mc Allen Miller International Airport').
+airport(res_airport_3829, 'Lubbock Preston Smith International Airport').
+airport(res_airport_3830, 'Chicago O''Hare International Airport').
+airport(res_airport_3832, 'Fairbanks International Airport').
+airport(res_airport_3838, 'Watertown International Airport').
+airport(res_airport_3839, 'Palm Springs International Airport').
+airport(res_airport_3840, 'Rick Husband Amarillo International Airport').
+airport(res_airport_3843, 'Topeka Regional Airport - Forbes Field').
+airport(res_airport_3845, 'Wilmington International Airport').
+airport(res_airport_3846, 'Baton Rouge Metropolitan Airport').
+airport(res_airport_3848, 'Tyler Pounds Regional Airport').
+airport(res_airport_3849, 'Baltimore/Washington International Thurgood Marshall Airport').
+airport(res_airport_3851, 'Lanai Airport').
+airport(res_airport_3852, 'Alexandria International Airport').
+airport(res_airport_3854, 'Cold Bay Airport').
+airport(res_airport_3855, 'Tulsa International Airport').
+airport(res_airport_3856, 'Sitka Rocky Gutierrez Airport').
+airport(res_airport_3857, 'Long Island Mac Arthur Airport').
+airport(res_airport_3858, 'Minneapolis-St Paul International/Wold-Chamberlain Airport').
+airport(res_airport_3859, 'New Castle Airport').
+airport(res_airport_3860, 'Unalaska Airport').
+airport(res_airport_3861, 'Louis Armstrong New Orleans International Airport').
+airport(res_airport_3862, 'Portland International Jetport Airport').
+airport(res_airport_3863, 'Will Rogers World Airport').
+airport(res_airport_3864, 'Albany International Airport').
+airport(res_airport_3865, 'Valdez Pioneer Field').
+airport(res_airport_3867, 'John Wayne Airport-Orange County Airport').
+airport(res_airport_3872, 'Casper-Natrona County International Airport').
+airport(res_airport_3873, 'Destin-Ft Walton Beach Airport').
+airport(res_airport_3875, 'Key West International Airport').
+airport(res_airport_3876, 'Charlotte Douglas International Airport').
+airport(res_airport_3877, 'McCarran International Airport').
+airport(res_airport_3878, 'Orlando International Airport').
+airport(res_airport_3879, 'Florence Regional Airport').
+airport(res_airport_3880, 'Great Falls International Airport').
+airport(res_airport_3881, 'Youngstown Warren Regional Airport').
+airport(res_airport_3885, 'Suvarnabhumi Airport').
+airport(res_airport_3886, 'Naha Airport').
+airport(res_airport_3890, 'Wolter Monginsidi Airport').
+airport(res_airport_3894, 'Abdul Rachman Saleh Airport').
+airport(res_airport_3896, 'Husein Sastranegara International Airport').
+airport(res_airport_3898, 'Adi Sutjipto International Airport').
+airport(res_airport_3901, 'Achmad Yani Airport').
+airport(res_airport_3903, 'Hang Nadim International Airport').
+airport(res_airport_3904, 'Buluh Tumbang (H A S Hanandjoeddin) Airport').
+airport(res_airport_3905, 'Pangkal Pinang (Depati Amir) Airport').
+airport(res_airport_3906, 'Raja Haji Fisabilillah International Airport').
+airport(res_airport_3908, 'Syamsudin Noor Airport').
+airport(res_airport_3910, 'Iskandar Airport').
+airport(res_airport_3911, 'Tjilik Riwut Airport').
+airport(res_airport_3913, 'Maumere(Wai Oti) Airport').
+airport(res_airport_3914, 'Ende (H Hasan Aroeboesman) Airport').
+airport(res_airport_3916, 'El Tari Airport').
+airport(res_airport_3917, 'Komodo Airport').
+airport(res_airport_3919, 'Sultan Aji Muhamad Sulaiman Airport').
+airport(res_airport_3920, 'Juwata Airport').
+airport(res_airport_3924, 'Muhammad Salahuddin Airport').
+airport(res_airport_3927, 'Umbu Mehang Kunda Airport').
+airport(res_airport_3928, 'Juanda International Airport').
+airport(res_airport_3929, 'Adi Sumarmo Wiryokusumo Airport').
+airport(res_airport_393, 'Zweibrücken Airport').
+airport(res_airport_3930, 'Incheon International Airport').
+airport(res_airport_3931, 'Chiang Mai International Airport').
+airport(res_airport_3932, 'Chiang Rai International Airport').
+airport(res_airport_3933, 'Nakhon Si Thammarat Airport').
+airport(res_airport_3936, 'Nakhon Phanom Airport').
+airport(res_airport_3937, 'Ubon Ratchathani Airport').
+airport(res_airport_3938, 'Khon Kaen Airport').
+airport(res_airport_3939, 'Sukhothai Airport').
+airport(res_airport_3940, 'Ngurah Rai (Bali) International Airport').
+airport(res_airport_3941, 'Eleftherios Venizelos International Airport').
+airport(res_airport_3942, 'Chubu Centrair International Airport').
+airport(res_airport_3943, 'Kobe Airport').
+airport(res_airport_3944, 'Pullman Moscow Regional Airport').
+airport(res_airport_3945, 'Lewiston Nez Perce County Airport').
+airport(res_airport_3946, 'Elmira Corning Regional Airport').
+airport(res_airport_3947, 'Ithaca Tompkins Regional Airport').
+airport(res_airport_3948, 'Monterey Peninsula Airport').
+airport(res_airport_3949, 'Santa Barbara Municipal Airport').
+airport(res_airport_3950, 'Daytona Beach International Airport').
+airport(res_airport_3953, 'Riga International Airport').
+airport(res_airport_3956, 'Kaunas International Airport').
+airport(res_airport_3958, 'Palanga International Airport').
+airport(res_airport_3959, 'Vilnius International Airport').
+airport(res_airport_3964, 'Zvartnots International Airport').
+airport(res_airport_3965, 'Gyumri Shirak Airport').
+airport(res_airport_3967, 'Asmara International Airport').
+airport(res_airport_3968, 'Massawa International Airport').
+airport(res_airport_3971, 'Batumi International Airport').
+airport(res_airport_3972, 'Kopitnari Airport').
+airport(res_airport_3973, 'Tbilisi International Airport').
+airport(res_airport_3974, 'Mukalla International Airport').
+airport(res_airport_3975, 'Ta''izz International Airport').
+airport(res_airport_3976, 'Hodeidah International Airport').
+airport(res_airport_3977, 'Aden International Airport').
+airport(res_airport_3978, 'Ataq Airport').
+airport(res_airport_3979, 'Al Ghaidah International Airport').
+airport(res_airport_3980, 'Sana''a International Airport').
+airport(res_airport_3984, 'Socotra International Airport').
+airport(res_airport_3986, 'Memmingen Allgau Airport').
+airport(res_airport_3987, 'Nevşehir Kapadokya Airport').
+airport(res_airport_3988, 'Ministro Pistarini International Airport').
+airport(res_airport_3989, 'Erbil International Airport').
+airport(res_airport_3990, 'Emerald Airport').
+airport(res_airport_3992, 'Kansai International Airport').
+airport(res_airport_3994, 'Tagbilaran Airport').
+airport(res_airport_3995, 'Ilulissat Airport').
+airport(res_airport_3997, 'Aasiaat Airport').
+airport(res_airport_3998, 'Palma De Mallorca Airport').
+airport(res_airport_3999, 'Darwin International Airport').
+airport(res_airport_4, 'Nadzab Airport').
+airport(res_airport_40, 'Clyde River Airport').
+airport(res_airport_400, 'Kassel-Calden Airport').
+airport(res_airport_4000, 'Surat Thani Airport').
+airport(res_airport_4006, 'Tweed New Haven Airport').
+airport(res_airport_4007, 'Asheville Regional Airport').
+airport(res_airport_4008, 'Piedmont Triad International Airport').
+airport(res_airport_4009, 'Joe Foss Field Airport').
+airport(res_airport_4010, 'Ayers Rock Connellan Airport').
+airport(res_airport_4011, 'Manchester-Boston Regional Airport').
+airport(res_airport_4012, 'Naples Municipal Airport').
+airport(res_airport_4013, 'LTS Pulau Redang Airport').
+airport(res_airport_4014, 'Louisville International Standiford Field').
+airport(res_airport_4015, 'Charlottesville Albemarle Airport').
+airport(res_airport_4016, 'Roanoke–Blacksburg Regional Airport').
+airport(res_airport_4017, 'Blue Grass Airport').
+airport(res_airport_4018, 'Evansville Regional Airport').
+airport(res_airport_4019, 'Albuquerque International Sunport').
+airport(res_airport_4020, 'Gallatin Field').
+airport(res_airport_4021, 'Billings Logan International Airport').
+airport(res_airport_4022, 'Bert Mooney Airport').
+airport(res_airport_4023, 'Cherry Capital Airport').
+airport(res_airport_4024, 'Mundo Maya International Airport').
+airport(res_airport_4025, 'Hancock County-Bar Harbor Airport').
+airport(res_airport_4026, 'Knox County Regional Airport').
+airport(res_airport_4027, 'Jackson Hole Airport').
+airport(res_airport_4028, 'Chicago Rockford International Airport').
+airport(res_airport_4029, 'Domodedovo International Airport').
+airport(res_airport_4030, 'Sanya Phoenix International Airport').
+airport(res_airport_4033, 'Lijiang Airport').
+airport(res_airport_4034, 'Greenville Spartanburg International Airport').
+airport(res_airport_4037, 'Central Illinois Regional Airport at Bloomington-Normal').
+airport(res_airport_4038, 'Gulfport Biloxi International Airport').
+airport(res_airport_4039, 'Kalamazoo Battle Creek International Airport').
+airport(res_airport_4040, 'Toledo Express Airport').
+airport(res_airport_4041, 'Fort Wayne International Airport').
+airport(res_airport_4042, 'Decatur Airport').
+airport(res_airport_4043, 'The Eastern Iowa Airport').
+airport(res_airport_4044, 'La Crosse Municipal Airport').
+airport(res_airport_4045, 'Central Wisconsin Airport').
+airport(res_airport_4046, 'General Wayne A. Downing Peoria International Airport').
+airport(res_airport_4047, 'Appleton International Airport').
+airport(res_airport_4048, 'Rochester International Airport').
+airport(res_airport_4049, 'University of Illinois Willard Airport').
+airport(res_airport_4050, 'Manhattan Regional Airport').
+airport(res_airport_4051, 'Kingscote Airport').
+airport(res_airport_4052, 'Hervey Bay Airport').
+airport(res_airport_4054, 'Dali Airport').
+airport(res_airport_4056, 'Mulu Airport').
+airport(res_airport_4057, 'Sharm El Sheikh International Airport').
+airport(res_airport_4058, 'Venango Regional Airport').
+airport(res_airport_4059, 'Jomo Kenyatta International Airport').
+airport(res_airport_4061, 'El Calafate Airport').
+airport(res_airport_4062, 'Armidale Airport').
+airport(res_airport_4063, 'Grand Junction Regional Airport').
+airport(res_airport_4064, 'St George Municipal Airport').
+airport(res_airport_4067, 'Sarasota Bradenton International Airport').
+airport(res_airport_4069, 'L.F. Wade International International Airport').
+airport(res_airport_4072, 'Quad City International Airport').
+airport(res_airport_4074, 'Honiara International Airport').
+airport(res_airport_4075, 'Faa''a International Airport').
+airport(res_airport_4076, 'Nauru International Airport').
+airport(res_airport_4077, 'Funafuti International Airport').
+airport(res_airport_4078, 'Tolmachevo Airport').
+airport(res_airport_4081, 'Xieng Khouang Airport').
+airport(res_airport_4083, 'Bismarck Municipal Airport').
+airport(res_airport_4085, 'Yinchuan Airport').
+airport(res_airport_4086, 'Mae Hong Son Airport').
+airport(res_airport_4087, 'Rapid City Regional Airport').
+airport(res_airport_4088, 'Mc Clellan-Palomar Airport').
+airport(res_airport_4089, 'Bishop International Airport').
+airport(res_airport_4090, 'Francisco Bangoy International Airport').
+airport(res_airport_4091, 'Madeira Airport').
+airport(res_airport_4092, 'Maestro Wilson Fonseca Airport').
+airport(res_airport_4093, 'Sihanoukville International Airport').
+airport(res_airport_4095, 'Hawke''s Bay Airport').
+airport(res_airport_4097, 'Lhasa Gonggar Airport').
+airport(res_airport_4098, 'Redding Municipal Airport').
+airport(res_airport_4099, 'Mahlon Sweet Field').
+airport(res_airport_41, 'Coral Harbour Airport').
+airport(res_airport_410, 'Westerland Sylt Airport').
+airport(res_airport_4100, 'Idaho Falls Regional Airport').
+airport(res_airport_4101, 'Rogue Valley International Medford Airport').
+airport(res_airport_4103, 'Roberts Field').
+airport(res_airport_4105, 'Hosea Kutako International Airport').
+airport(res_airport_4106, 'Victoria Harbour Seaplane Base').
+airport(res_airport_4108, 'Yaoqiang Airport').
+airport(res_airport_4109, 'Changzhou Benniu Airport').
+airport(res_airport_4110, 'Yibin Caiba Airport').
+airport(res_airport_4111, 'Roshchino International Airport').
+airport(res_airport_4112, 'Akron Canton Regional Airport').
+airport(res_airport_4113, 'Huntsville International Carl T Jones Field').
+airport(res_airport_4114, 'Mid Ohio Valley Regional Airport').
+airport(res_airport_4115, 'Montgomery Regional (Dannelly Field) Airport').
+airport(res_airport_4116, 'Tri-Cities Regional TN/VA Airport').
+airport(res_airport_4117, 'Barkley Regional Airport').
+airport(res_airport_4119, 'Djibouti-Ambouli Airport').
+airport(res_airport_4120, 'Haikou Meilan International Airport').
+airport(res_airport_4124, 'Page Municipal Airport').
+airport(res_airport_4125, 'Utila Airport').
+airport(res_airport_4127, 'Glacier Park International Airport').
+airport(res_airport_4128, 'MBS International Airport').
+airport(res_airport_4129, 'Greater Binghamton/Edwin A Link field').
+airport(res_airport_413, 'Kuressaare Airport').
+airport(res_airport_4130, 'Baghdad International Airport').
+airport(res_airport_4131, 'Nan Airport').
+airport(res_airport_4132, 'Roi Et Airport').
+airport(res_airport_4133, 'Buri Ram Airport').
+airport(res_airport_4135, 'Trat Airport').
+airport(res_airport_4140, 'Diosdado Macapagal International Airport').
+airport(res_airport_4141, 'Sandakan Airport').
+airport(res_airport_4142, 'Luang Namtha Airport').
+airport(res_airport_4143, 'Oudomsay Airport').
+airport(res_airport_4144, 'Taoxian Airport').
+airport(res_airport_4145, 'Dongying Shengli Airport').
+airport(res_airport_4147, 'Petersburg James A Johnson Airport').
+airport(res_airport_4148, 'Luoyang Airport').
+airport(res_airport_4149, 'Xuzhou Guanyin Airport').
+airport(res_airport_415, 'Lennart Meri Tallinn Airport').
+airport(res_airport_4153, 'Lien Khuong Airport').
+airport(res_airport_4154, 'Dong Hoi Airport').
+airport(res_airport_4155, 'Rach Gia Airport').
+airport(res_airport_4156, 'Cà Mau Airport').
+airport(res_airport_4157, 'Chu Lai International Airport').
+airport(res_airport_4158, 'Dong Tac Airport').
+airport(res_airport_4159, 'Mae Hong Son Airport').
+airport(res_airport_416, 'Tartu Airport').
+airport(res_airport_4160, 'Bol Airport').
+airport(res_airport_4161, 'Yaoundé Nsimalen International Airport').
+airport(res_airport_4162, 'Conakry International Airport').
+airport(res_airport_4166, 'Karlsruhe Baden-Baden Airport').
+airport(res_airport_4167, 'Orlando Sanford International Airport').
+airport(res_airport_4169, 'John Murtha Johnstown Cambria County Airport').
+airport(res_airport_4183, 'Tumling Tar Airport').
+airport(res_airport_4188, 'Dhangarhi Airport').
+airport(res_airport_4189, 'Muan International Airport').
+airport(res_airport_4190, 'Astypalaia Airport').
+airport(res_airport_4191, 'Ikaria Airport').
+airport(res_airport_4192, 'Kalymnos Airport').
+airport(res_airport_4193, 'Milos Airport').
+airport(res_airport_4194, 'Naxos Airport').
+airport(res_airport_4195, 'Paros National Airport').
+airport(res_airport_4196, 'Kastelorizo Airport').
+airport(res_airport_4197, 'Marsa Alam International Airport').
+airport(res_airport_4198, 'Weeze Airport').
+airport(res_airport_4199, 'Francisco B. Reyes Airport').
+airport(res_airport_4200, 'Bancasi Airport').
+airport(res_airport_4201, 'Dipolog Airport').
+airport(res_airport_4202, 'Laoag International Airport').
+airport(res_airport_4203, 'Legazpi City International Airport').
+airport(res_airport_4204, 'Labo Airport').
+airport(res_airport_4206, 'Mactan Cebu International Airport').
+airport(res_airport_4209, 'Porto Seguro Airport').
+airport(res_airport_421, 'Helsinki Vantaa Airport').
+airport(res_airport_4214, 'Brigadeiro Lysias Rodrigues Airport').
+airport(res_airport_4215, 'Nelson Ribeiro Guimarães Airport').
+airport(res_airport_4216, 'Missoula International Airport').
+airport(res_airport_4217, 'Blackall Airport').
+airport(res_airport_4218, 'Bundaberg Airport').
+airport(res_airport_4219, 'Grand Canyon National Park Airport').
+airport(res_airport_4235, 'Kaadedhdhoo Airport').
+airport(res_airport_4237, 'Déline Airport').
+airport(res_airport_4238, 'Tulita Airport').
+airport(res_airport_4239, 'Fort Good Hope Airport').
+airport(res_airport_4242, 'Tanna Airport').
+airport(res_airport_4244, 'Paulatuk (Nora Aliqatchialuk Ruben) Airport').
+airport(res_airport_4247, 'El Trompillo Airport').
+airport(res_airport_4249, 'Juancho E. Yrausquin Airport').
+airport(res_airport_4250, 'Eagle County Regional Airport').
+airport(res_airport_4252, 'Stokmarknes Skagen Airport').
+airport(res_airport_4255, 'Columbus Metropolitan Airport').
+airport(res_airport_4256, 'Lawton Fort Sill Regional Airport').
+airport(res_airport_4261, 'Flagstaff Pulliam Airport').
+airport(res_airport_4263, 'Joslin Field Magic Valley Regional Airport').
+airport(res_airport_4265, 'Martha''s Vineyard Airport').
+airport(res_airport_4271, 'St Cloud Regional Airport').
+airport(res_airport_4273, 'Golden Triangle Regional Airport').
+airport(res_airport_4274, 'Nizhny Novgorod Strigino International Airport').
+airport(res_airport_4276, 'Erie International Tom Ridge Field').
+airport(res_airport_4278, 'Barnstable Municipal Boardman Polando Field').
+airport(res_airport_4279, 'San Pedro Airport').
+airport(res_airport_428, 'Ivalo Airport').
+airport(res_airport_4284, 'Morgantown Municipal Walter L. Bill Hart Field').
+airport(res_airport_4285, 'Yeager Airport').
+airport(res_airport_4286, 'Wilkes Barre Scranton International Airport').
+airport(res_airport_4287, 'Bemidji Regional Airport').
+airport(res_airport_429, 'Joensuu Airport').
+airport(res_airport_4291, 'Ballina Byron Gateway Airport').
+airport(res_airport_4292, 'Hector International Airport').
+airport(res_airport_4296, 'Gillette Campbell County Airport').
+airport(res_airport_4297, 'Bogashevo Airport').
+airport(res_airport_430, 'Jyvaskyla Airport').
+airport(res_airport_4300, 'Chumphon Airport').
+airport(res_airport_4301, 'Jiuzhai Huanglong Airport').
+airport(res_airport_4302, 'Jieyang Chaoshan International Airport').
+airport(res_airport_4304, 'Cheddi Jagan International Airport').
+airport(res_airport_4305, 'Guarani International Airport').
+airport(res_airport_4306, 'Eugene F. Correira International Airport').
+airport(res_airport_4308, 'Dunhuang Airport').
+airport(res_airport_4309, 'Ancona Falconara Airport').
+airport(res_airport_4312, 'Chamonate Airport').
+airport(res_airport_4314, 'Edward Bodden Airfield').
+airport(res_airport_4315, 'Milas Bodrum International Airport').
+airport(res_airport_4317, 'Sabiha Gökçen International Airport').
+airport(res_airport_4318, 'University Park Airport').
+airport(res_airport_4319, 'Broome International Airport').
+airport(res_airport_432, 'Kemi-Tornio Airport').
+airport(res_airport_4320, 'Newcastle Airport').
+airport(res_airport_4322, 'Klagenfurt Airport').
+airport(res_airport_4325, 'Hammerfest Airport').
+airport(res_airport_4326, 'Valan Airport').
+airport(res_airport_4327, 'Mehamn Airport').
+airport(res_airport_4328, 'Vadsø Airport').
+airport(res_airport_433, 'Kajaani Airport').
+airport(res_airport_4330, 'Imam Khomeini International Airport').
+airport(res_airport_4331, 'Mashhad International Airport').
+airport(res_airport_4335, 'Key Field').
+airport(res_airport_4336, 'Abraham Lincoln Capital Airport').
+airport(res_airport_4338, 'Cortez Municipal Airport').
+airport(res_airport_4339, 'Yampa Valley Airport').
+airport(res_airport_4341, 'Liberal Mid-America Regional Airport').
+airport(res_airport_4344, 'Yellowstone Regional Airport').
+airport(res_airport_4345, 'Ørsta-Volda Airport, Hovden').
+airport(res_airport_4347, 'St. Mary''s Airport').
+airport(res_airport_4348, 'Springfield Branson National Airport').
+airport(res_airport_4349, 'Narvik Framnes Airport').
+airport(res_airport_435, 'Kokkola-Pietarsaari Airport').
+airport(res_airport_4350, 'Berlevåg Airport').
+airport(res_airport_4352, 'Norilsk-Alykel Airport').
+airport(res_airport_4353, 'Anapa Vityazevo Airport').
+airport(res_airport_4354, 'Joplin Regional Airport').
+airport(res_airport_4355, 'Lehigh Valley International Airport').
+airport(res_airport_4356, 'Northwest Arkansas Regional Airport').
+airport(res_airport_4357, 'Atyrau Airport').
+airport(res_airport_4358, 'Kzyl-Orda Southwest Airport').
+airport(res_airport_4359, 'South Bend Regional Airport').
+airport(res_airport_4362, 'Talagi Airport').
+airport(res_airport_4363, 'Saratov Central Airport').
+airport(res_airport_4364, 'Novy Urengoy Airport').
+airport(res_airport_4365, 'Noyabrsk Airport').
+airport(res_airport_4367, 'Aktau Airport').
+airport(res_airport_4368, 'Ukhta Airport').
+airport(res_airport_4369, 'Usinsk Airport').
+airport(res_airport_437, 'Kuusamo Airport').
+airport(res_airport_4371, 'Naryan Mar Airport').
+airport(res_airport_4373, 'Kogalym International Airport').
+airport(res_airport_4374, 'Yemelyanovo Airport').
+airport(res_airport_4375, 'Sary-Arka Airport').
+airport(res_airport_4377, 'Uray Airport').
+airport(res_airport_438, 'Kittilä Airport').
+airport(res_airport_4380, 'Longjia Airport').
+airport(res_airport_4381, 'Niigata Airport').
+airport(res_airport_4384, 'California Redwood Coast-Humboldt County Airport').
+airport(res_airport_4386, 'Albert J Ellis Airport').
+airport(res_airport_4388, 'Dubuque Regional Airport').
+airport(res_airport_439, 'Kuopio Airport').
+airport(res_airport_441, 'Lappeenranta Airport').
+airport(res_airport_442, 'Mariehamn Airport').
+airport(res_airport_446, 'Oulu Airport').
+airport(res_airport_448, 'Pori Airport').
+airport(res_airport_45, 'Deer Lake Airport').
+airport(res_airport_453, 'Rovaniemi Airport').
+airport(res_airport_455, 'Savonlinna Airport').
+airport(res_airport_458, 'Tampere-Pirkkala Airport').
+airport(res_airport_460, 'Turku Airport').
+airport(res_airport_462, 'Vaasa Airport').
+airport(res_airport_465, 'Belfast International Airport').
+airport(res_airport_467, 'George Best Belfast City Airport').
+airport(res_airport_468, 'City of Derry Airport').
+airport(res_airport_469, 'Birmingham International Airport').
+airport(res_airport_472, 'Gloucestershire Airport').
+airport(res_airport_478, 'Manchester Airport').
+airport(res_airport_48, 'Dawson Creek Airport').
+airport(res_airport_481, 'Newquay Cornwall Airport').
+airport(res_airport_488, 'Cardiff International Airport').
+airport(res_airport_49, 'Edmonton International Airport').
+airport(res_airport_490, 'Bristol Airport').
+airport(res_airport_491, 'Liverpool John Lennon Airport').
+airport(res_airport_492, 'London Luton Airport').
+airport(res_airport_494, 'Bournemouth Airport').
+airport(res_airport_495, 'Southampton Airport').
+airport(res_airport_497, 'Alderney Airport').
+airport(res_airport_498, 'Guernsey Airport').
+airport(res_airport_499, 'Jersey Airport').
+airport(res_airport_5, 'Port Moresby Jacksons International Airport').
+airport(res_airport_50, 'Arviat Airport').
+airport(res_airport_502, 'London Gatwick Airport').
+airport(res_airport_503, 'London City Airport').
+airport(res_airport_507, 'London Heathrow Airport').
+airport(res_airport_508, 'Southend Airport').
+airport(res_airport_514, 'Blackpool International Airport').
+airport(res_airport_515, 'Humberside Airport').
+airport(res_airport_517, 'Leeds Bradford Airport').
+airport(res_airport_519, 'Hawarden Airport').
+airport(res_airport_520, 'Isle of Man Airport').
+airport(res_airport_521, 'Newcastle Airport').
+airport(res_airport_522, 'Durham Tees Valley Airport').
+airport(res_airport_523, 'East Midlands Airport').
+airport(res_airport_529, 'Kirkwall Airport').
+airport(res_airport_530, 'Sumburgh Airport').
+airport(res_airport_531, 'Wick Airport').
+airport(res_airport_532, 'Aberdeen Dyce Airport').
+airport(res_airport_533, 'Inverness Airport').
+airport(res_airport_534, 'Glasgow International Airport').
+airport(res_airport_535, 'Edinburgh Airport').
+airport(res_airport_536, 'Islay Airport').
+airport(res_airport_537, 'Glasgow Prestwick Airport').
+airport(res_airport_538, 'Benbecula Airport').
+airport(res_airport_54, 'Inuvik Mike Zubko Airport').
+airport(res_airport_540, 'Dundee Airport').
+airport(res_airport_5404, 'Uru Harbour Airport').
+airport(res_airport_5407, 'Fera/Maringe Airport').
+airport(res_airport_5409, 'Ngorangora Airport').
+airport(res_airport_541, 'Stornoway Airport').
+airport(res_airport_5410, 'Santa Cruz/Graciosa Bay/Luova Airport').
+airport(res_airport_5411, 'Munda Airport').
+airport(res_airport_5412, 'Nusatupe Airport').
+airport(res_airport_5414, 'Rennell/Tingoa Airport').
+airport(res_airport_5415, 'Marau Airport').
+airport(res_airport_5416, 'Suavanao Airport').
+airport(res_airport_5417, 'Kaghau Airport').
+airport(res_airport_5418, 'Ramata Airport').
+airport(res_airport_5419, 'Buka Airport').
+airport(res_airport_542, 'Tiree Airport').
+airport(res_airport_5420, 'Chimbu Airport').
+airport(res_airport_5421, 'Daru Airport').
+airport(res_airport_5422, 'Gurney Airport').
+airport(res_airport_5423, 'Girua Airport').
+airport(res_airport_5424, 'Kimbe Airport').
+airport(res_airport_5425, 'Kiunga Airport').
+airport(res_airport_5428, 'Kavieng Airport').
+airport(res_airport_5429, 'Mendi Airport').
+airport(res_airport_5430, 'Momote Airport').
+airport(res_airport_5431, 'Moro Airport').
+airport(res_airport_5432, 'Misima Island Airport').
+airport(res_airport_5433, 'Tari Airport').
+airport(res_airport_5434, 'Tabubil Airport').
+airport(res_airport_5435, 'Tokua Airport').
+airport(res_airport_5436, 'Vanimo Airport').
+airport(res_airport_5437, 'Wapenamanda Airport').
+airport(res_airport_5438, 'Alluitsup Paa Heliport').
+airport(res_airport_5439, 'Neerlerit Inaat Airport').
+airport(res_airport_5440, 'Paamiut Heliport').
+airport(res_airport_5442, 'Qaqortoq Heliport').
+airport(res_airport_5443, 'Maniitsoq Airport').
+airport(res_airport_5444, 'Nanortalik Heliport').
+airport(res_airport_5445, 'Narsaq Heliport').
+airport(res_airport_5446, 'Qaanaaq Airport').
+airport(res_airport_5447, 'Sisimiut Airport').
+airport(res_airport_5448, 'Upernavik Airport').
+airport(res_airport_5449, 'Qaarsut Airport').
+airport(res_airport_5457, 'Anahim Lake Airport').
+airport(res_airport_5461, 'Rigolet Airport').
+airport(res_airport_5463, 'Whatì Airport').
+airport(res_airport_5464, 'Summer Beaver Airport').
+airport(res_airport_5465, 'Wapekeka Airport').
+airport(res_airport_5466, 'Wunnumin Lake Airport').
+airport(res_airport_5467, 'North Spirit Lake Airport').
+airport(res_airport_5468, 'Bearskin Lake Airport').
+airport(res_airport_5469, 'Kingfisher Lake Airport').
+airport(res_airport_547, 'Norwich International Airport').
+airport(res_airport_5470, 'Ogoki Post Airport').
+airport(res_airport_5471, 'Poplar Hill Airport').
+airport(res_airport_5472, 'Chisasibi Airport').
+airport(res_airport_5473, 'Tête-à-la-Baleine Airport').
+airport(res_airport_5474, 'La Tabatière Airport').
+airport(res_airport_5478, 'Cat Lake Airport').
+airport(res_airport_5479, 'Fort Frances Municipal Airport').
+airport(res_airport_548, 'London Stansted Airport').
+airport(res_airport_5480, 'Kasabonika Airport').
+airport(res_airport_5481, 'Kangirsuk Airport').
+airport(res_airport_5482, 'Attawapiskat Airport').
+airport(res_airport_5485, 'Lourdes de Blanc Sablon Airport').
+airport(res_airport_5487, 'Chesterfield Inlet Airport').
+airport(res_airport_5488, 'Nain Airport').
+airport(res_airport_5489, 'Fort Severn Airport').
+airport(res_airport_5490, 'Fort Albany Airport').
+airport(res_airport_5491, 'Fort Hope Airport').
+airport(res_airport_5492, 'Makkovik Airport').
+airport(res_airport_5495, 'Igloolik Airport').
+airport(res_airport_5496, 'Kuujjuarapik Airport').
+airport(res_airport_5497, 'Gillam Airport').
+airport(res_airport_5498, 'Grise Fiord Airport').
+airport(res_airport_5499, 'Quaqtaq Airport').
+airport(res_airport_55, 'Iqaluit Airport').
+airport(res_airport_5500, 'Vancouver Harbour Water Aerodrome').
+airport(res_airport_5501, 'Nemiscau Airport').
+airport(res_airport_5502, 'Hopedale Airport').
+airport(res_airport_5503, 'Chevery Airport').
+airport(res_airport_5504, 'Ivujivik Airport').
+airport(res_airport_5506, 'Akulivik Airport').
+airport(res_airport_5507, 'Waskaganish Airport').
+airport(res_airport_5508, 'Aupaluk Airport').
+airport(res_airport_5509, 'Kimmirut Airport').
+airport(res_airport_5510, 'Lansdowne House Airport').
+airport(res_airport_5511, 'St Georges Airport').
+airport(res_airport_5512, 'Kangiqsualujjuaq (Georges River) Airport').
+airport(res_airport_5514, 'Chapais Airport').
+airport(res_airport_5515, 'Umiujaq Airport').
+airport(res_airport_5516, 'Wemindji Airport').
+airport(res_airport_552, 'Exeter International Airport').
+airport(res_airport_5520, 'Inukjuak Airport').
+airport(res_airport_5521, 'Pikangikum Airport').
+airport(res_airport_5522, 'Peawanuck Airport').
+airport(res_airport_5523, 'Powell River Airport').
+airport(res_airport_5524, 'The Pas Airport').
+airport(res_airport_5526, 'Rae Lakes Airport').
+airport(res_airport_5527, 'Red Lake Airport').
+airport(res_airport_5529, 'Sanikiluaq Airport').
+airport(res_airport_5531, 'Big Trout Lake Airport').
+airport(res_airport_5532, 'Deer Lake Airport').
+airport(res_airport_5533, 'Webequie Airport').
+airport(res_airport_5534, 'Whale Cove Airport').
+airport(res_airport_5535, 'Salluit Airport').
+airport(res_airport_5538, 'Bathurst Airport').
+airport(res_airport_5539, 'Eastmain River Airport').
+airport(res_airport_5543, 'Kashechewan Airport').
+airport(res_airport_5544, 'Muskrat Dam Airport').
+airport(res_airport_5545, 'Masset Airport').
+airport(res_airport_5546, 'Sachigo Lake Airport').
+airport(res_airport_5547, 'Round Lake (Weagamow Lake) Airport').
+airport(res_airport_5548, 'Sandy Lake Airport').
+airport(res_airport_5550, 'Churchill Falls Airport').
+airport(res_airport_5552, 'Batna Airport').
+airport(res_airport_5553, 'Béchar Boudghene Ben Ali Lotfi Airport').
+airport(res_airport_5554, 'Bordj Badji Mokhtar Airport').
+airport(res_airport_5555, 'Guemar Airport').
+airport(res_airport_5556, 'Kumasi Airport').
+airport(res_airport_5557, 'Heringsdorf Airport').
+airport(res_airport_5562, 'Robin Hood Doncaster Sheffield Airport').
+airport(res_airport_5563, 'Campbeltown Airport').
+airport(res_airport_5564, 'Eday Airport').
+airport(res_airport_5566, 'North Ronaldsay Airport').
+airport(res_airport_5567, 'Papa Westray Airport').
+airport(res_airport_5568, 'Stronsay Airport').
+airport(res_airport_5569, 'Sanday Airport').
+airport(res_airport_5571, 'Westray Airport').
+airport(res_airport_5572, 'Land''s End Airport').
+airport(res_airport_5574, 'Anglesey Airport').
+airport(res_airport_5575, 'Barra Airport').
+airport(res_airport_5577, 'Donegal Airport').
+airport(res_airport_5580, 'Leknes Airport').
+airport(res_airport_5581, 'Namsos Høknesøra Airport').
+airport(res_airport_5582, 'Mo i Rana Airport, Røssvoll').
+airport(res_airport_5583, 'Rørvik Airport, Ryum').
+airport(res_airport_5584, 'Røst Airport').
+airport(res_airport_5585, 'Sandane Airport (Anda)').
+airport(res_airport_5586, 'Sogndal Airport').
+airport(res_airport_5587, 'Svolvær Helle Airport').
+airport(res_airport_5588, 'Sørkjosen Airport').
+airport(res_airport_5589, 'Vardø Airport, Svartnes').
+airport(res_airport_5591, 'Bydgoszcz Ignacy Jan Paderewski Airport').
+airport(res_airport_5593, 'Åre Östersund Airport').
+airport(res_airport_5594, 'Hagfors Airport').
+airport(res_airport_5595, 'Karlstad Airport').
+airport(res_airport_5596, 'Torsby Airport').
+airport(res_airport_5597, 'Ängelholm-Helsingborg Airport').
+airport(res_airport_5599, 'Hemavan Airport').
+airport(res_airport_56, 'Fredericton Airport').
+airport(res_airport_5604, 'Kruger Mpumalanga International Airport').
+airport(res_airport_5612, 'Chipata Airport').
+airport(res_airport_5613, 'Los Alamitos Army Air Field').
+airport(res_airport_5630, 'Catumbela Airport').
+airport(res_airport_5632, 'Ngjiva Pereira Airport').
+airport(res_airport_5633, 'Namibe Airport').
+airport(res_airport_5637, 'Chimoio Airport').
+airport(res_airport_5641, 'Luderitz Airport').
+airport(res_airport_5642, 'Ondangwa Airport').
+airport(res_airport_5643, 'Oranjemund Airport').
+airport(res_airport_5645, 'Eros Airport').
+airport(res_airport_5652, 'Tshikapa Airport').
+airport(res_airport_5653, 'Lodja Airport').
+airport(res_airport_5659, 'La Gomera Airport').
+airport(res_airport_5665, 'Osvaldo Vieira International Airport').
+airport(res_airport_5670, 'Dakhla Airport').
+airport(res_airport_5671, 'Mogador Airport').
+airport(res_airport_5672, 'Hassan I Airport').
+airport(res_airport_5673, 'Nador International Airport').
+airport(res_airport_5674, 'Praia International Airport').
+airport(res_airport_5675, 'São Filipe Airport').
+airport(res_airport_5680, 'Gode Airport').
+airport(res_airport_5686, 'Bosaso Airport').
+airport(res_airport_5687, 'Aden Adde International Airport').
+airport(res_airport_5688, 'Galcaio Airport').
+airport(res_airport_5691, 'Assiut International Airport').
+airport(res_airport_5692, 'Amboseli Airport').
+airport(res_airport_5693, 'Lokichoggio Airport').
+airport(res_airport_5694, 'Malindi Airport').
+airport(res_airport_5695, 'Nanyuki Airport').
+airport(res_airport_5696, 'Gardabya Airport').
+airport(res_airport_5697, 'Gamal Abdel Nasser Airport').
+airport(res_airport_5699, 'La Abraq Airport').
+airport(res_airport_5701, 'Nyala Airport').
+airport(res_airport_5702, 'Port Sudan New International Airport').
+airport(res_airport_5703, 'Bukoba Airport').
+airport(res_airport_5709, 'Arua Airport').
+airport(res_airport_5711, 'Diu Airport').
+airport(res_airport_5714, 'Aberdeen Regional Airport').
+airport(res_airport_5715, 'Southwest Georgia Regional Airport').
+airport(res_airport_5716, 'Athens Ben Epps Airport').
+airport(res_airport_5718, 'Waterloo Regional Airport').
+airport(res_airport_5719, 'Walla Walla Regional Airport').
+airport(res_airport_5720, 'Alpena County Regional Airport').
+airport(res_airport_5721, 'Watertown Regional Airport').
+airport(res_airport_5722, 'Bradford Regional Airport').
+airport(res_airport_5723, 'Western Neb. Rgnl/William B. Heilig Airport').
+airport(res_airport_5724, 'Raleigh County Memorial Airport').
+airport(res_airport_5725, 'Brunswick Golden Isles Airport').
+airport(res_airport_5726, 'Southeast Iowa Regional Airport').
+airport(res_airport_5727, 'Jack Mc Namara Field Airport').
+airport(res_airport_5728, 'Cape Girardeau Regional Airport').
+airport(res_airport_5729, 'Chippewa County International Airport').
+airport(res_airport_5730, 'North Central West Virginia Airport').
+airport(res_airport_5731, 'William R Fairchild International Airport').
+airport(res_airport_5732, 'Houghton County Memorial Airport').
+airport(res_airport_5733, 'Dodge City Regional Airport').
+airport(res_airport_5734, 'DuBois Regional Airport').
+airport(res_airport_5735, 'Chippewa Valley Regional Airport').
+airport(res_airport_5736, 'Elko Regional Airport').
+airport(res_airport_5737, 'New Bedford Regional Airport').
+airport(res_airport_5738, 'Fayetteville Regional Grannis Field').
+airport(res_airport_5739, 'Wokal Field Glasgow International Airport').
+airport(res_airport_5740, 'Central Nebraska Regional Airport').
+airport(res_airport_5741, 'Memorial Field').
+airport(res_airport_5742, 'Tri-State/Milton J. Ferguson Field').
+airport(res_airport_5744, 'Kirksville Regional Airport').
+airport(res_airport_5746, 'Laramie Regional Airport').
+airport(res_airport_5747, 'Arnold Palmer Regional Airport').
+airport(res_airport_5748, 'North Platte Regional Airport Lee Bird Field').
+airport(res_airport_5749, 'Lebanon Municipal Airport').
+airport(res_airport_5750, 'Crater Lake-Klamath Regional Airport').
+airport(res_airport_5751, 'Lancaster Airport').
+airport(res_airport_5753, 'Lynchburg Regional Preston Glenn Field').
+airport(res_airport_5754, 'Muskegon County Airport').
+airport(res_airport_5756, 'Northwest Alabama Regional Airport').
+airport(res_airport_5757, 'Southwest Oregon Regional Airport').
+airport(res_airport_5758, 'Owensboro Daviess County Airport').
+airport(res_airport_5759, 'Hattiesburg Laurel Regional Airport').
+airport(res_airport_5760, 'Pocatello Regional Airport').
+airport(res_airport_5761, 'Pierre Regional Airport').
+airport(res_airport_5762, 'Pellston Regional Airport of Emmet County Airport').
+airport(res_airport_5763, 'Portsmouth International at Pease Airport').
+airport(res_airport_5765, 'Rhinelander Oneida County Airport').
+airport(res_airport_5766, 'Southwest Wyoming Regional Airport').
+airport(res_airport_5767, 'Rutland - Southern Vermont Regional Airport').
+airport(res_airport_5768, 'San Luis County Regional Airport').
+airport(res_airport_5769, 'Sheridan County Airport').
+airport(res_airport_5770, 'Adirondack Regional Airport').
+airport(res_airport_5771, 'Salina Municipal Airport').
+airport(res_airport_5772, 'Santa Maria Pub/Capt G Allan Hancock Field').
+airport(res_airport_5773, 'Tupelo Regional Airport').
+airport(res_airport_5774, 'Quincy Regional Baldwin Field').
+airport(res_airport_5775, 'Victoria Regional Airport').
+airport(res_airport_5776, 'Valdosta Regional Airport').
+airport(res_airport_5777, 'Worland Municipal Airport').
+airport(res_airport_5779, 'Yakima Air Terminal McAllister Field').
+airport(res_airport_5780, 'Ercan International Airport').
+airport(res_airport_5781, 'Logroño-Agoncillo Airport').
+airport(res_airport_5787, 'Syros Airport').
+airport(res_airport_579, 'Mount Pleasant Airport').
+airport(res_airport_5793, 'Corvo Airport').
+airport(res_airport_5794, 'Banja Luka International Airport').
+airport(res_airport_5796, 'Kars Airport').
+airport(res_airport_5798, 'Kahramanmaraş Airport').
+airport(res_airport_5799, 'Ağrı Airport').
+airport(res_airport_58, 'Flin Flon Airport').
+airport(res_airport_580, 'Amsterdam Airport Schiphol').
+airport(res_airport_5800, 'Adıyaman Airport').
+airport(res_airport_5801, 'Süleyman Demirel International Airport').
+airport(res_airport_5802, 'Balıkesir Körfez Airport').
+airport(res_airport_5807, 'JAGS McCartney International Airport').
+airport(res_airport_5809, 'Salt Cay Airport').
+airport(res_airport_5810, 'Samaná El Catey International Airport').
+airport(res_airport_5811, 'La Isabela International Airport').
+airport(res_airport_582, 'Maastricht Aachen Airport').
+airport(res_airport_5832, 'Puerto Lempira Airport').
+airport(res_airport_5837, 'El Lencero Airport').
+airport(res_airport_5840, 'Jaqué Airport').
+airport(res_airport_5842, 'Aerotortuguero Airport').
+airport(res_airport_5844, 'Cabo Velas Airport').
+airport(res_airport_5847, 'Puerto Jimenez Airport').
+airport(res_airport_5848, 'Tobias Bolanos International Airport').
+airport(res_airport_585, 'Eindhoven Airport').
+airport(res_airport_5857, 'Arthur''s Town Airport').
+airport(res_airport_5859, 'Colonel Hill Airport').
+airport(res_airport_586, 'Eelde Airport').
+airport(res_airport_5861, 'Enua Airport').
+airport(res_airport_5862, 'Mangaia Island Airport').
+airport(res_airport_5864, 'Mauke Airport').
+airport(res_airport_5865, 'Mitiaro Island Airport').
+airport(res_airport_5867, 'Cicia Airport').
+airport(res_airport_5869, 'Vunisea Airport').
+airport(res_airport_5873, 'Lakeba Island Airport').
+airport(res_airport_5874, 'Labasa Airport').
+airport(res_airport_5875, 'Matei Airport').
+airport(res_airport_5877, 'Rotuma Airport').
+airport(res_airport_5878, 'Savusavu Airport').
+airport(res_airport_5883, 'Vanua Balavu Airport').
+airport(res_airport_5884, 'Niue International Airport').
+airport(res_airport_5885, 'Pointe Vele Airport').
+airport(res_airport_5889, 'Ahe Airport').
+airport(res_airport_5890, 'Hiva Oa-Atuona Airport').
+airport(res_airport_5891, 'Ua Pou Airport').
+airport(res_airport_5892, 'Ua Huka Airport').
+airport(res_airport_5893, 'Mota Lava Airport').
+airport(res_airport_5894, 'Sola Airport').
+airport(res_airport_5895, 'Torres Airstrip').
+airport(res_airport_5896, 'Siwo Airport').
+airport(res_airport_5897, 'Craig Cove Airport').
+airport(res_airport_5898, 'Longana Airport').
+airport(res_airport_5899, 'Sara Airport').
+airport(res_airport_5900, 'Tavie Airport').
+airport(res_airport_5901, 'Lamap Airport').
+airport(res_airport_5902, 'Lamen Bay Airport').
+airport(res_airport_5903, 'Maewo-Naone Airport').
+airport(res_airport_5904, 'Lonorore Airport').
+airport(res_airport_5905, 'Norsup Airport').
+airport(res_airport_5906, 'Gaua Island Airport').
+airport(res_airport_5908, 'Santo Pekoa International Airport').
+airport(res_airport_5909, 'Tongoa Airport').
+airport(res_airport_591, 'Rotterdam The Hague Airport').
+airport(res_airport_5910, 'Uléi Airport').
+airport(res_airport_5911, 'Valesdir Airport').
+airport(res_airport_5912, 'Southwest Bay Airport').
+airport(res_airport_5914, 'Aneityum Airport').
+airport(res_airport_5915, 'Aniwa Airport').
+airport(res_airport_5916, 'Dillon''s Bay Airport').
+airport(res_airport_5917, 'Futuna Airport').
+airport(res_airport_5918, 'Ipota Airport').
+airport(res_airport_5919, 'Tiga Airport').
+airport(res_airport_5920, 'Île Art - Waala Airport').
+airport(res_airport_5921, 'Île des Pins Airport').
+airport(res_airport_5924, 'Dawadmi Domestic Airport').
+airport(res_airport_5925, 'Al-Jawf Domestic Airport').
+airport(res_airport_5927, 'Khoram Abad Airport').
+airport(res_airport_5928, 'Bam Airport').
+airport(res_airport_5930, 'Bojnord Airport').
+airport(res_airport_5931, 'Sabzevar National Airport').
+airport(res_airport_5932, 'Noshahr Airport').
+airport(res_airport_5933, 'Dasht-e Naz Airport').
+airport(res_airport_5934, 'Lar Airport').
+airport(res_airport_5935, 'Ardabil Airport').
+airport(res_airport_5936, 'Urmia Airport').
+airport(res_airport_5937, 'Al Ain International Airport').
+airport(res_airport_5939, 'Bahawalpur Airport').
+airport(res_airport_5940, 'Chitral Airport').
+airport(res_airport_5941, 'Dalbandin Airport').
+airport(res_airport_5942, 'Dera Ghazi Khan Airport').
+airport(res_airport_5943, 'Dera Ismael Khan Airport').
+airport(res_airport_5949, 'Skardu Airport').
+airport(res_airport_5951, 'Turbat International Airport').
+airport(res_airport_5952, 'Sulaymaniyah International Airport').
+airport(res_airport_5954, 'Sayun International Airport').
+airport(res_airport_5959, 'Adak Airport').
+airport(res_airport_596, 'Cork Airport').
+airport(res_airport_5960, 'Gustavus Airport').
+airport(res_airport_5961, 'Skagway Airport').
+airport(res_airport_5962, 'Holy Cross Airport').
+airport(res_airport_5963, 'Haines Airport').
+airport(res_airport_5964, 'Kalskag Airport').
+airport(res_airport_5965, 'McGrath Airport').
+airport(res_airport_5966, 'Mountain Village Airport').
+airport(res_airport_5967, 'Aniak Airport').
+airport(res_airport_5968, 'Chevak Airport').
+airport(res_airport_5969, 'Wrangell Airport').
+airport(res_airport_599, 'Dublin Airport').
+airport(res_airport_5994, 'Kushiro Airport').
+airport(res_airport_5996, 'Saga Airport').
+airport(res_airport_5997, 'Nagoya Airport').
+airport(res_airport_5998, 'Iwami Airport').
+airport(res_airport_5999, 'Fukushima Airport').
+airport(res_airport_6, 'Wewak International Airport').
+airport(res_airport_60, 'Fort Simpson Airport').
+airport(res_airport_600, 'Ireland West Knock Airport').
+airport(res_airport_6000, 'Odate Noshiro Airport').
+airport(res_airport_6001, 'Shonai Airport').
+airport(res_airport_6003, 'Kunsan Air Base').
+airport(res_airport_6005, 'Wonju/Hoengseong Air Base (K-38/K-46)').
+airport(res_airport_6006, 'Yangyang International Airport').
+airport(res_airport_6007, 'Sacheon Air Base/Airport').
+airport(res_airport_6008, 'Cheongju International Airport/Cheongju Air Base (K-59/G-513)').
+airport(res_airport_601, 'Kerry Airport').
+airport(res_airport_6012, 'Camiguin Airport').
+airport(res_airport_6013, 'Jolo Airport').
+airport(res_airport_6016, 'Surigao Airport').
+airport(res_airport_6018, 'Naga Airport').
+airport(res_airport_6019, 'Basco Airport').
+airport(res_airport_6021, 'Tuguegarao Airport').
+airport(res_airport_6022, 'Virac Airport').
+airport(res_airport_6023, 'Calbayog Airport').
+airport(res_airport_6024, 'Catarman National Airport').
+airport(res_airport_6025, 'Moises R. Espinosa Airport').
+airport(res_airport_6026, 'Roxas Airport').
+airport(res_airport_603, 'Shannon Airport').
+airport(res_airport_6034, 'Orlando Bezerra de Menezes Airport').
+airport(res_airport_6036, 'Coronel Horácio de Mattos Airport').
+airport(res_airport_6037, 'Macaé Airport').
+airport(res_airport_6038, 'Frank Miloye Milenkowichi–Marília State Airport').
+airport(res_airport_6039, 'Vitória da Conquista Airport').
+airport(res_airport_6040, 'Santa Maria Airport').
+airport(res_airport_6045, 'San Cristóbal Airport').
+airport(res_airport_6046, 'Camilo Ponce Enriquez Airport').
+airport(res_airport_6047, 'General Rivadeneira Airport').
+airport(res_airport_605, 'Waterford Airport').
+airport(res_airport_6051, 'Caucaya Airport').
+airport(res_airport_6052, 'La Pedrera Airport').
+airport(res_airport_6053, 'Reyes Murillo Airport').
+airport(res_airport_6054, 'Obando Airport').
+airport(res_airport_6055, 'El Yopal Airport').
+airport(res_airport_6056, 'Capitán de Av. Emilio Beltrán Airport').
+airport(res_airport_6058, 'Capitán Av. Selin Zeitun Lopez Airport').
+airport(res_airport_6066, 'Mayor General FAP Armando Revoredo Iglesias Airport').
+airport(res_airport_6067, 'Alferez Fap David Figueroa Fernandini Airport').
+airport(res_airport_6069, 'Santa Rosa Airport').
+airport(res_airport_607, 'Aarhus Airport').
+airport(res_airport_6072, 'Juan Pablo Pérez Alfonso Airport').
+airport(res_airport_6073, 'Ji-Paraná Airport').
+airport(res_airport_6079, 'Vance W. Amory International Airport').
+airport(res_airport_608, 'Billund Airport').
+airport(res_airport_6080, 'Virgin Gorda Airport').
+airport(res_airport_6083, 'Kokshetau Airport').
+airport(res_airport_6084, 'Petropavlosk South Airport').
+airport(res_airport_6085, 'Zhezkazgan Airport').
+airport(res_airport_6086, 'Ust-Kamennogorsk Airport').
+airport(res_airport_6088, 'Kostanay West Airport').
+airport(res_airport_6089, 'Ganja Airport').
+airport(res_airport_609, 'Copenhagen Kastrup Airport').
+airport(res_airport_6090, 'Nakhchivan Airport').
+airport(res_airport_6092, 'Polyarny Airport').
+airport(res_airport_6093, 'Chokurdakh Airport').
+airport(res_airport_6094, 'Cherskiy Airport').
+airport(res_airport_6095, 'Tiksi Airport').
+airport(res_airport_6098, 'Ugolny Airport').
+airport(res_airport_61, 'Kingston Norman Rogers Airport').
+airport(res_airport_610, 'Esbjerg Airport').
+airport(res_airport_6103, 'Zaporizhzhia International Airport').
+airport(res_airport_6105, 'Kharkiv International Airport').
+airport(res_airport_6106, 'Ivano-Frankivsk International Airport').
+airport(res_airport_6109, 'Uzhhorod International Airport').
+airport(res_airport_6110, 'Solovki Airport').
+airport(res_airport_6111, 'Cherepovets Airport').
+airport(res_airport_6114, 'Petrozavodsk Airport').
+airport(res_airport_6118, 'Kyzyl Airport').
+airport(res_airport_6119, 'Spichenkovo Airport').
+airport(res_airport_612, 'Karup Airport').
+airport(res_airport_6121, 'Igarka Airport').
+airport(res_airport_6122, 'Khankala Air Base').
+airport(res_airport_6124, 'Beslan Airport').
+airport(res_airport_6125, 'Elista Airport').
+airport(res_airport_6130, 'Mid Delta Regional Airport').
+airport(res_airport_6133, 'Tri Cities Airport').
+airport(res_airport_6134, 'Akutan Seaplane Base').
+airport(res_airport_6136, 'Lopez Island Airport').
+airport(res_airport_6137, 'Salekhard Airport').
+airport(res_airport_6138, 'Khanty Mansiysk Airport').
+airport(res_airport_6139, 'Nyagan Airport').
+airport(res_airport_6140, 'Sovetskiy Airport').
+airport(res_airport_6141, 'Izhevsk Airport').
+airport(res_airport_6142, 'Pobedilovo Airport').
+airport(res_airport_6143, 'Nadym Airport').
+airport(res_airport_6146, 'Kurgan Airport').
+airport(res_airport_6147, 'Khudzhand Airport').
+airport(res_airport_6148, 'Andizhan Airport').
+airport(res_airport_6149, 'Fergana International Airport').
+airport(res_airport_6150, 'Namangan Airport').
+airport(res_airport_6151, 'Nukus Airport').
+airport(res_airport_6152, 'Urgench Airport').
+airport(res_airport_6153, 'Karshi Khanabad Airport').
+airport(res_airport_6154, 'Termez Airport').
+airport(res_airport_6156, 'Belgorod International Airport').
+airport(res_airport_6157, 'Kursk East Airport').
+airport(res_airport_6159, 'Vorkuta Airport').
+airport(res_airport_6160, 'Bugulma Airport').
+airport(res_airport_6162, 'Cheboksary Airport').
+airport(res_airport_6164, 'Orsk Airport').
+airport(res_airport_6165, 'Penza Airport').
+airport(res_airport_6166, 'Saransk Airport').
+airport(res_airport_6168, 'Hubli Airport').
+airport(res_airport_6169, 'Koggala Airport').
+airport(res_airport_6172, 'Shillong Airport').
+airport(res_airport_6173, 'Lokpriya Gopinath Bordoloi International Airport').
+airport(res_airport_6174, 'Dimapur Airport').
+airport(res_airport_6176, 'Barisal Airport').
+airport(res_airport_6179, 'Bharatpur Airport').
+airport(res_airport_618, 'Bornholm Airport').
+airport(res_airport_6180, 'Bhadrapur Airport').
+airport(res_airport_6182, 'Nepalgunj Airport').
+airport(res_airport_6183, 'Gan International Airport').
+airport(res_airport_6184, 'Hanimaadhoo Airport').
+airport(res_airport_6185, 'Kadhdhoo Airport').
+airport(res_airport_6186, 'Mae Sot Airport').
+airport(res_airport_6187, 'Buon Ma Thuot Airport').
+airport(res_airport_6188, 'Cat Bi International Airport').
+airport(res_airport_6189, 'Cam Ranh Airport').
+airport(res_airport_619, 'Sønderborg Airport').
+airport(res_airport_6190, 'Co Ong Airport').
+airport(res_airport_6191, 'Can Tho International Airport').
+airport(res_airport_6192, 'Dien Bien Phu Airport').
+airport(res_airport_6193, 'Phu Cat Airport').
+airport(res_airport_6194, 'Pleiku Airport').
+airport(res_airport_6195, 'Vinh Airport').
+airport(res_airport_6197, 'Dawei Airport').
+airport(res_airport_6198, 'Kawthoung Airport').
+airport(res_airport_62, 'La Grande Rivière Airport').
+airport(res_airport_6204, 'Tambolaka Airport').
+airport(res_airport_6209, 'Kalimarau Airport').
+airport(res_airport_6212, 'Dumatumbun Airport').
+airport(res_airport_6215, 'Long Lellang Airport').
+airport(res_airport_6216, 'Long Seridan Airport').
+airport(res_airport_6217, 'Mukah Airport').
+airport(res_airport_6218, 'Bakalalan Airport').
+airport(res_airport_6219, 'Lawas Airport').
+airport(res_airport_6220, 'Bario Airport').
+airport(res_airport_6222, 'Kudat Airport').
+airport(res_airport_6223, 'Radin Inten II (Branti) Airport').
+airport(res_airport_6225, 'Ranai Airport').
+airport(res_airport_6235, 'Albany Airport').
+airport(res_airport_6237, 'Aurukun Airport').
+airport(res_airport_6238, 'Barcaldine Airport').
+airport(res_airport_6240, 'Birdsville Airport').
+airport(res_airport_6241, 'Broken Hill Airport').
+airport(res_airport_6242, 'Hamilton Island Airport').
+airport(res_airport_6243, 'Bedourie Airport').
+airport(res_airport_6245, 'Burketown Airport').
+airport(res_airport_6248, 'Boulia Airport').
+airport(res_airport_6249, 'Bathurst Airport').
+airport(res_airport_625, 'Vagar Airport').
+airport(res_airport_6253, 'Coober Pedy Airport').
+airport(res_airport_6255, 'Cloncurry Airport').
+airport(res_airport_6256, 'Ceduna Airport').
+airport(res_airport_6258, 'Cunnamulla Airport').
+airport(res_airport_6260, 'Coen Airport').
+airport(res_airport_6262, 'Doomadgee Airport').
+airport(res_airport_6264, 'Devonport Airport').
+airport(res_airport_6265, 'Elcho Island Airport').
+airport(res_airport_6266, 'Esperance Airport').
+airport(res_airport_6267, 'Flinders Island Airport').
+airport(res_airport_6268, 'Geraldton Airport').
+airport(res_airport_6269, 'Gladstone Airport').
+airport(res_airport_6270, 'Groote Eylandt Airport').
+airport(res_airport_6271, 'Griffith Airport').
+airport(res_airport_6272, 'Horn Island Airport').
+airport(res_airport_6276, 'Julia Creek Airport').
+airport(res_airport_6278, 'King Island Airport').
+airport(res_airport_628, 'Aalborg Airport').
+airport(res_airport_6281, 'Kowanyama Airport').
+airport(res_airport_6285, 'Lord Howe Island Airport').
+airport(res_airport_6286, 'Lockhart River Airport').
+airport(res_airport_6287, 'Lismore Airport').
+airport(res_airport_6289, 'Longreach Airport').
+airport(res_airport_629, 'Luxembourg-Findel International Airport').
+airport(res_airport_6294, 'Merimbula Airport').
+airport(res_airport_6295, 'Milingimbi Airport').
+airport(res_airport_6296, 'Maningrida Airport').
+airport(res_airport_6297, 'McArthur River Mine Airport').
+airport(res_airport_6298, 'Mildura Airport').
+airport(res_airport_63, 'Gaspé (Michel-Pouliot) Airport').
+airport(res_airport_630, 'Ålesund Airport').
+airport(res_airport_6300, 'Moree Airport').
+airport(res_airport_6301, 'Moranbah Airport').
+airport(res_airport_6302, 'Moruya Airport').
+airport(res_airport_6303, 'Mount Gambier Airport').
+airport(res_airport_6304, 'Mornington Island Airport').
+airport(res_airport_6307, 'Narrandera Airport').
+airport(res_airport_6309, 'Normanton Airport').
+airport(res_airport_631, 'Andøya Airport').
+airport(res_airport_6310, 'Newman Airport').
+airport(res_airport_6311, 'Olympic Dam Airport').
+airport(res_airport_6312, 'Port Augusta Airport').
+airport(res_airport_6314, 'Paraburdoo Airport').
+airport(res_airport_6315, 'Cocos (Keeling) Islands Airport').
+airport(res_airport_6316, 'Gove Airport').
+airport(res_airport_6317, 'Parkes Airport').
+airport(res_airport_6318, 'Port Lincoln Airport').
+airport(res_airport_6319, 'Pormpuraaw Airport').
+airport(res_airport_632, 'Alta Airport').
+airport(res_airport_6320, 'Port Macquarie Airport').
+airport(res_airport_6321, 'Portland Airport').
+airport(res_airport_6322, 'Quilpie Airport').
+airport(res_airport_6324, 'Roma Airport').
+airport(res_airport_6325, 'St George Airport').
+airport(res_airport_6329, 'Thargomindah Airport').
+airport(res_airport_6333, 'Windorah Airport').
+airport(res_airport_6334, 'Whyalla Airport').
+airport(res_airport_6337, 'Winton Airport').
+airport(res_airport_6338, 'Wynyard Airport').
+airport(res_airport_634, 'Brønnøysund Airport').
+airport(res_airport_6341, 'Beijing Nanyuan Airport').
+airport(res_airport_6342, 'Chifeng Airport').
+airport(res_airport_6343, 'Changzhi Airport').
+airport(res_airport_6344, 'Datong Airport').
+airport(res_airport_6345, 'Baita International Airport').
+airport(res_airport_6346, 'Baotou Airport').
+airport(res_airport_6347, 'Shijiazhuang Daguocun International Airport').
+airport(res_airport_6348, 'Tongliao Airport').
+airport(res_airport_6349, 'Ulanhot Airport').
+airport(res_airport_635, 'Bodø Airport').
+airport(res_airport_6350, 'Xilinhot Airport').
+airport(res_airport_6351, 'Beihai Airport').
+airport(res_airport_6352, 'Changde Airport').
+airport(res_airport_6353, 'Dayong Airport').
+airport(res_airport_6354, 'Meixian Airport').
+airport(res_airport_6355, 'Zhuhai Jinwan Airport').
+airport(res_airport_6356, 'Liuzhou Bailian Airport').
+airport(res_airport_6357, 'Zhanjiang Airport').
+airport(res_airport_6358, 'Enshi Airport').
+airport(res_airport_6359, 'Nanyang Jiangying Airport').
+airport(res_airport_636, 'Bergen Airport Flesland').
+airport(res_airport_6360, 'Xiangyang Liuji Airport').
+airport(res_airport_6361, 'Yichang Sanxia Airport').
+airport(res_airport_6363, 'Golmud Airport').
+airport(res_airport_6365, 'Qingyang Airport').
+airport(res_airport_6366, 'Xining Caojiabu Airport').
+airport(res_airport_6367, 'Yan''an Ershilipu Airport').
+airport(res_airport_6368, 'Yulin Yuyang Airport').
+airport(res_airport_637, 'Båtsfjord Airport').
+airport(res_airport_6370, 'Altai Airport').
+airport(res_airport_6371, 'Bayankhongor Airport').
+airport(res_airport_6372, 'Dalanzadgad Airport').
+airport(res_airport_6373, 'Khovd Airport').
+airport(res_airport_6374, 'Mörön Airport').
+airport(res_airport_6375, 'Diqing Airport').
+airport(res_airport_6376, 'Mangshi Airport').
+airport(res_airport_6377, 'Pu''er Simao Airport').
+airport(res_airport_6378, 'Zhaotong Airport').
+airport(res_airport_6379, 'Ganzhou Airport').
+airport(res_airport_638, 'Kristiansand Airport').
+airport(res_airport_6380, 'Jingdezhen Airport').
+airport(res_airport_6381, 'Jiujiang Lushan Airport').
+airport(res_airport_6382, 'Quzhou Airport').
+airport(res_airport_6383, 'Lianyungang Airport').
+airport(res_airport_6384, 'Huangyan Luqiao Airport').
+airport(res_airport_6385, 'Shubuling Airport').
+airport(res_airport_6386, 'Quanzhou Jinjiang International Airport').
+airport(res_airport_6387, 'Tunxi International Airport').
+airport(res_airport_6388, 'Weifang Airport').
+airport(res_airport_6390, 'Sunan Shuofang International Airport').
+airport(res_airport_6391, 'Nanping Wuyishan Airport').
+airport(res_airport_6392, 'Wenzhou Longwan International Airport').
+airport(res_airport_6393, 'Yancheng Airport').
+airport(res_airport_6394, 'Yiwu Airport').
+airport(res_airport_6395, 'Zhoushan Airport').
+airport(res_airport_6396, 'Qamdo Bangda Airport').
+airport(res_airport_6397, 'Dachuan Airport').
+airport(res_airport_6398, 'Guangyuan Airport').
+airport(res_airport_6399, 'Luzhou Airport').
+airport(res_airport_640, 'Bardufoss Airport').
+airport(res_airport_6400, 'Mianyang Airport').
+airport(res_airport_6401, 'Nanchong Airport').
+airport(res_airport_6402, 'Nyingchi Airport').
+airport(res_airport_6403, 'Wanxian Airport').
+airport(res_airport_6404, 'Aksu Airport').
+airport(res_airport_6406, 'Kuqa Airport').
+airport(res_airport_6407, 'Korla Airport').
+airport(res_airport_6408, 'Karamay Airport').
+airport(res_airport_6409, 'Yining Airport').
+airport(res_airport_641, 'Harstad/Narvik Airport, Evenes').
+airport(res_airport_6410, 'Heihe Airport').
+airport(res_airport_6411, 'Jiamusi Airport').
+airport(res_airport_6412, 'Jinzhou Airport').
+airport(res_airport_6413, 'Qiqihar Sanjiazi Airport').
+airport(res_airport_6414, 'Yanji Chaoyangchuan Airport').
+airport(res_airport_642, 'Leirin Airport').
+airport(res_airport_6426, 'Worcester Regional Airport').
+airport(res_airport_6427, 'Anqing Tianzhushan Airport').
+airport(res_airport_6429, 'Shanhaiguan Airport').
+airport(res_airport_643, 'Florø Airport').
+airport(res_airport_6430, 'Yuncheng Guangong Airport').
+airport(res_airport_6432, 'Jiayuguan Airport').
+airport(res_airport_6433, 'Dandong Airport').
+airport(res_airport_6434, 'Ordos Ejin Horo Airport').
+airport(res_airport_6435, 'Bao''anying Airport').
+airport(res_airport_644, 'Oslo Lufthavn').
+airport(res_airport_645, 'Haugesund Airport').
+airport(res_airport_6456, 'Provincetown Municipal Airport').
+airport(res_airport_646, 'Hasvik Airport').
+airport(res_airport_6460, 'Gustaf III Airport').
+airport(res_airport_6466, 'Donskoye Airport').
+airport(res_airport_647, 'Kristiansund Airport (Kvernberget)').
+airport(res_airport_6477, 'Erechim Airport').
+airport(res_airport_6485, 'Navoi Airport').
+airport(res_airport_649, 'Kirkenes Airport (Høybuktmoen)').
+airport(res_airport_6492, 'Ain Arnat Airport').
+airport(res_airport_6493, 'La Rochelle-Île de Ré Airport').
+airport(res_airport_65, 'Îles-de-la-Madeleine Airport').
+airport(res_airport_6505, 'Phoenix-Mesa-Gateway Airport').
+airport(res_airport_651, 'Molde Airport').
+airport(res_airport_652, 'Mosjøen Airport (Kjærstad)').
+airport(res_airport_653, 'Banak Airport').
+airport(res_airport_655, 'Ørland Airport').
+airport(res_airport_656, 'Røros Airport').
+airport(res_airport_657, 'Moss Airport, Rygge').
+airport(res_airport_658, 'Svalbard Airport, Longyear').
+airport(res_airport_659, 'Skien Airport').
+airport(res_airport_660, 'Stord Airport').
+airport(res_airport_662, 'Sandnessjøen Airport (Stokka)').
+airport(res_airport_663, 'Tromsø Airport,').
+airport(res_airport_664, 'Sandefjord Airport, Torp').
+airport(res_airport_665, 'Trondheim Airport Værnes').
+airport(res_airport_666, 'Stavanger Airport Sola').
+airport(res_airport_668, 'Gdańsk Lech Wałęsa Airport').
+airport(res_airport_669, 'Kraków John Paul II International Airport').
+airport(res_airport_67, 'Dryden Regional Airport').
+airport(res_airport_671, 'Katowice International Airport').
+airport(res_airport_6712, 'Anaktuvuk Pass Airport').
+airport(res_airport_6713, 'Anvik Airport').
+airport(res_airport_6714, 'Atqasuk Edward Burnell Sr Memorial Airport').
+airport(res_airport_6715, 'Gambell Airport').
+airport(res_airport_6716, 'Hooper Bay Airport').
+airport(res_airport_6717, 'Kaltag Airport').
+airport(res_airport_6718, 'St Mary''s Airport').
+airport(res_airport_6719, 'Kivalina Airport').
+airport(res_airport_6720, 'Mekoryuk Airport').
+airport(res_airport_6722, 'Ruby Airport').
+airport(res_airport_6723, 'Shishmaref Airport').
+airport(res_airport_6724, 'Savoonga Airport').
+airport(res_airport_6725, 'Noatak Airport').
+airport(res_airport_6727, 'Puvirnituq Airport').
+airport(res_airport_6728, 'Tasiujaq Airport').
+airport(res_airport_6729, 'Arctic Village Airport').
+airport(res_airport_6730, 'Sam Mbakwe International Airport').
+airport(res_airport_6731, 'Arenal Airport').
+airport(res_airport_6732, 'Tambor Airport').
+airport(res_airport_6733, 'Cauayan Airport').
+airport(res_airport_6734, 'Kirovsk-Apatity Airport').
+airport(res_airport_6735, 'Coronel Altino Machado de Oliveira Airport').
+airport(res_airport_6737, 'Pajala Airport').
+airport(res_airport_6738, 'Bella Coola Airport').
+airport(res_airport_6739, 'Hagerstown Regional Richard A Henson Field').
+airport(res_airport_674, 'Poznań-Ławica Airport').
+airport(res_airport_6740, 'Araracuara Airport').
+airport(res_airport_6741, 'Gorakhpur Airport').
+airport(res_airport_6742, 'Sand Point Airport').
+airport(res_airport_6743, 'Hami Airport').
+airport(res_airport_6744, 'Wuzhou Changzhoudao Airport').
+airport(res_airport_6747, 'Gorgan Airport').
+airport(res_airport_6748, 'Ilam Airport').
+airport(res_airport_6749, 'Parsabade Moghan Airport').
+airport(res_airport_675, 'Rzeszów-Jasionka Airport').
+airport(res_airport_6752, 'Tacheng Airport').
+airport(res_airport_6753, 'Mardin Airport').
+airport(res_airport_6755, 'Deering Airport').
+airport(res_airport_6756, 'Leon Airport').
+airport(res_airport_6757, 'Burgos Airport').
+airport(res_airport_6758, 'Sege Airport').
+airport(res_airport_676, 'Szczecin-Goleniów \\"Solidarność\\" Airport').
+airport(res_airport_6760, 'Kangra Airport').
+airport(res_airport_6763, 'Igiugig Airport').
+airport(res_airport_6765, 'King Cove Airport').
+airport(res_airport_6766, 'Port Heiden Airport').
+airport(res_airport_6767, 'Togiak Airport').
+airport(res_airport_6768, 'Geneina Airport').
+airport(res_airport_6769, 'Long Akah Airport').
+airport(res_airport_6771, 'Walaha Airport').
+airport(res_airport_6772, 'Chaoyang Airport').
+airport(res_airport_6773, 'Buffalo Spring').
+airport(res_airport_6775, 'Bonaventure Airport').
+airport(res_airport_6776, 'Sialkot Airport').
+airport(res_airport_6777, 'Capitan Corbeta CA Curbelo International Airport').
+airport(res_airport_6778, 'Walvis Bay Airport').
+airport(res_airport_6779, 'Katima Mulilo Airport').
+airport(res_airport_6780, 'Anadolu Airport').
+airport(res_airport_6781, 'Çanakkale Airport').
+airport(res_airport_6782, 'Muş Airport').
+airport(res_airport_6783, 'Sinop Airport').
+airport(res_airport_6784, 'Tekirdağ Çorlu Airport').
+airport(res_airport_6788, 'Vieques Airport').
+airport(res_airport_6789, 'St Augustin Airport').
+airport(res_airport_679, 'Warsaw Chopin Airport').
+airport(res_airport_6790, 'Hamadan Airport').
+airport(res_airport_6792, 'Grafton Airport').
+airport(res_airport_6793, 'Orange Airport').
+airport(res_airport_6794, 'Taree Airport').
+airport(res_airport_6795, 'Choibalsan Airport').
+airport(res_airport_68, 'Ulukhaktok Holman Airport').
+airport(res_airport_680, 'Copernicus Wrocław Airport').
+airport(res_airport_6800, 'Delta County Airport').
+airport(res_airport_6803, 'Yakutat Airport').
+airport(res_airport_6814, 'Benjamin Rivera Noriega Airport').
+airport(res_airport_6825, 'Williamson County Regional Airport').
+airport(res_airport_6837, 'Ford Airport').
+airport(res_airport_6839, 'Allakaket Airport').
+airport(res_airport_685, 'Ronneby Airport').
+airport(res_airport_687, 'Gothenburg-Landvetter Airport').
+airport(res_airport_688, 'Jönköping Airport').
+airport(res_airport_6880, 'Montrose Regional Airport').
+airport(res_airport_6881, 'Riverton Regional Airport').
+airport(res_airport_6883, 'Eastern Oregon Regional At Pendleton Airport').
+airport(res_airport_69, 'Gjoa Haven Airport').
+airport(res_airport_691, 'Gothenburg City Airport').
+airport(res_airport_6916, 'Pangborn Memorial Airport').
+airport(res_airport_6924, 'Ust-Kut Airport').
+airport(res_airport_6926, 'Rimatara Airport').
+airport(res_airport_693, 'Trollhättan-Vänersborg Airport').
+airport(res_airport_6933, 'Gelendzhik Airport').
+airport(res_airport_6940, 'Tunoshna Airport').
+airport(res_airport_6943, 'Gu-Lian Airport').
+airport(res_airport_6944, 'Jining Qufu Airport').
+airport(res_airport_6945, 'Drake Bay Airport').
+airport(res_airport_6946, 'Altay Air Base').
+airport(res_airport_6949, 'Naypyidaw Airport').
+airport(res_airport_6954, 'Manzhouli Xijiao Airport').
+airport(res_airport_6955, 'Wuhai Airport').
+airport(res_airport_6957, 'Brainerd Lakes Regional Airport').
+airport(res_airport_6958, 'Greenbrier Valley Airport').
+airport(res_airport_6959, 'Pitt Greenville Airport').
+airport(res_airport_6960, 'Chefornak Airport').
+airport(res_airport_6962, 'Branson Airport').
+airport(res_airport_6963, 'Tongren Fenghuang Airport').
+airport(res_airport_6969, 'Begishevo Airport').
+airport(res_airport_6972, 'Warri Airport').
+airport(res_airport_6974, 'Siargao Airport').
+airport(res_airport_698, 'Mora Airport').
+airport(res_airport_6989, 'Northeast Florida Regional Airport').
+airport(res_airport_699, 'Stockholm Skavsta Airport').
+airport(res_airport_6992, 'Charles M. Schulz Sonoma County Airport').
+airport(res_airport_7, 'Narsarsuaq Airport').
+airport(res_airport_70, 'John C. Munro Hamilton International Airport').
+airport(res_airport_7001, 'Aspen-Pitkin Co/Sardy Field').
+airport(res_airport_7003, 'Ulyanovsk Baratayevka Airport').
+airport(res_airport_7018, 'Thief River Falls Regional Airport').
+airport(res_airport_703, 'Kristianstad Airport').
+airport(res_airport_7051, 'Gunnison Crested Butte Regional Airport').
+airport(res_airport_7054, 'Manistee Co Blacker Airport').
+airport(res_airport_7056, 'Charlotte County Airport').
+airport(res_airport_7059, 'Chautauqua County-Jamestown Airport').
+airport(res_airport_7062, 'Shenandoah Valley Regional Airport').
+airport(res_airport_7064, 'Dickinson Theodore Roosevelt Regional Airport').
+airport(res_airport_7065, 'Sidney - Richland Regional Airport').
+airport(res_airport_7066, 'Chadron Municipal Airport').
+airport(res_airport_7067, 'Alliance Municipal Airport').
+airport(res_airport_7068, 'Mc Cook Ben Nelson Regional Airport').
+airport(res_airport_707, 'Kalmar Airport').
+airport(res_airport_7070, 'Dawson Community Airport').
+airport(res_airport_7071, 'L M Clayton Airport').
+airport(res_airport_7073, 'San Luis Valley Regional Bergman Field').
+airport(res_airport_7074, 'Canyonlands Field').
+airport(res_airport_7076, 'Vernal Regional Airport').
+airport(res_airport_7078, 'Show Low Regional Airport').
+airport(res_airport_708, 'Malmö Sturup Airport').
+airport(res_airport_7081, 'Mammoth Yosemite Airport').
+airport(res_airport_7082, 'Friday Harbor Airport').
+airport(res_airport_7083, 'Orcas Island Airport').
+airport(res_airport_7087, 'Emmonak Airport').
+airport(res_airport_7088, 'Unalakleet Airport').
+airport(res_airport_709, 'Halmstad Airport').
+airport(res_airport_7090, 'Shageluk Airport').
+airport(res_airport_7091, 'Chuathbaluk Airport').
+airport(res_airport_7092, 'Nuiqsut Airport').
+airport(res_airport_7093, 'Eek Airport').
+airport(res_airport_7094, 'Kasigluk Airport').
+airport(res_airport_7095, 'Kwethluk Airport').
+airport(res_airport_7096, 'Kwigillingok Airport').
+airport(res_airport_7097, 'Marshall Don Hunter Sr Airport').
+airport(res_airport_7098, 'Russian Mission Airport').
+airport(res_airport_71, 'Montréal / Saint-Hubert Airport').
+airport(res_airport_7105, 'Chalkyitsik Airport').
+airport(res_airport_7107, 'Hughes Airport').
+airport(res_airport_7108, 'Huslia Airport').
+airport(res_airport_711, 'Växjö Kronoberg Airport').
+airport(res_airport_7111, 'Nulato Airport').
+airport(res_airport_7114, 'Venetie Airport').
+airport(res_airport_7115, 'Beaver Airport').
+airport(res_airport_7116, 'Central Airport').
+airport(res_airport_7117, 'Shungnak Airport').
+airport(res_airport_7121, 'Visalia Municipal Airport').
+airport(res_airport_7122, 'Merced Regional Macready Field').
+airport(res_airport_7128, 'Toowoomba Airport').
+airport(res_airport_7135, 'Angoon Seaplane Base').
+airport(res_airport_7136, 'Elfin Cove Seaplane Base').
+airport(res_airport_714, 'Sveg Airport').
+airport(res_airport_7142, 'Hoonah Airport').
+airport(res_airport_7146, 'Metlakatla Seaplane Base').
+airport(res_airport_7148, 'Hydaburg Seaplane Base').
+airport(res_airport_715, 'Gällivare Airport').
+airport(res_airport_7154, 'Egegik Airport').
+airport(res_airport_7157, 'Perryville Airport').
+airport(res_airport_7158, 'Pilot Point Airport').
+airport(res_airport_7159, 'South Naknek Nr 2 Airport').
+airport(res_airport_7160, 'Akhiok Airport').
+airport(res_airport_7161, 'Karluk Airport').
+airport(res_airport_7162, 'Larsen Bay Airport').
+airport(res_airport_7177, 'Ambler Airport').
+airport(res_airport_7178, 'Buckland Airport').
+airport(res_airport_7179, 'Bob Baker Memorial Airport').
+airport(res_airport_718, 'Kramfors Sollefteå Airport').
+airport(res_airport_7180, 'Kobuk Airport').
+airport(res_airport_7181, 'Robert (Bob) Curtis Memorial Airport').
+airport(res_airport_7182, 'Selawik Airport').
+airport(res_airport_7183, 'Brevig Mission Airport').
+airport(res_airport_7184, 'Elim Airport').
+airport(res_airport_7185, 'Golovin Airport').
+airport(res_airport_7186, 'Teller Airport').
+airport(res_airport_7187, 'Wales Airport').
+airport(res_airport_7188, 'White Mountain Airport').
+airport(res_airport_719, 'Lycksele Airport').
+airport(res_airport_7190, 'Koyuk Alfred Adams Airport').
+airport(res_airport_7191, 'St Michael Airport').
+airport(res_airport_7192, 'Shaktoolik Airport').
+airport(res_airport_7194, 'Tin City Long Range Radar Station Airport').
+airport(res_airport_7195, 'Atka Airport').
+airport(res_airport_7196, 'Nikolski Air Station').
+airport(res_airport_7199, 'Alakanuk Airport').
+airport(res_airport_72, 'Hay River / Merlyn Carter Airport').
+airport(res_airport_7201, 'Kipnuk Airport').
+airport(res_airport_7202, 'False Pass Airport').
+airport(res_airport_7203, 'Nelson Lagoon Airport').
+airport(res_airport_7205, 'Klawock Airport').
+airport(res_airport_7206, 'Quinhagak Airport').
+airport(res_airport_7207, 'Kotlik Airport').
+airport(res_airport_7208, 'Koyukuk Airport').
+airport(res_airport_7209, 'Scammon Bay Airport').
+airport(res_airport_721, 'Sundsvall-Härnösand Airport').
+airport(res_airport_7213, 'Kongiganak Airport').
+airport(res_airport_7214, 'Nikolai Airport').
+airport(res_airport_7217, 'Akiak Airport').
+airport(res_airport_722, 'Örnsköldsvik Airport').
+airport(res_airport_7220, 'Wainwright Airport').
+airport(res_airport_7235, 'Tok Junction Airport').
+airport(res_airport_7236, 'Circle City /New/ Airport').
+airport(res_airport_724, 'Kiruna Airport').
+airport(res_airport_7240, 'Sleetmute Airport').
+airport(res_airport_7242, 'Healy River Airport').
+airport(res_airport_7246, 'Manley Hot Springs Airport').
+airport(res_airport_7252, 'Postville Airport').
+airport(res_airport_7253, 'Kangiqsujuaq (Wakeham Bay) Airport').
+airport(res_airport_7255, 'Havre St Pierre Airport').
+airport(res_airport_726, 'Skellefteå Airport').
+airport(res_airport_7266, 'Rainbow Lake Airport').
+airport(res_airport_7275, 'Denny Island Airport').
+airport(res_airport_7277, 'Wekweètì Airport').
+airport(res_airport_728, 'Umeå Airport').
+airport(res_airport_729, 'Vilhelmina Airport').
+airport(res_airport_73, 'Halifax / Stanfield International Airport').
+airport(res_airport_730, 'Arvidsjaur Airport').
+airport(res_airport_7309, 'Charlotte Amalie Harbor Seaplane Base').
+airport(res_airport_731, 'Örebro Airport').
+airport(res_airport_7313, 'Uyuni Airport').
+airport(res_airport_7317, 'Rurenabaque Airport').
+airport(res_airport_733, 'Stockholm Västerås Airport').
+airport(res_airport_734, 'Luleå Airport').
+airport(res_airport_7355, 'Los Colonizadores Airport').
+airport(res_airport_7359, 'Villa Garzón Airport').
+airport(res_airport_7364, 'Cabo Frio Airport').
+airport(res_airport_7367, 'Presidente João Batista Figueiredo Airport').
+airport(res_airport_7368, 'Gurupi Airport').
+airport(res_airport_7369, 'Santana do Araguaia Airport').
+airport(res_airport_737, 'Stockholm-Arlanda Airport').
+airport(res_airport_7370, 'Breves Airport').
+airport(res_airport_7372, 'Parintins Airport').
+airport(res_airport_7373, 'Barreiras Airport').
+airport(res_airport_7374, 'Santa Terezinha Airport').
+airport(res_airport_7375, 'Minaçu Airport').
+airport(res_airport_7376, 'Araguaína Airport').
+airport(res_airport_738, 'Stockholm-Bromma Airport').
+airport(res_airport_7380, 'Dourados Airport').
+airport(res_airport_7382, 'Maestro Marinho Franco Airport').
+airport(res_airport_7383, 'Tancredo Thomas de Faria Airport').
+airport(res_airport_7384, 'Santa Terezinha Airport').
+airport(res_airport_739, 'Borlange Airport').
+airport(res_airport_7394, 'General Leite de Castro Airport').
+airport(res_airport_7395, 'Romeu Zema Airport').
+airport(res_airport_7398, 'Coari Airport').
+airport(res_airport_7399, 'Barcelos Airport').
+airport(res_airport_7407, 'Guanambi Airport').
+airport(res_airport_7417, 'Wilwal International Airport').
+airport(res_airport_742, 'Linköping City Airport').
+airport(res_airport_7424, 'Mara Serena Lodge Airstrip').
+airport(res_airport_743, 'Norrköping Airport').
+airport(res_airport_7447, 'Enfidha - Hammamet International Airport').
+airport(res_airport_7450, 'Bugungu Airport').
+airport(res_airport_7453, 'Hatay Airport').
+airport(res_airport_7456, 'Raivavae Airport').
+airport(res_airport_7457, 'Foshan Shadi Airport').
+airport(res_airport_7459, 'Lleida-Alguaire Airport').
+airport(res_airport_746, 'Visby Airport').
+airport(res_airport_7470, 'Ulgii Mongolei Airport').
+airport(res_airport_7490, 'Al Najaf International Airport').
+airport(res_airport_75, 'Pond Inlet Airport').
+airport(res_airport_7503, 'Fuyang Xiguan Airport').
+airport(res_airport_7504, 'Longyan Guanzhishan Airport').
+airport(res_airport_7505, 'Baoshan Yunduan Airport').
+airport(res_airport_7506, 'Xingyi Airport').
+airport(res_airport_7508, 'Liping Airport').
+airport(res_airport_7519, 'Zhijiang Airport').
+airport(res_airport_7527, 'Lintsang Airfield').
+airport(res_airport_7532, 'Carajás Airport').
+airport(res_airport_7546, 'Persian Gulf International Airport').
+airport(res_airport_7547, 'Yasouj Airport').
+airport(res_airport_7558, 'Ulaangom Airport').
+airport(res_airport_7563, 'Kulob Airport').
+airport(res_airport_7577, 'Ravensthorpe Airport').
+airport(res_airport_7579, 'Provo Municipal Airport').
+airport(res_airport_7584, 'Los Alamos Airport').
+airport(res_airport_7616, 'Ulawa Airport').
+airport(res_airport_7617, 'Choiseul Bay Airport').
+airport(res_airport_7618, 'Santa Ana Airport').
+airport(res_airport_7634, 'Rundu Airport').
+airport(res_airport_7642, 'Tasiilaq Heliport').
+airport(res_airport_7657, 'Morristown Municipal Airport').
+airport(res_airport_7669, 'Northwest Florida Beaches International Airport').
+airport(res_airport_77, 'Stephenville Airport').
+airport(res_airport_772, 'Rostock-Laage Airport').
+airport(res_airport_7774, 'Mysore Airport').
+airport(res_airport_78, 'Kamloops Airport').
+airport(res_airport_7821, 'Zonguldak Airport').
+airport(res_airport_7862, 'Tengchong Tuofeng Airport').
+airport(res_airport_7863, 'Belbek Airport').
+airport(res_airport_7894, 'Yushu Batang Airport').
+airport(res_airport_7898, 'Lianshui Airport').
+airport(res_airport_79, 'Waterloo Airport').
+airport(res_airport_7932, 'Ngari Gunsa Airport').
+airport(res_airport_794, 'Bram Fischer International Airport').
+airport(res_airport_7962, 'Puerto Obaldia Airport').
+airport(res_airport_797, 'Cape Town International Airport').
+airport(res_airport_7976, 'Ukunda Airstrip').
+airport(res_airport_7987, 'Mackenzie Airport').
+airport(res_airport_799, 'King Shaka International Airport').
+airport(res_airport_8, 'Godthaab / Nuuk Airport').
+airport(res_airport_80, 'Schefferville Airport').
+airport(res_airport_800, 'Ben Schoeman Airport').
+airport(res_airport_804, 'George Airport').
+airport(res_airport_8043, 'Zhongwei Shapotou Airport').
+airport(res_airport_8076, 'Al Maktoum International Airport').
+airport(res_airport_8082, 'Baise Youjiang Airport').
+airport(res_airport_811, 'Hoedspruit Air Force Base Airport').
+airport(res_airport_813, 'OR Tambo International Airport').
+airport(res_airport_815, 'Kimberley Airport').
+airport(res_airport_8180, 'Zona da Mata Regional Airport').
+airport(res_airport_8199, 'Nightmute Airport').
+airport(res_airport_820, 'Lanseria Airport').
+airport(res_airport_8200, 'Toksook Bay Airport').
+airport(res_airport_8208, 'Ittoqqortoormiit Heliport').
+airport(res_airport_8209, 'Vinnytsia/Gavyryshivka Airport').
+airport(res_airport_8217, 'Kegaska Airport').
+airport(res_airport_8223, 'Trail Airport').
+airport(res_airport_8225, 'Old Arctic Bay Airport').
+airport(res_airport_8227, 'Birchwood Airport').
+airport(res_airport_8235, 'Sohag International Airport').
+airport(res_airport_8237, 'Patos de Minas Airport').
+airport(res_airport_8238, 'Bauru - Arealva Airport').
+airport(res_airport_8239, 'Ourilândia do Norte Airport').
+airport(res_airport_8240, 'Redenção Airport').
+airport(res_airport_8241, 'São Félix do Xingu Airport').
+airport(res_airport_8242, 'Bonito Airport').
+airport(res_airport_8243, 'São Félix do Araguaia Airport').
+airport(res_airport_8244, 'Caçador Airport').
+airport(res_airport_8247, 'Eirunepé Airport').
+airport(res_airport_8256, 'Senadora Eunice Micheles Airport').
+airport(res_airport_8258, 'Tapuruquara Airport').
+airport(res_airport_8259, 'Oriximiná Airport').
+airport(res_airport_8266, 'Gazipaşa Airport').
+airport(res_airport_827, 'Margate Airport').
+airport(res_airport_8314, 'Hilton Head Airport').
+airport(res_airport_8355, 'Keewaywin Airport').
+airport(res_airport_838, 'Port Elizabeth Airport').
+airport(res_airport_8381, 'Majeed Bin Abdulaziz Airport').
+airport(res_airport_840, 'Hendrik Van Eck Airport').
+airport(res_airport_8401, 'Lombok International Airport').
+airport(res_airport_8407, 'Handan Airport').
+airport(res_airport_8414, 'Modlin Airport').
+airport(res_airport_8417, 'Jixi Xingkaihu Airport').
+airport(res_airport_8428, 'Beloyarskiy Airport').
+airport(res_airport_843, 'Pietermaritzburg Airport').
+airport(res_airport_845, 'Polokwane International Airport').
+airport(res_airport_849, 'Richards Bay Airport').
+airport(res_airport_85, 'Lloydminster Airport').
+airport(res_airport_8628, 'Uummannaq Heliport').
+airport(res_airport_8630, 'Bayannur Tianjitai Airport').
+airport(res_airport_865, 'Pierre Van Ryneveld Airport').
+airport(res_airport_866, 'K. D. Matanzima Airport').
+airport(res_airport_87, 'Kelowna International Airport').
+airport(res_airport_8740, 'Gorno-Altaysk Airport').
+airport(res_airport_877, 'Francistown Airport').
+airport(res_airport_8774, 'Lankaran International Airport').
+airport(res_airport_8775, 'Gabala International Airport').
+airport(res_airport_8781, 'Qianjiang Wulingshan Airport').
+airport(res_airport_8782, 'Cooma Hospital Helipad').
+airport(res_airport_879, 'Kasane Airport').
+airport(res_airport_880, 'Maun Airport').
+airport(res_airport_8807, 'Tabing Airport').
+airport(res_airport_881, 'Sir Seretse Khama International Airport').
+airport(res_airport_8826, 'Changbaishan Airport').
+airport(res_airport_883, 'Maya-Maya Airport').
+airport(res_airport_8832, 'Lublin Airport').
+airport(res_airport_8845, 'Lingling Airport').
+airport(res_airport_886, 'Pointe Noire Airport').
+airport(res_airport_887, 'Matsapha Airport').
+airport(res_airport_8876, 'Yangzhou Taizhou Airport').
+airport(res_airport_888, 'Bangui M''Poko International Airport').
+airport(res_airport_8892, 'Kooddoo Airport').
+airport(res_airport_890, 'Bata Airport').
+airport(res_airport_891, 'Malabo Airport').
+airport(res_airport_8914, 'Termas de Río Hondo international Airport').
+airport(res_airport_8921, 'Kangding Airport').
+airport(res_airport_8924, 'Velikiy Ustyug Airport').
+airport(res_airport_893, 'Sir Seewoosagur Ramgoolam International Airport').
+airport(res_airport_894, 'Sir Charles Gaetan Duval Airport').
+airport(res_airport_8944, 'Bodaybo Airport').
+airport(res_airport_8949, 'Mattala Rajapaksa International Airport').
+airport(res_airport_8961, 'Sir Bani Yas Airport').
+airport(res_airport_897, 'Douala International Airport').
+airport(res_airport_8979, 'Jiagedaqi Airport').
+airport(res_airport_898, 'Salak Airport').
+airport(res_airport_9, 'Kangerlussuaq Airport').
+airport(res_airport_90, 'Fort McMurray Airport').
+airport(res_airport_900, 'N''Gaoundéré Airport').
+airport(res_airport_901, 'Garoua International Airport').
+airport(res_airport_9025, 'Bijie Feixiong Airport').
+airport(res_airport_9026, 'Lensk Airport').
+airport(res_airport_9043, 'Iğdır Airport').
+airport(res_airport_9044, 'Şanlıurfa GAP Airport').
+airport(res_airport_9045, 'Zafer Airport').
+airport(res_airport_906, 'Livingstone Airport').
+airport(res_airport_907, 'Kenneth Kaunda International Airport Lusaka').
+airport(res_airport_908, 'Mfuwe Airport').
+airport(res_airport_9090, 'Busselton Regional Airport').
+airport(res_airport_91, 'Moosonee Airport').
+airport(res_airport_910, 'Simon Mwansa Kapwepwe International Airport').
+airport(res_airport_9107, 'Yichun Mingyueshan Airport').
+airport(res_airport_912, 'Prince Said Ibrahim International Airport').
+airport(res_airport_915, 'Dzaoudzi Pamandzi International Airport').
+airport(res_airport_916, 'Roland Garros Airport').
+airport(res_airport_917, 'Pierrefonds Airport').
+airport(res_airport_918, 'Ivato Airport').
+airport(res_airport_920, 'Sainte Marie Airport').
+airport(res_airport_921, 'Toamasina Airport').
+airport(res_airport_922, 'Morondava Airport').
+airport(res_airport_9229, 'Sigiriya Air Force Base').
+airport(res_airport_923, 'Arrachart Airport').
+airport(res_airport_924, 'Mananara Nord Airport').
+airport(res_airport_927, 'Antsirabato Airport').
+airport(res_airport_9272, 'Bingöl Çeltiksuyu Airport').
+airport(res_airport_9273, 'Kastamonu Airport').
+airport(res_airport_929, 'Amborovy Airport').
+airport(res_airport_930, 'Fascene Airport').
+airport(res_airport_9310, 'Daocheng Yading Airport').
+airport(res_airport_9311, 'Gannan Xiahe Airport').
+airport(res_airport_932, 'Maroantsetra Airport').
+airport(res_airport_9327, 'Comiso Airport').
+airport(res_airport_933, 'Sambava Airport').
+airport(res_airport_937, 'Tôlanaro Airport').
+airport(res_airport_9386, 'Xinyuan Nalati Airport').
+airport(res_airport_94, 'Natashquan Airport').
+airport(res_airport_943, 'Toliara Airport').
+airport(res_airport_944, 'Mbanza Congo Airport').
+airport(res_airport_946, 'Cabinda Airport').
+airport(res_airport_948, 'Nova Lisboa Airport').
+airport(res_airport_949, 'Kuito Airport').
+airport(res_airport_951, 'Quatro de Fevereiro Airport').
+airport(res_airport_952, 'Malanje Airport').
+airport(res_airport_953, 'Menongue Airport').
+airport(res_airport_9543, 'Ogden Hinckley Airport').
+airport(res_airport_957, 'Saurimo Airport').
+airport(res_airport_958, 'Soyo Airport').
+airport(res_airport_959, 'Lubango Airport').
+airport(res_airport_960, 'Luena Airport').
+airport(res_airport_967, 'Port Gentil Airport').
+airport(res_airport_970, 'Libreville Leon M''ba International Airport').
+airport(res_airport_973, 'São Tomé International Airport').
+airport(res_airport_9739, 'Napakiak Airport').
+airport(res_airport_974, 'Beira Airport').
+airport(res_airport_9744, 'Napaskiak Airport').
+airport(res_airport_976, 'Inhambane Airport').
+airport(res_airport_9768, 'Tingo Maria Airport').
+airport(res_airport_977, 'Lichinga Airport').
+airport(res_airport_9771, 'Cacoal Airport').
+airport(res_airport_9774, 'Mocopulli Airport').
+airport(res_airport_979, 'Maputo Airport').
+airport(res_airport_9824, 'Tazadit Airport').
+airport(res_airport_9826, 'Akwa Ibom International Airport').
+airport(res_airport_9828, 'Kasama Airport').
+airport(res_airport_9829, 'Mbeya Airport').
+airport(res_airport_984, 'Nampula Airport').
+airport(res_airport_9843, 'Jiuhuashan Airport').
+airport(res_airport_9844, 'Anshan Air Base').
+airport(res_airport_9845, 'Saertu Airport').
+airport(res_airport_9846, 'Zunyi Xinzhou Airport').
+airport(res_airport_9848, 'Lindu Airport').
+airport(res_airport_9849, 'Anshun Huangguoshu Airport').
+airport(res_airport_985, 'Pemba Airport').
+airport(res_airport_986, 'Quelimane Airport').
+airport(res_airport_988, 'Chingozi Airport').
+airport(res_airport_9887, 'Betoambari Airport').
+airport(res_airport_9888, 'Kao Airport').
+airport(res_airport_9889, 'Melangguane Airport').
+airport(res_airport_9898, 'Oksibil Airport').
+airport(res_airport_99, 'High Level Airport').
+airport(res_airport_990, 'Vilankulo Airport').
+airport(res_airport_9904, 'Richmond Airport').
+airport(res_airport_9905, 'RAAF Base Curtin').
+airport(res_airport_994, 'Seychelles International Airport').
+airport(res_airport_995, 'Praslin Airport').
+airport(res_airport_999, 'N''Djamena International Airport').
+airport(res_airport_1000, 'Faya Largeau Airport').
+airport(res_airport_10017, 'San Gabriel Valley Airport').
+airport(res_airport_1002, 'Charles Prince Airport').
+airport(res_airport_1003, 'Buffalo Range Airport').
+airport(res_airport_10057, 'Farah Airport').
+airport(res_airport_1006, 'Kariba International Airport').
+airport(res_airport_10061, 'Pasighat Airport').
+airport(res_airport_10062, 'Kee Field').
+airport(res_airport_10069, 'Kramatorsk Airport').
+airport(res_airport_1007, 'Mutoko Airport').
+airport(res_airport_1008, 'Mutare Airport').
+airport(res_airport_10080, 'Kautokeino Air Base').
+airport(res_airport_10089, 'Lille/Marcq-en-Baroeul Airport').
+airport(res_airport_1009, 'Masvingo International Airport').
+airport(res_airport_10096, 'Kawass Airport').
+airport(res_airport_101, 'Prince Albert Glass Field').
+airport(res_airport_1010, 'Zvishavane Airport').
+airport(res_airport_10102, 'Stinson Municipal Airport').
+airport(res_airport_10103, 'Sallisaw Municipal Airport').
+airport(res_airport_10104, 'Jasper County Airport-Bell Field').
+airport(res_airport_10105, 'El Dorado Springs Memorial Airport').
+airport(res_airport_10106, 'Marfa Municipal Airport').
+airport(res_airport_10107, 'Alpine Casparis Municipal Airport').
+airport(res_airport_1011, 'Thornhill Air Base').
+airport(res_airport_10110, 'Bubaque Airport').
+airport(res_airport_10114, 'Chichen Itza International Airport').
+airport(res_airport_10116, 'Bunbury Airport').
+airport(res_airport_10117, 'Cable Airport').
+airport(res_airport_1012, 'Hwange National Park Airport').
+airport(res_airport_10121, 'Mount Sterling Montgomery County Airport').
+airport(res_airport_10122, 'Elkhart Municipal Airport').
+airport(res_airport_10123, 'Nappanee Municipal Airport').
+airport(res_airport_10128, 'Jim Hamilton L.B. Owens Airport').
+airport(res_airport_10129, 'Grove Municipal Airport').
+airport(res_airport_10130, 'Mc Pherson Airport').
+airport(res_airport_10131, 'Donaldson Field Airport').
+airport(res_airport_10132, 'Perry Houston County Airport').
+airport(res_airport_10133, 'Hartsville Regional Airport').
+airport(res_airport_10134, 'Horace Williams Airport').
+airport(res_airport_10135, 'San Cristobal de las Casas Airport').
+airport(res_airport_10137, 'Dunnville Airport').
+airport(res_airport_10138, 'Brunswick County Airport').
+airport(res_airport_10139, 'Chesterfield County Airport').
+airport(res_airport_1014, 'Karonga Airport').
+airport(res_airport_10140, 'Atherton Airport').
+airport(res_airport_10141, 'Bagdarin Airport').
+airport(res_airport_10142, 'Scarlett Martinez International Airport').
+airport(res_airport_10144, 'Henderson Oxford Airport').
+airport(res_airport_10145, 'Leesburg International Airport').
+airport(res_airport_10148, 'Semyazino Airport').
+airport(res_airport_10149, 'Witberg Tswalu Airport').
+airport(res_airport_1015, 'Kasungu Airport').
+airport(res_airport_10151, 'Mana Pools Airport').
+airport(res_airport_10154, 'Pouso Alegre Airport').
+airport(res_airport_10155, 'Brigadeiro Cabral Airport').
+airport(res_airport_10156, 'Yeysk Airport').
+airport(res_airport_10157, 'Berdyansk Airport').
+airport(res_airport_10158, 'Blimbingsari Airport').
+airport(res_airport_10161, 'Shobdon Aerodrome').
+airport(res_airport_10162, 'Chino Airport').
+airport(res_airport_10163, 'Kamigoto Airport').
+airport(res_airport_10164, 'Ojika Airport').
+airport(res_airport_10165, 'Chofu Airport').
+airport(res_airport_10166, 'Hateruma Airport').
+airport(res_airport_10169, 'Madison County Airport').
+airport(res_airport_1017, 'Mzuzu Airport').
+airport(res_airport_10171, 'Las Brujas Airport').
+airport(res_airport_10173, 'Digby (General Hospital) Heliport').
+airport(res_airport_10178, 'Thun Airport').
+airport(res_airport_10184, 'Lavrentiya Airport').
+airport(res_airport_10185, 'Paso Robles Municipal Airport').
+airport(res_airport_10186, 'N 104 Helipad').
+airport(res_airport_1019, 'Mejametalana Airbase').
+airport(res_airport_102, 'Peace River Airport').
+airport(res_airport_10209, 'Beijing Daxing International Airport').
+airport(res_airport_1021, 'Ndolo Airport').
+airport(res_airport_1022, 'Muanda Airport').
+airport(res_airport_1023, 'Kitona Base Airport').
+airport(res_airport_1024, 'Bandundu Airport').
+airport(res_airport_1025, 'Kikwit Airport').
+airport(res_airport_1027, 'Gbadolite Airport').
+airport(res_airport_1029, 'Kotakoli Airport').
+airport(res_airport_10295, 'Kymi Airport').
+airport(res_airport_103, 'Southport Airport').
+airport(res_airport_1030, 'Lisala Airport').
+airport(res_airport_1034, 'Buta Zega Airport').
+airport(res_airport_10360, 'Half Moon Bay Airport').
+airport(res_airport_10363, 'Hechi Jinchengjiang Airport').
+airport(res_airport_10370, 'Kadina Airport').
+airport(res_airport_10371, 'General WM J Fox Airfield').
+airport(res_airport_10378, 'Coondewanna Airport').
+airport(res_airport_1039, 'Kolwezi Airport').
+airport(res_airport_104, 'Pitt Meadows Airport').
+airport(res_airport_1041, 'Kamina Base Airport').
+airport(res_airport_1045, 'Gao Airport').
+airport(res_airport_1046, 'Kayes Dag Dag Airport').
+airport(res_airport_1047, 'Mopti Airport').
+airport(res_airport_1048, 'Timbuktu Airport').
+airport(res_airport_1049, 'Tessalit Airport').
+airport(res_airport_10544, 'Guarapari Airport').
+airport(res_airport_10545, 'Ubatuba Airport').
+airport(res_airport_1060, 'Cufar Airport').
+airport(res_airport_10611, 'Ali Air Base').
+airport(res_airport_10617, 'Ota Air Base').
+airport(res_airport_10618, 'Borroloola Airport').
+airport(res_airport_1067, 'Ifrane Airport').
+airport(res_airport_1068, 'Moulay Ali Cherif Airport').
+airport(res_airport_1069, 'Bassatine Airport').
+airport(res_airport_107, 'Peterborough Airport').
+airport(res_airport_1071, 'Ben Slimane Airport').
+airport(res_airport_10723, 'Elsenthal Grafe Airport').
+airport(res_airport_10744, 'Newtownards Airport').
+airport(res_airport_10745, 'Lashenden (Headcorn) Airfield').
+airport(res_airport_10746, 'Panshanger Aerodrome').
+airport(res_airport_10747, 'Thurrock Airfield').
+airport(res_airport_10748, 'Stapleford Aerodrome').
+airport(res_airport_10750, 'HAL Airport').
+airport(res_airport_10751, 'Chichester/Goodwood Airport').
+airport(res_airport_10752, 'Omarama Glider Airport').
+airport(res_airport_10753, 'Haast Aerodrome').
+airport(res_airport_1076, 'Kenitra Airport').
+airport(res_airport_10776, 'Meschede-Schüren Airport').
+airport(res_airport_10794, 'Morro da Urca Heliport').
+airport(res_airport_10800, 'Dongji Aiport').
+airport(res_airport_10802, 'Skúvoy Heliport').
+airport(res_airport_10803, 'Stóra Dímun Heliport').
+airport(res_airport_10804, 'Frooba Heliport').
+airport(res_airport_1083, 'Kaolack Airport').
+airport(res_airport_10831, 'Person County Airport').
+airport(res_airport_1085, 'Saint Louis Airport').
+airport(res_airport_1086, 'Bakel Airport').
+airport(res_airport_1087, 'Kédougou Airport').
+airport(res_airport_1088, 'Tambacounda Airport').
+airport(res_airport_1089, 'Aioun el Atrouss Airport').
+airport(res_airport_1090, 'Tidjikja Airport').
+airport(res_airport_1091, 'Kiffa Airport').
+airport(res_airport_1092, 'Néma Airport').
+airport(res_airport_1093, 'Kaédi Airport').
+airport(res_airport_10934, 'Zulu Inyala Airport').
+airport(res_airport_10937, 'Liupanshui Yuezhao Airport').
+airport(res_airport_10938, 'Kaili Airport').
+airport(res_airport_10939, 'Shennongjia Hongping Airport').
+airport(res_airport_10942, 'Hengyang Nanyue Airport').
+airport(res_airport_10943, 'Hongyuan Airport').
+airport(res_airport_10949, 'Wonsan Kalma International Airport').
+airport(res_airport_1095, 'Sélibaby Airport').
+airport(res_airport_10951, 'Mestia Queen Tamar Airport').
+airport(res_airport_10952, 'Magas Airport').
+airport(res_airport_1096, 'Atar International Airport').
+airport(res_airport_1098, 'Bir Moghrein Airport').
+airport(res_airport_1099, 'Fria Airport').
+airport(res_airport_110, 'Muskoka Airport').
+airport(res_airport_1100, 'Faranah Airport').
+airport(res_airport_11004, 'Talladega Municipal Airport').
+airport(res_airport_11005, 'Greenville Downtown Airport').
+airport(res_airport_11008, 'Mankato Regional Airport').
+airport(res_airport_11009, 'Captain Auguste George Airport').
+airport(res_airport_1101, 'Tata Airport').
+airport(res_airport_11010, 'Troy Municipal Airport at N Kenneth Campbell Field').
+airport(res_airport_11011, 'Merkel Field Sylacauga Municipal Airport').
+airport(res_airport_11012, 'Enterprise Municipal Airport').
+airport(res_airport_11017, 'Ryan Field').
+airport(res_airport_11018, 'Efogi Airport').
+airport(res_airport_11019, 'Kagi Airport').
+airport(res_airport_11020, 'Nadunumu Airport').
+airport(res_airport_11021, 'Bodinumu Airport').
+airport(res_airport_11022, 'Thomas C Russell Field').
+airport(res_airport_11030, 'Port Keats Airport').
+airport(res_airport_11031, 'Garden Point Airport').
+airport(res_airport_11032, 'Stade Airport').
+airport(res_airport_11035, 'Meriden Markham Municipal Airport').
+airport(res_airport_11038, 'Flinders Island Airport').
+airport(res_airport_11048, 'Luzern-Beromunster Airport').
+airport(res_airport_11049, 'La Grand''combe Airport').
+airport(res_airport_11053, 'Fort Mackay / Horizon Airport').
+airport(res_airport_11054, 'Canmore Municipal Heliport').
+airport(res_airport_11055, 'Krasnokamensk Airport').
+airport(res_airport_11067, 'Ridgely Airpark').
+airport(res_airport_11068, 'New Castle Henry Co. Municipal Airport').
+airport(res_airport_11069, 'Scott City Municipal Airport').
+airport(res_airport_11070, 'Brewster Field').
+airport(res_airport_11071, 'Pratt Regional Airport').
+airport(res_airport_11072, 'Yubileyniy Airfield').
+airport(res_airport_11073, 'Wahoo Municipal Airport').
+airport(res_airport_11074, 'Jim Kelly Field').
+airport(res_airport_11075, 'Sublette Municipal Airport').
+airport(res_airport_11076, 'Council Bluffs Municipal Airport').
+airport(res_airport_11077, 'Kokomo Municipal Airport').
+airport(res_airport_11078, 'Neodesha Municipal Airport').
+airport(res_airport_11079, 'King Ranch Airport').
+airport(res_airport_1108, 'Lideta Army Airport').
+airport(res_airport_11080, 'Elkhart Morton County Airport').
+airport(res_airport_11081, 'Front Range Airport').
+airport(res_airport_11082, 'Galesburg Municipal Airport').
+airport(res_airport_11084, 'Guymon Municipal Airport').
+airport(res_airport_11086, 'Meade Municipal Airport').
+airport(res_airport_11087, 'Turkey Mountain Estates Airport').
+airport(res_airport_11088, 'Ulysses Airport').
+airport(res_airport_11089, 'Flagler Aerial Spraying Inc Airport').
+airport(res_airport_11090, 'Independence Municipal Airport').
+airport(res_airport_11091, 'Augusta Municipal Airport').
+airport(res_airport_11092, 'Larned Pawnee County Airport').
+airport(res_airport_11093, 'Lampasas Airport').
+airport(res_airport_11094, 'Bay City Municipal Airport').
+airport(res_airport_11095, 'Cox Field').
+airport(res_airport_11096, 'Coffeyville Municipal Airport').
+airport(res_airport_11097, 'The Farm Airport').
+airport(res_airport_11098, 'Greeley–Weld County Airport').
+airport(res_airport_11099, 'General Dewitt Spain Airport').
+airport(res_airport_11100, 'Oryol Yuzhny Airport').
+airport(res_airport_11101, 'Fremont Municipal Airport').
+airport(res_airport_11102, 'La Grande/Union County Airport').
+airport(res_airport_11103, 'Olsztyn-Mazury Airport').
+airport(res_airport_11110, 'Pocono Mountains Municipal Airport').
+airport(res_airport_11111, 'Quakertown Airport').
+airport(res_airport_11127, 'Banff Airport').
+airport(res_airport_11129, 'Nordborg Flyveplads').
+airport(res_airport_11131, 'Banning Municipal Airport').
+airport(res_airport_11132, 'Gießen-Lützellinden Airport').
+airport(res_airport_11133, 'Tököl Airport').
+airport(res_airport_11134, 'Karl Stefan Memorial Airport').
+airport(res_airport_11139, 'Kotido Airport').
+airport(res_airport_11140, 'Kajjansi Airfield').
+airport(res_airport_11141, 'Arlington Municipal Airport').
+airport(res_airport_11142, 'Paracatu Airport').
+airport(res_airport_11143, 'Das Bandeirinhas Airport').
+airport(res_airport_11144, 'Janaúba Airport').
+airport(res_airport_11145, 'Juscelino Kubitscheck Airport').
+airport(res_airport_11146, 'Cristiano Ferreira Varella Airport').
+airport(res_airport_11153, 'Peter O Knight Airport').
+airport(res_airport_11170, 'Lure Malbouhans Air Base').
+airport(res_airport_11175, 'Parati Airport').
+airport(res_airport_11176, 'Umberto Modiano Airport').
+airport(res_airport_11177, 'Angra dos Reis Airport').
+airport(res_airport_11178, 'Itaperuna Airport').
+airport(res_airport_11179, 'Maricá Airport').
+airport(res_airport_11180, 'Resende Airport').
+airport(res_airport_11181, 'Saquarema Airport').
+airport(res_airport_11182, 'Drumheller Municipal Airport').
+airport(res_airport_11193, 'Mwene-Ditu Airport').
+airport(res_airport_11194, 'Tunta Airport').
+airport(res_airport_11195, 'Ikela Airport').
+airport(res_airport_11198, 'Aripuanã Airport').
+airport(res_airport_11199, 'Juruena Airport').
+airport(res_airport_11200, 'Juína Airport').
+airport(res_airport_11201, 'Vila Rica Airport').
+airport(res_airport_11202, 'Inácio Luís do Nascimento Airport').
+airport(res_airport_11203, 'Cáceres Airport').
+airport(res_airport_11204, 'Posto Leonardo Vilas Boas Airport').
+airport(res_airport_11205, 'Tangará da Serra Airport').
+airport(res_airport_11206, 'Canarana Airport').
+airport(res_airport_11207, 'Vila Bela da Santíssima Trindade Airport').
+airport(res_airport_11208, 'Bumbar Airport').
+airport(res_airport_11209, 'Sobral Airport').
+airport(res_airport_11210, 'Arapiraca Airport').
+airport(res_airport_11211, 'Cangapara Airport').
+airport(res_airport_11212, 'Picos Airport').
+airport(res_airport_1123, 'Kisimayu Airport').
+airport(res_airport_11243, 'Montauk Airport').
+airport(res_airport_11255, 'Porter County Municipal Airport').
+airport(res_airport_1126, 'El Nouzha Airport').
+airport(res_airport_11268, 'Cerro Largo International Airport').
+airport(res_airport_11269, 'Tydeo Larre Borges Airport').
+airport(res_airport_11270, 'Artigas International Airport').
+airport(res_airport_11272, 'Murray Bridge Airport').
+airport(res_airport_11273, 'Horsham Airport').
+airport(res_airport_11274, 'Swan Hill Airport').
+airport(res_airport_11277, 'Turtle Island Seaplane Base').
+airport(res_airport_11288, 'Dewadaru - Kemujan Island').
+airport(res_airport_1129, 'Cairo West Airport').
+airport(res_airport_11291, 'Attopeu Airport').
+airport(res_airport_11292, 'Kahemba Airport').
+airport(res_airport_11293, 'Francisco de Miranda Airport').
+airport(res_airport_11295, 'São Miguel do Oeste Airport').
+airport(res_airport_11299, 'Mason County Airport').
+airport(res_airport_1131, 'El Gora Airport').
+airport(res_airport_11312, 'Reid-Hillview Airport of Santa Clara County').
+airport(res_airport_11328, 'Sohar Airport').
+airport(res_airport_1133, 'Mersa Matruh Airport').
+airport(res_airport_11331, 'Kadanwari Airport').
+airport(res_airport_11332, 'Sawan Airport').
+airport(res_airport_1134, 'Port Said Airport').
+airport(res_airport_1135, 'St Catherine International Airport').
+airport(res_airport_11352, 'Thamkharka Airport').
+airport(res_airport_11353, 'Thimarafushi Airport').
+airport(res_airport_11354, 'Ifuru Airport').
+airport(res_airport_11355, 'Kaintiba Airport').
+airport(res_airport_11356, 'Ordu Giresun Airport').
+airport(res_airport_11357, 'Hakkari Yüksekova Airport').
+airport(res_airport_1137, 'El Tor Airport').
+airport(res_airport_11386, 'Jelenia Góra Glider Airport').
+airport(res_airport_11389, 'Bathpalathang Airport').
+airport(res_airport_1139, 'Kakamega Airport').
+airport(res_airport_114, 'Watson Lake Airport').
+airport(res_airport_11401, 'Sultan Bantilan Airport').
+airport(res_airport_11406, 'Vuktyl Airport').
+airport(res_airport_11407, 'Berezniki Airport').
+airport(res_airport_11431, 'San Sebastián Airport').
+airport(res_airport_11433, 'Tolwin Observatory Airport').
+airport(res_airport_11438, 'Camarillo Airport').
+airport(res_airport_11452, 'Leopoldsburg Airfield').
+airport(res_airport_1146, 'Naivasha Airport').
+airport(res_airport_11479, 'Omtepe Airport').
+airport(res_airport_1148, 'Moi Air Base').
+airport(res_airport_11499, 'Fuyun Koktokay Airport').
+airport(res_airport_1150, 'Bu Attifel Airport').
+airport(res_airport_1151, 'Warehouse 59e Airport').
+airport(res_airport_11524, 'Achinsk Airport').
+airport(res_airport_11545, 'Linfen Qiaoli Airport').
+airport(res_airport_1156, 'Sabha Airport').
+airport(res_airport_1158, 'Marsa Brega Airport').
+airport(res_airport_11583, 'Hinton/Jasper-Hinton Airport').
+airport(res_airport_1159, 'Ras Lanuf Oil Airport').
+airport(res_airport_1160, 'Hon Airport').
+airport(res_airport_1161, 'Dahra Airport').
+airport(res_airport_1163, 'Zella 74 Airport').
+airport(res_airport_11638, 'Watsonville Municipal Airport').
+airport(res_airport_1164, 'Gisenyi Airport').
+airport(res_airport_11644, 'Gelephu Airport').
+airport(res_airport_11648, 'Hollister Municipal Airport').
+airport(res_airport_11649, 'Williamsburg Jamestown Airport').
+airport(res_airport_11658, 'Dulkaninna Airport').
+airport(res_airport_1167, 'Dongola Airport').
+airport(res_airport_11673, 'William Creek Airport').
+airport(res_airport_1168, 'Damazin Airport').
+airport(res_airport_11684, 'Kenora Seaplane Base').
+airport(res_airport_11685, 'Rumbula Air Base').
+airport(res_airport_1170, 'Kassala Airport').
+airport(res_airport_11700, 'Siquijor Airport').
+airport(res_airport_11702, 'Opapimiskan Lake Airport').
+airport(res_airport_1171, 'Kadugli Airport').
+airport(res_airport_11713, 'Rizhao Shanzihe Airport').
+airport(res_airport_11714, 'Shaxian Airport').
+airport(res_airport_11717, 'Taroom Airport').
+airport(res_airport_11718, 'Gelnhausen Airport').
+airport(res_airport_11719, 'Ærø Airport').
+airport(res_airport_1172, 'El Obeid Airport').
+airport(res_airport_11720, 'Lauterbach Airport').
+airport(res_airport_11721, 'Aschaffenburg Airport').
+airport(res_airport_11722, 'Squamish Airport').
+airport(res_airport_11735, 'Reichelsheim Airport').
+airport(res_airport_11737, 'Marburg-Schönstadt Airport').
+airport(res_airport_11738, 'Lauenbrück Airport').
+airport(res_airport_11739, 'Hüttenbusch Airport').
+airport(res_airport_1174, 'Malakal Airport').
+airport(res_airport_11740, 'Vrsar Crljenka Airport').
+airport(res_airport_11742, 'Union County Airport').
+airport(res_airport_11743, 'La Grande-4 Airport').
+airport(res_airport_11744, 'Alert Bay Airport').
+airport(res_airport_11745, 'Liverpool South Shore Regional Airport').
+airport(res_airport_11747, 'Nipawin Airport').
+airport(res_airport_11748, 'Centralia / James T. Field Memorial Aerodrome').
+airport(res_airport_11749, 'Blue River Airport').
+airport(res_airport_11750, 'Chetwynd Airport').
+airport(res_airport_11751, 'Ross River Airport').
+airport(res_airport_11752, 'Dolbeau St Felicien Airport').
+airport(res_airport_11753, 'Amos/Magny Airport').
+airport(res_airport_11754, 'Goderich Airport').
+airport(res_airport_11755, 'Hope Airport').
+airport(res_airport_11756, 'Haines Junction Airport').
+airport(res_airport_11757, 'Digby / Annapolis Regional Airport').
+airport(res_airport_11758, 'Fort Liard Airport').
+airport(res_airport_11759, 'Key Lake Airport').
+airport(res_airport_11760, 'Leaf Rapids Airport').
+airport(res_airport_11761, 'Matane Airport').
+airport(res_airport_11762, 'Charlevoix Airport').
+airport(res_airport_11763, 'Nejanilini Lake Airport').
+airport(res_airport_11764, 'Owen Sound / Billy Bishop Regional Airport').
+airport(res_airport_11765, 'Port Hawkesbury Airport').
+airport(res_airport_11766, 'St Thomas Municipal Airport').
+airport(res_airport_11767, 'Ottawa / Rockcliffe Airport').
+airport(res_airport_11768, 'Ottawa / Carp Airport').
+airport(res_airport_11769, 'Smiths Falls-Montague (Russ Beach) Airport').
+airport(res_airport_11770, 'St Leonard Airport').
+airport(res_airport_11771, 'Virden/R.J. (Bob) Andrew Field Regional Aerodrome').
+airport(res_airport_11772, 'Vernon Airport').
+airport(res_airport_11773, 'Beaver Creek Airport').
+airport(res_airport_11774, 'Shuswap Regional Airport').
+airport(res_airport_11775, 'Kelsey Airport').
+airport(res_airport_11776, 'Pukatawagan Airport').
+airport(res_airport_11777, 'Grand Forks Airport').
+airport(res_airport_11778, 'Jenpeg Airport').
+airport(res_airport_11779, 'Thicket Portage Airport').
+airport(res_airport_1178, 'Dodoma Airport').
+airport(res_airport_11780, 'Pikwitonei Airport').
+airport(res_airport_11781, 'Poplar River Airport').
+airport(res_airport_11782, 'Pincher Creek Airport').
+airport(res_airport_11783, 'Stewart Airport').
+airport(res_airport_11784, 'Ignace Municipal Airport').
+airport(res_airport_11785, 'Neubrandenburg Airport').
+airport(res_airport_11786, 'Airport Bamberg-Breitenau').
+airport(res_airport_11787, 'Zerbst Airport').
+airport(res_airport_11788, 'RAF Spadeadam').
+airport(res_airport_11789, 'RAF Kinloss').
+airport(res_airport_1179, 'Iringa Airport').
+airport(res_airport_11790, 'Biała Podlaska Airfield').
+airport(res_airport_11791, 'Cewice Air Base').
+airport(res_airport_11792, 'Deblin Military Air Base').
+airport(res_airport_11793, 'Leczyca Military Air Base').
+airport(res_airport_11794, 'Minsk Mazowiecki Military Air Base').
+airport(res_airport_11795, 'Powidz Military Air Base').
+airport(res_airport_11796, 'Tomaszow Mazowiecki Military Air Base').
+airport(res_airport_11797, 'Björkvik Air Base').
+airport(res_airport_11798, 'Ljungbyhed Airport').
+airport(res_airport_11799, 'Daugavpils Intrenational Airport').
+airport(res_airport_11800, 'Jēkabpils Air Base').
+airport(res_airport_11801, 'Jūrmala Airport').
+airport(res_airport_11802, 'Kėdainiai Air Base').
+airport(res_airport_11803, 'Lime Acres Finsch Mine Airport').
+airport(res_airport_11804, 'Sua Pan Airport').
+airport(res_airport_11805, 'Lusaka City Airport').
+airport(res_airport_11806, 'Sumbe Airport').
+airport(res_airport_11807, 'Mangochi Airport').
+airport(res_airport_11808, 'Arandis Airport').
+airport(res_airport_11809, 'Mariental Airport').
+airport(res_airport_1181, 'Lake Manyara Airport').
+airport(res_airport_11810, 'Almaza Air Force Base').
+airport(res_airport_11811, 'Beni Suef Air Base').
+airport(res_airport_11812, 'Jiyanklis Air Base').
+airport(res_airport_11813, 'Merowe New Airport').
+airport(res_airport_11814, 'St Louis Regional Airport').
+airport(res_airport_11815, 'Chandler Field').
+airport(res_airport_11816, 'Columbus Municipal Airport').
+airport(res_airport_11817, 'Curtis Field').
+airport(res_airport_11818, 'Eastern Sierra Regional Airport').
+airport(res_airport_11819, 'Baker City Municipal Airport').
+airport(res_airport_11820, 'Miley Memorial Field').
+airport(res_airport_11821, 'Ozark Regional Airport').
+airport(res_airport_11822, 'W K Kellogg Airport').
+airport(res_airport_11823, 'Burley Municipal Airport').
+airport(res_airport_11824, 'Northeast Iowa Regional Airport').
+airport(res_airport_11825, 'Chanute Martin Johnson Airport').
+airport(res_airport_11826, 'Jacksonville Executive at Craig Airport').
+airport(res_airport_11827, 'Crossville Memorial Whitson Field').
+airport(res_airport_11828, 'Davison Army Air Field').
+airport(res_airport_11829, 'Barstow Daggett Airport').
+airport(res_airport_11830, 'Deming Municipal Airport').
+airport(res_airport_11831, 'Desert Rock Airport').
+airport(res_airport_11832, 'Needles Airport').
+airport(res_airport_11833, 'Duke Field').
+airport(res_airport_11834, 'Murray Field').
+airport(res_airport_11835, 'San Marcos Regional Airport').
+airport(res_airport_11836, 'Sawyer County Airport').
+airport(res_airport_11837, 'Kimble County Airport').
+airport(res_airport_11838, 'Monticello Municipal Ellis Field').
+airport(res_airport_11839, 'Derby Field').
+airport(res_airport_1184, 'Pemba Airport').
+airport(res_airport_11840, 'Mobridge Municipal Airport').
+airport(res_airport_11841, 'Mc Comb/Pike County Airport/John E Lewis Field').
+airport(res_airport_11842, 'Southern Illinois Airport').
+airport(res_airport_11843, 'Mc Entire Joint National Guard Base').
+airport(res_airport_11844, 'Brunswick Executive Airport').
+airport(res_airport_11845, 'Naval Station Mayport (Admiral David L. Mcdonald Field)').
+airport(res_airport_11846, 'Orangeburg Municipal Airport').
+airport(res_airport_11847, 'Columbus Municipal Airport').
+airport(res_airport_11848, 'Ottumwa Regional Airport').
+airport(res_airport_11849, 'Cairns AAF (Fort Rucker) Air Field').
+airport(res_airport_1185, 'Tanga Airport').
+airport(res_airport_11850, 'Ralph Wenz Field').
+airport(res_airport_11851, 'Dutchess County Airport').
+airport(res_airport_11852, 'New Richmond Regional Airport').
+airport(res_airport_11853, 'Russell Municipal Airport').
+airport(res_airport_11854, 'Redwood Falls Municipal Airport').
+airport(res_airport_11855, 'Salinas Municipal Airport').
+airport(res_airport_11856, 'Sonora Municipal Airport').
+airport(res_airport_11857, 'Saline County Regional Airport').
+airport(res_airport_11858, 'Tonopah Airport').
+airport(res_airport_11859, 'Aurora State Airport').
+airport(res_airport_11860, 'Ukiah Municipal Airport').
+airport(res_airport_11861, 'University Oxford Airport').
+airport(res_airport_11862, 'Huntsville Regional Airport').
+airport(res_airport_11863, 'Miller Field').
+airport(res_airport_11864, 'Winnemucca Municipal Airport').
+airport(res_airport_11865, 'West Woodward Airport').
+airport(res_airport_11866, 'Cape Canaveral AFS Skid Strip').
+airport(res_airport_11867, 'Homey (Area 51) Airport').
+airport(res_airport_11868, 'Zanesville Municipal Airport').
+airport(res_airport_11869, 'Gjadër Air Base').
+airport(res_airport_11870, 'Kukës Airport').
+airport(res_airport_11871, 'Kuçovë Air Base').
+airport(res_airport_11872, 'Vlorë Air Base').
+airport(res_airport_11873, 'Haskovo Malevo Airport').
+airport(res_airport_11874, 'Gabrovnitsa Air Base').
+airport(res_airport_11875, 'Graf Ignatievo Air Base').
+airport(res_airport_11876, 'Dolna Mitropoliya Air Base').
+airport(res_airport_11877, 'Balchik Air Base').
+airport(res_airport_11878, 'Cuatro Vientos Airport').
+airport(res_airport_11879, 'Castellón-Costa Azahar Airport').
+airport(res_airport_11880, 'Teruel Airport').
+airport(res_airport_11881, 'Blois-Le Breuil Airport').
+airport(res_airport_11882, 'Trento-Mattarello Airport').
+airport(res_airport_11883, 'Alessandria Airport').
+airport(res_airport_11884, 'Biella-Cerrione Airport').
+airport(res_airport_11885, 'Vercelli Airport').
+airport(res_airport_11886, 'Casale Monferrato Airport').
+airport(res_airport_11887, 'Varese-Venegono Airport').
+airport(res_airport_11888, 'Novi Ligure Airport').
+airport(res_airport_11889, 'Sarzana-Luni Air Base').
+airport(res_airport_1189, 'Soroti Airport').
+airport(res_airport_11890, 'Câmpia Turzii Air Base').
+airport(res_airport_11891, 'Mărculeşti International Airport').
+airport(res_airport_11892, 'Cahul International Airport').
+airport(res_airport_11893, 'Tiraspol Airport').
+airport(res_airport_11894, 'Batajnica Air Base').
+airport(res_airport_11895, 'Rubelsanto Airport').
+airport(res_airport_11896, 'Coronel Enrique Soto Cano Air Base').
+airport(res_airport_11897, 'Upala Airport').
+airport(res_airport_11898, 'San Nicolas De Bari Airport').
+airport(res_airport_11899, 'San Julian Air Base').
+airport(res_airport_11900, 'King Salman Abdulaziz Airport').
+airport(res_airport_11901, 'King Khaled Air Base').
+airport(res_airport_11902, 'Riyadh Air Base').
+airport(res_airport_11903, 'Jam Airport').
+airport(res_airport_11904, 'Hamadan Air Base').
+airport(res_airport_11905, 'Payam International Airport').
+airport(res_airport_11906, 'Ahmed Al Jaber Air Base').
+airport(res_airport_11907, 'Rayak Air Base').
+airport(res_airport_11908, 'Mirpur Khas Air Base').
+airport(res_airport_11909, 'Minhas Air Base').
+airport(res_airport_11910, 'Rafiqui Air Base').
+airport(res_airport_11911, 'Faisal Air Base').
+airport(res_airport_11912, 'Mushaf Air Base').
+airport(res_airport_11913, 'Qayyarah West Airport').
+airport(res_airport_11914, 'Al Sahra Army Air Field').
+airport(res_airport_11915, 'Tall Afar Army Air Field').
+airport(res_airport_11916, 'Al Taji Army Air Field').
+airport(res_airport_11917, 'Ubaydah Bin Al Jarrah Airport').
+airport(res_airport_11918, 'Nenana Municipal Airport').
+airport(res_airport_11919, 'Wasilla Airport').
+airport(res_airport_1192, 'Gorna Oryahovitsa Airport').
+airport(res_airport_11920, 'Gangshan Air Force Base').
+airport(res_airport_11921, 'Asahikawa Airfield').
+airport(res_airport_11923, 'Utsunomiya Airport').
+airport(res_airport_11924, 'Jungwon Air Base/Chungju Airport').
+airport(res_airport_11925, 'Ie Jima Airport').
+airport(res_airport_11926, 'Allah Valley Airport').
+airport(res_airport_11927, 'Bislig Airport').
+airport(res_airport_11928, 'Mati National Airport').
+airport(res_airport_11929, 'Presidente Néstor Kirchner Regionsl Airport').
+airport(res_airport_11930, 'Chafei Amsei Airport').
+airport(res_airport_11931, 'Base de Aviação de Taubaté Airport').
+airport(res_airport_11932, 'Barriles Airport').
+airport(res_airport_11933, 'Schroeder''s field').
+airport(res_airport_11934, 'Chañaral Airport').
+airport(res_airport_11935, 'Panguilemo Airport').
+airport(res_airport_11936, 'Victoria Airport').
+airport(res_airport_11937, 'Las Breas Airport').
+airport(res_airport_11938, 'Gomez Nino Apiay Air Base').
+airport(res_airport_11939, 'Coveñas Airport').
+airport(res_airport_11940, 'German Olano Air Base').
+airport(res_airport_11941, 'Paz De Ariporo Airport').
+airport(res_airport_11942, 'Tunja Airport').
+airport(res_airport_11943, 'Tres Esquinas Air Base').
+airport(res_airport_11944, 'Marandúa Air Base').
+airport(res_airport_11945, 'Juan Simons Vela Airport').
+airport(res_airport_11946, 'Shumba Airport').
+airport(res_airport_11947, 'Metropolitano Airport').
+airport(res_airport_11948, 'Issyk-Kul International Airport').
+airport(res_airport_11949, 'Kant Air Base').
+airport(res_airport_1195, 'Stara Zagora Airport').
+airport(res_airport_11950, 'Ayaguz Airport').
+airport(res_airport_11951, 'Chelkar Airport').
+airport(res_airport_11952, 'Kyzyl-Syr Airport').
+airport(res_airport_11953, 'Vilyuisk Airport').
+airport(res_airport_11954, 'Belaya Gora Airport').
+airport(res_airport_11955, 'Dzhermuk Airport').
+airport(res_airport_11956, 'Kamenny Ruchey Naval Air Base').
+airport(res_airport_11957, 'Maygatka Airport.').
+airport(res_airport_11958, 'Omsukchan Airport').
+airport(res_airport_11959, 'Chaybukha Airport').
+airport(res_airport_11960, 'Keperveem Airport').
+airport(res_airport_11961, 'Magadan-13 Airport').
+airport(res_airport_11962, 'Nikolayevsk-na-Amure Airport').
+airport(res_airport_11963, 'Palana Airport').
+airport(res_airport_11964, 'Zheleznogorsk Airport').
+airport(res_airport_11965, 'Gvardeyskoe Air Base').
+airport(res_airport_11966, 'Saki Air Base').
+airport(res_airport_11967, 'Dzhankoy Airport').
+airport(res_airport_11968, 'Ozerne Air Base').
+airport(res_airport_11969, 'Severomorsk-1 Naval Air Base').
+airport(res_airport_11970, 'Pushkin Airport').
+airport(res_airport_11971, 'Siversky Air Base').
+airport(res_airport_11972, 'Staraya Russa Air Base').
+airport(res_airport_11973, 'Peski Airport').
+airport(res_airport_11974, 'Baranavichi Air Base').
+airport(res_airport_11975, 'Babruisk Air Base').
+airport(res_airport_11976, 'Severo-Eniseysk Airport').
+airport(res_airport_11977, 'Sharypovo Airport').
+airport(res_airport_11978, 'Omsk Severny Airport').
+airport(res_airport_11979, 'Nagurskoye').
+airport(res_airport_11980, 'Svetlogorsk Airport').
+airport(res_airport_11981, 'Valek Airport').
+airport(res_airport_11982, 'Khanskaya Air Base').
+airport(res_airport_11983, 'Dudinka Airport').
+airport(res_airport_11984, 'Volgodonsk Airport').
+airport(res_airport_11985, 'Tashkent East Airport').
+airport(res_airport_11986, 'Myachkovo Airport').
+airport(res_airport_11987, 'Tretyakovo Airport').
+airport(res_airport_11988, 'Yermolino Airport').
+airport(res_airport_11989, 'Inta Airport').
+airport(res_airport_1199, 'RAF Akrotiri').
+airport(res_airport_11990, 'Izhma Airport').
+airport(res_airport_11991, 'Borisoglebskoye Airport').
+airport(res_airport_11992, 'Zhigansk Airport').
+airport(res_airport_11993, 'Maksimovka Airport').
+airport(res_airport_11994, 'Buguruslan Severny Airport').
+airport(res_airport_11995, 'Bezymyanka Airfield').
+airport(res_airport_11996, 'Ratnagiri Airport').
+airport(res_airport_11997, 'Hingurakgoda Air Force Base').
+airport(res_airport_11998, 'Kazi Nazrul Islam Airport').
+airport(res_airport_11999, 'Ambala Air Force Station').
+airport(res_airport_12000, 'Sirsa Air Force Station').
+airport(res_airport_12001, 'Udhampur Air Force Station').
+airport(res_airport_12002, 'Sri Sathya Sai Airport').
+airport(res_airport_12003, 'Meiktila Air Base').
+airport(res_airport_12004, 'Changi Air Base (East)').
+airport(res_airport_12005, 'Soltsy-2 Air Base').
+airport(res_airport_12006, 'Severomorsk-3 Naval Air Base').
+airport(res_airport_12007, 'Fedotovo Naval Air Base').
+airport(res_airport_12008, 'Lebyazhye Air Base').
+airport(res_airport_12009, 'Smolensk North Airport').
+airport(res_airport_1201, 'Osijek-Čepin Airfield').
+airport(res_airport_12010, 'Rtishchevo Air Base').
+airport(res_airport_12011, 'Alpha Airport').
+airport(res_airport_12012, 'Ararat Airport').
+airport(res_airport_12013, 'Benalla Airport').
+airport(res_airport_12014, 'Balranald Airport').
+airport(res_airport_12015, 'Brewarrina Airport').
+airport(res_airport_12016, 'Cleve Airport').
+airport(res_airport_12017, 'Corowa Airport').
+airport(res_airport_12018, 'Corryong Airport').
+airport(res_airport_12019, 'Cootamundra Airport').
+airport(res_airport_12020, 'Dirranbandi Airport').
+airport(res_airport_12021, 'Deniliquin Airport').
+airport(res_airport_12022, 'Dysart Airport').
+airport(res_airport_12023, 'Echuca Airport').
+airport(res_airport_12024, 'Forbes Airport').
+airport(res_airport_12025, 'Gunnedah Airport').
+airport(res_airport_12026, 'Hay Airport').
+airport(res_airport_12027, 'Hopetoun Airport').
+airport(res_airport_12028, 'Kerang Airport').
+airport(res_airport_12029, 'Kempsey Airport').
+airport(res_airport_12030, 'Kingaroy Airport').
+airport(res_airport_12031, 'Latrobe Valley Airport').
+airport(res_airport_12032, 'Mareeba Airport').
+airport(res_airport_12033, 'Ngukurr Airport').
+airport(res_airport_12034, 'Narromine Airport').
+airport(res_airport_12035, 'Port Pirie Airport').
+airport(res_airport_12036, 'Smithton Airport').
+airport(res_airport_12037, 'Snake Bay Airport').
+airport(res_airport_12038, 'Stawell Airport').
+airport(res_airport_12039, 'Tibooburra Airport').
+airport(res_airport_1204, 'Grobnicko Polje Airport').
+airport(res_airport_12040, 'Tumut Airport').
+airport(res_airport_12041, 'Wangaratta Airport').
+airport(res_airport_12042, 'Warracknabeal Airport').
+airport(res_airport_12043, 'Warren Airport').
+airport(res_airport_12044, 'West Sale Airport').
+airport(res_airport_12045, 'West Wyalong Airport').
+airport(res_airport_12046, 'Young Airport').
+airport(res_airport_12047, 'Guangzhou MR Air Base').
+airport(res_airport_12048, 'Shiyan Wudangshan Airport').
+airport(res_airport_12049, 'Sunchon Air Base').
+airport(res_airport_12050, 'Huatugou Airport').
+airport(res_airport_12051, 'Baruun Urt Airport').
+airport(res_airport_12052, 'Bengbu Airport').
+airport(res_airport_12053, 'Rugao Air Base').
+airport(res_airport_12054, 'Wuhu Air Base').
+airport(res_airport_12055, 'Shanshan Airport').
+airport(res_airport_12056, 'Yingkou Lanqi Airport').
+airport(res_airport_12057, 'Shenyang Dongta Airport').
+airport(res_airport_12058, 'Bogorodskoye Airport').
+airport(res_airport_12059, 'Itapiranga Airport').
+airport(res_airport_12069, 'Aguas Calientes Airport').
+airport(res_airport_1207, 'Varaždin Airport').
+airport(res_airport_12087, 'Rajiv Gandhi International Airport').
+airport(res_airport_12090, 'Vancouver International Seaplane Base').
+airport(res_airport_12096, 'Bressaucourt Airport').
+airport(res_airport_1210, 'Udbina Air Base').
+airport(res_airport_12104, 'Parakou Airport').
+airport(res_airport_12106, 'Kandi Airport').
+airport(res_airport_12109, 'Sokodé Airport').
+airport(res_airport_1211, 'Albacete-Los Llanos Airport').
+airport(res_airport_12110, 'Sansanné-Mango Airport').
+airport(res_airport_12133, 'Arnbruck Airport').
+airport(res_airport_1215, 'Córdoba Airport').
+airport(res_airport_12163, 'Jacarepaguá - Roberto Marinho Airport').
+airport(res_airport_12165, 'Hacaritama Airport').
+airport(res_airport_12172, 'Hermannsburg Airport').
+airport(res_airport_12182, 'Mount Davies Airport').
+airport(res_airport_12183, 'Areyonga Airport').
+airport(res_airport_12185, 'Tracy Municipal Airport').
+airport(res_airport_1221, 'Armilla Air Base').
+airport(res_airport_12217, 'Mount Allan Airport').
+airport(res_airport_12218, 'Everard Park Airport').
+airport(res_airport_12219, 'Warrabri Airport').
+airport(res_airport_1224, 'Getafe Air Base').
+airport(res_airport_123, 'Yorkton Municipal Airport').
+airport(res_airport_12310, 'Krefeld-Egelsberg Airport').
+airport(res_airport_12311, 'Baidoa Airport').
+airport(res_airport_1232, 'Moron Air Base').
+airport(res_airport_1233, 'Ocaña Airport').
+airport(res_airport_12340, 'Ampilatwatja Airport').
+airport(res_airport_1235, 'Alcantarilla Air Base').
+airport(res_airport_12360, 'Kings Creek Airport').
+airport(res_airport_12361, 'Harts Range Airport').
+airport(res_airport_1237, 'Rota Naval Station Airport').
+airport(res_airport_1239, 'Son Bonet Airport').
+airport(res_airport_12391, 'Elliott Airport').
+airport(res_airport_12392, 'Papunya Airport').
+airport(res_airport_124, 'North Battleford Airport').
+airport(res_airport_1241, 'San Luis Airport').
+airport(res_airport_1244, 'Pirineus - la Seu d''Urgel Airport').
+airport(res_airport_12444, 'Fregon Airport').
+airport(res_airport_12445, 'Mount Liebig Airport').
+airport(res_airport_1245, 'Torrejón Airport').
+airport(res_airport_12469, 'Bolton Field').
+airport(res_airport_12470, 'Baltrum Airport').
+airport(res_airport_1249, 'Vitoria/Foronda Airport').
+airport(res_airport_12528, 'Skagit Regional Airport').
+airport(res_airport_1254, 'Calais-Dunkerque Airport').
+airport(res_airport_1255, 'Péronne-Saint-Quentin Airport').
+airport(res_airport_1256, 'Nangis-Les Loges Airport').
+airport(res_airport_1257, 'Bagnoles-de-l''Orne-Couterne Airport').
+airport(res_airport_1258, 'Albert-Bray Airport').
+airport(res_airport_1259, 'Le Touquet-Côte d''Opale Airport').
+airport(res_airport_1260, 'Valenciennes-Denain Airport').
+airport(res_airport_1261, 'Amiens-Glisy Airport').
+airport(res_airport_12618, 'Goondiwindi Airport').
+airport(res_airport_12619, 'Liman Airfield').
+airport(res_airport_1263, 'Cazaux (BA 120) Air Base').
+airport(res_airport_12640, 'Lognes Emerainville Airport').
+airport(res_airport_1266, 'Toulouse-Francazal (BA 101) Air Base').
+airport(res_airport_1267, 'Cognac-Châteaubernard (BA 709) Air Base').
+airport(res_airport_12672, 'Marion County Brown Field').
+airport(res_airport_12673, 'Evergreen Regional Airport/Middleton Field').
+airport(res_airport_12675, 'Pryor Field Regional Airport').
+airport(res_airport_12676, 'Glasgow Municipal Airport').
+airport(res_airport_1269, 'Montluçon-Guéret Airport').
+airport(res_airport_1271, 'Mont-de-Marsan (BA 118) Air Base').
+airport(res_airport_1272, 'Niort-Souché Airport').
+airport(res_airport_1275, 'Muret-Lherm Airport').
+airport(res_airport_12796, 'Danielson Airport').
+airport(res_airport_1281, 'Cahors-Lalbenque Airport').
+airport(res_airport_1282, 'Saint-Girons-Antichan Airport').
+airport(res_airport_1283, 'Arcachon-La Teste-de-Buch Airport').
+airport(res_airport_1284, 'Albi-Le Séquestre Airport').
+airport(res_airport_12844, 'Docker River Airport').
+airport(res_airport_12856, 'Clearfield Lawrence Airport').
+airport(res_airport_1286, 'Toulouse-Lasbordes Airport').
+airport(res_airport_1287, 'Millau-Larzac Airfield').
+airport(res_airport_12873, 'Jasper County Airport').
+airport(res_airport_1288, 'Graulhet-Montdragon Airport').
+airport(res_airport_129, 'Rivière-du-Loup Airport').
+airport(res_airport_1290, 'Ussel-Thalamy Airport').
+airport(res_airport_1291, 'Villeneuve-sur-Lot Airport').
+airport(res_airport_12918, 'Ti Tree Airport').
+airport(res_airport_12919, 'Sabetta International Airport').
+airport(res_airport_1292, 'Royan-Médis Airport').
+airport(res_airport_12921, 'Alxa Left Banner Bayanhot Airport').
+airport(res_airport_1293, 'Mimizan Airport').
+airport(res_airport_12931, 'El Fuentero Airport').
+airport(res_airport_1294, 'Aire-sur-l''Adour Airport').
+airport(res_airport_12941, 'Sturgate Airfield').
+airport(res_airport_12945, 'Simberi Airport').
+airport(res_airport_12946, 'Bulolo Airport').
+airport(res_airport_12948, 'Kintore Airport').
+airport(res_airport_1295, 'Montauban Airport').
+airport(res_airport_12950, 'Statesboro Bulloch County Airport').
+airport(res_airport_12951, 'Utopia Airport').
+airport(res_airport_12957, 'Nyrripi Airport').
+airport(res_airport_12958, 'Amata Airport').
+airport(res_airport_1296, 'Auch-Lamothe Airport').
+airport(res_airport_12961, 'Glacier Country Heliport').
+airport(res_airport_1297, 'Libourne-Artigues-de-Lussac Airport').
+airport(res_airport_12979, 'Erldunda Airport').
+airport(res_airport_1298, 'Pamiers-Les Pujols Airport').
+airport(res_airport_12980, 'Helisul I Heliport').
+airport(res_airport_12984, 'Finke Airport').
+airport(res_airport_12987, 'Humberto Ghizzo Bortoluzzi Regional Airport').
+airport(res_airport_1299, 'Marmande-Virazeil Airport').
+airport(res_airport_13, 'Hornafjörður Airport').
+airport(res_airport_130, 'Roberval Airport').
+airport(res_airport_1300, 'Rochefort-Saint-Agnant (BA 721) Airport').
+airport(res_airport_13004, 'Nypari Airport').
+airport(res_airport_13006, 'Ihtiman Airfield').
+airport(res_airport_13009, 'Vogtareuth Airport').
+airport(res_airport_1301, 'Pontivy Airport').
+airport(res_airport_13011, '[Duplicate] Illertissen via EDMI - ED-0425 location moved out-of-the way').
+airport(res_airport_13016, 'New Smyrna Beach Municipal Airport').
+airport(res_airport_13018, 'Las Vegas Helicopters Heliport').
+airport(res_airport_13019, 'Delta Camp Airport').
+airport(res_airport_1302, 'Aubigny-sur-Nère Airport').
+airport(res_airport_13020, 'Hwange (Town) Airport').
+airport(res_airport_13022, 'Harbour (Public) Heliport').
+airport(res_airport_13023, 'Victoria Harbour (Camel Point) Heliport').
+airport(res_airport_1303, 'Guiscriff Scaer Airport').
+airport(res_airport_13032, 'Shushenskoye Airport').
+airport(res_airport_1305, 'Ancenis Airport').
+airport(res_airport_1306, 'Brienne-le-Château Airport').
+airport(res_airport_13066, 'Stockerau Airport').
+airport(res_airport_13069, 'Klaipėda Airport').
+airport(res_airport_1307, 'Colmar-Houssen Airport').
+airport(res_airport_13072, 'Iowa County Airport').
+airport(res_airport_13074, 'West Bend Municipal Airport').
+airport(res_airport_13075, 'Gaylord Regional Airport').
+airport(res_airport_13077, 'Anderson Municipal Darlington Field').
+airport(res_airport_13078, 'Cenej Airport').
+airport(res_airport_13079, 'Grundarfjörður Airport').
+airport(res_airport_1308, 'Beaune-Challanges Airport').
+airport(res_airport_13080, 'Prairie Du Chien Municipal Airport').
+airport(res_airport_13097, 'Cascade Heliport').
+airport(res_airport_13098, 'Air Orlando Heliport').
+airport(res_airport_131, 'Rocky Mountain House Airport').
+airport(res_airport_1310, 'Joigny Airport').
+airport(res_airport_13106, 'Tórshavn/Bodanes Heliport').
+airport(res_airport_1311, 'Verdun-Le Rozelier Airfield').
+airport(res_airport_13112, 'Otjiwarongo Airport').
+airport(res_airport_13114, 'RAF Mona').
+airport(res_airport_1312, 'Aubenas-Ardèche Méridional Airport').
+airport(res_airport_13120, 'Rerik-Zweedorf Airport').
+airport(res_airport_13121, 'Fazenda Vaticano Airport').
+airport(res_airport_13123, 'Stanly County Airport').
+airport(res_airport_13124, 'Davidson County Airport').
+airport(res_airport_13126, 'Windwood Fly-In Resort Airport').
+airport(res_airport_13127, 'Lathan Strip').
+airport(res_airport_13130, 'Double Eagle II Airport').
+airport(res_airport_13131, 'Socorro Municipal Airport').
+airport(res_airport_13135, 'Bentonville Municipal-Louise M Thaden Field').
+airport(res_airport_13137, 'Blue Ridge Airport').
+airport(res_airport_13138, 'Mount Airy Surry County Airport').
+airport(res_airport_13139, 'Taos Regional Airport').
+airport(res_airport_1314, 'Saint-Flour-Coltines Airport').
+airport(res_airport_13142, 'Raton Municipal-Crews Field').
+airport(res_airport_13144, 'Rusk County Airport').
+airport(res_airport_1315, 'Bourg-Ceyzériat Airport').
+airport(res_airport_13154, 'Perry Lefors Field').
+airport(res_airport_13155, 'William R. Pogue Municipal Airport').
+airport(res_airport_13156, 'Marion County Regional Airport').
+airport(res_airport_13158, 'Hutchinson County Airport').
+airport(res_airport_1316, 'Villefranche-Tarare Airport').
+airport(res_airport_1317, 'Moulins-Montbeugny Airport').
+airport(res_airport_13176, 'Budaörs Airfield').
+airport(res_airport_13177, 'Jakabszállás Airport').
+airport(res_airport_1318, 'Saint-Affrique-Belmont Airport').
+airport(res_airport_13180, 'St. Helena Airport').
+airport(res_airport_13183, 'Bonn-Hangelar Airport').
+airport(res_airport_13188, 'Nogliki Airport').
+airport(res_airport_13189, 'Santa Ynez Airport').
+airport(res_airport_1319, 'Cassagnes-Bégonhès Airport').
+airport(res_airport_13192, 'Delingha Airport').
+airport(res_airport_13193, 'Qionghai Bo''ao Airport').
+airport(res_airport_13199, 'Northeim Airport').
+airport(res_airport_13209, 'Reggio Emilia Airport').
+airport(res_airport_13210, 'Bowen Airport').
+airport(res_airport_13211, 'Ulanqab Jining Airport').
+airport(res_airport_13212, 'Odienne Airport').
+airport(res_airport_13214, 'Siguiri Airport').
+airport(res_airport_13215, 'Nzérékoré Airport').
+airport(res_airport_13227, 'Boolgeeda').
+airport(res_airport_13229, 'Shaoyang Wugang Airport').
+airport(res_airport_13230, '9 de Maio - Teixeira de Freitas Airport').
+airport(res_airport_13233, 'Spartanburg Downtown Memorial Airport').
+airport(res_airport_13243, 'Bajawa Soa Airport').
+airport(res_airport_13248, 'Torgau-Beilrode Airport').
+airport(res_airport_13249, 'Annobón Airport').
+airport(res_airport_1325, 'Propriano Airport').
+airport(res_airport_13257, 'Renk Airport').
+airport(res_airport_1326, 'Solenzara (BA 126) Air Base').
+airport(res_airport_13260, 'Oyo Ollombo Airport').
+airport(res_airport_13263, 'Port Hardy Seaplane Base').
+airport(res_airport_13265, 'Tri-City Airport').
+airport(res_airport_13266, 'Boun Neau Airport').
+airport(res_airport_13267, 'Waycross Ware County Airport').
+airport(res_airport_13268, 'Blaise Diagne International Airport').
+airport(res_airport_13269, 'Mid-State Regional Airport').
+airport(res_airport_1327, 'Corte Airport').
+airport(res_airport_13271, 'Greater Portsmouth Regional Airport').
+airport(res_airport_1328, 'Auxerre-Branches Airport').
+airport(res_airport_1329, 'Chambéry-Savoie Airport').
+airport(res_airport_13306, 'Coonawarra Airport').
+airport(res_airport_13307, 'Naracoorte Airport').
+airport(res_airport_13309, 'Camilla Mitchell County Airport').
+airport(res_airport_1331, 'Bourges Airport').
+airport(res_airport_13311, 'Clarenville Airport').
+airport(res_airport_13315, 'Ponta Grossa Airport - Comandante Antonio Amilton Beraldo').
+airport(res_airport_1332, 'Chambéry-Challes-les-Eaux Airport').
+airport(res_airport_1333, 'Chalon-Champforgeuil Airport').
+airport(res_airport_13334, 'Palenque International Airport').
+airport(res_airport_13335, 'Caloundra Airport').
+airport(res_airport_13336, 'Clarks Point Airport').
+airport(res_airport_13339, 'Ospika Airport').
+airport(res_airport_1334, 'Annemasse Airport').
+airport(res_airport_13341, 'Charlottetown Airport').
+airport(res_airport_13342, 'Doris Lake').
+airport(res_airport_13344, 'Costa Esmeralda Airport').
+airport(res_airport_13346, 'Monte Cristi Airport').
+airport(res_airport_13347, 'El Papalon Airport').
+airport(res_airport_13354, 'Sandpoint Airport').
+airport(res_airport_13355, 'Attu Heliport').
+airport(res_airport_13356, 'Kangaatsiaq Heliport').
+airport(res_airport_13357, 'Kitsissuarsuit Heliport').
+airport(res_airport_13358, 'Niaqornaarsuk Heliport').
+airport(res_airport_13359, 'Ilimanaq Heliport').
+airport(res_airport_1336, 'Mâcon-Charnay Airport').
+airport(res_airport_13360, 'Qeqertaq Heliport').
+airport(res_airport_13361, 'Saqqaq Heliport').
+airport(res_airport_13363, 'Savissivik Heliport').
+airport(res_airport_13364, 'Siorapaluk Heliport').
+airport(res_airport_13365, 'Aappilattoq (Qaasuitsup) Heliport').
+airport(res_airport_13366, 'Innarsuit Heliport').
+airport(res_airport_13367, 'Kangersuatsiaq Heliport').
+airport(res_airport_13368, 'Kullorsuaq Heliport').
+airport(res_airport_13369, 'Nuussuaq Heliport').
+airport(res_airport_1337, 'Saint-Yan Airport').
+airport(res_airport_13370, 'Tasiusaq (Qaasuitsup) Heliport').
+airport(res_airport_13371, 'Upernavik Kujalleq Heliport').
+airport(res_airport_13372, 'Aappilattoq (Kujalleq) Heliport').
+airport(res_airport_13373, 'Tasiusaq (Kujalleq) Heliport').
+airport(res_airport_13374, 'Narsaq Kujalleq Heliport').
+airport(res_airport_13375, 'Ikamiut Heliport').
+airport(res_airport_13377, 'Ammassivik Heliport').
+airport(res_airport_13378, 'Eqalugaarsuit Heliport').
+airport(res_airport_13379, 'Qassimiut Heliport').
+airport(res_airport_1338, 'Roanne-Renaison Airport').
+airport(res_airport_13380, 'Tiniteqilaaq Heliport').
+airport(res_airport_13381, 'Isortoq Heliport').
+airport(res_airport_13382, 'Kuummiut Heliport').
+airport(res_airport_13383, 'Sermiligaaq Heliport').
+airport(res_airport_13384, 'Ikerassaarsuk Heliport').
+airport(res_airport_13385, 'Illorsuit Heliport').
+airport(res_airport_13386, 'Nuugaatsiaq Heliport').
+airport(res_airport_13387, 'Saattut Heliport').
+airport(res_airport_13388, 'Ikerasak Heliport').
+airport(res_airport_13389, 'Niaqornat Heliport').
+airport(res_airport_1339, 'Annecy-Haute-Savoie-Mont Blanc Airport').
+airport(res_airport_13390, 'Ukkusissat Heliport').
+airport(res_airport_13397, 'Olhos D`água Airport').
+airport(res_airport_13398, 'Novo Progresso Airport').
+airport(res_airport_13399, 'Adolino Bedin Regional Airport').
+airport(res_airport_134, 'Sherbrooke Airport').
+airport(res_airport_1340, 'Grenoble-Isère Airport').
+airport(res_airport_13400, 'Serra da Capivara Airport').
+airport(res_airport_13401, 'Encarnación Airport').
+airport(res_airport_13402, 'Amatopo Airstrip').
+airport(res_airport_13403, 'Poeketi Airstrip').
+airport(res_airport_13404, 'Godo Holo Airstrip').
+airport(res_airport_13405, 'Anholt Airport').
+airport(res_airport_1341, 'Montluçon-Domérat Airport').
+airport(res_airport_13411, 'St Pierre d''Oléron Airfield').
+airport(res_airport_13412, 'Semur En Auxois Airfield').
+airport(res_airport_13415, 'Urzhar Airport').
+airport(res_airport_13416, 'Pyramiden Heliport').
+airport(res_airport_1342, 'Valence-Chabeuil Airport').
+airport(res_airport_13421, 'Lipki Air Base').
+airport(res_airport_13422, 'Zermatt  Heliport').
+airport(res_airport_13423, 'Nikolskoye Airport').
+airport(res_airport_13424, 'Tilichiki Airport').
+airport(res_airport_13425, 'Nyurba Airport').
+airport(res_airport_13426, 'Sakkyryr Airport').
+airport(res_airport_13427, 'Ust-Kuyga Airport').
+airport(res_airport_13428, 'Verkhnevilyuisk Airport').
+airport(res_airport_13429, 'Mendeleyevo Airport').
+airport(res_airport_1343, 'Vichy-Charmeil Airport').
+airport(res_airport_13430, 'Yamburg Airport').
+airport(res_airport_13431, 'Shakhtyorsk Airport').
+airport(res_airport_13432, 'Talakan Airport').
+airport(res_airport_13433, 'Mama Airport').
+airport(res_airport_13435, 'Aarhus Seaplne Terminal').
+airport(res_airport_13436, 'Oakland Troy Airport').
+airport(res_airport_13437, 'Stratford Municipal Airport').
+airport(res_airport_13438, 'Edmundston Airport').
+airport(res_airport_13439, 'Red Dog Airport').
+airport(res_airport_13447, 'Impfondo Airport').
+airport(res_airport_13448, 'El Bayadh Airport').
+airport(res_airport_1345, 'Châteauroux-Déols \\"Marcel Dassault\\" Airport').
+airport(res_airport_13451, 'Alzintan Airport').
+airport(res_airport_13452, 'Monkey Bay Airport').
+airport(res_airport_13453, 'Suwałki Airport').
+airport(res_airport_13454, 'Srr Ahmadu Bello International Airport').
+airport(res_airport_13455, 'Sir Abubakar Tafawa Balewa International Airport').
+airport(res_airport_13456, 'Gombe Lawanti International Airport').
+airport(res_airport_13457, 'Dutse International Airport').
+airport(res_airport_13458, 'Jalingo Airport').
+airport(res_airport_1346, 'Lyon-Bron Airport').
+airport(res_airport_13460, 'Kolda North Airport').
+airport(res_airport_13463, 'King Mswati III International Airport').
+airport(res_airport_13465, 'Kilwa Masoko Airport').
+airport(res_airport_13466, 'West Kilimanjaro Airport').
+airport(res_airport_13467, 'Moshi Airport').
+airport(res_airport_13468, 'Mansa Airport').
+airport(res_airport_13469, 'Ghazni Airport').
+airport(res_airport_1347, 'Aix-en-Provence (BA 114) Airport').
+airport(res_airport_13470, 'Baicheng Chang''an Airport').
+airport(res_airport_13471, 'Longnan Chengzhou Airport').
+airport(res_airport_13472, 'Shangrao Sanqingshan Airport').
+airport(res_airport_13473, 'Songyuan Chaganhu Airport').
+airport(res_airport_13474, 'Jiansanjiang Airport').
+airport(res_airport_13476, 'Zunyi Maotai Airport').
+airport(res_airport_13477, 'Libo Airport').
+airport(res_airport_13478, 'Chengde Puning Airport').
+airport(res_airport_13479, 'Wudalianchi Dedu Airport').
+airport(res_airport_1348, 'Le Luc-Le Cannet Airport').
+airport(res_airport_13480, 'Ejin Banner-Taolai Airport').
+airport(res_airport_13481, 'Alxa Right Banner Badanjilin Airport').
+airport(res_airport_13482, 'Holingol Huolinhe Airport').
+airport(res_airport_13483, 'Golog Maqin Airport').
+airport(res_airport_13485, 'Yeerqiang Airport').
+airport(res_airport_13487, 'Tezu Airport').
+airport(res_airport_13488, 'Cangyuan Washan Airport').
+airport(res_airport_13489, 'Lancang Jingmai Airport').
+airport(res_airport_1349, 'Cannes-Mandelieu Airport').
+airport(res_airport_13490, 'Ninglang Luguhu Airport').
+airport(res_airport_13491, 'Pimenta Bueno Airport').
+airport(res_airport_13492, 'Ariquemes Airport').
+airport(res_airport_13493, 'Fazenda Spartacus Airport').
+airport(res_airport_13494, 'Xinzhou Wutaishan Airport').
+airport(res_airport_13496, 'Chengjisihan Airport').
+airport(res_airport_13497, 'Fazenda Mequens Airport').
+airport(res_airport_13498, 'Prainha Airport').
+airport(res_airport_13499, 'Mostardas Airport').
+airport(res_airport_13500, 'Santo Domingo Airport').
+airport(res_airport_13502, 'Adampur Airport').
+airport(res_airport_1351, 'Istres Le Tubé/Istres Air Base (BA 125) Airport').
+airport(res_airport_13511, 'Vijayanagar Aerodrome (JSW)').
+airport(res_airport_13513, 'Shirdi Airport').
+airport(res_airport_13514, 'Jeypore Airport').
+airport(res_airport_13520, 'Trunojoyo Airport').
+airport(res_airport_13521, 'Lasondre Airport').
+airport(res_airport_13525, 'Rokot Airport').
+airport(res_airport_13529, 'Pasir Pangaraan Airport').
+airport(res_airport_13530, 'Sei Bati Airport').
+airport(res_airport_13532, 'Departi Parbo Airport').
+airport(res_airport_13535, 'Namrole Airport').
+airport(res_airport_13538, 'Namlea Airport').
+airport(res_airport_13540, 'Rar Gwamar Airport').
+airport(res_airport_13543, 'Emalamo Sanana Airport').
+airport(res_airport_13544, 'Ayawasi Airport').
+airport(res_airport_13545, 'Bunyu Airport').
+airport(res_airport_13546, 'Buol Airport').
+airport(res_airport_13548, 'Sugimanuru Airport').
+airport(res_airport_1355, 'Orange-Caritat (BA 115) Air Base').
+airport(res_airport_13550, 'Jask Airport').
+airport(res_airport_13551, 'Frankfort Dow Memorial Field').
+airport(res_airport_13552, 'Cheboygan County Airport').
+airport(res_airport_13553, 'Kozushima Airport').
+airport(res_airport_13561, 'Kazarman Airport').
+airport(res_airport_13562, 'Kerben Airport').
+airport(res_airport_13564, 'Naryn Airport').
+airport(res_airport_13566, 'Sayaboury Airport').
+airport(res_airport_1357, 'Le Castellet Airport').
+airport(res_airport_13572, 'Baglung Airport').
+airport(res_airport_13573, 'Rajbiraj Airport').
+airport(res_airport_13575, 'Duqm International Airport').
+airport(res_airport_1358, 'Alès-Deaux Airport').
+airport(res_airport_13580, 'Palanan Community Airport').
+airport(res_airport_13581, 'Itbayat Airport').
+airport(res_airport_13583, 'Catbalogan Airport').
+airport(res_airport_13584, 'Maasin Airport').
+airport(res_airport_13592, 'Bantayan Airport').
+airport(res_airport_13593, 'Biliran Airport').
+airport(res_airport_13595, 'Fazenda Várzea Funda Airport').
+airport(res_airport_13597, 'Primavera do Leste Airport').
+airport(res_airport_13598, 'Croker Island Airport').
+airport(res_airport_13599, 'The Granites Airport').
+airport(res_airport_13600, 'Barimunya Airport').
+airport(res_airport_13601, 'Laucala Island Airport').
+airport(res_airport_13602, 'Yasawa Island Airport').
+airport(res_airport_13606, 'North Shore Aerodrome').
+airport(res_airport_13607, 'John C Tune Airport').
+airport(res_airport_13608, 'Okiwi Station Airport').
+airport(res_airport_13609, 'Waiheke Reeve Airport').
+airport(res_airport_13610, 'Karamea Airport').
+airport(res_airport_1362, 'Salon-de-Provence (BA 701) Air Base').
+airport(res_airport_13621, 'Jastarnia Airport').
+airport(res_airport_13622, 'Nop Goliat Airport').
+airport(res_airport_13623, 'Napuka Island Airport').
+airport(res_airport_13624, 'Faaite Airport').
+airport(res_airport_13625, 'Nukutavake Airport').
+airport(res_airport_13626, 'Vahitahi Airport').
+airport(res_airport_13627, 'Hikueru Atoll Airport').
+airport(res_airport_13628, 'Raroia Airport').
+airport(res_airport_13629, 'Kauehi Airport').
+airport(res_airport_1363, 'Lézignan-Corbières Airfield').
+airport(res_airport_13630, 'Tatakoto Airport').
+airport(res_airport_13631, 'Sasereme Airport').
+airport(res_airport_13632, 'Tanah Merah Airport').
+airport(res_airport_13635, 'Denali Airport').
+airport(res_airport_13636, 'Comte. Rolim Adolfo Amaro–Jundiaí State Airport').
+airport(res_airport_1364, 'Mende-Brenoux Airfield').
+airport(res_airport_13642, 'Potomac Airpark').
+airport(res_airport_13643, 'Helisul IV Heliport').
+airport(res_airport_13647, 'Brits Airport').
+airport(res_airport_13648, 'West Melton Aerodrome').
+airport(res_airport_13649, 'Rangiora Airfield').
+airport(res_airport_1365, 'Carpentras Airport').
+airport(res_airport_1366, 'Avord (BA 702) Air Base').
+airport(res_airport_13668, 'Fazenda Jatobasso Airport').
+airport(res_airport_13669, 'FIC Heliport').
+airport(res_airport_13671, 'Noonkanbah Airport').
+airport(res_airport_13677, 'Algeciras Heliport').
+airport(res_airport_1368, 'Châteaudun (BA 279) Air Base').
+airport(res_airport_13681, 'Chepelevka Airport').
+airport(res_airport_13683, 'Fazenda São Nicolau Airport').
+airport(res_airport_13684, 'Kisoro Airport').
+airport(res_airport_13687, 'Kasese Airport').
+airport(res_airport_1369, 'Saumur-Saint-Florent Airport').
+airport(res_airport_13694, 'Stennis International Airport').
+airport(res_airport_13695, 'Sunchales Aeroclub Airport').
+airport(res_airport_13696, 'Istanbul Airport').
+airport(res_airport_137, 'Nanisivik Airport').
+airport(res_airport_1370, 'Évreux-Fauville (BA 105) Air Base').
+airport(res_airport_13707, 'Seldovia Airport').
+airport(res_airport_13711, 'Lutselk''e Airport').
+airport(res_airport_13712, 'Engeløy Airport').
+airport(res_airport_13713, 'Dwangwa Airport').
+airport(res_airport_13714, 'Paloich Airport, Heliport').
+airport(res_airport_13715, 'Julian Carroll Airport').
+airport(res_airport_13716, 'Beaufort MCAS - Merritt Field').
+airport(res_airport_13717, 'Camp Pendleton MCAS (Munn Field) Airport').
+airport(res_airport_13718, 'Aerodromo de Castelo Branco').
+airport(res_airport_13719, 'Ponte de Sor Airport').
+airport(res_airport_1372, 'Abbeville').
+airport(res_airport_13720, 'Vilar de Luz Airfield').
+airport(res_airport_13721, 'Hard Bargain Airport').
+airport(res_airport_13722, 'Kenebetsu JASDF Airfield').
+airport(res_airport_13723, 'Augusto Severo Airport').
+airport(res_airport_13724, 'Kishangarh Airport').
+airport(res_airport_13725, 'Kannur International Airport').
+airport(res_airport_13726, 'Beijing Xijiao Airport').
+airport(res_airport_1373, 'Orléans-Bricy (BA 123) Air Base').
+airport(res_airport_13735, 'Flores Airport').
+airport(res_airport_1375, 'Rouen Airport').
+airport(res_airport_13752, 'Umuwa Airport').
+airport(res_airport_13754, 'La Araucanía Airport').
+airport(res_airport_13756, 'Arathusa Safari Lodge Airport').
+airport(res_airport_13757, 'Vidalia Regional Airport').
+airport(res_airport_13758, 'Granbury Regional Airport').
+airport(res_airport_13759, 'Oswego County Airport').
+airport(res_airport_13760, 'New Islamabad International Airport').
+airport(res_airport_13762, 'Vumbura Airport').
+airport(res_airport_13763, 'Farm Whitwater East Landing Strip').
+airport(res_airport_13765, 'Muwaffaq Salti Air Base').
+airport(res_airport_1377, 'Cholet Le Pontreau Airport').
+airport(res_airport_13771, 'Kirkjubæjarklaustur Airport').
+airport(res_airport_13772, 'Fazenda Uiapuru Airport').
+airport(res_airport_13773, 'Whitehorse Seaplane Base').
+airport(res_airport_13777, 'Pertominsk Airport').
+airport(res_airport_1378, 'Laval-Entrammes Airport').
+airport(res_airport_1379, 'Orléans-Saint-Denis-de-l''Hôtel Airport').
+airport(res_airport_13792, 'Mount Weld Airport').
+airport(res_airport_13793, 'Kidston Airport').
+airport(res_airport_138, 'Summerside Airport').
+airport(res_airport_1380, 'Paris-Le Bourget Airport').
+airport(res_airport_13802, 'Klaksvik Heliport').
+airport(res_airport_13803, 'Mitchell Municipal Airport').
+airport(res_airport_13805, 'Hunda Airport').
+airport(res_airport_13808, 'Mchauru Airport').
+airport(res_airport_1381, 'Creil Air Base').
+airport(res_airport_13821, 'Gitega Airport').
+airport(res_airport_13829, 'Región de Murcia International Airport').
+airport(res_airport_1383, 'Coulommiers-Voisins Airport').
+airport(res_airport_13830, 'Fazenda Kajussol Airport').
+airport(res_airport_1384, 'Melun-Villaroche Air Base').
+airport(res_airport_1385, 'Toussus-le-Noble Airport').
+airport(res_airport_1387, 'Pontoise - Cormeilles-en-Vexin Airport').
+airport(res_airport_1388, 'Villacoublay-Vélizy (BA 107) Air Base').
+airport(res_airport_13880, 'Pelee Island Airport').
+airport(res_airport_13881, 'Costa Marques Airport').
+airport(res_airport_1389, 'Reims-Prunay Airport').
+airport(res_airport_13891, 'Mangalore Airport').
+airport(res_airport_1390, 'Troyes-Barberey Airport').
+airport(res_airport_1391, 'Lunéville-Croismare Airport').
+airport(res_airport_1392, 'Étain-Rouvres Air Base').
+airport(res_airport_1393, 'Autun-Bellevue Airport').
+airport(res_airport_1394, 'Nevers-Fourchambault Airport').
+airport(res_airport_1395, 'Cambrai-Épinoy (BA 103) Air Base').
+airport(res_airport_1396, 'Maubeuge-Élesmes Airport').
+airport(res_airport_1397, 'Besançon-La Vèze Airport').
+airport(res_airport_1398, 'Phalsbourg-Bourscheid Air Base').
+airport(res_airport_14, 'Húsavík Airport').
+airport(res_airport_1400, 'Merville-Calonne Airport').
+airport(res_airport_1401, 'Charleville-Mézières Airport').
+airport(res_airport_1402, 'Vesoul-Frotey Airport').
+airport(res_airport_1404, 'Cherbourg-Maupertus Airport').
+airport(res_airport_1406, 'La Baule-Escoublac Airport').
+airport(res_airport_1407, 'Granville Airport').
+airport(res_airport_14086, 'San Isidro del General Airport').
+airport(res_airport_14087, 'Zabrat Airport').
+airport(res_airport_14088, 'Bezmer Air Base').
+airport(res_airport_14089, 'Osovtsy Air Base').
+airport(res_airport_14090, 'Yuanmou Air Base').
+airport(res_airport_14091, 'Changsha Datuopu Airport/AFB').
+airport(res_airport_14092, 'Xingcheng Air Base').
+airport(res_airport_14093, 'Lefkoniko Airport').
+airport(res_airport_14095, 'Songwe Airport').
+airport(res_airport_14096, 'Kalocsa/Foktő Airport').
+airport(res_airport_14097, 'Bilogai-Sugapa Airport').
+airport(res_airport_14098, 'Jakkur Aerodrome').
+airport(res_airport_14099, 'Jalal-Abad Airport').
+airport(res_airport_1410, 'La Roche-sur-Yon Airport').
+airport(res_airport_14100, 'Ramon Airport').
+airport(res_airport_14101, 'Rustaq Airport').
+airport(res_airport_14102, 'Laguindingan Airport').
+airport(res_airport_14103, 'Kostomuksha Airport').
+airport(res_airport_14104, 'Privolzhskiy Air Base').
+airport(res_airport_14105, 'Kubinka Air Base').
+airport(res_airport_14106, 'Rogachyovo Air Base').
+airport(res_airport_14107, 'Ulan-Ude East Airport').
+airport(res_airport_14108, 'Krechevitsy Air Base').
+airport(res_airport_14109, 'Desierto de Atacama Airport').
+airport(res_airport_1411, 'Landivisiau Air Base').
+airport(res_airport_14110, 'Melitopol Air Base').
+airport(res_airport_1413, 'Lanvéoc-Poulmic Air Base').
+airport(res_airport_1414, 'Le Mans-Arnage Airport').
+airport(res_airport_1419, 'Saint-Brieuc-Armor Airport').
+airport(res_airport_142, 'CFB Trenton').
+airport(res_airport_1420, 'Morlaix-Ploujean Airport').
+airport(res_airport_1421, 'Vannes-Meucon Airport').
+airport(res_airport_1422, 'Saint-Nazaire-Montoir Airport').
+airport(res_airport_1424, 'Colmar-Meyenheim Air Base').
+airport(res_airport_1426, 'Metz-Frescaty (BA 128) Air Base').
+airport(res_airport_1427, 'Épinal-Mirecourt Airport').
+airport(res_airport_1428, 'Haguenau Airport').
+airport(res_airport_1429, 'Saint-Dizier-Robinson (BA 113) Air Base').
+airport(res_airport_1430, 'Montbéliard-Courcelles Airfield').
+airport(res_airport_1431, 'Nancy-Essey Airport').
+airport(res_airport_1432, 'Nancy-Ochey (BA 133) Air Base').
+airport(res_airport_1433, 'Pontarlier Airport').
+airport(res_airport_1434, 'Reims-Champagne (BA 112) Air Base').
+airport(res_airport_1436, 'Luxeuil-Saint-Sauveur (BA 116) Air Base').
+airport(res_airport_1437, 'Cuers-Pierrefeu Airport').
+airport(res_airport_1440, 'Miquelon Airport').
+airport(res_airport_1442, 'Ambérieu Air Base (BA 278)').
+airport(res_airport_1443, 'Damblain Airport').
+airport(res_airport_1444, 'Andravida Air Base').
+airport(res_airport_1445, 'Agrinion Air Base').
+airport(res_airport_1447, 'Alexandria Airport').
+airport(res_airport_1449, 'Elefsis Airport').
+airport(res_airport_1457, 'Amigdhaleon Airport').
+airport(res_airport_1466, 'Larisa Airport').
+airport(res_airport_1467, 'Megara Airport').
+airport(res_airport_1471, 'Maritsa Airport').
+airport(res_airport_1478, 'Sparti Airport').
+airport(res_airport_1481, 'Stefanovikion Air Base').
+airport(res_airport_1483, 'Tanagra Air Base').
+airport(res_airport_1484, 'Kasteli Airport').
+airport(res_airport_1485, 'Tripolis Airport').
+airport(res_airport_1487, 'Tatoi Airport').
+airport(res_airport_1491, 'Kecskemét Airport').
+airport(res_airport_1492, 'Nyíregyháza Airport').
+airport(res_airport_1493, 'Őcsény Airport').
+airport(res_airport_1496, 'Szentkirályszabadja Airport').
+airport(res_airport_1498, 'Szolnok Air Base').
+airport(res_airport_1499, 'Amendola Air Base').
+airport(res_airport_150, 'La Ronge Airport').
+airport(res_airport_1500, 'Crotone Airport').
+airport(res_airport_1502, 'Foggia \\"Gino Lisa\\" Airport').
+airport(res_airport_1503, 'Taranto-Grottaglie \\"Marcello Arlotta\\" Airport').
+airport(res_airport_1504, 'Lecce Galatina Air Base').
+airport(res_airport_1507, 'Gioia Del Colle Air Base').
+airport(res_airport_151, 'Vermilion Airport').
+airport(res_airport_1513, 'Palermo-Boccadifalco Airport').
+airport(res_airport_1516, 'Sigonella Navy Air Base').
+airport(res_airport_1518, 'Decimomannu Air Base').
+airport(res_airport_1521, 'Tortolì Airport').
+airport(res_airport_1522, 'Torino-Aeritalia Airport').
+airport(res_airport_1523, 'Milano-Bresso Airfield').
+airport(res_airport_1527, 'Villanova D''Albenga International Airport').
+airport(res_airport_1530, 'Cameri Air Base [MIL]').
+airport(res_airport_1532, 'Piacenza San Damiano Air Base').
+airport(res_airport_1535, 'Aviano Air Base').
+airport(res_airport_1537, 'Cervia Air Base').
+airport(res_airport_1540, 'Rivolto Air Base').
+airport(res_airport_1541, 'Forlì Airport').
+airport(res_airport_1542, 'Ghedi Air Base').
+airport(res_airport_1543, 'Verona-Boscomantico Airport').
+airport(res_airport_1544, 'Brescia Airport').
+airport(res_airport_1547, 'Istrana Air Base').
+airport(res_airport_1548, 'Vicenza Airport').
+airport(res_airport_1549, 'Padova Airport').
+airport(res_airport_1552, 'Siena-Ampugnano Airport').
+airport(res_airport_1554, 'Pratica Di Mare Air Base').
+airport(res_airport_1556, 'Guidonia Air Base').
+airport(res_airport_1559, 'Latina Air Base').
+airport(res_airport_1560, 'Grazzanise Air Base').
+airport(res_airport_1564, 'Grosseto Air Base').
+airport(res_airport_1565, 'Urbe Airport').
+airport(res_airport_1566, 'Viterbo Airport').
+airport(res_airport_1568, 'Cerklje Airport').
+airport(res_airport_157, 'Buffalo Narrows Airport').
+airport(res_airport_1570, 'Maribor Airport').
+airport(res_airport_1571, 'Portoroz Airport').
+airport(res_airport_1572, 'Slovenj Gradec Airport').
+airport(res_airport_1573, 'České Budějovice Airport').
+airport(res_airport_1574, 'Čáslav Air Base').
+airport(res_airport_1575, 'Hradec Králové Airport').
+airport(res_airport_1576, 'Hořovice Airport').
+airport(res_airport_1577, 'Kbely Air Base').
+airport(res_airport_1578, 'Kunovice Airport').
+airport(res_airport_158, 'Wiarton Airport').
+airport(res_airport_1580, 'Plzeň-Líně Airport').
+airport(res_airport_1581, 'Mnichovo Hradiště Airport').
+airport(res_airport_1583, 'Náměšť Air Base').
+airport(res_airport_1585, 'Pribram Airport').
+airport(res_airport_1586, 'Přerov Air Base').
+airport(res_airport_1589, 'Vodochody Airport').
+airport(res_airport_159, 'Petawawa Airport').
+airport(res_airport_1591, 'Beersheba (Teyman) Airport').
+airport(res_airport_1592, 'Tel Nof Air Base').
+airport(res_airport_1593, 'Ein Shemer Airfield').
+airport(res_airport_1595, 'Ein Yahav Airfield').
+airport(res_airport_1597, 'Hatzor Air Base').
+airport(res_airport_1598, 'Ben Ya''akov Airport').
+airport(res_airport_1599, 'Megiddo Airport').
+airport(res_airport_1600, 'Bar Yehuda Airfield').
+airport(res_airport_1601, 'Nevatim Air Base').
+airport(res_airport_1603, 'Ramat David Air Base').
+airport(res_airport_1604, 'Ramon Air Base').
+airport(res_airport_1607, 'Wiener Neustadt East Airport').
+airport(res_airport_1608, 'Wels Airport').
+airport(res_airport_1615, 'Hinterstoisser Air Base').
+airport(res_airport_1616, 'Alverca Air Base').
+airport(res_airport_1618, 'Bragança Airport').
+airport(res_airport_1619, 'Beja Airport / Airbase').
+airport(res_airport_1620, 'Braga Municipal Aerodrome').
+airport(res_airport_1621, 'Aerodromo Municipal de Coimbra').
+airport(res_airport_1622, 'Cascais Airport').
+airport(res_airport_1623, 'Coimbra Hospital Covões Heliport').
+airport(res_airport_1624, 'Évora Airport').
+airport(res_airport_163, 'Wrigley Airport').
+airport(res_airport_1630, 'Monte Real Air Base').
+airport(res_airport_1631, 'Montijo Air Base').
+airport(res_airport_1632, 'Ovar Air Base').
+airport(res_airport_1635, 'Portimão Airport').
+airport(res_airport_1640, 'Sintra Air Base').
+airport(res_airport_1641, 'Tancos Airbase').
+airport(res_airport_1642, 'Vila Real Airport').
+airport(res_airport_1643, 'Aerodromo Goncalves Lobato (Viseu Airport)').
+airport(res_airport_1648, 'Bacău Airport').
+airport(res_airport_165, 'Edmonton City Centre (Blatchford Field) Airport').
+airport(res_airport_1650, 'Băneasa International Airport').
+airport(res_airport_1653, 'Caransebeş Airport').
+airport(res_airport_1660, 'Suceava Stefan cel Mare Airport').
+airport(res_airport_1661, 'Tulcea Airport').
+airport(res_airport_1664, 'Les Eplatures Airport').
+airport(res_airport_1666, 'Saanen Airport').
+airport(res_airport_1667, 'Sion Airport').
+airport(res_airport_1668, 'Alpnach Air Base').
+airport(res_airport_1669, 'Dübendorf Air Base').
+airport(res_airport_1670, 'Emmen Air Base').
+airport(res_airport_1671, 'Mollis Airport').
+airport(res_airport_1672, 'Meiringen Airport').
+airport(res_airport_1673, 'Payerne Air Base').
+airport(res_airport_1677, 'Grenchen Airport').
+airport(res_airport_1680, 'Samedan Airport').
+airport(res_airport_1681, 'Güvercinlik Airport').
+airport(res_airport_1683, 'Etimesgut Air Base').
+airport(res_airport_1684, 'Akıncı Air Base').
+airport(res_airport_1686, 'İncirlik Air Base').
+airport(res_airport_1687, 'Afyon Airport').
+airport(res_airport_1690, 'İskenderun Airport').
+airport(res_airport_1695, 'Malatya Erhaç Airport').
+airport(res_airport_1697, 'Sivrihisar Airport').
+airport(res_airport_1698, 'Tokat Airport').
+airport(res_airport_17, 'Patreksfjörður Airport').
+airport(res_airport_1702, 'Balıkesir Merkez Airport').
+airport(res_airport_1703, 'Bandırma Airport').
+airport(res_airport_1705, 'Eskişehir Air Base').
+airport(res_airport_1707, 'Gaziemir Airport').
+airport(res_airport_1708, 'Çiğli Airport').
+airport(res_airport_1709, 'Isparta Airport').
+airport(res_airport_171, 'Earlton (Timiskaming Regional) Airport').
+airport(res_airport_1710, 'Kütahya Airport').
+airport(res_airport_1712, 'Yalova Airport').
+airport(res_airport_1713, 'Cengiz Topel Airport').
+airport(res_airport_1716, 'Akhisar Airport').
+airport(res_airport_1718, 'Imsık Airport').
+airport(res_airport_1719, 'Samandıra Air Base').
+airport(res_airport_1731, 'Siirt Airport').
+airport(res_airport_1732, 'Kaklıç Airport').
+airport(res_airport_1733, 'Selçuk Efes Airport').
+airport(res_airport_1734, 'Bălți International Airport').
+airport(res_airport_1736, 'Ohrid St. Paul the Apostle Airport').
+airport(res_airport_1740, 'Nis Airport').
+airport(res_airport_1744, 'Vršac International Airport').
+airport(res_airport_1747, 'Kuchyňa Air Base').
+airport(res_airport_1748, 'Piešťany Airport').
+airport(res_airport_1749, 'Sliač Airport').
+airport(res_airport_1750, 'Trenčín Airport').
+airport(res_airport_1751, 'Poprad-Tatry Airport').
+airport(res_airport_1753, 'North Caicos Airport').
+airport(res_airport_1756, 'Arroyo Barril Airport').
+airport(res_airport_1757, 'Maria Montez International Airport').
+airport(res_airport_1758, 'Cabo Rojo Airport').
+airport(res_airport_1763, 'San Isidro Air Base').
+airport(res_airport_1765, 'Bananera Airport').
+airport(res_airport_1766, 'Coban Airport').
+airport(res_airport_1769, 'Retalhuleu Airport').
+airport(res_airport_1770, 'San José Airport').
+airport(res_airport_1775, 'Tela Airport').
+airport(res_airport_1777, 'Trujillo Airport').
+airport(res_airport_1778, 'Boscobel Aerodrome').
+airport(res_airport_1781, 'Ken Jones Airport').
+airport(res_airport_1782, 'Tinson Pen Airport').
+airport(res_airport_1784, 'Del Norte International Airport').
+airport(res_airport_1787, 'General Mariano Matamoros Airport').
+airport(res_airport_1788, 'Ciudad Acuña New International Airport').
+airport(res_airport_1790, 'Nuevo Casas Grandes Airport').
+airport(res_airport_1791, 'Chilpancingo Airport').
+airport(res_airport_1803, 'Ensenada International Airport').
+airport(res_airport_1805, 'General José María Yáñez International Airport').
+airport(res_airport_1806, 'Tehuacan Airport').
+airport(res_airport_1809, 'Isla Mujeres Airport').
+airport(res_airport_1811, 'Ixtepec Airport').
+airport(res_airport_1823, 'Monclova International Airport').
+airport(res_airport_1827, 'Nogales International Airport').
+airport(res_airport_1832, 'Ingeniero Juan Guillermo Villasana Airport').
+airport(res_airport_1833, 'Mar de Cortés International Airport').
+airport(res_airport_1841, 'San Felipe International Airport').
+airport(res_airport_1843, 'Tlaxcala Airport').
+airport(res_airport_1844, 'Terán Air Base').
+airport(res_airport_1849, 'Tamuin Airport').
+airport(res_airport_185, 'Lynn Lake Airport').
+airport(res_airport_1857, 'Zamora Airport').
+airport(res_airport_1859, 'Zapopan Airport').
+airport(res_airport_186, 'Swift Current Airport').
+airport(res_airport_1860, 'Bluefields Airport').
+airport(res_airport_1861, 'Los Brasiles Airport').
+airport(res_airport_1862, 'Leon (Fanor Urroz) Airport').
+airport(res_airport_1864, 'Puerto Cabezas Airport').
+airport(res_airport_1868, 'Panama Pacific International Airport').
+airport(res_airport_1870, 'Ruben Cantu Airport').
+airport(res_airport_1872, 'Buenos Aires Airport').
+airport(res_airport_1874, 'Coto 47 Airport').
+airport(res_airport_1875, 'Chacarita Airport').
+airport(res_airport_1877, 'El Carmen de Siquirres Airport').
+airport(res_airport_1878, 'Finca 10 / Nuevo Palmar Sur Airport').
+airport(res_airport_1880, 'Guapiles Airport').
+airport(res_airport_1882, 'Los Chiles Airport').
+airport(res_airport_1883, 'Limon International Airport').
+airport(res_airport_1886, 'Pandora Airport').
+airport(res_airport_1890, 'Santa Clara De Guapiles Airport').
+airport(res_airport_1891, 'San Vito De Java Airport').
+airport(res_airport_1893, 'Ilopango International Airport').
+airport(res_airport_1894, 'Les Cayes Airport').
+airport(res_airport_1896, 'Jacmel Airport').
+airport(res_airport_1898, 'Gustavo Rizo Airport').
+airport(res_airport_1899, 'Carlos Manuel de Cespedes Airport').
+airport(res_airport_19, 'Siglufjörður Airport').
+airport(res_airport_1900, 'Maximo Gomez Airport').
+airport(res_airport_1902, 'Jaime Gonzalez Airport').
+airport(res_airport_1906, 'Florida Airport').
+airport(res_airport_1907, 'Leeward Point Field').
+airport(res_airport_191, 'Armstrong Airport').
+airport(res_airport_1911, 'La Coloma Airport').
+airport(res_airport_1912, 'Orestes Acosta Airport').
+airport(res_airport_1913, 'Sierra Maestra Airport').
+airport(res_airport_1914, 'Rafael Cabrera Airport').
+airport(res_airport_1915, 'Playa Baracoa Airport').
+airport(res_airport_1916, 'Pinar Del Rio Airport').
+airport(res_airport_1917, 'San Antonio De Los Banos Airport').
+airport(res_airport_1919, 'Joaquín de Agüero Airport').
+airport(res_airport_1920, 'Siguanea Airport').
+airport(res_airport_1921, 'Sancti Spiritus Airport').
+airport(res_airport_1924, 'Hermanos Ameijeiras Airport').
+airport(res_airport_1927, 'Clarence A. Bain Airport').
+airport(res_airport_1928, 'Andros Town Airport').
+airport(res_airport_1931, 'San Andros Airport').
+airport(res_airport_1933, 'Sandy Point Airport').
+airport(res_airport_1935, 'Chub Cay Airport').
+airport(res_airport_1936, 'Great Harbour Cay Airport').
+airport(res_airport_194, 'Downsview Airport').
+airport(res_airport_1942, 'George Town Airport').
+airport(res_airport_1945, 'Normans Cay Airport').
+airport(res_airport_1947, 'Staniel Cay Airport').
+airport(res_airport_195, 'Gore Bay Manitoulin Airport').
+airport(res_airport_1954, 'Duncan Town Airport').
+airport(res_airport_1955, 'Rum Cay Airport').
+airport(res_airport_1964, 'Vava''u International Airport').
+airport(res_airport_1966, 'Tabiteuea North Airport').
+airport(res_airport_197, 'Slave Lake Airport').
+airport(res_airport_1973, 'Anaa Airport').
+airport(res_airport_1974, 'Fangatau Airport').
+airport(res_airport_1976, 'Reao Airport').
+airport(res_airport_1982, 'Puka Puka Airport').
+airport(res_airport_20, 'Vestmannaeyjar Airport').
+airport(res_airport_2008, 'Ardmore Airport').
+airport(res_airport_201, 'Whitecourt Airport').
+airport(res_airport_2010, 'Chatham Islands-Tuuta Airport').
+airport(res_airport_2013, 'Glentanner Airport').
+airport(res_airport_2016, 'Hastings Aerodrome').
+airport(res_airport_2019, 'Alexandra Airport').
+airport(res_airport_2020, 'Mount Cook Airport').
+airport(res_airport_2021, 'Manapouri Airport').
+airport(res_airport_2022, 'Hood Airport').
+airport(res_airport_2026, 'RNZAF Base Ohakea').
+airport(res_airport_2027, 'Oamaru Airport').
+airport(res_airport_203, 'Teslin Airport').
+airport(res_airport_2032, 'Waiouru Airport').
+airport(res_airport_2033, 'South Pole Station Airport').
+airport(res_airport_2036, 'Pukaki Airport').
+airport(res_airport_2038, 'Williams Field').
+airport(res_airport_2039, 'Wanaka Airport').
+airport(res_airport_204, 'CFB Greenwood').
+airport(res_airport_2040, 'Wigram Airport').
+airport(res_airport_2043, 'Wairoa Airport').
+airport(res_airport_2044, 'RNZAF Base Auckland-Whenuapai').
+airport(res_airport_2049, 'Jalalabad Airport').
+airport(res_airport_205, 'Faro Airport').
+airport(res_airport_2052, 'Maimana Airport').
+airport(res_airport_2054, 'Shindand Airport').
+airport(res_airport_2055, 'Sheberghan Airport').
+airport(res_airport_2056, 'Konduz Airport').
+airport(res_airport_2058, 'Sheik Isa Air Base').
+airport(res_airport_2063, 'Abqaiq Airport').
+airport(res_airport_2065, 'King Abdulaziz Air Base').
+airport(res_airport_207, 'Blida Airport').
+airport(res_airport_2070, 'Jubail Airport').
+airport(res_airport_2071, 'King Faisal Naval Base').
+airport(res_airport_2073, 'King Khaled Military City Airport').
+airport(res_airport_2077, 'Pump Station 3 Airport').
+airport(res_airport_2078, 'Pump Station 6 Airport').
+airport(res_airport_2079, 'Pump Station 10 Airport').
+airport(res_airport_208, 'Bou Saada Airport').
+airport(res_airport_2080, 'Rabigh Airport').
+airport(res_airport_2083, 'Ras Mishab Airport').
+airport(res_airport_2085, 'Ras Tanura Airport').
+airport(res_airport_2088, 'Sulayel Airport').
+airport(res_airport_2091, 'Thumamah Airport').
+airport(res_airport_2092, 'Ras Tanajib Airport').
+airport(res_airport_2098, 'Dezful Airport').
+airport(res_airport_2099, 'Aghajari Airport').
+airport(res_airport_2100, 'Gachsaran Airport').
+airport(res_airport_2101, 'Shahid Asyaee Airport').
+airport(res_airport_2102, 'Omidiyeh Airport').
+airport(res_airport_2105, 'Abu Musa Island Airport').
+airport(res_airport_2107, 'Bastak Airport').
+airport(res_airport_2108, 'Asaloyeh Airport').
+airport(res_airport_2111, 'Khark Island Airport').
+airport(res_airport_2112, 'Sirri Island Airport').
+airport(res_airport_2113, 'Lavan Island Airport').
+airport(res_airport_2118, 'Hesa Airport').
+airport(res_airport_2119, 'Shahid Vatan Pour Air Base').
+airport(res_airport_212, 'Boufarik Airport').
+airport(res_airport_2120, 'Kashan Airport').
+airport(res_airport_2122, 'Badr Air Base').
+airport(res_airport_2125, 'Arak Airport').
+airport(res_airport_2126, 'Ghazvin Azadi Airport').
+airport(res_airport_2127, 'Kushke Nosrat Airport').
+airport(res_airport_2128, 'Doshan Tappeh Air Base').
+airport(res_airport_213, 'Reggane Airport').
+airport(res_airport_2130, 'Ghale Morghi Airport').
+airport(res_airport_2132, 'Qazvin Airport').
+airport(res_airport_2133, 'Naja Airport').
+airport(res_airport_2135, 'Jiroft Airport').
+airport(res_airport_2138, 'Havadarya Airport').
+airport(res_airport_2139, 'Dayrestan Airport').
+airport(res_airport_214, 'Illizi Takhamalt Airport').
+airport(res_airport_2141, 'Sirjan Airport').
+airport(res_airport_2143, 'Sarakhs Airport').
+airport(res_airport_2144, 'Shahroud Airport').
+airport(res_airport_2147, 'Tabas Airport').
+airport(res_airport_2148, 'Kalaleh Airport').
+airport(res_airport_215, 'Ain Oussera Airport').
+airport(res_airport_2153, 'Fasa Airport').
+airport(res_airport_2154, 'Jahrom Airport').
+airport(res_airport_2156, 'Lamerd Airport').
+airport(res_airport_2158, 'Khoy Airport').
+airport(res_airport_2163, 'Zanjan Airport').
+airport(res_airport_2168, 'Iran Shahr Airport').
+airport(res_airport_2169, 'Saravan Airport').
+airport(res_airport_217, 'Jijel Ferhat Abbas Airport').
+airport(res_airport_2171, 'Amman-Marka International Airport').
+airport(res_airport_2173, 'Prince Hassan Air Base').
+airport(res_airport_2174, 'Jerusalem Airport').
+airport(res_airport_2175, 'King Hussein Air College').
+airport(res_airport_2178, 'Rene Mouawad Air Base').
+airport(res_airport_218, 'Mecheria Airport').
+airport(res_airport_2181, 'Al Hamra Aux Airport').
+airport(res_airport_2182, 'Jebel Dhana Airport').
+airport(res_airport_2184, 'Al Dhafra Air Base').
+airport(res_airport_2185, 'Arzanah Airport').
+airport(res_airport_2186, 'Das Island Airport').
+airport(res_airport_2187, 'Zirku Airport').
+airport(res_airport_219, 'Relizane Airport').
+airport(res_airport_2190, 'Ras Al Khaimah International Airport').
+airport(res_airport_2193, 'Masirah Air Base').
+airport(res_airport_2196, 'Thumrait Air Base').
+airport(res_airport_2197, 'Bhagatanwala Airport').
+airport(res_airport_22, 'Winnipeg / St. Andrews Airport').
+airport(res_airport_2205, 'Shahbaz Air Base').
+airport(res_airport_2208, 'Walton Airport').
+airport(res_airport_2209, 'Mangla Airport').
+airport(res_airport_2210, 'Muzaffarabad Airport').
+airport(res_airport_2211, 'Mianwali Air Base').
+airport(res_airport_2213, 'Masroor Air Base').
+airport(res_airport_2215, 'Shaheed Benazirabad Airport').
+airport(res_airport_2216, 'Okara Cantonment Airstrip').
+airport(res_airport_2218, 'Pasni Airport').
+airport(res_airport_2220, 'Qasim Airport').
+airport(res_airport_2224, 'Risalpur Air Base').
+airport(res_airport_2225, 'Rawalakot Airport').
+airport(res_airport_2228, 'Saidu Sharif Airport').
+airport(res_airport_2229, 'Sui Airport').
+airport(res_airport_2230, 'Talhar Airport').
+airport(res_airport_2232, 'Wana Airport').
+airport(res_airport_2235, 'Aleppo International Airport').
+airport(res_airport_2236, 'Damascus International Airport').
+airport(res_airport_2237, 'Deir ez-Zor Air Base').
+airport(res_airport_2239, 'Bassel Al-Assad International Airport').
+airport(res_airport_2240, 'Palmyra Airport').
+airport(res_airport_2241, 'Doha International Airport').
+airport(res_airport_2242, 'Canton Island Airport').
+airport(res_airport_2245, 'Andersen Air Force Base').
+airport(res_airport_2247, 'Tinian International Airport').
+airport(res_airport_2250, 'Dyess Army Air Field').
+airport(res_airport_2253, 'Henderson Field').
+airport(res_airport_226, 'Bou Sfer Airport').
+airport(res_airport_2260, 'Pingtung South Airport').
+airport(res_airport_2261, 'Longtan Air Base').
+airport(res_airport_2263, 'Lyudao Airport').
+airport(res_airport_2265, 'Chiayi Airport').
+airport(res_airport_2267, 'Lanyu Airport').
+airport(res_airport_227, 'Tindouf Airport').
+airport(res_airport_2271, 'Hsinchu Air Base').
+airport(res_airport_2273, 'Chihhang Air Base').
+airport(res_airport_2274, 'Pingtung North Airport').
+airport(res_airport_2277, 'Wang-an Airport').
+airport(res_airport_228, 'Ech Cheliff Airport').
+airport(res_airport_2282, 'Minami Torishima Airport').
+airport(res_airport_2283, 'Iwo Jima Airport').
+airport(res_airport_2285, 'Kohnan Airport').
+airport(res_airport_2289, 'Chitose Air Base').
+airport(res_airport_229, 'Tafaraoui Airport').
+airport(res_airport_2293, 'Tokachi Airport').
+airport(res_airport_23, 'Halifax / CFB Shearwater Heliport').
+airport(res_airport_2300, 'Okushiri Airport').
+airport(res_airport_2301, 'Rishiri Airport').
+airport(res_airport_2302, 'Ashiya Airport').
+airport(res_airport_2303, 'Yakushima Airport').
+airport(res_airport_2306, 'New Tanegashima Airport').
+airport(res_airport_2309, 'Nyutabaru Airport').
+airport(res_airport_2314, 'Kanoya Airport').
+airport(res_airport_2315, 'Tsuiki Air Field').
+airport(res_airport_2317, 'Okierabu Airport').
+airport(res_airport_2318, 'Tokunoshima Airport').
+airport(res_airport_2319, 'Fukui Airport').
+airport(res_airport_232, 'Sidi Bel Abbes Airport').
+airport(res_airport_2320, 'Gifu Airport').
+airport(res_airport_2321, 'Hamamatsu Airport').
+airport(res_airport_2323, 'Oki Airport').
+airport(res_airport_2325, 'Shizuhama Airport').
+airport(res_airport_2329, 'Hofu Airport').
+airport(res_airport_2338, 'Yao Airport').
+airport(res_airport_2339, 'Ozuki Airport').
+airport(res_airport_2342, 'Sado Airport').
+airport(res_airport_2343, 'Hachinohe Airport').
+airport(res_airport_2348, 'Matsushima Air Base').
+airport(res_airport_2350, 'Atsugi Naval Air Facility').
+airport(res_airport_2351, 'Tateyama Airport').
+airport(res_airport_2353, 'Iruma Air Base').
+airport(res_airport_2354, 'Kisarazu Airport').
+airport(res_airport_2355, 'Shimofusa Airport').
+airport(res_airport_2358, 'Kastner Army Heliport').
+airport(res_airport_2360, 'Yokota Air Base').
+airport(res_airport_2364, 'Jeon Ju Airport (G-703)').
+airport(res_airport_2366, 'Sokcho Airport').
+airport(res_airport_2367, 'Gangneung Airport (K-18)').
+airport(res_airport_2371, 'Jinhae Airbase/Airport (G-813/K-10)').
+airport(res_airport_2375, 'A 511 Airport').
+airport(res_airport_2376, 'Seoul Air Base (K-16)').
+airport(res_airport_2377, 'Osan Air Base').
+airport(res_airport_2379, 'Suwon Airport').
+airport(res_airport_2383, 'Yecheon Airbase').
+airport(res_airport_2385, 'Ie Shima Auxiliary Air Base').
+airport(res_airport_2386, 'Kadena Air Base').
+airport(res_airport_2389, 'Minami-Daito Airport').
+airport(res_airport_2391, 'Kitadaito Airport').
+airport(res_airport_2392, 'Shimojishima Airport').
+airport(res_airport_2393, 'Tarama Airport').
+airport(res_airport_2394, 'Yoron Airport').
+airport(res_airport_2395, 'Futenma Marine Corps Air Station').
+airport(res_airport_2396, 'Yonaguni Airport').
+airport(res_airport_2405, 'Loakan Airport').
+airport(res_airport_2406, 'Daet Airport').
+airport(res_airport_2407, 'Basa Air Base').
+airport(res_airport_2408, 'Lingayen Airport').
+airport(res_airport_241, 'Laghouat Airport').
+airport(res_airport_2410, 'Fernando Air Base').
+airport(res_airport_2411, 'Mamburao Airport').
+airport(res_airport_2414, 'Vigan Airport').
+airport(res_airport_2415, 'Dr.Juan C. Angara Airport').
+airport(res_airport_242, 'Timimoun Airport').
+airport(res_airport_2421, 'Bagabag Airport').
+airport(res_airport_2428, 'Guiuan Airport').
+airport(res_airport_2435, 'Evelio Javier Airport').
+airport(res_airport_2436, 'Comodoro Pierrestegui Airport').
+airport(res_airport_2437, 'Gualeguaychu Airport').
+airport(res_airport_2438, 'Junin Airport').
+airport(res_airport_2444, 'Chamical Airport').
+airport(res_airport_2445, 'San Fernando Airport').
+airport(res_airport_2446, 'Mariano Moreno Airport').
+airport(res_airport_2447, 'La Plata Airport').
+airport(res_airport_2448, 'Moron Airport').
+airport(res_airport_2449, 'El Palomar Airport').
+airport(res_airport_2450, 'Chos Malal Airport').
+airport(res_airport_2451, 'Dr. Arturo H. Illia Airport').
+airport(res_airport_2453, 'Comodoro D.R. Salomón Airport').
+airport(res_airport_2457, 'Tinogasta Airport').
+airport(res_airport_2459, 'Chilecito Airport').
+airport(res_airport_2462, 'Area De Material Airport').
+airport(res_airport_2463, 'Villa Dolores Airport').
+airport(res_airport_2464, 'La Quiaca Airport').
+airport(res_airport_2465, 'Marcos Juarez Airport').
+airport(res_airport_2466, 'Villa Reynolds Airport').
+airport(res_airport_2468, 'Corrientes Airport').
+airport(res_airport_2472, 'Paso De Los Libres Airport').
+airport(res_airport_2473, 'Monte Caseros Airport').
+airport(res_airport_2475, 'Termal Airport').
+airport(res_airport_2478, 'Orán Airport').
+airport(res_airport_2479, 'Laboulaye Airport').
+airport(res_airport_2481, 'El Dorado Airport').
+airport(res_airport_2482, 'Goya Airport').
+airport(res_airport_2483, 'Oberá Airport').
+airport(res_airport_2484, 'Reconquista Airport').
+airport(res_airport_2485, 'Curuzu Cuatia Airport').
+airport(res_airport_2486, 'El Bolson Airport').
+airport(res_airport_2493, 'Marambio Base').
+airport(res_airport_2494, 'Puerto Deseado Airport').
+airport(res_airport_2498, 'Capitan D Daniel Vazquez Airport').
+airport(res_airport_2499, 'Perito Moreno Airport').
+airport(res_airport_25, 'Tofino / Long Beach Airport').
+airport(res_airport_250, 'Wa Airport').
+airport(res_airport_2500, 'Santa Cruz Airport').
+airport(res_airport_2502, 'Brigadier D.H.E. Ruiz Airport').
+airport(res_airport_2503, 'Olavarria Airport').
+airport(res_airport_2504, 'General Pico Airport').
+airport(res_airport_2505, 'Tres Arroyos Airport').
+airport(res_airport_2506, 'Bolivar Airport').
+airport(res_airport_2511, 'Comodoro Pedro Zanni Airport').
+airport(res_airport_2514, 'Héroes De Malvinas Airport').
+airport(res_airport_2515, 'Villa Gesell Airport').
+airport(res_airport_2516, 'Cutral-Co Airport').
+airport(res_airport_2519, 'Campo Délio Jardim de Mattos Airport').
+airport(res_airport_2520, 'Amapá Airport').
+airport(res_airport_2527, 'Comandante Gustavo Kraemer Airport').
+airport(res_airport_2529, 'Bacacheri Airport').
+airport(res_airport_2530, 'Major Brigadeiro Doorgal Borges Airport').
+airport(res_airport_2532, 'Bauru Airport').
+airport(res_airport_2534, 'Barra do Garças Airport').
+airport(res_airport_2536, 'Cachimbo Airport').
+airport(res_airport_254, 'Bouaké Airport').
+airport(res_airport_2540, 'Brig. Lysias Augusto Rodrigues Airport').
+airport(res_airport_2542, 'Canoas Air Force Base').
+airport(res_airport_2546, 'Caravelas Airport').
+airport(res_airport_255, 'Daloa Airport').
+airport(res_airport_2552, 'Jacareacanga Airport').
+airport(res_airport_2553, 'São Pedro da Aldeia Airport').
+airport(res_airport_2558, 'Furnas Airport').
+airport(res_airport_256, 'Korhogo Airport').
+airport(res_airport_2561, 'Guajará-Mirim Airport').
+airport(res_airport_2563, 'EMBRAER - Unidade Gavião Peixoto Airport').
+airport(res_airport_2565, 'Guaratinguetá Airport').
+airport(res_airport_2567, 'Itacoatiara Airport').
+airport(res_airport_257, 'Man Airport').
+airport(res_airport_2571, 'Francisco Vilela do Amaral Airport').
+airport(res_airport_2573, 'Belém/Brigadeiro Protásio de Oliveira Airport').
+airport(res_airport_2574, 'Francisco de Assis Airport').
+airport(res_airport_2579, 'Lages Airport').
+airport(res_airport_258, 'San Pedro Airport').
+airport(res_airport_2580, 'Lins Airport').
+airport(res_airport_2583, 'Lagoa Santa Airport').
+airport(res_airport_2585, 'Monte Dourado Airport').
+airport(res_airport_2589, 'Ponta Pelada Airport').
+airport(res_airport_259, 'Yamoussoukro Airport').
+airport(res_airport_2592, 'Dix-Sept Rosado Airport').
+airport(res_airport_2593, 'Campo de Marte Airport').
+airport(res_airport_2594, 'Manicoré Airport').
+airport(res_airport_2598, 'Oiapoque Airport').
+airport(res_airport_26, 'Kugaaruk Airport').
+airport(res_airport_2600, 'Prefeito Doutor João Silva Filho Airport').
+airport(res_airport_2601, 'Poços de Caldas - Embaixador Walther Moreira Salles Airport').
+airport(res_airport_2605, 'Porto Nacional Airport').
+airport(res_airport_2606, 'Ponta Porã Airport').
+airport(res_airport_261, 'Akure Airport').
+airport(res_airport_2614, 'Santa Cruz Air Force Base').
+airport(res_airport_2620, 'Base Aérea de Santos Airport').
+airport(res_airport_2625, 'Tarauacá Airport').
+airport(res_airport_2626, 'Telêmaco Borba Airport').
+airport(res_airport_2627, 'Tiriós Airport').
+airport(res_airport_2636, 'Major Brigadeiro Trompowsky Airport').
+airport(res_airport_2639, 'Iauaretê Airport').
+airport(res_airport_2640, 'Campo Fontenelle Airport').
+airport(res_airport_2643, 'El Bosque Airport').
+airport(res_airport_2644, 'Chile Chico Airport').
+airport(res_airport_2646, 'Gral. Bernardo O´Higgins Airport').
+airport(res_airport_2648, 'Teniente Vidal Airport').
+airport(res_airport_265, 'Gusau Airport').
+airport(res_airport_2652, 'Capitan Fuentes Martinez Airport Airport').
+airport(res_airport_2653, 'Futaleufú Airport').
+airport(res_airport_2654, 'María Dolores Airport').
+airport(res_airport_2655, 'Guardiamarina Zañartu Airport').
+airport(res_airport_2659, 'Vallenar Airport').
+airport(res_airport_2660, 'De La Independencia Airport').
+airport(res_airport_2661, 'Teniente Rodolfo Marsh Martin Base').
+airport(res_airport_2663, 'Eulogio Sánchez Airport').
+airport(res_airport_2666, 'Chaitén Airport').
+airport(res_airport_2668, 'Chachoán Airport').
+airport(res_airport_2669, 'Hacienda Clementina Airport').
+airport(res_airport_2674, 'Gualaquiza Airport').
+airport(res_airport_2675, 'Atahualpa Airport').
+airport(res_airport_2676, 'Km 192 Airport').
+airport(res_airport_2677, 'Hacienda La Julia Airport').
+airport(res_airport_2679, 'Jose Maria Velasco Ibarra Airport').
+airport(res_airport_2681, 'General Manuel Serrano Airport').
+airport(res_airport_2682, 'El Carmen Airport').
+airport(res_airport_2684, 'Maragrosa Airport').
+airport(res_airport_2685, 'Amable Calle Gutierrez Airport').
+airport(res_airport_2686, 'Reales Tamarindos Airport').
+airport(res_airport_2687, 'Quevedo Airport').
+airport(res_airport_2689, 'Chimborazo Airport').
+airport(res_airport_2691, 'General Ulpiano Paez Airport').
+airport(res_airport_2692, 'Santo Domingo de Los Colorados Airport').
+airport(res_airport_2694, 'Taura Airport').
+airport(res_airport_2695, 'Mayor Galo Torres Airport').
+airport(res_airport_2696, 'Tarapoa Airport').
+airport(res_airport_2700, 'Juan De Ayolas Airport').
+airport(res_airport_2701, 'Teniente Col Carmelo Peralta Airport').
+airport(res_airport_2702, 'Itaipú Airport').
+airport(res_airport_2703, 'Dr. Luis Maria Argaña International Airport').
+airport(res_airport_2704, 'Carlos Miguel Gimenez Airport').
+airport(res_airport_2707, 'Las Flores Airport').
+airport(res_airport_271, 'Maiduguri International Airport').
+airport(res_airport_272, 'Makurdi Airport').
+airport(res_airport_2720, 'Santiago Vila Airport').
+airport(res_airport_2723, 'Guaymaral Airport').
+airport(res_airport_2727, 'Jorge Isaac Airport').
+airport(res_airport_2730, 'Baracoa Airport').
+airport(res_airport_2735, 'Aguas Claras Airport').
+airport(res_airport_2736, 'Otu Airport').
+airport(res_airport_2737, 'Puerto Bolívar Airport').
+airport(res_airport_274, 'Minna Airport').
+airport(res_airport_2740, 'Pitalito Airport').
+airport(res_airport_2744, 'Mariquita Airport').
+airport(res_airport_2754, 'Heriberto Gíl Martínez Airport').
+airport(res_airport_2758, 'Bermejo Airport').
+airport(res_airport_2760, 'Chimore Airport').
+airport(res_airport_2763, 'Juan Mendoza Airport').
+airport(res_airport_2765, 'Capitán Av. Salvador Ogaya G. airport').
+airport(res_airport_2766, 'Santa Ana Del Yacuma Airport').
+airport(res_airport_2770, 'Teniente Coronel Rafael Pabón Airport').
+airport(res_airport_2775, 'Saint-Georges-de-l''Oyapock Airport').
+airport(res_airport_2776, 'Huancabamba Airport').
+airport(res_airport_2777, 'Alferez FAP Alfredo Vladimir Sara Bauer Airport').
+airport(res_airport_2778, 'Teniente General Gerardo Pérez Pinedo Airport').
+airport(res_airport_278, 'Zaria Airport').
+airport(res_airport_2780, 'Iberia Airport').
+airport(res_airport_2782, 'Teniente FAP Jaime A De Montreuil Morales Airport').
+airport(res_airport_2783, 'Puerto Esperanza Airport').
+airport(res_airport_2784, 'Cesar Torke Podesta Airport').
+airport(res_airport_279, 'Maradi Airport').
+airport(res_airport_2790, 'Juanjui Airport').
+airport(res_airport_2791, 'Francisco Carle Airport').
+airport(res_airport_2794, 'Ilo Airport').
+airport(res_airport_2795, 'Las Palmas Air Base').
+airport(res_airport_2797, 'Moises Benzaquen Rengifo Airport').
+airport(res_airport_2799, 'Collique Airport').
+airport(res_airport_2800, 'Chachapoyas Airport').
+airport(res_airport_2803, 'Capitán FAP Leonardo Alvariño Herr Airport').
+airport(res_airport_2805, 'Capitán FAP Renán Elías Olivera International Airport').
+airport(res_airport_281, 'Tahoua Airport').
+airport(res_airport_2810, 'Capitan Montes Airport').
+airport(res_airport_2813, 'Angel S Adami Airport').
+airport(res_airport_2814, 'Santa Bernardina International Airport').
+airport(res_airport_2817, 'Nueva Hesperides International Airport').
+airport(res_airport_2818, 'Oswaldo Guevara Mujica Airport').
+airport(res_airport_2819, 'Anaco Airport').
+airport(res_airport_282, 'Mano Dayak International Airport').
+airport(res_airport_2820, 'San Fernando de Atabapo Airport').
+airport(res_airport_2823, 'El Libertador Airbase').
+airport(res_airport_2826, 'Aeropuerto \\"General Tomas de Heres\\". Ciudad Bolivar').
+airport(res_airport_2827, 'Caicara del Orinoco Airport').
+airport(res_airport_2828, 'San Carlos Airport').
+airport(res_airport_2829, 'Calabozo Airport').
+airport(res_airport_283, 'Dirkou Airport').
+airport(res_airport_2831, 'Carora Airport').
+airport(res_airport_2832, 'General Francisco Bermúdez Airport').
+airport(res_airport_2834, 'Oscar Machado Zuluaga Airport').
+airport(res_airport_2836, 'Capitán Manuel Ríos Airbase').
+airport(res_airport_2837, 'El Dorado Airport').
+airport(res_airport_2838, 'Elorza Airport').
+airport(res_airport_2839, 'Guasdalito Airport').
+airport(res_airport_284, 'Diffa Airport').
+airport(res_airport_2840, 'Guiria Airport').
+airport(res_airport_2841, 'Guanare Airport').
+airport(res_airport_2842, 'Higuerote Airport').
+airport(res_airport_2843, 'Andrés Miguel Salazar Marcano Airport').
+airport(res_airport_2845, 'San Juan de Los Morros Airport').
+airport(res_airport_2847, 'La Orchila Airport').
+airport(res_airport_285, 'Zinder Airport').
+airport(res_airport_2855, 'Paramillo Airport').
+airport(res_airport_2857, 'Palmarito Airport').
+airport(res_airport_2859, 'Santa Bárbara de Barinas Airport').
+airport(res_airport_2862, 'Sub Teniente Nestor Arias Airport').
+airport(res_airport_2863, 'San Fernando De Apure Airport').
+airport(res_airport_2865, 'Santa Bárbara del Zulia Airport').
+airport(res_airport_2866, 'Tucupita Airport').
+airport(res_airport_2867, 'Tumeremo Airport').
+airport(res_airport_2871, 'Valle de La Pascua Airport').
+airport(res_airport_2872, 'Linden Airport').
+airport(res_airport_2873, 'Lethem Airport').
+airport(res_airport_2876, 'Canefield Airport').
+airport(res_airport_288, 'Sidi Ahmed Air Base').
+airport(res_airport_2886, 'Diego Jimenez Torres Airport').
+airport(res_airport_2887, 'Fernando Luis Ribas Dominicci Airport').
+airport(res_airport_289, 'Remada Air Base').
+airport(res_airport_2905, 'Canouan Airport').
+airport(res_airport_2906, 'Mustique Airport').
+airport(res_airport_2909, 'Balkhash Airport').
+airport(res_airport_292, 'Borj El Amri Airport').
+airport(res_airport_2929, 'Provideniya Bay Airport').
+airport(res_airport_294, 'El Borma Airport').
+airport(res_airport_2950, 'Gomel Airport').
+airport(res_airport_2951, 'Vitebsk Vostochny Airport').
+airport(res_airport_2953, 'Minsk 1 Airport').
+airport(res_airport_297, 'Niamtougou International Airport').
+airport(res_airport_2977, 'Turkmenbashi Airport').
+airport(res_airport_2978, 'Turkmenabat Airport').
+airport(res_airport_2984, 'Bryansk Airport').
+airport(res_airport_2986, 'Migalovo Air Base').
+airport(res_airport_2995, 'Akola Airport').
+airport(res_airport_2998, 'Bilaspur Airport').
+airport(res_airport_300, 'Beauvechain Air Base').
+airport(res_airport_3004, 'Daman Airport').
+airport(res_airport_3005, 'Deesa Airport').
+airport(res_airport_3006, 'Guna Airport').
+airport(res_airport_301, 'Kleine Brogel Air Base').
+airport(res_airport_3011, 'Kandla Airport').
+airport(res_airport_3013, 'Kolhapur Airport').
+airport(res_airport_3014, 'Keshod Airport').
+airport(res_airport_3016, 'Nashik Airport').
+airport(res_airport_3021, 'Solapur Airport').
+airport(res_airport_3025, 'Anuradhapura Air Force Base').
+airport(res_airport_3026, 'Batticaloa Airport').
+airport(res_airport_3027, 'Colombo Ratmalana Airport').
+airport(res_airport_3028, 'Ampara Airport').
+airport(res_airport_3029, 'Kankesanturai Airport').
+airport(res_airport_303, 'Jehonville Air Base').
+airport(res_airport_3033, 'Kampong Chhnang Airport').
+airport(res_airport_3036, 'Stung Treng Airport').
+airport(res_airport_3037, 'Along Airport').
+airport(res_airport_3041, 'Bokaro Airport').
+airport(res_airport_3044, 'Cooch Behar Airport').
+airport(res_airport_3045, 'Dhanbad Airport').
+airport(res_airport_3048, 'Gaya Airport').
+airport(res_airport_3049, 'Hirakud Airport').
+airport(res_airport_305, 'Chièvres Air Base').
+airport(res_airport_3051, 'Jharsuguda Airport').
+airport(res_airport_3052, 'Sonari Airport').
+airport(res_airport_3053, 'Jorhat Airport').
+airport(res_airport_3054, 'Kailashahar Airport').
+airport(res_airport_3056, 'North Lakhimpur Airport').
+airport(res_airport_3058, 'Muzaffarpur Airport').
+airport(res_airport_3059, 'Nawapara Airport').
+airport(res_airport_306, 'Koksijde Air Base').
+airport(res_airport_3060, 'Panagarh Air Force Station').
+airport(res_airport_3062, 'Purnea Airport').
+airport(res_airport_3064, 'Rourkela Airport').
+airport(res_airport_3065, 'Utkela Airport').
+airport(res_airport_3067, 'Ziro Airport').
+airport(res_airport_307, 'Florennes Air Base').
+airport(res_airport_3070, 'Ishurdi Airport').
+airport(res_airport_3075, 'Tejgaon Airport').
+airport(res_airport_3078, 'Shek Kong Air Base').
+airport(res_airport_308, 'Wevelgem Airport').
+airport(res_airport_3082, 'Nal Airport').
+airport(res_airport_3083, 'Bakshi Ka Talab Air Force Station').
+airport(res_airport_3086, 'Bhatinda Air Force Station').
+airport(res_airport_3087, 'Bhiwani Airport').
+airport(res_airport_3088, 'Bareilly Air Force Station').
+airport(res_airport_3090, 'Kanpur Airport').
+airport(res_airport_3091, 'Safdarjung Airport').
+airport(res_airport_3095, 'Hissar Airport').
+airport(res_airport_3096, 'Jhansi Airport').
+airport(res_airport_3099, 'Jaisalmer Airport').
+airport(res_airport_3102, 'Kota Airport').
+airport(res_airport_3106, 'Pathankot Airport').
+airport(res_airport_3107, 'Patiala Airport').
+airport(res_airport_3108, 'Pantnagar Airport').
+airport(res_airport_3109, 'Fursatganj Airport').
+airport(res_airport_311, 'Zutendaal Air Base').
+airport(res_airport_3111, 'Sarsawa Air Force Station').
+airport(res_airport_3113, 'Satna Airport').
+airport(res_airport_3117, 'Phonesavanh Airport').
+airport(res_airport_3119, 'Sam Neua Airport').
+airport(res_airport_312, 'Brustem Airfield Sint Truiden').
+airport(res_airport_3124, 'Janakpur Airport').
+airport(res_airport_3128, 'Simara Airport').
+airport(res_airport_313, 'Saint Hubert Air Base').
+airport(res_airport_3132, 'Bellary Airport').
+airport(res_airport_3133, 'Bidar Air Force Station').
+airport(res_airport_3138, 'Kadapa Airport').
+airport(res_airport_3139, 'Car Nicobar Air Force Station').
+airport(res_airport_314, 'Ursel Air Base').
+airport(res_airport_3140, 'Dundigul Air Force Academy').
+airport(res_airport_3141, 'Begumpet Airport').
+airport(res_airport_3145, 'Nagarjuna Sagar Airport').
+airport(res_airport_3147, 'Pondicherry Airport').
+airport(res_airport_3149, 'Salem Airport').
+airport(res_airport_315, 'Weelde Air Base').
+airport(res_airport_3150, 'Tanjore Air Force Base').
+airport(res_airport_3154, 'Tambaram Air Force Station').
+airport(res_airport_3158, 'Kamphaeng Saen Airport').
+airport(res_airport_3159, 'Khok Kathiam Airport').
+airport(res_airport_316, 'Zoersel (Oostmalle) Airfield').
+airport(res_airport_3162, 'Watthana Nakhon Airport').
+airport(res_airport_3165, 'Hua Hin Airport').
+airport(res_airport_3166, 'Takhli Airport').
+airport(res_airport_3167, 'Sak Long Airport').
+airport(res_airport_3169, 'Nakhon Sawan Airport').
+airport(res_airport_317, 'Flugplatz Bautzen').
+airport(res_airport_3171, 'Khunan Phumipol Airport').
+airport(res_airport_3172, 'Khoun Khan Airport').
+airport(res_airport_3175, 'Songkhla Airport').
+airport(res_airport_3176, 'Pattani Airport').
+airport(res_airport_3178, 'Cha Eian Airport').
+airport(res_airport_318, 'Altenburg-Nobitz Airport').
+airport(res_airport_3185, 'Surin Airport').
+airport(res_airport_3187, 'Khorat Airport').
+airport(res_airport_3188, 'Rob Muang Airport').
+airport(res_airport_319, 'Dessau Airfield').
+airport(res_airport_3197, 'Gia Lam Air Base').
+airport(res_airport_3198, 'Kep Air Base').
+airport(res_airport_320, 'Eisenhüttenstadt Airfield').
+airport(res_airport_3200, 'Nha Trang Air Base').
+airport(res_airport_3207, 'Ann Airport').
+airport(res_airport_3208, 'Anisakan Airport').
+airport(res_airport_3211, 'Coco Island Airport').
+airport(res_airport_3214, 'Hommalinn Airport').
+airport(res_airport_322, 'Großenhain Airport').
+airport(res_airport_3220, 'Lashio Airport').
+airport(res_airport_3221, 'Lanywa Airport').
+airport(res_airport_3226, 'Momeik Airport').
+airport(res_airport_3227, 'Mong Hsat Airport').
+airport(res_airport_3228, 'Nampong Air Base').
+airport(res_airport_3229, 'Namsang Airport').
+airport(res_airport_323, 'Merseburg Airport').
+airport(res_airport_3230, 'Hpa-N Airport').
+airport(res_airport_3233, 'Pyay Airport').
+airport(res_airport_3234, 'Shante Air Base').
+airport(res_airport_3238, 'Taungoo Airport').
+airport(res_airport_324, 'Halle-Oppin Airport').
+airport(res_airport_325, 'Riesa-Göhlis Airport').
+airport(res_airport_3252, 'Pitu Airport').
+airport(res_airport_326, 'Rechlin-Lärz Airport').
+airport(res_airport_327, 'Strausberg Airport').
+airport(res_airport_3274, 'Pinang Kampai Airport').
+airport(res_airport_3276, 'Binaka Airport').
+airport(res_airport_3277, 'Aek Godang Airport').
+airport(res_airport_3278, 'Minangkabau International Airport').
+airport(res_airport_3279, 'Soewondo Air Force Base').
+airport(res_airport_328, 'Schönhagen Airport').
+airport(res_airport_3280, 'Dr Ferdinand Lumban Tobing Airport').
+airport(res_airport_3281, 'Nanga Pinoh Airport').
+airport(res_airport_329, 'Barth Airport').
+airport(res_airport_3291, 'Japura Airport').
+airport(res_airport_3292, 'Lhok Sukon Airport').
+airport(res_airport_3295, 'Kluang Airport').
+airport(res_airport_3297, 'Butterworth Airport').
+airport(res_airport_330, 'Jena-Schöngleina Airfield').
+airport(res_airport_3301, 'Simpang Airport').
+airport(res_airport_3306, 'Malacca Airport').
+airport(res_airport_3309, 'Suai Airport').
+airport(res_airport_331, 'Kyritz Airport').
+airport(res_airport_3311, 'Cakung Airport').
+airport(res_airport_3312, 'Sembawang Air Base').
+airport(res_airport_3313, 'Paya Lebar Air Base').
+airport(res_airport_3314, 'Tengah Air Base').
+airport(res_airport_3315, 'Seletar Airport').
+airport(res_airport_3317, 'Brisbane Archerfield Airport').
+airport(res_airport_332, 'Magdeburg \\"City\\" Airport').
+airport(res_airport_333, 'Rothenburg/Görlitz Airport').
+airport(res_airport_3335, 'RAAF Base East Sale').
+airport(res_airport_3338, 'Melbourne Moorabbin Airport').
+airport(res_airport_334, 'Anklam Airfield').
+airport(res_airport_3340, 'RAAF Williams, Point Cook Base').
+airport(res_airport_3343, 'RAAF Base Edinburgh').
+airport(res_airport_3344, 'Perth Jandakot Airport').
+airport(res_airport_335, 'Cottbus-Drewitz Airport').
+airport(res_airport_3350, 'Adelaide Parafield Airport').
+airport(res_airport_3352, 'Woomera Airfield').
+airport(res_airport_3354, 'Sydney Bankstown Airport').
+airport(res_airport_3357, 'Camden Airport').
+airport(res_airport_336, 'Kamenz Airport').
+airport(res_airport_3360, 'RAAF Base Richmond').
+airport(res_airport_3407, 'Pulau Tioman Airport').
+airport(res_airport_3412, 'Wainwright Air Station').
+airport(res_airport_3416, 'Orlando Executive Airport').
+airport(res_airport_3418, 'Clear Airport').
+airport(res_airport_3419, 'Indian Mountain LRRS Airport').
+airport(res_airport_3421, 'Sparrevohn LRRS Airport').
+airport(res_airport_3422, 'Bryant Army Heliport').
+airport(res_airport_3424, 'Cape Romanzof LRRS Airport').
+airport(res_airport_3425, 'Laurence G Hanscom Field').
+airport(res_airport_3427, 'Cape Newenham LRRS Airport').
+airport(res_airport_343, 'Berlin-Tempelhof International Airport').
+airport(res_airport_3431, 'Big Mountain Airport').
+airport(res_airport_3432, 'Oscoda Wurtsmith Airport').
+airport(res_airport_3433, 'Marina Municipal Airport').
+airport(res_airport_3434, 'Sacramento Mather Airport').
+airport(res_airport_3435, 'Bicycle Lake Army Air Field').
+airport(res_airport_3436, 'Twentynine Palms (Self) Airport').
+airport(res_airport_3438, 'Merrill Field').
+airport(res_airport_3439, 'Grants-Milan Municipal Airport').
+airport(res_airport_3440, 'Ponca City Regional Airport').
+airport(res_airport_3441, 'Hunter Army Air Field').
+airport(res_airport_3443, 'Pine Bluff Regional Airport, Grider Field').
+airport(res_airport_3444, 'Whiting Field Naval Air Station - North').
+airport(res_airport_3449, 'Travis Air Force Base').
+airport(res_airport_3450, 'Griffiss International Airport').
+airport(res_airport_3451, 'Wendover Airport').
+airport(res_airport_3452, 'Mobile Downtown Airport').
+airport(res_airport_3455, 'Port Angeles Cgas Airport').
+airport(res_airport_3464, 'Fort Lauderdale Executive Airport').
+airport(res_airport_3466, 'Anderson Regional Airport').
+airport(res_airport_3468, 'North Perry Airport').
+airport(res_airport_3470, 'Cut Bank International Airport').
+airport(res_airport_3471, 'Acadiana Regional Airport').
+airport(res_airport_3474, 'Bisbee Douglas International Airport').
+airport(res_airport_3475, 'Allen Army Airfield').
+airport(res_airport_3476, 'TSTC Waco Airport').
+airport(res_airport_3477, 'Annette Island Airport').
+airport(res_airport_3478, 'Caribou Municipal Airport').
+airport(res_airport_3479, 'Little Rock Air Force Base').
+airport(res_airport_3480, 'Redstone Army Air Field').
+airport(res_airport_3481, 'Pope Field').
+airport(res_airport_3482, 'Dalhart Municipal Airport').
+airport(res_airport_3483, 'DLF Airport').
+airport(res_airport_3485, 'Anniston Regional Airport').
+airport(res_airport_3487, 'Dover Air Force Base').
+airport(res_airport_3489, 'Tipton Airport').
+airport(res_airport_3490, 'China Lake Naws (Armitage Field) Airport').
+airport(res_airport_3496, 'Creech Air Force Base').
+airport(res_airport_3499, 'Wheeler Army Airfield').
+airport(res_airport_35, 'Miramichi Airport').
+airport(res_airport_3500, 'Maxwell Air Force Base').
+airport(res_airport_3501, 'Robinson Army Air Field').
+airport(res_airport_3503, 'Butts AAF (Fort Carson) Air Field').
+airport(res_airport_3505, 'Miramar Marine Corps Air Station - Mitscher Field').
+airport(res_airport_3506, 'Luke Air Force Base').
+airport(res_airport_3507, 'Hurlburt Field').
+airport(res_airport_3508, 'Jack Northrop Field Hawthorne Municipal Airport').
+airport(res_airport_3509, 'Houlton International Airport').
+airport(res_airport_3510, 'Vance Air Force Base').
+airport(res_airport_3511, 'Point Mugu Naval Air Station (Naval Base Ventura Co)').
+airport(res_airport_3512, 'Edwards Air Force Base').
+airport(res_airport_3516, 'Lemoore Naval Air Station (Reeves Field) Airport').
+airport(res_airport_3518, 'Felker Army Air Field').
+airport(res_airport_3519, 'Campbell AAF (Fort Campbell) Air Field').
+airport(res_airport_3521, 'Patuxent River Naval Air Station (Trapnell Field)').
+airport(res_airport_3522, 'Palacios Municipal Airport').
+airport(res_airport_3523, 'Arkansas International Airport').
+airport(res_airport_3525, 'Tinker Air Force Base').
+airport(res_airport_3526, 'Elizabeth City Regional Airport & Coast Guard Air Station').
+airport(res_airport_3530, 'Gray Army Air Field').
+airport(res_airport_3532, 'Upolu Airport').
+airport(res_airport_3534, 'Muskogee-Davis Regional Airport').
+airport(res_airport_3537, 'Childress Municipal Airport').
+airport(res_airport_3538, 'Keesler Air Force Base').
+airport(res_airport_3539, 'Lawson Army Air Field (Fort Benning)').
+airport(res_airport_354, 'Frankfurt-Egelsbach Airport').
+airport(res_airport_3540, 'Kingsville Naval Air Station').
+airport(res_airport_3541, 'Marshall Army Air Field').
+airport(res_airport_3547, 'Hickory Regional Airport').
+airport(res_airport_3548, 'Albert Whitted Airport').
+airport(res_airport_3549, 'Page Field').
+airport(res_airport_3551, 'Millinocket Municipal Airport').
+airport(res_airport_3552, 'Joint Base Andrews').
+airport(res_airport_3553, 'Smith Reynolds Airport').
+airport(res_airport_3554, 'Southern California Logistics Airport').
+airport(res_airport_3555, 'Bob Sikes Airport').
+airport(res_airport_3556, 'Wheeler Sack Army Air Field').
+airport(res_airport_3557, 'St Clair County International Airport').
+airport(res_airport_3562, 'Davis Monthan Air Force Base').
+airport(res_airport_3563, 'Pensacola Naval Air Station/Forrest Sherman Field').
+airport(res_airport_3565, 'Grand Forks Air Force Base').
+airport(res_airport_3567, 'Buckley Air Force Base').
+airport(res_airport_3568, 'Northway Airport').
+airport(res_airport_3569, 'Warren \\"Bud\\" Woods Palmer Municipal Airport').
+airport(res_airport_357, 'Allendorf/Eder Airport').
+airport(res_airport_3572, 'Ellington Airport').
+airport(res_airport_3573, 'Whidbey Island Naval Air Station (Ault Field)').
+airport(res_airport_3574, 'Alice International Airport').
+airport(res_airport_3575, 'Moody Air Force Base').
+airport(res_airport_3579, 'Igor I Sikorsky Memorial Airport').
+airport(res_airport_358, 'Worms Airport').
+airport(res_airport_3581, 'Scholes International At Galveston Airport').
+airport(res_airport_3583, 'Dillingham Airfield').
+airport(res_airport_3586, 'Whiteman Air Force Base').
+airport(res_airport_3587, 'Akron Fulton International Airport').
+airport(res_airport_3588, 'Greenwood–Leflore Airport').
+airport(res_airport_359, 'Mainz-Finthen Airport').
+airport(res_airport_3590, 'Francis S Gabreski Airport').
+airport(res_airport_3592, 'Tonopah Test Range Airport').
+airport(res_airport_3593, 'Palm Beach County Park Airport').
+airport(res_airport_3594, 'North Island Naval Air Station-Halsey Field').
+airport(res_airport_3595, 'Biggs Army Air Field (Fort Bliss)').
+airport(res_airport_360, 'Eisenach-Kindel Airport').
+airport(res_airport_3600, 'Bowman Field').
+airport(res_airport_3601, 'Sierra Vista Municipal Libby Army Air Field').
+airport(res_airport_3603, 'Terre Haute Regional Airport, Hulman Field').
+airport(res_airport_3605, 'Grant County International Airport').
+airport(res_airport_3606, 'Edward F Knapp State Airport').
+airport(res_airport_3607, 'San Nicolas Island Nolf Airport').
+airport(res_airport_361, 'Siegerland Airport').
+airport(res_airport_3614, 'Hill Air Force Base').
+airport(res_airport_3616, 'Scappoose Industrial Airpark').
+airport(res_airport_3618, 'Menominee Regional Airport').
+airport(res_airport_3619, 'Conroe-North Houston Regional Airport').
+airport(res_airport_3623, 'Patrick Air Force Base').
+airport(res_airport_3625, 'Ellsworth Air Force Base').
+airport(res_airport_3629, 'Mc Alester Regional Airport').
+airport(res_airport_363, 'Kiel-Holtenau Airport').
+airport(res_airport_3631, 'Coulter Field').
+airport(res_airport_3632, 'Wright AAF (Fort Stewart)/Midcoast Regional Airport').
+airport(res_airport_3634, 'Esler Regional Airport').
+airport(res_airport_3635, 'Altus Air Force Base').
+airport(res_airport_3637, 'Minot Air Force Base').
+airport(res_airport_3638, 'Beale Air Force Base').
+airport(res_airport_3639, 'Greater Kankakee Airport').
+airport(res_airport_3640, 'Seymour Johnson Air Force Base').
+airport(res_airport_3643, 'Rancho Murieta Airport').
+airport(res_airport_3647, 'Pembina Municipal Airport').
+airport(res_airport_3648, 'Polk Army Air Field').
+airport(res_airport_3649, 'Eielson Air Force Base').
+airport(res_airport_365, 'Flugplatz Dahlemer Binz').
+airport(res_airport_3651, 'Angelina County Airport').
+airport(res_airport_3654, 'Ardmore Municipal Airport').
+airport(res_airport_3655, 'Mc Guire Air Force Base').
+airport(res_airport_3656, 'Cherry Point MCAS /Cunningham Field/').
+airport(res_airport_3657, 'Emanuel County Airport').
+airport(res_airport_366, 'Meinerzhagen Airport').
+airport(res_airport_3662, 'Baudette International Airport').
+airport(res_airport_3663, 'Sacramento Executive Airport').
+airport(res_airport_3666, 'Dobbins Air Reserve Base').
+airport(res_airport_3667, 'Fairchild Air Force Base').
+airport(res_airport_3668, 'Roscommon County - Blodgett Memorial Airport').
+airport(res_airport_3669, 'Tyndall Air Force Base').
+airport(res_airport_367, 'Arnsberg-Menden Airport').
+airport(res_airport_3672, 'McChord Air Force Base').
+airport(res_airport_3677, 'Hood Army Air Field').
+airport(res_airport_3679, 'Millville Municipal Airport').
+airport(res_airport_368, 'Essen Mulheim Airport').
+airport(res_airport_3683, 'Castle Airport').
+airport(res_airport_3684, 'Mc Clellan Airfield').
+airport(res_airport_3686, 'Winkler County Airport').
+airport(res_airport_3688, 'Vero Beach Regional Airport').
+airport(res_airport_369, 'Bielefeld Airport').
+airport(res_airport_3692, 'Elmendorf Air Force Base').
+airport(res_airport_3695, 'Dyess Air Force Base').
+airport(res_airport_3699, 'Dupage Airport').
+airport(res_airport_370, 'Mönchengladbach Airport').
+airport(res_airport_3702, 'Hillsboro Municipal Airport').
+airport(res_airport_3703, 'Jacksonville Naval Air Station (Towers Field)').
+airport(res_airport_3706, 'Godman Army Air Field').
+airport(res_airport_3707, 'New River MCAS /H/ /Mccutcheon Fld/ Airport').
+airport(res_airport_3709, 'Calexico International Airport').
+airport(res_airport_3716, 'Felts Field').
+airport(res_airport_372, 'Stadtlohn-Vreden Airport').
+airport(res_airport_3721, 'Dade Collier Training and Transition Airport').
+airport(res_airport_3723, 'Fort Worth Meacham International Airport').
+airport(res_airport_3725, 'Cape Cod Coast Guard Air Station').
+airport(res_airport_3727, 'Lackland Air Force Base').
+airport(res_airport_3733, 'Shaw Air Force Base').
+airport(res_airport_3735, 'Majors Airport').
+airport(res_airport_3737, 'Coleman A. Young Municipal Airport').
+airport(res_airport_3740, 'Cape May County Airport').
+airport(res_airport_3741, 'Fallon Naval Air Station').
+airport(res_airport_3742, 'Selfridge Air National Guard Base Airport').
+airport(res_airport_3746, 'Naval Air Station Key West/Boca Chica Field').
+airport(res_airport_375, 'Biberach a.d. Riß Airfield').
+airport(res_airport_3750, 'Northeast Philadelphia Airport').
+airport(res_airport_3755, 'Truth Or Consequences Municipal Airport').
+airport(res_airport_3756, 'Palmdale Regional/USAF Plant 42 Airport').
+airport(res_airport_3757, 'Randolph Air Force Base').
+airport(res_airport_3758, 'El Centro NAF Airport (Vraciu Field)').
+airport(res_airport_376, 'Eggenfelden Airport').
+airport(res_airport_3760, 'Drake Field').
+airport(res_airport_3761, 'Henry Post Army Air Field (Fort Sill)').
+airport(res_airport_3762, 'Princeton Municipal Airport').
+airport(res_airport_3763, 'Wright-Patterson Air Force Base').
+airport(res_airport_3765, 'Chandler Municipal Airport').
+airport(res_airport_3766, 'Mineral Wells Airport').
+airport(res_airport_3767, 'Mc Connell Air Force Base').
+airport(res_airport_3768, 'New Orleans NAS JRB/Alvin Callender Field').
+airport(res_airport_3769, 'Beaufort County Airport').
+airport(res_airport_377, 'Mindelheim-Mattsies Airfield').
+airport(res_airport_3772, 'Phillips Army Air Field').
+airport(res_airport_3773, 'Tucumcari Municipal Airport').
+airport(res_airport_3776, 'Black Rock Airport').
+airport(res_airport_3778, 'Millington-Memphis Airport').
+airport(res_airport_3779, 'Elkins-Randolph Co-Jennings Randolph Field').
+airport(res_airport_378, 'Oberpfaffenhofen Airport').
+airport(res_airport_3780, 'Hartford Brainard Airport').
+airport(res_airport_3781, 'North Central State Airport').
+airport(res_airport_3783, 'Moffett Federal Airfield').
+airport(res_airport_3785, 'Barking Sands Airport').
+airport(res_airport_3786, 'Beauregard Regional Airport').
+airport(res_airport_3787, 'Bradshaw Army Airfield').
+airport(res_airport_3788, 'Nogales International Airport').
+airport(res_airport_3789, 'Mac Dill Air Force Base').
+airport(res_airport_379, 'Straubing Airport').
+airport(res_airport_3791, 'Opa-locka Executive Airport').
+airport(res_airport_3792, 'Del Rio International Airport').
+airport(res_airport_3795, 'Muir Army Air Field (Fort Indiantown Gap) Airport').
+airport(res_airport_3798, 'Homestead ARB Airport').
+airport(res_airport_3799, 'Riverside Municipal Airport').
+airport(res_airport_38, 'Coronation Airport').
+airport(res_airport_380, 'Vilshofen Airport').
+airport(res_airport_3800, 'Sherman Army Air Field').
+airport(res_airport_3801, 'Wallops Flight Facility Airport').
+airport(res_airport_3802, 'Holloman Air Force Base').
+airport(res_airport_3803, 'Willow Grove Naval Air Station/Joint Reserve Base').
+airport(res_airport_3809, 'Willow Run Airport').
+airport(res_airport_381, 'Leutkirch-Unterzeil Airport').
+airport(res_airport_3810, 'Vandenberg Air Force Base').
+airport(res_airport_3812, 'Lakehurst Maxfield Field Airport').
+airport(res_airport_3813, 'Eareckson Air Station').
+airport(res_airport_3814, 'Nellis Air Force Base').
+airport(res_airport_3815, 'March ARB Airport').
+airport(res_airport_3818, 'Waukegan National Airport').
+airport(res_airport_3821, 'Griffing Sandusky Airport').
+airport(res_airport_3822, 'Snohomish County (Paine Field) Airport').
+airport(res_airport_3823, 'Mountain Home Air Force Base').
+airport(res_airport_3827, 'Norfolk Naval Station (Chambers Field)').
+airport(res_airport_3828, 'Westover ARB/Metropolitan Airport').
+airport(res_airport_383, 'Schwerin Parchim Airport').
+airport(res_airport_3831, 'Boca Raton Airport').
+airport(res_airport_3833, 'Quantico MCAF /Turner field').
+airport(res_airport_3834, 'Cannon Air Force Base').
+airport(res_airport_3835, 'Kaneohe Bay MCAS (Marion E. Carl Field) Airport').
+airport(res_airport_3836, 'Offutt Air Force Base').
+airport(res_airport_3837, 'Gulkana Airport').
+airport(res_airport_384, 'Stendal-Borstel Airport').
+airport(res_airport_3841, 'Fort Dodge Regional Airport').
+airport(res_airport_3842, 'Barksdale Air Force Base').
+airport(res_airport_3844, 'Cotulla-La Salle County Airport').
+airport(res_airport_3847, 'Meridian Naval Air Station').
+airport(res_airport_385, 'Aalen-Heidenheim/Elchingen Airport').
+airport(res_airport_3850, 'Hobart Regional Airport').
+airport(res_airport_3853, 'Condron Army Air Field').
+airport(res_airport_386, 'Bayreuth Airport').
+airport(res_airport_3866, 'Langley Air Force Base').
+airport(res_airport_3868, 'Columbus Air Force Base').
+airport(res_airport_3869, 'Kendall-Tamiami Executive Airport').
+airport(res_airport_387, 'Burg Feuerstein Airport').
+airport(res_airport_3870, 'Oceana Naval Air Station').
+airport(res_airport_3871, 'Grissom Air Reserve Base').
+airport(res_airport_3874, 'Craig Field').
+airport(res_airport_388, 'Hof-Plauen Airport').
+airport(res_airport_3882, 'Ladd AAF Airfield').
+airport(res_airport_3883, 'Mc Minnville Municipal Airport').
+airport(res_airport_3884, 'Robins Air Force Base').
+airport(res_airport_3887, 'Andi Jemma Airport').
+airport(res_airport_3888, 'Soroako Airport').
+airport(res_airport_3889, 'Pongtiku Airport').
+airport(res_airport_389, 'Haßfurt-Schweinfurt Airport').
+airport(res_airport_3891, 'Maimun Saleh Airport').
+airport(res_airport_3892, 'Cibeureum Airport').
+airport(res_airport_3893, 'Iswahyudi Airport').
+airport(res_airport_3895, 'Budiarto Airport').
+airport(res_airport_3897, 'Penggung Airport').
+airport(res_airport_3899, 'Tunggul Wulung Airport').
+airport(res_airport_39, 'Chilliwack Airport').
+airport(res_airport_390, 'Koblenz-Winningen Airfield').
+airport(res_airport_3900, 'Pondok Cabe Air Base').
+airport(res_airport_3907, 'Dabo Airport').
+airport(res_airport_3909, 'Batu Licin Airport').
+airport(res_airport_391, 'Trier-Föhren Airport').
+airport(res_airport_3915, 'Frans Sales Lega Airport').
+airport(res_airport_392, 'Speyer Airfield').
+airport(res_airport_3921, 'Temindung Airport').
+airport(res_airport_3922, 'Tanjung Santan Airport').
+airport(res_airport_3923, 'Selaparang Airport').
+airport(res_airport_3935, 'Nakhon Ratchasima Airport').
+airport(res_airport_394, 'Donaueschingen-Villingen Airport').
+airport(res_airport_395, 'Freiburg i. Br. Airport').
+airport(res_airport_3952, 'Liepāja International Airport').
+airport(res_airport_3954, 'Šiauliai International Airport').
+airport(res_airport_3955, 'Barysiai Airport').
+airport(res_airport_3957, 'S. Darius and S. Girėnas Airfield').
+airport(res_airport_396, 'Mengen-Hohentengen Airport').
+airport(res_airport_3960, 'Panevėžys Air Base').
+airport(res_airport_3962, 'Erebuni Airport').
+airport(res_airport_3963, 'Stepanavan Airport').
+airport(res_airport_3966, 'Assab International Airport').
+airport(res_airport_3969, 'Yasser Arafat International Airport').
+airport(res_airport_397, 'Adolf Würth Airport').
+airport(res_airport_398, 'Finsterwalde/Schacksdorf Airport').
+airport(res_airport_3982, 'Beihan Airport').
+airport(res_airport_3985, 'Al Badie Airport').
+airport(res_airport_399, 'Braunschweig-Wolfsburg Airport').
+airport(res_airport_3991, 'Athen Helenikon Airport').
+airport(res_airport_3993, 'Downtown-Manhattan/Wall St Heliport').
+airport(res_airport_3996, 'Qasigiannguit Heliport').
+airport(res_airport_4004, 'Talkeetna Airport').
+airport(res_airport_4005, 'Xewkija Heliport').
+airport(res_airport_401, 'Hildesheim Airport').
+airport(res_airport_402, 'Bremerhaven Airport').
+airport(res_airport_403, 'Emden Airport').
+airport(res_airport_4031, 'Milford Sound Airport').
+airport(res_airport_404, 'Leer-Papenburg Airport').
+airport(res_airport_405, 'Wilhelmshaven-Mariensiel Airport').
+airport(res_airport_406, 'Borkum Airport').
+airport(res_airport_4060, 'Seronera Airport').
+airport(res_airport_4065, 'David Wayne Hooks Memorial Airport').
+airport(res_airport_4066, 'Port O''Connor Private Heliport').
+airport(res_airport_407, 'Norderney Airport').
+airport(res_airport_4071, 'Van Nuys Airport').
+airport(res_airport_4073, 'Panama City-Bay Co International Airport').
+airport(res_airport_408, 'Flensburg-Schäferhaus Airport').
+airport(res_airport_4080, 'Samsø Airport').
+airport(res_airport_4084, 'Telluride Regional Airport').
+airport(res_airport_409, 'Rendsburg-Schachtholm Airport').
+airport(res_airport_4094, 'Ekati Airport').
+airport(res_airport_4096, 'Levuka Airfield').
+airport(res_airport_4102, 'Kaikoura Airport').
+airport(res_airport_4104, 'Picton Aerodrome').
+airport(res_airport_4107, 'Coal Harbour Seaplane Base').
+airport(res_airport_411, 'Ämari Air Base').
+airport(res_airport_412, 'Kärdla Airport').
+airport(res_airport_4121, 'Mafia Island Airport').
+airport(res_airport_4136, 'Blythe Airport').
+airport(res_airport_4137, 'Al Asad Air Base').
+airport(res_airport_4138, 'Al Taqaddum Air Base').
+airport(res_airport_4139, 'Joint Base Balad').
+airport(res_airport_414, 'Pärnu Airport').
+airport(res_airport_4146, 'John A. Osborne Airport').
+airport(res_airport_4151, 'Magway Airport').
+airport(res_airport_4152, 'Kanti Airport').
+airport(res_airport_4165, 'Aachen-Merzbrück Airport').
+airport(res_airport_417, 'Enontekio Airport').
+airport(res_airport_4170, 'Lukla Airport').
+airport(res_airport_4171, 'Bhojpur Airport').
+airport(res_airport_4172, 'Lamidanda Airport').
+airport(res_airport_4173, 'Jomsom Airport').
+airport(res_airport_4174, 'Manang Airport').
+airport(res_airport_4175, 'Phaplu Airport').
+airport(res_airport_4177, 'Rumjatar Airport').
+airport(res_airport_4178, 'Tulsipur Airport').
+airport(res_airport_4179, 'Rukum Chaurjahari Airport').
+airport(res_airport_418, 'Eura Airport').
+airport(res_airport_4180, 'Jumla Airport').
+airport(res_airport_4182, 'Taplejung Airport').
+airport(res_airport_4184, 'Surkhet Airport').
+airport(res_airport_4185, 'Simikot Airport').
+airport(res_airport_4186, 'Dolpa Airport').
+airport(res_airport_4187, 'Bajhang Airport').
+airport(res_airport_419, 'Halli Airport').
+airport(res_airport_42, 'Dawson City Airport').
+airport(res_airport_420, 'Helsinki Malmi Airport').
+airport(res_airport_4207, 'Norden-Norddeich Airport').
+airport(res_airport_4208, 'Juist Airport').
+airport(res_airport_4213, 'Iguatu Airport').
+airport(res_airport_422, 'Hameenkyro Airport').
+airport(res_airport_4220, 'Sugar Land Regional Airport').
+airport(res_airport_4221, 'Hayman Island Heliport').
+airport(res_airport_4222, 'Centennial Airport').
+airport(res_airport_4223, 'Clovis Municipal Airport').
+airport(res_airport_4224, 'Fort Stockton Pecos County Airport').
+airport(res_airport_4225, 'Las Vegas Municipal Airport').
+airport(res_airport_4226, 'West Houston Airport').
+airport(res_airport_4227, 'La Junta Municipal Airport').
+airport(res_airport_4228, 'Las Cruces International Airport').
+airport(res_airport_4229, 'Stephens County Airport').
+airport(res_airport_423, 'Hanko Airport').
+airport(res_airport_4230, 'Draughon Miller Central Texas Regional Airport').
+airport(res_airport_4231, 'Ozona Municipal Airport').
+airport(res_airport_4236, 'Aklavik/Freddie Carmichael Airport').
+airport(res_airport_424, 'Hyvinkää Airfield').
+airport(res_airport_425, 'Kiikala Airport').
+airport(res_airport_4253, 'Cuyahoga County Airport').
+airport(res_airport_4254, 'Mansfield Lahm Regional Airport').
+airport(res_airport_4257, 'Northern Colorado Regional Airport').
+airport(res_airport_426, 'Immola Airport').
+airport(res_airport_4262, 'Lake Tahoe Airport').
+airport(res_airport_4268, 'Concord Municipal Airport').
+airport(res_airport_427, 'Kitee Airport').
+airport(res_airport_4270, 'Groton New London Airport').
+airport(res_airport_4272, 'Qinhuangdao Beidaihe Airport').
+airport(res_airport_4275, 'Bowerman Airport').
+airport(res_airport_4280, 'Sedona Airport').
+airport(res_airport_4289, 'Thangool Airport').
+airport(res_airport_4290, 'Fagali''i Airport').
+airport(res_airport_4293, 'Charles B. Wheeler Downtown Airport').
+airport(res_airport_4295, 'Ratanakiri Airport').
+airport(res_airport_4298, 'El Toro Marine Corps Air Station').
+airport(res_airport_4299, 'Phetchabun Airport').
+airport(res_airport_43, 'Burwash Airport').
+airport(res_airport_4303, 'Enghien Moisselles Airfield').
+airport(res_airport_4307, 'Kaieteur International Airport').
+airport(res_airport_431, 'Kauhava Airport').
+airport(res_airport_4313, 'Taba International Airport').
+airport(res_airport_4316, 'Tabarka 7 Novembre Airport').
+airport(res_airport_4321, 'Bakki Airport').
+airport(res_airport_4333, 'Ust-Ilimsk Airport').
+airport(res_airport_434, 'Kauhajoki Airport').
+airport(res_airport_4340, 'Gallup Municipal Airport').
+airport(res_airport_4342, 'Lamar Municipal Airport').
+airport(res_airport_4343, 'Renner Field-Goodland Municipal Airport').
+airport(res_airport_4351, 'Oslo, Fornebu Airport').
+airport(res_airport_436, 'Kemijarvi Airport').
+airport(res_airport_4360, 'Bykovo Airport').
+airport(res_airport_4370, 'Pechora Airport').
+airport(res_airport_4372, 'Pskov Airport').
+airport(res_airport_4376, 'Novosibirsk North Airport').
+airport(res_airport_4379, 'Ivanovo South Airport').
+airport(res_airport_4382, 'Johnston Atoll Airport').
+airport(res_airport_4383, 'Smith Field').
+airport(res_airport_4387, 'Tuscaloosa Regional Airport').
+airport(res_airport_4390, 'Shun Tak Heliport').
+airport(res_airport_44, 'Princeton Airport').
+airport(res_airport_440, 'Lahti Vesivehmaa Airport').
+airport(res_airport_443, 'Menkijarvi Airport').
+airport(res_airport_444, 'Mikkeli Airport').
+airport(res_airport_445, 'Nummela Airport').
+airport(res_airport_447, 'Piikajarvi Airport').
+airport(res_airport_449, 'Pudasjärvi Airport').
+airport(res_airport_450, 'Pyhäsalmi Airport').
+airport(res_airport_451, 'Raahe Pattijoki Airport').
+airport(res_airport_452, 'Rantasalmi Airport').
+airport(res_airport_454, 'Rayskala Airport').
+airport(res_airport_456, 'Selanpaa Airport').
+airport(res_airport_457, 'Sodankyla Airport').
+airport(res_airport_459, 'Teisko Airport').
+airport(res_airport_46, 'Dease Lake Airport').
+airport(res_airport_461, 'Utti Air Base').
+airport(res_airport_463, 'Varkaus Airport').
+airport(res_airport_464, 'Ylivieska Airfield').
+airport(res_airport_466, 'St Angelo Airport').
+airport(res_airport_47, 'Dauphin Barker Airport').
+airport(res_airport_470, 'Coventry Airport').
+airport(res_airport_471, 'Leicester Airport').
+airport(res_airport_474, 'Wolverhampton Halfpenny Green Airport').
+airport(res_airport_475, 'Cotswold Airport').
+airport(res_airport_476, 'Turweston Airport').
+airport(res_airport_477, 'Wellesbourne Mountford Airport').
+airport(res_airport_479, 'Manchester Woodford Airport').
+airport(res_airport_480, 'Royal Marines Base Chivenor Airport').
+airport(res_airport_482, 'RAF Lyneham').
+airport(res_airport_483, 'MoD Boscombe Down Airport').
+airport(res_airport_484, 'RNAS Culdrose').
+airport(res_airport_485, 'MoD St. Athan').
+airport(res_airport_486, 'RNAS Yeovilton').
+airport(res_airport_487, 'Haverfordwest Airport').
+airport(res_airport_489, 'Swansea Airport').
+airport(res_airport_493, 'Plymouth City Airport').
+airport(res_airport_496, 'Lasham Airport').
+airport(res_airport_500, 'Shoreham Airport').
+airport(res_airport_501, 'London Biggin Hill Airport').
+airport(res_airport_504, 'Farnborough Airport').
+airport(res_airport_505, 'Chalgrove Airport').
+airport(res_airport_506, 'Blackbushe Airport').
+airport(res_airport_509, 'Lydd Airport').
+airport(res_airport_51, 'Estevan Airport').
+airport(res_airport_510, 'Kent International Airport').
+airport(res_airport_511, 'Brough Airport').
+airport(res_airport_512, 'Carlisle Airport').
+airport(res_airport_513, 'Retford Gamston Airport').
+airport(res_airport_516, 'Barrow Walney Island Airport').
+airport(res_airport_518, 'Warton Airport').
+airport(res_airport_52, 'Edson Airport').
+airport(res_airport_524, 'Llanbedr Airport').
+airport(res_airport_525, 'RAF Ternhill').
+airport(res_airport_526, 'RAF Shawbury').
+airport(res_airport_528, 'RAF Woodvale').
+airport(res_airport_53, 'Eureka Airport').
+airport(res_airport_539, 'Scatsta Airport').
+airport(res_airport_5405, 'Gwaunaru''u Airport').
+airport(res_airport_5406, 'Ballalae Airport').
+airport(res_airport_5408, 'Babanakira Airport').
+airport(res_airport_5413, 'Mono Airport').
+airport(res_airport_5426, 'Kikori Airport').
+airport(res_airport_5427, 'Kerema Airport').
+airport(res_airport_543, 'RAF Leuchars').
+airport(res_airport_544, 'RAF Lossiemouth').
+airport(res_airport_5441, 'Qeqertarsuaq Heliport').
+airport(res_airport_545, 'Cambridge Airport').
+airport(res_airport_5450, 'Grímsey Airport').
+airport(res_airport_5452, 'Thorshofn Airport').
+airport(res_airport_5453, 'Vopnafjörður Airport').
+airport(res_airport_5456, 'Whistler/Green Lake Water Aerodrome').
+airport(res_airport_5458, 'Williams Harbour Airport').
+airport(res_airport_5459, 'St. Lewis (Fox Harbour) Airport').
+airport(res_airport_546, 'Peterborough Business Airport').
+airport(res_airport_5460, 'Port Hope Simpson Airport').
+airport(res_airport_5462, 'Colville Lake Airport').
+airport(res_airport_5483, 'Lac Du Bonnet Airport').
+airport(res_airport_5484, 'Uranium City Airport').
+airport(res_airport_5486, 'Cartwright Airport').
+airport(res_airport_549, 'North Weald Airport').
+airport(res_airport_5493, 'Texada Gillies Bay Airport').
+airport(res_airport_5494, 'Gods Lake Narrows Airport').
+airport(res_airport_550, 'Sheffield City Heliport').
+airport(res_airport_5505, 'Island Lake Airport').
+airport(res_airport_551, 'Cranfield Airport').
+airport(res_airport_5513, 'Mary''s Harbour Airport').
+airport(res_airport_5517, 'Norway House Airport').
+airport(res_airport_5518, 'Points North Landing Airport').
+airport(res_airport_5519, 'Oxford House Airport').
+airport(res_airport_5525, 'Nakina Airport').
+airport(res_airport_5528, 'Stony Rapids Airport').
+airport(res_airport_553, 'Bristol Filton Airport').
+airport(res_airport_5530, 'St. Theresa Point Airport').
+airport(res_airport_5536, 'York Landing Airport').
+airport(res_airport_5537, 'Ilford Airport').
+airport(res_airport_554, 'Oxford (Kidlington) Airport').
+airport(res_airport_5540, 'Fond-Du-Lac Airport').
+airport(res_airport_5541, 'Gods River Airport').
+airport(res_airport_5542, 'Swan River Airport').
+airport(res_airport_5549, 'Shamattawa Airport').
+airport(res_airport_555, 'RAF Benson').
+airport(res_airport_5551, 'Wollaston Lake Airport').
+airport(res_airport_5558, 'Heide-Büsum Airport').
+airport(res_airport_5559, 'Helgoland-Düne Airport').
+airport(res_airport_556, 'RAF Lakenheath').
+airport(res_airport_5560, 'Seinäjoki Airport').
+airport(res_airport_5561, 'Nottingham Airport').
+airport(res_airport_5565, 'Fair Isle Airport').
+airport(res_airport_557, 'RAF Mildenhall').
+airport(res_airport_5570, 'Lerwick / Tingwall Airport').
+airport(res_airport_5573, 'Penzance Heliport').
+airport(res_airport_5578, 'Weston Airport').
+airport(res_airport_5579, 'Sindal Airport').
+airport(res_airport_558, 'RAF Wattisham').
+airport(res_airport_559, 'RAF Wyton').
+airport(res_airport_5590, 'Værøy Heliport').
+airport(res_airport_5592, 'Łódź Władysław Reymont Airport').
+airport(res_airport_5598, 'Storuman Airport').
+airport(res_airport_560, 'RAF Fairford').
+airport(res_airport_5602, 'Ventspils International Airport').
+airport(res_airport_5603, 'Rand Airport').
+airport(res_airport_5605, 'Malamala Airport').
+airport(res_airport_5606, 'Mmabatho International Airport').
+airport(res_airport_5607, 'Ghanzi Airport').
+airport(res_airport_5608, 'Orapa Airport').
+airport(res_airport_5609, 'Shakawe Airport').
+airport(res_airport_561, 'RAF Brize Norton').
+airport(res_airport_5610, 'Limpopo Valley Airport').
+airport(res_airport_5611, 'Ngot Nzoungou Airport').
+airport(res_airport_5614, 'Iconi Airport').
+airport(res_airport_5615, 'Antsalova Airport').
+airport(res_airport_5616, 'Ankavandra Airport').
+airport(res_airport_5617, 'Belo sur Tsiribihina Airport').
+airport(res_airport_5618, 'Maintirano Airport').
+airport(res_airport_5619, 'Morafenobe Airport').
+airport(res_airport_562, 'RAF Odiham').
+airport(res_airport_5620, 'Tambohorano Airport').
+airport(res_airport_5621, 'Tsiroanomandidy Airport').
+airport(res_airport_5622, 'Ambatondrazaka Airport').
+airport(res_airport_5623, 'Port Bergé Airport').
+airport(res_airport_5624, 'Ambanja Airport').
+airport(res_airport_5625, 'Soalala Airport').
+airport(res_airport_5626, 'Mampikony Airport').
+airport(res_airport_5627, 'Nasa Shuttle Landing Facility Airport').
+airport(res_airport_5628, 'Mandritsara Airport').
+airport(res_airport_5629, 'Manja Airport').
+airport(res_airport_563, 'DCAE Cosford Air Base').
+airport(res_airport_5631, 'Dundo Airport').
+airport(res_airport_5634, 'Koulamoutou Mabimbi Airport').
+airport(res_airport_5635, 'Mouilla Ville Airport').
+airport(res_airport_5636, 'Tchibanga Airport').
+airport(res_airport_5639, 'Sarh Airport').
+airport(res_airport_564, 'RAF Northolt').
+airport(res_airport_5640, 'Club Makokola Airport').
+airport(res_airport_5644, 'Swakopmund Airport').
+airport(res_airport_5646, 'Boma Airport').
+airport(res_airport_5647, 'Tshimpi Airport').
+airport(res_airport_5648, 'Inongo Airport').
+airport(res_airport_5649, 'Nioki Airport').
+airport(res_airport_565, 'RAF Coningsby').
+airport(res_airport_5650, 'Basango Mboliasa Airport').
+airport(res_airport_5651, 'Basankusu Airport').
+airport(res_airport_5654, 'Ilebo Airport').
+airport(res_airport_5657, 'Outer Skerries Airport').
+airport(res_airport_566, 'RAF Dishforth').
+airport(res_airport_5662, 'Sherbro International Airport').
+airport(res_airport_5663, 'Bo Airport').
+airport(res_airport_5664, 'Kenema Airport').
+airport(res_airport_5669, 'Smara Airport').
+airport(res_airport_567, 'Leeming Airport').
+airport(res_airport_5676, 'Baco Airport').
+airport(res_airport_5677, 'Beica Airport').
+airport(res_airport_5678, 'Combolcha Airport').
+airport(res_airport_5679, 'Dembidollo Airport').
+airport(res_airport_568, 'Leeds East Airport').
+airport(res_airport_5681, 'Gore Airport').
+airport(res_airport_5682, 'Kabri Dehar Airport').
+airport(res_airport_5683, 'Mizan Teferi Airport').
+airport(res_airport_5684, 'Tippi Airport').
+airport(res_airport_5685, 'Alula Airport').
+airport(res_airport_5689, 'Burao Airport').
+airport(res_airport_569, 'RAF Honington').
+airport(res_airport_5690, 'El Arish International Airport').
+airport(res_airport_5698, 'Mitiga Airport').
+airport(res_airport_57, 'Forestville Airport').
+airport(res_airport_570, 'RAF Cottesmore').
+airport(res_airport_5700, 'Atbara Airport').
+airport(res_airport_5704, 'Kigoma Airport').
+airport(res_airport_5705, 'Lindi Airport').
+airport(res_airport_5706, 'Musoma Airport').
+airport(res_airport_5707, 'Shinyanga Airport').
+airport(res_airport_5708, 'Tabora Airport').
+airport(res_airport_571, 'RAF Scampton').
+airport(res_airport_5710, 'Gulu Airport').
+airport(res_airport_5717, 'Alamogordo White Sands Regional Airport').
+airport(res_airport_572, 'RAF Wittering').
+airport(res_airport_573, 'RAF Linton-On-Ouse').
+airport(res_airport_574, 'RAF Waddington').
+airport(res_airport_5743, 'Kili Airport').
+airport(res_airport_5745, 'Jamestown Regional Airport').
+airport(res_airport_575, 'RAF Topcliffe').
+airport(res_airport_5752, 'Lewistown Municipal Airport').
+airport(res_airport_5755, 'Frank Wiley Field').
+airport(res_airport_576, 'RAF Cranwell').
+airport(res_airport_5764, 'Reading Regional Carl A Spaatz Field').
+airport(res_airport_577, 'RAF Barkston Heath').
+airport(res_airport_578, 'RAF Marham').
+airport(res_airport_5782, 'Île d''Yeu Airport').
+airport(res_airport_5783, 'Angers-Loire Airport').
+airport(res_airport_5786, 'La Môle Airport').
+airport(res_airport_5788, 'Pécs-Pogány Airport').
+airport(res_airport_5789, 'Győr-Pér International Airport').
+airport(res_airport_5790, 'Sármellék International Airport').
+airport(res_airport_5791, 'Aosta Airport').
+airport(res_airport_5792, 'Salerno Costa d''Amalfi Airport').
+airport(res_airport_5795, 'Uşak Airport').
+airport(res_airport_5797, 'Şanlıurfa Airport').
+airport(res_airport_5803, 'Samsun Çarşamba Airport').
+airport(res_airport_5806, 'Žilina Airport').
+airport(res_airport_5808, 'Middle Caicos Airport').
+airport(res_airport_581, 'Budel Airfield Kempen').
+airport(res_airport_5812, 'Puerto Barrios Airport').
+airport(res_airport_5813, 'Quezaltenango Airport').
+airport(res_airport_5814, 'Utirik Airport').
+airport(res_airport_583, 'Deelen Air Base').
+airport(res_airport_5831, 'Ahuas Airport').
+airport(res_airport_5833, 'Mili Island Airport').
+airport(res_airport_5834, 'Captain Rogelio Castillo National Airport').
+airport(res_airport_5835, 'Ciudad Constitución Airport').
+airport(res_airport_5836, 'Guerrero Negro Airport').
+airport(res_airport_5838, 'Alonso Valderrama Airport').
+airport(res_airport_5839, 'Enrique Adolfo Jimenez Airport').
+airport(res_airport_584, 'Drachten Airport').
+airport(res_airport_5841, 'Captain Ramon Xatruch Airport').
+airport(res_airport_5843, 'Barra del Colorado Airport').
+airport(res_airport_5845, 'Islita Airport').
+airport(res_airport_5849, '(Duplicate) Playa Samara Airport').
+airport(res_airport_5850, 'Jérémie Airport').
+airport(res_airport_5851, 'Port-de-Paix Airport').
+airport(res_airport_5852, 'Cayo Coco Airport').
+airport(res_airport_5853, 'Alberto Delgado Airport').
+airport(res_airport_5856, 'Congo Town Airport').
+airport(res_airport_5858, 'New Bight Airport').
+airport(res_airport_5860, 'Nassau Paradise Island Airport').
+airport(res_airport_5863, 'Manihiki Island Airport').
+airport(res_airport_5866, 'Tongareva Airport').
+airport(res_airport_5868, 'Malolo Lailai Island Airport').
+airport(res_airport_587, 'Gilze Rijen Air Base').
+airport(res_airport_5870, 'Mana Island Airport').
+airport(res_airport_5871, 'Moala Airport').
+airport(res_airport_5872, 'Ngau Airport').
+airport(res_airport_5876, 'Koro Island Airport').
+airport(res_airport_5879, 'Kaufana Airport').
+airport(res_airport_588, 'De Kooy Airport').
+airport(res_airport_5880, 'Lifuka Island Airport').
+airport(res_airport_5881, 'Mata''aho Airport').
+airport(res_airport_5882, 'Kuini Lavenia Airport').
+airport(res_airport_5887, 'Maota Airport').
+airport(res_airport_5888, 'Apataki Airport').
+airport(res_airport_589, 'Lelystad Airport').
+airport(res_airport_59, 'Fort Resolution Airport').
+airport(res_airport_590, 'Leeuwarden Air Base').
+airport(res_airport_5907, 'Redcliffe Airport').
+airport(res_airport_5913, 'North West Santo Airport').
+airport(res_airport_592, 'Soesterberg Air Base').
+airport(res_airport_5922, 'Fayzabad Airport').
+airport(res_airport_5926, 'Wadi Al Dawasir Airport').
+airport(res_airport_5929, 'Rafsanjan Airport').
+airport(res_airport_593, 'Twente Airport').
+airport(res_airport_5938, 'Bannu Airport').
+airport(res_airport_594, 'Valkenburg Naval Air Base').
+airport(res_airport_5944, 'Jiwani Airport').
+airport(res_airport_5945, 'Hyderabad Airport').
+airport(res_airport_5946, 'Khuzdar Airport').
+airport(res_airport_5947, 'Ormara Airport').
+airport(res_airport_5948, 'Parachinar Airport').
+airport(res_airport_595, 'Woensdrecht Air Base').
+airport(res_airport_5950, 'Sehwan Sharif Airport').
+airport(res_airport_5953, 'Kamishly Airport').
+airport(res_airport_597, 'Galway Airport').
+airport(res_airport_5982, 'Balimo Airport').
+airport(res_airport_5986, 'Baimuru Airport').
+airport(res_airport_5989, 'Kalaupapa Airport').
+airport(res_airport_5990, 'Eniwetok Airport').
+airport(res_airport_5991, 'Matsu Nangan Airport').
+airport(res_airport_5992, 'Hengchun Airport').
+airport(res_airport_5993, 'Matsu Beigan Airport').
+airport(res_airport_5995, 'Okadama Airport').
+airport(res_airport_6002, 'Miyakejima Airport').
+airport(res_airport_6004, 'Mokpo Heliport').
+airport(res_airport_6009, 'Subic Bay International Airport').
+airport(res_airport_6010, 'Cuyo Airport').
+airport(res_airport_6011, 'Rajah Buayan Air Base').
+airport(res_airport_6014, 'Sanga Sanga Airport').
+airport(res_airport_6017, 'Tandag Airport').
+airport(res_airport_602, 'Casement Air Base').
+airport(res_airport_6020, 'San Fernando Airport').
+airport(res_airport_6027, 'General Enrique Mosconi Airport').
+airport(res_airport_6028, 'Las Heras Airport').
+airport(res_airport_6029, 'Antoine de Saint Exupéry Airport').
+airport(res_airport_6030, 'Lago Argentino Airport').
+airport(res_airport_6031, 'Gobernador Gregores Airport').
+airport(res_airport_6032, 'Santa Teresita Airport').
+airport(res_airport_6033, 'Necochea Airport').
+airport(res_airport_604, 'Sligo Airport').
+airport(res_airport_6041, 'Toledo Airport').
+airport(res_airport_6042, 'Ricardo García Posada Airport').
+airport(res_airport_6043, 'Pucón Airport').
+airport(res_airport_6044, 'Sorocaba Airport').
+airport(res_airport_6048, 'Port Stanley Airport').
+airport(res_airport_6049, 'Santa Ana Airport').
+airport(res_airport_6050, 'La Jagua Airport').
+airport(res_airport_6057, 'Puerto Rico Airport').
+airport(res_airport_6059, 'Reyes Airport').
+airport(res_airport_6060, 'Capitán Av. German Quiroga G. Airport').
+airport(res_airport_6061, 'Zorg en Hoop Airport').
+airport(res_airport_6062, 'Mucuri Airport').
+airport(res_airport_6065, 'Caballococha Airport').
+airport(res_airport_6068, 'Maria Reiche Neuman Airport').
+airport(res_airport_6070, 'El Jagüel / Punta del Este Airport').
+airport(res_airport_6071, 'Escuela Mariscal Sucre Airport').
+airport(res_airport_6074, 'Codrington Airport').
+airport(res_airport_6075, 'La Désirade Airport').
+airport(res_airport_6076, 'Baillif Airport').
+airport(res_airport_6077, 'St-François Airport').
+airport(res_airport_6078, 'Les Bases Airport').
+airport(res_airport_6081, 'J F Mitchell Airport').
+airport(res_airport_6082, 'Union Island International Airport').
+airport(res_airport_6091, 'Chulman Airport').
+airport(res_airport_6097, 'Komsomolsk-on-Amur Airport').
+airport(res_airport_6099, 'Okhotsk Airport').
+airport(res_airport_6100, 'Ujae Atoll Airport').
+airport(res_airport_6101, 'Mariupol International Airport').
+airport(res_airport_6102, 'Luhansk International Airport').
+airport(res_airport_6104, 'Kryvyi Rih International Airport').
+airport(res_airport_6107, 'Chernivtsi International Airport').
+airport(res_airport_6108, 'Rivne International Airport').
+airport(res_airport_611, 'Grønholt Hillerød Airport').
+airport(res_airport_6112, 'Amderma Airport').
+airport(res_airport_6113, 'Kotlas Airport').
+airport(res_airport_6115, 'Hrodna Airport').
+airport(res_airport_6116, 'Mogilev Airport').
+airport(res_airport_6117, 'Yeniseysk Airport').
+airport(res_airport_6120, 'Khatanga Airport').
+airport(res_airport_6123, 'Nalchik Airport').
+airport(res_airport_6126, 'Aleknagik / New Airport').
+airport(res_airport_6128, 'Mercer County Airport').
+airport(res_airport_613, 'Læsø Airport').
+airport(res_airport_614, 'Lolland Falster Maribo Airport').
+airport(res_airport_6144, 'Raduzhny Airport').
+airport(res_airport_6145, 'Nefteyugansk Airport').
+airport(res_airport_615, 'Odense Airport').
+airport(res_airport_6155, 'Staroselye Airport').
+airport(res_airport_6158, 'Lipetsk Airport').
+airport(res_airport_616, 'Kruså-Padborg Airport').
+airport(res_airport_6161, 'Yoshkar-Ola Airport').
+airport(res_airport_6163, 'Ulyanovsk East Airport').
+airport(res_airport_6167, 'Balakovo Airport').
+airport(res_airport_617, 'Copenhagen Roskilde Airport').
+airport(res_airport_6170, 'Weerawila Airport').
+airport(res_airport_6171, 'Battambang Airport').
+airport(res_airport_6175, 'Tezpur Airport').
+airport(res_airport_6177, 'Ban Huoeisay Airport').
+airport(res_airport_6181, 'Meghauli Airport').
+airport(res_airport_6196, 'Banmaw Airport').
+airport(res_airport_6199, 'Loikaw Airport').
+airport(res_airport_6200, 'Mawlamyine Airport').
+airport(res_airport_6201, 'Pathein Airport').
+airport(res_airport_6202, 'Pakhokku Airport').
+airport(res_airport_6203, 'Sumbawa Besar Airport').
+airport(res_airport_6205, 'Bokondini Airport').
+airport(res_airport_6206, 'Senggeh Airport').
+airport(res_airport_6207, 'Tanjung Harapan Airport').
+airport(res_airport_6208, 'Datadawai Airport').
+airport(res_airport_621, 'Skrydstrup Air Base').
+airport(res_airport_6210, 'Warukin Airport').
+airport(res_airport_6211, 'Sampit(Hasan) Airport').
+airport(res_airport_6213, 'Mali Airport').
+airport(res_airport_6214, 'Belaga Airport').
+airport(res_airport_622, 'Skive Airport').
+airport(res_airport_6221, 'Tomanggong Airport').
+airport(res_airport_6224, 'Halim Perdanakusuma International Airport').
+airport(res_airport_6226, 'Pangsuma Airport').
+airport(res_airport_6227, 'Sintang(Susilo) Airport').
+airport(res_airport_6228, 'Pendopo Airport').
+airport(res_airport_6229, 'Malikus Saleh Airport').
+airport(res_airport_623, 'Thisted Airport').
+airport(res_airport_6230, 'Pulau Pangkor Airport').
+airport(res_airport_6232, 'Long Bawan Airport').
+airport(res_airport_6233, 'Nunukan Airport').
+airport(res_airport_6234, 'Long Apung Airport').
+airport(res_airport_6236, 'Argyle Airport').
+airport(res_airport_6239, 'Badu Island Airport').
+airport(res_airport_624, 'Kolding Vamdrup Airfield').
+airport(res_airport_6244, 'Bourke Airport').
+airport(res_airport_6246, 'Boigu Airport').
+airport(res_airport_6247, 'Oakey Airport').
+airport(res_airport_6250, 'Blackwater Airport').
+airport(res_airport_6251, 'Carnarvon Airport').
+airport(res_airport_6252, 'Cobar Airport').
+airport(res_airport_6254, 'Coconut Island Airport').
+airport(res_airport_6257, 'Cooktown Airport').
+airport(res_airport_6259, 'Coonamble Airport').
+airport(res_airport_626, 'Vesthimmerlands Flyveplads').
+airport(res_airport_6261, 'Cooma Snowy Mountains Airport').
+airport(res_airport_6263, 'Darnley Island Airport').
+airport(res_airport_627, 'Stauning Airport').
+airport(res_airport_6273, 'Hooker Creek Airport').
+airport(res_airport_6274, 'Mount Hotham Airport').
+airport(res_airport_6275, 'Hughenden Airport').
+airport(res_airport_6277, 'Kalbarri Airport').
+airport(res_airport_6279, 'Kalkgurung Airport').
+airport(res_airport_6280, 'Karumba Airport').
+airport(res_airport_6282, 'Kubin Airport').
+airport(res_airport_6283, 'Leonora Airport').
+airport(res_airport_6284, 'Lake Evella Airport').
+airport(res_airport_6288, 'Lightning Ridge Airport').
+airport(res_airport_6290, 'Leinster Airport').
+airport(res_airport_6291, 'Laverton Airport').
+airport(res_airport_6292, 'Mabuiag Island Airport').
+airport(res_airport_6293, 'Meekatharra Airport').
+airport(res_airport_6299, 'Mount Magnet Airport').
+airport(res_airport_6305, 'Murray Island Airport').
+airport(res_airport_6306, 'Maryborough Airport').
+airport(res_airport_6308, 'Narrabri Airport').
+airport(res_airport_6313, 'Palm Island Airport').
+airport(res_airport_6323, 'Ramingining Airport').
+airport(res_airport_6326, 'Shark Bay Airport').
+airport(res_airport_6327, 'Saibai Island Airport').
+airport(res_airport_6328, 'Strahan Airport').
+airport(res_airport_633, 'Bømoen Airport').
+airport(res_airport_6330, 'Tennant Creek Airport').
+airport(res_airport_6331, 'Victoria River Downs Airport').
+airport(res_airport_6332, 'Warraber Island Airport').
+airport(res_airport_6335, 'Wiluna Airport').
+airport(res_airport_6336, 'Wollongong Airport').
+airport(res_airport_6339, 'Yorke Island Airport').
+airport(res_airport_6340, 'Yam Island Airport').
+airport(res_airport_6362, 'Ankang Wulipu Airport').
+airport(res_airport_6364, 'Hanzhong Chenggu Airport').
+airport(res_airport_6369, 'Arvaikheer Airport').
+airport(res_airport_6389, 'Weihai Airport').
+airport(res_airport_639, 'Geilo Airport Dagali').
+airport(res_airport_64, 'Geraldton Greenstone Regional Airport').
+airport(res_airport_6405, 'Qiemo Yudu Airport').
+airport(res_airport_6415, 'Waikoloa Heliport').
+airport(res_airport_6419, 'Mount Keith Airport').
+airport(res_airport_6420, 'Los Roques Airport').
+airport(res_airport_6421, 'Inishmore Aerodrome').
+airport(res_airport_6422, 'Connemara Regional Airport').
+airport(res_airport_6423, 'Rügen Airport').
+airport(res_airport_6424, 'Berezovo Airport').
+airport(res_airport_6425, 'Szczecin-Dąbie Airport').
+airport(res_airport_6431, 'Lanzhou City Airport').
+airport(res_airport_6445, 'Bremerton National Airport').
+airport(res_airport_6446, 'Spencer Municipal Airport').
+airport(res_airport_6447, 'Jefferson City Memorial Airport').
+airport(res_airport_6450, 'Tannheim Airfield').
+airport(res_airport_6454, 'Unst Airport').
+airport(res_airport_6455, 'Berkley Structures Heliport').
+airport(res_airport_6458, 'Anduki Airport').
+airport(res_airport_6464, 'Kostroma Sokerkino Airport').
+airport(res_airport_6465, 'Sukhumi Dranda Airport').
+airport(res_airport_6467, 'Oban Airport').
+airport(res_airport_6478, 'La Côte Airport').
+airport(res_airport_6479, 'Courchevel Airport').
+airport(res_airport_648, 'Kjeller Airport').
+airport(res_airport_6481, 'Fullerton Municipal Airport').
+airport(res_airport_6482, 'Concord-Padgett Regional Airport').
+airport(res_airport_6483, 'Isle of Wight / Sandown Airport').
+airport(res_airport_6487, 'Andernos Les Bains Airport').
+airport(res_airport_6489, 'Bienenfarm Airport').
+airport(res_airport_6494, 'Friedman Memorial Airport').
+airport(res_airport_6497, 'Yverdon-les-Bains Airport').
+airport(res_airport_6499, 'Bielsko Biala Airport').
+airport(res_airport_650, 'Lista Airport').
+airport(res_airport_6500, 'Mason City Municipal Airport').
+airport(res_airport_6506, 'Saúl Airport').
+airport(res_airport_6511, 'Tekapo Aerodrome').
+airport(res_airport_6519, 'Niederoeblarn Airport').
+airport(res_airport_6520, 'Vöslau Airport').
+airport(res_airport_6522, 'Uetersen/Heist Airport').
+airport(res_airport_654, 'Notodden Airport').
+airport(res_airport_66, 'Hudson Bay Airport').
+airport(res_airport_667, 'Babice Airport').
+airport(res_airport_670, 'Muchowiec Airport').
+airport(res_airport_6726, 'Ormoc Airport').
+airport(res_airport_673, 'Mielec Airport').
+airport(res_airport_6736, 'Port Clarence Coast Guard Station').
+airport(res_airport_6745, 'Tugdan Airport').
+airport(res_airport_6746, 'Sahand Airport').
+airport(res_airport_6751, 'Tocache Airport').
+airport(res_airport_6754, 'Sugraly Airport').
+airport(res_airport_6759, 'Shahrekord Airport').
+airport(res_airport_6761, 'Nanded Airport').
+airport(res_airport_6762, 'Shimla Airport').
+airport(res_airport_6764, 'New Stuyahok Airport').
+airport(res_airport_677, 'Redzikowo Air Base').
+airport(res_airport_6774, 'Brus Laguna Airport').
+airport(res_airport_678, 'Swidwin Military Air Base').
+airport(res_airport_6785, 'Bursa Yenişehir Airport').
+airport(res_airport_6786, 'Terre-de-Haut Airport').
+airport(res_airport_6787, 'Kalay Airport').
+airport(res_airport_6791, 'Marinduque Airport').
+airport(res_airport_6797, 'Hohenems-Dornbirn Airport').
+airport(res_airport_6798, 'Weser-Wümme Airport').
+airport(res_airport_6799, 'Krems Airport').
+airport(res_airport_6805, 'Goulburn Airport').
+airport(res_airport_6806, 'Cessnock Airport').
+airport(res_airport_6807, 'Scone Airport').
+airport(res_airport_6808, 'Mudgee Airport').
+airport(res_airport_6809, 'Maitland Airport').
+airport(res_airport_681, 'Zielona Góra-Babimost Airport').
+airport(res_airport_6816, 'Raron Airport').
+airport(res_airport_6819, 'Borovaya Airfield').
+airport(res_airport_682, 'Malmen Air Base').
+airport(res_airport_6823, 'Amlikon Glider Airport').
+airport(res_airport_6824, 'Lommis Airfield').
+airport(res_airport_6826, 'Burnet Municipal Kate Craddock Field').
+airport(res_airport_6829, 'Oceanside Municipal Airport').
+airport(res_airport_683, 'Bråvalla Air Base').
+airport(res_airport_6830, 'Flugplatz Finsterwalde/Heinrichsruh').
+airport(res_airport_6832, 'Kirkuk Air Base').
+airport(res_airport_6833, 'Al Udeid Air Base').
+airport(res_airport_6834, 'Great Barrier Aerodrome').
+airport(res_airport_6838, 'Marquette Airport').
+airport(res_airport_684, 'Uppsala Airport').
+airport(res_airport_6840, 'Dinslaken/Schwarze Heide Airport').
+airport(res_airport_6841, 'Höxter-Holzminden Airport').
+airport(res_airport_6843, 'Niijima Airport').
+airport(res_airport_6844, 'Michigan City Municipal Airport').
+airport(res_airport_6845, 'Seward Airport').
+airport(res_airport_6849, 'Grand Marais Cook County Airport').
+airport(res_airport_6853, 'Wausau Downtown Airport').
+airport(res_airport_6855, 'Kalundborg Airport').
+airport(res_airport_6859, 'Mary Airport').
+airport(res_airport_686, 'Råda Air Base').
+airport(res_airport_6860, 'Bungle Bungle Airport').
+airport(res_airport_6862, 'Sazená Airport').
+airport(res_airport_6866, 'Spray View Airport').
+airport(res_airport_6867, 'Reykjahlíð Airport').
+airport(res_airport_6868, 'Sabadell Airport').
+airport(res_airport_6870, 'Whitsunday Island Airport').
+airport(res_airport_6871, 'Delaware County Johnson Field').
+airport(res_airport_6873, 'Purdue University Airport').
+airport(res_airport_6876, 'Brown County Airport').
+airport(res_airport_6877, 'North Las Vegas Airport').
+airport(res_airport_6878, 'Kenosha Regional Airport').
+airport(res_airport_6886, 'Lympne Airport').
+airport(res_airport_6887, 'Porto Cheli Airport').
+airport(res_airport_689, 'Falköping Airport').
+airport(res_airport_6894, 'Zell Am via Airport').
+airport(res_airport_6896, 'RAAF Base Amberley').
+airport(res_airport_6897, 'Tindal Airport').
+airport(res_airport_6898, 'RAAF Williams, Laverton Base').
+airport(res_airport_6899, 'Nowra Airport').
+airport(res_airport_690, 'Lidköping-Hovby Airport').
+airport(res_airport_6905, 'Lutsk Airport').
+airport(res_airport_6906, 'Chernihiv Shestovitsa Airport').
+airport(res_airport_6907, 'Ternopil International Airport').
+airport(res_airport_6908, 'Brest Airport').
+airport(res_airport_6909, 'Wittman Regional Airport').
+airport(res_airport_6910, 'Harle Airport').
+airport(res_airport_6911, 'Wangerooge Airport').
+airport(res_airport_6914, 'RAAF Base Pearce').
+airport(res_airport_6915, 'Bendigo Airport').
+airport(res_airport_6917, 'Antonio Nery Juarbe Pol Airport').
+airport(res_airport_6918, 'Ringi Cove Airport').
+airport(res_airport_692, 'Skövde Airport').
+airport(res_airport_6922, 'Kirensk Airport').
+airport(res_airport_6927, 'Triengen Airport').
+airport(res_airport_6928, 'Lausanne-Blécherette Airport').
+airport(res_airport_6929, 'Speck-Fehraltorf Airport').
+airport(res_airport_6930, 'Locarno Airport').
+airport(res_airport_6931, 'Neuchatel Airport').
+airport(res_airport_6932, 'Taganrog Yuzhny Airport').
+airport(res_airport_6934, 'Zhukovsky International Airport').
+airport(res_airport_6935, 'Irkutsk Northwest Airport').
+airport(res_airport_6936, 'Khabarovsk Airport').
+airport(res_airport_6937, 'Dzemgi Airport').
+airport(res_airport_6939, 'Belaya Air Base').
+airport(res_airport_694, 'Karlsborg Air Base').
+airport(res_airport_6947, 'Tuzla International Airport').
+airport(res_airport_6948, 'NAS Fort Worth JRB/Carswell Field').
+airport(res_airport_695, 'Såtenäs Air Base').
+airport(res_airport_6950, 'Kyaukhtu South Airport').
+airport(res_airport_6951, 'Jan Mayensfield').
+airport(res_airport_6952, 'Bokpyinn Airport').
+airport(res_airport_6956, 'Gary Chicago International Airport').
+airport(res_airport_696, 'Barkarby Airport').
+airport(res_airport_6961, 'Oxnard Airport').
+airport(res_airport_6964, 'Jinggangshan Airport').
+airport(res_airport_6967, 'Naiu Airport').
+airport(res_airport_6968, 'Schenectady County Airport').
+airport(res_airport_697, 'Karlskoga Airport').
+airport(res_airport_6973, 'Volkel Air Base').
+airport(res_airport_6975, 'Langeoog Airport').
+airport(res_airport_6984, 'Biel-Kappelen Airport').
+airport(res_airport_6985, 'Nelspruit Airport').
+airport(res_airport_6986, 'Cherkasy International Airport').
+airport(res_airport_6990, 'Mykolaiv International Airport').
+airport(res_airport_6991, 'Ramechhap Airport').
+airport(res_airport_6993, 'Kissimmee Gateway Airport').
+airport(res_airport_6994, 'Lake City Gateway Airport').
+airport(res_airport_6995, 'Deland Municipal Sidney H Taylor Field').
+airport(res_airport_6996, 'Haller Airpark').
+airport(res_airport_6997, 'Palmar Airport').
+airport(res_airport_6998, 'Logan-Cache Airport').
+airport(res_airport_6999, 'Brigham City Regional Airport').
+airport(res_airport_700, 'Arvika Airport').
+airport(res_airport_7000, 'Malad City Airport').
+airport(res_airport_7009, 'Kerrville Municipal Louis Schreiner Field').
+airport(res_airport_701, 'Emmaboda Airfield').
+airport(res_airport_7010, 'Birrfeld Airport').
+airport(res_airport_7011, 'Sussex County Airport').
+airport(res_airport_7012, 'Prince Rupert/Seal Cove Seaplane Base').
+airport(res_airport_7013, 'Great Bend Municipal Airport').
+airport(res_airport_7014, 'Hays Regional Airport').
+airport(res_airport_7015, 'Spirit of St Louis Airport').
+airport(res_airport_7016, 'Ely Municipal Airport').
+airport(res_airport_7017, 'Grand Rapids Itasca Co-Gordon Newstrom field').
+airport(res_airport_7019, 'Eagle River Union Airport').
+airport(res_airport_702, 'Feringe Airport').
+airport(res_airport_7020, 'Lakeland-Noble F. Lee Memorial field').
+airport(res_airport_7021, 'Ankeny Regional Airport').
+airport(res_airport_7022, 'Berens River Airport').
+airport(res_airport_7023, 'Corpus Christi Naval Air Station/Truax Field').
+airport(res_airport_7025, 'Catalina Airport').
+airport(res_airport_7026, 'Mojave Airport').
+airport(res_airport_7027, 'Interlaken Air Base').
+airport(res_airport_7030, 'Inisheer Aerodrome').
+airport(res_airport_7033, 'Strezhevoy Airport').
+airport(res_airport_7035, 'Hutchinson Municipal Airport').
+airport(res_airport_7036, 'Bagram Air Base').
+airport(res_airport_7037, 'Prince Sultan Air Base').
+airport(res_airport_704, 'Landskrona Airport').
+airport(res_airport_7042, 'Rosecrans Memorial Airport').
+airport(res_airport_7046, 'Pápa Air Base').
+airport(res_airport_7047, 'Whiting Field Naval Air Station South Airport').
+airport(res_airport_7048, 'Volk Field').
+airport(res_airport_705, 'Oskarshamn Airport').
+airport(res_airport_7052, 'Xi''an Xiguan Airport').
+airport(res_airport_7053, 'Zamperini Field').
+airport(res_airport_7058, 'Northern Aroostook Regional Airport').
+airport(res_airport_706, 'Anderstorp Airport').
+airport(res_airport_7060, 'La Macaza / Mont-Tremblant International Inc Airport').
+airport(res_airport_7061, 'Lake Cumberland Regional Airport').
+airport(res_airport_7063, 'Devils Lake Regional Airport').
+airport(res_airport_7069, 'The Florida Keys Marathon Airport').
+airport(res_airport_7072, 'Yellowstone Airport').
+airport(res_airport_7075, 'Ely Airport Yelland Field').
+airport(res_airport_7077, 'Sierra Blanca Regional Airport').
+airport(res_airport_7079, 'McCall Municipal Airport').
+airport(res_airport_7080, 'Lemhi County Airport').
+airport(res_airport_7085, 'Astoria Regional Airport').
+airport(res_airport_7086, 'Newport Municipal Airport').
+airport(res_airport_7089, 'Ugnu-Kuparuk Airport').
+airport(res_airport_710, 'Hagshult Air Base').
+airport(res_airport_7101, 'Koliganek Airport').
+airport(res_airport_7103, 'Manokotak Airport').
+airport(res_airport_7106, 'Eagle Airport').
+airport(res_airport_712, 'Hallviken Airport').
+airport(res_airport_7120, 'Inyokern Airport').
+airport(res_airport_7123, 'Laguna de Los Patos International Airport').
+airport(res_airport_7125, 'Amarais Airport').
+airport(res_airport_7126, 'Phoenix Goodyear Airport').
+airport(res_airport_7129, 'Ballera Airport').
+airport(res_airport_713, 'Hedlanda Airport').
+airport(res_airport_7130, 'Gatton Campus Airport').
+airport(res_airport_7131, 'Arkalyk North Airport').
+airport(res_airport_7134, 'Nabern/Teck Airport').
+airport(res_airport_7140, 'Funter Bay Seaplane Base').
+airport(res_airport_7143, 'Kake Airport').
+airport(res_airport_716, 'Hudiksvall Airport').
+airport(res_airport_717, 'Jokkmokk Airport').
+airport(res_airport_7198, 'Yakataga Airport').
+airport(res_airport_720, 'Optand Airport').
+airport(res_airport_7204, 'Port Moller Airport').
+airport(res_airport_7210, 'Nondalton Airport').
+airport(res_airport_7221, 'Zapala Airport').
+airport(res_airport_7222, 'Rincon De Los Sauces Airport').
+airport(res_airport_7226, 'Tte. Julio Gallardo Airport').
+airport(res_airport_7229, 'Sierra Grande Airport').
+airport(res_airport_723, 'Piteå Airport').
+airport(res_airport_7230, 'Cabo F.A.A. H. R. Bordón Airport').
+airport(res_airport_7233, 'Chenega Bay Airport').
+airport(res_airport_7244, 'Klawock Seaplane Base').
+airport(res_airport_7245, 'Minchumina Airport').
+airport(res_airport_725, 'Orsa Airport').
+airport(res_airport_7251, 'Natuashish Airport').
+airport(res_airport_7254, 'Alma Airport').
+airport(res_airport_7256, 'Rimouski Airport').
+airport(res_airport_7259, 'Tadoule Lake Airport').
+airport(res_airport_7260, 'Lac Brochet Airport').
+airport(res_airport_7261, 'South Indian Lake Airport').
+airport(res_airport_7262, 'Brochet Airport').
+airport(res_airport_7263, 'Little Grand Rapids Airport').
+airport(res_airport_7264, 'Cross Lake (Charlie Sinclair Memorial) Airport').
+airport(res_airport_7265, 'Red Sucker Lake Airport').
+airport(res_airport_7267, 'Bonnyville Airport').
+airport(res_airport_7268, 'Nanaimo Harbour Water Airport').
+airport(res_airport_7269, 'Ganges Seaplane Base').
+airport(res_airport_727, 'Sättna Airport').
+airport(res_airport_7272, 'Fort St James Airport').
+airport(res_airport_7273, 'Boundary Bay Airport').
+airport(res_airport_7274, 'Langley Airport').
+airport(res_airport_7278, 'Camaguey-Campo Cuatro Milpas Airport').
+airport(res_airport_7280, 'Cabo San Lucas International Airport').
+airport(res_airport_7291, 'Corn Island').
+airport(res_airport_7292, 'San Pedro Airport').
+airport(res_airport_7293, 'Rosita Airport').
+airport(res_airport_7294, 'Siuna').
+airport(res_airport_7295, 'Waspam Airport').
+airport(res_airport_7296, 'San Carlos').
+airport(res_airport_7297, 'Playa Samara/Carrillo Airport').
+airport(res_airport_7301, 'Constanza - Expedición 14 de Junio National Airport').
+airport(res_airport_7302, 'Negril Airport').
+airport(res_airport_7307, 'José Aponte de la Torre Airport').
+airport(res_airport_7311, 'D. Casimiro Szlapelis Airport').
+airport(res_airport_7312, 'Jose De San Martin Airport').
+airport(res_airport_7320, 'Abaiang Airport').
+airport(res_airport_7323, 'Afobakka Airstrip').
+airport(res_airport_7324, 'Alalapadu Airstrip').
+airport(res_airport_7325, 'Albina Airport').
+airport(res_airport_7326, 'Lawa Anapaike Airstrip').
+airport(res_airport_7327, 'Apetina Airstrip').
+airport(res_airport_7330, 'Drietabbetje Airport').
+airport(res_airport_7331, 'Kabalebo Airport').
+airport(res_airport_7332, 'Kayser Airport').
+airport(res_airport_7333, 'Kwamalasoemoetoe Airport').
+airport(res_airport_7334, 'Moengo Airstrip').
+airport(res_airport_7335, 'Nieuw Nickerie Airport').
+airport(res_airport_7336, 'Vincent Fayks Airport').
+airport(res_airport_7337, 'Sarakreek Airstrip').
+airport(res_airport_7338, 'Sipaliwini Airport').
+airport(res_airport_7339, 'Stoelmanseiland Airport').
+airport(res_airport_7340, 'Totness Airport').
+airport(res_airport_7341, 'Wageningen Airstrip').
+airport(res_airport_7343, 'Codela Airport').
+airport(res_airport_7346, 'Orinduik Airport').
+airport(res_airport_7347, 'Annai Airport').
+airport(res_airport_7348, 'Apoteri Airport').
+airport(res_airport_7349, 'Imbaimadai Airport').
+airport(res_airport_735, 'Vidsel Air Base').
+airport(res_airport_7350, 'Kamarang Airport').
+airport(res_airport_7351, 'Mabaruma Airport').
+airport(res_airport_7352, 'Mahdia Airport').
+airport(res_airport_7353, 'Dr Augusto Roberto Fuster International Airport').
+airport(res_airport_7354, 'Alcides Fernández Airport').
+airport(res_airport_7357, 'Batagay Airport').
+airport(res_airport_736, 'Arboga Airport').
+airport(res_airport_7360, 'El Bagre Airport').
+airport(res_airport_7361, 'Juan H White Airport').
+airport(res_airport_7362, 'Mandinga Airport').
+airport(res_airport_7363, 'Golfo de Morrosquillo Airport').
+airport(res_airport_7371, 'Soure Airport').
+airport(res_airport_7377, 'Novo Aripuanã Airport').
+airport(res_airport_7378, 'Fazenda Colen Airport').
+airport(res_airport_7379, 'Tenente Lund Pressoto Airport').
+airport(res_airport_7381, 'Lábrea Airport').
+airport(res_airport_7396, 'Maués Airport').
+airport(res_airport_7397, 'Borba Airport').
+airport(res_airport_74, 'Atikokan Municipal Airport').
+airport(res_airport_740, 'Hultsfred Airport').
+airport(res_airport_7406, 'Diamantino Airport').
+airport(res_airport_7408, 'Tsletsi Airport').
+airport(res_airport_7409, 'Nzagi Airport').
+airport(res_airport_741, 'Gävle Sandviken Airport').
+airport(res_airport_7411, 'Lucapa Airport').
+airport(res_airport_7412, 'Capanda Airport').
+airport(res_airport_7413, 'Am Timan Airport').
+airport(res_airport_7414, 'Shark El Oweinat International Airport').
+airport(res_airport_7415, 'Eastern WV Regional Airport/Shepherd Field').
+airport(res_airport_7416, 'Awassa Airport').
+airport(res_airport_7418, 'Mekane Selam Airport').
+airport(res_airport_7419, 'Debra Marcos Airport').
+airport(res_airport_7420, 'Debre Tabor Airport').
+airport(res_airport_7421, 'Harar Meda Airport').
+airport(res_airport_7422, 'Robe Airport').
+airport(res_airport_7423, 'Mayumba Airport').
+airport(res_airport_7426, 'Mulika Lodge Airport').
+airport(res_airport_7427, 'Rumbek Airport').
+airport(res_airport_7428, 'Yei Airport').
+airport(res_airport_7429, 'Cape Palmas Airport').
+airport(res_airport_7432, 'Ecuvillens Airport').
+airport(res_airport_7437, 'Inhaca Airport').
+airport(res_airport_7442, 'Ouro Sogui Airport').
+airport(res_airport_7443, 'Bird Island Airport').
+airport(res_airport_7446, 'Wadi Halfa Airport').
+airport(res_airport_7448, 'Kidepo Airport').
+airport(res_airport_7449, 'Kitgum Airport').
+airport(res_airport_745, 'Eskilstuna Airport').
+airport(res_airport_7451, 'Svea Airport').
+airport(res_airport_7452, 'Ny-Ålesund Airport (Hamnerabben)').
+airport(res_airport_7454, 'Kihnu Airfield').
+airport(res_airport_7455, 'Ruhnu Airfield').
+airport(res_airport_7458, 'Huizhou Airport').
+airport(res_airport_7461, 'Ouessant Airport').
+airport(res_airport_7464, 'Bildudalur Airport').
+airport(res_airport_7465, 'Gjögur Airport').
+airport(res_airport_7466, 'Sauðárkrókur Airport').
+airport(res_airport_7467, 'Selfoss Airport').
+airport(res_airport_7468, 'Inishmaan Aerodrome').
+airport(res_airport_7469, 'Ak Bashat Airport').
+airport(res_airport_7472, 'Qurghonteppa International Airport').
+airport(res_airport_7473, 'Vologda Airport').
+airport(res_airport_7474, 'Severo-Evensk Airport').
+airport(res_airport_7475, 'Olenyok Airport').
+airport(res_airport_7476, 'Saskylakh Airport').
+airport(res_airport_748, 'Kalixfors Airport').
+airport(res_airport_7480, 'Leshukonskoye Airport').
+airport(res_airport_7481, 'Nizhneangarsk Airport').
+airport(res_airport_7483, 'Vanavara Airport').
+airport(res_airport_7484, 'Aykhal Airport').
+airport(res_airport_7485, 'Uktus Airport').
+airport(res_airport_7486, 'Baykit Airport').
+airport(res_airport_7487, 'Biysk Airport').
+airport(res_airport_7488, 'Huesca/Pirineos Airport').
+airport(res_airport_7489, 'Ciudad Real Central Airport').
+airport(res_airport_7492, 'Colonsay Airstrip').
+airport(res_airport_7494, 'Rock Hill - York County Airport').
+airport(res_airport_7495, 'Allegheny County Airport').
+airport(res_airport_7496, 'Cecil Airport').
+airport(res_airport_7497, 'Fulton County Airport Brown Field').
+airport(res_airport_7498, 'Tresco Heliport').
+airport(res_airport_7499, 'Tarin Kowt Airport').
+airport(res_airport_750, 'Spangdahlem Air Base').
+airport(res_airport_7500, 'Zaranj Airport').
+airport(res_airport_7501, 'Chakcharan Airport').
+airport(res_airport_751, 'Ramstein Air Base').
+airport(res_airport_7510, 'Stepanakert Air Base').
+airport(res_airport_7511, 'The Ohio State University Airport - Don Scott Field').
+airport(res_airport_7513, 'Addison Airport').
+airport(res_airport_7514, 'Destin Executive Airport').
+airport(res_airport_7516, 'Kherson International Airport').
+airport(res_airport_7517, 'Ryan''s Creek Aerodrome').
+airport(res_airport_7518, 'Assumption Island Airport').
+airport(res_airport_7521, 'Yarmouth Airport').
+airport(res_airport_7522, 'Kinston Regional Jetport At Stallings Field').
+airport(res_airport_7523, 'First Flight Airport').
+airport(res_airport_753, '[Duplicate] Giebelstadt Army Air Field').
+airport(res_airport_7531, 'Maturacá Airport').
+airport(res_airport_7533, 'Centro de Lançamento de Alcântara Airport').
+airport(res_airport_7536, 'Tarempa Airport').
+airport(res_airport_7538, 'Würzburg-Schenkenturm Airport').
+airport(res_airport_754, 'Bückeburg Air Base').
+airport(res_airport_7542, 'São Jacinto Airport').
+airport(res_airport_7544, 'Hopsten Air Base').
+airport(res_airport_7548, 'Mosul International Airport').
+airport(res_airport_7549, 'Tajima Airport').
+airport(res_airport_755, 'Celle Airport').
+airport(res_airport_7550, 'Amakusa Airport').
+airport(res_airport_7551, 'Kikai Airport').
+airport(res_airport_7552, 'Aguni Airport').
+airport(res_airport_7556, 'Donoi Airport').
+airport(res_airport_7557, 'Bulgan Airport').
+airport(res_airport_7559, 'Borongan Airport').
+airport(res_airport_756, 'Rheine Bentlage Air Base').
+airport(res_airport_7560, 'Lubang Airport').
+airport(res_airport_7564, 'Chi Mei Airport').
+airport(res_airport_7565, 'Daşoguz Airport').
+airport(res_airport_7566, 'Barrow Island Airport').
+airport(res_airport_7569, 'Derby Airport').
+airport(res_airport_757, 'Fritzlar Airport').
+airport(res_airport_7570, 'Walgett Airport').
+airport(res_airport_7571, 'Bathurst Island Airport').
+airport(res_airport_7572, 'Dunk Island Airport').
+airport(res_airport_7573, 'Lizard Island Airport').
+airport(res_airport_7574, 'Hamilton Airport').
+airport(res_airport_7575, 'Halls Creek Airport').
+airport(res_airport_7576, 'Fitzroy Crossing Airport').
+airport(res_airport_7578, 'Wilkins Runway').
+airport(res_airport_758, 'Laupheim Air Base').
+airport(res_airport_7580, 'Steamboat Springs Bob Adams Field').
+airport(res_airport_7581, 'Delta Municipal Airport').
+airport(res_airport_7582, 'Richfield Municipal Airport').
+airport(res_airport_7583, 'Carbon County Regional/Buck Davis Field').
+airport(res_airport_7586, 'Lake Havasu City Airport').
+airport(res_airport_7587, 'Winslow Lindbergh Regional Airport').
+airport(res_airport_7588, 'Douglas Municipal Airport').
+airport(res_airport_7589, 'Marakei Airport').
+airport(res_airport_759, 'Mendig Airfield').
+airport(res_airport_7590, 'Abemama Atoll Airport').
+airport(res_airport_7591, 'Buariki Airport').
+airport(res_airport_7592, 'Kuria Airport').
+airport(res_airport_7593, 'Arorae Island Airport').
+airport(res_airport_7594, 'Tamana Island Airport').
+airport(res_airport_7595, 'Beru Airport').
+airport(res_airport_7596, 'Nikunau Airport').
+airport(res_airport_7597, 'Butaritari Atoll Airport').
+airport(res_airport_7598, 'Makin Island Airport').
+airport(res_airport_7599, 'Maiana Airport').
+airport(res_airport_76, 'St Jean Airport').
+airport(res_airport_760, 'Niederstetten Army Air Base').
+airport(res_airport_7600, 'Nonouti Airport').
+airport(res_airport_7601, 'Tabiteuea South Airport').
+airport(res_airport_761, 'Roth Airport').
+airport(res_airport_7610, 'Whitianga Airport').
+airport(res_airport_7611, 'Takaka Airport').
+airport(res_airport_7615, 'Afutara Aerodrome').
+airport(res_airport_7619, 'Yandina Airport').
+airport(res_airport_762, 'Fassberg Air Base').
+airport(res_airport_7620, 'Batuna Aerodrome').
+airport(res_airport_7621, 'Bartow Municipal Airport').
+airport(res_airport_7622, 'Dyagilevo Air Base').
+airport(res_airport_7627, 'Fitiuta Airport').
+airport(res_airport_7629, 'Livermore Municipal Airport').
+airport(res_airport_763, 'Grafenwohr Army Air Field').
+airport(res_airport_7630, 'Mariposa Yosemite Airport').
+airport(res_airport_7633, 'Grootfontein Airport').
+airport(res_airport_764, 'Hanau Army Air Field').
+airport(res_airport_7646, 'Jacqueline Cochran Regional Airport').
+airport(res_airport_7647, 'Santa Monica Municipal Airport').
+airport(res_airport_7648, 'Bermuda Dunes Airport').
+airport(res_airport_7649, 'Scottsdale Airport').
+airport(res_airport_765, 'Hohenfels Army Air Field').
+airport(res_airport_7650, 'Olympia Regional Airport').
+airport(res_airport_7651, 'Yolo County Davis Woodland Winters Airport').
+airport(res_airport_7652, 'Garfield County Regional Airport').
+airport(res_airport_7653, 'Shively Field').
+airport(res_airport_7654, 'DeKalb Peachtree Airport').
+airport(res_airport_7655, 'Monroe County Airport').
+airport(res_airport_7656, 'Witham Field').
+airport(res_airport_7658, 'Napa County Airport').
+airport(res_airport_7659, 'Brown Field Municipal Airport').
+airport(res_airport_766, 'Flugplatz Kitzingen').
+airport(res_airport_7660, 'Wangen-Lachen Airport').
+airport(res_airport_7662, 'Venice Municipal Airport').
+airport(res_airport_7663, 'Palm Beach County Glades Airport').
+airport(res_airport_767, 'Nordholz Naval Airbase').
+airport(res_airport_7670, 'San Bernardino International Airport').
+airport(res_airport_7671, 'Valença Airport').
+airport(res_airport_7673, 'Caruaru Airport').
+airport(res_airport_7674, 'Wake Island Airfield').
+airport(res_airport_7675, 'Aeroclube Airport').
+airport(res_airport_768, 'Diepholz Air Base').
+airport(res_airport_7683, 'San Carlos Airport').
+airport(res_airport_7684, 'Courtelary Airport').
+airport(res_airport_7685, 'Lotnisko Korne').
+airport(res_airport_7686, 'Camp Okavango Airport').
+airport(res_airport_769, 'Geilenkirchen Air Base').
+airport(res_airport_7690, 'Rocky Mount Wilson Regional Airport').
+airport(res_airport_7691, 'Whittier Airport').
+airport(res_airport_7692, 'Soldotna Airport').
+airport(res_airport_7693, 'Gillespie Field').
+airport(res_airport_7694, 'San Clemente Island Naval Auxiliary Landing Field').
+airport(res_airport_770, 'Hohn Air Base').
+airport(res_airport_7700, 'Phan Rang Airport').
+airport(res_airport_7701, 'Na-San Airport').
+airport(res_airport_7702, 'Truckee Tahoe Airport').
+airport(res_airport_7703, 'Fréjus Airport').
+airport(res_airport_7704, 'Geelong Airport').
+airport(res_airport_771, 'Jever Air Base').
+airport(res_airport_7710, 'Mezen Airport').
+airport(res_airport_7711, 'Vaskovo Airport').
+airport(res_airport_7712, 'Cobb County-Mc Collum Field').
+airport(res_airport_7714, 'Brumowski  Air Base').
+airport(res_airport_7716, 'Dell Flight Strip').
+airport(res_airport_7717, 'Mission Field').
+airport(res_airport_7720, 'Big Timber Airport').
+airport(res_airport_7721, 'Tulip City Airport').
+airport(res_airport_7722, 'London Heliport').
+airport(res_airport_7723, 'Venice-Lido Airport').
+airport(res_airport_7724, 'Tallinn Linnahall Heliport').
+airport(res_airport_7725, 'Hernesaari Heliport').
+airport(res_airport_7726, 'Linkenheim Airport').
+airport(res_airport_7727, 'Monument Valley Airport').
+airport(res_airport_7728, 'Hilversum Airfield').
+airport(res_airport_7729, 'West 30th St. Heliport').
+airport(res_airport_773, 'Nörvenich Air Base').
+airport(res_airport_7730, 'Texel Airfield').
+airport(res_airport_7731, 'La Cerdanya Airport').
+airport(res_airport_7732, 'Lakeland Linder International Airport').
+airport(res_airport_7738, 'Stary Oskol Airport').
+airport(res_airport_774, 'Schleswig Air Base').
+airport(res_airport_775, 'Wittmundhafen Airport').
+airport(res_airport_7766, 'Syangboche Airport').
+airport(res_airport_7767, 'Indianola Municipal Airport').
+airport(res_airport_7768, 'Cheremshanka Airport').
+airport(res_airport_7769, 'French Valley Airport').
+airport(res_airport_777, 'Wunstorf Air Base').
+airport(res_airport_7772, 'Oristano-Fenosu Airport').
+airport(res_airport_7773, 'White Waltham Airfield').
+airport(res_airport_7775, 'Carl R Keller Field').
+airport(res_airport_7776, 'Dayton-Wright Brothers Airport').
+airport(res_airport_7777, 'Richmond Municipal Airport').
+airport(res_airport_7778, 'Findlay Airport').
+airport(res_airport_778, 'Vilseck Army Air Field').
+airport(res_airport_7780, 'Burlington Executive').
+airport(res_airport_7782, 'Penneshaw Airport').
+airport(res_airport_7787, 'Engels heliport').
+airport(res_airport_779, 'Coleman Army Air Field').
+airport(res_airport_7792, 'Emporia Municipal Airport').
+airport(res_airport_780, 'Wiesbaden Army Airfield').
+airport(res_airport_7800, 'Skå-Edeby Airport').
+airport(res_airport_7804, 'Wycombe Air Park').
+airport(res_airport_7805, 'Bembridge Airport').
+airport(res_airport_7806, 'Waterville / Kings County Municipal Airport').
+airport(res_airport_7809, 'Black Hills Airport-Clyde Ice Field').
+airport(res_airport_781, 'Landsberg Lech Air Base').
+airport(res_airport_7810, 'Westkapelle heliport').
+airport(res_airport_7811, 'Redcliffe Airport').
+airport(res_airport_7812, 'Oksywie Military Air Base').
+airport(res_airport_7813, 'Malbork Military Air Base').
+airport(res_airport_7814, 'Lask Military Air Base').
+airport(res_airport_7815, 'Miroslawiec Military Air Base').
+airport(res_airport_7816, 'Krzesiny Military Air Base').
+airport(res_airport_7817, 'Olive Branch Airport').
+airport(res_airport_7818, 'Viña del mar Airport').
+airport(res_airport_782, 'Büchel Air Base').
+airport(res_airport_7820, 'Brampton Airport').
+airport(res_airport_7822, 'Rocky Mountain Metropolitan Airport').
+airport(res_airport_7826, 'Salem Municipal Airport/McNary Field').
+airport(res_airport_7827, 'Tunica Municipal Airport').
+airport(res_airport_7828, 'Batken Airport').
+airport(res_airport_783, 'Erding Airport').
+airport(res_airport_7830, 'Kasaba Bay Airport').
+airport(res_airport_7831, 'Hunt Field').
+airport(res_airport_7834, 'Hoogeveen Airfield').
+airport(res_airport_7835, 'Teuge Airport').
+airport(res_airport_7836, 'Midden-Zeeland Airport').
+airport(res_airport_7837, 'Ameland Airfield').
+airport(res_airport_7838, 'Saint-Cyr-l''École Airport').
+airport(res_airport_7839, 'Lawrence J Timmerman Airport').
+airport(res_airport_784, 'Fürstenfeldbruck Air Base').
+airport(res_airport_7840, 'Southern Wisconsin Regional Airport').
+airport(res_airport_7841, 'Mantsonyane Airport').
+airport(res_airport_7846, 'Arlington Municipal Airport').
+airport(res_airport_7847, 'Gwinnett County Briscoe Field').
+airport(res_airport_7848, 'Bowling Green Warren County Regional Airport').
+airport(res_airport_7849, 'Richard Lloyd Jones Jr Airport').
+airport(res_airport_785, 'Holzdorf Air Base').
+airport(res_airport_7853, 'Al Minhad Air Base').
+airport(res_airport_7854, 'Kirovograd Airport').
+airport(res_airport_7855, 'Roitzschjora Airfield').
+airport(res_airport_7856, 'El Alamein International Airport').
+airport(res_airport_7857, 'Bryce Canyon Airport').
+airport(res_airport_7859, 'Burlington Alamance Regional Airport').
+airport(res_airport_786, 'Ingolstadt Manching Airport').
+airport(res_airport_7861, 'Chkalovskiy Air Base').
+airport(res_airport_7867, 'De Peel Air Base').
+airport(res_airport_7868, 'Camp Bastion Airport').
+airport(res_airport_7869, 'New Century Aircenter Airport').
+airport(res_airport_787, 'Lechfeld Air Base').
+airport(res_airport_7870, 'Easton Newnam Field').
+airport(res_airport_7871, 'Stafsberg Airport').
+airport(res_airport_7872, 'Ringebu Airfield Frya').
+airport(res_airport_7875, 'Yuba County Airport').
+airport(res_airport_7879, 'Phillip Island Airport').
+airport(res_airport_788, 'Neuburg AFB').
+airport(res_airport_7880, 'Halliburton Field').
+airport(res_airport_7885, 'Garner Field').
+airport(res_airport_7886, 'Lewis University Airport').
+airport(res_airport_7888, 'Buchanan Field').
+airport(res_airport_7889, 'Ocean Reef Club Airport').
+airport(res_airport_789, 'Gütersloh Air Base').
+airport(res_airport_7892, 'Strasbourg Neuhof Airfield').
+airport(res_airport_7893, 'Nannhausen Airport').
+airport(res_airport_790, 'Alexander Bay Airport').
+airport(res_airport_7902, 'Toronto/Oshawa Executive Airport').
+airport(res_airport_7903, 'Marl-Loemühle Airfield').
+airport(res_airport_7904, 'Färila Air Base').
+airport(res_airport_7905, 'Lahr Airport').
+airport(res_airport_7906, 'Monywar Airport').
+airport(res_airport_7907, 'Ohio University Snyder Field').
+airport(res_airport_7908, 'Springfield-Beckley Municipal Airport').
+airport(res_airport_7909, 'Sun Island Resort and SPA').
+airport(res_airport_791, 'Aggeneys Airport').
+airport(res_airport_7910, 'Fes Sefrou Airport').
+airport(res_airport_7911, 'Herrera Airport').
+airport(res_airport_7912, 'Cooinda Airport').
+airport(res_airport_7913, 'Jabiru Airport').
+airport(res_airport_7918, 'Regensburg-Oberhub Airport').
+airport(res_airport_792, 'Brakpan Airport').
+airport(res_airport_7924, 'Hastings Airport').
+airport(res_airport_7925, 'Philip Billard Municipal Airport').
+airport(res_airport_7928, 'Benson Airstrip').
+airport(res_airport_7929, 'Rough River State Park Airport').
+airport(res_airport_793, 'Bisho Airport').
+airport(res_airport_7930, 'Smyrna Airport').
+airport(res_airport_7931, 'Franklin County Airport').
+airport(res_airport_7933, 'Cochstedt Airport').
+airport(res_airport_7935, 'Collin County Regional At Mc Kinney Airport').
+airport(res_airport_7936, 'Chicago Executive Airport').
+airport(res_airport_7938, 'Southwest Washington Regional Airport').
+airport(res_airport_7939, 'Benešov Airport').
+airport(res_airport_7941, 'Bougouni Airport').
+airport(res_airport_7946, 'Tureia Airport').
+airport(res_airport_7947, 'McMurdo Station Ice Runway').
+airport(res_airport_7948, 'Keekorok Airport').
+airport(res_airport_795, 'Bethlehem Airport').
+airport(res_airport_796, 'Hendrik Potgieter Airport').
+airport(res_airport_7963, 'Kerch Airport').
+airport(res_airport_7978, 'Wilmington Airpark').
+airport(res_airport_7979, 'Marana Regional Airport').
+airport(res_airport_798, 'Calvinia Airport').
+airport(res_airport_7980, 'Casa Grande Municipal Airport').
+airport(res_airport_7981, 'Mobile Airport').
+airport(res_airport_7982, 'Buckeye Municipal Airport').
+airport(res_airport_7983, 'Gila Bend Municipal Airport').
+airport(res_airport_7984, 'McMinn County Airport').
+airport(res_airport_7985, 'Sterling Municipal Airport').
+airport(res_airport_7986, 'Rawlins Municipal Airport/Harvey Field').
+airport(res_airport_7990, 'Essex County Airport').
+airport(res_airport_7991, 'Lee C Fine Memorial Airport').
+airport(res_airport_7998, 'Thomasville Regional Airport').
+airport(res_airport_7999, 'Henderson Executive Airport').
+airport(res_airport_8000, 'Gostomel Airport').
+airport(res_airport_8005, 'Henry Tift Myers Airport').
+airport(res_airport_8006, 'Landshut Airport').
+airport(res_airport_8007, 'Itzehoe/Hungriger Wolf Airport').
+airport(res_airport_801, 'Ermelo Airport').
+airport(res_airport_802, 'Ficksburg Sentraoes Airport').
+airport(res_airport_8029, 'Radom Airport').
+airport(res_airport_803, 'Grand Central Airport').
+airport(res_airport_8030, 'Phoenix Deer Valley Airport').
+airport(res_airport_8031, 'Calgary / Springbank Airport').
+airport(res_airport_8032, 'Golden Airport').
+airport(res_airport_8033, 'Revelstoke Airport').
+airport(res_airport_8034, 'Republic Airport').
+airport(res_airport_8035, 'Allstedt Airport').
+airport(res_airport_8038, 'General Freire Airport').
+airport(res_airport_8039, 'Peine-Eddesse Airport').
+airport(res_airport_8042, 'South Texas Regional Airport at Hondo').
+airport(res_airport_8050, 'McKinley National Park Airport').
+airport(res_airport_8051, 'Lake Hood Airport').
+airport(res_airport_8052, 'Prospect Creek Airport').
+airport(res_airport_8053, 'Khwai River Lodge Airport').
+airport(res_airport_8054, 'Spremberg-Welzow Airport').
+airport(res_airport_8055, 'Taichung Airport').
+airport(res_airport_806, 'Graaff Reinet Airport').
+airport(res_airport_8062, 'Wheeling Ohio County Airport').
+airport(res_airport_8063, 'Fitzgerald Municipal Airport').
+airport(res_airport_8069, 'Ye Airport').
+airport(res_airport_807, 'Grahamstown Airport').
+airport(res_airport_8070, 'Isla San Felix Airport').
+airport(res_airport_8075, 'Shaibah Airport').
+airport(res_airport_8077, 'Aransas County Airport').
+airport(res_airport_8079, 'Megève Airport').
+airport(res_airport_808, 'Greytown Airport').
+airport(res_airport_8080, 'Méribel Altiport').
+airport(res_airport_8083, 'Okaukuejo Airport').
+airport(res_airport_8084, 'Mokuti Lodge Airport').
+airport(res_airport_8085, 'Rotenburg (Wümme) Airport').
+airport(res_airport_8086, 'Wipperfürth-Via Airport').
+airport(res_airport_8087, 'Osnabrück-Atterheide Airport').
+airport(res_airport_8088, 'Flugplatz Ballenstedt').
+airport(res_airport_8089, 'Flugplatz Hartenholm').
+airport(res_airport_809, 'Harmony Airport').
+airport(res_airport_8090, 'Ganderkesee Atlas Airfield').
+airport(res_airport_8091, 'Nienburg-Holzbalge Airport').
+airport(res_airport_8092, 'Damme Airfield').
+airport(res_airport_8093, 'Borkenberge Airport').
+airport(res_airport_8094, 'Obermehler-Schlotheim Airport').
+airport(res_airport_8095, 'Hodenhagen Airport').
+airport(res_airport_8096, 'Grube Airport').
+airport(res_airport_8097, 'Tønder Airport').
+airport(res_airport_8098, 'Celle-Arloh Airport').
+airport(res_airport_8099, 'Uelzen Airport').
+airport(res_airport_81, 'Kindersley Airport').
+airport(res_airport_810, 'Harrismith Airport').
+airport(res_airport_8100, 'Hamm-Lippewiesen Airport').
+airport(res_airport_8101, 'Lüsse Airport').
+airport(res_airport_8102, 'Porta Westfalica Airport').
+airport(res_airport_8103, 'Brilon/Hochsauerlandkreis Airfield').
+airport(res_airport_8104, 'Hameln-Pyrmont Airport').
+airport(res_airport_8105, 'Nordholz-Spieka Airfield').
+airport(res_airport_8106, 'Köthen Airport').
+airport(res_airport_8107, 'St. Michaelisdonn Airport').
+airport(res_airport_8108, 'Salzgitter-Drütte Airport').
+airport(res_airport_8109, 'Karlshöfen Airport').
+airport(res_airport_8110, 'Oldenburg-Hatten Airfield').
+airport(res_airport_8111, 'Rinteln Airport').
+airport(res_airport_8112, 'Münster-Telgte Airport').
+airport(res_airport_8113, 'St. Peter-Ording Airport').
+airport(res_airport_8114, 'Lüchow-Rehbeck Airport').
+airport(res_airport_8115, 'Klietz/Scharlibbe Airport').
+airport(res_airport_8116, 'Burg Airport').
+airport(res_airport_8117, 'Crisp County Cordele Airport').
+airport(res_airport_8118, 'Ormond Beach Municipal Airport').
+airport(res_airport_8119, 'Bad Neuenahr-Ahrweiler Airfield').
+airport(res_airport_812, 'Gariep Dam Airport').
+airport(res_airport_8120, 'Bad Dürkheim Airport').
+airport(res_airport_8121, 'Portland Troutdale Airport').
+airport(res_airport_8122, 'Portland Hillsboro Airport').
+airport(res_airport_8123, 'One Police Plaza Heliport').
+airport(res_airport_8124, 'Leverkusen Airport').
+airport(res_airport_8126, 'Wershofen/Eifel Airfield').
+airport(res_airport_8127, 'Khost Airport').
+airport(res_airport_8130, 'Namtu Airport').
+airport(res_airport_8133, 'Bend Municipal Airport').
+airport(res_airport_8134, 'Christmas Valley Airport').
+airport(res_airport_8135, 'Burns Municipal Airport').
+airport(res_airport_8136, 'Prineville Airport').
+airport(res_airport_8137, 'Red Bluff Municipal Airport').
+airport(res_airport_8138, 'Marin County Airport - Gnoss Field').
+airport(res_airport_8139, 'Lake County Airport').
+airport(res_airport_814, 'P C Pelser Airport').
+airport(res_airport_8140, 'Tillamook Airport').
+airport(res_airport_8141, 'Ontario Municipal Airport').
+airport(res_airport_8142, 'Columbia Gorge Regional the Dalles Municipal Airport').
+airport(res_airport_8143, 'Montgomery County Airpark').
+airport(res_airport_8146, 'Sharana Airstrip').
+airport(res_airport_8147, 'Pembroke Airport').
+airport(res_airport_8148, 'Tsumeb Airport').
+airport(res_airport_8149, 'Suffield Heliport').
+airport(res_airport_8152, 'Blumenau Airport').
+airport(res_airport_8156, 'Bolshoye Gryzlovo Airfield').
+airport(res_airport_816, 'Krugersdorp Airport').
+airport(res_airport_8162, 'Charlevoix Municipal Airport').
+airport(res_airport_8165, 'Mykines Heliport').
+airport(res_airport_817, 'Kroonstad Airport').
+airport(res_airport_8177, 'Cornwall Regional Airport').
+airport(res_airport_8178, 'Seppe Airfield').
+airport(res_airport_8179, 'St Stephan Airport').
+airport(res_airport_818, 'Johan Pienaar Airport').
+airport(res_airport_8181, 'IAR Gimbav Heliport').
+airport(res_airport_8182, 'Flagler Executive Airport').
+airport(res_airport_8187, 'Morrisville Stowe State Airport').
+airport(res_airport_8188, 'Dallas Executive Airport').
+airport(res_airport_8189, 'Como (Idroscalo - Water Ad) Hidroport').
+airport(res_airport_819, 'Kleinsee Airport').
+airport(res_airport_8192, 'Krainiy Airport').
+airport(res_airport_8194, 'Westerly State Airport').
+airport(res_airport_8195, 'Block Island State Airport').
+airport(res_airport_82, 'Buttonville Municipal Airport').
+airport(res_airport_821, 'Lichtenburg Airport').
+airport(res_airport_8215, 'Decatur County Industrial Air Park').
+airport(res_airport_8216, 'La Romaine Airport').
+airport(res_airport_8218, 'Black Tickle Airport').
+airport(res_airport_8219, 'Silver Springs Airport').
+airport(res_airport_822, 'Makhado Air Force Base Airport').
+airport(res_airport_8220, 'Whiteman Airport').
+airport(res_airport_8221, 'Madera Municipal Airport').
+airport(res_airport_8224, 'Victoria Airport').
+airport(res_airport_8228, 'Grand-Santi Airport').
+airport(res_airport_8229, 'Maripasoula Airport').
+airport(res_airport_823, 'Langebaanweg Airport').
+airport(res_airport_8230, 'Saint-Laurent-du-Maroni Airport').
+airport(res_airport_8233, 'Kanas Airport').
+airport(res_airport_8234, 'Capurganá Airport').
+airport(res_airport_8236, 'Presidente General Don Oscar D. Gestido International Airport').
+airport(res_airport_824, 'Ladysmith Airport').
+airport(res_airport_8245, 'Carauari Airport').
+airport(res_airport_8246, 'Urucu Airport').
+airport(res_airport_8248, 'Concórdia Airport').
+airport(res_airport_8249, 'Francisco Beltrão Airport').
+airport(res_airport_825, 'Middelburg Airport').
+airport(res_airport_8250, 'Confresa Airport').
+airport(res_airport_8252, 'Apalachicola Regional Airport').
+airport(res_airport_8253, 'Umuarama Airport').
+airport(res_airport_8254, 'Diamantina Airport').
+airport(res_airport_8255, 'Fonte Boa Airport').
+airport(res_airport_8257, 'Humaitá Airport').
+airport(res_airport_8260, 'Hotel Transamérica Airport').
+airport(res_airport_8265, 'Telfer Airport').
+airport(res_airport_8267, 'Shank Air Base').
+airport(res_airport_8273, 'Douglas Municipal Airport').
+airport(res_airport_8274, 'St Lucie County International Airport').
+airport(res_airport_8276, 'Taunton Municipal King Field').
+airport(res_airport_8277, 'Plymouth Municipal Airport').
+airport(res_airport_8278, 'Quonset State Airport').
+airport(res_airport_828, 'Marble Hall Airport').
+airport(res_airport_8280, 'Norwood Memorial Airport').
+airport(res_airport_8281, 'Westfield-Barnes Regional Airport').
+airport(res_airport_8282, 'Windham Airport').
+airport(res_airport_8283, 'Orange County Airport').
+airport(res_airport_8284, 'Capital City Airport').
+airport(res_airport_8285, 'Marshfield Municipal George Harlow Field').
+airport(res_airport_8286, 'Danbury Municipal Airport').
+airport(res_airport_8287, 'Boire Field').
+airport(res_airport_8288, 'Lawrence Municipal Airport').
+airport(res_airport_8289, 'Waterbury Oxford Airport').
+airport(res_airport_829, 'Majuba Power Station Airport').
+airport(res_airport_8290, 'Fitchburg Municipal Airport').
+airport(res_airport_8291, 'Earl L. Small Jr. Field/Stockmar Airport').
+airport(res_airport_8292, 'Cartersville Airport').
+airport(res_airport_8293, 'Centre-Piedmont-Cherokee County Regional Airport').
+airport(res_airport_8294, 'Richard B Russell Airport').
+airport(res_airport_8295, 'Northeast Alabama Regional Airport').
+airport(res_airport_8296, 'Knoxville Downtown Island Airport').
+airport(res_airport_8297, 'Barrow County Airport').
+airport(res_airport_8298, 'Plantation Airpark').
+airport(res_airport_8299, 'Dalton Municipal Airport').
+airport(res_airport_83, 'Chapleau Airport').
+airport(res_airport_8300, 'West Georgia Regional O V Gray Field').
+airport(res_airport_8302, 'LaGrange Callaway Airport').
+airport(res_airport_8303, 'Baldwin County Regional Airport').
+airport(res_airport_8305, 'Harris County Airport').
+airport(res_airport_8306, 'Peachtree City Falcon Field').
+airport(res_airport_8308, 'Lee Gilmer Memorial Airport').
+airport(res_airport_831, 'Riverside Airport').
+airport(res_airport_8312, 'Harry Clever Field').
+airport(res_airport_8313, 'Darlington County Airport').
+airport(res_airport_8318, 'Daniel Field').
+airport(res_airport_8319, 'Foothills Regional Airport').
+airport(res_airport_832, 'Morningside Farm Airport').
+airport(res_airport_8320, 'Pike County-Hatcher Field').
+airport(res_airport_8321, 'Mallards Landing Airport').
+airport(res_airport_8322, 'Toccoa Airport - R.G. Letourneau Field').
+airport(res_airport_8323, 'Compton Abbas Aerodrome').
+airport(res_airport_8328, 'Suprunovka Airport').
+airport(res_airport_833, 'Mkuze Airport').
+airport(res_airport_8331, 'Aweil Airport').
+airport(res_airport_8332, 'Wau Airport').
+airport(res_airport_8333, 'Humera Airport').
+airport(res_airport_8334, 'Moyale Airport').
+airport(res_airport_8335, 'Zagora Airport').
+airport(res_airport_8336, 'Yengema Airport').
+airport(res_airport_8337, 'Gbangbatok Airport').
+airport(res_airport_834, 'Newcastle Airport').
+airport(res_airport_8340, 'Turukhansk Airport').
+airport(res_airport_8341, 'Podkamennaya Tunguska Airport').
+airport(res_airport_8342, 'Fort Worth Alliance Airport').
+airport(res_airport_8343, 'East Troy Municipal Airport').
+airport(res_airport_8344, 'Kolpashevo Airport').
+airport(res_airport_8347, 'Ali Al Salem Air Base').
+airport(res_airport_8348, 'Renmark Airport').
+airport(res_airport_8349, 'Leigh Creek Airport').
+airport(res_airport_835, 'Nylstroom Airfield').
+airport(res_airport_8350, 'Warburton Airport').
+airport(res_airport_8351, 'Cunderdin Airport').
+airport(res_airport_8352, 'Rottnest Island Airport').
+airport(res_airport_8353, 'Forrest Airport').
+airport(res_airport_8354, 'Ballarat Airport').
+airport(res_airport_8356, 'Marathon Airport').
+airport(res_airport_8357, 'Hearst René Fontaine Municipal Airport').
+airport(res_airport_8358, 'Hornepayne Municipal Airport').
+airport(res_airport_8359, 'Kirkland Lake Airport').
+airport(res_airport_836, 'Overberg Airport').
+airport(res_airport_8360, 'Manitouwadge Airport').
+airport(res_airport_8361, 'Wawa Airport').
+airport(res_airport_8362, 'Manitoulin East Municipal Airport').
+airport(res_airport_8363, 'Slate Falls Airport').
+airport(res_airport_8364, 'Collingwood Airport').
+airport(res_airport_8365, 'Brantford Municipal Airport').
+airport(res_airport_8366, 'Lawrence Municipal Airport').
+airport(res_airport_8367, 'Wellington Municipal Airport').
+airport(res_airport_837, 'Oudtshoorn Airport').
+airport(res_airport_8379, 'Pompano Beach Airpark').
+airport(res_airport_8380, 'Mallacoota Airport').
+airport(res_airport_839, 'Plettenberg Bay Airport').
+airport(res_airport_8394, 'Shelby County Airport').
+airport(res_airport_8395, 'Yuendumu Airport').
+airport(res_airport_8397, 'Sky Ranch At Carefree Airport').
+airport(res_airport_84, 'Meadow Lake Airport').
+airport(res_airport_8403, 'One Hundred Mile House Airport').
+airport(res_airport_8404, 'South Cariboo Region / 108 Mile Airport').
+airport(res_airport_8405, 'Glasgow City Heliport').
+airport(res_airport_8406, 'Yarram Airport').
+airport(res_airport_8409, 'Indianapolis Metropolitan Airport').
+airport(res_airport_841, 'Pietersburg Municipal Airport').
+airport(res_airport_8410, 'London-Corbin Airport/Magee Field').
+airport(res_airport_8412, 'Simmons Army Air Field').
+airport(res_airport_8419, 'Jeongseok Airport').
+airport(res_airport_842, 'Port St Johns Airport').
+airport(res_airport_8423, 'Gimli Industrial Park Airport').
+airport(res_airport_8426, 'Matheson Island Airport').
+airport(res_airport_8427, 'Tura Mountain Airport').
+airport(res_airport_8430, 'John H Batten Airport').
+airport(res_airport_8431, 'Cesar Lim Rodriguez Airport').
+airport(res_airport_8432, 'Gera-Leumnitz Airfield').
+airport(res_airport_8435, 'Kasimovo Airfield').
+airport(res_airport_8438, 'Terlet Glider Field').
+airport(res_airport_844, 'Pilanesberg International Airport').
+airport(res_airport_8442, 'Shigatse Air Base').
+airport(res_airport_8443, 'Redlands Municipal Airport').
+airport(res_airport_8445, 'Flabob Airport').
+airport(res_airport_8446, 'Tacoma Narrows Airport').
+airport(res_airport_8459, 'Oerlinghausen Airport').
+airport(res_airport_846, 'Potchefstroom Airport').
+airport(res_airport_8460, 'Jack Edwards Airport').
+airport(res_airport_8461, 'General Villamil Airport').
+airport(res_airport_8462, 'Balzers Heliport').
+airport(res_airport_8467, 'Flugplatz Punitz').
+airport(res_airport_8468, 'Khmelnytskyi Airport').
+airport(res_airport_8469, 'Hiroshimanishi Airport').
+airport(res_airport_847, 'Parys Airport').
+airport(res_airport_8472, 'Yalata Mission Airport').
+airport(res_airport_8473, 'Hazleton Municipal Airport').
+airport(res_airport_8474, 'Greater Cumberland Regional Airport').
+airport(res_airport_8475, 'Sugar Loaf Shores Airport').
+airport(res_airport_8476, 'Wyndham Airport').
+airport(res_airport_8477, 'Bob Quinn Lake Airport').
+airport(res_airport_848, 'Queenstown Airport').
+airport(res_airport_8480, 'Msembe Airport').
+airport(res_airport_8482, 'Grabtsevo Airport').
+airport(res_airport_8493, 'Tri-County Regional Airport').
+airport(res_airport_8494, 'Price County Airport').
+airport(res_airport_8495, 'Monroe Municipal Airport').
+airport(res_airport_8496, 'Joliet Regional Airport').
+airport(res_airport_8497, 'Illinois Valley Regional Airport-Walter A Duncan Field').
+airport(res_airport_8499, 'Jackson County Reynolds Field').
+airport(res_airport_850, 'Rustenburg Airport').
+airport(res_airport_8500, 'Fuerstenwalde Airport').
+airport(res_airport_8501, 'Eberswalde-Finow Airport').
+airport(res_airport_8502, 'Joseph A. Hardy Connellsville Airport').
+airport(res_airport_8503, 'Bedford County Airport').
+airport(res_airport_8504, 'Wings Field').
+airport(res_airport_8505, 'Okeechobee County Airport').
+airport(res_airport_8506, 'Sebring Regional Airport').
+airport(res_airport_8507, 'Avon Park Executive Airport').
+airport(res_airport_8508, 'Winter Haven Regional Airport - Gilbert Field').
+airport(res_airport_8509, 'Zephyrhills Municipal Airport').
+airport(res_airport_851, 'Robertson Airport').
+airport(res_airport_8510, 'Ocala International Airport - Jim Taylor Field').
+airport(res_airport_8511, 'Jesup Wayne County Airport').
+airport(res_airport_8512, 'Madison Municipal Airport').
+airport(res_airport_8513, 'Newnan Coweta County Airport').
+airport(res_airport_8514, 'Thomson-McDuffie County Airport').
+airport(res_airport_8515, 'Aiken Regional Airport').
+airport(res_airport_8516, 'Woodward Field').
+airport(res_airport_8517, 'Lumberton Regional Airport').
+airport(res_airport_8519, 'Moore County Airport').
+airport(res_airport_852, 'Springbok Airport').
+airport(res_airport_8520, 'Richmond County Airport').
+airport(res_airport_8524, 'Baraboo Wisconsin Dells Airport').
+airport(res_airport_8526, 'Statesville Regional Airport').
+airport(res_airport_8528, 'Burlington Municipal Airport').
+airport(res_airport_853, 'Secunda Airport').
+airport(res_airport_8532, 'William T. Piper Memorial Airport').
+airport(res_airport_8538, 'Zelienople Municipal Airport').
+airport(res_airport_854, 'Saldanha /Vredenburg Airport').
+airport(res_airport_8542, 'Lorain County Regional Airport').
+airport(res_airport_8544, 'Burke Lakefront Airport').
+airport(res_airport_8545, 'Chautauqua County-Dunkirk Airport').
+airport(res_airport_8548, 'South Jersey Regional Airport').
+airport(res_airport_855, 'Springs Airfield').
+airport(res_airport_8550, 'Linden Airport').
+airport(res_airport_8553, 'Tri State Steuben County Airport').
+airport(res_airport_8555, 'Warsaw Municipal Airport').
+airport(res_airport_8556, 'Van Wert County Airport').
+airport(res_airport_8559, 'Brooks Field').
+airport(res_airport_856, 'Swartkop Air Force Base').
+airport(res_airport_8560, 'Genesee County Airport').
+airport(res_airport_8565, 'Clearwater Air Park').
+airport(res_airport_857, 'Sishen Airport').
+airport(res_airport_8577, 'Orlampa Inc Airport').
+airport(res_airport_858, 'Hendrik Swellengrebel Airport').
+airport(res_airport_859, 'Skukuza Airport').
+airport(res_airport_8593, 'Chicago Meigs Airport').
+airport(res_airport_86, 'Alert Airport').
+airport(res_airport_860, 'Tommys Field Airport').
+airport(res_airport_8601, 'Pickens County Airport').
+airport(res_airport_8603, 'Saarmund Airport').
+airport(res_airport_8604, 'Grand Strand Airport').
+airport(res_airport_8606, 'Lansing Municipal Airport').
+airport(res_airport_8608, 'Ramona Airport').
+airport(res_airport_8609, 'Pont Sur Yonne Airfield').
+airport(res_airport_861, 'New Tempe Airport').
+airport(res_airport_8610, 'St Florentin Cheu Airfield').
+airport(res_airport_8611, 'Saulieu Liernais Airfield').
+airport(res_airport_8612, 'Olten Airport').
+airport(res_airport_8613, 'Buochs Airport').
+airport(res_airport_8614, 'Ambri Airport').
+airport(res_airport_8615, 'Lodrino Air Base').
+airport(res_airport_8616, 'Roudnice Airport').
+airport(res_airport_8617, 'Usti Nad Labem Airfield').
+airport(res_airport_8618, 'Mauterndorf Airport').
+airport(res_airport_8619, 'Nötsch Im Gailtal Airport').
+airport(res_airport_862, 'Tutuka Power Station Airport').
+airport(res_airport_8620, 'Sinsheim Airfield').
+airport(res_airport_8621, 'Weinheim/Bergstraße Airport').
+airport(res_airport_8622, 'Meaux Esbly Airport').
+airport(res_airport_8623, 'Château-Thierry - Belleau Airfield').
+airport(res_airport_8624, 'Branch County Memorial Airport').
+airport(res_airport_8625, 'Wilkes Barre Wyoming Valley Airport').
+airport(res_airport_8626, 'Willoughby Lost Nation Municipal Airport').
+airport(res_airport_8627, 'Taoyuan Air Base').
+airport(res_airport_863, 'Tzaneen Airport').
+airport(res_airport_8631, 'Capital City Airport').
+airport(res_airport_8632, 'Auburn Lewiston Municipal Airport').
+airport(res_airport_8633, 'Inowroclaw Military Air Base').
+airport(res_airport_8634, 'Pruszcz Gdanski Air Base').
+airport(res_airport_8639, 'Bloyer Field').
+airport(res_airport_864, 'Prince Mangosuthu Buthelezi Airport').
+airport(res_airport_8641, 'Marco Island Executive Airport').
+airport(res_airport_8644, 'Drummond Island Airport').
+airport(res_airport_8646, 'Gladwin Zettel Memorial Airport').
+airport(res_airport_8648, 'South Haven Area Regional Airport').
+airport(res_airport_8653, 'Marshfield Municipal Airport').
+airport(res_airport_8654, 'Alexander Field South Wood County Airport').
+airport(res_airport_8655, 'Clinton Municipal Airport').
+airport(res_airport_8658, 'Beverly Municipal Airport').
+airport(res_airport_8660, 'Nagaur Airport').
+airport(res_airport_8661, 'Ostafyevo International Airport').
+airport(res_airport_8663, 'Trois-Rivières Airport').
+airport(res_airport_8664, 'Poplar Bluff Municipal Airport').
+airport(res_airport_8665, 'Somerset Airport').
+airport(res_airport_8666, 'Eastport Municipal Airport').
+airport(res_airport_8667, 'Keokuk Municipal Airport').
+airport(res_airport_8669, 'Perth/Scone Airport').
+airport(res_airport_867, 'Vryburg Airport').
+airport(res_airport_8670, 'Caernarfon Airport').
+airport(res_airport_8671, 'Grefrath-Niershorst Airport').
+airport(res_airport_868, 'Virginia Airport').
+airport(res_airport_8681, 'St Paul Downtown Holman Field').
+airport(res_airport_8682, 'Söderhamn Airport').
+airport(res_airport_8683, 'Newcastle Aerodrome').
+airport(res_airport_8684, 'Saravane Airport').
+airport(res_airport_8689, 'Segeletz Airport').
+airport(res_airport_869, 'Vredendal Airport').
+airport(res_airport_8690, 'Fuentemilanos Airport').
+airport(res_airport_8691, 'Akeno Airport').
+airport(res_airport_8692, 'Ust-Kamchatsk Airport').
+airport(res_airport_8693, 'Oconomowoc Airport').
+airport(res_airport_8694, 'Kozyrevsk Airport').
+airport(res_airport_8695, 'Dikson Airport').
+airport(res_airport_8696, 'Beverley Airport').
+airport(res_airport_8698, 'Bantry Aerodrome').
+airport(res_airport_870, 'Vereeniging Airport').
+airport(res_airport_8700, 'Aliwal North Airport').
+airport(res_airport_8701, 'Alkantpan Copper Airport').
+airport(res_airport_8702, 'Alldays Airport').
+airport(res_airport_8703, 'Bredasdorp Airport').
+airport(res_airport_8706, 'Butler Co Regional Airport - Hogan Field').
+airport(res_airport_8707, 'Bungoma Airport').
+airport(res_airport_8708, 'Bura East Airport').
+airport(res_airport_8709, 'Busia Airport').
+airport(res_airport_871, 'Wonderboom Airport').
+airport(res_airport_8710, 'Embu Airport').
+airport(res_airport_8711, 'Garba Tula Airport').
+airport(res_airport_8712, 'Garissa Airport').
+airport(res_airport_8713, 'Hola Airport').
+airport(res_airport_8714, 'Homa Bay Airport').
+airport(res_airport_8715, 'Isiolo Airport').
+airport(res_airport_8717, 'Kericho Airport').
+airport(res_airport_8718, 'Kilaguni Airport').
+airport(res_airport_872, 'Witbank Airport').
+airport(res_airport_8721, 'Antsirabe Airport').
+airport(res_airport_8722, 'Bekily Airport').
+airport(res_airport_8723, 'Ust-Tsylma Airport').
+airport(res_airport_873, 'Waterkloof Air Force Base').
+airport(res_airport_874, 'Welkom Airport').
+airport(res_airport_8742, 'Fond du Lac County Airport').
+airport(res_airport_8743, 'Waupaca Municipal Airport').
+airport(res_airport_8744, 'Stevens Point Municipal Airport').
+airport(res_airport_8745, 'Mys Shmidta Airport').
+airport(res_airport_8746, 'Moma Airport').
+airport(res_airport_8747, 'Luce County Airport').
+airport(res_airport_875, 'Ysterplaat Air Force Base').
+airport(res_airport_8750, 'Peenemünde Airport').
+airport(res_airport_8751, 'Góraszka Airport').
+airport(res_airport_8752, 'Nusawiru Airport').
+airport(res_airport_8759, 'Galion Municipal Airport').
+airport(res_airport_876, 'Zeerust Airport').
+airport(res_airport_8761, 'Tiputini Airport').
+airport(res_airport_8762, 'Rio Amazonas Airport').
+airport(res_airport_8763, 'Clarksville–Montgomery County Regional Airport').
+airport(res_airport_8771, 'Lompoc Airport').
+airport(res_airport_8772, 'Chester County G O Carlson Airport').
+airport(res_airport_8773, 'Bost Airport').
+airport(res_airport_8776, 'Zaqatala International Airport').
+airport(res_airport_8777, 'Lake Placid Airport').
+airport(res_airport_8779, 'Typliy Klyuch Airport').
+airport(res_airport_878, 'Jwaneng Airport').
+airport(res_airport_8780, 'Magan Airport').
+airport(res_airport_8784, 'Lima Allen County Airport').
+airport(res_airport_8785, 'Sondok Airport').
+airport(res_airport_8789, 'Malcolm McKinnon Airport').
+airport(res_airport_8790, 'Beaver County Airport').
+airport(res_airport_8792, 'Georgetown County Airport').
+airport(res_airport_8793, 'Hardwick Field').
+airport(res_airport_8796, 'Renton Municipal Airport').
+airport(res_airport_8798, 'Brackett Field').
+airport(res_airport_88, 'Mayo Airport').
+airport(res_airport_8801, 'Cross City Airport').
+airport(res_airport_8802, 'Oconee County Regional Airport').
+airport(res_airport_8804, 'Beech Factory Airport').
+airport(res_airport_8808, 'Tom B. David Field').
+airport(res_airport_8809, 'Habersham County Airport').
+airport(res_airport_8811, 'Georgetown Municipal Airport').
+airport(res_airport_8812, 'Old Rhinebeck Airport').
+airport(res_airport_8813, 'Duxford Aerodrome').
+airport(res_airport_8815, 'Sidney Municipal-Lloyd W Carr Field').
+airport(res_airport_8816, 'Newnan Hospital Heliport').
+airport(res_airport_882, 'Selebi Phikwe Airport').
+airport(res_airport_8820, 'Great Keppel Is Airport').
+airport(res_airport_8821, 'Roper Bar Airport').
+airport(res_airport_8822, 'Mount Garnet Airport').
+airport(res_airport_8823, 'Innisfail Airport').
+airport(res_airport_8824, 'Kalaeloa Airport').
+airport(res_airport_8825, 'Bamiyan Airport').
+airport(res_airport_8830, 'Orang Airport').
+airport(res_airport_8831, 'Moomba Airport').
+airport(res_airport_8833, 'Iosco County Airport').
+airport(res_airport_8834, 'Madison County Executive Airport-Tom Sharp Jr Field').
+airport(res_airport_8835, 'Leesburg Executive Airport').
+airport(res_airport_8838, 'Anoka County-Blaine (Janes Field) Airport').
+airport(res_airport_8839, 'Robinson Crusoe Airport').
+airport(res_airport_884, 'Owando Airport').
+airport(res_airport_8840, 'Villa Airport').
+airport(res_airport_8846, 'Lošinj Island Airport').
+airport(res_airport_8847, 'Onslow Airport').
+airport(res_airport_8848, 'Theodore Airport').
+airport(res_airport_885, 'Ouesso Airport').
+airport(res_airport_8850, 'Williamson Sodus Airport').
+airport(res_airport_8853, 'Fairoaks Airport').
+airport(res_airport_8854, 'Boulder Municipal Airport').
+airport(res_airport_8855, 'Neustadt-Glewe Airport').
+airport(res_airport_8859, 'Goetsenhoven Air Base').
+airport(res_airport_8860, 'Tutow Airport').
+airport(res_airport_8861, 'Bremgarten Airport').
+airport(res_airport_8862, 'Bitburg Airport').
+airport(res_airport_8864, 'Palo Alto Airport of Santa Clara County').
+airport(res_airport_8866, 'Ust-Nera Airport').
+airport(res_airport_8867, 'Letiště Vysoké Mýto').
+airport(res_airport_8868, 'Spa (la Sauvenière) Airfield').
+airport(res_airport_8869, 'Falcon Field').
+airport(res_airport_8870, 'Coolidge Municipal Airport').
+airport(res_airport_8871, 'Cottonwood Airport').
+airport(res_airport_8872, 'Namur-Suarlée Airfield').
+airport(res_airport_8873, 'Kiewit Airfield Hasselt').
+airport(res_airport_8874, 'Ak-Chin Regional Airport').
+airport(res_airport_8875, 'Wickenburg Municipal Airport').
+airport(res_airport_8877, 'Oakland County International Airport').
+airport(res_airport_8880, 'Kissidougou Airport').
+airport(res_airport_8888, 'Dillant Hopkins Airport').
+airport(res_airport_8889, 'Tianshui Maijishan Airport').
+airport(res_airport_889, 'Berbérati Airport').
+airport(res_airport_8890, 'Kawama Airport').
+airport(res_airport_8893, 'Glasgow Industrial Airport').
+airport(res_airport_8894, 'Rochester Airport').
+airport(res_airport_89, 'Moose Jaw Air Vice Marshal C. M. McEwen Airport').
+airport(res_airport_8918, 'Keetmanshoop Airport').
+airport(res_airport_892, 'RAF Ascension Island').
+airport(res_airport_8925, 'Iowa City Municipal Airport').
+airport(res_airport_8926, 'Turpan Jiaohe Airport').
+airport(res_airport_8927, 'Lorenzo Airport').
+airport(res_airport_8928, 'Windom Municipal Airport').
+airport(res_airport_8931, 'Longview Ranch Airport').
+airport(res_airport_8932, 'Rothera Research Station').
+airport(res_airport_8933, 'Sortavala Airport').
+airport(res_airport_8935, 'Lee Airport').
+airport(res_airport_8943, 'Cuamba Airport').
+airport(res_airport_8946, 'Zhytomyr Airport').
+airport(res_airport_8948, 'Paluknys Airport').
+airport(res_airport_895, 'Diego Garcia Naval Support Facility').
+airport(res_airport_8950, 'Pecos Municipal Airport').
+airport(res_airport_8951, 'Hattiesburg Bobby L Chain Municipal Airport').
+airport(res_airport_8952, 'Botucatu - Tancredo de Almeida Neves Airport').
+airport(res_airport_8953, 'Base Aérea Airport').
+airport(res_airport_8954, 'Mário Pereira Lopes–São Carlos Airport').
+airport(res_airport_8958, 'Chan Gurney Municipal Airport').
+airport(res_airport_896, 'Tiko Airport').
+airport(res_airport_8963, 'Bromont (Roland Desourdy) Airport').
+airport(res_airport_8965, 'Beccles Airport').
+airport(res_airport_8966, 'Kratie Airport').
+airport(res_airport_8967, 'Caldera Airport').
+airport(res_airport_8968, 'San Pedro de Atacama Airport').
+airport(res_airport_8969, 'Copacabana Airport').
+airport(res_airport_8971, 'Guyuan Liupanshan Airport').
+airport(res_airport_8972, 'RAF Brawdy').
+airport(res_airport_8974, 'Changhai Airport').
+airport(res_airport_8975, 'Redhill Aerodrome').
+airport(res_airport_8980, 'Chinchilla Airport').
+airport(res_airport_8982, 'Hayward Executive Airport').
+airport(res_airport_8983, 'Motueka Airport').
+airport(res_airport_8984, 'Shute Harbour Airport').
+airport(res_airport_8985, 'Enstone Aerodrome').
+airport(res_airport_8989, 'Ann Arbor Municipal Airport').
+airport(res_airport_899, 'Foumban Nkounja Airport').
+airport(res_airport_8994, 'Shepparton Airport').
+airport(res_airport_8995, 'Temora Airport').
+airport(res_airport_8996, 'Gayndah Airport').
+airport(res_airport_8998, 'Wilcannia Airport').
+airport(res_airport_9001, 'Ivanhoe Airport').
+airport(res_airport_9002, 'Menindee Airport').
+airport(res_airport_9004, 'Pooncarie Airport').
+airport(res_airport_9006, 'Tilpa Airport').
+airport(res_airport_9008, 'Reichenbach Air Base').
+airport(res_airport_902, 'Bafoussam Airport').
+airport(res_airport_903, 'Bamenda Airport').
+airport(res_airport_904, 'Yaoundé Airport').
+airport(res_airport_9042, 'Kavalerovo Airport').
+airport(res_airport_9048, 'Velikiye Luki Airport').
+airport(res_airport_905, 'Kasompe Airport').
+airport(res_airport_9053, 'Yelahanka Air Force Station').
+airport(res_airport_9054, 'Yeltsovka Airport').
+airport(res_airport_9062, 'Kodinsk Airport').
+airport(res_airport_9065, 'Lake Macquarie Airport').
+airport(res_airport_9066, 'Henry County Airport').
+airport(res_airport_9068, 'Brampton Island Airport').
+airport(res_airport_9071, 'Alameda Naval Air Station').
+airport(res_airport_9075, 'Endelave Flyveplads').
+airport(res_airport_9076, 'St. Johann In Tirol Airport').
+airport(res_airport_9079, 'Thalmässing-Waizenhofen Airport').
+airport(res_airport_9088, 'Cochrane Airport').
+airport(res_airport_9089, 'Estadual Arthur Siqueira Airport').
+airport(res_airport_909, 'Mongu Airport').
+airport(res_airport_9091, 'Srednekolymsk Airport').
+airport(res_airport_9093, 'Comarapa Airport').
+airport(res_airport_9095, 'Inverell Airport').
+airport(res_airport_9096, 'Glen Innes Airport').
+airport(res_airport_9100, 'Ansbach-Petersdorf Airport').
+airport(res_airport_9102, 'Immokalee Regional Airport').
+airport(res_airport_9103, 'Maranggo Airport').
+airport(res_airport_9104, 'Rancho San Simeon Airport').
+airport(res_airport_911, 'Southdowns Airport').
+airport(res_airport_9120, 'Dinwiddie County Airport').
+airport(res_airport_9123, 'Kasongo Airport').
+airport(res_airport_9124, 'McMurdo Station Pegasus Field').
+airport(res_airport_9125, 'Klatovy Airport').
+airport(res_airport_9126, 'Sheboygan County Memorial Airport').
+airport(res_airport_9127, 'Fortescue - Dave Forrest Aerodrome').
+airport(res_airport_9129, 'Kangel Danda Airport').
+airport(res_airport_913, 'Mohéli Bandar Es Eslam Airport').
+airport(res_airport_9132, 'Bajura Airport').
+airport(res_airport_9134, 'Chara Airport').
+airport(res_airport_9136, 'Herning Airport').
+airport(res_airport_9137, 'Oberschleißheim Airfield').
+airport(res_airport_9138, 'Pinal Airpark').
+airport(res_airport_9139, 'Glendale Municipal Airport').
+airport(res_airport_914, 'Ouani Airport').
+airport(res_airport_9140, 'Safford Regional Airport').
+airport(res_airport_9141, 'Verden-Scharnhorst Airfield').
+airport(res_airport_9146, 'Solomon Airport').
+airport(res_airport_9147, 'Nittenau-Bruck Airport').
+airport(res_airport_9148, 'Kerama Airport').
+airport(res_airport_9149, 'Americana Airport').
+airport(res_airport_9156, 'Ekibastuz Airport').
+airport(res_airport_9162, 'Adamovka').
+airport(res_airport_9163, 'Kvarkeno').
+airport(res_airport_9164, 'Sikeston Memorial Municipal Airport').
+airport(res_airport_9175, 'Tetiaroa Airport').
+airport(res_airport_9178, 'Floyd Bennett Memorial Airport').
+airport(res_airport_9179, 'Saratoga County Airport').
+airport(res_airport_9182, 'Crystal River Airport').
+airport(res_airport_9183, 'Martin State Airport').
+airport(res_airport_9184, 'Lincoln Regional Karl Harder Field').
+airport(res_airport_9185, 'Fostoria Metropolitan Airport').
+airport(res_airport_9186, 'Eastern Slopes Regional Airport').
+airport(res_airport_9187, 'Coral Creek Airport').
+airport(res_airport_9188, 'Lakefront Airport').
+airport(res_airport_9189, 'Coeur D''Alene - Pappy Boyington Field').
+airport(res_airport_919, 'Miandrivazo Airport').
+airport(res_airport_9190, 'Beaumont Municipal Airport').
+airport(res_airport_9191, 'Vermilion Regional Airport').
+airport(res_airport_9193, 'Coonabarabran Airport').
+airport(res_airport_9199, 'Space Coast Regional Airport').
+airport(res_airport_92, 'Maniwaki Airport').
+airport(res_airport_9205, 'Bumi Airport').
+airport(res_airport_9207, 'Warnervale Airport').
+airport(res_airport_9215, 'Bouarfa Airport').
+airport(res_airport_9218, 'Nyeri Airport').
+airport(res_airport_9225, 'Andrau Airpark').
+airport(res_airport_9226, 'Flying Cloud Airport').
+airport(res_airport_9227, 'Likoma Island Airport').
+airport(res_airport_9228, 'Johnson County Executive Airport').
+airport(res_airport_9232, 'Neumünster Airport').
+airport(res_airport_9233, 'Tak Airport').
+airport(res_airport_9236, 'Barrie-Orillia (Lake Simcoe Regional Airport)').
+airport(res_airport_9237, 'Huronia Airport').
+airport(res_airport_9238, 'Markham Airport').
+airport(res_airport_9239, 'Stanhope Municipal Airport').
+airport(res_airport_9240, 'Kawartha Lakes (Lindsay) Airport').
+airport(res_airport_9241, 'Niagara District Airport').
+airport(res_airport_9243, 'Edenvale Aerodrome').
+airport(res_airport_9244, 'Orillia Airport').
+airport(res_airport_9245, 'Holland Landing Airpark').
+airport(res_airport_9247, 'Parry Sound Area Municipal Airport').
+airport(res_airport_9248, 'Hanover / Saugeen Municipal Airport').
+airport(res_airport_9249, 'Brandywine Airport').
+airport(res_airport_925, 'Andapa Airport').
+airport(res_airport_9251, 'Manassas Regional Airport/Harry P. Davis Field').
+airport(res_airport_9252, 'Texas Gulf Coast Regional Airport').
+airport(res_airport_9253, 'Bubovice Airport').
+airport(res_airport_9255, 'Rakkestad Astorp Airport').
+airport(res_airport_926, 'Ambilobe Airport').
+airport(res_airport_9276, 'Elstree Airfield').
+airport(res_airport_9277, 'Sandtoft Airfield').
+airport(res_airport_928, 'Analalava Airport').
+airport(res_airport_9290, 'Torit Airport').
+airport(res_airport_93, 'Montreal International (Mirabel) Airport').
+airport(res_airport_9305, 'Shelby County Airport').
+airport(res_airport_9308, 'Lüliang Airport').
+airport(res_airport_931, 'Besalampy Airport').
+airport(res_airport_9317, 'Vängsö Airport').
+airport(res_airport_934, 'Vohimarina Airport').
+airport(res_airport_9348, 'Enumclaw Airport').
+airport(res_airport_935, 'Ambalabe Airport').
+airport(res_airport_936, 'Ampampamena Airport').
+airport(res_airport_9371, 'Markovo Airport').
+airport(res_airport_9372, 'Seymchan Airport').
+airport(res_airport_9373, 'Zyryanka Airport').
+airport(res_airport_9374, 'Susuman Airport').
+airport(res_airport_9376, 'Ust-Maya Airport').
+airport(res_airport_9377, 'Aldan Airport').
+airport(res_airport_9378, 'Olyokminsk Airport').
+airport(res_airport_9379, 'Vitim Airport').
+airport(res_airport_938, 'Fianarantsoa Airport').
+airport(res_airport_9380, 'Pellworm Field').
+airport(res_airport_9387, 'Port Alsworth Airport').
+airport(res_airport_9388, 'Fontaine Airport').
+airport(res_airport_939, 'Farafangana Airport').
+airport(res_airport_9390, 'Fairfield County Airport').
+airport(res_airport_9391, 'Obock Airport').
+airport(res_airport_9392, 'Tadjoura Airport').
+airport(res_airport_9393, 'Santa Cruz del Quiche Airport').
+airport(res_airport_9394, 'Norðfjörður Airport').
+airport(res_airport_9395, 'Bursa Airport').
+airport(res_airport_9396, 'Skyhaven Airport').
+airport(res_airport_9397, 'Waris Airport').
+airport(res_airport_9399, 'Newton City-County Airport').
+airport(res_airport_940, 'Manakara Airport').
+airport(res_airport_9400, 'La Ferté Alais Airfield').
+airport(res_airport_9402, 'Bairnsdale Airport').
+airport(res_airport_9403, 'Taszár Air Base').
+airport(res_airport_9406, 'Fort Bridger Airport').
+airport(res_airport_9407, 'Prosser Airport').
+airport(res_airport_9408, 'Chehalis Centralia Airport').
+airport(res_airport_9409, 'Desert Aire Regional Airport').
+airport(res_airport_941, 'Mananjary Airport').
+airport(res_airport_9411, 'Evanston-Uinta County Airport-Burns Field').
+airport(res_airport_9412, 'Sabetha Municipal Airport').
+airport(res_airport_9413, 'Mt Pleasant Regional-Faison field').
+airport(res_airport_9414, 'Jimmy Carter Regional Airport').
+airport(res_airport_9415, 'Weedon Field').
+airport(res_airport_9416, 'Saluda County Airport').
+airport(res_airport_9417, 'Dare County Regional Airport').
+airport(res_airport_9418, 'Auburn University Regional Airport').
+airport(res_airport_9419, 'Tri Cities Airport').
+airport(res_airport_942, 'Morombe Airport').
+airport(res_airport_9428, 'Bessemer Airport').
+airport(res_airport_9429, 'Colorado Springs East Airport').
+airport(res_airport_9447, 'Crystal Airport').
+airport(res_airport_9448, 'Clarke County Airport').
+airport(res_airport_945, 'Benguela Airport').
+airport(res_airport_9450, 'W H ''Bud'' Barron Airport').
+airport(res_airport_9474, 'Pukarua Airport').
+airport(res_airport_9475, 'Kabale Airport').
+airport(res_airport_9481, 'Guatuso Airport').
+airport(res_airport_9484, 'Central Bolívar Airport').
+airport(res_airport_9488, 'Corvallis Municipal Airport').
+airport(res_airport_9492, 'Tuzla Romania Airport').
+airport(res_airport_95, 'Ottawa / Gatineau Airport').
+airport(res_airport_950, 'Lobito Airport').
+airport(res_airport_9500, 'El Almendro Airport').
+airport(res_airport_9511, 'San Agustin Airport').
+airport(res_airport_9521, 'Samambaia Heliport').
+airport(res_airport_9528, 'Fazenda Campo Verde Airport').
+airport(res_airport_9532, 'Prominent Hill Airport').
+airport(res_airport_9533, 'Cowra Airport').
+airport(res_airport_9542, 'Coral Bay Airport').
+airport(res_airport_9544, 'Lake Country Regional Airport').
+airport(res_airport_9545, 'Robert S Kerr Airport').
+airport(res_airport_9546, 'Colorado Plains Regional Airport').
+airport(res_airport_9547, 'Sanderson Field').
+airport(res_airport_955, 'Negage Airport').
+airport(res_airport_956, 'Porto Amboim Airport').
+airport(res_airport_96, 'Matagami Airport').
+airport(res_airport_961, 'Uige Airport').
+airport(res_airport_962, 'Xangongo Airport').
+airport(res_airport_963, 'Oyem Airport').
+airport(res_airport_964, 'Okondja Airport').
+airport(res_airport_965, 'Lambarene Airport').
+airport(res_airport_966, 'Bitam Airport').
+airport(res_airport_968, 'Omboue Hopital Airport').
+airport(res_airport_969, 'Makokou Airport').
+airport(res_airport_97, 'Old Crow Airport').
+airport(res_airport_971, 'M''Vengue El Hadj Omar Bongo Ondimba International Airport').
+airport(res_airport_972, 'Principe Airport').
+airport(res_airport_9746, 'Tok Airport').
+airport(res_airport_9749, 'Bedwell Harbour Seaplane Base').
+airport(res_airport_9751, 'Washabo Airport').
+airport(res_airport_9753, 'Popham Airfield').
+airport(res_airport_9754, 'Causey Airport').
+airport(res_airport_9759, 'Abaco I Walker C Airport').
+airport(res_airport_9760, 'Black Point Airstrip').
+airport(res_airport_9761, 'Bartica A Airport').
+airport(res_airport_9763, 'Doylestown Airport').
+airport(res_airport_9766, 'Cape Town Waterfort Heliport').
+airport(res_airport_9769, 'Plínio Alarcom Airport').
+airport(res_airport_9770, 'Zhangye Ganzhou Airport').
+airport(res_airport_9772, 'Warren Field').
+airport(res_airport_9773, 'Hyde County Airport').
+airport(res_airport_9776, 'Stillwater Regional Airport').
+airport(res_airport_9777, 'Okmulgee Regional Airport').
+airport(res_airport_9778, 'Cushing Municipal Airport').
+airport(res_airport_9779, 'Clinton Sherman Airport').
+airport(res_airport_978, 'Lumbo Airport').
+airport(res_airport_9780, 'Strother Field').
+airport(res_airport_9781, 'Wiley Post Airport').
+airport(res_airport_9782, 'Shreveport Downtown Airport').
+airport(res_airport_9783, 'Stephenville Clark Regional Airport').
+airport(res_airport_9784, 'Perry Municipal Airport').
+airport(res_airport_9786, 'Hamilton Municipal Airport').
+airport(res_airport_9787, 'Ada Regional Airport').
+airport(res_airport_9788, 'Mesquite Metro Airport').
+airport(res_airport_9789, 'Denton Municipal Airport').
+airport(res_airport_9790, 'Austin Executive Airport').
+airport(res_airport_9791, 'Lago Vista Tx Rusty Allen Airport').
+airport(res_airport_9792, 'Brenham Municipal Airport').
+airport(res_airport_9793, 'Lakeway Airpark').
+airport(res_airport_9794, 'Iraan Municipal Airport').
+airport(res_airport_9795, 'Kestrel Airpark').
+airport(res_airport_9796, 'Elliot Lake Municipal Airport').
+airport(res_airport_9797, 'Wilkes County Airport').
+airport(res_airport_9798, 'Charleston Executive Airport').
+airport(res_airport_9799, 'Danville Regional Airport').
+airport(res_airport_98, 'CFB Cold Lake').
+airport(res_airport_980, 'Mueda Airport').
+airport(res_airport_9800, 'Brookneal/Campbell County Airport').
+airport(res_airport_9805, 'Yerbogachen Airport').
+airport(res_airport_9806, 'Cheraw Municipal Airport/Lynch Bellinger Field').
+airport(res_airport_9808, 'Wauchula Municipal Airport').
+airport(res_airport_981, 'Mocímboa da Praia Airport').
+airport(res_airport_9818, 'Lilydale Airport').
+airport(res_airport_9819, 'Beni Mellal Airport').
+airport(res_airport_982, 'Marrupa Airport').
+airport(res_airport_9820, 'Şırnak Şerafettin Elçi Airport').
+airport(res_airport_9821, 'Suntar Airport').
+airport(res_airport_9825, 'Asaba International Airport').
+airport(res_airport_983, 'Nacala Airport').
+airport(res_airport_9830, 'Mpanda Airport').
+airport(res_airport_9831, 'Songea Airport').
+airport(res_airport_9832, 'Morogoro Airport').
+airport(res_airport_9847, 'Conway Horry County Airport').
+airport(res_airport_9850, 'Sikasso Airport').
+airport(res_airport_9853, 'Toowoomba Wellcamp Airport').
+airport(res_airport_9854, 'Tonghua Sanyuanpu Airport').
+airport(res_airport_9857, 'Suzhou Guangfu Airport').
+airport(res_airport_9860, 'City Airport Manchester').
+airport(res_airport_9861, 'Sleap Airport').
+airport(res_airport_9862, 'Tatenhill Airfield').
+airport(res_airport_9863, 'Full Sutton Airfield').
+airport(res_airport_9864, 'Sherburn-In-Elmet Airfield').
+airport(res_airport_9866, 'Beringin Airport').
+airport(res_airport_9868, 'Mulia Airport').
+airport(res_airport_987, 'Songo Airport').
+airport(res_airport_9872, 'Stenkol Airport').
+airport(res_airport_9873, 'Wasior Airport').
+airport(res_airport_9874, 'Silangit Airport').
+airport(res_airport_9875, 'Lasikin Airport').
+airport(res_airport_9886, 'Seunagan Airport').
+airport(res_airport_989, 'Ulongwe Airport').
+airport(res_airport_9890, 'Sanggata/Sangkimah Airport').
+airport(res_airport_9891, 'Muara Bungo Airport').
+airport(res_airport_9892, 'Selayar/Aroepala Airport').
+airport(res_airport_9897, 'Illaga Airport').
+airport(res_airport_9899, 'Kokonau Airport').
+airport(res_airport_9901, 'Clermont Airport').
+airport(res_airport_9902, 'Warrnambool Airport').
+airport(res_airport_991, 'Alphonse Airport').
+airport(res_airport_992, 'Desroches Airport').
+airport(res_airport_993, 'Farquhar Airport').
+airport(res_airport_9935, 'Kualanamu International Airport').
+airport(res_airport_9937, 'Gratiot Community Airport').
+airport(res_airport_9938, 'Asheboro Regional Airport').
+airport(res_airport_9939, 'Seosan Air Base').
+airport(res_airport_9942, 'Henderson Field').
+airport(res_airport_9943, 'Emporia Greensville Regional Airport').
+airport(res_airport_996, 'Coetivy Airport').
+airport(res_airport_997, 'Abeche Airport').
+airport(res_airport_998, 'Moundou Airport').
 flight(res_airport_1, res_airport_2).
 flight(res_airport_1, res_airport_3).
 flight(res_airport_1, res_airport_4).

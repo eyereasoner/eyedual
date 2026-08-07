@@ -13,8 +13,8 @@
 %% goal: holds_result(X0, X1)
 
 
-birthDay(patH, "1944-08-21").
-duration(check, "P80Y").
+birthDay(patH, '1944-08-21').
+duration(check, 'P80Y').
 
 % A person is above a duration if the local date minus the birthday is greater
 % than that duration.
@@ -27,4 +27,4 @@ ageAbove(S, A) :-
 
 % Test mirroring the Eyeling example.
 holds_result(test, true) :-
-  ageAbove(S, "P80Y").
+  ageAbove(S, 'P80Y').

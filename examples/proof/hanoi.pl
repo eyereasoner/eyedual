@@ -57,7 +57,7 @@ why(
                   ),
                   proof(
                     goal(append([], [[left, right]], [[left, right]])),
-                    by(builtin(append, 3))
+                    by(library(append, 3))
                   )
                 ])
               ),
@@ -86,13 +86,13 @@ why(
                   ),
                   proof(
                     goal(append([], [[right, center]], [[right, center]])),
-                    by(builtin(append, 3))
+                    by(library(append, 3))
                   )
                 ])
               ),
               proof(
                 goal(append([[left, right]], [[left, center], [right, center]], [[left, right], [left, center], [right, center]])),
-                by(builtin(append, 3))
+                by(library(append, 3))
               )
             ])
           ),
@@ -134,7 +134,7 @@ why(
                   ),
                   proof(
                     goal(append([], [[center, left]], [[center, left]])),
-                    by(builtin(append, 3))
+                    by(library(append, 3))
                   )
                 ])
               ),
@@ -163,19 +163,19 @@ why(
                   ),
                   proof(
                     goal(append([], [[left, right]], [[left, right]])),
-                    by(builtin(append, 3))
+                    by(library(append, 3))
                   )
                 ])
               ),
               proof(
                 goal(append([[center, left]], [[center, right], [left, right]], [[center, left], [center, right], [left, right]])),
-                by(builtin(append, 3))
+                by(library(append, 3))
               )
             ])
           ),
           proof(
             goal(append([[left, right], [left, center], [right, center]], [[left, right], [center, left], [center, right], [left, right]], [[left, right], [left, center], [right, center], [left, right], [center, left], [center, right], [left, right]])),
-            by(builtin(append, 3))
+            by(library(append, 3))
           )
         ])
       )

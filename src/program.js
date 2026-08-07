@@ -276,7 +276,8 @@ export class Program {
       // guarded resolution because positive least-fixed-point tabling is not
       // sound for an unstratified negative component.
       group.cutRecursive = recursive && componentHasCut(start, deps, groups);
-      const linearNumeric = recursive && hasLinearNumericRecursion(group) && isPiAccumulator(group);
+      const linearNumeric = recursive && hasLinearNumericRecursion(group) &&
+        (isPiAccumulator(group) || isPortableBetweenGenerator(group));
       group.linearNumeric = linearNumeric;
       group.fastPi = linearNumeric && isPiAccumulator(group);
       group.tabled = recursive &&
@@ -831,6 +832,12 @@ function isPiAccumulator(group) {
   return group.name === 'pi' && group.arity === 5 && group.clauses.some((clause) =>
     !isCompactBinaryClause(clause) && clause.body.some((goal) => goal.type === COMPOUND && goal.name === 'is' && goal.arity === 2)
   );
+}
+
+function isPortableBetweenGenerator(group) {
+  return group.name === 'eyeprolog__between' && group.arity === 3 &&
+    group.clauses.length > 0 &&
+    group.clauses.every((clause) => clause.eyePrologLibraryPortable === true);
 }
 
 function termContainsVariable(term, name) {

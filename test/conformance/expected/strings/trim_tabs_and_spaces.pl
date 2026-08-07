@@ -1,1 +1,1 @@
-answer("hello").
+answer(hello).

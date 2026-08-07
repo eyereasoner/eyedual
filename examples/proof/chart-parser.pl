@@ -412,7 +412,7 @@ why(
       ),
       proof(
         goal(countall(span(command, s, 0, 5), 1)),
-        by(builtin(countall, 2))
+        by(library(countall, 2))
       )
     ])
   )
@@ -432,7 +432,7 @@ why(
       ),
       proof(
         goal(countall(span(ambiguous_pp, s, 0, 8), 1)),
-        by(builtin(countall, 2))
+        by(library(countall, 2))
       )
     ])
   )
@@ -452,7 +452,7 @@ why(
       ),
       proof(
         goal(countall(span(command, np, _start, _end), 2)),
-        by(builtin(countall, 2))
+        by(library(countall, 2))
       ),
       proof(
         goal(>(5, 0)),
@@ -476,7 +476,7 @@ why(
       ),
       proof(
         goal(countall(span(ambiguous_pp, np, _start, _end), 4)),
-        by(builtin(countall, 2))
+        by(library(countall, 2))
       ),
       proof(
         goal(>(8, 0)),

@@ -1,3 +1,3 @@
-airroute("Ostend-Bruges International Airport", "Václav Havel Airport Prague", 2, "Ostend-Bruges International Airport -> Liège Airport -> Heraklion International Nikos Kazantzakis Airport -> Václav Havel Airport Prague").
-airroute("Ostend-Bruges International Airport", "Václav Havel Airport Prague", 2, "Ostend-Bruges International Airport -> Liège Airport -> Diagoras Airport -> Václav Havel Airport Prague").
-airroute("Ostend-Bruges International Airport", "Václav Havel Airport Prague", 2, "Ostend-Bruges International Airport -> Liège Airport -> Palma De Mallorca Airport -> Václav Havel Airport Prague").
+airroute('Ostend-Bruges International Airport', 'Václav Havel Airport Prague', 2, 'Ostend-Bruges International Airport -> Liège Airport -> Heraklion International Nikos Kazantzakis Airport -> Václav Havel Airport Prague').
+airroute('Ostend-Bruges International Airport', 'Václav Havel Airport Prague', 2, 'Ostend-Bruges International Airport -> Liège Airport -> Diagoras Airport -> Václav Havel Airport Prague').
+airroute('Ostend-Bruges International Airport', 'Václav Havel Airport Prague', 2, 'Ostend-Bruges International Airport -> Liège Airport -> Palma De Mallorca Airport -> Václav Havel Airport Prague').

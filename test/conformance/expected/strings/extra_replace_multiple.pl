@@ -1,1 +1,1 @@
-answer(replace_multiple, "baNANA").
+answer(replace_multiple, baNANA).

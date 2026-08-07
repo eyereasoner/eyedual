@@ -1,3 +1,3 @@
 %% goal: answer(X0)
 
-answer(ok) :- \+ substring("abc", 2, 5, Text).
+answer(ok) :- \+ substring('abc', 2, 5, Text).

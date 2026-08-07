@@ -8,7 +8,7 @@ why(
     uses([
       proof(
         goal(countall(interval(_i, _start, _finish, _value), 8)),
-        by(builtin(countall, 2))
+        by(library(countall, 2))
       )
     ])
   )

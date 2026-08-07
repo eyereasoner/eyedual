@@ -14,6 +14,10 @@ export {
 export {
   createEyePrologRegistry,
   getEyePrologRegistry,
+  ensureEyePrologLibrary,
+  eyePrologLibraryIndicators,
+  eyePrologNativeLibraryIndicators,
+  eyePrologPortableLibraryIndicators,
 } from './library.js';
 export { StreamManager } from './io.js';
 

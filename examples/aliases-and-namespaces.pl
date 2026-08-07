@@ -16,7 +16,7 @@
 % application vocabulary is modeled with ordinary facts and rules.
 value(nativeMath, X) :- (X is 0.125 + 0.875).
 ok(nativeCompare, true) :- (2 < 3).
-ok(nativeString, true) :- matches("scoped retail insight", "retail|medical").
+ok(nativeString, true) :- matches('scoped retail insight', 'retail|medical').
 tail(nativeList, Tail) :- [_head|Tail] = [a, b, c].
 
 % These names are just user data; eyeprolog does not give them special meaning.

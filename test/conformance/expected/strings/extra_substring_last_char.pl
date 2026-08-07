@@ -1,1 +1,1 @@
-answer(substring_last_char, "d").
+answer(substring_last_char, d).

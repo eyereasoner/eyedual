@@ -1,81 +1,164 @@
-// EyeProlog library implemented entirely as native JavaScript builtins.
-// The single registry is shared by Node, embedders, and the browser playground.
+// EyeProlog library integration.
+//
+// 48 of the 50 public library predicates are implemented in plain Prolog in
+// eyeprolog-library.pl and autoloaded into every Solver that uses the EyeProlog
+// registry.  Only uuid/1 and local_time/1 remain native because ISO Prolog has
+// no standard entropy or wall-clock primitive.
 import {
-  ATOM,
-  COMPOUND,
   atom,
-  compareIntegerText,
-  compareTerms,
-  compound,
-  cons,
-  copyResolved,
-  deref,
-  emptyList,
-  isCons,
-  isEmptyList,
-  isDecimalInteger,
-  lexicalValue,
-  listFromItems,
   numberTerm,
-  numberTextFromDouble,
-  parseFiniteNumber,
-  properListItems,
   stringTerm,
-  termToString,
+  lexicalValue,
+  isDecimalInteger,
+  deref,
   unify,
-  variable,
 } from './term.js';
 import {
   BuiltinRegistry,
-  PrologError,
-  arithmeticValueTerm,
-  evaluateArithmetic,
   isoBuiltins,
 } from './iso.js';
+import { parseClauses } from './parser.js';
+import { eyePrologPortableLibrarySource } from './library-source.js';
 
-// Numeric builtins for integer-preserving arithmetic, floating point functions, comparisons, and ranges.
-// The code keeps BigInt paths where possible so large EyeProlog integers remain exact.
+export const eyePrologNativeLibraryIndicators = Object.freeze([
+  'uuid/1',
+  'local_time/1',
+]);
 
-const unaryNames = ['tan', 'asin', 'acos'];
-const binaryNames = ['atan2'];
-const compareNames = ['lt', 'gt', 'le', 'ge'];
+export const eyePrologPortableLibraryIndicators = Object.freeze([
+  'difference/3',
+  'call/3',
+  'maplist/3',
+  'tan/2',
+  'asin/2',
+  'acos/2',
+  'atan2/3',
+  'lt/2',
+  'gt/2',
+  'le/2',
+  'ge/2',
+  'between/3',
+  'smallest_divisor_from/3',
+  'matches/3',
+  'split/3',
+  'replace/4',
+  'lowercase/2',
+  'uppercase/2',
+  'trim/2',
+  'number_string/2',
+  'atom_string/2',
+  'term_string/2',
+  'append/3',
+  'string_concat/3',
+  'contains/2',
+  'matches/2',
+  'join/3',
+  'substring/4',
+  'member/2',
+  'select/3',
+  'last/2',
+  'nth0/3',
+  'nth1/3',
+  'set_nth0/4',
+  'take/3',
+  'drop/3',
+  'slice/4',
+  'reverse/2',
+  'length/2',
+  'sum_list/2',
+  'min_list/2',
+  'max_list/2',
+  'list_to_set/2',
+  'sort/2',
+  'countall/2',
+  'sumall/3',
+  'aggregate_min/5',
+  'aggregate_max/5',
+]);
 
-export const arithmeticBuiltins = {
-  register(registry) {
-    for (const name of unaryNames) registry.add(name, 2, unary(name), { deterministic: true });
-    for (const name of binaryNames) registry.add(name, 3, binary(name), { deterministic: true });
-    for (const name of compareNames) registry.add(name, 2, compare(name), { deterministic: true });
-    registry.add('between', 3, between, { eyePrologLibrary: true });
-    registry.add('smallest_divisor_from', 3, smallestDivisorFrom, {
-      deterministic: true,
-      eyePrologLibrary: true,
-    });
+export const eyePrologLibraryIndicators = Object.freeze([
+  ...eyePrologNativeLibraryIndicators,
+  ...eyePrologPortableLibraryIndicators,
+]);
+
+const portableIndicatorSet = new Set(eyePrologPortableLibraryIndicators);
+const autoloadedPrograms = new WeakSet();
+const portableClauseTemplates = parseClauses(eyePrologPortableLibrarySource, {
+  filename: 'src/eyeprolog-library.pl',
+  sourceMetadata: true,
+});
+
+
+export function ensureEyePrologLibrary(program) {
+  if (autoloadedPrograms.has(program)) return program;
+
+  // User clauses already present in the Program stay first in clause order;
+  // the autoloaded library clauses are appended as defaults. This preserves
+  // useful source specializations such as length(numbers,N) while still making
+  // the relational length(List,N) library clauses available inside them.
+  let added = 0;
+  for (const template of portableClauseTemplates) {
+    // Clause terms are immutable; clone only the mutable indexing shell so the
+    // cached parse can be safely shared across independent Program instances.
+    const clause = {
+      ...template,
+      body: template.body.slice(),
+      index: program.clauses.length,
+      eyePrologLibraryPortable: true,
+    };
+    program.clauses.push(clause);
+    program.indexClause(clause);
+    added++;
   }
-};
-
-function* between({ goal, env }) {
-  const lowText = lexicalValue(goal.args[0], env);
-  const highText = lexicalValue(goal.args[1], env);
-  if (!isDecimalInteger(lowText) || !isDecimalInteger(highText)) return;
-  const low = BigInt(lowText);
-  const high = BigInt(highText);
-  if (low > high) return;
-  const output = deref(goal.args[2], env);
-  if (output.type !== 'var') {
-    const valueText = lexicalValue(output, env);
-    if (!isDecimalInteger(valueText)) return;
-    const value = BigInt(valueText);
-    if (value >= low && value <= high) yield env;
-    return;
-  }
-  for (let value = low; value <= high; value++) {
-    const next = env.clone();
-    next.bind(output.name, numberTerm(value.toString()));
-    yield next;
-  }
+  if (added > 0) program.markRecursivePredicates();
+  autoloadedPrograms.add(program);
+  return program;
 }
 
-function* smallestDivisorFrom({ goal, env }) {
+export function createEyePrologRegistry() {
+  const registry = new BuiltinRegistry();
+  registry.eyePrologLibrary = true;
+
+  registry.add('uuid', 1, uuidBuiltin, {
+    deterministic: true,
+    eyePrologLibrary: true,
+  });
+  registry.add('local_time', 1, localTimeBuiltin, {
+    deterministic: true,
+    eyePrologLibrary: true,
+  });
+  registry.add('eyeprolog__string_atom', 2, stringAtomBoundaryBuiltin, {
+    deterministic: true,
+    eyePrologLibrary: false,
+  });
+  registry.add('smallest_divisor_from', 3, smallestDivisorFromAccelerator, {
+    deterministic: true,
+    eyePrologLibrary: false,
+    shouldUse: portableAcceleratorIsApplicable,
+  });
+
+  // ISO definitions take precedence where names overlap and remain identifiable
+  // as ISO rather than EyeProlog-library predicates.
+  isoBuiltins.register(registry);
+  return registry;
+}
+
+let eyePrologRegistry = null;
+
+export function getEyePrologRegistry() {
+  if (eyePrologRegistry == null) eyePrologRegistry = createEyePrologRegistry();
+  return eyePrologRegistry;
+}
+
+function portableAcceleratorIsApplicable({ solver, goal, env }) {
+  const group = solver.program.findGroup(goal.name, goal.arity);
+  if (!group?.clauses.some((clause) => clause.eyePrologLibraryPortable === true)) return false;
+  const nText = lexicalValue(goal.args[0], env);
+  const startText = lexicalValue(goal.args[1], env);
+  return isDecimalInteger(nText) && isDecimalInteger(startText);
+}
+
+function* smallestDivisorFromAccelerator({ goal, env }) {
   const nText = lexicalValue(goal.args[0], env);
   const startText = lexicalValue(goal.args[1], env);
   if (!isDecimalInteger(nText) || !isDecimalInteger(startText)) return;
@@ -93,105 +176,30 @@ function* smallestDivisorFrom({ goal, env }) {
   if (unify(goal.args[2], numberTerm(divisor.toString()), next)) yield next;
 }
 
-function unary(name) {
-  return function* ({ goal, env }) {
-    const text = lexicalValue(goal.args[0], env);
-    if (text == null) return;
-    const input = parseFiniteNumber(text);
-    if (input == null) return;
-    const value = name === 'tan' ? Math.tan(input) : name === 'asin' ? Math.asin(input) : Math.acos(input);
-    const out = numberTextFromDouble(value);
-    const next = env.clone();
-    if (out != null && unify(goal.args[1], numberTerm(out), next)) yield next;
-  };
-}
-
-function binary(name) {
-  return function* ({ goal, env }) {
-    const leftText = lexicalValue(goal.args[0], env);
-    const rightText = lexicalValue(goal.args[1], env);
-    if (leftText == null || rightText == null) return;
-    const a = parseFiniteNumber(leftText), b = parseFiniteNumber(rightText);
-    if (a == null || b == null) return;
-    const out = numberTextFromDouble(Math.atan2(a, b));
-    const next = env.clone();
-    if (out != null && unify(goal.args[2], numberTerm(out), next)) yield next;
-  };
-}
-
-function compare(name) {
-  return function* ({ goal, env }) {
-    const left = lexicalValue(goal.args[0], env);
-    const right = lexicalValue(goal.args[1], env);
-    if (left == null || right == null) return;
-    const cmp = compareLexicalOrNumeric(left, right);
-    const pass = name === 'lt' ? cmp < 0 : name === 'gt' ? cmp > 0 : name === 'le' ? cmp <= 0 : cmp >= 0;
-    if (pass) yield env;
-  };
-}
-
-export function compareLexicalOrNumeric(left, right) {
-  if (isDecimalInteger(left) && isDecimalInteger(right)) return compareIntegerText(left, right);
-  const dur = compareDuration(left, right);
-  if (dur != null) return dur;
-  const a = parseFiniteNumber(left), b = parseFiniteNumber(right);
-  if (a != null && b != null) return a < b ? -1 : a > b ? 1 : 0;
-  return left < right ? -1 : left > right ? 1 : 0;
-}
-
-function compareDuration(a, b) {
-  const pa = parseDuration(a), pb = parseDuration(b);
-  if (!pa || !pb) return null;
-  for (let i = 0; i < 3; i++) if (pa[i] !== pb[i]) return pa[i] < pb[i] ? -1 : 1;
-  return 0;
-}
-function parseDuration(text) {
-  const m = /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?$/.exec(text);
-  if (!m || (!m[1] && !m[2] && !m[3])) return null;
-  return [Number(m[1] ?? 0), Number(m[2] ?? 0), Number(m[3] ?? 0)];
-}
-
-
-// Core relational builtins that do not naturally belong to arithmetic, strings, lists, or aggregation.
-// They are deterministic filters/projections and should avoid enumerating additional answers.
-
-export const coreBuiltins = {
-  register(registry) {
-    registry.add('uuid', 1, uuidBuiltin, { deterministic: true });
-
-    registry.add('local_time', 1, function* ({ goal, env }) {
-      const next = env.clone();
-      if (unify(goal.args[0], stringTerm(localDateText()), next)) yield next;
-    }, { deterministic: true });
-
-    registry.add('difference', 3, function* ({ goal, env }) {
-      const endText = lexicalValue(goal.args[0], env);
-      const startText = lexicalValue(goal.args[1], env);
-      if (!endText || !startText) return;
-      const end = parseISODate(endText);
-      const start = parseISODate(startText);
-      if (!end || !start || compareDateParts(end, start) < 0) return;
-      let [ey, em, ed] = end;
-      const [sy, sm, sd] = start;
-      if (ed < sd) {
-        let bm = em - 1;
-        let by = ey;
-        if (bm === 0) { bm = 12; by--; }
-        ed += daysInMonth(by, bm);
-        em--;
-        if (em === 0) { em = 12; ey--; }
-      }
-      if (em < sm) { em += 12; ey--; }
-      const duration = formatDuration(ey - sy, em - sm, ed - sd);
-      const next = env.clone();
-      if (unify(goal.args[2], stringTerm(duration), next)) yield next;
-    }, { deterministic: true });
+function* stringAtomBoundaryBuiltin({ goal, env }) {
+  // Private representation-boundary helper. Public portable text predicates
+  // never call this: it exists only for adapters that must cross between
+  // EyeProlog's RDF STRING term and the ISO atom-based text API.
+  const text = deref(goal.args[0], env);
+  const atomValue = deref(goal.args[1], env);
+  const next = env.clone();
+  if (text?.type === 'string') {
+    if (unify(goal.args[1], atom(text.name), next)) yield next;
+    return;
   }
-};
+  if (text?.type === 'var' && atomValue?.type === 'atom') {
+    if (unify(goal.args[0], stringTerm(atomValue.name), next)) yield next;
+  }
+}
 
 function* uuidBuiltin({ goal, env }) {
   const next = env.clone();
   if (unify(goal.args[0], atom(randomUuidV4()), next)) yield next;
+}
+
+function* localTimeBuiltin({ goal, env }) {
+  const next = env.clone();
+  if (unify(goal.args[0], atom(localDateText()), next)) yield next;
 }
 
 function randomUuidV4() {
@@ -201,9 +209,7 @@ function randomUuidV4() {
   if (typeof cryptoApi?.getRandomValues === 'function') {
     cryptoApi.getRandomValues(bytes);
   } else {
-    for (let index = 0; index < bytes.length; index++) {
-      bytes[index] = Math.floor(Math.random() * 256);
-    }
+    for (let index = 0; index < bytes.length; index++) bytes[index] = Math.floor(Math.random() * 256);
   }
   bytes[6] = (bytes[6] & 0x0f) | 0x40;
   bytes[8] = (bytes[8] & 0x3f) | 0x80;
@@ -211,815 +217,12 @@ function randomUuidV4() {
   return `${hex.slice(0, 4).join('')}-${hex.slice(4, 6).join('')}-${hex.slice(6, 8).join('')}-${hex.slice(8, 10).join('')}-${hex.slice(10).join('')}`;
 }
 
-export const metaCallBuiltins = {
-  register(registry) {
-    registry.add('call', 3, callWithTwoExtraArguments);
-    registry.add('maplist', 3, maplistTwoLists, {
-      eyePrologLibrary: true,
-      shouldUse: ({ solver }) => solver.program.findGroup('maplist', 3) == null,
-    });
-  }
-};
-
-function* callWithTwoExtraArguments({ solver, goal, env }) {
-  const closure = deref(goal.args[0], env);
-  if (closure.type === 'var') throw new PrologError('instantiation_error');
-  if (closure.type !== ATOM && closure.type !== COMPOUND) {
-    throw new PrologError('type_error(callable)', closure);
-  }
-  const invoked = compound(closure.name, [
-    ...(closure.type === COMPOUND ? closure.args : []),
-    goal.args[1],
-    goal.args[2],
-  ]);
-  const child = solver.cloneForInnerGoal();
-  try {
-    yield* child.solve([invoked], env, 0);
-  } finally {
-    solver.absorbStatsFrom(child);
-  }
-}
-
-function* maplistTwoLists({ solver, goal, env }) {
-  const input = properListItems(goal.args[1], env);
-  if (input == null) return;
-  let output = properListItems(goal.args[2], env);
-  let next = env;
-  if (output == null) {
-    if (deref(goal.args[2], env).type !== 'var') return;
-    const id = ++generatedListVariable;
-    output = input.map((_, index) => variable(`_maplist_${id}_${index}`));
-    next = env.clone();
-    if (!unify(goal.args[2], listFromItems(output), next)) return;
-  }
-  if (input.length !== output.length) return;
-  const closure = deref(goal.args[0], next);
-  if (closure.type === 'var') throw new PrologError('instantiation_error');
-  if (closure.type !== ATOM && closure.type !== COMPOUND) {
-    throw new PrologError('type_error(callable)', closure);
-  }
-  const prefix = closure.type === COMPOUND ? closure.args : [];
-  function* solveItem(index, current) {
-    if (index === input.length) {
-      yield current;
-      return;
-    }
-    const invoked = compound(closure.name, [...prefix, input[index], output[index]]);
-    const child = solver.cloneForInnerGoal();
-    try {
-      for (const answer of child.solve([invoked], current, 0)) {
-        yield* solveItem(index + 1, answer);
-      }
-    } finally {
-      solver.absorbStatsFrom(child);
-    }
-  }
-  yield* solveItem(0, next);
-}
-
-
 function localDateText() {
   const fixed = typeof process !== 'undefined' ? process.env?.EYEPROLOG_LOCAL_TIME : null;
   if (fixed) return fixed;
-
   const now = new Date();
   const yyyy = now.getFullYear();
   const mm = String(now.getMonth() + 1).padStart(2, '0');
   const dd = String(now.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
-}
-
-function parseISODate(text) {
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(text);
-  if (!m) return null;
-  const y = Number(m[1]), mo = Number(m[2]), d = Number(m[3]);
-  if (mo < 1 || mo > 12 || d < 1 || d > daysInMonth(y, mo)) return null;
-  return [y, mo, d];
-}
-function daysInMonth(y, m) {
-  return [0,31,((y%4===0&&y%100!==0)||y%400===0)?29:28,31,30,31,30,31,31,30,31,30,31][m] ?? 0;
-}
-function compareDateParts(a, b) {
-  for (let i = 0; i < 3; i++) if (a[i] !== b[i]) return a[i] < b[i] ? -1 : 1;
-  return 0;
-}
-function formatDuration(y, m, d) {
-  if (y === 0 && m === 0 && d === 0) return 'P0D';
-  return `P${y ? `${y}Y` : ''}${m ? `${m}M` : ''}${d ? `${d}D` : ''}`;
-}
-
-
-// String builtins.
-// They mostly project from already-ground terms to avoid guessing string domains.
-
-export const stringBuiltins = {
-  register(registry) {
-    registry.add('matches', 3, matchCaptures, { deterministic: true });
-    registry.add('split', 3, split, { deterministic: true, fallbackWhenNotReady: true, ready: firstTwoLexicalReady });
-    registry.add('replace', 4, replace, { deterministic: true, fallbackWhenNotReady: true, ready: firstThreeLexicalReady });
-    registry.add('lowercase', 2, caseFold('lower'), { deterministic: true, fallbackWhenNotReady: true, ready: firstLexicalReady });
-    registry.add('uppercase', 2, caseFold('upper'), { deterministic: true, fallbackWhenNotReady: true, ready: firstLexicalReady });
-    registry.add('trim', 2, trim, { deterministic: true, fallbackWhenNotReady: true, ready: firstLexicalReady });
-    registry.add('number_string', 2, numberString, { deterministic: true, fallbackWhenNotReady: true, ready: numberStringReady });
-    registry.add('atom_string', 2, atomString, { deterministic: true, fallbackWhenNotReady: true, ready: atomStringReady });
-    registry.add('term_string', 2, termString, { deterministic: true, fallbackWhenNotReady: true, ready: firstNonvarReady });
-  }
-};
-
-
-
-function firstLexicalReady(goal, env) {
-  return lexicalValue(goal.args[0], env) !== null;
-}
-
-function firstTwoLexicalReady(goal, env) {
-  return lexicalValue(goal.args[0], env) !== null && lexicalValue(goal.args[1], env) !== null;
-}
-
-function firstThreeLexicalReady(goal, env) {
-  return firstTwoLexicalReady(goal, env) && lexicalValue(goal.args[2], env) !== null;
-}
-
-function numberStringReady(goal, env) {
-  const left = deref(goal.args[0], env);
-  const right = deref(goal.args[1], env);
-  return left.type === 'number' || right.type === 'string' || right.type === 'atom';
-}
-
-function atomStringReady(goal, env) {
-  const left = deref(goal.args[0], env);
-  const right = deref(goal.args[1], env);
-  return left.type === 'atom' || right.type === 'string' || right.type === 'atom' || right.type === 'number';
-}
-
-function firstNonvarReady(goal, env) {
-  return deref(goal.args[0], env).type !== 'var';
-}
-
-function* matchCaptures({ goal, env }) {
-  const text = lexicalValue(goal.args[0], env);
-  const pattern = lexicalValue(goal.args[1], env);
-  if (text == null || pattern == null) return;
-
-  let match;
-  try {
-    match = new RegExp(pattern).exec(text);
-  } catch (_) {
-    return;
-  }
-  if (!match?.groups) return;
-
-  const context = contextFromGroups(match.groups);
-  if (context == null) return;
-
-  const next = env.clone();
-  if (unify(goal.args[2], context, next)) yield next;
-}
-
-function* split({ goal, env }) {
-  const text = lexicalValue(goal.args[0], env);
-  const separator = lexicalValue(goal.args[1], env);
-  if (text == null || separator == null) return;
-  const parts = text.split(separator).map(stringTerm);
-  const next = env.clone();
-  if (unify(goal.args[2], listFromItems(parts), next)) yield next;
-}
-
-function* replace({ goal, env }) {
-  const text = lexicalValue(goal.args[0], env);
-  const search = lexicalValue(goal.args[1], env);
-  const replacement = lexicalValue(goal.args[2], env);
-  if (text == null || search == null || replacement == null) return;
-  const out = search === '' ? text : text.split(search).join(replacement);
-  const next = env.clone();
-  if (unify(goal.args[3], stringTerm(out), next)) yield next;
-}
-
-function caseFold(direction) {
-  return function* ({ goal, env }) {
-    const text = lexicalValue(goal.args[0], env);
-    if (text == null) return;
-    const next = env.clone();
-    const out = direction === 'lower' ? text.toLowerCase() : text.toUpperCase();
-    if (unify(goal.args[1], stringTerm(out), next)) yield next;
-  };
-}
-
-function* trim({ goal, env }) {
-  const text = lexicalValue(goal.args[0], env);
-  if (text == null) return;
-  const next = env.clone();
-  if (unify(goal.args[1], stringTerm(text.trim()), next)) yield next;
-}
-
-function* numberString({ goal, env }) {
-  const left = deref(goal.args[0], env);
-  const right = deref(goal.args[1], env);
-  const next = env.clone();
-  if (left.type === 'number') {
-    if (unify(goal.args[1], stringTerm(left.name), next)) yield next;
-    return;
-  }
-  if (right.type === 'string' || right.type === 'atom') {
-    if (!numericText(right.name)) return;
-    if (unify(goal.args[0], numberTerm(right.name), next)) yield next;
-  }
-}
-
-function* atomString({ goal, env }) {
-  const left = deref(goal.args[0], env);
-  const right = deref(goal.args[1], env);
-  const next = env.clone();
-  if (left.type === 'atom') {
-    if (unify(goal.args[1], stringTerm(left.name), next)) yield next;
-    return;
-  }
-  if (right.type === 'string' || right.type === 'atom' || right.type === 'number') {
-    if (unify(goal.args[0], atom(right.name), next)) yield next;
-  }
-}
-
-function* termString({ goal, env }) {
-  const term = deref(goal.args[0], env);
-  if (term.type === 'var') return;
-  const next = env.clone();
-  if (unify(goal.args[1], stringTerm(termToString(term, env, true)), next)) yield next;
-}
-
-function contextFromGroups(groups) {
-  const terms = [];
-  for (const [name, value] of Object.entries(groups)) {
-    if (value !== undefined) terms.push(compound(name, [stringTerm(value)]));
-  }
-  if (terms.length === 0) return null;
-
-  let context = terms[terms.length - 1];
-  for (let i = terms.length - 2; i >= 0; i--) context = compound(',', [terms[i], context]);
-  return context;
-}
-
-function numericText(text) {
-  return isDecimalInteger(text) || parseFiniteNumber(text) != null;
-}
-// Native EyeProlog library relations.
-// These predicates used to be parsed from bundled Prolog source. Keeping them
-// in the builtin registry removes startup parsing, avoids browser module/cache
-// duplication, and gives the hot list/aggregation paths direct JavaScript
-// implementations while preserving the established relation surface.
-
-export const standardBuiltins = {
-  register(registry) {
-    const relation = (name, arity, handler, options = {}) => registry.add(name, arity, handler, {
-      ...options,
-      eyePrologLibrary: true,
-    });
-    const accelerator = (name, arity, handler, options = {}) => registry.add(name, arity, handler, {
-      ...options,
-      eyePrologLibrary: true,
-    });
-
-    relation('append', 3, appendBuiltin);
-    relation('string_concat', 3, stringConcatBuiltin);
-    accelerator('contains', 2, containsBuiltin, {
-      deterministic: true,
-      ready: twoLexicalInputsReady,
-      fallbackWhenNotReady: true,
-    });
-    accelerator('matches', 2, matchesBuiltin, {
-      deterministic: true,
-      ready: twoLexicalInputsReady,
-      fallbackWhenNotReady: true,
-    });
-    relation('join', 3, joinBuiltin, { deterministic: true });
-    relation('substring', 4, substringBuiltin, { deterministic: true });
-
-    accelerator('member', 2, memberBuiltin, { shouldUse: ({ solver, goal, env }) => solver.program.findGroup('member', 2) == null || listTermReady(goal.args[1], env) });
-    accelerator('select', 3, selectBuiltin, { shouldUse: ({ solver, goal, env }) => solver.program.findGroup('select', 3) == null || listTermReady(goal.args[1], env) });
-    relation('last', 2, lastBuiltin, { deterministic: true, shouldUse: ({ solver, goal, env }) => solver.program.findGroup('last', 2) == null || listTermReady(goal.args[0], env) });
-    relation('nth0', 3, nth0Builtin);
-    relation('nth1', 3, nth1Builtin);
-    relation('set_nth0', 4, setNth0Builtin, { deterministic: true });
-    relation('take', 3, takeBuiltin, { deterministic: true });
-    relation('drop', 3, dropBuiltin, { deterministic: true });
-    relation('slice', 4, sliceBuiltin, { deterministic: true });
-    accelerator('reverse', 2, reverseBuiltin, { deterministic: true, shouldUse: ({ solver, goal, env }) => solver.program.findGroup('reverse', 2) == null || reverseReady(goal, env) });
-    accelerator('length', 2, lengthBuiltin, { deterministic: true, shouldUse: ({ solver, goal, env }) => solver.program.findGroup('length', 2) == null || properListItems(goal.args[0], env) != null });
-    relation('sum_list', 2, sumListBuiltin, { deterministic: true });
-    relation('min_list', 2, minListBuiltin, { deterministic: true });
-    relation('max_list', 2, maxListBuiltin, { deterministic: true });
-    relation('list_to_set', 2, listToSetBuiltin, { deterministic: true });
-    accelerator('sort', 2, sortBuiltin, { deterministic: true });
-
-    accelerator('countall', 2, countallBuiltin, { deterministic: true });
-    relation('sumall', 3, sumallBuiltin, { deterministic: true });
-    relation('aggregate_min', 5, aggregateBuiltin(-1), { deterministic: true });
-    relation('aggregate_max', 5, aggregateBuiltin(1), { deterministic: true });
-
-  }
-};
-let nativeVariableCounter = 0;
-let generatedListVariable = 0;
-
-function nativeVariable(prefix) {
-  return variable(`_${prefix}_${++nativeVariableCounter}`);
-}
-
-function listSpine(term, env) {
-  const items = [];
-  let tail = deref(term, env);
-  const seen = new Set();
-  while (isCons(tail)) {
-    if (seen.has(tail)) return null;
-    seen.add(tail);
-    items.push(tail.args[0]);
-    tail = deref(tail.args[1], env);
-  }
-  return { items, tail };
-}
-
-function listTermReady(term, env) {
-  const resolved = deref(term, env);
-  return isCons(resolved) || isEmptyList(resolved);
-}
-
-function lengthReady(goal, env) {
-  if (listTermReady(goal.args[0], env)) return true;
-  const list = deref(goal.args[0], env);
-  const size = deref(goal.args[1], env);
-  return list.type === 'var' && size.type === 'number' && isDecimalInteger(size.name);
-}
-
-function reverseReady(goal, env) {
-  return properListItems(goal.args[0], env) != null || properListItems(goal.args[1], env) != null;
-}
-
-function isProperSpine(spine) {
-  return spine != null && isEmptyList(spine.tail);
-}
-
-function exactIdentity(left, right, env) {
-  left = deref(left, env);
-  right = deref(right, env);
-  if (left.type !== right.type || left.name !== right.name || left.arity !== right.arity) return false;
-  if (left.type === 'var') return left.name === right.name;
-  for (let index = 0; index < left.arity; index++) {
-    if (!exactIdentity(left.args[index], right.args[index], env)) return false;
-  }
-  return true;
-}
-
-function* appendBuiltin({ goal, env }) {
-  const [left, right, whole] = goal.args;
-  const leftSpine = listSpine(left, env);
-  if (isProperSpine(leftSpine)) {
-    const next = env.clone();
-    if (unify(whole, listFromItems(leftSpine.items, 0, leftSpine.items.length, right), next)) yield next;
-    return;
-  }
-
-  const wholeSpine = listSpine(whole, env);
-  if (wholeSpine && wholeSpine.tail.type !== 'var') {
-    for (let split = 0; split <= wholeSpine.items.length; split++) {
-      const prefix = listFromItems(wholeSpine.items, 0, split);
-      const suffix = listFromItems(wholeSpine.items, split, wholeSpine.items.length, wholeSpine.tail);
-      const next = env.clone();
-      if (unify(left, prefix, next) && unify(right, suffix, next)) yield next;
-    }
-    return;
-  }
-
-  yield* appendRelational(left, right, whole, env);
-}
-
-function* appendRelational(left, right, whole, env) {
-  const base = env.clone();
-  if (unify(left, emptyList(), base) && unify(right, whole, base)) yield base;
-
-  const item = nativeVariable('append_item');
-  const leftTail = nativeVariable('append_left');
-  const wholeTail = nativeVariable('append_whole');
-  const recursive = env.clone();
-  if (!unify(left, cons(item, leftTail), recursive) || !unify(whole, cons(item, wholeTail), recursive)) return;
-  yield* appendRelational(leftTail, right, wholeTail, recursive);
-}
-
-function scalarLexicalValue(term, env) {
-  const resolved = deref(term, env);
-  return resolved.type === ATOM || resolved.type === 'string' || resolved.type === 'number'
-    ? resolved.name
-    : null;
-}
-
-function twoLexicalInputsReady(goal, env) {
-  return lexicalValue(goal.args[0], env) != null && lexicalValue(goal.args[1], env) != null;
-}
-
-function* stringConcatBuiltin({ goal, env }) {
-  const firstTerm = deref(goal.args[0], env);
-  const secondTerm = deref(goal.args[1], env);
-  const wholeTerm = deref(goal.args[2], env);
-  const first = firstTerm.type === 'var' ? null : scalarLexicalValue(goal.args[0], env);
-  const second = secondTerm.type === 'var' ? null : scalarLexicalValue(goal.args[1], env);
-  const whole = wholeTerm.type === 'var' ? null : scalarLexicalValue(goal.args[2], env);
-
-  // Match atom_concat/3-style modes: either the first two values construct the
-  // whole, or a known whole is checked/split. Generated values are strings.
-  if ((firstTerm.type !== 'var' && first == null) ||
-      (secondTerm.type !== 'var' && second == null) ||
-      (wholeTerm.type !== 'var' && whole == null)) return;
-  if (firstTerm.type === 'var' && wholeTerm.type === 'var') {
-    throw new PrologError('instantiation_error');
-  }
-  if (secondTerm.type === 'var' && wholeTerm.type === 'var') {
-    throw new PrologError('instantiation_error');
-  }
-
-  const candidates = [];
-  if (whole != null && firstTerm.type === 'var' && secondTerm.type === 'var') {
-    const chars = Array.from(whole);
-    for (let i = 0; i <= chars.length; i++) {
-      candidates.push([
-        chars.slice(0, i).join(''),
-        chars.slice(i).join(''),
-        whole,
-      ]);
-    }
-  } else if (first != null && second != null) {
-    candidates.push([first, second, first + second]);
-  } else if (first != null && whole != null && whole.startsWith(first)) {
-    candidates.push([first, whole.slice(first.length), whole]);
-  } else if (second != null && whole != null && whole.endsWith(second)) {
-    candidates.push([whole.slice(0, whole.length - second.length), second, whole]);
-  }
-
-  for (const [left, right, text] of candidates) {
-    const next = env.clone();
-    if (unifyGeneratedString(goal.args[0], left, next) &&
-        unifyGeneratedString(goal.args[1], right, next) &&
-        unifyGeneratedString(goal.args[2], text, next)) yield next;
-  }
-}
-
-function unifyGeneratedString(term, value, env) {
-  const resolved = deref(term, env);
-  if (resolved.type === 'var') return unify(term, stringTerm(value), env);
-  return scalarLexicalValue(term, env) === value;
-}
-
-function* containsBuiltin({ goal, env }) {
-  const text = lexicalValue(goal.args[0], env);
-  const needle = lexicalValue(goal.args[1], env);
-  if (text != null && needle != null && text.includes(needle)) yield env;
-}
-
-function* matchesBuiltin({ goal, env }) {
-  const text = lexicalValue(goal.args[0], env);
-  const pattern = lexicalValue(goal.args[1], env);
-  if (text != null && pattern != null && pattern.split('|').some((part) => text.includes(part))) yield env;
-}
-
-function* joinBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  const separator = scalarLexicalValue(goal.args[1], env);
-  if (items == null || separator == null) return;
-  const values = [];
-  for (const item of items) {
-    const value = scalarLexicalValue(item, env);
-    if (value == null) return;
-    values.push(value);
-  }
-  const next = env.clone();
-  if (unify(goal.args[2], stringTerm(values.join(separator)), next)) yield next;
-}
-
-function* substringBuiltin({ goal, env }) {
-  const text = scalarLexicalValue(goal.args[0], env);
-  const start = integerArgument(goal.args[1], env);
-  const count = integerArgument(goal.args[2], env);
-  if (text == null || start == null || count == null) return;
-  if (start < 0n || count < 0n || start > BigInt(Number.MAX_SAFE_INTEGER) || count > BigInt(Number.MAX_SAFE_INTEGER)) return;
-  const chars = Array.from(text);
-  const begin = Number(start);
-  const size = Number(count);
-  if (begin + size > chars.length) return;
-  const next = env.clone();
-  if (unify(goal.args[3], stringTerm(chars.slice(begin, begin + size).join('')), next)) yield next;
-}
-
-function* memberBuiltin({ goal, env }) {
-  const spine = listSpine(goal.args[1], env);
-  if (spine == null) return;
-  for (const item of spine.items) {
-    const next = env.clone();
-    if (unify(goal.args[0], item, next)) yield next;
-  }
-  if (spine.tail.type === 'var') yield* memberOpenTail(goal.args[0], spine.tail, env);
-}
-
-function* memberOpenTail(item, list, env) {
-  const head = nativeVariable('member_head');
-  const tail = nativeVariable('member_tail');
-  const first = env.clone();
-  if (unify(list, cons(head, tail), first) && unify(item, head, first)) yield first;
-  const rest = env.clone();
-  if (unify(list, cons(head, tail), rest)) yield* memberOpenTail(item, tail, rest);
-}
-
-function* selectBuiltin({ goal, env }) {
-  const spine = listSpine(goal.args[1], env);
-  if (!isProperSpine(spine)) {
-    yield* selectRelational(goal.args[0], goal.args[1], goal.args[2], env);
-    return;
-  }
-  for (let index = 0; index < spine.items.length; index++) {
-    const rest = [...spine.items.slice(0, index), ...spine.items.slice(index + 1)];
-    const next = env.clone();
-    if (unify(goal.args[0], spine.items[index], next) &&
-        unify(goal.args[2], listFromItems(rest), next)) yield next;
-  }
-}
-
-function* selectRelational(item, list, rest, env) {
-  const tail = nativeVariable('select_tail');
-  const first = env.clone();
-  if (unify(list, cons(item, tail), first) && unify(rest, tail, first)) yield first;
-
-  const head = nativeVariable('select_head');
-  const listTail = nativeVariable('select_list');
-  const restTail = nativeVariable('select_rest');
-  const recursive = env.clone();
-  if (!unify(list, cons(head, listTail), recursive) || !unify(rest, cons(head, restTail), recursive)) return;
-  yield* selectRelational(item, listTail, restTail, recursive);
-}
-
-function* lastBuiltin({ goal, env }) {
-  const spine = listSpine(goal.args[0], env);
-  if (isProperSpine(spine) && spine.items.length > 0) {
-    const next = env.clone();
-    if (unify(goal.args[1], spine.items[spine.items.length - 1], next)) yield next;
-    return;
-  }
-  yield* lastRelational(goal.args[0], goal.args[1], env);
-}
-
-function* lastRelational(list, item, env) {
-  const singleton = env.clone();
-  if (unify(list, cons(item, emptyList()), singleton)) yield singleton;
-  const head = nativeVariable('last_head');
-  const tail = nativeVariable('last_tail');
-  const recursive = env.clone();
-  if (unify(list, cons(head, tail), recursive)) yield* lastRelational(tail, item, recursive);
-}
-
-function* nth0Builtin({ goal, env }) {
-  yield* nthBuiltin(goal.args[0], goal.args[1], goal.args[2], env, 0n);
-}
-
-function* nth1Builtin({ goal, env }) {
-  yield* nthBuiltin(goal.args[0], goal.args[1], goal.args[2], env, 1n);
-}
-
-function* nthBuiltin(indexTerm, listTerm, itemTerm, env, base) {
-  const index = deref(indexTerm, env);
-  const spine = listSpine(listTerm, env);
-  if (!isProperSpine(spine)) return;
-  if (index.type === 'var' && base === 1n) {
-    if (spine.items.length > 0) throw new PrologError('instantiation_error');
-    return;
-  }
-  if (index.type === 'var') {
-    for (let position = 0; position < spine.items.length; position++) {
-      const next = env.clone();
-      if (unify(indexTerm, numberTerm((BigInt(position) + base).toString()), next) &&
-          unify(itemTerm, spine.items[position], next)) yield next;
-    }
-    return;
-  }
-  if (index.type !== 'number' || !isDecimalInteger(index.name)) return;
-  const position = BigInt(index.name) - base;
-  if (position < 0n || position >= BigInt(spine.items.length)) return;
-  const next = env.clone();
-  if (unify(itemTerm, spine.items[Number(position)], next)) yield next;
-}
-
-function* setNth0Builtin({ goal, env }) {
-  const index = integerArgument(goal.args[0], env);
-  if (index == null || index < 0n || index > BigInt(Number.MAX_SAFE_INTEGER)) return;
-  const spine = listSpine(goal.args[1], env);
-  if (!isProperSpine(spine) || index >= BigInt(spine.items.length)) return;
-  const items = spine.items.slice();
-  items[Number(index)] = goal.args[2];
-  const next = env.clone();
-  if (unify(goal.args[3], listFromItems(items), next)) yield next;
-}
-
-function* takeBuiltin({ goal, env }) {
-  const count = integerArgument(goal.args[0], env);
-  if (count == null || count < 0n || count > BigInt(Number.MAX_SAFE_INTEGER)) return;
-  if (count === 0n) {
-    const next = env.clone();
-    if (unify(goal.args[2], emptyList(), next)) yield next;
-    return;
-  }
-  const spine = listSpine(goal.args[1], env);
-  if (spine == null || count > BigInt(spine.items.length)) return;
-  const next = env.clone();
-  if (unify(goal.args[2], listFromItems(spine.items, 0, Number(count)), next)) yield next;
-}
-
-function* dropBuiltin({ goal, env }) {
-  const count = integerArgument(goal.args[0], env);
-  if (count == null || count < 0n || count > BigInt(Number.MAX_SAFE_INTEGER)) return;
-  if (count === 0n) {
-    const next = env.clone();
-    if (unify(goal.args[2], goal.args[1], next)) yield next;
-    return;
-  }
-  const spine = listSpine(goal.args[1], env);
-  if (spine == null || count > BigInt(spine.items.length)) return;
-  const suffix = listFromItems(spine.items, Number(count), spine.items.length, spine.tail);
-  const next = env.clone();
-  if (unify(goal.args[2], suffix, next)) yield next;
-}
-
-function* sliceBuiltin({ goal, env }) {
-  const start = integerArgument(goal.args[0], env);
-  const count = integerArgument(goal.args[1], env);
-  if (start == null || count == null || start < 0n || count < 0n ||
-      start > BigInt(Number.MAX_SAFE_INTEGER) || count > BigInt(Number.MAX_SAFE_INTEGER)) return;
-  const spine = listSpine(goal.args[2], env);
-  if (spine == null) return;
-  const begin = Number(start);
-  const end = begin + Number(count);
-  if (end > spine.items.length) return;
-  const next = env.clone();
-  if (unify(goal.args[3], listFromItems(spine.items, begin, end), next)) yield next;
-}
-
-function* reverseBuiltin({ goal, env }) {
-  const left = properListItems(goal.args[0], env);
-  if (left == null) return;
-  const next = env.clone();
-  if (unify(goal.args[1], listFromItems([...left].reverse()), next)) yield next;
-}
-
-function* lengthBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  if (items == null) {
-    const list = deref(goal.args[0], env);
-    const size = deref(goal.args[1], env);
-    if (list.type !== 'var' || size.type !== 'number' || !isDecimalInteger(size.name)) return;
-    const count = BigInt(size.name);
-    if (count < 0n || count > 1000000n) return;
-    const stem = String(list.name).replace(/[^A-Za-z0-9_]/g, '_');
-    const generated = Array.from({ length: Number(count) }, (_, index) => variable(`_length_${stem}_${index}`));
-    const next = env.clone();
-    if (unify(goal.args[0], listFromItems(generated), next)) yield next;
-    return;
-  }
-  const next = env.clone();
-  if (unify(goal.args[1], numberTerm(items.length), next)) yield next;
-}
-
-function addArithmeticValues(left, right) {
-  if (left.integer && right.integer) return { integer: true, value: left.value + right.value };
-  return { integer: false, value: Number(left.value) + Number(right.value) };
-}
-
-function* sumListBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  if (items == null) return;
-  let total = { integer: true, value: 0n };
-  for (const item of items) total = addArithmeticValues(total, evaluateArithmetic(item, env));
-  const next = env.clone();
-  if (unify(goal.args[1], arithmeticValueTerm(total), next)) yield next;
-}
-
-function* minListBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  if (items == null || items.length === 0) return;
-  yield* extremumList(items.slice(1), items[0], goal.args[1], env, -1);
-}
-
-function* maxListBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  if (items == null || items.length === 0) return;
-  yield* extremumList(items.slice(1), items[0], goal.args[1], env, 1);
-}
-
-function* extremumList(items, initial, output, env, direction) {
-  let best = copyResolved(initial, env);
-  for (const item of items) {
-    const candidate = copyResolved(item, env);
-    if (compareTerms(candidate, best) * direction > 0) best = candidate;
-  }
-  const next = env.clone();
-  if (unify(output, best, next)) yield next;
-}
-
-function* listToSetBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  if (items == null) return;
-  const unique = [];
-  for (const item of items) {
-    if (!unique.some((seen) => exactIdentity(item, seen, env))) unique.push(copyResolved(item, env));
-  }
-  const next = env.clone();
-  if (unify(goal.args[1], listFromItems(unique), next)) yield next;
-}
-
-function sortedUnique(items, env) {
-  const sorted = items.map((item) => copyResolved(item, env)).sort(compareTerms);
-  const unique = [];
-  for (const item of sorted) {
-    if (unique.length === 0 || compareTerms(unique[unique.length - 1], item) !== 0) unique.push(item);
-  }
-  return unique;
-}
-
-function* sortBuiltin({ goal, env }) {
-  const items = properListItems(goal.args[0], env);
-  if (items == null) return;
-  const next = env.clone();
-  if (unify(goal.args[1], listFromItems(sortedUnique(items, env)), next)) yield next;
-}
-
-function* countallBuiltin({ solver, goal, env }) {
-  const collector = solver.cloneForInnerGoal(10000000);
-  let count = 0;
-  try {
-    for (const _ of collector.solve([goal.args[0]], env.clone(), 0)) count++;
-  } finally {
-    solver.absorbStatsFrom(collector);
-  }
-  const next = env.clone();
-  if (unify(goal.args[1], numberTerm(count), next)) yield next;
-}
-
-function* sumallBuiltin({ solver, goal, env }) {
-  const collector = solver.cloneForInnerGoal(10000000);
-  let total = { integer: true, value: 0n };
-  try {
-    for (const answer of collector.solve([goal.args[1]], env.clone(), 0)) {
-      total = addArithmeticValues(total, evaluateArithmetic(goal.args[0], answer));
-    }
-  } finally {
-    solver.absorbStatsFrom(collector);
-  }
-  const next = env.clone();
-  if (unify(goal.args[2], arithmeticValueTerm(total), next)) yield next;
-}
-
-function aggregateBuiltin(direction) {
-  return function* ({ solver, goal, env }) {
-    const collector = solver.cloneForInnerGoal(10000000);
-    let bestKey = null;
-    let bestValue = null;
-    try {
-      for (const answer of collector.solve([goal.args[2]], env.clone(), 0)) {
-        const key = copyResolved(goal.args[0], answer);
-        if (bestKey == null || compareTerms(key, bestKey) * direction > 0) {
-          bestKey = key;
-          bestValue = copyResolved(goal.args[1], answer);
-        }
-      }
-    } finally {
-      solver.absorbStatsFrom(collector);
-    }
-    if (bestKey == null) return;
-    const next = env.clone();
-    if (unify(goal.args[3], bestKey, next) && unify(goal.args[4], bestValue, next)) yield next;
-  };
-}
-
-function integerArgument(term, env) {
-  const resolved = deref(term, env);
-  if (resolved.type !== 'number' || !isDecimalInteger(resolved.name)) return null;
-  return BigInt(resolved.name);
-}
-
-export function createEyePrologRegistry() {
-  const registry = new BuiltinRegistry();
-  registry.eyePrologLibrary = true;
-  for (const mod of [
-    coreBuiltins,
-    metaCallBuiltins,
-    arithmeticBuiltins,
-    stringBuiltins,
-    standardBuiltins,
-  ]) {
-    mod.register(registry);
-  }
-  for (const definition of registry.defs.values()) definition.eyePrologLibrary = true;
-  // ISO definitions take precedence where names overlap and remain identifiable
-  // as ISO rather than EyeProlog-library predicates.
-  isoBuiltins.register(registry);
-  return registry;
-}
-
-let eyePrologRegistry = null;
-
-export function getEyePrologRegistry() {
-  if (eyePrologRegistry == null) eyePrologRegistry = createEyePrologRegistry();
-  return eyePrologRegistry;
 }

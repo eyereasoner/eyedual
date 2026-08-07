@@ -7,8 +7,8 @@ why(
     bindings([binding("Key", 1), binding("Value", a)]),
     uses([
       proof(
-        goal(aggregate_min(K, V, score(K, V), 1, a)),
-        by(builtin(aggregate_min, 5))
+        goal(aggregate_min(Key, Value, score(Key, Value), 1, a)),
+        by(library(aggregate_min, 5))
       )
     ])
   )

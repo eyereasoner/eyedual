@@ -2,4 +2,4 @@
 normalized(Input, Words) :-
   trim(Input, Trimmed),
   lowercase(Trimmed, Lower),
-  split(Lower, " ", Words).
+  split(Lower, ' ', Words).

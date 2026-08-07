@@ -1,1 +1,1 @@
-answer(lowercase_iri_atom, "<urn:example:abc>").
+answer(lowercase_iri_atom, '<urn:example:abc>').

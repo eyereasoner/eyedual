@@ -1,1 +1,1 @@
-answer(["Ada"], ["Lovelace"]).
+answer(['Ada'], ['Lovelace']).

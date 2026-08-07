@@ -30,6 +30,14 @@ eyeprolog --goal 'type(socrates, mortal)' examples/socrates.pl
 
 Programs may declare their default queries with `%% goal:` comments.
 
+## Portable library
+
+EyeProlog adds 50 public library predicates to its 115-predicate ISO profile.
+**48 of the 50 are ordinary Prolog clauses** in `src/eyeprolog-library.pl` and
+are autoloaded in Node and the browser. Only `uuid/1` and `local_time/1` require
+host support. Portable text predicates use ISO atoms or character lists; RDF
+double-quoted STRING values cross that boundary explicitly in the RDF adapter.
+
 ## RDF 1.2
 
 ```sh

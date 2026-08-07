@@ -1,3 +1,3 @@
 %% goal: answer(X0)
 
-answer(Parts) :- split("abc", ",", Parts).
+answer(Parts) :- split('abc', ',', Parts).

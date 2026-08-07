@@ -1,1 +1,1 @@
-answer(difference_same_day, "P0D").
+answer(difference_same_day, 'P0D').

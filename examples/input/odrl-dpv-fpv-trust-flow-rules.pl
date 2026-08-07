@@ -64,17 +64,20 @@ rdf_link(Subject, Predicate, Object) :-
 rdf_number(Subject, Predicate, Number) :-
   iri_term(Subject, SubjectIri),
   iri_term(Predicate, PredicateIri),
-  rdf(iri(SubjectIri), iri(PredicateIri), literal(Text, datatype(_Datatype)), default_graph),
+  rdf(iri(SubjectIri), iri(PredicateIri), literal(TextString, datatype(_Datatype)), default_graph),
+  eyeprolog__string_atom(TextString, Text),
   number_string(Number, Text).
 
-iri_term(ex(Name), Iri) :- namespace_iri("https://example.org/", Name, Iri).
-iri_term(odrl(Name), Iri) :- namespace_iri("http://www.w3.org/ns/odrl/2/", Name, Iri).
+iri_term(ex(Name), Iri) :- namespace_iri('https://example.org/', Name, Iri).
+iri_term(odrl(Name), Iri) :- namespace_iri('http://www.w3.org/ns/odrl/2/', Name, Iri).
 
-namespace_iri(Prefix, Name, Iri) :-
+namespace_iri(Prefix, Name, IriString) :-
   atom(Name),
   !,
   atom_string(Name, Local),
-  string_concat(Prefix, Local, Iri).
-namespace_iri(Prefix, Name, Iri) :-
-  string_concat(Prefix, Local, Iri),
+  string_concat(Prefix, Local, IriAtom),
+  eyeprolog__string_atom(IriString, IriAtom).
+namespace_iri(Prefix, Name, IriString) :-
+  eyeprolog__string_atom(IriString, IriAtom),
+  string_concat(Prefix, Local, IriAtom),
   atom_string(Name, Local).

@@ -3,18 +3,7 @@ why(
   length(numbers, 3),
   proof(
     goal(length(numbers, 3)),
-    by(rule("list-collection.pl", clause(3))),
-    bindings([binding("N", 3), binding("List", [1, 2, 3])]),
-    uses([
-      proof(
-        goal(collection(numbers, [1, 2, 3])),
-        by(fact("list-collection.pl", clause(1)))
-      ),
-      proof(
-        goal(length([1, 2, 3], 3)),
-        by(builtin(length, 2))
-      )
-    ])
+    by(library(length, 2))
   )
 ).
 
@@ -23,18 +12,7 @@ why(
   member(numbers, 1),
   proof(
     goal(member(numbers, 1)),
-    by(rule("list-collection.pl", clause(4))),
-    bindings([binding("X", 1), binding("List", [1, 2, 3])]),
-    uses([
-      proof(
-        goal(collection(numbers, [1, 2, 3])),
-        by(fact("list-collection.pl", clause(1)))
-      ),
-      proof(
-        goal(member(1, [1, 2, 3])),
-        by(builtin(member, 2))
-      )
-    ])
+    by(library(member, 2))
   )
 ).
 
@@ -43,18 +21,7 @@ why(
   member(numbers, 2),
   proof(
     goal(member(numbers, 2)),
-    by(rule("list-collection.pl", clause(4))),
-    bindings([binding("X", 2), binding("List", [1, 2, 3])]),
-    uses([
-      proof(
-        goal(collection(numbers, [1, 2, 3])),
-        by(fact("list-collection.pl", clause(1)))
-      ),
-      proof(
-        goal(member(2, [1, 2, 3])),
-        by(builtin(member, 2))
-      )
-    ])
+    by(library(member, 2))
   )
 ).
 
@@ -63,18 +30,7 @@ why(
   member(numbers, 3),
   proof(
     goal(member(numbers, 3)),
-    by(rule("list-collection.pl", clause(4))),
-    bindings([binding("X", 3), binding("List", [1, 2, 3])]),
-    uses([
-      proof(
-        goal(collection(numbers, [1, 2, 3])),
-        by(fact("list-collection.pl", clause(1)))
-      ),
-      proof(
-        goal(member(3, [1, 2, 3])),
-        by(builtin(member, 2))
-      )
-    ])
+    by(library(member, 2))
   )
 ).
 
@@ -92,7 +48,7 @@ why(
       ),
       proof(
         goal(append([a, b], [c], [a, b, c])),
-        by(builtin(append, 3))
+        by(library(append, 3))
       )
     ])
   )

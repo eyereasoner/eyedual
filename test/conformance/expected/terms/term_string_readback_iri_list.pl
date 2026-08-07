@@ -1,1 +1,1 @@
-answer("['<urn:example:a>', '<urn:example:b>']").
+answer('[<urn:example:a>, <urn:example:b>]').

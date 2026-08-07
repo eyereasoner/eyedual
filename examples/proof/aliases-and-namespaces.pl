@@ -37,8 +37,8 @@ why(
     by(rule("aliases-and-namespaces.pl", clause(3))),
     uses([
       proof(
-        goal(matches("scoped retail insight", "retail|medical")),
-        by(builtin(matches, 2))
+        goal(matches('scoped retail insight', 'retail|medical')),
+        by(library(matches, 2))
       )
     ])
   )

@@ -69,6 +69,29 @@ function* proveGoalAll(program, goal, env, depth, maxDepth, registry, active) {
 
   const group = program.findGroup(goal.name, goal.arity);
   if (!group) return;
+
+  // Keep proof output useful when a public EyeProlog library predicate is
+  // implemented by the autoloaded Prolog library.  The implementation remains
+  // ordinary clauses, but explanations collapse its private helper expansion
+  // behind an explicit library(Name, Arity) boundary.
+  if (group.clauses.some((clause) => clause.eyePrologLibraryPortable === true)) {
+    const solver = new Solver(program, { registry });
+    for (const next of solver.solve([goal], env.clone(), 0)) {
+      const proofEnv = next.clone ? next.clone() : next;
+      yield {
+        env: proofEnv,
+        node: {
+          goal: resolveForProof(goal, proofEnv),
+          method: libraryMethod(goal),
+          sourceHead: resolveForProof(goal, proofEnv),
+          sourceBody: [],
+          bindings: [],
+          children: [],
+        },
+      };
+    }
+    return;
+  }
   // Explanation replay does not use the solver's answer tables, so its cycle
   // guard applies even when normal execution tables this predicate.
   if (activeVariant(goal, env, active)) return;
@@ -218,9 +241,18 @@ function builtinMethod(goal) {
   };
 }
 
+function libraryMethod(goal) {
+  return {
+    type: 'library',
+    name: goal.type === COMPOUND ? goal.name : 'goal',
+    arity: goal.type === COMPOUND ? goal.arity : 0,
+  };
+}
+
 function renderMethodTerm(method) {
   if (method && method.type === 'source') return `${method.kind}(${quoteString(method.filename)}, clause(${method.clause}))`;
   if (method && method.type === 'builtin') return `builtin(${quoteAtomText(method.name)}, ${method.arity})`;
+  if (method && method.type === 'library') return `library(${quoteAtomText(method.name)}, ${method.arity})`;
   return String(method);
 }
 

@@ -17,7 +17,7 @@ why(
           ),
           proof(
             goal(countall(hasDog(alice, _dog), 5)),
-            by(builtin(countall, 2))
+            by(library(countall, 2))
           )
         ])
       ),

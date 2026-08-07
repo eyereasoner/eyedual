@@ -25,7 +25,7 @@ why(
           ),
           proof(
             goal(member(data4, [data4, data5, data6])),
-            by(builtin(member, 2))
+            by(library(member, 2))
           ),
           proof(
             goal('\\+'(member(data4, [data1, data2, data3]))),
@@ -38,7 +38,7 @@ why(
             uses([
               proof(
                 goal(member(data4, [data4, data6])),
-                by(builtin(member, 2))
+                by(library(member, 2))
               )
             ])
           )
@@ -55,7 +55,7 @@ why(
           ),
           proof(
             goal(member(data4, [data4, data5, data6])),
-            by(builtin(member, 2))
+            by(library(member, 2))
           ),
           proof(
             goal(policy(agent2, [accept, data4])),

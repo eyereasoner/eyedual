@@ -105,7 +105,7 @@ insight_graph(delfourInsightGraph, (
   retailer(insight, "Delfour"),
   createdAt(insight, "2025-10-05T20:33:48.907163+00:00"),
   expiresAt(insight, "2025-10-05T22:33:48.907185+00:00"),
-  serializedLowercase(insight, "createdat expiresat insight metric sugar_g_per_serving retailer delfour scopedevice self-scanner scopeevent pick_up_scanner")
+  serializedLowercase(insight, 'createdat expiresat insight metric sugar_g_per_serving retailer delfour scopedevice self-scanner scopeevent pick_up_scanner')
 )).
 
 policy_graph(delfourPolicyGraph, (
@@ -204,7 +204,7 @@ signature_verifies(check) :-
 
 minimization_strips_sensitive_terms(check) :-
   serialized_lowercase(insight, Text),
-  \+ matches(Text, "diabetes|medical").
+  \+ matches(Text, 'diabetes|medical').
 
 scope_complete(check) :-
   scope_device(insight, _device),

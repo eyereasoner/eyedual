@@ -1,1 +1,1 @@
-answer("<urn:example:a>").
+answer('<urn:example:a>').

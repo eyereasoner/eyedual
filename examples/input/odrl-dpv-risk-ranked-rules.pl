@@ -21,7 +21,8 @@ consumer_risk_report(Ranked) :-
 risk_report(Risk, Score, Level, Clause, Mitigation) :-
   risk_profile(_Profile, Risk, Rule, Need, Base, Mitigation),
   risk_triggered(Risk, Rule, Need),
-  rdf_text(Rule, ex(clause), ClauseText),
+  rdf_text(Rule, ex(clause), ClauseString),
+  eyeprolog__string_atom(ClauseString, ClauseText),
   atom_string(Clause, ClauseText),
   rdf_number(Need, ex(importance), Importance),
   Raw is Base + Importance,
@@ -72,7 +73,8 @@ constraint_text(Rule, LeftOperand, Value) :-
   rdf_text(Constraint, odrl('rightOperand'), Value).
 
 constraint_number(Rule, LeftOperand, Number) :-
-  constraint_text(Rule, LeftOperand, Text),
+  constraint_text(Rule, LeftOperand, TextString),
+  eyeprolog__string_atom(TextString, Text),
   number_string(Number, Text).
 
 risk_level(Score, high) :- Score > 79.
@@ -105,17 +107,20 @@ rdf_text(Subject, Predicate, Text) :-
   rdf(iri(SubjectIri), iri(PredicateIri), literal(Text, datatype(_Datatype)), default_graph).
 
 rdf_number(Subject, Predicate, Number) :-
-  rdf_text(Subject, Predicate, Text),
+  rdf_text(Subject, Predicate, TextString),
+  eyeprolog__string_atom(TextString, Text),
   number_string(Number, Text).
 
-iri_term(ex(Name), Iri) :- namespace_iri("https://example.org/", Name, Iri).
-iri_term(odrl(Name), Iri) :- namespace_iri("http://www.w3.org/ns/odrl/2/", Name, Iri).
+iri_term(ex(Name), Iri) :- namespace_iri('https://example.org/', Name, Iri).
+iri_term(odrl(Name), Iri) :- namespace_iri('http://www.w3.org/ns/odrl/2/', Name, Iri).
 
-namespace_iri(Prefix, Name, Iri) :-
+namespace_iri(Prefix, Name, IriString) :-
   atom(Name),
   !,
   atom_string(Name, Local),
-  string_concat(Prefix, Local, Iri).
-namespace_iri(Prefix, Name, Iri) :-
-  string_concat(Prefix, Local, Iri),
+  string_concat(Prefix, Local, IriAtom),
+  eyeprolog__string_atom(IriString, IriAtom).
+namespace_iri(Prefix, Name, IriString) :-
+  eyeprolog__string_atom(IriString, IriAtom),
+  string_concat(Prefix, Local, IriAtom),
   atom_string(Name, Local).

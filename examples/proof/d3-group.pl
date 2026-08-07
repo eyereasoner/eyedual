@@ -17,7 +17,7 @@ why(
           ),
           proof(
             goal(sort([], [])),
-            by(builtin(sort, 2))
+            by(library(sort, 2))
           )
         ])
       )
@@ -44,13 +44,13 @@ why(
           ),
           proof(
             goal(sort([], [])),
-            by(builtin(sort, 2))
+            by(library(sort, 2))
           )
         ])
       ),
       proof(
         goal(length([], 0)),
-        by(builtin(length, 2))
+        by(library(length, 2))
       )
     ])
   )

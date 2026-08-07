@@ -1,29 +1,29 @@
-ageAbove(patH, "P80Y").
+ageAbove(patH, 'P80Y').
 why(
-  ageAbove(patH, "P80Y"),
+  ageAbove(patH, 'P80Y'),
   proof(
-    goal(ageAbove(patH, "P80Y")),
+    goal(ageAbove(patH, 'P80Y')),
     by(rule("age.pl", clause(3))),
-    bindings([binding("S", patH), binding("A", "P80Y"), binding("B", "1944-08-21"), binding("D", "2026-05-30"), binding("F", "P81Y9M9D")]),
+    bindings([binding("S", patH), binding("A", 'P80Y'), binding("B", '1944-08-21'), binding("D", '2026-05-30'), binding("F", 'P81Y9M9D')]),
     uses([
       proof(
-        goal(birthDay(patH, "1944-08-21")),
+        goal(birthDay(patH, '1944-08-21')),
         by(fact("age.pl", clause(1)))
       ),
       proof(
-        goal(duration(check, "P80Y")),
+        goal(duration(check, 'P80Y')),
         by(fact("age.pl", clause(2)))
       ),
       proof(
-        goal(local_time("2026-05-30")),
+        goal(local_time('2026-05-30')),
         by(builtin(local_time, 1))
       ),
       proof(
-        goal(difference("2026-05-30", "1944-08-21", "P81Y9M9D")),
-        by(builtin(difference, 3))
+        goal(difference('2026-05-30', '1944-08-21', 'P81Y9M9D')),
+        by(library(difference, 3))
       ),
       proof(
-        goal(@>("P81Y9M9D", "P80Y")),
+        goal(@>('P81Y9M9D', 'P80Y')),
         by(builtin(@>, 2))
       )
     ])
@@ -39,28 +39,28 @@ why(
     bindings([binding("S", patH)]),
     uses([
       proof(
-        goal(ageAbove(patH, "P80Y")),
+        goal(ageAbove(patH, 'P80Y')),
         by(rule("age.pl", clause(3))),
-        bindings([binding("S", patH), binding("A", "P80Y"), binding("B", "1944-08-21"), binding("D", "2026-05-30"), binding("F", "P81Y9M9D")]),
+        bindings([binding("S", patH), binding("A", 'P80Y'), binding("B", '1944-08-21'), binding("D", '2026-05-30'), binding("F", 'P81Y9M9D')]),
         uses([
           proof(
-            goal(birthDay(patH, "1944-08-21")),
+            goal(birthDay(patH, '1944-08-21')),
             by(fact("age.pl", clause(1)))
           ),
           proof(
-            goal(duration(check, "P80Y")),
+            goal(duration(check, 'P80Y')),
             by(fact("age.pl", clause(2)))
           ),
           proof(
-            goal(local_time("2026-05-30")),
+            goal(local_time('2026-05-30')),
             by(builtin(local_time, 1))
           ),
           proof(
-            goal(difference("2026-05-30", "1944-08-21", "P81Y9M9D")),
-            by(builtin(difference, 3))
+            goal(difference('2026-05-30', '1944-08-21', 'P81Y9M9D')),
+            by(library(difference, 3))
           ),
           proof(
-            goal(@>("P81Y9M9D", "P80Y")),
+            goal(@>('P81Y9M9D', 'P80Y')),
             by(builtin(@>, 2))
           )
         ])

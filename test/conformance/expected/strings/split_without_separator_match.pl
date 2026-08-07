@@ -1,1 +1,1 @@
-answer(["abc"]).
+answer([abc]).
