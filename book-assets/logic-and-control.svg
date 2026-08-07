@@ -9,7 +9,7 @@
       .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
       .ink{fill:#102A3A;font:18px Georgia,serif}
       .small{fill:#405E70;font:15px Georgia,serif}
-      .label{fill:#A96800;font:bold 18px Georgia,serif}
+      .label{fill:#C8A100;font:bold 18px Georgia,serif}
       .code{fill:#102A3A;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}
       .line{stroke:#405E70;stroke-width:2;fill:none;marker-end:url(#arrow)}
     </style>
@@ -36,10 +36,10 @@
   <rect class="paper" x="630" y="55" width="235" height="305" rx="8"/>
   <text class="label" x="747" y="92" text-anchor="middle">CONTROL</text>
   <text class="ink" x="653" y="130">How is it found?</text>
-  <circle cx="680" cy="170" r="8" fill="#A96800"/>
-  <circle cx="735" cy="215" r="8" fill="#A96800"/>
-  <circle cx="790" cy="260" r="8" fill="#A96800"/>
-  <path d="M686 176 L728 209 M741 221 L783 254" stroke="#A96800" stroke-width="3"/>
+  <circle cx="680" cy="170" r="8" fill="#C8A100"/>
+  <circle cx="735" cy="215" r="8" fill="#C8A100"/>
+  <circle cx="790" cy="260" r="8" fill="#C8A100"/>
+  <path d="M686 176 L728 209 M741 221 L783 254" stroke="#C8A100" stroke-width="3"/>
   <text class="small" x="653" y="300">Choose an edge first;</text>
   <text class="small" x="653" y="323">then solve a smaller or</text>
   <text class="small" x="653" y="346">reused path question.</text>

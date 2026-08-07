@@ -13,13 +13,13 @@
       .bg { fill: url(#paper); }
       .navy { fill: #0B4F6C; }
       .green { fill: #00A6C8; }
-      .wine { fill: #B77900; }
-      .gold { fill: #E1A900; }
+      .wine { fill: #D8B400; }
+      .gold { fill: #E7C531; }
       .cream { fill: #FFFDF8; }
       .navy-stroke { stroke: #0B4F6C; fill: none; }
       .green-stroke { stroke: #00A6C8; fill: none; }
-      .wine-stroke { stroke: #B77900; fill: none; }
-      .gold-stroke { stroke: #E1A900; fill: none; }
+      .wine-stroke { stroke: #D8B400; fill: none; }
+      .gold-stroke { stroke: #E7C531; fill: none; }
       .thin { stroke-width: 2; }
       .mid { stroke-width: 3; }
       .thick { stroke-width: 5; }
@@ -27,7 +27,7 @@
       .title1 { fill:#0B4F6C; font-family: Georgia, 'Times New Roman', serif; font-size:64px; font-weight:500; }
       .title2 { font-family: Georgia, 'Times New Roman', serif; font-size:118px; font-weight:700; letter-spacing:-4px; }
       .subtitle { fill:#00A6C8; font-family: Georgia, 'Times New Roman', serif; font-size:28px; }
-      .author { fill:#B77900; font-family: Georgia, 'Times New Roman', serif; font-size:25px; }
+      .author { fill:#D8B400; font-family: Georgia, 'Times New Roman', serif; font-size:25px; }
       .section { font-family: Georgia, 'Times New Roman', serif; font-size:20px; font-weight:700; letter-spacing:2px; }
       .smallserif { font-family: Georgia, 'Times New Roman', serif; font-size:18px; }
       .paneltitle { font-family: Georgia, 'Times New Roman', serif; font-size:21px; font-weight:700; letter-spacing:0.4px; }
@@ -47,7 +47,7 @@
   <g id="header">
     <text x="500" y="105" text-anchor="middle" class="title1">The Art of</text>
     <text x="500" y="238" text-anchor="middle" class="title2">
-      <tspan fill="#0B4F6C">Eye</tspan><tspan fill="#B77900">Prolog</tspan>
+      <tspan fill="#0B4F6C">Eye</tspan><tspan fill="#E7C531" stroke="#C8A100" stroke-width="1.4" paint-order="stroke fill">Prolog</tspan>
     </text>
 
     <line x1="110" y1="274" x2="445" y2="274" class="gold-stroke thin round"/>
@@ -72,7 +72,7 @@
   <!-- hero diagrams -->
   <g id="prolog-rules">
     <rect x="80" y="510" width="220" height="180" rx="18"
-          fill="#FFFDF8" stroke="#B77900" stroke-width="3"/>
+          fill="#FFFDF8" stroke="#D8B400" stroke-width="3"/>
     <text x="100" y="552" class="codesm" style="font-size:14px">path(X, Y) :-</text>
     <text x="122" y="580" class="codesm" style="font-size:14px">edge(X, Y).</text>
     <text x="100" y="615" class="codesm" style="font-size:14px">path(X, Y) :-</text>
@@ -104,22 +104,22 @@
   <!-- abstract bridge -->
   <g id="bridge">
     <path d="M320 710 C338 560, 410 500, 500 500 C590 500, 662 560, 680 710"
-          fill="none" stroke="#F3D580" stroke-width="62" stroke-linecap="round"/>
+          fill="none" stroke="#F6DB83" stroke-width="62" stroke-linecap="round"/>
     <path d="M320 710 C338 560, 410 500, 500 500 C590 500, 662 560, 680 710"
           class="navy-stroke mid round"/>
 
-    <path d="M442 488 L558 488 L572 556 L428 556 Z" fill="#FAE9B8" stroke="#0B4F6C" stroke-width="3"/>
+    <path d="M442 488 L558 488 L572 556 L428 556 Z" fill="#FBEDB8" stroke="#0B4F6C" stroke-width="3"/>
     <text x="500" y="523" text-anchor="middle" class="section navy" style="font-size:14px; letter-spacing:0.5px;">EYEPROLOG</text>
 
-    <rect x="290" y="690" width="68" height="148" rx="7" fill="#F7E3A7" stroke="#0B4F6C" stroke-width="3"/>
-    <rect x="278" y="676" width="92" height="22" rx="5" fill="#F4D36C" stroke="#0B4F6C" stroke-width="3"/>
-    <rect x="276" y="830" width="96" height="24" rx="5" fill="#F4D36C" stroke="#0B4F6C" stroke-width="3"/>
+    <rect x="290" y="690" width="68" height="148" rx="7" fill="#F9E8A3" stroke="#0B4F6C" stroke-width="3"/>
+    <rect x="278" y="676" width="92" height="22" rx="5" fill="#F5D86E" stroke="#0B4F6C" stroke-width="3"/>
+    <rect x="276" y="830" width="96" height="24" rx="5" fill="#F5D86E" stroke="#0B4F6C" stroke-width="3"/>
     <line x1="306" y1="708" x2="306" y2="824" class="gold-stroke thin"/>
     <line x1="342" y1="708" x2="342" y2="824" class="gold-stroke thin"/>
 
-    <rect x="642" y="690" width="68" height="148" rx="7" fill="#F7E3A7" stroke="#0B4F6C" stroke-width="3"/>
-    <rect x="630" y="676" width="92" height="22" rx="5" fill="#F4D36C" stroke="#0B4F6C" stroke-width="3"/>
-    <rect x="628" y="830" width="96" height="24" rx="5" fill="#F4D36C" stroke="#0B4F6C" stroke-width="3"/>
+    <rect x="642" y="690" width="68" height="148" rx="7" fill="#F9E8A3" stroke="#0B4F6C" stroke-width="3"/>
+    <rect x="630" y="676" width="92" height="22" rx="5" fill="#F5D86E" stroke="#0B4F6C" stroke-width="3"/>
+    <rect x="628" y="830" width="96" height="24" rx="5" fill="#F5D86E" stroke="#0B4F6C" stroke-width="3"/>
     <line x1="658" y1="708" x2="658" y2="824" class="gold-stroke thin"/>
     <line x1="694" y1="708" x2="694" y2="824" class="gold-stroke thin"/>
   </g>
@@ -145,8 +145,8 @@
 
   <!-- panels -->
   <g id="panel1">
-    <rect x="45" y="925" width="280" height="360" rx="28" class="panel" stroke="#B77900"/>
-    <circle cx="185" cy="925" r="38" fill="#FFFDF8" stroke="#B77900" stroke-width="3"/>
+    <rect x="45" y="925" width="280" height="360" rx="28" class="panel" stroke="#D8B400"/>
+    <circle cx="185" cy="925" r="38" fill="#FFFDF8" stroke="#D8B400" stroke-width="3"/>
     <text x="185" y="936" text-anchor="middle" class="code wine" style="font-size:27px">:-</text>
     <text x="185" y="990" text-anchor="middle" class="paneltitle wine" style="font-size:20px">1. ISO PROLOG RULES</text>
 

@@ -8,8 +8,8 @@
     <style>
       .box{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
       .model{fill:#E8FAFC;stroke:#008EAA;stroke-width:3}
-      .title{fill:#A96800;font:bold 19px Georgia,serif}
-      .box-title{fill:#A96800;font:bold 17px Georgia,serif}
+      .title{fill:#C8A100;font:bold 19px Georgia,serif}
+      .box-title{fill:#C8A100;font:bold 17px Georgia,serif}
       .box-sub{fill:#405E70;font:15px Georgia,serif}
       .text{fill:#102A3A;font:18px ui-monospace,SFMono-Regular,Consolas,monospace}
       .prose{fill:#405E70;font:17px Georgia,serif}

@@ -4,13 +4,13 @@
   <defs>
     <style>
       .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.goal{fill:#E8FAFC;stroke:#008EAA;stroke-width:2}
-      .choice{fill:#FFF4BF;stroke:#C88900;stroke-width:2}.fail{fill:#FFF1D8;stroke:#A96800;stroke-width:2}
-      .title{fill:#A96800;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 17px Georgia,serif}
+      .choice{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.fail{fill:#FFF1D8;stroke:#C8A100;stroke-width:2}
+      .title{fill:#C8A100;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 17px Georgia,serif}
       .prose{fill:#405E70;font:16px Georgia,serif}.code{fill:#102A3A;font:15px ui-monospace,SFMono-Regular,Consolas,monospace}
-      .line{fill:none;stroke:#537487;stroke-width:2}.dash{fill:none;stroke:#A96800;stroke-width:2;stroke-dasharray:6 5}
+      .line{fill:none;stroke:#537487;stroke-width:2}.dash{fill:none;stroke:#C8A100;stroke-width:2;stroke-dasharray:6 5}
     </style>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#537487"/></marker>
-    <marker id="redarrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#A96800"/></marker>
+    <marker id="redarrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#C8A100"/></marker>
   </defs>
   <rect width="900" height="510" fill="#FFF9E8"/>
   <text class="title" x="450" y="34" text-anchor="middle">READING ONE COMPUTATION</text>

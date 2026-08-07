@@ -2,9 +2,9 @@
   <title id="title">Negation and a complete guest registry</title>
   <desc id="desc">A receptionist checks a complete event registry; one invited name is absent from the blocked list, making closed-world negation meaningful.</desc>
   <style>
-    .wall{fill:#EAF8FA}.desk{fill:#D69C18}.book{fill:#FFFDF8;stroke:#17324D;stroke-width:3}.line{stroke:#2C657A;stroke-width:2}
+    .wall{fill:#EAF8FA}.desk{fill:#E4C13C}.book{fill:#FFFDF8;stroke:#17324D;stroke-width:3}.line{stroke:#2C657A;stroke-width:2}
     .person{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.coat{fill:#D6F3F7;stroke:#17324D;stroke-width:2}
-    .text{fill:#17324D;font:15px ui-monospace,monospace}.red{fill:#A96800}.green{fill:#008EAA}.stamp{fill:none;stroke:#008EAA;stroke-width:4}
+    .text{fill:#17324D;font:15px ui-monospace,monospace}.red{fill:#C8A100}.green{fill:#008EAA}.stamp{fill:none;stroke:#008EAA;stroke-width:4}
   </style>
   <rect width="900" height="380" class="wall"/><rect y="285" width="900" height="95" class="desk"/>
   <g transform="translate(105 210)"><circle class="person" cx="0" cy="-55" r="24"/><path class="coat" d="M-38-25 Q0-50 38-25 L30 65 H-30Z"/></g>
@@ -13,5 +13,5 @@
   <text class="text" x="285" y="135">ada</text><circle class="green" cx="470" cy="130" r="8"/><text class="text" x="285" y="180">byron</text><circle class="green" cx="470" cy="175" r="8"/><text class="text" x="285" y="225">clara</text><circle class="green" cx="470" cy="220" r="8"/>
   <text class="text" x="555" y="135">byron</text><circle class="red" cx="750" cy="130" r="8"/>
   <circle class="stamp" cx="650" cy="220" r="48"/><path class="stamp" d="M620 220 L641 241 L682 195"/><text class="text" x="650" y="290" text-anchor="middle">not(blocked(clara))</text>
-  <path d="M150 165 C195 130 225 125 270 130" fill="none" stroke="#A96800" stroke-width="3"/>
+  <path d="M150 165 C195 130 225 125 270 130" fill="none" stroke="#C8A100" stroke-width="3"/>
 </svg>

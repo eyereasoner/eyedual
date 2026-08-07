@@ -2,8 +2,8 @@
   <title id="title">Three different termination arguments</title>
   <desc id="desc">Recursive calls may terminate because a structural measure decreases, because finite tabled calls reach a fixed point, or fail to terminate because terms grow without bound.</desc>
   <defs><style>
-    .bg{fill:#FFF9E8}.good{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.table{fill:#DCEFF7;stroke:#537487;stroke-width:2}.bad{fill:#FFF0D6;stroke:#A96800;stroke-width:2}
-    .title{fill:#A96800;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 15px Georgia,serif}.code{fill:#102A3A;font:14px ui-monospace,monospace}.prose{fill:#405E70;font:15px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:2.5}
+    .bg{fill:#FFF9E8}.good{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.table{fill:#DCEFF7;stroke:#537487;stroke-width:2}.bad{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}
+    .title{fill:#C8A100;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 15px Georgia,serif}.code{fill:#102A3A;font:14px ui-monospace,monospace}.prose{fill:#405E70;font:15px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:2.5}
   </style><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#537487"/></marker></defs>
   <rect class="bg" width="900" height="440"/><text class="title" x="450" y="38" text-anchor="middle">ASK WHAT MAKES THE CALL SPACE FINITE</text>
   <rect class="good" x="30" y="80" width="260" height="285" rx="12"/><text class="label" x="160" y="115" text-anchor="middle">DECREASING STRUCTURE</text><text class="code" x="160" y="155" text-anchor="middle">[a,b,c] → [b,c]</text><text class="code" x="160" y="190" text-anchor="middle">→ [c] → []</text><path class="line" marker-end="url(#a)" d="M160 210V250"/><text class="prose" x="160" y="280" text-anchor="middle">well-founded measure:</text><text class="code" x="160" y="306" text-anchor="middle">list length ↓</text><text class="label" x="160" y="345" text-anchor="middle">TERMINATES</text>

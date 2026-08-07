@@ -2,8 +2,8 @@
   <title id="title">Proof search computes a witness for an existential claim</title>
   <desc id="desc">An existential question enters a small theory. Unification and search produce a ground answer together with a derivation tree, separating witness discovery from proof evidence.</desc>
   <defs><style>
-    .bg{fill:#FFF9E8}.paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#C88900;stroke-width:2}.dark{fill:#2C657A;stroke:#17324D;stroke-width:3}
-    .title{fill:#A96800;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 17px Georgia,serif}.code{fill:#102A3A;font:14px ui-monospace,monospace}.light{fill:#FFFDF8;font:14px ui-monospace,monospace}.prose{fill:#405E70;font:15px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:3}
+    .bg{fill:#FFF9E8}.paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.dark{fill:#2C657A;stroke:#17324D;stroke-width:3}
+    .title{fill:#C8A100;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 17px Georgia,serif}.code{fill:#102A3A;font:14px ui-monospace,monospace}.light{fill:#FFFDF8;font:14px ui-monospace,monospace}.prose{fill:#405E70;font:15px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:3}
   </style><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#537487"/></marker></defs>
   <rect class="bg" width="900" height="430"/><text class="title" x="450" y="38" text-anchor="middle">A SUCCESSFUL QUERY RETURNS TWO KINDS OF WITNESS</text>
   <rect class="paper" x="30" y="115" width="220" height="135" rx="10"/><text class="label" x="140" y="148" text-anchor="middle">QUESTION</text><text class="code" x="140" y="188" text-anchor="middle">∃ X . mortal(X)</text><text class="prose" x="140" y="222" text-anchor="middle">does someone satisfy it?</text>

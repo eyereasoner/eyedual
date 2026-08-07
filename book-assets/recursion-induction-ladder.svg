@@ -4,10 +4,10 @@
   <defs>
     <style>
       .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}
-      .gold{fill:#FFF4BF;stroke:#C88900;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
-      .title{fill:#A96800;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 18px Georgia,serif}
+      .gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
+      .title{fill:#C8A100;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 18px Georgia,serif}
       .prose{fill:#405E70;font:16px Georgia,serif}.code{fill:#102A3A;font:15px ui-monospace,SFMono-Regular,Consolas,monospace}
-      .line{fill:none;stroke:#537487;stroke-width:2.5}.rung{stroke:#C88900;stroke-width:4}
+      .line{fill:none;stroke:#537487;stroke-width:2.5}.rung{stroke:#E2BA22;stroke-width:4}
     </style>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#537487"/></marker>
   </defs>

@@ -5,7 +5,7 @@
     <style>
       .bg{fill:#FFF9E8}.region{stroke:#17324D;stroke-width:2}.core{fill:#17324D;stroke:#102A3A;stroke-width:3}
       .path{fill:none;stroke:#FFFDF8;stroke-width:5;stroke-linecap:round;opacity:.9}.link{fill:none;stroke:#537487;stroke-width:2.5;stroke-dasharray:6 5}
-      .title{fill:#855400;font:bold 24px Georgia,serif}.label{fill:#102A3A;font:bold 17px Georgia,serif}
+      .title{fill:#9D8200;font:bold 24px Georgia,serif}.label{fill:#102A3A;font:bold 17px Georgia,serif}
       .small{fill:#405E70;font:16px Georgia,serif}.output{fill:#405E70;font:14px Georgia,serif}.code{fill:#DDF7FB;font:16px ui-monospace,SFMono-Regular,Consolas,monospace}
     </style>
   </defs>
@@ -41,7 +41,7 @@
 
   <rect x="305" y="385" width="140" height="55" rx="10" fill="#FFFDF8" stroke="#008EAA" stroke-width="2"/>
   <text class="label" x="375" y="408" text-anchor="middle">ANSWERS</text><text class="output" x="375" y="428" text-anchor="middle">ground results</text>
-  <rect x="455" y="385" width="140" height="55" rx="10" fill="#FFFDF8" stroke="#C88900" stroke-width="2"/>
+  <rect x="455" y="385" width="140" height="55" rx="10" fill="#FFFDF8" stroke="#E2BA22" stroke-width="2"/>
   <text class="label" x="525" y="408" text-anchor="middle">PROOFS</text><text class="output" x="525" y="428" text-anchor="middle">supporting steps</text>
   <path class="link" d="M410 325L382 385M490 325L518 385"/>
   <text class="small" x="450" y="474" text-anchor="middle">predict → run → compare → inspect → revise</text>

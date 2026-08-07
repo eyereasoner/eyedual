@@ -3,8 +3,8 @@
   <desc id="desc">Meaning, logic, control, evidence, and boundary surround one program artifact. A lower loop says predict, run, explain, and revise.</desc>
   <defs>
     <style>
-      .bg{fill:#FFF9E8}.artifact{fill:#17324D;stroke:#102A3A;stroke-width:3}.lens{stroke-width:2}.meaning{fill:#DDF7FB;stroke:#008EAA}.logic{fill:#BFEAF1;stroke:#087F98}.control{fill:#FFF4BF;stroke:#C88900}.evidence{fill:#FFE7BF;stroke:#A96800}.boundary{fill:#E2F2F7;stroke:#367C95}
-      .line{fill:none;stroke:#537487;stroke-width:2.5}.cycle{fill:none;stroke:#855400;stroke-width:3;stroke-linecap:round}.arrow{fill:#855400}.title{fill:#855400;font:bold 24px Georgia,serif}.label{fill:#102A3A;font:bold 17px Georgia,serif}.small{fill:#405E70;font:15px Georgia,serif}.code{fill:#FFFDF8;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}.verb{fill:#855400;font:bold 15px Georgia,serif}
+      .bg{fill:#FFF9E8}.artifact{fill:#17324D;stroke:#102A3A;stroke-width:3}.lens{stroke-width:2}.meaning{fill:#DDF7FB;stroke:#008EAA}.logic{fill:#BFEAF1;stroke:#087F98}.control{fill:#FFF4BF;stroke:#E2BA22}.evidence{fill:#FFE7BF;stroke:#C8A100}.boundary{fill:#E2F2F7;stroke:#367C95}
+      .line{fill:none;stroke:#537487;stroke-width:2.5}.cycle{fill:none;stroke:#9D8200;stroke-width:3;stroke-linecap:round}.arrow{fill:#9D8200}.title{fill:#9D8200;font:bold 24px Georgia,serif}.label{fill:#102A3A;font:bold 17px Georgia,serif}.small{fill:#405E70;font:15px Georgia,serif}.code{fill:#FFFDF8;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}.verb{fill:#9D8200;font:bold 15px Georgia,serif}
     </style>
   </defs>
   <rect width="900" height="470" class="bg"/>

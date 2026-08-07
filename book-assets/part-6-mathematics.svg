@@ -4,8 +4,8 @@
   <defs>
     <style>
       .sky{fill:#EAF7F9}.ground{fill:#F2DFAC}.stone{fill:#FFFAE8;stroke:#17324D;stroke-width:2}
-      .arch{fill:#DDAE4F;stroke:#855400;stroke-width:3}.water{fill:#BFEAF1}.ink{fill:none;stroke:#17324D;stroke-width:2.5;stroke-linecap:round}
-      .green{stroke:#008EAA}.red{stroke:#A96800}.gold{stroke:#C88900}.title{fill:#855400;font:bold 24px Georgia,serif}
+      .arch{fill:#DDAE4F;stroke:#9D8200;stroke-width:3}.water{fill:#BFEAF1}.ink{fill:none;stroke:#17324D;stroke-width:2.5;stroke-linecap:round}
+      .green{stroke:#008EAA}.red{stroke:#C8A100}.gold{stroke:#E2BA22}.title{fill:#9D8200;font:bold 24px Georgia,serif}
       .label{fill:#17324D;font:18px Georgia,serif}.code{fill:#102A3A;font:15px ui-monospace,SFMono-Regular,Consolas,monospace}
     </style>
     <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#008EAA"/></marker>

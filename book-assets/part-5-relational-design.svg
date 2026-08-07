@@ -4,9 +4,9 @@
   <defs>
     <style>
       .bg{fill:#FFF5DF}.panel{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.hub{fill:#DDF7FB;stroke:#008EAA;stroke-width:3}
-      .ink{fill:none;stroke:#537487;stroke-width:2.5;stroke-linecap:round}.green{stroke:#008EAA}.red{stroke:#A96800}.gold{stroke:#C88900}
+      .ink{fill:none;stroke:#537487;stroke-width:2.5;stroke-linecap:round}.green{stroke:#008EAA}.red{stroke:#C8A100}.gold{stroke:#E2BA22}
       .node{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.ok{fill:#E8FAFC;stroke:#008EAA;stroke-width:2}
-      .title{fill:#855400;font:bold 24px Georgia,serif}.label{fill:#17324D;font:17px Georgia,serif}
+      .title{fill:#9D8200;font:bold 24px Georgia,serif}.label{fill:#17324D;font:17px Georgia,serif}
       .code{fill:#17324D;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
     </style>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#537487"/></marker>

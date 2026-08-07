@@ -2,8 +2,8 @@
   <title id="title">Correctness, completeness, and termination are separate obligations</title>
   <desc id="desc">Three overlapping circles represent no false answers, all intended answers, and finite computation. The dependable operational contract lies where all three overlap.</desc>
   <defs><style>
-    .bg{fill:#FFF9E8}.sound{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.complete{fill:#DCEFF7;stroke:#537487;stroke-width:2}.term{fill:#FFF4BF;stroke:#C88900;stroke-width:2}.contract{fill:#FFFDF8;stroke:#A96800;stroke-width:2.5}
-    .title{fill:#A96800;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 17px Georgia,serif}.prose{fill:#405E70;font:15px Georgia,serif}.code{fill:#102A3A;font:14px ui-monospace,monospace}.center{fill:#855400;font:bold 17px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:3}
+    .bg{fill:#FFF9E8}.sound{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.complete{fill:#DCEFF7;stroke:#537487;stroke-width:2}.term{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.contract{fill:#FFFDF8;stroke:#C8A100;stroke-width:2.5}
+    .title{fill:#C8A100;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 17px Georgia,serif}.prose{fill:#405E70;font:15px Georgia,serif}.code{fill:#102A3A;font:14px ui-monospace,monospace}.center{fill:#9D8200;font:bold 17px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:3}
   </style><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#537487"/></marker></defs>
   <rect class="bg" width="900" height="430"/><text class="title" x="450" y="38" text-anchor="middle">THREE PROMISES, THREE PROOF OBLIGATIONS</text>
   <rect class="sound" x="35" y="85" width="250" height="155" rx="12"/><text class="label" x="160" y="120" text-anchor="middle">SOUNDNESS</text><text class="prose" x="160" y="157" text-anchor="middle">Every returned answer</text><text class="prose" x="160" y="181" text-anchor="middle">is justified.</text><text class="code" x="160" y="216" text-anchor="middle">no false answers</text>

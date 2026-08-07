@@ -7,12 +7,12 @@
     </marker>
     <style>
       .node{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
-      .var{fill:#FFF4BF;stroke:#C88900;stroke-width:2}
+      .var{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}
       .value{fill:#E8FAFC;stroke:#008EAA;stroke-width:2}
       .text{fill:#102A3A;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}
-      .title{fill:#A96800;font:bold 22px Georgia,serif}
+      .title{fill:#C8A100;font:bold 22px Georgia,serif}
       .line{stroke:#537487;stroke-width:2}
-      .bind{stroke:#C88900;stroke-width:2.5;stroke-dasharray:7 6;fill:none;marker-end:url(#arrow)}
+      .bind{stroke:#E2BA22;stroke-width:2.5;stroke-dasharray:7 6;fill:none;marker-end:url(#arrow)}
     </style>
   </defs>
   <rect width="900" height="500" fill="#FFF9E8"/>

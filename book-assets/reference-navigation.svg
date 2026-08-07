@@ -4,7 +4,7 @@
   <defs>
     <style>
       .bg{fill:#FFF9E8}.question{fill:#17324D;stroke:#102A3A;stroke-width:3}.card{stroke:#537487;stroke-width:2}.practice{fill:#DDF7FB}.guide{fill:#FFF4BF}
-      .line{fill:none;stroke:#537487;stroke-width:3;stroke-linecap:round}.arrow{fill:#537487}.title{fill:#855400;font:bold 24px Georgia,serif}
+      .line{fill:none;stroke:#537487;stroke-width:3;stroke-linecap:round}.arrow{fill:#537487}.title{fill:#9D8200;font:bold 24px Georgia,serif}
       .q{fill:#FFFDF8;font:bold 19px Georgia,serif}.qsmall{fill:#FFFDF8;font:15px Georgia,serif}.chapter{fill:#102A3A;font:bold 18px Georgia,serif}.small{fill:#405E70;font:15px Georgia,serif}.caption{fill:#405E70;font:italic 16px Georgia,serif}
     </style>
   </defs>

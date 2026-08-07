@@ -3,17 +3,17 @@
   <desc id="desc">A programmer at a workbench connects an ISO Prolog manual to control, term, state, operator, and stream instruments.</desc>
   <defs>
     <style>
-      .wall{fill:#EAF8FA}.floor{fill:#FFF3D8}.bench{fill:#D69C18;stroke:#8B6500;stroke-width:3}
+      .wall{fill:#EAF8FA}.floor{fill:#FFF3D8}.bench{fill:#E4C13C;stroke:#A48800;stroke-width:3}
       .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.screen{fill:#102A3A;stroke:#17324D;stroke-width:3}
-      .green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#C88900;stroke-width:2}
-      .red{fill:#FFEBC7;stroke:#A96800;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
+      .green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}
+      .red{fill:#FFEBC7;stroke:#C8A100;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
       .ink{fill:#17324D;font:16px Georgia,serif}.label{fill:#17324D;font:bold 15px Georgia,serif}
       .code{fill:#DDF7FB;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
       .screen-code{fill:#DDF7FB;font:12px ui-monospace,SFMono-Regular,Consolas,monospace}
       .small-label{fill:#17324D;font:bold 14px Georgia,serif}.small-ink{fill:#17324D;font:14px Georgia,serif}
-      .line{fill:none;stroke:#537487;stroke-width:2.5;stroke-linecap:round}.wire{fill:none;stroke:#A96800;stroke-width:3}
+      .line{fill:none;stroke:#537487;stroke-width:2.5;stroke-linecap:round}.wire{fill:none;stroke:#C8A100;stroke-width:3}
     </style>
-    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#A96800"/></marker>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#C8A100"/></marker>
   </defs>
   <rect width="900" height="300" class="wall"/><rect y="300" width="900" height="140" class="floor"/>
   <rect class="bench" x="55" y="270" width="790" height="42" rx="5"/><rect class="bench" x="100" y="310" width="24" height="110"/><rect class="bench" x="776" y="310" width="24" height="110"/>

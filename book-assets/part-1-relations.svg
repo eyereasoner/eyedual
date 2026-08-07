@@ -3,11 +3,11 @@
   <desc id="desc">People, homes, a school, and a bicycle are connected by labeled facts in a small town scene.</desc>
   <style>
     .sky{fill:#EAF8FA}.ground{fill:#FFF3D8}.road{fill:#D9D1C1}
-    .building{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.roof{fill:#C47D00;stroke:#17324D;stroke-width:2}
-    .tree{fill:#55BFD0;stroke:#008EAA;stroke-width:2}.trunk{stroke:#8B6500;stroke-width:8}
+    .building{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.roof{fill:#D8AE1E;stroke:#17324D;stroke-width:2}
+    .tree{fill:#55BFD0;stroke:#008EAA;stroke-width:2}.trunk{stroke:#A48800;stroke-width:8}
     .person{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.shirt{fill:#D6F3F7;stroke:#17324D;stroke-width:2}
-    .relation{fill:none;stroke:#A96800;stroke-width:2.5;stroke-dasharray:7 5}
-    .label{fill:#FFFDF8;stroke:#A96800;stroke-width:1.5}.text{fill:#855400;font:14px ui-monospace,monospace}
+    .relation{fill:none;stroke:#C8A100;stroke-width:2.5;stroke-dasharray:7 5}
+    .label{fill:#FFFDF8;stroke:#C8A100;stroke-width:1.5}.text{fill:#9D8200;font:14px ui-monospace,monospace}
     .detail{fill:none;stroke:#17324D;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
     .bike-frame{fill:none;stroke:#008EAA;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
     .bike-part{fill:none;stroke:#17324D;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}

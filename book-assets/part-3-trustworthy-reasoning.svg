@@ -4,7 +4,7 @@
   <style>
     .wall{fill:#EAF5F7}.panel{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.screen{fill:#DDF6F9;stroke:#008EAA;stroke-width:2}
     .console{fill:#2C657A}.ink{fill:none;stroke:#17324D;stroke-width:3;stroke-linecap:round}
-    .wire{fill:none;stroke:#A96800;stroke-width:2.5}.hot{fill:#C47D00}.safe{fill:#008EAA}
+    .wire{fill:none;stroke:#C8A100;stroke-width:2.5}.hot{fill:#D8AE1E}.safe{fill:#008EAA}
     .text{fill:#17324D;font:16px ui-monospace,monospace}.small{fill:#405E70;font:15px Georgia,serif}
   </style>
   <rect width="900" height="420" class="wall"/>

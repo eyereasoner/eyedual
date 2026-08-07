@@ -2,8 +2,8 @@
   <title id="title">Choose a reasoning pattern by the problem that needs solving</title>
   <desc id="desc">A central design question branches by symptom: drifting meaning, infinite search, unsafe absence, repeated subproblems, opaque decisions, or representational duplicates, each pointing to a named pattern.</desc>
   <defs><style>
-    .bg{fill:#FFF9E8}.core{fill:#2C657A;stroke:#17324D;stroke-width:3}.box{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#C88900;stroke-width:2}.rose{fill:#FFF0D6;stroke:#A96800;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
-    .title{fill:#A96800;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 13px Georgia,serif}.light{fill:#FFFDF8;font:bold 16px Georgia,serif}.prose{fill:#405E70;font:13px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:2.5}
+    .bg{fill:#FFF9E8}.core{fill:#2C657A;stroke:#17324D;stroke-width:3}.box{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.rose{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
+    .title{fill:#C8A100;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 13px Georgia,serif}.light{fill:#FFFDF8;font:bold 16px Georgia,serif}.prose{fill:#405E70;font:13px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:2.5}
   </style></defs>
   <rect class="bg" width="900" height="460"/><text class="title" x="450" y="38" text-anchor="middle">A PATTERN STARTS WITH A NAMED DESIGN PROBLEM</text>
   <rect class="core" x="335" y="175" width="230" height="100" rx="18"/><text class="light" x="450" y="211" text-anchor="middle">WHAT IS GOING WRONG?</text><text class="light" x="450" y="243" text-anchor="middle">choose by consequence</text>
