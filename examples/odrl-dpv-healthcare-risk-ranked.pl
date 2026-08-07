@@ -2,41 +2,41 @@
 
 % Run with: eyeprolog --goal 'rdf(S, P, O, G)' program.pl.
 
-rdf(iri("https://example.org/healthcare-policy"), iri("http://www.w3.org/ns/odrl/2/permission"), iri("https://example.org/research-use"), default_graph).
-rdf(iri("https://example.org/healthcare-policy"), iri("http://www.w3.org/ns/odrl/2/permission"), iri("https://example.org/genomic-sharing"), default_graph).
-rdf(iri("https://example.org/healthcare-policy"), iri("http://www.w3.org/ns/odrl/2/permission"), iri("https://example.org/record-retention"), default_graph).
-rdf(iri("https://example.org/healthcare-policy"), iri("https://example.org/riskProfile"), iri("https://example.org/consent-profile"), default_graph).
-rdf(iri("https://example.org/healthcare-policy"), iri("https://example.org/riskProfile"), iri("https://example.org/sharing-profile"), default_graph).
-rdf(iri("https://example.org/healthcare-policy"), iri("https://example.org/riskProfile"), iri("https://example.org/retention-profile"), default_graph).
-rdf(iri("https://example.org/research-use"), iri("https://example.org/clause"), literal("h1", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/research-use"), iri("http://www.w3.org/ns/odrl/2/action"), iri("http://www.w3.org/ns/odrl/2/use"), default_graph).
-rdf(iri("https://example.org/genomic-sharing"), iri("https://example.org/clause"), literal("h2", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/genomic-sharing"), iri("http://www.w3.org/ns/odrl/2/action"), iri("https://example.org/disclose"), default_graph).
-rdf(iri("https://example.org/genomic-sharing"), iri("http://www.w3.org/ns/odrl/2/target"), iri("https://example.org/genomic-data"), default_graph).
-rdf(iri("https://example.org/record-retention"), iri("https://example.org/clause"), literal("h4", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/record-retention"), iri("http://www.w3.org/ns/odrl/2/constraint"), iri("https://example.org/retention-constraint"), default_graph).
-rdf(iri("https://example.org/retention-constraint"), iri("http://www.w3.org/ns/odrl/2/leftOperand"), iri("https://example.org/retentionDays"), default_graph).
-rdf(iri("https://example.org/retention-constraint"), iri("http://www.w3.org/ns/odrl/2/operator"), iri("http://www.w3.org/ns/odrl/2/eq"), default_graph).
-rdf(iri("https://example.org/retention-constraint"), iri("http://www.w3.org/ns/odrl/2/rightOperand"), literal("3650", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/consent-profile"), iri("https://example.org/risk"), iri("https://example.org/consent-risk"), default_graph).
-rdf(iri("https://example.org/consent-profile"), iri("https://example.org/policyRule"), iri("https://example.org/research-use"), default_graph).
-rdf(iri("https://example.org/consent-profile"), iri("https://example.org/need"), iri("https://example.org/explicit-consent-for-research"), default_graph).
-rdf(iri("https://example.org/consent-profile"), iri("https://example.org/baseScore"), literal("85", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/consent-profile"), iri("https://example.org/mitigation"), iri("https://example.org/require-explicit-consent"), default_graph).
-rdf(iri("https://example.org/sharing-profile"), iri("https://example.org/risk"), iri("https://example.org/sharing-risk"), default_graph).
-rdf(iri("https://example.org/sharing-profile"), iri("https://example.org/policyRule"), iri("https://example.org/genomic-sharing"), default_graph).
-rdf(iri("https://example.org/sharing-profile"), iri("https://example.org/need"), iri("https://example.org/deidentify-before-sharing"), default_graph).
-rdf(iri("https://example.org/sharing-profile"), iri("https://example.org/baseScore"), literal("90", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/sharing-profile"), iri("https://example.org/mitigation"), iri("https://example.org/require-deidentification"), default_graph).
-rdf(iri("https://example.org/retention-profile"), iri("https://example.org/risk"), iri("https://example.org/retention-risk"), default_graph).
-rdf(iri("https://example.org/retention-profile"), iri("https://example.org/policyRule"), iri("https://example.org/record-retention"), default_graph).
-rdf(iri("https://example.org/retention-profile"), iri("https://example.org/need"), iri("https://example.org/retention-limit-3-years"), default_graph).
-rdf(iri("https://example.org/retention-profile"), iri("https://example.org/baseScore"), literal("55", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/retention-profile"), iri("https://example.org/mitigation"), iri("https://example.org/limit-retention-to-1095-days"), default_graph).
-rdf(iri("https://example.org/explicit-consent-for-research"), iri("https://example.org/importance"), literal("35", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/deidentify-before-sharing"), iri("https://example.org/importance"), literal("35", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/retention-limit-3-years"), iri("https://example.org/importance"), literal("15", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/retention-limit-3-years"), iri("https://example.org/maximumDays"), literal("1095", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
+rdf(iri('https://example.org/healthcare-policy'), iri('http://www.w3.org/ns/odrl/2/permission'), iri('https://example.org/research-use'), default_graph).
+rdf(iri('https://example.org/healthcare-policy'), iri('http://www.w3.org/ns/odrl/2/permission'), iri('https://example.org/genomic-sharing'), default_graph).
+rdf(iri('https://example.org/healthcare-policy'), iri('http://www.w3.org/ns/odrl/2/permission'), iri('https://example.org/record-retention'), default_graph).
+rdf(iri('https://example.org/healthcare-policy'), iri('https://example.org/riskProfile'), iri('https://example.org/consent-profile'), default_graph).
+rdf(iri('https://example.org/healthcare-policy'), iri('https://example.org/riskProfile'), iri('https://example.org/sharing-profile'), default_graph).
+rdf(iri('https://example.org/healthcare-policy'), iri('https://example.org/riskProfile'), iri('https://example.org/retention-profile'), default_graph).
+rdf(iri('https://example.org/research-use'), iri('https://example.org/clause'), literal('h1', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/research-use'), iri('http://www.w3.org/ns/odrl/2/action'), iri('http://www.w3.org/ns/odrl/2/use'), default_graph).
+rdf(iri('https://example.org/genomic-sharing'), iri('https://example.org/clause'), literal('h2', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/genomic-sharing'), iri('http://www.w3.org/ns/odrl/2/action'), iri('https://example.org/disclose'), default_graph).
+rdf(iri('https://example.org/genomic-sharing'), iri('http://www.w3.org/ns/odrl/2/target'), iri('https://example.org/genomic-data'), default_graph).
+rdf(iri('https://example.org/record-retention'), iri('https://example.org/clause'), literal('h4', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/record-retention'), iri('http://www.w3.org/ns/odrl/2/constraint'), iri('https://example.org/retention-constraint'), default_graph).
+rdf(iri('https://example.org/retention-constraint'), iri('http://www.w3.org/ns/odrl/2/leftOperand'), iri('https://example.org/retentionDays'), default_graph).
+rdf(iri('https://example.org/retention-constraint'), iri('http://www.w3.org/ns/odrl/2/operator'), iri('http://www.w3.org/ns/odrl/2/eq'), default_graph).
+rdf(iri('https://example.org/retention-constraint'), iri('http://www.w3.org/ns/odrl/2/rightOperand'), literal('3650', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/consent-profile'), iri('https://example.org/risk'), iri('https://example.org/consent-risk'), default_graph).
+rdf(iri('https://example.org/consent-profile'), iri('https://example.org/policyRule'), iri('https://example.org/research-use'), default_graph).
+rdf(iri('https://example.org/consent-profile'), iri('https://example.org/need'), iri('https://example.org/explicit-consent-for-research'), default_graph).
+rdf(iri('https://example.org/consent-profile'), iri('https://example.org/baseScore'), literal('85', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/consent-profile'), iri('https://example.org/mitigation'), iri('https://example.org/require-explicit-consent'), default_graph).
+rdf(iri('https://example.org/sharing-profile'), iri('https://example.org/risk'), iri('https://example.org/sharing-risk'), default_graph).
+rdf(iri('https://example.org/sharing-profile'), iri('https://example.org/policyRule'), iri('https://example.org/genomic-sharing'), default_graph).
+rdf(iri('https://example.org/sharing-profile'), iri('https://example.org/need'), iri('https://example.org/deidentify-before-sharing'), default_graph).
+rdf(iri('https://example.org/sharing-profile'), iri('https://example.org/baseScore'), literal('90', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/sharing-profile'), iri('https://example.org/mitigation'), iri('https://example.org/require-deidentification'), default_graph).
+rdf(iri('https://example.org/retention-profile'), iri('https://example.org/risk'), iri('https://example.org/retention-risk'), default_graph).
+rdf(iri('https://example.org/retention-profile'), iri('https://example.org/policyRule'), iri('https://example.org/record-retention'), default_graph).
+rdf(iri('https://example.org/retention-profile'), iri('https://example.org/need'), iri('https://example.org/retention-limit-3-years'), default_graph).
+rdf(iri('https://example.org/retention-profile'), iri('https://example.org/baseScore'), literal('55', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/retention-profile'), iri('https://example.org/mitigation'), iri('https://example.org/limit-retention-to-1095-days'), default_graph).
+rdf(iri('https://example.org/explicit-consent-for-research'), iri('https://example.org/importance'), literal('35', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/deidentify-before-sharing'), iri('https://example.org/importance'), literal('35', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/retention-limit-3-years'), iri('https://example.org/importance'), literal('15', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/retention-limit-3-years'), iri('https://example.org/maximumDays'), literal('1095', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
 
 % Rules
 % Source data: examples/input/odrl-dpv-healthcare-risk-ranked.ttl
@@ -62,8 +62,7 @@ healthcare_risk_report(Ranked) :-
 risk_report(Risk, Score, Level, Clause, Mitigation) :-
   risk_profile(_Profile, Risk, Rule, Need, Base, Mitigation),
   risk_triggered(Risk, Rule, Need),
-  rdf_text(Rule, ex(clause), ClauseString),
-  eyeprolog__string_atom(ClauseString, ClauseText),
+  rdf_text(Rule, ex(clause), ClauseText),
   atom_string(Clause, ClauseText),
   rdf_number(Need, ex(importance), Importance),
   Raw is Base + Importance,
@@ -104,8 +103,7 @@ constraint_text(Rule, LeftOperand, Value) :-
   rdf_text(Constraint, odrl('rightOperand'), Value).
 
 constraint_number(Rule, LeftOperand, Number) :-
-  constraint_text(Rule, LeftOperand, TextString),
-  eyeprolog__string_atom(TextString, Text),
+  constraint_text(Rule, LeftOperand, Text),
   number_string(Number, Text).
 
 risk_level(Score, high) :- Score > 79.
@@ -136,20 +134,17 @@ rdf_text(Subject, Predicate, Text) :-
   rdf(iri(SubjectIri), iri(PredicateIri), literal(Text, datatype(_Datatype)), default_graph).
 
 rdf_number(Subject, Predicate, Number) :-
-  rdf_text(Subject, Predicate, TextString),
-  eyeprolog__string_atom(TextString, Text),
+  rdf_text(Subject, Predicate, Text),
   number_string(Number, Text).
 
 iri_term(ex(Name), Iri) :- namespace_iri('https://example.org/', Name, Iri).
 iri_term(odrl(Name), Iri) :- namespace_iri('http://www.w3.org/ns/odrl/2/', Name, Iri).
 
-namespace_iri(Prefix, Name, IriString) :-
+namespace_iri(Prefix, Name, Iri) :-
   atom(Name),
   !,
   atom_string(Name, Local),
-  string_concat(Prefix, Local, IriAtom),
-  eyeprolog__string_atom(IriString, IriAtom).
-namespace_iri(Prefix, Name, IriString) :-
-  eyeprolog__string_atom(IriString, IriAtom),
-  string_concat(Prefix, Local, IriAtom),
+  string_concat(Prefix, Local, Iri).
+namespace_iri(Prefix, Name, Iri) :-
+  string_concat(Prefix, Local, Iri),
   atom_string(Name, Local).

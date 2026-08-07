@@ -1007,13 +1007,15 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(Boolean(registry.get('is', 2)), true, 'ISO is/2 exists');
         assertEqual(Boolean(registry.get('append', 3)), false, 'append/3 is not ISO core');
         assertEqual(library.eyePrologLibrary, true, 'complete registry marker');
-        assertEqual(library.defs.size, 119, 'ISO plus host/internal registry size');
+        assertEqual(library.defs.size, 117, 'ISO plus host registry size');
         assertEqual(registeredNativeEyePrologLibraryNames().length, 2, 'public native EyeProlog builtin count');
         assertEqual(eyePrologPortableLibraryIndicators.length, 48, 'portable Prolog library count');
         assertEqual(eyePrologNativeLibraryIndicators.length, 2, 'native host library count');
         assertEqual(eyePrologNativeLibraryIndicators.join(','), 'uuid/1,local_time/1', 'native host library stays minimal');
         assertEqual(eyePrologLibraryIndicators.length, 50, 'complete EyeProlog library surface');
         assertEqual(library.get('between', 3), null, 'between/3 remains portable Prolog');
+        assertEqual(library.get('smallest_divisor_from', 3), null, 'smallest_divisor_from/3 remains portable Prolog');
+        assertEqual(library.get('eyeprolog__string_atom', 2), null, 'private string adapter is absent');
         assertEqual(library.get('append', 3), null, 'append/3 moved to portable Prolog');
         assertEqual(library.get('maplist', 3), null, 'maplist/3 moved to portable Prolog');
         assertEqual(library.get('matches', 3), null, 'matches/3 moved to portable Prolog');
@@ -1032,7 +1034,7 @@ open(X) :- candidate(X), \\+ closed(X).
         assertEqual(Boolean(program.findGroup('append', 3)), true, 'append/3 is autoloaded as a clause group');
         assertEqual(program.findGroup('append', 3).clauses.every((clause) => clause.eyePrologLibraryPortable === true), true, 'append clauses are marked portable library clauses');
         const betweenGenerator = program.findGroup('eyeprolog__between', 3);
-        assertEqual(betweenGenerator.linearNumeric, true, 'portable between generator uses finite linear recursion');
+        assertEqual(betweenGenerator.cutRecursive, true, 'portable between generator has deterministic recursive control');
         assertEqual(betweenGenerator.tabled, false, 'portable between generator avoids suffix answer tables');
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'eyeprolog-library.pl')), true, 'portable Prolog source exists');
         assertEqual(fs.existsSync(path.join(packageRoot, 'src', 'library-source.js')), true, 'portable source loader exists');

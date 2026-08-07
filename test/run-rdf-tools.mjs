@@ -14,7 +14,7 @@ export async function runRdfTools(reporter = new TestReporter()) {
   });
   reporter.test('default mode emits only rule-derived quads', () => {
     const input = '<https://example/s> <https://example/parent> <https://example/o> .\n';
-    const rules = 'rdf(S, iri("https://example/ancestor"), O, G) :- rdf(S, iri("https://example/parent"), O, G).';
+    const rules = "rdf(S, iri('https://example/ancestor'), O, G) :- rdf(S, iri('https://example/parent'), O, G).";
     const output = run(compileRdfToEyeProlog(input, { rules }), { goal: 'rdf(S, P, O, G)' }).stdout;
     equal(extractEyePrologRdf(output), '<https://example/s> <https://example/ancestor> <https://example/o> .\n');
   });

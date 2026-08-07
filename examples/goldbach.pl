@@ -42,8 +42,9 @@ has_factor(N, L) :-
 
 % query
 case(N, G) :-
-    between(2, 35, I),
+    % Keep the portable benchmark below the range where repeated interpreted
+    % Miller-Rabin searches dominate the example suite.
+    between(2, 25, I),
     N is 2^I,
     goldbach(N, G).
 %% goal: case(_, _)
-

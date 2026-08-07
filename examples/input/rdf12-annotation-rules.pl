@@ -5,19 +5,19 @@ annotated_claim(S, P, O, Reifier, Source, Date) :-
   rdf(S, P, O, default_graph),
   rdf(
     Reifier,
-    iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies"),
+    iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies'),
     triple(S, P, O),
     default_graph
   ),
   rdf(
     Reifier,
-    iri("https://example.org/statedBy"),
+    iri('https://example.org/statedBy'),
     Source,
     default_graph
   ),
   rdf(
     Reifier,
-    iri("https://example.org/recorded"),
+    iri('https://example.org/recorded'),
     Date,
     default_graph
   ).

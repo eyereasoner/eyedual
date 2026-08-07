@@ -2,13 +2,13 @@
 
 % Run with: eyeprolog --goal 'rdf(S, P, O, G)' program.pl.
 
-rdf(iri("https://example.org/policy"), iri("http://www.w3.org/ns/odrl/2/permission"), iri("https://example.org/permission"), default_graph).
-rdf(iri("https://example.org/permission"), iri("http://www.w3.org/ns/odrl/2/target"), iri("https://example.org/dataset"), default_graph).
-rdf(iri("https://example.org/permission"), iri("http://www.w3.org/ns/odrl/2/action"), iri("http://www.w3.org/ns/odrl/2/use"), default_graph).
-rdf(iri("https://example.org/permission"), iri("http://www.w3.org/ns/odrl/2/constraint"), iri("https://example.org/purpose-constraint"), default_graph).
-rdf(iri("https://example.org/purpose-constraint"), iri("http://www.w3.org/ns/odrl/2/leftOperand"), iri("http://www.w3.org/ns/odrl/2/purpose"), default_graph).
-rdf(iri("https://example.org/purpose-constraint"), iri("http://www.w3.org/ns/odrl/2/operator"), iri("http://www.w3.org/ns/odrl/2/eq"), default_graph).
-rdf(iri("https://example.org/purpose-constraint"), iri("http://www.w3.org/ns/odrl/2/rightOperand"), iri("https://example.org/research"), default_graph).
+rdf(iri('https://example.org/policy'), iri('http://www.w3.org/ns/odrl/2/permission'), iri('https://example.org/permission'), default_graph).
+rdf(iri('https://example.org/permission'), iri('http://www.w3.org/ns/odrl/2/target'), iri('https://example.org/dataset'), default_graph).
+rdf(iri('https://example.org/permission'), iri('http://www.w3.org/ns/odrl/2/action'), iri('http://www.w3.org/ns/odrl/2/use'), default_graph).
+rdf(iri('https://example.org/permission'), iri('http://www.w3.org/ns/odrl/2/constraint'), iri('https://example.org/purpose-constraint'), default_graph).
+rdf(iri('https://example.org/purpose-constraint'), iri('http://www.w3.org/ns/odrl/2/leftOperand'), iri('http://www.w3.org/ns/odrl/2/purpose'), default_graph).
+rdf(iri('https://example.org/purpose-constraint'), iri('http://www.w3.org/ns/odrl/2/operator'), iri('http://www.w3.org/ns/odrl/2/eq'), default_graph).
+rdf(iri('https://example.org/purpose-constraint'), iri('http://www.w3.org/ns/odrl/2/rightOperand'), iri('https://example.org/research'), default_graph).
 
 % Rules
 % Source policy: examples/input/odrl-policy.ttl
@@ -20,44 +20,44 @@ rdf(iri("https://example.org/purpose-constraint"), iri("http://www.w3.org/ns/odr
 
 odrl_policy_decision(permit(use, research, dataset)) :-
   rdf(
-    iri("https://example.org/policy"),
-    iri("http://www.w3.org/ns/odrl/2/permission"),
+    iri('https://example.org/policy'),
+    iri('http://www.w3.org/ns/odrl/2/permission'),
     Permission,
     default_graph
   ),
   rdf(
     Permission,
-    iri("http://www.w3.org/ns/odrl/2/target"),
-    iri("https://example.org/dataset"),
+    iri('http://www.w3.org/ns/odrl/2/target'),
+    iri('https://example.org/dataset'),
     default_graph
   ),
   rdf(
     Permission,
-    iri("http://www.w3.org/ns/odrl/2/action"),
-    iri("http://www.w3.org/ns/odrl/2/use"),
+    iri('http://www.w3.org/ns/odrl/2/action'),
+    iri('http://www.w3.org/ns/odrl/2/use'),
     default_graph
   ),
   rdf(
     Permission,
-    iri("http://www.w3.org/ns/odrl/2/constraint"),
+    iri('http://www.w3.org/ns/odrl/2/constraint'),
     Constraint,
     default_graph
   ),
   rdf(
     Constraint,
-    iri("http://www.w3.org/ns/odrl/2/leftOperand"),
-    iri("http://www.w3.org/ns/odrl/2/purpose"),
+    iri('http://www.w3.org/ns/odrl/2/leftOperand'),
+    iri('http://www.w3.org/ns/odrl/2/purpose'),
     default_graph
   ),
   rdf(
     Constraint,
-    iri("http://www.w3.org/ns/odrl/2/operator"),
-    iri("http://www.w3.org/ns/odrl/2/eq"),
+    iri('http://www.w3.org/ns/odrl/2/operator'),
+    iri('http://www.w3.org/ns/odrl/2/eq'),
     default_graph
   ),
   rdf(
     Constraint,
-    iri("http://www.w3.org/ns/odrl/2/rightOperand"),
-    iri("https://example.org/research"),
+    iri('http://www.w3.org/ns/odrl/2/rightOperand'),
+    iri('https://example.org/research'),
     default_graph
   ).

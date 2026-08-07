@@ -230,7 +230,7 @@ function toNQ(t) {
   }
   throw new Error(`cannot serialize ${t.kind}`);
 }
-function quote(v) { return `"${String(v).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\t/g, '\\t')}"`; }
+function quote(v) { return `'${String(v).replace(/'/g, "''").replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/\t/g, '\\t')}'`; }
 function escapeIri(v) { return String(v).replace(/[<>"{}|^`\\\u0000-\u0020]/g, (c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`); }
 function hex(v) { return Buffer.from(String(v), 'utf8').toString('hex'); }
 function compound(t, name, arity) { return t?.type === 'compound' && t.name === name && t.args.length === arity; }

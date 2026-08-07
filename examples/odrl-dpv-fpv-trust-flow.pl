@@ -2,35 +2,35 @@
 
 % Run with: eyeprolog --goal 'rdf(S, P, O, G)' program.pl.
 
-rdf(iri("https://example.org/trust-policy"), iri("http://www.w3.org/ns/odrl/2/permission"), iri("https://example.org/healthcare-permission"), default_graph).
-rdf(iri("https://example.org/trust-policy"), iri("http://www.w3.org/ns/odrl/2/prohibition"), iri("https://example.org/marketing-prohibition"), default_graph).
-rdf(iri("https://example.org/healthcare-permission"), iri("http://www.w3.org/ns/odrl/2/assignee"), iri("https://example.org/research-partner"), default_graph).
-rdf(iri("https://example.org/healthcare-permission"), iri("http://www.w3.org/ns/odrl/2/target"), iri("https://example.org/lab-result"), default_graph).
-rdf(iri("https://example.org/healthcare-permission"), iri("http://www.w3.org/ns/odrl/2/action"), iri("http://www.w3.org/ns/odrl/2/use"), default_graph).
-rdf(iri("https://example.org/healthcare-permission"), iri("http://www.w3.org/ns/odrl/2/purpose"), iri("https://example.org/healthcare"), default_graph).
-rdf(iri("https://example.org/healthcare-permission"), iri("https://example.org/minTrust"), literal("0.80", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/marketing-prohibition"), iri("http://www.w3.org/ns/odrl/2/assignee"), iri("https://example.org/ad-network"), default_graph).
-rdf(iri("https://example.org/marketing-prohibition"), iri("http://www.w3.org/ns/odrl/2/target"), iri("https://example.org/lab-result"), default_graph).
-rdf(iri("https://example.org/marketing-prohibition"), iri("http://www.w3.org/ns/odrl/2/action"), iri("http://www.w3.org/ns/odrl/2/distribute"), default_graph).
-rdf(iri("https://example.org/marketing-prohibition"), iri("http://www.w3.org/ns/odrl/2/purpose"), iri("https://example.org/marketing"), default_graph).
-rdf(iri("https://example.org/hospital-a"), iri("https://example.org/trustScore"), literal("0.92", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/small-clinic"), iri("https://example.org/trustScore"), literal("0.63", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/ad-network"), iri("https://example.org/trustScore"), literal("0.28", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/flow-care"), iri("https://example.org/source"), iri("https://example.org/hospital-a"), default_graph).
-rdf(iri("https://example.org/flow-care"), iri("https://example.org/recipient"), iri("https://example.org/research-partner"), default_graph).
-rdf(iri("https://example.org/flow-care"), iri("https://example.org/data"), iri("https://example.org/lab-result"), default_graph).
-rdf(iri("https://example.org/flow-care"), iri("https://example.org/requestedAction"), iri("http://www.w3.org/ns/odrl/2/use"), default_graph).
-rdf(iri("https://example.org/flow-care"), iri("https://example.org/requestedPurpose"), iri("https://example.org/healthcare"), default_graph).
-rdf(iri("https://example.org/flow-clinic"), iri("https://example.org/source"), iri("https://example.org/small-clinic"), default_graph).
-rdf(iri("https://example.org/flow-clinic"), iri("https://example.org/recipient"), iri("https://example.org/research-partner"), default_graph).
-rdf(iri("https://example.org/flow-clinic"), iri("https://example.org/data"), iri("https://example.org/lab-result"), default_graph).
-rdf(iri("https://example.org/flow-clinic"), iri("https://example.org/requestedAction"), iri("http://www.w3.org/ns/odrl/2/use"), default_graph).
-rdf(iri("https://example.org/flow-clinic"), iri("https://example.org/requestedPurpose"), iri("https://example.org/healthcare"), default_graph).
-rdf(iri("https://example.org/flow-ads"), iri("https://example.org/source"), iri("https://example.org/hospital-a"), default_graph).
-rdf(iri("https://example.org/flow-ads"), iri("https://example.org/recipient"), iri("https://example.org/ad-network"), default_graph).
-rdf(iri("https://example.org/flow-ads"), iri("https://example.org/data"), iri("https://example.org/lab-result"), default_graph).
-rdf(iri("https://example.org/flow-ads"), iri("https://example.org/requestedAction"), iri("http://www.w3.org/ns/odrl/2/distribute"), default_graph).
-rdf(iri("https://example.org/flow-ads"), iri("https://example.org/requestedPurpose"), iri("https://example.org/marketing"), default_graph).
+rdf(iri('https://example.org/trust-policy'), iri('http://www.w3.org/ns/odrl/2/permission'), iri('https://example.org/healthcare-permission'), default_graph).
+rdf(iri('https://example.org/trust-policy'), iri('http://www.w3.org/ns/odrl/2/prohibition'), iri('https://example.org/marketing-prohibition'), default_graph).
+rdf(iri('https://example.org/healthcare-permission'), iri('http://www.w3.org/ns/odrl/2/assignee'), iri('https://example.org/research-partner'), default_graph).
+rdf(iri('https://example.org/healthcare-permission'), iri('http://www.w3.org/ns/odrl/2/target'), iri('https://example.org/lab-result'), default_graph).
+rdf(iri('https://example.org/healthcare-permission'), iri('http://www.w3.org/ns/odrl/2/action'), iri('http://www.w3.org/ns/odrl/2/use'), default_graph).
+rdf(iri('https://example.org/healthcare-permission'), iri('http://www.w3.org/ns/odrl/2/purpose'), iri('https://example.org/healthcare'), default_graph).
+rdf(iri('https://example.org/healthcare-permission'), iri('https://example.org/minTrust'), literal('0.80', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/marketing-prohibition'), iri('http://www.w3.org/ns/odrl/2/assignee'), iri('https://example.org/ad-network'), default_graph).
+rdf(iri('https://example.org/marketing-prohibition'), iri('http://www.w3.org/ns/odrl/2/target'), iri('https://example.org/lab-result'), default_graph).
+rdf(iri('https://example.org/marketing-prohibition'), iri('http://www.w3.org/ns/odrl/2/action'), iri('http://www.w3.org/ns/odrl/2/distribute'), default_graph).
+rdf(iri('https://example.org/marketing-prohibition'), iri('http://www.w3.org/ns/odrl/2/purpose'), iri('https://example.org/marketing'), default_graph).
+rdf(iri('https://example.org/hospital-a'), iri('https://example.org/trustScore'), literal('0.92', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/small-clinic'), iri('https://example.org/trustScore'), literal('0.63', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/ad-network'), iri('https://example.org/trustScore'), literal('0.28', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/flow-care'), iri('https://example.org/source'), iri('https://example.org/hospital-a'), default_graph).
+rdf(iri('https://example.org/flow-care'), iri('https://example.org/recipient'), iri('https://example.org/research-partner'), default_graph).
+rdf(iri('https://example.org/flow-care'), iri('https://example.org/data'), iri('https://example.org/lab-result'), default_graph).
+rdf(iri('https://example.org/flow-care'), iri('https://example.org/requestedAction'), iri('http://www.w3.org/ns/odrl/2/use'), default_graph).
+rdf(iri('https://example.org/flow-care'), iri('https://example.org/requestedPurpose'), iri('https://example.org/healthcare'), default_graph).
+rdf(iri('https://example.org/flow-clinic'), iri('https://example.org/source'), iri('https://example.org/small-clinic'), default_graph).
+rdf(iri('https://example.org/flow-clinic'), iri('https://example.org/recipient'), iri('https://example.org/research-partner'), default_graph).
+rdf(iri('https://example.org/flow-clinic'), iri('https://example.org/data'), iri('https://example.org/lab-result'), default_graph).
+rdf(iri('https://example.org/flow-clinic'), iri('https://example.org/requestedAction'), iri('http://www.w3.org/ns/odrl/2/use'), default_graph).
+rdf(iri('https://example.org/flow-clinic'), iri('https://example.org/requestedPurpose'), iri('https://example.org/healthcare'), default_graph).
+rdf(iri('https://example.org/flow-ads'), iri('https://example.org/source'), iri('https://example.org/hospital-a'), default_graph).
+rdf(iri('https://example.org/flow-ads'), iri('https://example.org/recipient'), iri('https://example.org/ad-network'), default_graph).
+rdf(iri('https://example.org/flow-ads'), iri('https://example.org/data'), iri('https://example.org/lab-result'), default_graph).
+rdf(iri('https://example.org/flow-ads'), iri('https://example.org/requestedAction'), iri('http://www.w3.org/ns/odrl/2/distribute'), default_graph).
+rdf(iri('https://example.org/flow-ads'), iri('https://example.org/requestedPurpose'), iri('https://example.org/marketing'), default_graph).
 
 % Rules
 % Source data: examples/input/odrl-dpv-fpv-trust-flow.ttl
@@ -99,20 +99,17 @@ rdf_link(Subject, Predicate, Object) :-
 rdf_number(Subject, Predicate, Number) :-
   iri_term(Subject, SubjectIri),
   iri_term(Predicate, PredicateIri),
-  rdf(iri(SubjectIri), iri(PredicateIri), literal(TextString, datatype(_Datatype)), default_graph),
-  eyeprolog__string_atom(TextString, Text),
+  rdf(iri(SubjectIri), iri(PredicateIri), literal(Text, datatype(_Datatype)), default_graph),
   number_string(Number, Text).
 
 iri_term(ex(Name), Iri) :- namespace_iri('https://example.org/', Name, Iri).
 iri_term(odrl(Name), Iri) :- namespace_iri('http://www.w3.org/ns/odrl/2/', Name, Iri).
 
-namespace_iri(Prefix, Name, IriString) :-
+namespace_iri(Prefix, Name, Iri) :-
   atom(Name),
   !,
   atom_string(Name, Local),
-  string_concat(Prefix, Local, IriAtom),
-  eyeprolog__string_atom(IriString, IriAtom).
-namespace_iri(Prefix, Name, IriString) :-
-  eyeprolog__string_atom(IriString, IriAtom),
-  string_concat(Prefix, Local, IriAtom),
+  string_concat(Prefix, Local, Iri).
+namespace_iri(Prefix, Name, Iri) :-
+  string_concat(Prefix, Local, Iri),
   atom_string(Name, Local).

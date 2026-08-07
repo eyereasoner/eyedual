@@ -2,31 +2,31 @@
 
 % Run with: eyeprolog --goal 'rdf(S, P, O, G)' program.pl.
 
-rdf(iri("https://example.org/alpha_care_process"), iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), iri("https://w3id.org/dpv#Process"), default_graph).
-rdf(iri("https://example.org/alpha_care_process"), iri("https://w3id.org/dpv#hasDataController"), iri("https://example.org/hospital_a"), default_graph).
-rdf(iri("https://example.org/alpha_care_process"), iri("https://w3id.org/dpv#hasRecipient"), iri("https://example.org/research_partner"), default_graph).
-rdf(iri("https://example.org/alpha_care_process"), iri("https://w3id.org/dpv#hasPersonalData"), iri("https://example.org/lab_result"), default_graph).
-rdf(iri("https://example.org/alpha_care_process"), iri("https://w3id.org/dpv#hasProcessing"), iri("https://w3id.org/dpv#Use"), default_graph).
-rdf(iri("https://example.org/alpha_care_process"), iri("https://w3id.org/dpv#hasPurpose"), iri("https://w3id.org/dpv#Healthcare"), default_graph).
-rdf(iri("https://example.org/alpha_care_process"), iri("https://w3id.org/dpv#hasLegalBasis"), iri("https://w3id.org/dpv#Consent"), default_graph).
-rdf(iri("https://example.org/alpha_policy"), iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), iri("http://www.w3.org/ns/odrl/2/Policy"), default_graph).
-rdf(iri("https://example.org/alpha_policy"), iri("https://example.org/representsProcess"), iri("https://example.org/alpha_care_process"), default_graph).
-rdf(iri("https://example.org/alpha_policy"), iri("http://www.w3.org/ns/odrl/2/permission"), iri("https://example.org/alpha_permission"), default_graph).
-rdf(iri("https://example.org/alpha_permission"), iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), iri("http://www.w3.org/ns/odrl/2/Permission"), default_graph).
-rdf(iri("https://example.org/alpha_permission"), iri("http://www.w3.org/ns/odrl/2/assigner"), iri("https://example.org/hospital_a"), default_graph).
-rdf(iri("https://example.org/alpha_permission"), iri("http://www.w3.org/ns/odrl/2/assignee"), iri("https://example.org/research_partner"), default_graph).
-rdf(iri("https://example.org/alpha_permission"), iri("http://www.w3.org/ns/odrl/2/target"), iri("https://example.org/lab_result"), default_graph).
-rdf(iri("https://example.org/alpha_permission"), iri("http://www.w3.org/ns/odrl/2/action"), iri("http://www.w3.org/ns/odrl/2/use"), default_graph).
-rdf(iri("https://example.org/alpha_permission"), iri("http://www.w3.org/ns/odrl/2/constraint"), iri("https://example.org/alpha_purpose_constraint"), default_graph).
-rdf(iri("https://example.org/alpha_permission"), iri("http://www.w3.org/ns/odrl/2/constraint"), iri("https://example.org/alpha_basis_constraint"), default_graph).
-rdf(iri("https://example.org/alpha_purpose_constraint"), iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), iri("http://www.w3.org/ns/odrl/2/Constraint"), default_graph).
-rdf(iri("https://example.org/alpha_purpose_constraint"), iri("http://www.w3.org/ns/odrl/2/leftOperand"), iri("http://www.w3.org/ns/odrl/2/purpose"), default_graph).
-rdf(iri("https://example.org/alpha_purpose_constraint"), iri("http://www.w3.org/ns/odrl/2/operator"), iri("http://www.w3.org/ns/odrl/2/isA"), default_graph).
-rdf(iri("https://example.org/alpha_purpose_constraint"), iri("http://www.w3.org/ns/odrl/2/rightOperand"), iri("https://w3id.org/dpv#Healthcare"), default_graph).
-rdf(iri("https://example.org/alpha_basis_constraint"), iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), iri("http://www.w3.org/ns/odrl/2/Constraint"), default_graph).
-rdf(iri("https://example.org/alpha_basis_constraint"), iri("http://www.w3.org/ns/odrl/2/leftOperand"), iri("https://example.org/legalBasis"), default_graph).
-rdf(iri("https://example.org/alpha_basis_constraint"), iri("http://www.w3.org/ns/odrl/2/operator"), iri("http://www.w3.org/ns/odrl/2/isA"), default_graph).
-rdf(iri("https://example.org/alpha_basis_constraint"), iri("http://www.w3.org/ns/odrl/2/rightOperand"), iri("https://w3id.org/dpv#Consent"), default_graph).
+rdf(iri('https://example.org/alpha_care_process'), iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), iri('https://w3id.org/dpv#Process'), default_graph).
+rdf(iri('https://example.org/alpha_care_process'), iri('https://w3id.org/dpv#hasDataController'), iri('https://example.org/hospital_a'), default_graph).
+rdf(iri('https://example.org/alpha_care_process'), iri('https://w3id.org/dpv#hasRecipient'), iri('https://example.org/research_partner'), default_graph).
+rdf(iri('https://example.org/alpha_care_process'), iri('https://w3id.org/dpv#hasPersonalData'), iri('https://example.org/lab_result'), default_graph).
+rdf(iri('https://example.org/alpha_care_process'), iri('https://w3id.org/dpv#hasProcessing'), iri('https://w3id.org/dpv#Use'), default_graph).
+rdf(iri('https://example.org/alpha_care_process'), iri('https://w3id.org/dpv#hasPurpose'), iri('https://w3id.org/dpv#Healthcare'), default_graph).
+rdf(iri('https://example.org/alpha_care_process'), iri('https://w3id.org/dpv#hasLegalBasis'), iri('https://w3id.org/dpv#Consent'), default_graph).
+rdf(iri('https://example.org/alpha_policy'), iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), iri('http://www.w3.org/ns/odrl/2/Policy'), default_graph).
+rdf(iri('https://example.org/alpha_policy'), iri('https://example.org/representsProcess'), iri('https://example.org/alpha_care_process'), default_graph).
+rdf(iri('https://example.org/alpha_policy'), iri('http://www.w3.org/ns/odrl/2/permission'), iri('https://example.org/alpha_permission'), default_graph).
+rdf(iri('https://example.org/alpha_permission'), iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), iri('http://www.w3.org/ns/odrl/2/Permission'), default_graph).
+rdf(iri('https://example.org/alpha_permission'), iri('http://www.w3.org/ns/odrl/2/assigner'), iri('https://example.org/hospital_a'), default_graph).
+rdf(iri('https://example.org/alpha_permission'), iri('http://www.w3.org/ns/odrl/2/assignee'), iri('https://example.org/research_partner'), default_graph).
+rdf(iri('https://example.org/alpha_permission'), iri('http://www.w3.org/ns/odrl/2/target'), iri('https://example.org/lab_result'), default_graph).
+rdf(iri('https://example.org/alpha_permission'), iri('http://www.w3.org/ns/odrl/2/action'), iri('http://www.w3.org/ns/odrl/2/use'), default_graph).
+rdf(iri('https://example.org/alpha_permission'), iri('http://www.w3.org/ns/odrl/2/constraint'), iri('https://example.org/alpha_purpose_constraint'), default_graph).
+rdf(iri('https://example.org/alpha_permission'), iri('http://www.w3.org/ns/odrl/2/constraint'), iri('https://example.org/alpha_basis_constraint'), default_graph).
+rdf(iri('https://example.org/alpha_purpose_constraint'), iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), iri('http://www.w3.org/ns/odrl/2/Constraint'), default_graph).
+rdf(iri('https://example.org/alpha_purpose_constraint'), iri('http://www.w3.org/ns/odrl/2/leftOperand'), iri('http://www.w3.org/ns/odrl/2/purpose'), default_graph).
+rdf(iri('https://example.org/alpha_purpose_constraint'), iri('http://www.w3.org/ns/odrl/2/operator'), iri('http://www.w3.org/ns/odrl/2/isA'), default_graph).
+rdf(iri('https://example.org/alpha_purpose_constraint'), iri('http://www.w3.org/ns/odrl/2/rightOperand'), iri('https://w3id.org/dpv#Healthcare'), default_graph).
+rdf(iri('https://example.org/alpha_basis_constraint'), iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), iri('http://www.w3.org/ns/odrl/2/Constraint'), default_graph).
+rdf(iri('https://example.org/alpha_basis_constraint'), iri('http://www.w3.org/ns/odrl/2/leftOperand'), iri('https://example.org/legalBasis'), default_graph).
+rdf(iri('https://example.org/alpha_basis_constraint'), iri('http://www.w3.org/ns/odrl/2/operator'), iri('http://www.w3.org/ns/odrl/2/isA'), default_graph).
+rdf(iri('https://example.org/alpha_basis_constraint'), iri('http://www.w3.org/ns/odrl/2/rightOperand'), iri('https://w3id.org/dpv#Consent'), default_graph).
 
 % Rules
 % Source data: examples/input/dpv-odrl-purpose-mapping.ttl
@@ -84,13 +84,11 @@ iri_term(ex(Name), Iri) :- namespace_iri('https://example.org/', Name, Iri).
 iri_term(dpv(Name), Iri) :- namespace_iri('https://w3id.org/dpv#', Name, Iri).
 iri_term(odrl(Name), Iri) :- namespace_iri('http://www.w3.org/ns/odrl/2/', Name, Iri).
 
-namespace_iri(Prefix, Name, IriString) :-
+namespace_iri(Prefix, Name, Iri) :-
   atom(Name),
   !,
   atom_string(Name, Local),
-  string_concat(Prefix, Local, IriAtom),
-  eyeprolog__string_atom(IriString, IriAtom).
-namespace_iri(Prefix, Name, IriString) :-
-  eyeprolog__string_atom(IriString, IriAtom),
-  string_concat(Prefix, Local, IriAtom),
+  string_concat(Prefix, Local, Iri).
+namespace_iri(Prefix, Name, Iri) :-
+  string_concat(Prefix, Local, Iri),
   atom_string(Name, Local).

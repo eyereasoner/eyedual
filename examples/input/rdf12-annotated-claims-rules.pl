@@ -32,24 +32,24 @@ annotated_status_claim(Status, Source, Score) :-
   status_resource(Status, StatusIri),
   source_resource(Source, SourceIri),
   rdf(
-    iri("https://example.org/bridge"),
-    iri("https://example.org/status"),
+    iri('https://example.org/bridge'),
+    iri('https://example.org/status'),
     iri(StatusIri),
     default_graph
   ),
   rdf(
     Reifier,
-    iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies"),
+    iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies'),
     triple(
-      iri("https://example.org/bridge"),
-      iri("https://example.org/status"),
+      iri('https://example.org/bridge'),
+      iri('https://example.org/status'),
       iri(StatusIri)
     ),
     default_graph
   ),
   rdf(
     Reifier,
-    iri("https://example.org/assertedBy"),
+    iri('https://example.org/assertedBy'),
     iri(SourceIri),
     default_graph
   ),

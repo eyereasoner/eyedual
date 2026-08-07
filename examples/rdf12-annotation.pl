@@ -2,10 +2,10 @@
 
 % Run with: eyeprolog --goal 'rdf(S, P, O, G)' program.pl.
 
-rdf(iri("https://example.org/alice"), iri("https://example.org/name"), literal("Alice", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/claim1"), iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies"), triple(iri("https://example.org/alice"), iri("https://example.org/name"), literal("Alice", datatype("http://www.w3.org/2001/XMLSchema#string"))), default_graph).
-rdf(iri("https://example.org/claim1"), iri("https://example.org/statedBy"), iri("https://example.org/carol"), default_graph).
-rdf(iri("https://example.org/claim1"), iri("https://example.org/recorded"), literal("2025-01-15", datatype("http://www.w3.org/2001/XMLSchema#date")), default_graph).
+rdf(iri('https://example.org/alice'), iri('https://example.org/name'), literal('Alice', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/claim1'), iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies'), triple(iri('https://example.org/alice'), iri('https://example.org/name'), literal('Alice', datatype('http://www.w3.org/2001/XMLSchema#string'))), default_graph).
+rdf(iri('https://example.org/claim1'), iri('https://example.org/statedBy'), iri('https://example.org/carol'), default_graph).
+rdf(iri('https://example.org/claim1'), iri('https://example.org/recorded'), literal('2025-01-15', datatype('http://www.w3.org/2001/XMLSchema#date')), default_graph).
 
 % Rules
 % Recover an asserted triple together with its RDF 1.2 annotations.
@@ -15,19 +15,19 @@ annotated_claim(S, P, O, Reifier, Source, Date) :-
   rdf(S, P, O, default_graph),
   rdf(
     Reifier,
-    iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies"),
+    iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies'),
     triple(S, P, O),
     default_graph
   ),
   rdf(
     Reifier,
-    iri("https://example.org/statedBy"),
+    iri('https://example.org/statedBy'),
     Source,
     default_graph
   ),
   rdf(
     Reifier,
-    iri("https://example.org/recorded"),
+    iri('https://example.org/recorded'),
     Date,
     default_graph
   ).

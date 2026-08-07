@@ -134,6 +134,10 @@ eyeprolog__between(Low, _, Low).
 eyeprolog__between(Low, High, Value) :-
     Low < High,
     Next is Low + 1,
+    % This is a green cut: after the base answer has been tried, the recursive
+    % clause is the only remaining route. It also keeps this finite generator
+    % out of automatic answer tabling, which would retain every range suffix.
+    !,
     eyeprolog__between(Next, High, Value).
 
 smallest_divisor_from(N, Start, Divisor) :-
@@ -429,6 +433,7 @@ append([X|Xs], Ys, [X|Zs]) :- append(Xs, Ys, Zs).
 
 string_concat(A, B, Whole) :-
     nonvar(A), nonvar(B),
+    !,
     eyeprolog__text_chars(A, AC),
     eyeprolog__text_chars(B, BC),
     append(AC, BC, WC),

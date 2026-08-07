@@ -6,11 +6,6 @@
 // no standard entropy or wall-clock primitive.
 import {
   atom,
-  numberTerm,
-  stringTerm,
-  lexicalValue,
-  isDecimalInteger,
-  deref,
   unify,
 } from './term.js';
 import {
@@ -127,16 +122,6 @@ export function createEyePrologRegistry() {
     deterministic: true,
     eyePrologLibrary: true,
   });
-  registry.add('eyeprolog__string_atom', 2, stringAtomBoundaryBuiltin, {
-    deterministic: true,
-    eyePrologLibrary: false,
-  });
-  registry.add('smallest_divisor_from', 3, smallestDivisorFromAccelerator, {
-    deterministic: true,
-    eyePrologLibrary: false,
-    shouldUse: portableAcceleratorIsApplicable,
-  });
-
   // ISO definitions take precedence where names overlap and remain identifiable
   // as ISO rather than EyeProlog-library predicates.
   isoBuiltins.register(registry);
@@ -148,48 +133,6 @@ let eyePrologRegistry = null;
 export function getEyePrologRegistry() {
   if (eyePrologRegistry == null) eyePrologRegistry = createEyePrologRegistry();
   return eyePrologRegistry;
-}
-
-function portableAcceleratorIsApplicable({ solver, goal, env }) {
-  const group = solver.program.findGroup(goal.name, goal.arity);
-  if (!group?.clauses.some((clause) => clause.eyePrologLibraryPortable === true)) return false;
-  const nText = lexicalValue(goal.args[0], env);
-  const startText = lexicalValue(goal.args[1], env);
-  return isDecimalInteger(nText) && isDecimalInteger(startText);
-}
-
-function* smallestDivisorFromAccelerator({ goal, env }) {
-  const nText = lexicalValue(goal.args[0], env);
-  const startText = lexicalValue(goal.args[1], env);
-  if (!isDecimalInteger(nText) || !isDecimalInteger(startText)) return;
-  const n = BigInt(nText);
-  const start = BigInt(startText);
-  if (n < 0n || start <= 0n) return;
-  let divisor = n;
-  for (let candidate = start; candidate <= n / candidate; candidate++) {
-    if (n % candidate === 0n) {
-      divisor = candidate;
-      break;
-    }
-  }
-  const next = env.clone();
-  if (unify(goal.args[2], numberTerm(divisor.toString()), next)) yield next;
-}
-
-function* stringAtomBoundaryBuiltin({ goal, env }) {
-  // Private representation-boundary helper. Public portable text predicates
-  // never call this: it exists only for adapters that must cross between
-  // EyeProlog's RDF STRING term and the ISO atom-based text API.
-  const text = deref(goal.args[0], env);
-  const atomValue = deref(goal.args[1], env);
-  const next = env.clone();
-  if (text?.type === 'string') {
-    if (unify(goal.args[1], atom(text.name), next)) yield next;
-    return;
-  }
-  if (text?.type === 'var' && atomValue?.type === 'atom') {
-    if (unify(goal.args[0], stringTerm(atomValue.name), next)) yield next;
-  }
 }
 
 function* uuidBuiltin({ goal, env }) {

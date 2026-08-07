@@ -1714,9 +1714,8 @@ the portable EyeProlog library: 48 public predicates written as ordinary
 Prolog clauses against that ISO profile. `src/library-source.js` loads the same
 file in Node and the browser, while `src/library.js` owns autoload integration
 and the two unavoidable public host predicates, `uuid/1` and `local_time/1`.
-A private `eyeprolog__string_atom/2` adapter is reserved for RDF boundaries
-where EyeProlog's double-quoted STRING data must cross into the atom-based text
-API; it is not part of the public library.
+The RDF tools emit IRI and literal lexical values as ISO atoms, matching the
+portable text API without a host representation adapter.
 
 Normal CLI, JavaScript, `Solver`, proof replay, and the browser playground use
 the EyeProlog registry; `src/playground-worker.js` reaches the same integration
@@ -5258,16 +5257,13 @@ indicators in its isolated ISO profile. Of those 50, **48 are ordinary Prolog
 clauses** in `src/eyeprolog-library.pl`; only **`uuid/1` and `local_time/1` are
 native host predicates** because ISO Prolog provides neither entropy nor a wall
 clock. The resulting normal EyeProlog language surface is therefore **165
-public predicate indicators**. Internally, the runtime registry currently has
-119 definitions: 115 ISO predicates, the 2 public host predicates, one private
-RDF STRING/atom boundary adapter, and one optional performance accelerator for
-`smallest_divisor_from/3`. The accelerator does not change semantics: the full
-portable Prolog implementation remains in `src/eyeprolog-library.pl`.
+public predicate indicators**. Internally, the runtime registry has 117
+definitions: 115 ISO predicates and the 2 public host predicates.
 
 The portable file is autoloaded once into every `Program` used with the
 EyeProlog registry. `src/library-source.js` loads it from the package in Node or
 through `fetch()` in the browser; `src/library.js` performs the autoload and
-registers the two host predicates plus the private RDF representation adapter.
+registers the two host predicates.
 The isolated ISO-only registry remains
 available through `createDefaultRegistry()` and `getDefaultRegistry()` for
 conformance work and advanced embedders. Source clauses sharing a portable
@@ -5405,11 +5401,11 @@ eyeprolog --goal 'answer(Kind, Value)' program.pl
 
 The portable text API uses **ISO atoms or proper lists of one-character atoms**.
 A generated text result defaults to an atom. This is intentionally different
-from EyeProlog's double-quoted `string` term extension: strings remain useful as
-data values (notably RDF lexical forms), but portable library text is represented
-with ISO terms. RDF adapters cross that representation boundary explicitly via
-the private runtime helper; the 48-predicate portable file itself has no STRING
-or JavaScript dependency.
+from EyeProlog's double-quoted `string` term extension: strings remain available
+as data values, but portable library text is represented with ISO terms. The RDF
+tools emit lexical forms as atoms while preserving RDF distinctions in the
+surrounding `iri/1`, `literal/2`, datatype, language, and direction terms. The
+48-predicate portable file itself has no STRING or JavaScript dependency.
 
 | Predicate and principal mode | Behavior |
 | --- | --- |
@@ -5899,7 +5895,7 @@ the clauses.
 | [Fast exponentiation](https://github.com/eyereasoner/eyeprolog/blob/main/examples/fastpow.pl) | Algebraic decomposition by parity changes a linear recurrence into logarithmic-depth recursion. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/fastpow.pl) |
 | [Fibonacci](https://github.com/eyereasoner/eyeprolog/blob/main/examples/fibonacci.pl) | A recurrence becomes an executable relation with a visibly decreasing argument. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/fibonacci.pl) |
 | [Fundamental theorem of arithmetic](https://github.com/eyereasoner/eyeprolog/blob/main/examples/fundamental-theorem-arithmetic.pl) | Two factorization strategies construct normalized prime-factor witnesses and check reconstruction. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/fundamental-theorem-arithmetic.pl) |
-| [Goldbach](https://github.com/eyereasoner/eyeprolog/blob/main/examples/goldbach.pl) | Bounded search checks Goldbach decompositions for powers of two; the default native `smallest_divisor_from/3` accelerator makes the range through `2^35` practical. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/goldbach.pl) |
+| [Goldbach](https://github.com/eyereasoner/eyeprolog/blob/main/examples/goldbach.pl) | Bounded search checks Goldbach decompositions for powers of two using the portable Prolog primality relation. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/goldbach.pl) |
 | [Greatest lower bound uniqueness](https://github.com/eyereasoner/eyeprolog/blob/main/examples/greatest-lower-bound-uniqueness.pl) | Order-theoretic definitions support a uniqueness argument. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/greatest-lower-bound-uniqueness.pl) · [proof](https://github.com/eyereasoner/eyeprolog/blob/main/examples/proof/greatest-lower-bound-uniqueness.pl) |
 | [Group inverse uniqueness](https://github.com/eyereasoner/eyeprolog/blob/main/examples/group-inverse-uniqueness.pl) | A short derivation exposes the algebraic premises needed for uniqueness. | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/group-inverse-uniqueness.pl) · [proof](https://github.com/eyereasoner/eyeprolog/blob/main/examples/proof/group-inverse-uniqueness.pl) |
 | [Heron Theorem](https://github.com/eyereasoner/eyeprolog/blob/main/examples/heron-theorem.pl) | Heron's theorem: area = sqrt(s(s-a)(s-b)(s-c)). | [answers](https://github.com/eyereasoner/eyeprolog/blob/main/examples/output/heron-theorem.pl) |

@@ -2,24 +2,24 @@
 
 % Run with: eyeprolog --goal 'rdf(S, P, O, G)' program.pl.
 
-rdf(iri("https://example.org/advanced-policy"), iri("http://www.w3.org/ns/odrl/2/permission"), iri("https://example.org/research-permission"), default_graph).
-rdf(iri("https://example.org/advanced-policy"), iri("http://www.w3.org/ns/odrl/2/prohibition"), iri("https://example.org/transfer-prohibition"), default_graph).
-rdf(iri("https://example.org/research-permission"), iri("http://www.w3.org/ns/odrl/2/target"), iri("https://example.org/health-dataset"), default_graph).
-rdf(iri("https://example.org/research-permission"), iri("http://www.w3.org/ns/odrl/2/action"), iri("http://www.w3.org/ns/odrl/2/use"), default_graph).
-rdf(iri("https://example.org/research-permission"), iri("http://www.w3.org/ns/odrl/2/assignee"), iri("https://example.org/research-hospital"), default_graph).
-rdf(iri("https://example.org/research-permission"), iri("http://www.w3.org/ns/odrl/2/constraint"), iri("https://example.org/purpose-constraint"), default_graph).
-rdf(iri("https://example.org/research-permission"), iri("http://www.w3.org/ns/odrl/2/constraint"), iri("https://example.org/region-constraint"), default_graph).
-rdf(iri("https://example.org/research-permission"), iri("http://www.w3.org/ns/odrl/2/duty"), iri("https://example.org/deidentify-duty"), default_graph).
-rdf(iri("https://example.org/purpose-constraint"), iri("http://www.w3.org/ns/odrl/2/leftOperand"), iri("http://www.w3.org/ns/odrl/2/purpose"), default_graph).
-rdf(iri("https://example.org/purpose-constraint"), iri("http://www.w3.org/ns/odrl/2/operator"), iri("http://www.w3.org/ns/odrl/2/eq"), default_graph).
-rdf(iri("https://example.org/purpose-constraint"), iri("http://www.w3.org/ns/odrl/2/rightOperand"), iri("https://example.org/medical-research"), default_graph).
-rdf(iri("https://example.org/region-constraint"), iri("http://www.w3.org/ns/odrl/2/leftOperand"), iri("http://www.w3.org/ns/odrl/2/spatial"), default_graph).
-rdf(iri("https://example.org/region-constraint"), iri("http://www.w3.org/ns/odrl/2/operator"), iri("http://www.w3.org/ns/odrl/2/eq"), default_graph).
-rdf(iri("https://example.org/region-constraint"), iri("http://www.w3.org/ns/odrl/2/rightOperand"), iri("https://example.org/eu"), default_graph).
-rdf(iri("https://example.org/deidentify-duty"), iri("http://www.w3.org/ns/odrl/2/action"), iri("https://example.org/deidentify"), default_graph).
-rdf(iri("https://example.org/transfer-prohibition"), iri("http://www.w3.org/ns/odrl/2/target"), iri("https://example.org/health-dataset"), default_graph).
-rdf(iri("https://example.org/transfer-prohibition"), iri("http://www.w3.org/ns/odrl/2/action"), iri("http://www.w3.org/ns/odrl/2/transfer"), default_graph).
-rdf(iri("https://example.org/transfer-prohibition"), iri("http://www.w3.org/ns/odrl/2/assignee"), iri("https://example.org/research-hospital"), default_graph).
+rdf(iri('https://example.org/advanced-policy'), iri('http://www.w3.org/ns/odrl/2/permission'), iri('https://example.org/research-permission'), default_graph).
+rdf(iri('https://example.org/advanced-policy'), iri('http://www.w3.org/ns/odrl/2/prohibition'), iri('https://example.org/transfer-prohibition'), default_graph).
+rdf(iri('https://example.org/research-permission'), iri('http://www.w3.org/ns/odrl/2/target'), iri('https://example.org/health-dataset'), default_graph).
+rdf(iri('https://example.org/research-permission'), iri('http://www.w3.org/ns/odrl/2/action'), iri('http://www.w3.org/ns/odrl/2/use'), default_graph).
+rdf(iri('https://example.org/research-permission'), iri('http://www.w3.org/ns/odrl/2/assignee'), iri('https://example.org/research-hospital'), default_graph).
+rdf(iri('https://example.org/research-permission'), iri('http://www.w3.org/ns/odrl/2/constraint'), iri('https://example.org/purpose-constraint'), default_graph).
+rdf(iri('https://example.org/research-permission'), iri('http://www.w3.org/ns/odrl/2/constraint'), iri('https://example.org/region-constraint'), default_graph).
+rdf(iri('https://example.org/research-permission'), iri('http://www.w3.org/ns/odrl/2/duty'), iri('https://example.org/deidentify-duty'), default_graph).
+rdf(iri('https://example.org/purpose-constraint'), iri('http://www.w3.org/ns/odrl/2/leftOperand'), iri('http://www.w3.org/ns/odrl/2/purpose'), default_graph).
+rdf(iri('https://example.org/purpose-constraint'), iri('http://www.w3.org/ns/odrl/2/operator'), iri('http://www.w3.org/ns/odrl/2/eq'), default_graph).
+rdf(iri('https://example.org/purpose-constraint'), iri('http://www.w3.org/ns/odrl/2/rightOperand'), iri('https://example.org/medical-research'), default_graph).
+rdf(iri('https://example.org/region-constraint'), iri('http://www.w3.org/ns/odrl/2/leftOperand'), iri('http://www.w3.org/ns/odrl/2/spatial'), default_graph).
+rdf(iri('https://example.org/region-constraint'), iri('http://www.w3.org/ns/odrl/2/operator'), iri('http://www.w3.org/ns/odrl/2/eq'), default_graph).
+rdf(iri('https://example.org/region-constraint'), iri('http://www.w3.org/ns/odrl/2/rightOperand'), iri('https://example.org/eu'), default_graph).
+rdf(iri('https://example.org/deidentify-duty'), iri('http://www.w3.org/ns/odrl/2/action'), iri('https://example.org/deidentify'), default_graph).
+rdf(iri('https://example.org/transfer-prohibition'), iri('http://www.w3.org/ns/odrl/2/target'), iri('https://example.org/health-dataset'), default_graph).
+rdf(iri('https://example.org/transfer-prohibition'), iri('http://www.w3.org/ns/odrl/2/action'), iri('http://www.w3.org/ns/odrl/2/transfer'), default_graph).
+rdf(iri('https://example.org/transfer-prohibition'), iri('http://www.w3.org/ns/odrl/2/assignee'), iri('https://example.org/research-hospital'), default_graph).
 
 % Rules
 % Source policy: examples/input/odrl-policy-advanced.ttl
@@ -86,29 +86,29 @@ rdf_link(Subject, Predicate, Object) :-
   iri_value(Object, ObjectIri),
   rdf(iri(SubjectIri), iri(PredicateIri), iri(ObjectIri), default_graph).
 
-iri_value(advanced_policy, "https://example.org/advanced-policy").
-iri_value(research_permission, "https://example.org/research-permission").
-iri_value(transfer_prohibition, "https://example.org/transfer-prohibition").
-iri_value(health_dataset, "https://example.org/health-dataset").
-iri_value(research_hospital, "https://example.org/research-hospital").
-iri_value(medical_research, "https://example.org/medical-research").
-iri_value(eu, "https://example.org/eu").
-iri_value(deidentify_duty, "https://example.org/deidentify-duty").
-iri_value(deidentify, "https://example.org/deidentify").
-iri_value(purpose_constraint, "https://example.org/purpose-constraint").
-iri_value(region_constraint, "https://example.org/region-constraint").
-iri_value(permission, "http://www.w3.org/ns/odrl/2/permission").
-iri_value(prohibition, "http://www.w3.org/ns/odrl/2/prohibition").
-iri_value(target, "http://www.w3.org/ns/odrl/2/target").
-iri_value(action, "http://www.w3.org/ns/odrl/2/action").
-iri_value(assignee, "http://www.w3.org/ns/odrl/2/assignee").
-iri_value(constraint, "http://www.w3.org/ns/odrl/2/constraint").
-iri_value(duty, "http://www.w3.org/ns/odrl/2/duty").
-iri_value(left_operand, "http://www.w3.org/ns/odrl/2/leftOperand").
-iri_value(operator, "http://www.w3.org/ns/odrl/2/operator").
-iri_value(right_operand, "http://www.w3.org/ns/odrl/2/rightOperand").
-iri_value(purpose, "http://www.w3.org/ns/odrl/2/purpose").
-iri_value(spatial, "http://www.w3.org/ns/odrl/2/spatial").
-iri_value(eq, "http://www.w3.org/ns/odrl/2/eq").
-iri_value(use, "http://www.w3.org/ns/odrl/2/use").
-iri_value(transfer, "http://www.w3.org/ns/odrl/2/transfer").
+iri_value(advanced_policy, 'https://example.org/advanced-policy').
+iri_value(research_permission, 'https://example.org/research-permission').
+iri_value(transfer_prohibition, 'https://example.org/transfer-prohibition').
+iri_value(health_dataset, 'https://example.org/health-dataset').
+iri_value(research_hospital, 'https://example.org/research-hospital').
+iri_value(medical_research, 'https://example.org/medical-research').
+iri_value(eu, 'https://example.org/eu').
+iri_value(deidentify_duty, 'https://example.org/deidentify-duty').
+iri_value(deidentify, 'https://example.org/deidentify').
+iri_value(purpose_constraint, 'https://example.org/purpose-constraint').
+iri_value(region_constraint, 'https://example.org/region-constraint').
+iri_value(permission, 'http://www.w3.org/ns/odrl/2/permission').
+iri_value(prohibition, 'http://www.w3.org/ns/odrl/2/prohibition').
+iri_value(target, 'http://www.w3.org/ns/odrl/2/target').
+iri_value(action, 'http://www.w3.org/ns/odrl/2/action').
+iri_value(assignee, 'http://www.w3.org/ns/odrl/2/assignee').
+iri_value(constraint, 'http://www.w3.org/ns/odrl/2/constraint').
+iri_value(duty, 'http://www.w3.org/ns/odrl/2/duty').
+iri_value(left_operand, 'http://www.w3.org/ns/odrl/2/leftOperand').
+iri_value(operator, 'http://www.w3.org/ns/odrl/2/operator').
+iri_value(right_operand, 'http://www.w3.org/ns/odrl/2/rightOperand').
+iri_value(purpose, 'http://www.w3.org/ns/odrl/2/purpose').
+iri_value(spatial, 'http://www.w3.org/ns/odrl/2/spatial').
+iri_value(eq, 'http://www.w3.org/ns/odrl/2/eq').
+iri_value(use, 'http://www.w3.org/ns/odrl/2/use').
+iri_value(transfer, 'http://www.w3.org/ns/odrl/2/transfer').

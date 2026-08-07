@@ -2,16 +2,16 @@
 
 % Run with: eyeprolog --goal 'rdf(S, P, O, G)' program.pl.
 
-rdf(iri("https://example.org/bridge"), iri("https://example.org/status"), iri("https://example.org/closed"), default_graph).
-rdf(iri("https://example.org/authorityClaim"), iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies"), triple(iri("https://example.org/bridge"), iri("https://example.org/status"), iri("https://example.org/closed")), default_graph).
-rdf(iri("https://example.org/authorityClaim"), iri("https://example.org/assertedBy"), iri("https://example.org/transportAuthority"), default_graph).
-rdf(iri("https://example.org/authorityClaim"), iri("https://example.org/confidence"), literal("98", datatype("http://www.w3.org/2001/XMLSchema#integer")), default_graph).
-rdf(iri("https://example.org/bridge"), iri("https://example.org/status"), iri("https://example.org/open"), default_graph).
-rdf(iri("https://example.org/socialClaim"), iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies"), triple(iri("https://example.org/bridge"), iri("https://example.org/status"), iri("https://example.org/open")), default_graph).
-rdf(iri("https://example.org/socialClaim"), iri("https://example.org/assertedBy"), iri("https://example.org/anonymousPost"), default_graph).
-rdf(iri("https://example.org/socialClaim"), iri("https://example.org/confidence"), literal("35", datatype("http://www.w3.org/2001/XMLSchema#integer")), default_graph).
-rdf(iri("https://example.org/transportAuthority"), iri("https://example.org/trustScore"), literal("95", datatype("http://www.w3.org/2001/XMLSchema#integer")), default_graph).
-rdf(iri("https://example.org/anonymousPost"), iri("https://example.org/trustScore"), literal("20", datatype("http://www.w3.org/2001/XMLSchema#integer")), default_graph).
+rdf(iri('https://example.org/bridge'), iri('https://example.org/status'), iri('https://example.org/closed'), default_graph).
+rdf(iri('https://example.org/authorityClaim'), iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies'), triple(iri('https://example.org/bridge'), iri('https://example.org/status'), iri('https://example.org/closed')), default_graph).
+rdf(iri('https://example.org/authorityClaim'), iri('https://example.org/assertedBy'), iri('https://example.org/transportAuthority'), default_graph).
+rdf(iri('https://example.org/authorityClaim'), iri('https://example.org/confidence'), literal('98', datatype('http://www.w3.org/2001/XMLSchema#integer')), default_graph).
+rdf(iri('https://example.org/bridge'), iri('https://example.org/status'), iri('https://example.org/open'), default_graph).
+rdf(iri('https://example.org/socialClaim'), iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies'), triple(iri('https://example.org/bridge'), iri('https://example.org/status'), iri('https://example.org/open')), default_graph).
+rdf(iri('https://example.org/socialClaim'), iri('https://example.org/assertedBy'), iri('https://example.org/anonymousPost'), default_graph).
+rdf(iri('https://example.org/socialClaim'), iri('https://example.org/confidence'), literal('35', datatype('http://www.w3.org/2001/XMLSchema#integer')), default_graph).
+rdf(iri('https://example.org/transportAuthority'), iri('https://example.org/trustScore'), literal('95', datatype('http://www.w3.org/2001/XMLSchema#integer')), default_graph).
+rdf(iri('https://example.org/anonymousPost'), iri('https://example.org/trustScore'), literal('20', datatype('http://www.w3.org/2001/XMLSchema#integer')), default_graph).
 
 % Rules
 % Source data: examples/input/rdf12-annotated-claims.ttl
@@ -48,24 +48,24 @@ annotated_status_claim(Status, Source, Score) :-
   status_resource(Status, StatusIri),
   source_resource(Source, SourceIri),
   rdf(
-    iri("https://example.org/bridge"),
-    iri("https://example.org/status"),
+    iri('https://example.org/bridge'),
+    iri('https://example.org/status'),
     iri(StatusIri),
     default_graph
   ),
   rdf(
     Reifier,
-    iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies"),
+    iri('http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies'),
     triple(
-      iri("https://example.org/bridge"),
-      iri("https://example.org/status"),
+      iri('https://example.org/bridge'),
+      iri('https://example.org/status'),
       iri(StatusIri)
     ),
     default_graph
   ),
   rdf(
     Reifier,
-    iri("https://example.org/assertedBy"),
+    iri('https://example.org/assertedBy'),
     iri(SourceIri),
     default_graph
   ),

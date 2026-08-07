@@ -2,53 +2,53 @@
 
 % Run with: eyeprolog --goal 'rdf(S, P, O, G)' program.pl.
 
-rdf(iri("https://example.org/consumer-policy"), iri("http://www.w3.org/ns/odrl/2/permission"), iri("https://example.org/delete-account"), default_graph).
-rdf(iri("https://example.org/consumer-policy"), iri("http://www.w3.org/ns/odrl/2/permission"), iri("https://example.org/change-terms"), default_graph).
-rdf(iri("https://example.org/consumer-policy"), iri("http://www.w3.org/ns/odrl/2/permission"), iri("https://example.org/share-data"), default_graph).
-rdf(iri("https://example.org/consumer-policy"), iri("http://www.w3.org/ns/odrl/2/prohibition"), iri("https://example.org/export-data"), default_graph).
-rdf(iri("https://example.org/consumer-policy"), iri("https://example.org/riskProfile"), iri("https://example.org/deletion-profile"), default_graph).
-rdf(iri("https://example.org/consumer-policy"), iri("https://example.org/riskProfile"), iri("https://example.org/terms-profile"), default_graph).
-rdf(iri("https://example.org/consumer-policy"), iri("https://example.org/riskProfile"), iri("https://example.org/sharing-profile"), default_graph).
-rdf(iri("https://example.org/consumer-policy"), iri("https://example.org/riskProfile"), iri("https://example.org/portability-profile"), default_graph).
-rdf(iri("https://example.org/delete-account"), iri("https://example.org/clause"), literal("c1", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/delete-account"), iri("http://www.w3.org/ns/odrl/2/action"), iri("https://example.org/remove-account"), default_graph).
-rdf(iri("https://example.org/change-terms"), iri("https://example.org/clause"), literal("c2", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/change-terms"), iri("http://www.w3.org/ns/odrl/2/action"), iri("https://example.org/change-terms-action"), default_graph).
-rdf(iri("https://example.org/change-terms"), iri("http://www.w3.org/ns/odrl/2/duty"), iri("https://example.org/inform-duty"), default_graph).
-rdf(iri("https://example.org/inform-duty"), iri("http://www.w3.org/ns/odrl/2/action"), iri("https://example.org/inform"), default_graph).
-rdf(iri("https://example.org/change-terms"), iri("http://www.w3.org/ns/odrl/2/constraint"), iri("https://example.org/notice-constraint"), default_graph).
-rdf(iri("https://example.org/notice-constraint"), iri("http://www.w3.org/ns/odrl/2/leftOperand"), iri("https://example.org/noticeDays"), default_graph).
-rdf(iri("https://example.org/notice-constraint"), iri("http://www.w3.org/ns/odrl/2/operator"), iri("http://www.w3.org/ns/odrl/2/eq"), default_graph).
-rdf(iri("https://example.org/notice-constraint"), iri("http://www.w3.org/ns/odrl/2/rightOperand"), literal("3", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/share-data"), iri("https://example.org/clause"), literal("c3", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/share-data"), iri("http://www.w3.org/ns/odrl/2/action"), iri("https://example.org/disclose"), default_graph).
-rdf(iri("https://example.org/export-data"), iri("https://example.org/clause"), literal("c4", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/export-data"), iri("http://www.w3.org/ns/odrl/2/action"), iri("https://example.org/export"), default_graph).
-rdf(iri("https://example.org/deletion-profile"), iri("https://example.org/risk"), iri("https://example.org/deletion-risk"), default_graph).
-rdf(iri("https://example.org/deletion-profile"), iri("https://example.org/policyRule"), iri("https://example.org/delete-account"), default_graph).
-rdf(iri("https://example.org/deletion-profile"), iri("https://example.org/need"), iri("https://example.org/no-deletion-without-notice"), default_graph).
-rdf(iri("https://example.org/deletion-profile"), iri("https://example.org/baseScore"), literal("90", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/deletion-profile"), iri("https://example.org/mitigation"), iri("https://example.org/require-notice-before-deletion"), default_graph).
-rdf(iri("https://example.org/terms-profile"), iri("https://example.org/risk"), iri("https://example.org/terms-risk"), default_graph).
-rdf(iri("https://example.org/terms-profile"), iri("https://example.org/policyRule"), iri("https://example.org/change-terms"), default_graph).
-rdf(iri("https://example.org/terms-profile"), iri("https://example.org/need"), iri("https://example.org/change-only-with-14-days-notice"), default_graph).
-rdf(iri("https://example.org/terms-profile"), iri("https://example.org/baseScore"), literal("70", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/terms-profile"), iri("https://example.org/mitigation"), iri("https://example.org/require-14-days-notice"), default_graph).
-rdf(iri("https://example.org/sharing-profile"), iri("https://example.org/risk"), iri("https://example.org/sharing-risk"), default_graph).
-rdf(iri("https://example.org/sharing-profile"), iri("https://example.org/policyRule"), iri("https://example.org/share-data"), default_graph).
-rdf(iri("https://example.org/sharing-profile"), iri("https://example.org/need"), iri("https://example.org/no-sharing-without-consent"), default_graph).
-rdf(iri("https://example.org/sharing-profile"), iri("https://example.org/baseScore"), literal("85", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/sharing-profile"), iri("https://example.org/mitigation"), iri("https://example.org/require-explicit-consent"), default_graph).
-rdf(iri("https://example.org/portability-profile"), iri("https://example.org/risk"), iri("https://example.org/portability-risk"), default_graph).
-rdf(iri("https://example.org/portability-profile"), iri("https://example.org/policyRule"), iri("https://example.org/export-data"), default_graph).
-rdf(iri("https://example.org/portability-profile"), iri("https://example.org/need"), iri("https://example.org/data-portability"), default_graph).
-rdf(iri("https://example.org/portability-profile"), iri("https://example.org/baseScore"), literal("60", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/portability-profile"), iri("https://example.org/mitigation"), iri("https://example.org/permit-data-export"), default_graph).
-rdf(iri("https://example.org/no-deletion-without-notice"), iri("https://example.org/importance"), literal("20", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/change-only-with-14-days-notice"), iri("https://example.org/importance"), literal("15", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/change-only-with-14-days-notice"), iri("https://example.org/minimumNoticeDays"), literal("14", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/no-sharing-without-consent"), iri("https://example.org/importance"), literal("12", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
-rdf(iri("https://example.org/data-portability"), iri("https://example.org/importance"), literal("10", datatype("http://www.w3.org/2001/XMLSchema#string")), default_graph).
+rdf(iri('https://example.org/consumer-policy'), iri('http://www.w3.org/ns/odrl/2/permission'), iri('https://example.org/delete-account'), default_graph).
+rdf(iri('https://example.org/consumer-policy'), iri('http://www.w3.org/ns/odrl/2/permission'), iri('https://example.org/change-terms'), default_graph).
+rdf(iri('https://example.org/consumer-policy'), iri('http://www.w3.org/ns/odrl/2/permission'), iri('https://example.org/share-data'), default_graph).
+rdf(iri('https://example.org/consumer-policy'), iri('http://www.w3.org/ns/odrl/2/prohibition'), iri('https://example.org/export-data'), default_graph).
+rdf(iri('https://example.org/consumer-policy'), iri('https://example.org/riskProfile'), iri('https://example.org/deletion-profile'), default_graph).
+rdf(iri('https://example.org/consumer-policy'), iri('https://example.org/riskProfile'), iri('https://example.org/terms-profile'), default_graph).
+rdf(iri('https://example.org/consumer-policy'), iri('https://example.org/riskProfile'), iri('https://example.org/sharing-profile'), default_graph).
+rdf(iri('https://example.org/consumer-policy'), iri('https://example.org/riskProfile'), iri('https://example.org/portability-profile'), default_graph).
+rdf(iri('https://example.org/delete-account'), iri('https://example.org/clause'), literal('c1', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/delete-account'), iri('http://www.w3.org/ns/odrl/2/action'), iri('https://example.org/remove-account'), default_graph).
+rdf(iri('https://example.org/change-terms'), iri('https://example.org/clause'), literal('c2', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/change-terms'), iri('http://www.w3.org/ns/odrl/2/action'), iri('https://example.org/change-terms-action'), default_graph).
+rdf(iri('https://example.org/change-terms'), iri('http://www.w3.org/ns/odrl/2/duty'), iri('https://example.org/inform-duty'), default_graph).
+rdf(iri('https://example.org/inform-duty'), iri('http://www.w3.org/ns/odrl/2/action'), iri('https://example.org/inform'), default_graph).
+rdf(iri('https://example.org/change-terms'), iri('http://www.w3.org/ns/odrl/2/constraint'), iri('https://example.org/notice-constraint'), default_graph).
+rdf(iri('https://example.org/notice-constraint'), iri('http://www.w3.org/ns/odrl/2/leftOperand'), iri('https://example.org/noticeDays'), default_graph).
+rdf(iri('https://example.org/notice-constraint'), iri('http://www.w3.org/ns/odrl/2/operator'), iri('http://www.w3.org/ns/odrl/2/eq'), default_graph).
+rdf(iri('https://example.org/notice-constraint'), iri('http://www.w3.org/ns/odrl/2/rightOperand'), literal('3', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/share-data'), iri('https://example.org/clause'), literal('c3', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/share-data'), iri('http://www.w3.org/ns/odrl/2/action'), iri('https://example.org/disclose'), default_graph).
+rdf(iri('https://example.org/export-data'), iri('https://example.org/clause'), literal('c4', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/export-data'), iri('http://www.w3.org/ns/odrl/2/action'), iri('https://example.org/export'), default_graph).
+rdf(iri('https://example.org/deletion-profile'), iri('https://example.org/risk'), iri('https://example.org/deletion-risk'), default_graph).
+rdf(iri('https://example.org/deletion-profile'), iri('https://example.org/policyRule'), iri('https://example.org/delete-account'), default_graph).
+rdf(iri('https://example.org/deletion-profile'), iri('https://example.org/need'), iri('https://example.org/no-deletion-without-notice'), default_graph).
+rdf(iri('https://example.org/deletion-profile'), iri('https://example.org/baseScore'), literal('90', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/deletion-profile'), iri('https://example.org/mitigation'), iri('https://example.org/require-notice-before-deletion'), default_graph).
+rdf(iri('https://example.org/terms-profile'), iri('https://example.org/risk'), iri('https://example.org/terms-risk'), default_graph).
+rdf(iri('https://example.org/terms-profile'), iri('https://example.org/policyRule'), iri('https://example.org/change-terms'), default_graph).
+rdf(iri('https://example.org/terms-profile'), iri('https://example.org/need'), iri('https://example.org/change-only-with-14-days-notice'), default_graph).
+rdf(iri('https://example.org/terms-profile'), iri('https://example.org/baseScore'), literal('70', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/terms-profile'), iri('https://example.org/mitigation'), iri('https://example.org/require-14-days-notice'), default_graph).
+rdf(iri('https://example.org/sharing-profile'), iri('https://example.org/risk'), iri('https://example.org/sharing-risk'), default_graph).
+rdf(iri('https://example.org/sharing-profile'), iri('https://example.org/policyRule'), iri('https://example.org/share-data'), default_graph).
+rdf(iri('https://example.org/sharing-profile'), iri('https://example.org/need'), iri('https://example.org/no-sharing-without-consent'), default_graph).
+rdf(iri('https://example.org/sharing-profile'), iri('https://example.org/baseScore'), literal('85', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/sharing-profile'), iri('https://example.org/mitigation'), iri('https://example.org/require-explicit-consent'), default_graph).
+rdf(iri('https://example.org/portability-profile'), iri('https://example.org/risk'), iri('https://example.org/portability-risk'), default_graph).
+rdf(iri('https://example.org/portability-profile'), iri('https://example.org/policyRule'), iri('https://example.org/export-data'), default_graph).
+rdf(iri('https://example.org/portability-profile'), iri('https://example.org/need'), iri('https://example.org/data-portability'), default_graph).
+rdf(iri('https://example.org/portability-profile'), iri('https://example.org/baseScore'), literal('60', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/portability-profile'), iri('https://example.org/mitigation'), iri('https://example.org/permit-data-export'), default_graph).
+rdf(iri('https://example.org/no-deletion-without-notice'), iri('https://example.org/importance'), literal('20', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/change-only-with-14-days-notice'), iri('https://example.org/importance'), literal('15', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/change-only-with-14-days-notice'), iri('https://example.org/minimumNoticeDays'), literal('14', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/no-sharing-without-consent'), iri('https://example.org/importance'), literal('12', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
+rdf(iri('https://example.org/data-portability'), iri('https://example.org/importance'), literal('10', datatype('http://www.w3.org/2001/XMLSchema#string')), default_graph).
 
 % Rules
 % Source data: examples/input/odrl-dpv-risk-ranked.ttl
@@ -74,8 +74,7 @@ consumer_risk_report(Ranked) :-
 risk_report(Risk, Score, Level, Clause, Mitigation) :-
   risk_profile(_Profile, Risk, Rule, Need, Base, Mitigation),
   risk_triggered(Risk, Rule, Need),
-  rdf_text(Rule, ex(clause), ClauseString),
-  eyeprolog__string_atom(ClauseString, ClauseText),
+  rdf_text(Rule, ex(clause), ClauseText),
   atom_string(Clause, ClauseText),
   rdf_number(Need, ex(importance), Importance),
   Raw is Base + Importance,
@@ -126,8 +125,7 @@ constraint_text(Rule, LeftOperand, Value) :-
   rdf_text(Constraint, odrl('rightOperand'), Value).
 
 constraint_number(Rule, LeftOperand, Number) :-
-  constraint_text(Rule, LeftOperand, TextString),
-  eyeprolog__string_atom(TextString, Text),
+  constraint_text(Rule, LeftOperand, Text),
   number_string(Number, Text).
 
 risk_level(Score, high) :- Score > 79.
@@ -160,20 +158,17 @@ rdf_text(Subject, Predicate, Text) :-
   rdf(iri(SubjectIri), iri(PredicateIri), literal(Text, datatype(_Datatype)), default_graph).
 
 rdf_number(Subject, Predicate, Number) :-
-  rdf_text(Subject, Predicate, TextString),
-  eyeprolog__string_atom(TextString, Text),
+  rdf_text(Subject, Predicate, Text),
   number_string(Number, Text).
 
 iri_term(ex(Name), Iri) :- namespace_iri('https://example.org/', Name, Iri).
 iri_term(odrl(Name), Iri) :- namespace_iri('http://www.w3.org/ns/odrl/2/', Name, Iri).
 
-namespace_iri(Prefix, Name, IriString) :-
+namespace_iri(Prefix, Name, Iri) :-
   atom(Name),
   !,
   atom_string(Name, Local),
-  string_concat(Prefix, Local, IriAtom),
-  eyeprolog__string_atom(IriString, IriAtom).
-namespace_iri(Prefix, Name, IriString) :-
-  eyeprolog__string_atom(IriString, IriAtom),
-  string_concat(Prefix, Local, IriAtom),
+  string_concat(Prefix, Local, Iri).
+namespace_iri(Prefix, Name, Iri) :-
+  string_concat(Prefix, Local, Iri),
   atom_string(Name, Local).
