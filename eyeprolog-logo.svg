@@ -56,7 +56,7 @@
       <stop offset=".48" stop-color="#19D2E7"/>
       <stop offset="1" stop-color="#4DD4AF"/>
     </linearGradient>
-    <linearGradient id="prolog-word" x1="865" y1="400" x2="1372" y2="560" gradientUnits="userSpaceOnUse">
+    <linearGradient id="prolog-word" x1="891" y1="400" x2="1398" y2="560" gradientUnits="userSpaceOnUse">
       <stop stop-color="#FFF151"/>
       <stop offset=".34" stop-color="#FFE400"/>
       <stop offset="1" stop-color="#FFD900"/>
@@ -85,17 +85,9 @@
       <text x="585" y="565" font-family="DejaVu Sans, Arial, sans-serif" font-size="174" font-weight="400" letter-spacing="-9">Eye</text>
     </clipPath>
     <clipPath id="prolog-word-clip">
-      <text x="850" y="565" font-family="DejaVu Sans, Arial, sans-serif" font-size="174" font-weight="400" letter-spacing="-10">Prolog</text>
+      <text x="876" y="565" font-family="DejaVu Sans, Arial, sans-serif" font-size="174" font-weight="400" letter-spacing="-10">Prolog</text>
     </clipPath>
   </defs>
-
-  <!-- Charcoal studio background and colored atmospheric light. -->
-  <rect width="1536" height="1024" fill="url(#bg)"/>
-  <rect width="1536" height="1024" fill="url(#cyan-haze)"/>
-  <rect width="1536" height="1024" fill="url(#lime-haze)"/>
-  <rect width="1536" height="1024" fill="url(#gold-haze)"/>
-  <rect width="1536" height="1024" fill="url(#ribs)"/>
-  <rect width="1536" height="1024" fill="url(#vignette)"/>
 
   <!-- Eye-shaped reasoning emblem. -->
   <g stroke-linecap="round" stroke-linejoin="round">
@@ -145,12 +137,12 @@
   <!-- Wordmark depth, color, outline, and glass highlight. -->
   <g font-family="DejaVu Sans, Arial, sans-serif" font-size="174" font-weight="400">
     <text x="585" y="573" fill="#071718" opacity=".86" letter-spacing="-9">Eye</text>
-    <text x="850" y="573" fill="#241F06" opacity=".86" letter-spacing="-10">Prolog</text>
+    <text x="876" y="573" fill="#241F06" opacity=".86" letter-spacing="-10">Prolog</text>
     <text x="585" y="565" fill="url(#eye-word)" stroke="#8BFAFF" stroke-width="2.3" letter-spacing="-9" filter="url(#soft-glow)">Eye</text>
-    <text x="850" y="565" fill="url(#prolog-word)" stroke="#FFF58C" stroke-width="2.3" letter-spacing="-10" filter="url(#soft-glow)">Prolog</text>
+    <text x="876" y="565" fill="url(#prolog-word)" stroke="#FFF58C" stroke-width="2.3" letter-spacing="-10" filter="url(#soft-glow)">Prolog</text>
   </g>
   <g opacity=".65">
     <path d="M574 381h328v47c-95-18-210-14-328 17Z" fill="url(#text-gloss)" clip-path="url(#eye-word-clip)"/>
-    <path d="M835 381h555v47c-167-18-361-14-555 17Z" fill="url(#text-gloss)" clip-path="url(#prolog-word-clip)"/>
+    <path d="M861 381h555v47c-167-18-361-14-555 17Z" fill="url(#text-gloss)" clip-path="url(#prolog-word-clip)"/>
   </g>
 </svg>
