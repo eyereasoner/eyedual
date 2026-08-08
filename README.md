@@ -1,9 +1,5 @@
 # EyeProlog
 
-<p align="center">
-  <img src="eyeprolog-logo.svg" alt="EyeProlog logo" width="520">
-</p>
-
 [![npm version](https://img.shields.io/npm/v/eyeprolog.svg)](https://www.npmjs.com/package/eyeprolog)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21446308-blue.svg)](https://doi.org/10.5281/zenodo.21446308)
 
