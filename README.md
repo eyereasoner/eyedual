@@ -1,7 +1,7 @@
 # EyeProlog
 
 <p align="center">
-  <img src="eyeprolog-logo.png" alt="EyeProlog logo" width="520">
+  <img src="eyeprolog-logo.svg" alt="EyeProlog logo" width="520">
 </p>
 
 [![npm version](https://img.shields.io/npm/v/eyeprolog.svg)](https://www.npmjs.com/package/eyeprolog)

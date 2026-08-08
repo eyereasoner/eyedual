@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="eyeprolog-logo.png" alt="EyeProlog logo joining ISO Prolog rules with RDF linked data." width="420">
+  <img src="eyeprolog-logo.svg" alt="EyeProlog logo joining ISO Prolog rules with RDF linked data." width="420">
 </p>
 
 **Copyright © 2021–2026 Jos De Roo, KNoWS office of IDLab, Ghent University –

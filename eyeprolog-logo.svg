@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="80 220 1320 520" role="img" aria-labelledby="title desc">
+  <title id="title">EyeProlog</title>
+  <desc id="desc">A luminous cyan and gold EyeProlog wordmark with an eye, conversation bubble, and connected reasoning nodes.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#666769"/>
+      <stop offset=".18" stop-color="#444748"/>
+      <stop offset=".52" stop-color="#252D2A"/>
+      <stop offset=".82" stop-color="#47494A"/>
+      <stop offset="1" stop-color="#6B6C6E"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx="0" cy="0" r="1" gradientTransform="translate(770 500) scale(850 570)" gradientUnits="userSpaceOnUse">
+      <stop offset=".42" stop-color="#101514" stop-opacity="0"/>
+      <stop offset="1" stop-color="#101314" stop-opacity=".36"/>
+    </radialGradient>
+    <radialGradient id="cyan-haze" cx="0" cy="0" r="1" gradientTransform="translate(355 475) scale(350 275)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00ECFF" stop-opacity=".67"/>
+      <stop offset=".35" stop-color="#00D9EF" stop-opacity=".21"/>
+      <stop offset="1" stop-color="#00CEE8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lime-haze" cx="0" cy="0" r="1" gradientTransform="translate(488 430) scale(270 260)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5F231" stop-opacity=".57"/>
+      <stop offset=".42" stop-color="#E7EC21" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#E6E800" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gold-haze" cx="0" cy="0" r="1" gradientTransform="translate(1060 500) scale(535 275)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE200" stop-opacity=".56"/>
+      <stop offset=".38" stop-color="#FFD900" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#FFD500" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="eye-rim" x1="157" y1="348" x2="546" y2="638" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00F0FF"/>
+      <stop offset=".44" stop-color="#05D7EC"/>
+      <stop offset=".72" stop-color="#CBE94A"/>
+      <stop offset="1" stop-color="#FFE700"/>
+    </linearGradient>
+    <linearGradient id="eye-body" x1="195" y1="418" x2="484" y2="576" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#053A69"/>
+      <stop offset=".55" stop-color="#063B48"/>
+      <stop offset="1" stop-color="#29411E"/>
+    </linearGradient>
+    <radialGradient id="bubble" cx="0" cy="0" r="1" gradientTransform="translate(292 449) rotate(47) scale(123)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#187F8A"/>
+      <stop offset=".54" stop-color="#11424A"/>
+      <stop offset="1" stop-color="#183428"/>
+    </radialGradient>
+    <radialGradient id="orb" cx="0" cy="0" r="1" gradientTransform="translate(.32 .25) scale(.82)" gradientUnits="objectBoundingBox">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".13" stop-color="#C9FFF1"/>
+      <stop offset=".48" stop-color="#43CDB1"/>
+      <stop offset="1" stop-color="#159487"/>
+    </radialGradient>
+    <linearGradient id="eye-word" x1="590" y1="400" x2="890" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00E9FF"/>
+      <stop offset=".48" stop-color="#19D2E7"/>
+      <stop offset="1" stop-color="#4DD4AF"/>
+    </linearGradient>
+    <linearGradient id="prolog-word" x1="865" y1="400" x2="1372" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF151"/>
+      <stop offset=".34" stop-color="#FFE400"/>
+      <stop offset="1" stop-color="#FFD900"/>
+    </linearGradient>
+    <linearGradient id="text-gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#FFFFFF" stop-opacity=".82"/>
+      <stop offset=".25" stop-color="#FFFFFF" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="ribs" width="22" height="22" patternUnits="userSpaceOnUse">
+      <path d="M0 22V0" stroke="#FFFFFF" stroke-opacity=".022"/>
+    </pattern>
+    <filter id="wide-glow" x="-70%" y="-70%" width="240%" height="240%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="19" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow" x="-55%" y="-55%" width="210%" height="210%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="eye-word-clip">
+      <text x="585" y="565" font-family="DejaVu Sans, Arial, sans-serif" font-size="174" font-weight="400" letter-spacing="-9">Eye</text>
+    </clipPath>
+    <clipPath id="prolog-word-clip">
+      <text x="850" y="565" font-family="DejaVu Sans, Arial, sans-serif" font-size="174" font-weight="400" letter-spacing="-10">Prolog</text>
+    </clipPath>
+  </defs>
+
+  <!-- Charcoal studio background and colored atmospheric light. -->
+  <rect width="1536" height="1024" fill="url(#bg)"/>
+  <rect width="1536" height="1024" fill="url(#cyan-haze)"/>
+  <rect width="1536" height="1024" fill="url(#lime-haze)"/>
+  <rect width="1536" height="1024" fill="url(#gold-haze)"/>
+  <rect width="1536" height="1024" fill="url(#ribs)"/>
+  <rect width="1536" height="1024" fill="url(#vignette)"/>
+
+  <!-- Eye-shaped reasoning emblem. -->
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M158 470c52-91 129-134 220-134 58 0 106 17 145 47-69-15-145 11-201 87 56 76 132 102 201 87-39 30-87 47-145 47-91 0-168-43-220-134Z"
+          fill="url(#eye-body)" stroke="#00E9FF" stroke-width="10" filter="url(#glow)"/>
+    <path d="M198 470c45-68 105-105 180-105 47 0 88 14 123 38-53-10-111 13-153 67 42 54 100 77 153 67-35 24-76 38-123 38-75 0-135-37-180-105Z"
+          fill="none" stroke="url(#eye-rim)" stroke-width="7"/>
+    <path d="M159 470c52-88 129-128 219-128 50 0 98 14 139 40" fill="none" stroke="#D9FFFF" stroke-width="3.2" opacity=".9"/>
+    <path d="M199 474c45 64 105 96 179 96 46 0 87-12 123-35" fill="none" stroke="#FFF276" stroke-width="3" opacity=".66"/>
+  </g>
+
+  <!-- Conversation bubble at the center of the eye. -->
+  <g filter="url(#glow)">
+    <path d="M416 468c0 56-45 101-101 101-18 0-36-5-51-13l-47 23 23-44c-17-18-27-41-27-67 0-56 46-101 102-101s101 45 101 101Z"
+          fill="url(#bubble)" stroke="url(#eye-rim)" stroke-width="8"/>
+    <path d="M232 456c7-38 38-66 76-72" fill="none" stroke="#FFFFFF" stroke-width="4" opacity=".68"/>
+  </g>
+  <g filter="url(#soft-glow)" stroke="#FFFFFF" stroke-width="3">
+    <circle cx="278" cy="468" r="12" fill="#ECFFFF"/>
+    <circle cx="316" cy="468" r="12" fill="#CBEA78"/>
+    <circle cx="354" cy="468" r="12" fill="#FFF05C"/>
+  </g>
+
+  <!-- Logic graph emerging from the eye. -->
+  <g fill="none" stroke="url(#eye-rim)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" filter="url(#soft-glow)">
+    <path d="m383 393 69-69"/>
+    <path d="M415 468h101"/>
+    <path d="m383 543 69 69"/>
+    <path d="M405 399h82l38 40" opacity=".76"/>
+    <path d="M405 537h82l38-40" opacity=".76"/>
+    <path d="M431 421h65l30 47-30 47h-65" stroke="#FFE300" opacity=".67"/>
+  </g>
+  <g stroke="#FFF970" stroke-width="5" filter="url(#glow)">
+    <circle cx="465" cy="310" r="33" fill="url(#orb)"/>
+    <circle cx="532" cy="468" r="37" fill="url(#orb)"/>
+    <circle cx="465" cy="626" r="33" fill="url(#orb)"/>
+  </g>
+  <g fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".88">
+    <path d="M452 298c7-9 18-12 29-8"/>
+    <path d="M518 454c8-9 20-12 31-7"/>
+    <path d="M452 614c7-9 18-12 29-8"/>
+  </g>
+  <path d="m485 384 23-27 23 27-23 27Z" fill="#FFE700" stroke="#FFFFB8" stroke-width="3" filter="url(#soft-glow)"/>
+  <circle cx="505" cy="548" r="6" fill="#F1FFF4" filter="url(#soft-glow)"/>
+  <path d="m519 468 10 10 21-26" fill="none" stroke="#FFFCEB" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" filter="url(#soft-glow)"/>
+
+  <!-- Wordmark depth, color, outline, and glass highlight. -->
+  <g font-family="DejaVu Sans, Arial, sans-serif" font-size="174" font-weight="400">
+    <text x="585" y="573" fill="#071718" opacity=".86" letter-spacing="-9">Eye</text>
+    <text x="850" y="573" fill="#241F06" opacity=".86" letter-spacing="-10">Prolog</text>
+    <text x="585" y="565" fill="url(#eye-word)" stroke="#8BFAFF" stroke-width="2.3" letter-spacing="-9" filter="url(#soft-glow)">Eye</text>
+    <text x="850" y="565" fill="url(#prolog-word)" stroke="#FFF58C" stroke-width="2.3" letter-spacing="-10" filter="url(#soft-glow)">Prolog</text>
+  </g>
+  <g opacity=".65">
+    <path d="M574 381h328v47c-95-18-210-14-328 17Z" fill="url(#text-gloss)" clip-path="url(#eye-word-clip)"/>
+    <path d="M835 381h555v47c-167-18-361-14-555 17Z" fill="url(#text-gloss)" clip-path="url(#prolog-word-clip)"/>
+  </g>
+</svg>
