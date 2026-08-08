@@ -26,6 +26,8 @@
       .round { stroke-linecap: round; stroke-linejoin: round; }
       .title1 { fill:#0B4F6C; font-family: Georgia, 'Times New Roman', serif; font-size:64px; font-weight:500; }
       .title2 { font-family: 'Avenir Next', Avenir, 'Trebuchet MS', Helvetica, Arial, sans-serif; font-size:112px; font-weight:700; letter-spacing:-4px; }
+      .logo-eye { fill:#1498E6; stroke:#0B4F6C; stroke-width:1.2; paint-order:stroke fill; }
+      .logo-prolog { fill:#F4D21A; stroke:#C8A100; stroke-width:1.6; paint-order:stroke fill; }
       .subtitle { fill:#00A6C8; font-family: Georgia, 'Times New Roman', serif; font-size:28px; }
       .author { fill:#D8B400; font-family: Georgia, 'Times New Roman', serif; font-size:25px; }
       .section { font-family: Georgia, 'Times New Roman', serif; font-size:20px; font-weight:700; letter-spacing:2px; }
@@ -46,6 +48,9 @@
   <!-- header -->
   <g id="header">
     <text x="500" y="105" text-anchor="middle" class="title1">The Art of</text>
+    <text x="500" y="238" text-anchor="middle" class="title2">
+      <tspan class="logo-eye">Eye</tspan><tspan class="logo-prolog">Prolog</tspan>
+    </text>
 
     <line x1="110" y1="274" x2="445" y2="274" class="gold-stroke thin round"/>
     <path d="M500 265 L509 274 L500 283 L491 274 Z" class="gold"/>
@@ -106,6 +111,7 @@
           class="navy-stroke mid round"/>
 
     <path d="M442 488 L558 488 L572 556 L428 556 Z" fill="#FBEDB8" stroke="#0B4F6C" stroke-width="3"/>
+    <text x="500" y="523" text-anchor="middle" class="section" style="font-size:14px; letter-spacing:0.5px;"><tspan class="logo-eye">EYE</tspan><tspan class="logo-prolog">PROLOG</tspan></text>
 
     <rect x="290" y="690" width="68" height="148" rx="7" fill="#F9E8A3" stroke="#0B4F6C" stroke-width="3"/>
     <rect x="278" y="676" width="92" height="22" rx="5" fill="#F5D86E" stroke="#0B4F6C" stroke-width="3"/>
