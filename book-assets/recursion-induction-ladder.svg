@@ -4,7 +4,7 @@
   <defs>
     <style>
       .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}
-      .gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
+      .gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.blue{fill:#DDF7FB;stroke:#537487;stroke-width:2}
       .title{fill:#C8A100;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 18px Georgia,serif}
       .prose{fill:#405E70;font:16px Georgia,serif}.code{fill:#102A3A;font:15px ui-monospace,SFMono-Regular,Consolas,monospace}
       .line{fill:none;stroke:#537487;stroke-width:2.5}.rung{stroke:#E2BA22;stroke-width:4}

@@ -3,7 +3,7 @@
   <desc id="desc">Sensor readings and records move through normalization, domain concepts, and a decision, with a proof folder retaining the evidence.</desc>
   <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L0 6 L9 3Z" fill="#2C657A"/></marker></defs>
   <style>
-    .bg{fill:#FFF3D8}.box{fill:#FFFDF8;stroke:#17324D;stroke-width:2.5}.concept{fill:#DDF7FB;stroke:#008EAA;stroke-width:3}
+    .bg{fill:#FFF0D6}.box{fill:#FFFDF8;stroke:#17324D;stroke-width:2.5}.concept{fill:#DDF7FB;stroke:#008EAA;stroke-width:3}
     .text{fill:#17324D;font:16px ui-monospace,monospace}.title{fill:#9D8200;font:bold 17px Georgia,serif}
     .arrow{fill:none;stroke:#2C657A;stroke-width:3;marker-end:url(#a)}.proof{fill:#F6D978;stroke:#E2BA22;stroke-width:2}
   </style>
@@ -12,5 +12,5 @@
   <path class="arrow" d="M200 190 H260"/><rect class="box" x="265" y="120" width="165" height="140" rx="8"/><text class="title" x="348" y="150" text-anchor="middle">NORMALIZE</text><text class="text" x="285" y="190">celsius(91)</text><text class="text" x="285" y="225">max_temp(80)</text>
   <path class="arrow" d="M430 190 H490"/><rect class="concept" x="495" y="120" width="165" height="140" rx="8"/><text class="title" x="578" y="150" text-anchor="middle">CONCEPT</text><text class="text" x="520" y="195">overheated(b1)</text>
   <path class="arrow" d="M660 190 H720"/><rect class="concept" x="725" y="120" width="145" height="140" rx="8"/><text class="title" x="798" y="150" text-anchor="middle">DECISION</text><text class="text" x="747" y="195">isolate(b1)</text><text class="text" x="755" y="225">cool(b1)</text>
-  <path class="arrow" d="M578 265 C578 315 665 315 715 300"/><path class="proof" d="M715 270 H845 V345 H715Z"/><path d="M715 270 H760 L775 285 H845" fill="#F2C94C" stroke="#E2BA22" stroke-width="2"/><text class="text" x="780" y="318" text-anchor="middle">why/2</text>
+  <path class="arrow" d="M578 265 C578 315 665 315 715 300"/><path class="proof" d="M715 270 H845 V345 H715Z"/><path d="M715 270 H760 L775 285 H845" fill="#F6D978" stroke="#E2BA22" stroke-width="2"/><text class="text" x="780" y="318" text-anchor="middle">why/2</text>
 </svg>

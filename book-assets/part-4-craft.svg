@@ -2,10 +2,10 @@
   <title id="title">A logic programmer's workbench</title>
   <desc id="desc">A programmer moves between domain notes, clause cards, a graph sketch, and tested EyeProlog code at a warm workbench.</desc>
   <style>
-    .wall{fill:#FFF3D8}.desk{fill:#E4C13C}.paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
+    .wall{fill:#FFF0D6}.desk{fill:#F6D978}.paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
     .screen{fill:#17324D;stroke:#102A3A;stroke-width:5}.code{fill:#DDF7FB;font:16px ui-monospace,monospace}
     .ink{fill:none;stroke:#17324D;stroke-width:2.5;stroke-linecap:round}.red{stroke:#C8A100}.green{stroke:#008EAA}
-    .note{fill:#F6D978;stroke:#E2BA22;stroke-width:1.5}.cup{fill:#D6F3F7;stroke:#17324D;stroke-width:2}
+    .note{fill:#F6D978;stroke:#E2BA22;stroke-width:1.5}.cup{fill:#DDF7FB;stroke:#17324D;stroke-width:2}
   </style>
   <rect width="900" height="420" class="wall"/><rect y="290" width="900" height="130" class="desk"/>
   <rect class="paper" x="45" y="45" width="220" height="190" rx="4"/><text x="155" y="76" text-anchor="middle" fill="#9D8200" font-family="Georgia,serif" font-size="18">DOMAIN SKETCH</text>
@@ -17,7 +17,7 @@
   <text class="code" x="495" y="75">path(X, Y) :- edge(X, Y).</text>
   <text class="code" x="495" y="110">path(X, Z) :-</text><text class="code" x="520" y="135">edge(X, Y),</text><text class="code" x="520" y="160">path(Y, Z).</text>
   <text class="code" x="495" y="205">eyeprolog --goal 'path(a, X)' program.pl</text>
-  <text x="495" y="240" fill="#8ADDE5" font-family="ui-monospace,monospace" font-size="16">✓ answers and proofs agree</text>
+  <text x="495" y="240" fill="#78AFC0" font-family="ui-monospace,monospace" font-size="16">✓ answers and proofs agree</text>
   <path d="M625 270 L675 305 H580Z" fill="#2C657A"/>
   <rect x="545" y="304" width="165" height="12" rx="6" fill="#2C657A"/>
   <g transform="translate(115 285)"><ellipse class="cup" cx="0" cy="45" rx="45" ry="12"/><path class="cup" d="M-45 0 H45 L35 45 H-35Z"/><path class="ink" d="M45 10 Q78 12 65 36 Q58 46 38 38"/><path d="M-15-8 Q-25-35-8-48 M10-8 Q22-32 8-48" fill="none" stroke="#FFFDF8" stroke-width="3" opacity=".8"/></g>

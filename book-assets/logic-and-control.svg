@@ -24,10 +24,10 @@
   <rect class="paper" x="35" y="55" width="235" height="305" rx="8"/>
   <text class="label" x="152" y="92" text-anchor="middle">LOGIC</text>
   <text class="ink" x="58" y="130">What is true?</text>
-  <path d="M65 172 C95 142,125 202,155 172 S215 202,245 172" fill="none" stroke="#087F98" stroke-width="4"/>
-  <circle cx="65" cy="172" r="7" fill="#087F98"/>
-  <circle cx="155" cy="172" r="7" fill="#087F98"/>
-  <circle cx="245" cy="172" r="7" fill="#087F98"/>
+  <path d="M65 172 C95 142,125 202,155 172 S215 202,245 172" fill="none" stroke="#2C657A" stroke-width="4"/>
+  <circle cx="65" cy="172" r="7" fill="#2C657A"/>
+  <circle cx="155" cy="172" r="7" fill="#2C657A"/>
+  <circle cx="245" cy="172" r="7" fill="#2C657A"/>
   <text class="small" x="58" y="225">An edge followed by a</text>
   <text class="small" x="58" y="248">path is itself a path.</text>
   <text class="small" x="58" y="292">Ground consequences form</text>

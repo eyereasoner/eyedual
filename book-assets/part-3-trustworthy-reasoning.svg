@@ -2,20 +2,20 @@
   <title id="title">Evidence-backed spacecraft diagnosis</title>
   <desc id="desc">A spacecraft engineer reviews current, resistance, and temperature evidence whose proof lines converge on a battery warning and safe action.</desc>
   <style>
-    .wall{fill:#EAF5F7}.panel{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.screen{fill:#DDF6F9;stroke:#008EAA;stroke-width:2}
+    .wall{fill:#EAF8FA}.panel{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.screen{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}
     .console{fill:#2C657A}.ink{fill:none;stroke:#17324D;stroke-width:3;stroke-linecap:round}
-    .wire{fill:none;stroke:#C8A100;stroke-width:2.5}.hot{fill:#D8AE1E}.safe{fill:#008EAA}
+    .wire{fill:none;stroke:#C8A100;stroke-width:2.5}.hot{fill:#E2BA22}.safe{fill:#008EAA}
     .text{fill:#17324D;font:16px ui-monospace,monospace}.small{fill:#405E70;font:15px Georgia,serif}
   </style>
   <rect width="900" height="420" class="wall"/>
-  <circle cx="90" cy="75" r="38" fill="#78AFC0"/><path d="M52 75 Q90 42 128 75 Q90 108 52 75" fill="#B8DDE8"/>
+  <circle cx="90" cy="75" r="38" fill="#78AFC0"/><path d="M52 75 Q90 42 128 75 Q90 108 52 75" fill="#BFEAF1"/>
   <rect class="console" x="35" y="320" width="830" height="100" rx="8"/>
   <rect class="panel" x="155" y="45" width="165" height="130" rx="7"/><text class="text" x="238" y="72" text-anchor="middle">CURRENT</text><path class="ink" d="M180 137 L205 122 L230 130 L260 87 L295 108"/><text class="text" x="238" y="160" text-anchor="middle">12.1 A</text>
   <rect class="panel" x="370" y="45" width="165" height="130" rx="7"/><text class="text" x="452" y="72" text-anchor="middle">RESISTANCE</text><path class="ink" d="M393 119 L410 119 L420 96 L440 142 L460 96 L480 142 L492 119 L512 119"/><text class="text" x="452" y="160" text-anchor="middle">0.42 Ω</text>
   <rect class="panel" x="585" y="45" width="165" height="130" rx="7"/><text class="text" x="668" y="72" text-anchor="middle">TEMPERATURE</text><rect x="645" y="87" width="18" height="53" rx="9" fill="#FFFDF8" stroke="#17324D" stroke-width="2"/><rect class="hot" x="650" y="105" width="8" height="30" rx="4"/><circle class="hot" cx="654" cy="140" r="12"/><text class="text" x="700" y="127">91 °C</text>
   <path class="wire" d="M238 176 C238 235 370 210 425 268"/><path class="wire" d="M452 176 L452 255"/><path class="wire" d="M668 176 C668 235 540 210 485 268"/>
   <rect class="screen" x="355" y="250" width="195" height="80" rx="10"/><text class="text" x="452" y="280" text-anchor="middle">THERMAL WARNING</text><text class="small" x="452" y="307" text-anchor="middle">three premises</text>
-  <g transform="translate(90 270)"><circle class="panel" cx="0" cy="-42" r="18"/><path d="M-30-15 Q0-35 30-15 L24 50 H-24Z" fill="#D6F3F7" stroke="#17324D" stroke-width="2"/><path class="ink" d="M-12 50 L-15 82 M12 50 L16 82 M22 2 L65-18"/></g>
-  <rect x="635" y="255" width="175" height="63" rx="9" fill="#E8F9FB" stroke="#008EAA" stroke-width="3"/><circle class="safe" cx="666" cy="286" r="15"/><path d="M658 286 L664 293 L676 278" fill="none" stroke="#FFFDF8" stroke-width="4"/><text class="text" x="730" y="282" text-anchor="middle">ISOLATE</text><text class="text" x="730" y="303" text-anchor="middle">&amp; COOL</text>
+  <g transform="translate(90 270)"><circle class="panel" cx="0" cy="-42" r="18"/><path d="M-30-15 Q0-35 30-15 L24 50 H-24Z" fill="#DDF7FB" stroke="#17324D" stroke-width="2"/><path class="ink" d="M-12 50 L-15 82 M12 50 L16 82 M22 2 L65-18"/></g>
+  <rect x="635" y="255" width="175" height="63" rx="9" fill="#EAF8FA" stroke="#008EAA" stroke-width="3"/><circle class="safe" cx="666" cy="286" r="15"/><path d="M658 286 L664 293 L676 278" fill="none" stroke="#FFFDF8" stroke-width="4"/><text class="text" x="730" y="282" text-anchor="middle">ISOLATE</text><text class="text" x="730" y="303" text-anchor="middle">&amp; COOL</text>
   <path d="M550 290 L632 287" fill="none" stroke="#008EAA" stroke-width="4"/>
 </svg>

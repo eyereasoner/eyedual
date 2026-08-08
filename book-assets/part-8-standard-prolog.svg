@@ -3,10 +3,10 @@
   <desc id="desc">A programmer at a workbench connects an ISO Prolog manual to control, term, state, operator, and stream instruments.</desc>
   <defs>
     <style>
-      .wall{fill:#EAF8FA}.floor{fill:#FFF3D8}.bench{fill:#E4C13C;stroke:#A48800;stroke-width:3}
+      .wall{fill:#EAF8FA}.floor{fill:#FFF0D6}.bench{fill:#F6D978;stroke:#9D8200;stroke-width:3}
       .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.screen{fill:#102A3A;stroke:#17324D;stroke-width:3}
       .green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}
-      .red{fill:#FFEBC7;stroke:#C8A100;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
+      .red{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}.blue{fill:#DDF7FB;stroke:#537487;stroke-width:2}
       .ink{fill:#17324D;font:16px Georgia,serif}.label{fill:#17324D;font:bold 15px Georgia,serif}
       .code{fill:#DDF7FB;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
       .screen-code{fill:#DDF7FB;font:12px ui-monospace,SFMono-Regular,Consolas,monospace}
@@ -46,7 +46,7 @@
 
   <g transform="translate(270 325)">
     <circle cx="0" cy="-28" r="18" fill="#FFFDF8" stroke="#17324D" stroke-width="2"/>
-    <path d="M-28 0Q0-25 28 0L22 72H-22Z" fill="#D6F3F7" stroke="#17324D" stroke-width="2"/>
+    <path d="M-28 0Q0-25 28 0L22 72H-22Z" fill="#DDF7FB" stroke="#17324D" stroke-width="2"/>
     <path class="line" d="M-12 72L-15 105M12 72L15 105M-22 15L-70-10M22 15L72-8"/>
   </g>
   <rect class="blue" x="350" y="337" width="400" height="66" rx="10"/>

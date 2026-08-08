@@ -2,7 +2,7 @@
   <title id="title">An auditable decision service keeps evidence, policy, decision, and proof connected</title>
   <desc id="desc">Versioned evidence and policy flow through integrity checks and reasoning to a permit decision. A proof bundle points back to every source and theory version, while an explicit integrity query exposes invalid inputs.</desc>
   <defs><style>
-    .bg{fill:#FFF9E8}.paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}.rose{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}.dark{fill:#2C657A;stroke:#17324D;stroke-width:3}
+    .bg{fill:#FFF9E8}.paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.blue{fill:#DDF7FB;stroke:#537487;stroke-width:2}.rose{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}.dark{fill:#2C657A;stroke:#17324D;stroke-width:3}
     .title{fill:#C8A100;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 16px Georgia,serif}.code{fill:#102A3A;font:13px ui-monospace,monospace}.light{fill:#FFFDF8;font:14px ui-monospace,monospace}.prose{fill:#405E70;font:14px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:3}
   </style><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#537487"/></marker></defs>
   <rect class="bg" width="900" height="460"/><text class="title" x="450" y="38" text-anchor="middle">THE AUDIT TRAIL IS PART OF THE DECISION</text>

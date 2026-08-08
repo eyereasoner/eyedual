@@ -2,7 +2,7 @@
   <title id="title">Interchangeable knowledge providers connecting through a socket</title>
   <desc id="desc">A file, database, and AI extractor offer parent facts through one declared predicate contract to the same ancestor rules.</desc>
   <style>
-    .bg{fill:#FFF3D8}.provider{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.socket{fill:#DDF7FB;stroke:#008EAA;stroke-width:4}
+    .bg{fill:#FFF0D6}.provider{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.socket{fill:#DDF7FB;stroke:#008EAA;stroke-width:4}
     .engine{fill:#2C657A;stroke:#17324D;stroke-width:3}.text{fill:#17324D;font:16px ui-monospace,monospace}.small{fill:#405E70;font:13px ui-monospace,monospace}.claim-text{fill:#9D8200;font:11px ui-monospace,monospace}.light{fill:#FFFDF8;font:16px ui-monospace,monospace}
     .cable{fill:none;stroke:#C8A100;stroke-width:4;stroke-linecap:round}.claim{fill:#FFFDF8;stroke:#C8A100;stroke-width:2}.pin{fill:#17324D}
   </style>

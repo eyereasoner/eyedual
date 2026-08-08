@@ -2,8 +2,8 @@
   <title id="title">Negation and a complete guest registry</title>
   <desc id="desc">A receptionist checks a complete event registry; one invited name is absent from the blocked list, making closed-world negation meaningful.</desc>
   <style>
-    .wall{fill:#EAF8FA}.desk{fill:#E4C13C}.book{fill:#FFFDF8;stroke:#17324D;stroke-width:3}.line{stroke:#2C657A;stroke-width:2}
-    .person{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.coat{fill:#D6F3F7;stroke:#17324D;stroke-width:2}
+    .wall{fill:#EAF8FA}.desk{fill:#F6D978}.book{fill:#FFFDF8;stroke:#17324D;stroke-width:3}.line{stroke:#2C657A;stroke-width:2}
+    .person{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.coat{fill:#DDF7FB;stroke:#17324D;stroke-width:2}
     .text{fill:#17324D;font:15px ui-monospace,monospace}.red{fill:#C8A100}.green{fill:#008EAA}.stamp{fill:none;stroke:#008EAA;stroke-width:4}
   </style>
   <rect width="900" height="380" class="wall"/><rect y="285" width="900" height="95" class="desk"/>

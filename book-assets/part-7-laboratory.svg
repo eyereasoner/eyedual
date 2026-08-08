@@ -3,9 +3,9 @@
   <desc id="desc">A theory on a laboratory bench moves through prediction, tests, search statistics, proof inspection, and a controlled revision loop.</desc>
   <defs>
     <style>
-      .bg{fill:#FFF3D8}.bench{fill:#E4C13C}.paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
+      .bg{fill:#FFF0D6}.bench{fill:#F6D978}.paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
       .screen{fill:#17324D;stroke:#102A3A;stroke-width:4}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}
-      .gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.red{fill:#FFECCB;stroke:#C8A100;stroke-width:2}
+      .gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.red{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}
       .line{fill:none;stroke:#537487;stroke-width:2.5}.title{fill:#9D8200;font:bold 24px Georgia,serif}
       .label{fill:#17324D;font:17px Georgia,serif}.code{fill:#DDF7FB;font:15px ui-monospace,SFMono-Regular,Consolas,monospace}
       .darkcode{fill:#17324D;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}

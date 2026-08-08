@@ -2,7 +2,7 @@
   <title id="title">Recursion and tabling on a railway map</title>
   <desc id="desc">A railway network contains a cycle; a route ledger records reached stations so recurring questions reuse known answers.</desc>
   <style>
-    .map{fill:#EAF8FA}.land{fill:#FFF3D8}.rail{fill:none;stroke:#2C657A;stroke-width:8}.tie{fill:none;stroke:#FFFDF8;stroke-width:2;stroke-dasharray:4 8}
+    .map{fill:#EAF8FA}.land{fill:#FFF0D6}.rail{fill:none;stroke:#2C657A;stroke-width:8}.tie{fill:none;stroke:#FFFDF8;stroke-width:2;stroke-dasharray:4 8}
     .station{fill:#FFFDF8;stroke:#17324D;stroke-width:3}.known{fill:#DDF7FB;stroke:#008EAA;stroke-width:4}
     .text{fill:#17324D;font:16px ui-monospace,monospace}.ledger{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.check{fill:#008EAA}
   </style>

@@ -2,7 +2,7 @@
   <title id="title">Lists as railway carriages</title>
   <desc id="desc">A train of labeled carriages shows a list head, its tail, and two shorter trains joining through append.</desc>
   <style>
-    .sky{fill:#EAF8FA}.ground{fill:#FFF3D8}.rail{stroke:#2C657A;stroke-width:5}.tie{stroke:#A48800;stroke-width:3}
+    .sky{fill:#EAF8FA}.ground{fill:#FFF0D6}.rail{stroke:#2C657A;stroke-width:5}.tie{stroke:#9D8200;stroke-width:3}
     .car{fill:#FFFDF8;stroke:#17324D;stroke-width:3}.head{fill:#DDF7FB;stroke:#008EAA;stroke-width:4}
     .wheel{fill:#2C657A;stroke:#17324D;stroke-width:2}.text{fill:#17324D;font:18px ui-monospace,monospace}.brace{fill:none;stroke:#C8A100;stroke-width:3}
   </style>

@@ -4,8 +4,8 @@
   <defs>
     <style>
       .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
-      .goal{fill:#E8FAFC;stroke:#008EAA;stroke-width:2}
-      .fail{fill:#FFF1D8;stroke:#C8A100;stroke-width:2}
+      .goal{fill:#EAF8FA;stroke:#008EAA;stroke-width:2}
+      .fail{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}
       .repeat{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}
       .title{fill:#C8A100;font:bold 23px Georgia,serif}
       .text{fill:#102A3A;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}

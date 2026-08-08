@@ -4,7 +4,7 @@
   <style>
     .wall{fill:#EAF8FA}.panel{fill:#2C657A;stroke:#17324D;stroke-width:4}.screen{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
     .text{fill:#17324D;font:17px ui-monospace,monospace}.light{fill:#C8A100;stroke:#9D8200;stroke-width:3}.safe{fill:#008EAA}
-    .wire{fill:none;stroke:#C8A100;stroke-width:5}.lever{fill:#D6F3F7;stroke:#17324D;stroke-width:3}
+    .wire{fill:none;stroke:#C8A100;stroke-width:5}.lever{fill:#DDF7FB;stroke:#17324D;stroke-width:3}
   </style>
   <rect width="900" height="380" class="wall"/><rect class="panel" x="55" y="40" width="790" height="300" rx="15"/>
   <rect class="screen" x="95" y="80" width="230" height="120" rx="7"/><text class="text" x="210" y="110" text-anchor="middle">LOWER LIMIT</text><text class="text" x="210" y="165" text-anchor="middle" font-size="30">80</text>

@@ -22,7 +22,7 @@
   <text class="small" x="755" y="130" text-anchor="middle">puzzles · routes · schedules</text>
   <text class="small" x="755" y="151" text-anchor="middle">states · optimization</text>
 
-  <path class="region" fill="#FFE7BF" d="M35 280H245L300 345L270 440H35Z"/>
+  <path class="region" fill="#FFF0D6" d="M35 280H245L300 345L270 440H35Z"/>
   <text class="label" x="145" y="326" text-anchor="middle">POLICY &amp; TRUST</text>
   <text class="small" x="145" y="353" text-anchor="middle">decisions · provenance</text>
   <text class="small" x="145" y="374" text-anchor="middle">integrity · audit</text>

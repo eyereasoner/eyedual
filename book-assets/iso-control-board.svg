@@ -3,8 +3,8 @@
   <desc id="desc">A goal enters a control board, branches through choice and exception recovery, then solutions flow into findall, bagof, and setof collectors.</desc>
   <defs>
     <style>
-      .bg{fill:#FFF9E8}.box{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.choice{fill:#FFEBC7;stroke:#C8A100;stroke-width:2}
-      .ok{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.group{fill:#DCEFF7;stroke:#537487;stroke-width:2}.gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}
+      .bg{fill:#FFF9E8}.box{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.choice{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}
+      .ok{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.group{fill:#DDF7FB;stroke:#537487;stroke-width:2}.gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}
       .title{fill:#C8A100;font:bold 23px Georgia,serif}.label{fill:#17324D;font:bold 16px Georgia,serif}
       .code{fill:#102A3A;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}.prose{fill:#405E70;font:15px Georgia,serif}
       .line{fill:none;stroke:#537487;stroke-width:2.5}.error{fill:none;stroke:#C8A100;stroke-width:2.5;stroke-dasharray:7 5}

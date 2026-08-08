@@ -2,7 +2,7 @@
   <title id="title">A relational theory needs more than single input-output tests</title>
   <desc id="desc">A public relation sits at the center of a test spectrum covering meaning, modes, finite properties, metamorphic changes, proof provenance, integrity, and scale.</desc>
   <defs><style>
-    .bg{fill:#FFF9E8}.core{fill:#2C657A;stroke:#17324D;stroke-width:3}.box{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.rose{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}.blue{fill:#DCEFF7;stroke:#537487;stroke-width:2}
+    .bg{fill:#FFF9E8}.core{fill:#2C657A;stroke:#17324D;stroke-width:3}.box{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.green{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.gold{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.rose{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}.blue{fill:#DDF7FB;stroke:#537487;stroke-width:2}
     .title{fill:#C8A100;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 13px Georgia,serif}.light{fill:#FFFDF8;font:bold 16px Georgia,serif}.prose{fill:#405E70;font:13px Georgia,serif}.line{fill:none;stroke:#537487;stroke-width:2.5}
   </style></defs>
   <rect class="bg" width="900" height="460"/><text class="title" x="450" y="38" text-anchor="middle">TEST THE RELATION, NOT JUST ONE CALL</text>

@@ -7,7 +7,7 @@
     </marker>
     <style>
       .box{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
-      .model{fill:#E8FAFC;stroke:#008EAA;stroke-width:3}
+      .model{fill:#EAF8FA;stroke:#008EAA;stroke-width:3}
       .title{fill:#C8A100;font:bold 19px Georgia,serif}
       .box-title{fill:#C8A100;font:bold 17px Georgia,serif}
       .box-sub{fill:#405E70;font:15px Georgia,serif}

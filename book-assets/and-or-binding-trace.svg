@@ -3,8 +3,8 @@
   <desc id="desc">An ancestor query chooses between clauses, completes every goal in a recursive clause, carries bindings from left to right, and rewinds to the latest choice after failure.</desc>
   <defs>
     <style>
-      .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.goal{fill:#E8FAFC;stroke:#008EAA;stroke-width:2}
-      .choice{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.fail{fill:#FFF1D8;stroke:#C8A100;stroke-width:2}
+      .paper{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.goal{fill:#EAF8FA;stroke:#008EAA;stroke-width:2}
+      .choice{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}.fail{fill:#FFF0D6;stroke:#C8A100;stroke-width:2}
       .title{fill:#C8A100;font:bold 24px Georgia,serif}.label{fill:#17324D;font:bold 17px Georgia,serif}
       .prose{fill:#405E70;font:16px Georgia,serif}.code{fill:#102A3A;font:15px ui-monospace,SFMono-Regular,Consolas,monospace}
       .line{fill:none;stroke:#537487;stroke-width:2}.dash{fill:none;stroke:#C8A100;stroke-width:2;stroke-dasharray:6 5}

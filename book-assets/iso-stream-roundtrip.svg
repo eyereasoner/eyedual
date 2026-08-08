@@ -3,7 +3,7 @@
   <desc id="desc">A structured event term is canonically written with a period, stored as text, read back with variable metadata, and followed to the end-of-stream state.</desc>
   <defs>
     <style>
-      .bg{fill:#FFF9E8}.term{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.stream{fill:#DCEFF7;stroke:#537487;stroke-width:2}
+      .bg{fill:#FFF9E8}.term{fill:#DDF7FB;stroke:#008EAA;stroke-width:2}.stream{fill:#DDF7FB;stroke:#537487;stroke-width:2}
       .file{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.eof{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}
       .title{fill:#C8A100;font:bold 23px Georgia,serif}.label{fill:#17324D;font:bold 16px Georgia,serif}
       .code{fill:#102A3A;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}.prose{fill:#405E70;font:15px Georgia,serif}

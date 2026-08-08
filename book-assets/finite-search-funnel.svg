@@ -14,7 +14,7 @@
   <rect width="900" height="500" fill="#FFF9E8"/>
   <text class="title" x="450" y="35" text-anchor="middle">DESIGN THE SEARCH BEFORE RUNNING IT</text>
   <path d="M80 85H820L690 360H210Z" fill="#FFFDF8" stroke="#17324D" stroke-width="2"/>
-  <path d="M80 85H820L780 170H120Z" fill="#DCEFF7"/>
+  <path d="M80 85H820L780 170H120Z" fill="#DDF7FB"/>
   <path d="M120 170H780L740 255H160Z" fill="#FFF0D6"/>
   <path d="M160 255H740L700 340H200Z" fill="#DDF7FB"/>
   <text class="label" x="450" y="113" text-anchor="middle">1 · GENERATE A FINITE DOMAIN</text>

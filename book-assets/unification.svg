@@ -8,7 +8,7 @@
     <style>
       .node{fill:#FFFDF8;stroke:#17324D;stroke-width:2}
       .var{fill:#FFF4BF;stroke:#E2BA22;stroke-width:2}
-      .value{fill:#E8FAFC;stroke:#008EAA;stroke-width:2}
+      .value{fill:#EAF8FA;stroke:#008EAA;stroke-width:2}
       .text{fill:#102A3A;font:17px ui-monospace,SFMono-Regular,Consolas,monospace}
       .title{fill:#C8A100;font:bold 22px Georgia,serif}
       .line{stroke:#537487;stroke-width:2}

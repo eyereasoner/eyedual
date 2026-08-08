@@ -3,9 +3,9 @@
   <desc id="desc">A central relation connects a search tree, a syntax tree, a transformed program, and an auditable decision, with meaning held steady at the center.</desc>
   <defs>
     <style>
-      .bg{fill:#FFF5DF}.panel{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.hub{fill:#DDF7FB;stroke:#008EAA;stroke-width:3}
+      .bg{fill:#FFF0D6}.panel{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.hub{fill:#DDF7FB;stroke:#008EAA;stroke-width:3}
       .ink{fill:none;stroke:#537487;stroke-width:2.5;stroke-linecap:round}.green{stroke:#008EAA}.red{stroke:#C8A100}.gold{stroke:#E2BA22}
-      .node{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.ok{fill:#E8FAFC;stroke:#008EAA;stroke-width:2}
+      .node{fill:#FFFDF8;stroke:#17324D;stroke-width:2}.ok{fill:#EAF8FA;stroke:#008EAA;stroke-width:2}
       .title{fill:#9D8200;font:bold 24px Georgia,serif}.label{fill:#17324D;font:17px Georgia,serif}
       .code{fill:#17324D;font:14px ui-monospace,SFMono-Regular,Consolas,monospace}
     </style>
